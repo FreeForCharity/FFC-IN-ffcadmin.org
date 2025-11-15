@@ -1,14 +1,9 @@
-import type { Metadata, Viewport } from 'next'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Technology Stack | Free For Charity',
   description: 'Complete technology stack documentation for Free For Charity - nonprofit technology initiative delivering free, secure, and scalable websites for charities.',
   keywords: 'nonprofit technology, charity websites, GitHub Pages, Next.js, React, Cloudflare, technology stack',
-}
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
 }
 
 export default function TechStack() {
