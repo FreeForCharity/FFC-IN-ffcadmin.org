@@ -60,19 +60,28 @@ For detailed test case documentation, see [TEST_CASES.md](./TEST_CASES.md).
 
 This repository requires all commits to be signed with GPG signatures before merging into `main`. This is enforced through branch protection rules.
 
-### For Contributors
+### 🚀 Quick Setup (5 minutes)
 
-If you're a repository maintainer or working with automated tools:
-- See [GPG_SIGNING.md](./GPG_SIGNING.md) for detailed instructions on setting up commit signing
-- Use the provided script: `./scripts/setup-gpg-signing.sh` to generate and configure GPG keys
-- GitHub Actions workflows are configured to automatically sign commits when GPG keys are properly configured
+**Enable auto-signing for GitHub Actions:**
+
+See **[QUICK_START.md](./QUICK_START.md)** for step-by-step instructions using pre-generated keys.
+
+Or use the interactive script:
+```bash
+./scripts/setup-gpg-signing.sh
+```
 
 ### For Repository Admins
 
 To enable automatic commit signing for GitHub Actions:
-1. Run `./scripts/setup-gpg-signing.sh` to generate a GPG key
-2. Add the public key to the GitHub account that will make commits
-3. Add `GPG_PRIVATE_KEY` and optionally `GPG_PASSPHRASE` to repository secrets
-4. The workflows will automatically sign commits from bots
+1. Add the public key from `gpg-keys/public-key.asc` to https://github.com/settings/gpg/new
+2. Add the private key from `gpg-keys/private-key.asc` as repository secret `GPG_PRIVATE_KEY`
+3. Delete the private key locally: `rm gpg-keys/private-key.asc`
+4. Done! The workflows will automatically sign commits from bots
 
-See [GPG_SIGNING.md](./GPG_SIGNING.md) for alternative solutions and detailed configuration options.
+### Documentation
+
+- **[QUICK_START.md](./QUICK_START.md)** - 5-minute setup guide
+- **[SETUP_AUTO_SIGNING.md](./SETUP_AUTO_SIGNING.md)** - Detailed setup instructions
+- **[GPG_SIGNING.md](./GPG_SIGNING.md)** - Technical documentation and alternatives
+- **[ISSUE_RESOLUTION.md](./ISSUE_RESOLUTION.md)** - Complete issue analysis
