@@ -27,3 +27,31 @@ This site is still in active development. The following items are pending:
 - [ ] Full functionality testing completed
 
 Once all links work, CTAs are clear and functional, and the site has a live domain name as its deployment target, this status will be updated to "Fully Functional."
+
+## Testing
+
+This project includes comprehensive tests for the CI/CD pipeline and build output.
+
+### Running Tests
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage
+pnpm test:coverage
+```
+
+### Test Coverage
+
+The test suite covers:
+- Build output validation (files and directory structure)
+- GitHub Pages configuration (`.nojekyll`, Next.js config)
+- SEO metadata (robots.txt, sitemap.xml)
+- Static route generation (home page, tech stack page)
+- Configuration validation (package.json, lock files)
+
+For detailed test case documentation, see [TEST_CASES.md](./TEST_CASES.md).

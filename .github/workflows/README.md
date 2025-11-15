@@ -18,9 +18,10 @@ Automatically builds and deploys the Next.js static site to GitHub Pages when ch
 2. Sets up Node.js 20 (LTS)
 3. Installs pnpm 9.0.0
 4. Installs dependencies with `pnpm install --frozen-lockfile`
-5. Builds the site with `pnpm run build` (creates `out/` directory)
-6. Uploads the `out/` directory as a Pages artifact
-7. Deploys to GitHub Pages
+5. Runs tests with `pnpm test` (validates build output and configuration)
+6. Builds the site with `pnpm run build` (creates `out/` directory)
+7. Uploads the `out/` directory as a Pages artifact
+8. Deploys to GitHub Pages
 
 ### Output
 
