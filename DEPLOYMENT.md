@@ -13,6 +13,7 @@ const nextConfig = {
     unoptimized: true,        // Required for static export
   },
   trailingSlash: true,        // Ensures URLs work properly on GitHub Pages
+  basePath: '/ffcadmin.org',  // Required for repository-based GitHub Pages
 }
 ```
 
@@ -30,6 +31,11 @@ const nextConfig = {
 3. **`trailingSlash: true`**: Adds trailing slashes to all URLs
    - Ensures `/tech-stack/` works correctly on GitHub Pages
    - Prevents 404 errors when navigating directly to routes
+
+4. **`basePath: '/ffcadmin.org'`**: Sets the base path for the application
+   - Required for repository-based GitHub Pages deployment
+   - The site will be accessible at `https://freeforcharity.github.io/ffcadmin.org/`
+   - All routes and assets will be prefixed with `/ffcadmin.org`
 
 ## GitHub Pages Requirements
 
