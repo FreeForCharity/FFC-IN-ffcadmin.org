@@ -1,0 +1,23 @@
+# GPG Key Information for Auto-Signing
+
+This GPG key is pre-generated for use with the auto-sign-commits workflow.
+
+## Key Details
+- Key ID: 8E3672A3D791FFFD
+- Key Type: RSA 4096-bit
+- Name: github-actions[bot]
+- Email: 41898282+github-actions[bot]@users.noreply.github.com
+- Passphrase: None (no-protection)
+- Expiration: Never
+
+## Files
+- public-key.asc: Public key (add to GitHub account)
+- private-key.asc: Private key (add to GitHub Secrets as GPG_PRIVATE_KEY)
+- key-info.txt: This file
+
+## Setup Instructions
+1. Add public-key.asc to GitHub: https://github.com/settings/gpg/new
+2. Add private-key.asc contents to repository secret GPG_PRIVATE_KEY
+3. Delete private-key.asc from local filesystem after adding to secrets
+
+See SETUP_AUTO_SIGNING.md for detailed instructions.

@@ -1,0 +1,8 @@
+# Prevent accidentally committing private keys
+private-key.asc
+*-private-*.asc
+*.key
+*.pem
+
+# But allow specific files
+!public-key.asc
