@@ -28,6 +28,23 @@ This site is still in active development. The following items are pending:
 
 Once all links work, CTAs are clear and functional, and the site has a live domain name as its deployment target, this status will be updated to "Fully Functional."
 
+## Analytics
+
+This site uses **Microsoft Clarity** for user behavior analytics to help improve the user experience.
+
+### Microsoft Clarity Setup
+
+Microsoft Clarity is integrated into all pages through the root layout (`app/layout.tsx`). To configure your Clarity project:
+
+1. Sign up for a free Microsoft Clarity account at [https://clarity.microsoft.com/](https://clarity.microsoft.com/)
+2. Create a new project and obtain your Clarity Project ID
+3. Replace `YOUR_CLARITY_PROJECT_ID` in `app/layout.tsx` with your actual project ID
+4. Rebuild and deploy the site
+
+The Clarity tracking script is loaded using Next.js's `Script` component with the `afterInteractive` strategy to ensure it doesn't block page rendering.
+
+**Note:** As documented in the [Technology Stack](./app/tech-stack/page.tsx), this site prioritizes privacy and compliance. In production deployments, analytics should be consent-gated according to CCPA/CPRA and GDPR requirements using Cloudflare Zaraz or similar consent management solutions.
+
 ## Testing
 
 This project includes comprehensive tests for the CI/CD pipeline and build output.
