@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
@@ -6,6 +6,11 @@ import Footer from './components/Footer'
 export const metadata: Metadata = {
   title: 'Free For Charity Admin',
   description: 'Administrative portal for Free For Charity',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({
