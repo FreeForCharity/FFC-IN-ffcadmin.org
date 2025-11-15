@@ -118,9 +118,12 @@ On mobile, you see "Home Tech Stack GitHub" links in the header instead of a ham
 **Root cause**: CSS file not loading (showing unstyled HTML)
 
 **Solutions**:
-1. **Hard refresh**: Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)
-2. **Clear cache**: Browser settings → Clear browsing data
-3. **Check DevTools**: F12 → Network tab → Look for CSS 404 errors
+1. **Hard refresh**: 
+   - Desktop: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
+   - iPhone/iPad: Long press refresh button → "Request Desktop Website" → reload
+   - Android Chrome: Menu → Settings → Privacy → Clear browsing data → Cached images and files
+2. **Clear cache**: See detailed instructions below for each platform
+3. **Check DevTools**: F12 → Network tab → Look for CSS 404 errors (desktop only)
 4. **Wait**: If just deployed, wait 1-2 minutes for CDN propagation
 
 ### Issue: Styles not applied
@@ -213,11 +216,26 @@ All assets are correctly referenced with base path:
 4. Hard refresh after each deployment
 
 ### For End Users
-1. If site looks unstyled, do a hard refresh
-2. If still broken, clear browser cache
+
+#### Desktop Browsers
+1. If site looks unstyled, do a hard refresh: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
+2. If still broken, clear browser cache (see instructions in RESPONSIVE_DESIGN.md)
 3. Try private/incognito window
 4. Try different browser
-5. Contact support if issue persists
+
+#### iPhone/iPad
+1. Open Safari → Long press the refresh button → "Request Desktop Website" → reload
+2. Settings → Safari → Clear History and Website Data
+3. Try private browsing mode
+4. Restart Safari app
+
+#### Android
+1. Chrome: Menu (⋮) → Settings → Privacy and security → Clear browsing data → Cached images and files
+2. Try incognito mode
+3. Restart Chrome app
+4. Try different browser (Firefox, Samsung Internet)
+
+If issues persist after trying these steps, contact support.
 
 ## Conclusion
 

@@ -27,9 +27,20 @@ The site is optimized for all device sizes:
 
 ### Troubleshooting
 If the site appears unstyled or shows desktop navigation on mobile:
-1. **Hard refresh** your browser: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
-2. **Clear cache** if issues persist
-3. See [RESPONSIVE_DESIGN.md](./RESPONSIVE_DESIGN.md) for detailed troubleshooting
+
+**Desktop:**
+1. **Hard refresh**: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
+2. **Clear cache**: Browser settings → Clear browsing data
+
+**iPhone/iPad:**
+1. Long press refresh button in Safari → "Request Desktop Website" → reload
+2. Settings → Safari → Clear History and Website Data
+
+**Android:**
+1. Chrome menu (⋮) → Settings → Privacy → Clear browsing data → Cached images and files
+2. Restart browser
+
+See [RESPONSIVE_DESIGN.md](./RESPONSIVE_DESIGN.md) for detailed troubleshooting
 
 ### Testing Results
 For detailed responsive design testing results, see [RESPONSIVE_TESTING_RESULTS.md](./RESPONSIVE_TESTING_RESULTS.md)

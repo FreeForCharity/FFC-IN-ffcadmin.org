@@ -57,9 +57,11 @@ The site uses standard Tailwind CSS breakpoints:
 
 **Solutions**:
 1. **Hard refresh** the page:
-   - Chrome/Edge: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
-   - Safari: `Cmd+Option+R`
-   - Firefox: `Ctrl+F5` (Windows) or `Cmd+Shift+R` (Mac)
+   - **Desktop - Chrome/Edge**: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
+   - **Desktop - Safari**: `Cmd+Option+R`
+   - **Desktop - Firefox**: `Ctrl+F5` (Windows) or `Cmd+Shift+R` (Mac)
+   - **iPhone/iPad**: Long press the refresh button in Safari → tap "Request Desktop Website" → reload
+   - **Android - Chrome**: Tap the three dots menu → Settings → Privacy and security → Clear browsing data → select "Cached images and files" → Clear data
 
 2. **Check CSS loading**:
    - Open browser DevTools (F12)
@@ -75,9 +77,12 @@ The site uses standard Tailwind CSS breakpoints:
    - Refresh page
 
 4. **Clear browser cache**:
-   - Chrome: Settings → Privacy → Clear browsing data → Cached images and files
-   - Safari: Develop → Empty Caches
-   - Firefox: Options → Privacy → Clear Data → Cached Web Content
+   - **Desktop - Chrome**: Settings → Privacy → Clear browsing data → Cached images and files
+   - **Desktop - Safari**: Develop → Empty Caches (or Safari → Clear History)
+   - **Desktop - Firefox**: Options → Privacy → Clear Data → Cached Web Content
+   - **iPhone/iPad - Safari**: Settings → Safari → Clear History and Website Data
+   - **Android - Chrome**: Chrome menu (three dots) → History → Clear browsing data → Cached images and files
+   - **Android - Samsung Internet**: Menu → Settings → Privacy and security → Delete browsing data → Cache
 
 ### Issue: Styles not applied (plain HTML)
 **Symptoms**: Page shows plain text without colors, no blue header, no styling
