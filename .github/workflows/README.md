@@ -14,8 +14,8 @@ Runs automated tests and build verification on all pull requests and pushes to m
 
 **Build, Test, and Verify Job:**
 1. Checks out the code
-2. Sets up Node.js 20 (LTS) with pnpm cache enabled
-3. Installs pnpm 9.0.0
+2. Installs pnpm 9.0.0
+3. Sets up Node.js 20 (LTS) with pnpm cache enabled
 4. Installs dependencies with `pnpm install --frozen-lockfile`
 5. Runs linter with `pnpm run lint`
 6. Builds the project with `pnpm run build`
