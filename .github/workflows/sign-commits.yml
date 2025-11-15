@@ -25,8 +25,17 @@ jobs:
           ref: ${{ inputs.branch }}
           fetch-depth: 0
 
+      - name: Check if GPG key is configured
+        id: gpg_check
+        run: |
+          if [ -n "${{ secrets.GPG_PRIVATE_KEY }}" ]; then
+            echo "configured=true" >> $GITHUB_OUTPUT
+          else
+            echo "configured=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Import GPG key
-        if: vars.GPG_PRIVATE_KEY != ''
+        if: steps.gpg_check.outputs.configured == 'true'
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -35,7 +44,7 @@ jobs:
           git_commit_gpgsign: true
 
       - name: Configure git (fallback if no GPG key)
-        if: vars.GPG_PRIVATE_KEY == ''
+        if: steps.gpg_check.outputs.configured == 'false'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email \
@@ -61,7 +70,7 @@ jobs:
 
       - name: Skip if no GPG key configured
         if: |
-          vars.GPG_PRIVATE_KEY == '' &&
+          steps.gpg_check.outputs.configured == 'false' &&
           steps.check.outputs.unsigned_count > 0
         run: |
           echo "⚠️ No GPG key configured. Cannot sign commits."
@@ -76,16 +85,25 @@ jobs:
 
       - name: Sign commits
         if: |
-          vars.GPG_PRIVATE_KEY != '' &&
+          steps.gpg_check.outputs.configured == 'true' &&
           steps.check.outputs.unsigned_count > 0
         run: |
           # This will rebase and sign commits
           # WARNING: This rewrites history and requires force push
-          git rebase --exec 'git commit --amend --no-edit -n -S' origin/main
+          set -e
+          echo "⚠️ Starting rebase to sign commits..."
+          
+          if ! git rebase --exec 'git commit --amend --no-edit -n -S' origin/main; then
+            echo "❌ Rebase failed. Aborting..."
+            git rebase --abort
+            exit 1
+          fi
+          
+          echo "✅ Successfully signed commits"
 
       - name: Force push signed commits
         if: |
-          vars.GPG_PRIVATE_KEY != '' &&
+          steps.gpg_check.outputs.configured == 'true' &&
           steps.check.outputs.unsigned_count > 0
         run: |
           git push --force-with-lease

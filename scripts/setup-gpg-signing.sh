@@ -9,7 +9,7 @@ echo "================================"
 echo ""
 
 # Check if GPG is installed
-if ! command -v gpg &> /dev/null; then
+if ! command -v gpg > /dev/null 2>&1; then
     echo "❌ Error: GPG is not installed"
     echo "Install it with: apt-get install gnupg (Ubuntu/Debian) or brew install gnupg (macOS)"
     exit 1
@@ -21,6 +21,11 @@ echo ""
 # Get user input
 read -p "Enter name for GPG key (e.g., github-actions[bot]): " GPG_NAME
 read -p "Enter email for GPG key (e.g., 41898282+github-actions[bot]@users.noreply.github.com): " GPG_EMAIL
+
+echo ""
+echo "⚠️  Security Note: For automation, consider using a key without a passphrase"
+echo "    or storing the passphrase securely in a secrets manager."
+echo ""
 read -p "Enter passphrase (leave empty for no passphrase): " -s GPG_PASSPHRASE
 echo ""
 
@@ -46,8 +51,8 @@ echo "%echo GPG key generated" >> /tmp/gpg-key-config
 echo "📝 Generating GPG key..."
 gpg --batch --generate-key /tmp/gpg-key-config
 
-# Get the key ID
-KEY_ID=$(gpg --list-secret-keys --keyid-format LONG "${GPG_EMAIL}" | grep sec | head -1 | awk '{print $2}' | cut -d'/' -f2)
+# Get the key ID using machine-readable format
+KEY_ID=$(gpg --list-secret-keys --with-colons "${GPG_EMAIL}" | grep '^sec' | cut -d':' -f5)
 
 if [ -z "$KEY_ID" ]; then
     echo "❌ Error: Failed to generate GPG key"
