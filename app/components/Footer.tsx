@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 export default function Footer() {
@@ -60,6 +62,14 @@ export default function Footer() {
                 <Link href="/cookie-policy" className="hover:text-blue-400 transition-colors">
                   Cookie Policy
                 </Link>
+              </li>
+              <li>
+                <button 
+                  onClick={() => (window as any).openCookiePreferences?.()}
+                  className="hover:text-blue-400 transition-colors text-left"
+                >
+                  Manage Cookie Preferences
+                </button>
               </li>
             </ul>
           </div>

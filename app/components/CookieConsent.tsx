@@ -2,6 +2,11 @@
 
 import { useState, useEffect } from 'react'
 
+// Environment variables for tracking IDs (replace with actual values)
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
+const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || 'XXXXXXXXXX'
+const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || 'XXXXXXXXXXXXXXX'
+
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false)
   const [showPreferences, setShowPreferences] = useState(false)
@@ -12,37 +17,69 @@ export default function CookieConsent() {
   })
 
   useEffect(() => {
-    // Check if user has already made a choice
-    const consent = localStorage.getItem('cookie-consent')
-    if (!consent) {
+    // Expose method to window for reopening preferences from other components
+    (window as any).openCookiePreferences = () => {
       setShowBanner(true)
-    } else {
-      // Load saved preferences and apply them
-      const savedPreferences = JSON.parse(consent)
-      setPreferences(savedPreferences)
-      applyConsent(savedPreferences)
+      setShowPreferences(true)
+    }
+
+    // Check if user has already made a choice with error handling
+    try {
+      const consent = localStorage.getItem('cookie-consent')
+      if (!consent) {
+        setShowBanner(true)
+      } else {
+        // Load saved preferences and apply them with validation
+        let savedPreferences
+        try {
+          savedPreferences = JSON.parse(consent)
+        } catch (e) {
+          setShowBanner(true)
+          return
+        }
+        
+        // Validate the structure
+        if (
+          typeof savedPreferences === 'object' &&
+          savedPreferences !== null &&
+          typeof savedPreferences.necessary === 'boolean' &&
+          typeof savedPreferences.analytics === 'boolean' &&
+          typeof savedPreferences.marketing === 'boolean'
+        ) {
+          setPreferences(savedPreferences)
+          applyConsent(savedPreferences)
+        } else {
+          // Invalid data, show banner again
+          setShowBanner(true)
+        }
+      }
+    } catch (error) {
+      // If localStorage is unavailable or data is corrupted, show banner
+      setShowBanner(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const applyConsent = (prefs: typeof preferences) => {
-    // Set a cookie to indicate consent status
+    // Set a cookie to indicate consent status with Secure flag
     const cookieValue = JSON.stringify(prefs)
-    document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax`
+    document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax; Secure`
     
-    // Load scripts based on consent
-    if (prefs.analytics || prefs.marketing) {
-      loadAnalyticsScripts(prefs)
+    // Load scripts based on consent independently
+    if (prefs.analytics) {
+      loadGoogleAnalytics()
+      loadMicrosoftClarity()
+    }
+    if (prefs.marketing) {
+      loadMetaPixel()
     }
   }
 
-  const loadAnalyticsScripts = (prefs: typeof preferences) => {
-    // Google Analytics
-    // NOTE: Replace G-XXXXXXXXXX with actual Google Analytics ID
-    if (prefs.analytics && typeof window !== 'undefined') {
+  const loadGoogleAnalytics = () => {
+    if (typeof window !== 'undefined' && !document.querySelector('script[src*="googletagmanager.com/gtag"]')) {
       const gaScript = document.createElement('script')
       gaScript.async = true
-      gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'
+      gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
       document.head.appendChild(gaScript)
 
       const gaConfigScript = document.createElement('script')
@@ -50,31 +87,31 @@ export default function CookieConsent() {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX', {
+        gtag('config', '${GA_MEASUREMENT_ID}', {
           'anonymize_ip': true,
           'cookie_flags': 'SameSite=Lax;Secure'
         });
       `
       document.head.appendChild(gaConfigScript)
     }
+  }
 
-    // Microsoft Clarity
-    // NOTE: Replace XXXXXXXXXX with actual Microsoft Clarity project ID
-    if (prefs.analytics && typeof window !== 'undefined') {
+  const loadMicrosoftClarity = () => {
+    if (typeof window !== 'undefined' && !document.querySelector('script[src*="clarity.ms"]')) {
       const clarityScript = document.createElement('script')
       clarityScript.innerHTML = `
         (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
           y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "XXXXXXXXXX");
+        })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
       `
       document.head.appendChild(clarityScript)
     }
+  }
 
-    // Meta Pixel (Facebook Pixel)
-    // NOTE: Replace XXXXXXXXXXXXXXX with actual Meta Pixel ID
-    if (prefs.marketing && typeof window !== 'undefined') {
+  const loadMetaPixel = () => {
+    if (typeof window !== 'undefined' && !document.querySelector('script[src*="fbevents.js"]')) {
       const fbScript = document.createElement('script')
       fbScript.innerHTML = `
         !function(f,b,e,v,n,t,s)
@@ -85,16 +122,26 @@ export default function CookieConsent() {
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', 'XXXXXXXXXXXXXXX');
+        fbq('init', '${META_PIXEL_ID}');
         fbq('track', 'PageView');
       `
       document.head.appendChild(fbScript)
 
       const fbNoScript = document.createElement('noscript')
       fbNoScript.innerHTML = `<img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXX&ev=PageView&noscript=1"/>`
+        src="https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1"/>`
       document.body.appendChild(fbNoScript)
     }
+  }
+
+  const deleteAnalyticsCookies = () => {
+    const cookiesToDelete = ['_ga', '_gid', '_ga_*', '_fbp', 'fr', '_clck', '_clsk']
+    cookiesToDelete.forEach(name => {
+      // Delete for current domain
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+      // Also try to delete with domain specification
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
+    })
   }
 
   const handleAcceptAll = () => {
@@ -117,6 +164,10 @@ export default function CookieConsent() {
     }
     setPreferences(onlyNecessary)
     localStorage.setItem('cookie-consent', JSON.stringify(onlyNecessary))
+    
+    // Delete third-party cookies when consent is withdrawn
+    deleteAnalyticsCookies()
+    
     applyConsent(onlyNecessary)
     setShowBanner(false)
   }
@@ -138,10 +189,15 @@ export default function CookieConsent() {
 
   if (showPreferences) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cookie-preferences-title"
+      >
         <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
           <div className="p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Cookie Preferences</h2>
+            <h2 id="cookie-preferences-title" className="text-2xl font-bold text-gray-900 mb-4">Cookie Preferences</h2>
             <p className="text-gray-600 mb-6">
               We use cookies to enhance your browsing experience and analyze our traffic. 
               You can choose which types of cookies you allow.
@@ -235,7 +291,11 @@ export default function CookieConsent() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-gray-200 shadow-2xl">
+    <div 
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-gray-200 shadow-2xl"
+      role="region"
+      aria-label="Cookie consent notice"
+    >
       <div className="max-w-7xl mx-auto p-4 sm:p-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex-1">
