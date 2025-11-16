@@ -138,13 +138,14 @@ export default function CookieConsent() {
       document.head.appendChild(gaScript)
 
       const gaConfigScript = document.createElement('script')
+      const secureFlag = typeof window !== 'undefined' && window.location.protocol === 'https:' ? ';Secure' : ''
       gaConfigScript.textContent = `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', '${GA_MEASUREMENT_ID}', {
           'anonymize_ip': true,
-          'cookie_flags': 'SameSite=Lax;Secure'
+          'cookie_flags': 'SameSite=Lax${secureFlag}'
         });
       `
       document.head.appendChild(gaConfigScript)
@@ -183,8 +184,12 @@ export default function CookieConsent() {
       document.head.appendChild(fbScript)
 
       const fbNoScript = document.createElement('noscript')
-      fbNoScript.innerHTML = `<img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1"/>`
+      const img = document.createElement('img')
+      img.height = 1
+      img.width = 1
+      img.style.display = 'none'
+      img.src = `https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`
+      fbNoScript.appendChild(img)
       document.body.appendChild(fbNoScript)
     }
   }
@@ -291,6 +296,12 @@ export default function CookieConsent() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="cookie-preferences-title"
+        onClick={(e) => {
+          // Only close if clicking the overlay itself, not the modal content
+          if (e.target === e.currentTarget) {
+            handleCancelPreferences()
+          }
+        }}
       >
         <div ref={modalRef} className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
           <div className="p-6">
@@ -331,6 +342,7 @@ export default function CookieConsent() {
                     checked={preferences.analytics}
                     onChange={(e) => setPreferences({ ...preferences, analytics: e.target.checked })}
                     className="sr-only peer"
+                    aria-label="Enable analytics cookies"
                   />
                   <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                 </label>
@@ -354,6 +366,7 @@ export default function CookieConsent() {
                     checked={preferences.marketing}
                     onChange={(e) => setPreferences({ ...preferences, marketing: e.target.checked })}
                     className="sr-only peer"
+                    aria-label="Enable marketing cookies"
                   />
                   <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                 </label>
