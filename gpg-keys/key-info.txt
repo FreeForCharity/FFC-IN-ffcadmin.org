@@ -1,0 +1,28 @@
+# GPG Key Information for Auto-Signing
+
+This GPG key belongs to Free For Charity and is used for signing automated commits.
+
+## Key Details
+- Key ID: B5C1FBB290F87E9D
+- Key Type: RSA 4096-bit
+- Name: Free For Charity
+- Email: globaladmin@freeforcharity.org
+- Fingerprint: 0243 BDC3 13EF 38A0 4610 B8D0 B5C1 FBB2 90F8 7E9D
+- Valid From: 11/16/2025 10:45 AM
+- Valid Until: 11/16/2028 12:00 PM
+- Created With: Kleopatra on Windows
+
+## Files
+- public-key.asc: Public key (add to GitHub account)
+- private-key.asc: Private key (add to GitHub Secrets as GPG_PRIVATE_KEY - **required for signing**)
+- key-info.txt: This file
+
+## Setup Instructions
+1. Add public-key.asc to GitHub: https://github.com/settings/gpg/new
+2. Add the corresponding private-key contents to repository secret GPG_PRIVATE_KEY
+3. Delete private key file from local filesystem after adding to secrets
+
+**Note:** The private key file is not included in this repository for security reasons.
+You must obtain it separately and add it to GitHub Secrets.
+
+See SETUP_AUTO_SIGNING.md for detailed instructions.
