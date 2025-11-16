@@ -3,6 +3,7 @@ import Script from 'next/script'
 import './globals.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
+import CookieConsent from './components/CookieConsent'
 
 export const metadata: Metadata = {
   title: 'Free For Charity Admin',
@@ -27,6 +28,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CookieConsent />
       </body>
       <Script
         id="microsoft-clarity"
