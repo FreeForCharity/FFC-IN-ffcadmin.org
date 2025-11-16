@@ -36,7 +36,7 @@ const nextConfig = {
 The site is configured to use a **custom domain** instead of a repository-based path:
 - No `basePath` is set in the configuration
 - **Primary URL**: `https://ffcadmin.org` (custom domain configured in GitHub Pages)
-- **Backup URL**: `https://freeforcharity.github.io/` (GitHub Pages default, for testing)
+- **Backup URL**: `https://freeforcharity.github.io/ffcadmin.org/` (GitHub Pages default path, for testing)
 - All routes and assets are served from the root path (e.g., `/_next/static/...`)
 - Custom domain configured in GitHub Pages settings (Repository → Settings → Pages → Custom domain)
 

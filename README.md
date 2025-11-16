@@ -14,7 +14,7 @@ This repository contains the administrative webpage for Free For Charity. The si
 ## Deployment
 **Status:** ✅ Deployed to GitHub Pages with Custom Domain  
 **Primary URL:** https://ffcadmin.org  
-**Backup URL:** https://freeforcharity.github.io/ (GitHub Pages default, for testing)
+**Backup URL:** https://freeforcharity.github.io/ffcadmin.org/ (GitHub Pages default, for testing)
 
 The site is deployed and accessible via a custom domain (ffcadmin.org) with GitHub Pages. The site is fully responsive and works on mobile, tablet, and desktop devices.
 
@@ -177,7 +177,7 @@ This indicates the CSS file is not loading. Check these items in order:
 2. **Check GitHub Pages is active**:
    - Repository → Settings → Pages
    - Should show "Your site is live at https://ffcadmin.org"
-   - Backup/testing URL: https://freeforcharity.github.io/
+   - Backup/testing URL: https://freeforcharity.github.io/ffcadmin.org/
    - Note the last deployment time
 
 3. **Verify CSS file exists**:
