@@ -18,32 +18,43 @@ The repository has branch protection rules that require all commits to have veri
 
 ## Solution Provided
 
-This PR provides a comprehensive solution with multiple options for repository administrators:
+This PR provides a comprehensive solution using the official Free For Charity GPG key:
+
+**Official Signing Key:**
+- Organization: Free For Charity
+- Email: globaladmin@freeforcharity.org
+- Key ID: B5C1FBB290F87E9D
+- Fingerprint: 0243 BDC3 13EF 38A0 4610 B8D0 B5C1 FBB2 90F8 7E9D
+- Type: RSA 4096-bit
+- Created with: Kleopatra on Windows
+- Valid: 11/16/2025 - 11/16/2028
 
 ### What Was Added
 
-1. **Comprehensive Documentation** (`GPG_SIGNING.md`)
+1. **Official Free For Charity GPG Key** (`gpg-keys/`)
+   - Public key included in repository for easy setup
+   - Private key must be obtained from key owner
+   - Comprehensive documentation and setup instructions
+
+2. **Comprehensive Documentation** (`GPG_SIGNING.md`)
    - Explains the issue and how GitHub signature verification works
    - Provides 5 different solution approaches with trade-offs
    - Includes specific recommendations for this repository
 
-2. **Automated Workflows**
+3. **Automated Workflows**
    - `auto-sign-commits.yml` - Automatically signs commits from bots when GPG keys are configured
    - `sign-commits.yml` - Manual workflow to sign existing unsigned commits on any branch
 
-3. **Helper Script** (`scripts/setup-gpg-signing.sh`)
-   - Interactive script to generate GPG keys
+4. **Helper Script** (`scripts/setup-gpg-signing.sh`)
+   - Interactive script to generate GPG keys if needed
    - Exports keys for easy configuration
    - Provides step-by-step instructions
 
-4. **GPG Configuration for This Session** (`COPILOT_GPG_KEY.md`)
-   - Generated a GPG key for this Copilot session
-   - All commits from `d3fc7a2` onwards are GPG signed
-   - Public key available for verification or addition to GitHub account
-
 5. **Documentation Updates**
+   - QUICK_START.md - Simple setup guide
+   - SETUP_AUTO_SIGNING.md - Detailed instructions
    - Updated README.md with commit signing information
-   - Links to all new documentation
+   - Links to all documentation
 
 ### Commits in This PR
 

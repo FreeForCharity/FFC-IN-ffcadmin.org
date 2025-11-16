@@ -6,48 +6,41 @@ This guide will walk you through setting up automatic GPG commit signing for thi
 
 When GPG keys are properly configured, the `auto-sign-commits.yml` workflow will automatically sign any commits made by GitHub Actions bots (like copilot-swe-agent[bot] or github-actions[bot]).
 
+**Key Information:**
+- Organization: Free For Charity
+- Email: globaladmin@freeforcharity.org
+- Key ID: B5C1FBB290F87E9D
+- Fingerprint: 0243 BDC3 13EF 38A0 4610 B8D0 B5C1 FBB2 90F8 7E9D
+- Type: RSA 4096-bit
+- Created with: Kleopatra on Windows
+- Valid: 11/16/2025 - 11/16/2028
+
 ## Prerequisites
 
 - Repository admin access to configure secrets
+- Access to the Free For Charity private GPG key
 - A few minutes to complete the setup
 
 ## Step-by-Step Setup
 
-### Step 1: Generate a GPG Key
+### Step 1: Use the Official Free For Charity GPG Key
 
-You have two options:
-
-#### Option A: Use the Pre-Generated Key (Fastest)
-
-I've generated a GPG key specifically for this repository. See the files in the `gpg-keys/` directory:
-- `gpg-keys/public-key.asc` - Public key (can be committed to the repo)
-- `gpg-keys/private-key.asc` - Private key (DO NOT commit, add to secrets only)
+The repository uses the official Free For Charity GPG key:
+- `gpg-keys/public-key.asc` - Public key (included in repository)
 - `gpg-keys/key-info.txt` - Key details
 
-**Important:** The private key file should be kept secure and never committed to the repository.
-
-#### Option B: Generate Your Own Key
-
-Run the interactive script:
-```bash
-./scripts/setup-gpg-signing.sh
-```
-
-Follow the prompts to generate a new key. Use these values:
-- **Name:** `github-actions[bot]`
-- **Email:** `41898282+github-actions[bot]@users.noreply.github.com`
-- **Passphrase:** Leave empty (recommended for automation)
+**Important:** The private key must be obtained from the key owner (created with Kleopatra on Windows).
 
 ### Step 2: Add the Public Key to GitHub
 
 1. Go to https://github.com/settings/gpg/new
-2. Copy the contents of the public key:
-   - If using Option A: Copy from `gpg-keys/public-key.asc`
-   - If using Option B: Copy from `/tmp/gpg-public-key.asc`
+2. Copy the contents of the public key from `gpg-keys/public-key.asc`
 3. Paste into the GitHub GPG key form
 4. Click "Add GPG key"
 
-### Step 3: Add Secrets to Repository
+### Step 3: Add Private Key to Repository Secrets
+
+**Important:** Obtain the private key from the key owner.
 
 1. Go to your repository settings:
    - Navigate to: https://github.com/FreeForCharity/ffcadmin.org/settings/secrets/actions
@@ -56,8 +49,7 @@ Follow the prompts to generate a new key. Use these values:
 
 3. Add `GPG_PRIVATE_KEY`:
    - **Name:** `GPG_PRIVATE_KEY`
-   - **Value:** Copy the entire contents of the private key
-     - If using Option A: Copy from `gpg-keys/private-key.asc`
+   - **Value:** Copy the entire contents of the private key (including BEGIN/END lines)
      - If using Option B: Copy from `/tmp/gpg-private-key.asc`
    - Click "Add secret"
 
@@ -66,47 +58,22 @@ Follow the prompts to generate a new key. Use these values:
    - **Value:** Your passphrase
    - Click "Add secret"
 
-### Step 4: Test the Setup
+### Step 4: Secure the Private Key
+
+**After adding to GitHub Secrets:**
+
+- Delete any local copies of the private key
+- Never commit private keys to any repository
+- Store the private key only in GitHub Secrets or a secure password manager
+- The public key can remain in the repository for reference
+
+### Step 5: Test the Setup
 
 To verify the setup works:
 
-1. Create a test branch:
-   ```bash
-   git checkout -b test-auto-sign
-   echo "test" >> test-file.txt
-   git add test-file.txt
-   git commit -m "Test auto-signing"
-   git push origin test-auto-sign
-   ```
-
-2. The `auto-sign-commits.yml` workflow will automatically:
-   - Detect the commit is from a bot
-   - Check if GPG keys are configured
-   - Sign the commit if unsigned
-   - Force push the signed commit
-
-3. Check the commit on GitHub - it should show as "Verified" ✅
-
-4. Clean up:
-   ```bash
-   git checkout copilot/fix-verified-signatures
-   git branch -D test-auto-sign
-   git push origin --delete test-auto-sign
-   ```
-
-### Step 5: Clean Up Sensitive Files
-
-If you used Option A (pre-generated key):
-
-```bash
-# After adding the private key to GitHub secrets, delete it locally
-rm gpg-keys/private-key.asc
-
-# Optionally, remove the entire directory after setup
-rm -rf gpg-keys/
-```
-
-The public key can remain in the repository for reference.
+1. The `auto-sign-commits.yml` workflow will automatically sign commits from GitHub Actions bots
+2. Check that commits show as "Verified" on GitHub with the "Free For Charity" signature
+3. Verify the signature matches Key ID: B5C1FBB290F87E9D
 
 ## Verification
 

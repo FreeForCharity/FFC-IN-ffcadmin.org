@@ -1,6 +1,13 @@
-# Quick Start: Enable Auto-Signing (5 Minutes)
+# Quick Start: Enable Auto-Signing
 
-This guide gets auto-signing working in 5 minutes using the pre-generated GPG keys.
+This guide helps you set up automatic commit signing using the Free For Charity GPG key.
+
+**Key Information:**
+- Organization: Free For Charity
+- Email: globaladmin@freeforcharity.org
+- Key ID: B5C1FBB290F87E9D
+- Type: RSA 4096-bit
+- Valid: 11/16/2025 - 11/16/2028
 
 ## Step 1: Add Public Key to GitHub (2 minutes)
 
@@ -18,37 +25,27 @@ This guide gets auto-signing working in 5 minutes using the pre-generated GPG ke
    - Paste into the "Key" field
    - Click "Add GPG key"
 
-## Step 2: Add Private Key to Repository Secrets (2 minutes)
+## Step 2: Add Private Key to Repository Secrets
 
-1. **View the private key:**
-   ```bash
-   cat gpg-keys/private-key.asc
-   ```
+**Important:** You need to obtain the private key from the key owner (created with Kleopatra).
 
-2. **Go to repository secrets:**
+1. **Go to repository secrets:**
    - Open: https://github.com/FreeForCharity/ffcadmin.org/settings/secrets/actions
    - Or navigate: Repository Settings → Secrets and variables → Actions
 
-3. **Create the secret:**
+2. **Create the secret:**
    - Click "New repository secret"
    - **Name:** `GPG_PRIVATE_KEY`
-   - **Value:** Paste the entire private key (including BEGIN/END lines)
+   - **Value:** Paste the entire private key (including `-----BEGIN PGP PRIVATE KEY BLOCK-----` and `-----END PGP PRIVATE KEY BLOCK-----`)
    - Click "Add secret"
 
-## Step 3: Clean Up (1 minute)
+## Step 3: Secure the Private Key
 
-**Delete the private key from your local filesystem:**
+**After adding to GitHub Secrets:**
 
-```bash
-rm gpg-keys/private-key.asc
-```
-
-**Verify it's gone:**
-
-```bash
-ls gpg-keys/
-# Should NOT show private-key.asc
-```
+- Delete any local copies of the private key
+- Never commit private keys to any repository
+- Store the private key only in GitHub Secrets or a secure password manager
 
 ## Done! 🎉
 

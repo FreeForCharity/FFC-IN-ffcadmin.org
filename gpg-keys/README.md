@@ -1,25 +1,37 @@
-# Pre-Generated GPG Keys for Auto-Signing
+# Free For Charity GPG Key for Auto-Signing
 
-This directory contains a pre-generated GPG key pair for setting up automatic commit signing.
+This directory contains the official Free For Charity GPG key for signing automated commits.
+
+## Key Information
+
+- **Organization:** Free For Charity
+- **Email:** globaladmin@freeforcharity.org  
+- **Key ID:** B5C1FBB290F87E9D
+- **Fingerprint:** 0243 BDC3 13EF 38A0 4610 B8D0 B5C1 FBB2 90F8 7E9D
+- **Type:** RSA 4096-bit
+- **Valid:** 11/16/2025 - 11/16/2028
+- **Created With:** Kleopatra on Windows
 
 ## ⚠️ SECURITY WARNING
 
-**The `private-key.asc` file contains sensitive cryptographic material.**
+**The private key must be kept secure.**
 
 - ✅ DO: Add the private key to GitHub Secrets immediately
 - ✅ DO: Delete the private key file after adding to secrets
-- ❌ DON'T: Commit the private key to the repository
+- ❌ DON'T: Commit the private key to the repository (it's gitignored)
 - ❌ DON'T: Share the private key with anyone
-- ❌ DON'T: Store the private key in plain text anywhere
+- ❌ DON'T: Store the private key in plain text anywhere except GitHub Secrets
 
 ## Files in This Directory
 
 | File | Description | Safe to Commit? |
 |------|-------------|-----------------|
 | `public-key.asc` | Public GPG key | ✅ Yes - can be public |
-| `private-key.asc` | Private GPG key | ❌ NO - must be secret |
+| `private-key.asc` | Private GPG key | ❌ NO - must be secret (gitignored) |
 | `key-info.txt` | Key details | ✅ Yes |
 | `README.md` | This file | ✅ Yes |
+
+**Note:** The private key file is not included in this repository. You must obtain it separately from the key owner.
 
 ## Quick Setup
 
@@ -35,25 +47,24 @@ cat gpg-keys/public-key.asc
 
 ### 2. Add Private Key to Repository Secrets
 
-```bash
-# Copy the private key (the entire content)
-cat gpg-keys/private-key.asc
+**Important:** You need to obtain the private key from the key owner.
 
+```bash
+# Once you have the private key file:
 # Go to: https://github.com/FreeForCharity/ffcadmin.org/settings/secrets/actions
 # Click "New repository secret"
 # Name: GPG_PRIVATE_KEY
-# Value: [paste the entire private key]
+# Value: [paste the entire private key including BEGIN/END lines]
 # Click "Add secret"
 ```
 
-### 3. Delete the Private Key
+### 3. Secure the Private Key
 
 ```bash
-# After adding to GitHub Secrets, immediately delete the local copy
-rm gpg-keys/private-key.asc
+# After adding to GitHub Secrets, immediately delete any local copies
+rm /path/to/private-key-file
 
-# Verify it's gone
-ls gpg-keys/
+# Never commit private keys to any repository
 ```
 
 ## Verification
@@ -74,27 +85,23 @@ Once configured:
 - ✅ Branch protection "require signed commits" is satisfied
 - ✅ No more "commits must have verified signatures" errors
 
-## Key Details
+## Technical Details
 
-- **Key ID:** 8E3672A3D791FFFD
+- **Key ID:** B5C1FBB290F87E9D
+- **Fingerprint:** 0243 BDC3 13EF 38A0 4610 B8D0 B5C1 FBB2 90F8 7E9D
 - **Algorithm:** RSA 4096-bit
-- **Identity:** github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-- **Passphrase:** None (optimized for automation)
-- **Expiration:** Never
+- **Identity:** Free For Charity <globaladmin@freeforcharity.org>
+- **Valid From:** 11/16/2025 10:45 AM
+- **Expires:** 11/16/2028 12:00 PM
+- **Created With:** Kleopatra on Windows
 
-## Cleanup After Setup
+## After Setup
 
-After successfully adding the keys to GitHub:
+Once the public key is added to GitHub and the private key is in GitHub Secrets:
 
-```bash
-# Remove the private key
-rm gpg-keys/private-key.asc
-
-# Optionally remove the entire directory
-rm -rf gpg-keys/
-```
-
-The public key in your GitHub account settings will remain active and usable.
+- The auto-sign-commits workflow will automatically sign commits from GitHub Actions bots
+- Commits will show as "Verified" on GitHub with the Free For Charity signature
+- Branch protection rules requiring signed commits will be satisfied
 
 ## Need Help?
 

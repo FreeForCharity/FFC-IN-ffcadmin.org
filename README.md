@@ -60,23 +60,23 @@ For detailed test case documentation, see [TEST_CASES.md](./TEST_CASES.md).
 
 This repository requires all commits to be signed with GPG signatures before merging into `main`. This is enforced through branch protection rules.
 
-### 🚀 Quick Setup (5 minutes)
+**Official Key:** Free For Charity (globaladmin@freeforcharity.org)
+- Key ID: B5C1FBB290F87E9D
+- Type: RSA 4096-bit  
+- Valid: 11/16/2025 - 11/16/2028
+
+### 🚀 Quick Setup
 
 **Enable auto-signing for GitHub Actions:**
 
-See **[QUICK_START.md](./QUICK_START.md)** for step-by-step instructions using pre-generated keys.
-
-Or use the interactive script:
-```bash
-./scripts/setup-gpg-signing.sh
-```
+See **[QUICK_START.md](./QUICK_START.md)** for step-by-step instructions.
 
 ### For Repository Admins
 
 To enable automatic commit signing for GitHub Actions:
 1. Add the public key from `gpg-keys/public-key.asc` to https://github.com/settings/gpg/new
-2. Add the private key from `gpg-keys/private-key.asc` as repository secret `GPG_PRIVATE_KEY`
-3. Delete the private key locally: `rm gpg-keys/private-key.asc`
+2. Obtain the private key from the key owner (created with Kleopatra)
+3. Add the private key as repository secret `GPG_PRIVATE_KEY`
 4. Done! The workflows will automatically sign commits from bots
 
 ### Documentation
