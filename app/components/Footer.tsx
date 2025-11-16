@@ -67,6 +67,7 @@ export default function Footer() {
                 <button 
                   onClick={() => (window as any).openCookiePreferences?.()}
                   className="hover:text-blue-400 transition-colors text-left"
+                  aria-label="Open cookie preferences dialog"
                 >
                   Manage Cookie Preferences
                 </button>

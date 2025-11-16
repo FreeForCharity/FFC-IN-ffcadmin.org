@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 // Environment variables for tracking IDs (replace with actual values)
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
@@ -15,55 +15,110 @@ export default function CookieConsent() {
     analytics: false,
     marketing: false,
   })
+  const [savedPreferencesBackup, setSavedPreferencesBackup] = useState(preferences)
+  const modalRef = useRef<HTMLDivElement>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
+
+  // Helper to load preferences from localStorage and update state
+  const loadPreferencesFromLocalStorage = (showBannerIfMissing = true) => {
+    try {
+      const consent = localStorage.getItem('cookie-consent')
+      if (!consent) {
+        if (showBannerIfMissing) setShowBanner(true)
+        return
+      }
+      let savedPreferences
+      try {
+        savedPreferences = JSON.parse(consent)
+      } catch (e) {
+        if (showBannerIfMissing) setShowBanner(true)
+        return
+      }
+      
+      // Validate the structure
+      if (
+        typeof savedPreferences === 'object' &&
+        savedPreferences !== null &&
+        typeof savedPreferences.necessary === 'boolean' &&
+        typeof savedPreferences.analytics === 'boolean' &&
+        typeof savedPreferences.marketing === 'boolean'
+      ) {
+        setPreferences(savedPreferences)
+        setSavedPreferencesBackup(savedPreferences)
+        applyConsent(savedPreferences)
+      } else {
+        // Invalid data, show banner again
+        if (showBannerIfMissing) setShowBanner(true)
+      }
+    } catch (error) {
+      // If localStorage is unavailable or data is corrupted, show banner
+      if (showBannerIfMissing) setShowBanner(true)
+    }
+  }
 
   useEffect(() => {
     // Expose method to window for reopening preferences from other components
     (window as any).openCookiePreferences = () => {
       setShowBanner(true)
       setShowPreferences(true)
+      loadPreferencesFromLocalStorage(false)
     }
 
     // Check if user has already made a choice with error handling
-    try {
-      const consent = localStorage.getItem('cookie-consent')
-      if (!consent) {
-        setShowBanner(true)
-      } else {
-        // Load saved preferences and apply them with validation
-        let savedPreferences
-        try {
-          savedPreferences = JSON.parse(consent)
-        } catch (e) {
-          setShowBanner(true)
-          return
-        }
-        
-        // Validate the structure
-        if (
-          typeof savedPreferences === 'object' &&
-          savedPreferences !== null &&
-          typeof savedPreferences.necessary === 'boolean' &&
-          typeof savedPreferences.analytics === 'boolean' &&
-          typeof savedPreferences.marketing === 'boolean'
-        ) {
-          setPreferences(savedPreferences)
-          applyConsent(savedPreferences)
-        } else {
-          // Invalid data, show banner again
-          setShowBanner(true)
-        }
-      }
-    } catch (error) {
-      // If localStorage is unavailable or data is corrupted, show banner
-      setShowBanner(true)
+    loadPreferencesFromLocalStorage(true)
+
+    // Cleanup function to remove the window method
+    return () => {
+      delete (window as any).openCookiePreferences
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const applyConsent = (prefs: typeof preferences) => {
-    // Set a cookie to indicate consent status with Secure flag
+  // Focus management for modal
+  useEffect(() => {
+    if (showPreferences && modalRef.current) {
+      // Store the previously focused element
+      previousFocusRef.current = document.activeElement as HTMLElement
+      
+      // Focus the first focusable element in the modal
+      const focusableElements = modalRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      if (focusableElements.length > 0) {
+        (focusableElements[0] as HTMLElement).focus()
+      }
+
+      // Handle Escape key
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          handleCancelPreferences()
+        }
+      }
+      document.addEventListener('keydown', handleEscape)
+
+      return () => {
+        document.removeEventListener('keydown', handleEscape)
+        // Restore focus when modal closes
+        if (previousFocusRef.current) {
+          previousFocusRef.current.focus()
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showPreferences])
+
+  const applyConsent = (prefs: typeof preferences, previousPrefs?: typeof preferences) => {
+    // Set a cookie to indicate consent status with Secure flag (only on HTTPS)
     const cookieValue = JSON.stringify(prefs)
-    document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax; Secure`
+    const secureFlag = typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
+    document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax${secureFlag}`
+    
+    // Check if consent was withdrawn and delete cookies if needed
+    if (previousPrefs) {
+      if ((previousPrefs.analytics && !prefs.analytics) || (previousPrefs.marketing && !prefs.marketing)) {
+        deleteAnalyticsCookies()
+      }
+    }
     
     // Load scripts based on consent independently
     if (prefs.analytics) {
@@ -83,7 +138,7 @@ export default function CookieConsent() {
       document.head.appendChild(gaScript)
 
       const gaConfigScript = document.createElement('script')
-      gaConfigScript.innerHTML = `
+      gaConfigScript.textContent = `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
@@ -99,7 +154,7 @@ export default function CookieConsent() {
   const loadMicrosoftClarity = () => {
     if (typeof window !== 'undefined' && !document.querySelector('script[src*="clarity.ms"]')) {
       const clarityScript = document.createElement('script')
-      clarityScript.innerHTML = `
+      clarityScript.textContent = `
         (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -113,7 +168,7 @@ export default function CookieConsent() {
   const loadMetaPixel = () => {
     if (typeof window !== 'undefined' && !document.querySelector('script[src*="fbevents.js"]')) {
       const fbScript = document.createElement('script')
-      fbScript.innerHTML = `
+      fbScript.textContent = `
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -135,13 +190,29 @@ export default function CookieConsent() {
   }
 
   const deleteAnalyticsCookies = () => {
-    const cookiesToDelete = ['_ga', '_gid', '_ga_*', '_fbp', 'fr', '_clck', '_clsk']
+    // List of static cookie names to delete
+    const cookiesToDelete = ['_ga', '_gid', '_fbp', 'fr', '_clck', '_clsk']
+    
+    // Delete static cookies
     cookiesToDelete.forEach(name => {
       // Delete for current domain
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
       // Also try to delete with domain specification
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
     })
+    
+    // Dynamically delete all cookies matching _ga_* (e.g., _ga_G-XXXXXXXXXX)
+    if (typeof document !== 'undefined') {
+      document.cookie.split(';').forEach(cookie => {
+        const cookieName = cookie.split('=')[0].trim()
+        if (cookieName.startsWith('_ga_')) {
+          // Delete for current domain
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+          // Also try to delete with domain specification
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
+        }
+      })
+    }
   }
 
   const handleAcceptAll = () => {
@@ -151,8 +222,14 @@ export default function CookieConsent() {
       marketing: true,
     }
     setPreferences(allAccepted)
-    localStorage.setItem('cookie-consent', JSON.stringify(allAccepted))
-    applyConsent(allAccepted)
+    try {
+      localStorage.setItem('cookie-consent', JSON.stringify(allAccepted))
+    } catch (e) {
+      // If localStorage is unavailable, continue anyway
+      console.warn('Unable to save preferences to localStorage:', e)
+    }
+    applyConsent(allAccepted, savedPreferencesBackup)
+    setSavedPreferencesBackup(allAccepted)
     setShowBanner(false)
   }
 
@@ -163,24 +240,44 @@ export default function CookieConsent() {
       marketing: false,
     }
     setPreferences(onlyNecessary)
-    localStorage.setItem('cookie-consent', JSON.stringify(onlyNecessary))
+    try {
+      localStorage.setItem('cookie-consent', JSON.stringify(onlyNecessary))
+    } catch (e) {
+      // If localStorage is unavailable, continue anyway
+      console.warn('Unable to save preferences to localStorage:', e)
+    }
     
     // Delete third-party cookies when consent is withdrawn
     deleteAnalyticsCookies()
     
-    applyConsent(onlyNecessary)
+    applyConsent(onlyNecessary, savedPreferencesBackup)
+    setSavedPreferencesBackup(onlyNecessary)
     setShowBanner(false)
   }
 
   const handleSavePreferences = () => {
-    localStorage.setItem('cookie-consent', JSON.stringify(preferences))
-    applyConsent(preferences)
+    try {
+      localStorage.setItem('cookie-consent', JSON.stringify(preferences))
+    } catch (e) {
+      // If localStorage is unavailable, continue anyway
+      console.warn('Unable to save preferences to localStorage:', e)
+    }
+    applyConsent(preferences, savedPreferencesBackup)
+    setSavedPreferencesBackup(preferences)
     setShowBanner(false)
     setShowPreferences(false)
   }
 
   const handleShowPreferences = () => {
+    // Backup current preferences in case user cancels
+    setSavedPreferencesBackup(preferences)
     setShowPreferences(true)
+  }
+
+  const handleCancelPreferences = () => {
+    // Restore the backed-up preferences
+    setPreferences(savedPreferencesBackup)
+    setShowPreferences(false)
   }
 
   if (!showBanner) {
@@ -195,7 +292,7 @@ export default function CookieConsent() {
         aria-modal="true"
         aria-labelledby="cookie-preferences-title"
       >
-        <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div ref={modalRef} className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
           <div className="p-6">
             <h2 id="cookie-preferences-title" className="text-2xl font-bold text-gray-900 mb-4">Cookie Preferences</h2>
             <p className="text-gray-600 mb-6">
@@ -278,7 +375,7 @@ export default function CookieConsent() {
                 Save Preferences
               </button>
               <button
-                onClick={() => setShowPreferences(false)}
+                onClick={handleCancelPreferences}
                 className="flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
               >
                 Cancel
