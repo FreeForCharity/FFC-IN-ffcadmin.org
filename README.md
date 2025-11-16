@@ -1,22 +1,67 @@
-# FFC Admin Webpage
+# Free For Charity Admin Portal
 
-## Organization
-**Free For Charity (FFC)** - A charitable organization
+[![Deployed](https://img.shields.io/badge/status-deployed-success)](https://ffcadmin.org)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2-black)](https://nextjs.org/)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
-## Purpose
-This repository contains the administrative webpage for Free For Charity. The site serves as a central hub for FFC administrative functions and information.
+## Table of Contents
+- [Overview](#overview)
+- [Quick Links](#quick-links)
+- [Deployment Status](#deployment-status)
+- [Responsive Design](#responsive-design)
+- [Understanding GitHub Pages Caching](#understanding-github-pages-caching)
+- [Analytics](#analytics)
+- [Testing](#testing)
+- [Code Quality and Standards](#code-quality-and-standards)
+- [Commit Signing](#commit-signing)
+- [Documentation](#documentation)
+- [Support](#support)
 
-### Main Calls to Action (CTAs)
-- Access administrative dashboard
-- View organizational information
-- Manage charity operations
+## Overview
 
-## Deployment
-**Status:** ✅ Deployed to GitHub Pages with Custom Domain  
-**Primary URL:** https://ffcadmin.org  
-**Backup URL:** https://freeforcharity.github.io/ffcadmin.org/ (GitHub Pages default path—for testing when custom domain is unavailable)
+**Free For Charity (FFC)** is a nonprofit technology initiative delivering free, secure, and scalable websites for charities.
 
-The site is deployed and accessible via a custom domain (ffcadmin.org) with GitHub Pages. The site is fully responsive and works on mobile, tablet, and desktop devices.
+This repository contains the administrative portal for Free For Charity, built with Next.js and deployed on GitHub Pages. The site serves as:
+- A technology showcase demonstrating our approach to nonprofit web development
+- Documentation hub for our technology stack and processes
+- Administrative information center for FFC operations
+
+**Live Site:** [https://ffcadmin.org](https://ffcadmin.org)
+
+## Quick Links
+
+**For New Contributors:**
+- 📚 [Documentation Center](https://ffcadmin.org/documentation) - Browse all guides and READMEs
+- 🚀 [Quick Start Guide](QUICK_START.md) - Set up GPG signing in 5 minutes
+- 💻 [Code Quality Standards](CODE_QUALITY.md) - Development guidelines
+
+**For Administrators:**
+- 🌐 [Deployment Guide](DEPLOYMENT.md) - GitHub Pages deployment instructions
+- 🔒 [GPG Signing Setup](SETUP_AUTO_SIGNING.md) - Configure automatic commit signing
+- 🔧 [Issue Resolution](ISSUE_RESOLUTION.md) - Troubleshooting common problems
+
+**For Understanding the Project:**
+- 📖 [Technology Stack](https://ffcadmin.org/tech-stack) - Complete infrastructure documentation
+- 🎨 [Responsive Design](RESPONSIVE_DESIGN.md) - Mobile, tablet, and desktop support
+- ✅ [Test Cases](TEST_CASES.md) - Testing strategy and coverage
+
+## Deployment Status
+
+**Status:** ✅ **Live and Accessible**
+
+| Environment | URL | Status |
+|------------|-----|--------|
+| **Production** | https://ffcadmin.org | ✅ Active (Custom Domain) |
+| **Backup/Testing** | https://freeforcharity.github.io/ffcadmin.org/ | ✅ Available |
+
+The site is automatically deployed via GitHub Actions when changes are pushed to the `main` branch. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment configuration and troubleshooting.
+
+**Key Features:**
+- ✅ Static site generation with Next.js 14
+- ✅ Automatic deployment via GitHub Actions
+- ✅ Global CDN delivery through GitHub Pages
+- ✅ Custom domain with HTTPS
+- ✅ Fully responsive design (mobile, tablet, desktop)
 
 ## Responsive Design
 **Status:** ✅ **Fully Responsive**
@@ -285,9 +330,102 @@ To enable automatic commit signing for GitHub Actions:
 3. Add the private key as repository secret `GPG_PRIVATE_KEY`
 4. Done! The workflows will automatically sign commits from bots
 
-### Documentation
+### GPG Documentation
 
 - **[QUICK_START.md](./QUICK_START.md)** - 5-minute setup guide
 - **[SETUP_AUTO_SIGNING.md](./SETUP_AUTO_SIGNING.md)** - Detailed setup instructions
 - **[GPG_SIGNING.md](./GPG_SIGNING.md)** - Technical documentation and alternatives
 - **[ISSUE_RESOLUTION.md](./ISSUE_RESOLUTION.md)** - Complete issue analysis
+
+## Documentation
+
+This repository contains comprehensive documentation organized by topic. For a complete, indexed view of all documentation:
+
+**📚 Visit the [Documentation Center](https://ffcadmin.org/documentation)** - A public-facing page that:
+- Lists all README files in the repository
+- Explains what each document covers and why it's important
+- Identifies the target audience for each guide
+- Provides direct GitHub links to view the latest version
+- Offers guidance on how to use the documentation effectively
+
+### Documentation Categories
+
+**Getting Started**
+- [README.md](README.md) - This file, the main repository overview
+- [QUICK_START.md](QUICK_START.md) - 5-minute GPG signing setup
+
+**Deployment & Operations**
+- [DEPLOYMENT.md](DEPLOYMENT.md) - GitHub Pages deployment guide
+- [.github/workflows/README.md](.github/workflows/README.md) - CI/CD workflows documentation
+
+**Development & Code Quality**
+- [CODE_QUALITY.md](CODE_QUALITY.md) - Code standards and tooling
+- [TEST_CASES.md](TEST_CASES.md) - Testing strategy and test documentation
+
+**Security & Authentication**
+- [GPG_SIGNING.md](GPG_SIGNING.md) - GPG technical documentation
+- [SETUP_AUTO_SIGNING.md](SETUP_AUTO_SIGNING.md) - Detailed GPG setup
+- [gpg-keys/README.md](gpg-keys/README.md) - GPG key information
+- [AUTO_SIGN_TEST.md](AUTO_SIGN_TEST.md) - Testing GPG signatures
+
+**Design & User Experience**
+- [RESPONSIVE_DESIGN.md](RESPONSIVE_DESIGN.md) - Responsive design guide
+- [RESPONSIVE_TESTING_RESULTS.md](RESPONSIVE_TESTING_RESULTS.md) - Test results
+
+**Troubleshooting**
+- [ISSUE_RESOLUTION.md](ISSUE_RESOLUTION.md) - Issue analysis and solutions
+- [IMPLEMENTATION_ISSUES.md](IMPLEMENTATION_ISSUES.md) - Implementation challenges
+
+### For New Developers
+
+If you're new to this project:
+
+1. **Start Here:** Read this README to understand the project structure
+2. **Explore the Site:** Visit [ffcadmin.org](https://ffcadmin.org) to see the live portal
+3. **Review Tech Stack:** Read the [Technology Stack page](https://ffcadmin.org/tech-stack) for infrastructure details
+4. **Set Up Development:** Follow [DEPLOYMENT.md](DEPLOYMENT.md) for local development setup
+5. **Understand Standards:** Review [CODE_QUALITY.md](CODE_QUALITY.md) before contributing
+6. **Browse All Docs:** Visit the [Documentation Center](https://ffcadmin.org/documentation) for complete documentation
+
+### For Global Administrators
+
+If you're managing this infrastructure:
+
+1. **Deployment:** See [DEPLOYMENT.md](DEPLOYMENT.md) for deployment procedures
+2. **GPG Signing:** Follow [QUICK_START.md](QUICK_START.md) to enable automatic commit signing
+3. **Monitoring:** Check [.github/workflows/README.md](.github/workflows/README.md) for CI/CD status
+4. **Troubleshooting:** Refer to [ISSUE_RESOLUTION.md](ISSUE_RESOLUTION.md) for common problems
+5. **Support Escalation:** Contact Clarke Moyer at (520) 222-8104 for emergencies (after 48 hours)
+
+## Support
+
+### General Support
+
+Open a support ticket with Free For Charity for:
+- General questions about the platform
+- Feature requests or suggestions
+- Non-urgent technical issues
+- Documentation improvements
+
+### Emergency Escalation
+
+For urgent issues requiring immediate attention:
+
+**Clarke Moyer:** [(520) 222-8104](tel:520-222-8104)
+- Use only if not answered within 48 hours
+- Reserved for critical production issues
+- Available for infrastructure emergencies
+
+### Contributing
+
+Found an issue or want to contribute?
+1. Review [CODE_QUALITY.md](CODE_QUALITY.md) for contribution guidelines
+2. Open an issue in the [GitHub repository](https://github.com/FreeForCharity/ffcadmin.org)
+3. Submit a pull request following our standards
+4. Ensure all tests pass and commits are signed
+
+---
+
+**License:** [Apache 2.0](LICENSE)  
+**Organization:** Free For Charity  
+**Maintained by:** Global Admin (globaladmin@freeforcharity.org)
