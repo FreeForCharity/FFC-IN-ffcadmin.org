@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Documentation | Free For Charity Admin',
@@ -113,7 +112,7 @@ const documentationSections: DocSection[] = [
       {
         name: 'Auto-Sign Test',
         file: 'AUTO_SIGN_TEST.md',
-        description: 'Testing documentation for verifying that automatic commit signing is working correctly. Provides test procedures and expected results.',
+        description: 'Comprehensive verification guide for automatic GPG commit signing including workflow mechanics, verification methods (web interface and command line), troubleshooting common issues, and role-specific guidance for administrators and developers.',
         audience: 'Quality Assurance, Repository Administrators',
         githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/AUTO_SIGN_TEST.md'
       }
