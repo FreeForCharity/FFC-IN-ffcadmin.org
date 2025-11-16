@@ -46,9 +46,10 @@ describe('GitHub Pages Configuration Tests', () => {
       expect(configContent).toMatch(/trailingSlash:\s*true/);
     });
 
-    it('should have basePath configured for GitHub Pages', () => {
+    it('should be configured for custom domain (no basePath)', () => {
       const configContent = fs.readFileSync(nextConfigPath, 'utf-8');
-      expect(configContent).toMatch(/basePath:\s*['"]\/ffcadmin\.org['"]/);
+      // Should NOT have basePath since we're using custom domain
+      expect(configContent).not.toMatch(/basePath:/);
     });
   });
 });

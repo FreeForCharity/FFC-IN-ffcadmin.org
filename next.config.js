@@ -5,7 +5,6 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  basePath: '/ffcadmin.org',
 }
 
 module.exports = nextConfig
