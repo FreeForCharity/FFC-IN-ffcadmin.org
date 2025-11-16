@@ -36,6 +36,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build Next.js site
+        env:
+          NEXT_PUBLIC_CLARITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_CLARITY_PROJECT_ID }}
         run: pnpm run build
 
       - name: Run tests
