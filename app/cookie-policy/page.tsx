@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'November 15, 2025'
+const LAST_UPDATED = 'November 16, 2025'
 
 export default function CookiePolicy() {
   return (
