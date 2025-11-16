@@ -329,7 +329,7 @@ export default function Documentation() {
                 For urgent issues that require immediate attention:
               </p>
               <p className="text-gray-900 text-sm font-semibold">
-                Clarke Moyer: <a href="tel:520-222-8104" className="text-blue-600 hover:underline">520-222-8104</a>
+                Clarke Moyer: <a href="tel:520-222-8104" className="text-blue-600 hover:underline">(520) 222-8104</a>
               </p>
               <p className="text-gray-500 text-xs mt-1">(if not answered within 48 hours)</p>
             </div>

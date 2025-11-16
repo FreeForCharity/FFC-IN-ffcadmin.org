@@ -395,7 +395,7 @@ If you're managing this infrastructure:
 2. **GPG Signing:** Follow [QUICK_START.md](QUICK_START.md) to enable automatic commit signing
 3. **Monitoring:** Check [.github/workflows/README.md](.github/workflows/README.md) for CI/CD status
 4. **Troubleshooting:** Refer to [ISSUE_RESOLUTION.md](ISSUE_RESOLUTION.md) for common problems
-5. **Support Escalation:** Contact Clarke Moyer at 520-222-8104 for emergencies (after 48 hours)
+5. **Support Escalation:** Contact Clarke Moyer at (520) 222-8104 for emergencies (after 48 hours)
 
 ## Support
 
@@ -411,7 +411,7 @@ Open a support ticket with Free For Charity for:
 
 For urgent issues requiring immediate attention:
 
-**Clarke Moyer:** [520-222-8104](tel:520-222-8104)
+**Clarke Moyer:** [(520) 222-8104](tel:520-222-8104)
 - Use only if not answered within 48 hours
 - Reserved for critical production issues
 - Available for infrastructure emergencies
