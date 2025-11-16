@@ -38,7 +38,10 @@ Microsoft Clarity is integrated into all pages through the root layout (`app/lay
 
 1. Sign up for a free Microsoft Clarity account at [https://clarity.microsoft.com/](https://clarity.microsoft.com/)
 2. Create a new project and obtain your Clarity Project ID
-3. Replace `YOUR_CLARITY_PROJECT_ID` in `app/layout.tsx` with your actual project ID
+3. Set the `NEXT_PUBLIC_CLARITY_PROJECT_ID` environment variable in your deployment environment or create a `.env.local` file with your Clarity Project ID:
+   ```
+   NEXT_PUBLIC_CLARITY_PROJECT_ID=your_project_id_here
+   ```
 4. Rebuild and deploy the site
 
 The Clarity tracking script is loaded using Next.js's `Script` component with the `afterInteractive` strategy to ensure it doesn't block page rendering.
