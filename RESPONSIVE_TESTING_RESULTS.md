@@ -216,7 +216,7 @@ All assets are correctly referenced from root:
 
 ### For Site Administrators
 1. After deployment, wait 1-2 minutes for CDN propagation
-2. Test in private/incognito mode to avoid cache issues
+2. Test in private/incognito mode to check for browser cache issues (note: this does NOT fix CSS loading problems from GitHub Pages; see RESPONSIVE_DESIGN.md for details)
 3. Use DevTools mobile emulation for testing
 4. Hard refresh after each deployment
 
@@ -229,10 +229,11 @@ All assets are correctly referenced from root:
 4. Try different browser
 
 #### iPhone/iPad
-1. Open Safari → Long press the refresh button → "Request Desktop Website" → reload
-2. Settings → Safari → Clear History and Website Data
+1. To clear cache: Settings → Safari → Clear History and Website Data
+2. Or site-specific: Settings → Safari → Advanced → Website Data → Search "freeforcharity.github.io" → Delete
 3. Try private browsing mode
 4. Restart Safari app
+5. Note: "Request Desktop Website" only changes layout view, it does not clear cache
 
 #### Android
 1. Chrome: Menu (⋮) → Settings → Privacy and security → Clear browsing data → Cached images and files

@@ -175,7 +175,7 @@ This indicates the CSS file is not loading. Check these items in order:
 
 2. **Check GitHub Pages is active**:
    - Repository → Settings → Pages
-   - Should show "Your site is live at https://freeforcharity.github.io/ffcadmin.org/"
+   - Should show "Your site is live at https://freeforcharity.github.io/"
    - Note the last deployment time
 
 3. **Verify CSS file exists**:
