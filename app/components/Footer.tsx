@@ -72,6 +72,11 @@ export default function Footer() {
                   Manage Cookie Preferences
                 </button>
               </li>
+              <li>
+                <Link href="/documentation" className="hover:text-blue-400 transition-colors">
+                  Documentation
+                </Link>
+              </li>
             </ul>
           </div>
 
