@@ -1,25 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect } from 'react'
+import Script from 'next/script'
 
 export default function Footer() {
-  useEffect(() => {
-    // Load GuideStar widget script
-    const script = document.createElement('script')
-    script.src = 'https://widgets.guidestar.org/gximage2widget.js'
-    script.async = true
-    document.body.appendChild(script)
-
-    return () => {
-      // Cleanup script on component unmount
-      if (document.body.contains(script)) {
-        document.body.removeChild(script)
-      }
-    }
-  }, [])
   return (
-    <footer className="bg-black text-white mt-auto">
+    <>
+      <Script
+        src="https://widgets.guidestar.org/gximage2widget.js"
+        strategy="afterInteractive"
+      />
+      <footer className="bg-black text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Top Section with 5 columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
@@ -261,5 +252,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   )
 }
