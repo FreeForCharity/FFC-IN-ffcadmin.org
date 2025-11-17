@@ -1,0 +1,19 @@
+# Dependencies
+node_modules
+
+# Build output
+out
+.next
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+
+# Cache
+.cache
+
+# Public assets that shouldn't be modified
+public
+
+# GPG keys
+gpg-keys

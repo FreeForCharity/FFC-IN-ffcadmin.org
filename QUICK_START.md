@@ -3,6 +3,7 @@
 This guide helps you set up automatic commit signing using the Free For Charity GPG key.
 
 **Key Information:**
+
 - Organization: Free For Charity
 - Email: globaladmin@freeforcharity.org
 - Key ID: B5C1FBB290F87E9D
@@ -12,6 +13,7 @@ This guide helps you set up automatic commit signing using the Free For Charity 
 ## Step 1: Add Public Key to GitHub (2 minutes)
 
 1. **View the public key:**
+
    ```bash
    cat gpg-keys/public-key.asc
    ```
@@ -86,13 +88,16 @@ Create a test to verify it works:
 ## Troubleshooting
 
 **Q: I accidentally deleted the private key before adding to secrets**
+
 - A: Run `./scripts/setup-gpg-signing.sh` to generate a new key pair
 
 **Q: Commits still showing as unsigned**
+
 - A: Check that `GPG_PRIVATE_KEY` secret exists in repository settings
 - A: Check GitHub Actions logs for the "Auto-Sign Commits" workflow
 
 **Q: How do I verify it's working?**
+
 - A: Make a test commit via GitHub Actions or Copilot
 - A: Check if it shows "Verified" badge on GitHub
 - A: Or run locally: `git verify-commit <commit-hash>`

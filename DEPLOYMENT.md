@@ -8,11 +8,11 @@ This Next.js site is configured for static export and deployment to GitHub Pages
 
 ```javascript
 const nextConfig = {
-  output: 'export',           // Enables static HTML export
+  output: 'export', // Enables static HTML export
   images: {
-    unoptimized: true,        // Required for static export
+    unoptimized: true, // Required for static export
   },
-  trailingSlash: true,        // Ensures URLs work properly on GitHub Pages
+  trailingSlash: true, // Ensures URLs work properly on GitHub Pages
 }
 ```
 
@@ -34,6 +34,7 @@ const nextConfig = {
 ### Custom Domain Configuration
 
 The site is configured to use a **custom domain** instead of a repository-based path:
+
 - No `basePath` is set in the configuration
 - **Primary URL**: `https://ffcadmin.org` (custom domain configured in GitHub Pages)
 - **Backup URL**: `https://freeforcharity.github.io/ffcadmin.org/` (GitHub Pages default path, for testing)
@@ -46,7 +47,8 @@ The site is configured to use a **custom domain** instead of a repository-based 
 
 Located in `public/.nojekyll`, this empty file is automatically copied to the `out/` directory during build.
 
-**Why it's needed**: 
+**Why it's needed**:
+
 - GitHub Pages uses Jekyll by default to process sites
 - Jekyll ignores files/folders starting with underscore (like `_next/`)
 - The `.nojekyll` file disables Jekyll processing
@@ -55,6 +57,7 @@ Located in `public/.nojekyll`, this empty file is automatically copied to the `o
 ### 2. GitHub Actions Workflow (✅ Included)
 
 Located at `.github/workflows/deploy.yml`, this workflow:
+
 - Triggers on push to `main` branch
 - Uses Node.js 20 LTS and pnpm 9.0.0
 - Builds the site with `pnpm run build`
@@ -63,6 +66,7 @@ Located at `.github/workflows/deploy.yml`, this workflow:
 ### 3. Repository Settings
 
 To enable deployment:
+
 1. Go to repository Settings > Pages
 2. Under "Build and deployment", set Source to **"GitHub Actions"**
 3. The workflow will automatically deploy on the next push to `main`
@@ -113,14 +117,17 @@ npx serve out
 ## Troubleshooting
 
 ### CSS/JS not loading
+
 - Ensure `.nojekyll` file is present in the output
 - Check that GitHub Pages source is set to "GitHub Actions"
 
 ### 404 errors on page refresh
+
 - Verify `trailingSlash: true` is set in `next.config.js`
 - Check that routes use trailing slashes (e.g., `/tech-stack/` not `/tech-stack`)
 
 ### Deployment fails
+
 - Check GitHub Actions logs for build errors
 - Ensure pnpm lockfile is committed
 - Verify Node.js version is 20 or higher

@@ -19,30 +19,37 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Introduction</h2>
             <p className="mb-4">
-              Free For Charity ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy 
-              explains how we collect, use, disclose, and safeguard your information when you visit our website 
-              ffcadmin.org (the "Site"). Please read this privacy policy carefully. If you do not agree with the 
-              terms of this privacy policy, please do not access the site.
+              Free For Charity ("we", "our", or "us") is committed to protecting your privacy. This
+              Privacy Policy explains how we collect, use, disclose, and safeguard your information
+              when you visit our website ffcadmin.org (the "Site"). Please read this privacy policy
+              carefully. If you do not agree with the terms of this privacy policy, please do not
+              access the site.
             </p>
             <p>
-              We comply with applicable privacy laws including the General Data Protection Regulation (GDPR) for 
-              users in the European Union, the California Consumer Privacy Act (CCPA), and the California Privacy 
-              Rights Act (CPRA) for California residents.
+              We comply with applicable privacy laws including the General Data Protection
+              Regulation (GDPR) for users in the European Union, the California Consumer Privacy Act
+              (CCPA), and the California Privacy Rights Act (CPRA) for California residents.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Information We Collect</h2>
-            
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">2.1 Information You Provide</h3>
+
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              2.1 Information You Provide
+            </h3>
             <p className="mb-4">
-              Currently, our website does not require users to create accounts or provide personal information 
-              directly. However, you may voluntarily provide information when contacting us for support.
+              Currently, our website does not require users to create accounts or provide personal
+              information directly. However, you may voluntarily provide information when contacting
+              us for support.
             </p>
 
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">2.2 Automatically Collected Information</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              2.2 Automatically Collected Information
+            </h3>
             <p className="mb-4">
-              When you visit our Site, we may automatically collect certain information about your device, including:
+              When you visit our Site, we may automatically collect certain information about your
+              device, including:
             </p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Browser type and version</li>
@@ -53,12 +60,15 @@ export default function PrivacyPolicy() {
               <li>Date and time of visit</li>
             </ul>
             <p>
-              This information is collected only if you have provided consent through our cookie consent banner.
+              This information is collected only if you have provided consent through our cookie
+              consent banner.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">3. How We Use Your Information</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              3. How We Use Your Information
+            </h2>
             <p className="mb-4">We use the information we collect to:</p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Operate, maintain, and improve our website</li>
@@ -71,48 +81,75 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Cookies and Tracking Technologies</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              4. Cookies and Tracking Technologies
+            </h2>
             <p className="mb-4">
-              We use cookies and similar tracking technologies to track activity on our Site. You can control 
-              cookie preferences through our cookie consent banner that appears when you first visit the site.
+              We use cookies and similar tracking technologies to track activity on our Site. You
+              can control cookie preferences through our cookie consent banner that appears when you
+              first visit the site.
             </p>
             <p className="mb-4">Types of cookies we use:</p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li><strong>Necessary Cookies:</strong> Essential for the website to function properly. These cannot be disabled.</li>
-              <li><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website (Google Analytics, Microsoft Clarity). Requires consent.</li>
-              <li><strong>Marketing Cookies:</strong> Used to track visitors across websites for advertising purposes (Meta Pixel). Requires consent.</li>
+              <li>
+                <strong>Necessary Cookies:</strong> Essential for the website to function properly.
+                These cannot be disabled.
+              </li>
+              <li>
+                <strong>Analytics Cookies:</strong> Help us understand how visitors interact with
+                our website (Google Analytics, Microsoft Clarity). Requires consent.
+              </li>
+              <li>
+                <strong>Marketing Cookies:</strong> Used to track visitors across websites for
+                advertising purposes (Meta Pixel). Requires consent.
+              </li>
             </ul>
             <p>
-              For more detailed information about cookies, please see our <a href="/cookie-policy" className="text-blue-600 hover:underline">Cookie Policy</a>.
+              For more detailed information about cookies, please see our{' '}
+              <a href="/cookie-policy" className="text-blue-600 hover:underline">
+                Cookie Policy
+              </a>
+              .
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Third-Party Services</h2>
-            <p className="mb-4">We may use third-party services that collect, monitor, and analyze data:</p>
+            <p className="mb-4">
+              We may use third-party services that collect, monitor, and analyze data:
+            </p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li><strong>Google Analytics:</strong> Web analytics service (only with consent)</li>
-              <li><strong>Microsoft Clarity:</strong> User behavior analytics (only with consent)</li>
-              <li><strong>Meta Pixel:</strong> Marketing and advertising analytics (only with consent)</li>
+              <li>
+                <strong>Google Analytics:</strong> Web analytics service (only with consent)
+              </li>
+              <li>
+                <strong>Microsoft Clarity:</strong> User behavior analytics (only with consent)
+              </li>
+              <li>
+                <strong>Meta Pixel:</strong> Marketing and advertising analytics (only with consent)
+              </li>
             </ul>
             <p>
-              These third parties have their own privacy policies. We encourage you to review their policies.
+              These third parties have their own privacy policies. We encourage you to review their
+              policies.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Data Retention</h2>
             <p>
-              We retain collected information for as long as necessary to fulfill the purposes outlined in this 
-              Privacy Policy, unless a longer retention period is required or permitted by law. Cookie consent 
-              preferences are stored for 12 months.
+              We retain collected information for as long as necessary to fulfill the purposes
+              outlined in this Privacy Policy, unless a longer retention period is required or
+              permitted by law. Cookie consent preferences are stored for 12 months.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Your Privacy Rights</h2>
-            
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">7.1 GDPR Rights (EU Residents)</h3>
+
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              7.1 GDPR Rights (EU Residents)
+            </h3>
             <p className="mb-4">If you are in the European Union, you have the following rights:</p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Right to access your personal data</li>
@@ -124,7 +161,9 @@ export default function PrivacyPolicy() {
               <li>Right to withdraw consent at any time</li>
             </ul>
 
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">7.2 CCPA/CPRA Rights (California Residents)</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              7.2 CCPA/CPRA Rights (California Residents)
+            </h3>
             <p className="mb-4">If you are a California resident, you have the following rights:</p>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Right to know what personal information is collected</li>
@@ -137,58 +176,80 @@ export default function PrivacyPolicy() {
             </ul>
 
             <p className="mb-4">
-              <strong>Do Not Sell or Share My Personal Information:</strong> We do not sell personal information. 
-              When you decline analytics and marketing cookies, we do not share your information with third-party 
-              analytics or advertising services.
+              <strong>Do Not Sell or Share My Personal Information:</strong> We do not sell personal
+              information. When you decline analytics and marketing cookies, we do not share your
+              information with third-party analytics or advertising services.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Data Security</h2>
             <p>
-              We implement appropriate technical and organizational security measures to protect your personal 
-              information. However, no method of transmission over the internet or electronic storage is 100% 
-              secure. While we strive to protect your information, we cannot guarantee its absolute security.
+              We implement appropriate technical and organizational security measures to protect
+              your personal information. However, no method of transmission over the internet or
+              electronic storage is 100% secure. While we strive to protect your information, we
+              cannot guarantee its absolute security.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Children's Privacy</h2>
             <p>
-              Our Site is not intended for children under 16 years of age. We do not knowingly collect personal 
-              information from children under 16. If you believe we have collected information from a child under 
-              16, please contact us immediately.
+              Our Site is not intended for children under 16 years of age. We do not knowingly
+              collect personal information from children under 16. If you believe we have collected
+              information from a child under 16, please contact us immediately.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">10. International Data Transfers</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              10. International Data Transfers
+            </h2>
             <p>
-              Your information may be transferred to and processed in countries other than your country of 
-              residence. These countries may have data protection laws that are different from the laws of your 
-              country. We take appropriate safeguards to ensure your information remains protected.
+              Your information may be transferred to and processed in countries other than your
+              country of residence. These countries may have data protection laws that are different
+              from the laws of your country. We take appropriate safeguards to ensure your
+              information remains protected.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">11. Changes to This Privacy Policy</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              11. Changes to This Privacy Policy
+            </h2>
             <p>
-              We may update this Privacy Policy from time to time. We will notify you of any changes by posting 
-              the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review 
-              this Privacy Policy periodically for any changes.
+              We may update this Privacy Policy from time to time. We will notify you of any changes
+              by posting the new Privacy Policy on this page and updating the "Last Updated" date.
+              You are advised to review this Privacy Policy periodically for any changes.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">12. Contact Us</h2>
             <p className="mb-4">
-              If you have questions about this Privacy Policy or wish to exercise your privacy rights, please contact us:
+              If you have questions about this Privacy Policy or wish to exercise your privacy
+              rights, please contact us:
             </p>
             <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="mb-2"><strong>Free For Charity</strong></p>
-              <p className="mb-2">Email: <a href="mailto:privacy@freeforcharity.org" className="text-blue-600 hover:underline">privacy@freeforcharity.org</a></p>
+              <p className="mb-2">
+                <strong>Free For Charity</strong>
+              </p>
+              <p className="mb-2">
+                Email:{' '}
+                <a
+                  href="mailto:privacy@freeforcharity.org"
+                  className="text-blue-600 hover:underline"
+                >
+                  privacy@freeforcharity.org
+                </a>
+              </p>
               <p className="mb-2">Emergency Contact: Clarke Moyer</p>
-              <p>Phone: <a href="tel:520-222-8104" className="text-blue-600 hover:underline">520-222-8104</a></p>
+              <p>
+                Phone:{' '}
+                <a href="tel:520-222-8104" className="text-blue-600 hover:underline">
+                  520-222-8104
+                </a>
+              </p>
             </div>
           </section>
         </div>

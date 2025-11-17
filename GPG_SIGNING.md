@@ -7,6 +7,7 @@ This repository has branch protection rules that require all commits to have ver
 ## Understanding Verified Signatures on GitHub
 
 GitHub marks commits as "Verified" when:
+
 1. The commit is signed with a GPG or SSH key
 2. The public key is registered with the GitHub account that made the commit
 3. The commit author email matches an email in that GitHub account
@@ -65,6 +66,7 @@ For GitHub Actions workflows that create commits:
 ```
 
 **Requirements**:
+
 - Store GPG private key in repository secrets
 - Configure the corresponding public key in the GitHub account
 
@@ -79,13 +81,14 @@ await octokit.request('POST /repos/{owner}/{repo}/git/commits', {
   message: 'Commit message',
   tree: treeSha,
   parents: [parentSha],
-  signature: gpgSignature  // Requires GPG signature
+  signature: gpgSignature, // Requires GPG signature
 })
 ```
 
 ## Current Repository Configuration
 
 This repository requires:
+
 - ✅ Signed commits for all branches merging into `main`
 - ✅ At least 1 approving review from users with write access
 - ⚠️ Approvals from users who collaborated with Copilot don't count toward review requirements
@@ -98,7 +101,7 @@ Given that this is an open-source project using GitHub Copilot and automated wor
    - Adjust branch protection to allow unsigned commits from `copilot-swe-agent[bot]`
    - Manually sign and push commits after Copilot creates them
 
-2. **Long-term**: 
+2. **Long-term**:
    - Set up a GitHub App with signing capabilities for automated commits
    - OR use GitHub Actions workflows with GPG signing for all automated changes
    - Maintain signed commit requirements for human contributors

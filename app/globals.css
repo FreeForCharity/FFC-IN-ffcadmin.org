@@ -6,7 +6,7 @@
   .animate-fade-in {
     animation: fadeIn 1s ease-in;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;

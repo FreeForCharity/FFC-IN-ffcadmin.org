@@ -7,12 +7,14 @@ This repository uses three GitHub Actions workflows to ensure code quality, secu
 Runs automated tests and build verification on all pull requests and pushes to main branch.
 
 ### When it runs:
+
 - On pull requests targeting `main` branch
 - On pushes to `main` branch
 
 ### What it does:
 
 **Build, Test, and Verify Job:**
+
 1. Checks out the code
 2. Installs pnpm 9.0.0
 3. Sets up Node.js 20 (LTS) with pnpm cache enabled
@@ -30,11 +32,13 @@ This workflow ensures that all code changes pass tests and build successfully be
 Performs automated security analysis using GitHub's CodeQL engine to detect security vulnerabilities in JavaScript/TypeScript code.
 
 ### When it runs:
+
 - On pull requests targeting `main` branch
 - On pushes to `main` branch
 - Scheduled: Every Monday at 6:00 AM UTC
 
 ### What it does:
+
 1. Checks out the code
 2. Initializes CodeQL for JavaScript/TypeScript analysis
 3. Automatically builds the project
@@ -42,6 +46,7 @@ Performs automated security analysis using GitHub's CodeQL engine to detect secu
 5. Uploads results to GitHub Security tab
 
 ### Required Permissions:
+
 - `actions: read` - Read workflow information
 - `contents: read` - Read repository contents
 - `security-events: write` - Upload security scan results
@@ -74,6 +79,7 @@ Automatically builds and deploys the Next.js static site to GitHub Pages when ch
 ### Output
 
 The workflow exports a fully static site compatible with GitHub Pages, including:
+
 - `.nojekyll` file to prevent Jekyll processing
 - Static HTML files for all routes
 - Optimized JavaScript bundles
@@ -81,10 +87,10 @@ The workflow exports a fully static site compatible with GitHub Pages, including
 
 ## Workflow Summary
 
-| Workflow | Trigger | Purpose |
-|----------|---------|---------|
-| ci.yml | PRs and pushes to main | Run tests and verify builds |
+| Workflow            | Trigger                         | Purpose                         |
+| ------------------- | ------------------------------- | ------------------------------- |
+| ci.yml              | PRs and pushes to main          | Run tests and verify builds     |
 | codeql-analysis.yml | PRs, pushes to main, and weekly | Security vulnerability scanning |
-| deploy.yml | Pushes to main only | Deploy to GitHub Pages |
+| deploy.yml          | Pushes to main only             | Deploy to GitHub Pages          |
 
 All workflows must pass for pull requests to be merged into the main branch.

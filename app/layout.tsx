@@ -15,11 +15,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -47,9 +43,7 @@ export default function RootLayout({
           />
         </noscript>
         <Navigation />
-        <main className="flex-grow">
-          {children}
-        </main>
+        <main className="flex-grow">{children}</main>
         <Footer />
         <CookieConsent />
       </body>
