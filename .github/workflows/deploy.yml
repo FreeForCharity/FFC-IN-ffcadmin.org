@@ -29,7 +29,15 @@ jobs:
           script: |
             const owner = context.repo.owner
             const repo = context.repo.repo
-            const sha = github.event.workflow_run.head_commit.id || github.event.workflow_run.head_sha || github.sha
+            // Handle both workflow_run and workflow_dispatch triggers
+            const sha = context.eventName === 'workflow_run'
+              ? (context.payload.workflow_run?.head_commit?.id || context.payload.workflow_run?.head_sha)
+              : context.sha
+
+            if (!sha) {
+              throw new Error('Unable to determine commit SHA')
+            }
+
             const workflowsToCheck = [
               'CI - Build and Test',
               'CodeQL Security Analysis'
