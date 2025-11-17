@@ -63,14 +63,34 @@ npx serve out
 
 ```bash
 pnpm run dev              # Development server on localhost:3000
+pnpm run format           # Format code with Prettier (run FIRST)
+pnpm run format:check     # Check code formatting (used in CI)
+pnpm run lint             # ESLint validation (run AFTER format)
 pnpm run build            # Production build (static export to /out)
-pnpm run lint             # ESLint validation
-pnpm run format           # Format code with Prettier
-pnpm run format:check     # Check code formatting (CI)
 pnpm run test             # Run Jest test suite
 pnpm run test:watch       # Jest in watch mode
 pnpm run test:coverage    # Generate coverage report
 ```
+
+### Critical: Order of Operations
+
+When making changes, **always** follow this order (matches CI pipeline):
+
+```bash
+pnpm run format        # 1. Format first
+pnpm run lint          # 2. Lint second
+pnpm run build         # 3. Build third
+pnpm test              # 4. Test last
+```
+
+**Why this order?**
+
+- Prettier formats code before ESLint checks it (avoids style conflicts)
+- ESLint validates code quality before building
+- Build compiles TypeScript and generates static export
+- Tests validate the final build output
+
+**Never** run lint before format, as this causes conflicts between Prettier and ESLint style rules.
 
 ## Architecture & Tech Stack
 
@@ -183,17 +203,15 @@ pnpm run test:coverage    # Generate coverage report
 
 1. **Create a feature branch** (never commit directly to main)
 2. **Make minimal, focused changes** (this is a small, well-documented project)
-3. **Run linter and tests frequently:**
+3. **Run checks in the correct order (matches CI pipeline):**
    ```bash
-   pnpm run lint
-   pnpm test
-   pnpm run build
+   pnpm run format        # 1. Format code first
+   pnpm run lint          # 2. Check code quality
+   pnpm run build         # 3. Build and compile
+   pnpm test              # 4. Run tests
    ```
-4. **Format code before committing:**
-   ```bash
-   pnpm run format
-   ```
-5. **Commit with descriptive messages** (GPG signing handled automatically by CI)
+   **Critical:** Always run format BEFORE lint to avoid Prettier/ESLint conflicts.
+4. **Commit with descriptive messages** (GPG signing handled automatically by CI)
 
 ### CI/CD Pipeline
 

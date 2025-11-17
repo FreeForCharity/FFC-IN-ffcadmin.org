@@ -19,13 +19,36 @@ Runs automated tests and build verification on all pull requests and pushes to m
 2. Installs pnpm 9.0.0
 3. Sets up Node.js 20 (LTS) with pnpm cache enabled
 4. Installs dependencies with `pnpm install --frozen-lockfile`
-5. Runs linter with `pnpm run lint`
-6. Builds the project with `pnpm run build`
-7. Verifies build output directory is created
-8. Validates critical files exist (index.html, .nojekyll, 404.html)
-9. Runs tests with `pnpm test`
+5. Checks code formatting with `pnpm run format:check` (Prettier validation)
+6. Runs linter with `pnpm run lint` (ESLint validation)
+7. Builds the project with `pnpm run build` (Next.js build with TypeScript compilation)
+8. Verifies build output directory is created
+9. Validates critical files exist (index.html, .nojekyll, 404.html)
+10. Runs tests with `pnpm test` (Jest test suite)
 
 This workflow ensures that all code changes pass tests and build successfully before being merged. The pnpm cache significantly reduces CI time on subsequent runs.
+
+### Order of Operations and Why It Matters
+
+The CI steps run in a specific order to catch issues as early as possible:
+
+1. **Format Check First**: Prettier validation runs before linting to ensure consistent code formatting. This catches style issues immediately.
+2. **Lint Second**: ESLint runs after formatting to check code quality, best practices, and potential bugs.
+3. **Build Third**: The Next.js build (including TypeScript compilation) runs after linting to catch type errors and build issues.
+4. **Verify Fourth**: Build output validation ensures the static export is correct.
+5. **Test Last**: Jest tests run after build to validate the generated output.
+
+**Developer Workflow**: When developing locally, follow the same order:
+
+```bash
+pnpm run format        # Auto-fix formatting issues
+pnpm run format:check  # Verify formatting (or skip if you ran format)
+pnpm run lint          # Check code quality
+pnpm run build         # Build the project
+pnpm test              # Run tests
+```
+
+**Why format comes before lint**: Prettier and ESLint can conflict on style rules. Running format first ensures code style is consistent before ESLint checks other rules. The `eslint-config-prettier` package disables conflicting ESLint style rules.
 
 ## codeql-analysis.yml - Security Scanning
 

@@ -13,6 +13,7 @@
 - [Understanding GitHub Pages Caching](#understanding-github-pages-caching)
 - [Analytics](#analytics)
 - [Testing](#testing)
+- [Development Workflow](#development-workflow)
 - [Code Quality and Standards](#code-quality-and-standards)
 - [Commit Signing](#commit-signing)
 - [Documentation](#documentation)
@@ -348,6 +349,86 @@ The test suite covers:
 - Configuration validation (package.json, lock files)
 
 For detailed test case documentation, see [TEST_CASES.md](./TEST_CASES.md).
+
+## Development Workflow
+
+### Quick Start
+
+```bash
+# Install dependencies
+pnpm install --frozen-lockfile
+
+# Start development server
+pnpm run dev
+```
+
+### Making Changes: Step-by-Step
+
+When developing locally, follow this order to match the CI/CD pipeline:
+
+```bash
+# 1. Make your code changes
+# (edit files in your editor)
+
+# 2. Format code (auto-fix formatting)
+pnpm run format
+
+# 3. Check linting (code quality)
+pnpm run lint
+
+# 4. Build the project (TypeScript compilation)
+pnpm run build
+
+# 5. Run tests (validate everything works)
+pnpm test
+```
+
+### Why This Order Matters
+
+The CI/CD pipeline runs these steps in the same order:
+
+1. **Format First** - Prettier ensures consistent code style
+2. **Lint Second** - ESLint checks code quality after formatting
+3. **Build Third** - Catches TypeScript errors and build issues
+4. **Test Last** - Validates the final build output
+
+**Important:** Always run `format` before `lint` to avoid conflicts between Prettier and ESLint style rules.
+
+### Common Commands
+
+```bash
+# Development
+pnpm run dev              # Start dev server (localhost:3000)
+pnpm run format           # Auto-format all files
+pnpm run format:check     # Check if files are formatted (CI uses this)
+pnpm run lint             # Run ESLint
+pnpm run build            # Production build
+pnpm test                 # Run test suite
+pnpm test:watch           # Run tests in watch mode
+pnpm test:coverage        # Generate coverage report
+```
+
+### Before Committing
+
+Run all checks to ensure CI will pass:
+
+```bash
+pnpm run format && pnpm run lint && pnpm run build && pnpm test
+```
+
+If all checks pass locally, they should pass in CI.
+
+### CI/CD Pipeline
+
+All pull requests automatically run:
+
+- ✅ Format check (`pnpm run format:check`)
+- ✅ Linter (`pnpm run lint`)
+- ✅ Build validation (`pnpm run build`)
+- ✅ Test suite (`pnpm test`)
+- ✅ Security scanning (CodeQL)
+
+See [.github/workflows/README.md](./.github/workflows/README.md) for detailed CI/CD documentation.
 
 ## Code Quality and Standards
 
