@@ -1,7 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
+  workflow_run:
+    workflows: ['CI - Build and Test', 'CodeQL Security Analysis']
+    types:
+      - completed
     branches:
       - main
   workflow_dispatch:
@@ -18,7 +21,42 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Removed 'if' condition; status check is now handled in the first step
     steps:
+      - name: Ensure both CI and CodeQL workflows succeeded
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner
+            const repo = context.repo.repo
+            const sha = github.event.workflow_run.head_commit.id || github.event.workflow_run.head_sha || github.sha
+            const workflowsToCheck = [
+              'CI - Build and Test',
+              'CodeQL Security Analysis'
+            ]
+            for (const workflowName of workflowsToCheck) {
+              // Get workflow id by name
+              const workflows = await github.rest.actions.listRepoWorkflows({ owner, repo })
+              const workflow = workflows.data.workflows.find(w => w.name === workflowName)
+              if (!workflow) {
+                throw new Error(`Workflow '${workflowName}' not found`)
+              }
+              // Get latest run for this workflow on this commit
+              const runs = await github.rest.actions.listWorkflowRuns({
+                owner,
+                repo,
+                workflow_id: workflow.id,
+                branch: 'main',
+                event: 'push'
+              })
+              const run = runs.data.workflow_runs.find(r => r.head_sha === sha)
+              if (!run) {
+                throw new Error(`No run found for workflow '${workflowName}' on commit ${sha}`)
+              }
+              if (run.conclusion !== 'success') {
+                throw new Error(`Workflow '${workflowName}' did not succeed (status: ${run.conclusion})`)
+              }
+            }
       - name: Checkout
         uses: actions/checkout@v4
 

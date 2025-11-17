@@ -60,6 +60,9 @@ importers:
       jest-environment-jsdom:
         specifier: ^30.2.0
         version: 30.2.0
+      js-yaml:
+        specifier: ^4.1.1
+        version: 4.1.1
       postcss:
         specifier: ^8
         version: 8.5.6
