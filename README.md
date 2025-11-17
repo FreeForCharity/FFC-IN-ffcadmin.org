@@ -251,17 +251,7 @@ For detailed responsive design testing results, see [RESPONSIVE_TESTING_RESULTS.
 
 ## Analytics
 
-This site uses **Google Tag Manager (GTM)** to manage analytics and tracking tools, including **Microsoft Clarity** for user behavior analytics.
-This site uses **Google Tag Manager (GTM)** and **Microsoft Clarity** for user behavior analytics to help improve the user experience.
-
-### Google Tag Manager Setup
-
-Google Tag Manager (GTM-WMZH965Q) is integrated into all pages through the root layout (`app/layout.tsx`). The GTM implementation follows Google's official guidelines:
-
-- **Head Script**: Placed in the `<head>` section as high as possible using Next.js's `Script` component with `strategy="afterInteractive"` for optimal loading performance
-- **Body Noscript**: Fallback iframe placed immediately after the opening `<body>` tag for users with JavaScript disabled
-
-GTM provides a centralized way to manage tracking tags, analytics, and marketing tools without modifying code.
+This site uses **Google Tag Manager (GTM)** to manage analytics and tracking tools, including **Microsoft Clarity** for user behavior analytics to help improve the user experience.
 
 ### Google Tag Manager Setup
 
@@ -279,8 +269,8 @@ Google Tag Manager is configured with container ID **GTM-WMZH965Q** and is loade
    ```javascript
    window.dataLayer.push({
      event: 'consent_update',
-     analytics_consent: 'granted' | 'denied',
-     marketing_consent: 'granted' | 'denied'
+     analytics_consent: 'granted',  // or 'denied'
+     marketing_consent: 'granted'   // or 'denied'
    })
    ```
 4. **GTM Triggers**: Configure tags in GTM to fire based on consent_update events

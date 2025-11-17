@@ -6,10 +6,16 @@ import { useState, useEffect, useRef } from 'react'
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || 'XXXXXXXXXXXXXXX'
 
+// Define type for GTM dataLayer events
+interface DataLayerEvent {
+  event: string;
+  [key: string]: any;
+}
+
 // Extend Window interface to include dataLayer
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: DataLayerEvent[];
   }
 }
 
@@ -127,7 +133,8 @@ export default function CookieConsent() {
     }
     
     // Push consent update to GTM dataLayer
-    if (typeof window !== 'undefined' && window.dataLayer) {
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: 'consent_update',
         analytics_consent: prefs.analytics ? 'granted' : 'denied',
