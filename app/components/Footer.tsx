@@ -12,9 +12,49 @@ export default function Footer() {
           <div>
             <h3 className="text-white text-lg font-bold mb-4">Endorsements</h3>
             <div className="space-y-4">
-              <div className="text-sm text-gray-400">
-                <p className="mb-2">GuideStar Platinum Transparency 2024</p>
-                <p className="text-xs">Free For Charity EIN: 46-2471893</p>
+              {/* GuideStar Platinum Seal Widget */}
+              <div className="flex flex-col items-start">
+                <a
+                  href="https://www.guidestar.org/profile/shared/bbbe173a-87b9-4af9-a8a2-cae255a95742"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block hover:opacity-80 transition-opacity mb-3"
+                  aria-label="View Free For Charity's GuideStar Platinum Transparency Profile"
+                >
+                  <img
+                    src="https://widgets.guidestar.org/gximage2?o=9159614&l=v4"
+                    alt="GuideStar Platinum Transparency 2024"
+                    className="h-auto"
+                    style={{ maxWidth: '150px' }}
+                  />
+                </a>
+                <a
+                  href="https://www.guidestar.org/profile/shared/bbbe173a-87b9-4af9-a8a2-cae255a95742"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center"
+                  aria-label="View Full GuideStar Profile"
+                >
+                  Direct GuideStar Profile Link
+                  <svg
+                    className="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
+                <p className="mt-2 text-xs text-gray-400">
+                  Free For Charity EIN: 46-2471893
+                </p>
               </div>
             </div>
           </div>
