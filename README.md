@@ -252,6 +252,16 @@ For detailed responsive design testing results, see [RESPONSIVE_TESTING_RESULTS.
 ## Analytics
 
 This site uses **Google Tag Manager (GTM)** to manage analytics and tracking tools, including **Microsoft Clarity** for user behavior analytics.
+This site uses **Google Tag Manager (GTM)** and **Microsoft Clarity** for user behavior analytics to help improve the user experience.
+
+### Google Tag Manager Setup
+
+Google Tag Manager (GTM-WMZH965Q) is integrated into all pages through the root layout (`app/layout.tsx`). The GTM implementation follows Google's official guidelines:
+
+- **Head Script**: Placed in the `<head>` section as high as possible using Next.js's `Script` component with `strategy="afterInteractive"` for optimal loading performance
+- **Body Noscript**: Fallback iframe placed immediately after the opening `<body>` tag for users with JavaScript disabled
+
+GTM provides a centralized way to manage tracking tags, analytics, and marketing tools without modifying code.
 
 ### Google Tag Manager Setup
 
