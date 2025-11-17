@@ -57,11 +57,13 @@ git log --show-signature -1 <commit-hash>
 ### Commits Still Show as Unverified
 
 **Possible Causes:**
+
 1. `GPG_PRIVATE_KEY` secret not configured
 2. Public key not added to GitHub account
 3. Workflow disabled or failing
 
 **Solution:**
+
 1. Check repository secrets: Settings → Secrets and variables → Actions
 2. Verify public key added: GitHub Settings → SSH and GPG keys
 3. Check workflow runs: Actions tab → Look for "Auto-Sign Commits" workflow
@@ -69,11 +71,13 @@ git log --show-signature -1 <commit-hash>
 ### Workflow Not Running
 
 **Possible Causes:**
+
 1. Workflow file missing or incorrect
 2. Branch protection not triggering workflow
 3. Bot commits not being detected
 
 **Solution:**
+
 1. Verify `.github/workflows/auto-sign-commits.yml` exists
 2. Check workflow trigger conditions match your setup
 3. Review workflow logs in Actions tab
@@ -103,4 +107,3 @@ If you encounter unsigned commit errors:
 2. **Contact Repository Admin** - They can configure auto-signing
 3. **Alternative:** Set up personal GPG signing following [GPG_SIGNING.md](GPG_SIGNING.md)
 4. **Learn More:** Read the documentation linked above to understand the system
-

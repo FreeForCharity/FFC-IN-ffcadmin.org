@@ -92,13 +92,13 @@ jobs:
           # WARNING: This rewrites history and requires force push
           set -e
           echo "⚠️ Starting rebase to sign commits..."
-          
+
           if ! git rebase --exec 'git commit --amend --no-edit -n -S' origin/main; then
             echo "❌ Rebase failed. Aborting..."
             git rebase --abort
             exit 1
           fi
-          
+
           echo "✅ Successfully signed commits"
 
       - name: Force push signed commits

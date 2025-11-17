@@ -7,6 +7,7 @@ This guide will walk you through setting up automatic GPG commit signing for thi
 When GPG keys are properly configured, the `auto-sign-commits.yml` workflow will automatically sign any commits made by GitHub Actions bots (like copilot-swe-agent[bot] or github-actions[bot]).
 
 **Key Information:**
+
 - Organization: Free For Charity
 - Email: globaladmin@freeforcharity.org
 - Key ID: B5C1FBB290F87E9D
@@ -26,6 +27,7 @@ When GPG keys are properly configured, the `auto-sign-commits.yml` workflow will
 ### Step 1: Use the Official Free For Charity GPG Key
 
 The repository uses the official Free For Charity GPG key:
+
 - `gpg-keys/public-key.asc` - Public key (included in repository)
 - `gpg-keys/key-info.txt` - Key details
 
@@ -106,6 +108,7 @@ This means the `GPG_PRIVATE_KEY` secret is not set. Complete Step 3 above.
 ### Workflow doesn't run
 
 The `auto-sign-commits.yml` workflow only runs for:
+
 - Pushes to branches (not main)
 - Commits made by bots (copilot-swe-agent[bot] or github-actions[bot])
 
@@ -123,6 +126,7 @@ If you're testing with your own commits, the workflow won't trigger.
 ## What Happens Next
 
 Once configured:
+
 1. ✅ Future Copilot PRs will have signed commits
 2. ✅ GitHub Actions workflows can commit with signatures
 3. ✅ Branch protection rules will be satisfied

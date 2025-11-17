@@ -4,8 +4,20 @@ import { useState, useEffect, useRef } from 'react'
 
 // Environment variables for tracking IDs (replace with actual values)
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
-const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || 'XXXXXXXXXX'
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || 'XXXXXXXXXXXXXXX'
+
+// Define type for GTM dataLayer events
+interface DataLayerEvent {
+  event: string
+  [key: string]: any
+}
+
+// Extend Window interface to include dataLayer
+declare global {
+  interface Window {
+    dataLayer: DataLayerEvent[]
+  }
+}
 
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false)
@@ -34,7 +46,7 @@ export default function CookieConsent() {
         if (showBannerIfMissing) setShowBanner(true)
         return
       }
-      
+
       // Validate the structure
       if (
         typeof savedPreferences === 'object' &&
@@ -58,7 +70,7 @@ export default function CookieConsent() {
 
   useEffect(() => {
     // Expose method to window for reopening preferences from other components
-    (window as any).openCookiePreferences = () => {
+    ;(window as any).openCookiePreferences = () => {
       setShowBanner(true)
       setShowPreferences(true)
       loadPreferencesFromLocalStorage(false)
@@ -79,13 +91,13 @@ export default function CookieConsent() {
     if (showPreferences && modalRef.current) {
       // Store the previously focused element
       previousFocusRef.current = document.activeElement as HTMLElement
-      
+
       // Focus the first focusable element in the modal
       const focusableElements = modalRef.current.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       )
       if (focusableElements.length > 0) {
-        (focusableElements[0] as HTMLElement).focus()
+        ;(focusableElements[0] as HTMLElement).focus()
       }
 
       // Handle Escape key
@@ -110,20 +122,35 @@ export default function CookieConsent() {
   const applyConsent = (prefs: typeof preferences, previousPrefs?: typeof preferences) => {
     // Set a cookie to indicate consent status with Secure flag (only on HTTPS)
     const cookieValue = JSON.stringify(prefs)
-    const secureFlag = typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
+    const secureFlag =
+      typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
     document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax${secureFlag}`
-    
+
     // Check if consent was withdrawn and delete cookies if needed
     if (previousPrefs) {
-      if ((previousPrefs.analytics && !prefs.analytics) || (previousPrefs.marketing && !prefs.marketing)) {
+      if (
+        (previousPrefs.analytics && !prefs.analytics) ||
+        (previousPrefs.marketing && !prefs.marketing)
+      ) {
         deleteAnalyticsCookies()
       }
     }
-    
+
+    // Push consent update to GTM dataLayer
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({
+        event: 'consent_update',
+        analytics_consent: prefs.analytics ? 'granted' : 'denied',
+        marketing_consent: prefs.marketing ? 'granted' : 'denied',
+      })
+    }
+
     // Load scripts based on consent independently
     if (prefs.analytics) {
       loadGoogleAnalytics()
-      loadMicrosoftClarity()
+      // Microsoft Clarity is now managed via Google Tag Manager
+      // No direct Clarity initialization needed
     }
     if (prefs.marketing) {
       loadMetaPixel()
@@ -131,14 +158,18 @@ export default function CookieConsent() {
   }
 
   const loadGoogleAnalytics = () => {
-    if (typeof window !== 'undefined' && !document.querySelector('script[src*="googletagmanager.com/gtag"]')) {
+    if (
+      typeof window !== 'undefined' &&
+      !document.querySelector('script[src*="googletagmanager.com/gtag"]')
+    ) {
       const gaScript = document.createElement('script')
       gaScript.async = true
       gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
       document.head.appendChild(gaScript)
 
       const gaConfigScript = document.createElement('script')
-      const secureFlag = typeof window !== 'undefined' && window.location.protocol === 'https:' ? ';Secure' : ''
+      const secureFlag =
+        typeof window !== 'undefined' && window.location.protocol === 'https:' ? ';Secure' : ''
       gaConfigScript.textContent = `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -149,20 +180,6 @@ export default function CookieConsent() {
         });
       `
       document.head.appendChild(gaConfigScript)
-    }
-  }
-
-  const loadMicrosoftClarity = () => {
-    if (typeof window !== 'undefined' && !document.querySelector('script[src*="clarity.ms"]')) {
-      const clarityScript = document.createElement('script')
-      clarityScript.textContent = `
-        (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
-      `
-      document.head.appendChild(clarityScript)
     }
   }
 
@@ -197,18 +214,18 @@ export default function CookieConsent() {
   const deleteAnalyticsCookies = () => {
     // List of static cookie names to delete
     const cookiesToDelete = ['_ga', '_gid', '_fbp', 'fr', '_clck', '_clsk']
-    
+
     // Delete static cookies
-    cookiesToDelete.forEach(name => {
+    cookiesToDelete.forEach((name) => {
       // Delete for current domain
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
       // Also try to delete with domain specification
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
     })
-    
+
     // Dynamically delete all cookies matching _ga_* (e.g., _ga_G-XXXXXXXXXX)
     if (typeof document !== 'undefined') {
-      document.cookie.split(';').forEach(cookie => {
+      document.cookie.split(';').forEach((cookie) => {
         const cookieName = cookie.split('=')[0].trim()
         if (cookieName.startsWith('_ga_')) {
           // Delete for current domain
@@ -251,10 +268,10 @@ export default function CookieConsent() {
       // If localStorage is unavailable, continue anyway
       console.warn('Unable to save preferences to localStorage:', e)
     }
-    
+
     // Delete third-party cookies when consent is withdrawn
     deleteAnalyticsCookies()
-    
+
     applyConsent(onlyNecessary, savedPreferencesBackup)
     setSavedPreferencesBackup(onlyNecessary)
     setShowBanner(false)
@@ -291,7 +308,7 @@ export default function CookieConsent() {
 
   if (showPreferences) {
     return (
-      <div 
+      <div
         className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
         role="dialog"
         aria-modal="true"
@@ -303,12 +320,17 @@ export default function CookieConsent() {
           }
         }}
       >
-        <div ref={modalRef} className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div
+          ref={modalRef}
+          className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        >
           <div className="p-6">
-            <h2 id="cookie-preferences-title" className="text-2xl font-bold text-gray-900 mb-4">Cookie Preferences</h2>
+            <h2 id="cookie-preferences-title" className="text-2xl font-bold text-gray-900 mb-4">
+              Cookie Preferences
+            </h2>
             <p className="text-gray-600 mb-6">
-              We use cookies to enhance your browsing experience and analyze our traffic. 
-              You can choose which types of cookies you allow.
+              We use cookies to enhance your browsing experience and analyze our traffic. You can
+              choose which types of cookies you allow.
             </p>
 
             {/* Necessary Cookies */}
@@ -326,9 +348,9 @@ export default function CookieConsent() {
                 </div>
               </div>
               <p className="text-sm text-gray-600">
-                These cookies are essential for the website to function properly. They enable basic 
-                features like page navigation and access to secure areas. The website cannot function 
-                properly without these cookies.
+                These cookies are essential for the website to function properly. They enable basic
+                features like page navigation and access to secure areas. The website cannot
+                function properly without these cookies.
               </p>
             </div>
 
@@ -340,7 +362,9 @@ export default function CookieConsent() {
                   <input
                     type="checkbox"
                     checked={preferences.analytics}
-                    onChange={(e) => setPreferences({ ...preferences, analytics: e.target.checked })}
+                    onChange={(e) =>
+                      setPreferences({ ...preferences, analytics: e.target.checked })
+                    }
                     className="sr-only peer"
                     aria-label="Enable analytics cookies"
                   />
@@ -348,12 +372,11 @@ export default function CookieConsent() {
                 </label>
               </div>
               <p className="text-sm text-gray-600 mb-2">
-                These cookies help us understand how visitors interact with our website by collecting 
-                and reporting information anonymously. We use Google Analytics and Microsoft Clarity.
+                These cookies help us understand how visitors interact with our website by
+                collecting and reporting information anonymously. We use Google Analytics and
+                Microsoft Clarity.
               </p>
-              <p className="text-xs text-gray-500">
-                Services: Google Analytics, Microsoft Clarity
-              </p>
+              <p className="text-xs text-gray-500">Services: Google Analytics, Microsoft Clarity</p>
             </div>
 
             {/* Marketing Cookies */}
@@ -364,7 +387,9 @@ export default function CookieConsent() {
                   <input
                     type="checkbox"
                     checked={preferences.marketing}
-                    onChange={(e) => setPreferences({ ...preferences, marketing: e.target.checked })}
+                    onChange={(e) =>
+                      setPreferences({ ...preferences, marketing: e.target.checked })
+                    }
                     className="sr-only peer"
                     aria-label="Enable marketing cookies"
                   />
@@ -372,12 +397,10 @@ export default function CookieConsent() {
                 </label>
               </div>
               <p className="text-sm text-gray-600 mb-2">
-                These cookies are used to track visitors across websites. The intention is to display 
-                ads that are relevant and engaging for the individual user.
+                These cookies are used to track visitors across websites. The intention is to
+                display ads that are relevant and engaging for the individual user.
               </p>
-              <p className="text-xs text-gray-500">
-                Services: Meta Pixel (Facebook)
-              </p>
+              <p className="text-xs text-gray-500">Services: Meta Pixel (Facebook)</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 mt-6">
@@ -401,7 +424,7 @@ export default function CookieConsent() {
   }
 
   return (
-    <div 
+    <div
       className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-gray-200 shadow-2xl"
       role="region"
       aria-label="Cookie consent notice"
@@ -411,14 +434,18 @@ export default function CookieConsent() {
           <div className="flex-1">
             <h3 className="text-lg font-bold text-gray-900 mb-2">We Value Your Privacy</h3>
             <p className="text-sm text-gray-600 mb-3">
-              We use cookies to improve your experience on our site, analyze traffic, and enable 
-              certain features. By clicking "Accept All", you consent to our use of cookies for 
-              analytics and marketing purposes. You can manage your preferences or decline 
+              We use cookies to improve your experience on our site, analyze traffic, and enable
+              certain features. By clicking "Accept All", you consent to our use of cookies for
+              analytics and marketing purposes. You can manage your preferences or decline
               non-essential cookies.
             </p>
             <div className="flex items-center gap-4 text-xs text-gray-500">
-              <a href="/privacy-policy" className="text-blue-600 hover:underline">Privacy Policy</a>
-              <a href="/cookie-policy" className="text-blue-600 hover:underline">Cookie Policy</a>
+              <a href="/privacy-policy" className="text-blue-600 hover:underline">
+                Privacy Policy
+              </a>
+              <a href="/cookie-policy" className="text-blue-600 hover:underline">
+                Cookie Policy
+              </a>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">

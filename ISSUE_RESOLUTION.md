@@ -5,6 +5,7 @@
 The repository has branch protection rules that require all commits to have verified GPG signatures before they can be merged into `main`. This was blocking automated commits from tools like GitHub Copilot from being merged.
 
 **Error Message:**
+
 > "Commits must have verified signatures."
 
 ## Root Cause
@@ -21,6 +22,7 @@ The repository has branch protection rules that require all commits to have veri
 This PR provides a comprehensive solution using the official Free For Charity GPG key:
 
 **Official Signing Key:**
+
 - Organization: Free For Charity
 - Email: globaladmin@freeforcharity.org
 - Key ID: B5C1FBB290F87E9D
@@ -58,14 +60,15 @@ This PR provides a comprehensive solution using the official Free For Charity GP
 
 ### Commits in This PR
 
-| Commit | Signed | Note |
-|--------|--------|------|
-| `4cf488f` | ❌ No | Initial plan (before GPG setup) |
-| `d3fc7a2` | ✅ Yes | Configuration and workflows added |
+| Commit    | Signed | Note                                 |
+| --------- | ------ | ------------------------------------ |
+| `4cf488f` | ❌ No  | Initial plan (before GPG setup)      |
+| `d3fc7a2` | ✅ Yes | Configuration and workflows added    |
 | `5cfbf4b` | ✅ Yes | GPG key documentation and YAML fixes |
-| `fb5b139` | ✅ Yes | Code review issues addressed |
+| `fb5b139` | ✅ Yes | Code review issues addressed         |
 
 **Signature Details:**
+
 - Key ID: `0BA190D398E986A5`
 - Key Type: RSA 4096-bit
 - Signer: copilot-swe-agent[bot] <198982749+Copilot@users.noreply.github.com>
@@ -89,6 +92,7 @@ git log --show-signature
 This is the best long-term solution:
 
 1. Run the setup script:
+
    ```bash
    ./scripts/setup-gpg-signing.sh
    ```
@@ -130,6 +134,7 @@ If you prefer to allow unsigned commits from trusted automation:
 ## Current Status
 
 ### What's Working
+
 - ✅ Documentation complete and comprehensive
 - ✅ Automated workflows created and tested
 - ✅ Helper script functional and improved
@@ -140,6 +145,7 @@ If you prefer to allow unsigned commits from trusted automation:
 - ✅ Code review feedback addressed
 
 ### What's Pending
+
 - ⏳ One unsigned commit (`4cf488f`) remains (made before GPG setup)
 - ⏳ Public GPG key needs to be added to bot account for "Verified" badge on GitHub
 - ⏳ Repository admin needs to choose and implement one of the solution options
@@ -162,6 +168,7 @@ If you prefer to allow unsigned commits from trusted automation:
 ### No Application Code Changes
 
 This PR contains **only documentation and tooling**. No application code was modified, ensuring:
+
 - No risk of breaking existing functionality
 - No need for extensive testing of application features
 - Easy to review and understand
@@ -170,6 +177,7 @@ This PR contains **only documentation and tooling**. No application code was mod
 ## Security Summary
 
 ### Security Analysis
+
 - ✅ CodeQL scan completed with 0 alerts
 - ✅ No security vulnerabilities introduced
 - ✅ Script includes security warnings about passphrase handling
@@ -178,6 +186,7 @@ This PR contains **only documentation and tooling**. No application code was mod
 - ✅ POSIX compliance improved for cross-platform compatibility
 
 ### Security Considerations
+
 - Private GPG keys must be stored securely in GitHub Secrets
 - Passphrase (if used) should be stored in secrets, not in code
 - Public keys can be safely committed to the repository
@@ -202,6 +211,7 @@ This PR contains **only documentation and tooling**. No application code was mod
 ## Support
 
 For questions or issues:
+
 - See `GPG_SIGNING.md` for detailed documentation
 - Check GitHub's official documentation on [commit signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification)
 - Review the workflows in `.github/workflows/` for automation examples
