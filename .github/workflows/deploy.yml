@@ -19,11 +19,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  check-workflows:
+    name: Check if all required workflows completed
     runs-on: ubuntu-latest
-    # Removed 'if' condition; status check is now handled in the first step
+    outputs:
+      should_deploy: ${{ steps.check.outputs.should_deploy }}
     steps:
-      - name: Ensure both CI and CodeQL workflows succeeded
+      - name: Check both CI and CodeQL workflows status
+        id: check
         uses: actions/github-script@v7
         with:
           script: |
@@ -42,29 +45,75 @@ jobs:
               'CI - Build and Test',
               'CodeQL Security Analysis'
             ]
+
+            console.log(`Checking workflows for commit ${sha}...`)
+
+            let allCompleted = true
+            let allSucceeded = true
+
+            // Get all workflows once to avoid multiple API calls
+            const workflows = await github.rest.actions.listRepoWorkflows({ owner, repo })
+
             for (const workflowName of workflowsToCheck) {
-              // Get workflow id by name
-              const workflows = await github.rest.actions.listRepoWorkflows({ owner, repo })
+              // Find workflow by name
               const workflow = workflows.data.workflows.find(w => w.name === workflowName)
               if (!workflow) {
                 throw new Error(`Workflow '${workflowName}' not found`)
               }
+              
               // Get latest run for this workflow on this commit
               const runs = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
                 workflow_id: workflow.id,
-                branch: 'main',
-                event: 'push'
+                branch: 'main'
               })
               const run = runs.data.workflow_runs.find(r => r.head_sha === sha)
+              
               if (!run) {
-                throw new Error(`No run found for workflow '${workflowName}' on commit ${sha}`)
+                throw new Error(`❌ Required workflow '${workflowName}' has no run for commit ${sha}. This may indicate a misconfiguration or a CI failure. Deployment aborted.`)
               }
+              
+              console.log(`Workflow '${workflowName}': status=${run.status}, conclusion=${run.conclusion}`)
+              
+              // Check if workflow has completed
+              if (run.status !== 'completed') {
+                console.log(`⏳ Workflow '${workflowName}' has not completed yet (status: ${run.status})`)
+                allCompleted = false
+                continue
+              }
+              
+              // Check if workflow succeeded
               if (run.conclusion !== 'success') {
-                throw new Error(`Workflow '${workflowName}' did not succeed (status: ${run.conclusion})`)
+                console.log(`❌ Workflow '${workflowName}' did not succeed (conclusion: ${run.conclusion})`)
+                allSucceeded = false
+                continue
               }
+              
+              console.log(`✓ Workflow '${workflowName}' completed successfully`)
             }
+
+            if (!allSucceeded) {
+              console.log('❌ Some workflows failed. Aborting deployment.')
+              core.setFailed('One or more required workflows failed')
+              return
+            }
+
+            if (!allCompleted) {
+              console.log('⏸ Not all workflows have completed. Skipping deployment for now.')
+              core.setOutput('should_deploy', 'false')
+              return
+            }
+
+            console.log('✓ All required workflows completed successfully. Proceeding with deployment.')
+            core.setOutput('should_deploy', 'true')
+
+  build:
+    name: Build site for deployment
+    runs-on: ubuntu-latest
+    needs: check-workflows
+    if: needs.check-workflows.outputs.should_deploy == 'true'
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 

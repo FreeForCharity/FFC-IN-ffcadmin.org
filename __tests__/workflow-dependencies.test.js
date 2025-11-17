@@ -43,16 +43,31 @@ describe('Workflow Dependencies Tests', () => {
     })
 
     // Note: workflow_run with multiple workflows triggers when ANY ONE completes.
-    // The actual verification that BOTH succeeded is handled by the first step
+    // The actual verification that BOTH succeeded is handled by a separate check-workflows job
     // using GitHub Actions API to check both workflow statuses.
-    it('should have verification step to check both workflows succeeded', () => {
+    it('should have check-workflows job to verify both workflows succeeded', () => {
+      expect(deployWorkflow.jobs).toHaveProperty('check-workflows')
+      const checkWorkflowsJob = deployWorkflow.jobs['check-workflows']
+      expect(checkWorkflowsJob.outputs).toHaveProperty('should_deploy')
+
+      const checkStep = checkWorkflowsJob.steps.find(
+        (step) => step.id === 'check' || step.name.includes('workflows status')
+      )
+      expect(checkStep).toBeDefined()
+      expect(checkStep.uses).toBe('actions/github-script@v7')
+      expect(checkStep.with.script).toContain('CI - Build and Test')
+      expect(checkStep.with.script).toContain('CodeQL Security Analysis')
+      expect(checkStep.with.script).toContain("conclusion !== 'success'")
+    })
+
+    it('should have build job depend on check-workflows job', () => {
       const buildJob = deployWorkflow.jobs.build
-      const firstStep = buildJob.steps[0]
-      expect(firstStep.name).toBe('Ensure both CI and CodeQL workflows succeeded')
-      expect(firstStep.uses).toBe('actions/github-script@v7')
-      expect(firstStep.with.script).toContain('CI - Build and Test')
-      expect(firstStep.with.script).toContain('CodeQL Security Analysis')
-      expect(firstStep.with.script).toContain("conclusion !== 'success'")
+      expect(buildJob.needs).toBe('check-workflows')
+    })
+
+    it('should conditionally run build job only when should_deploy is true', () => {
+      const buildJob = deployWorkflow.jobs.build
+      expect(buildJob.if).toBe("needs.check-workflows.outputs.should_deploy == 'true'")
     })
 
     it('should trigger on workflow completion', () => {
