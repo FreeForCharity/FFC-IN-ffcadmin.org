@@ -255,19 +255,28 @@ This site uses **Microsoft Clarity** for user behavior analytics to help improve
 
 ### Microsoft Clarity Setup
 
-Microsoft Clarity is integrated into all pages through the root layout (`app/layout.tsx`). To configure your Clarity project:
+Microsoft Clarity is integrated using the official [`@microsoft/clarity`](https://www.npmjs.com/package/@microsoft/clarity) NPM package and only loads after the user consents to analytics cookies. To configure your Clarity project:
 
 1. Sign up for a free Microsoft Clarity account at [https://clarity.microsoft.com/](https://clarity.microsoft.com/)
-2. Create a new project and obtain your Clarity Project ID
-3. Set the `NEXT_PUBLIC_CLARITY_PROJECT_ID` environment variable in your deployment environment or create a `.env.local` file with your Clarity Project ID:
+2. Create a new project and obtain your Clarity Project ID (found in your project's Settings > Overview)
+3. **For local development**: Create a `.env.local` file (copy from `.env.example`) and add your Clarity Project ID:
    ```
    NEXT_PUBLIC_CLARITY_PROJECT_ID=your_project_id_here
    ```
-4. Rebuild and deploy the site
+4. **For GitHub Pages deployment**: Add the `NEXT_PUBLIC_CLARITY_PROJECT_ID` as a repository secret:
+   - Go to your repository's Settings > Secrets and variables > Actions
+   - Click "New repository secret"
+   - Name: `NEXT_PUBLIC_CLARITY_PROJECT_ID`
+   - Value: Your Clarity project ID
+5. Rebuild and deploy the site
 
-The Clarity tracking script is loaded using Next.js's `Script` component with the `afterInteractive` strategy to ensure it doesn't block page rendering.
+The Clarity tracking script is loaded using the `@microsoft/clarity` NPM package's `Clarity.init()` method, which is called only after the user accepts analytics cookies in the cookie consent banner.
 
-**Note:** As documented in the [Technology Stack](./app/tech-stack/page.tsx), this site prioritizes privacy and compliance. In production deployments, analytics should be consent-gated according to CCPA/CPRA and GDPR requirements using Cloudflare Zaraz or similar consent management solutions.
+**Privacy & Compliance:** This implementation is privacy-compliant and follows GDPR/CCPA requirements:
+- Clarity only loads after explicit user consent
+- The cookie consent banner is displayed on first visit
+- Users can customize their cookie preferences at any time
+- Analytics cookies are deleted if consent is withdrawn
 
 ## Testing
 
