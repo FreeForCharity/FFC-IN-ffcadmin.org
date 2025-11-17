@@ -2,6 +2,9 @@
 
 import Link from 'next/link'
 
+const GUIDESTAR_PROFILE_URL =
+  'https://www.guidestar.org/profile/shared/bbbe173a-87b9-4af9-a8a2-cae255a95742'
+
 export default function Footer() {
   return (
     <footer className="bg-black text-white mt-auto">
@@ -15,7 +18,7 @@ export default function Footer() {
               {/* GuideStar Platinum Seal Widget */}
               <div className="flex flex-col items-start">
                 <a
-                  href="https://www.guidestar.org/profile/shared/bbbe173a-87b9-4af9-a8a2-cae255a95742"
+                  href={GUIDESTAR_PROFILE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block hover:opacity-80 transition-opacity mb-3"
@@ -24,12 +27,11 @@ export default function Footer() {
                   <img
                     src="https://widgets.guidestar.org/gximage2?o=9159614&l=v4"
                     alt="GuideStar Platinum Transparency 2024"
-                    className="h-auto"
-                    style={{ maxWidth: '150px' }}
+                    className="h-auto max-w-[150px]"
                   />
                 </a>
                 <a
-                  href="https://www.guidestar.org/profile/shared/bbbe173a-87b9-4af9-a8a2-cae255a95742"
+                  href={GUIDESTAR_PROFILE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center"
