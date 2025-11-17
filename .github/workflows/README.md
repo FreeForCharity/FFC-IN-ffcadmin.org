@@ -82,10 +82,11 @@ Automatically builds and deploys the Next.js static site to GitHub Pages **after
 
 ### When it runs:
 
-- **After successful completion** of both:
-  - `CI - Build and Test` workflow
-  - `CodeQL Security Analysis` workflow
+- Triggered when **either** `CI - Build and Test` or `CodeQL Security Analysis` workflow completes on main
+- The first step explicitly verifies that **both** workflows have succeeded before proceeding
 - On manual trigger via `workflow_dispatch`
+
+**Note:** While `workflow_run` triggers when any listed workflow completes, the deployment includes an explicit verification step using GitHub Actions API to ensure both CI and CodeQL workflows have completed successfully on the same commit before proceeding with deployment.
 
 This ensures code is never deployed without passing all quality and security checks.
 
@@ -130,8 +131,11 @@ The workflow exports a fully static site compatible with GitHub Pages, including
 When code is pushed to `main`:
 
 1. **CI - Build and Test** and **CodeQL Security Analysis** run in parallel
-2. Once **both** complete successfully, **Deploy to GitHub Pages** runs
-3. If either CI or CodeQL fails, deployment is skipped
+2. When **either** workflow completes, **Deploy to GitHub Pages** is triggered
+3. Deploy workflow's first step verifies **both** CI and CodeQL succeeded on the same commit
+4. If verification passes, deployment proceeds; otherwise, deployment fails immediately
+
+**Implementation Detail:** GitHub Actions `workflow_run` with multiple workflows triggers when any one completes. To ensure both workflows succeed before deployment, the deploy workflow includes an explicit API-based verification step that checks the status of both workflows on the current commit before proceeding.
 
 This sequential execution ensures:
 

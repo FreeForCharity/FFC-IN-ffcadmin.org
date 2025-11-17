@@ -42,6 +42,19 @@ describe('Workflow Dependencies Tests', () => {
       expect(workflows).toContain('CodeQL Security Analysis')
     })
 
+    // Note: workflow_run with multiple workflows triggers when ANY ONE completes.
+    // The actual verification that BOTH succeeded is handled by the first step
+    // using GitHub Actions API to check both workflow statuses.
+    it('should have verification step to check both workflows succeeded', () => {
+      const buildJob = deployWorkflow.jobs.build
+      const firstStep = buildJob.steps[0]
+      expect(firstStep.name).toBe('Ensure both CI and CodeQL workflows succeeded')
+      expect(firstStep.uses).toBe('actions/github-script@v7')
+      expect(firstStep.with.script).toContain('CI - Build and Test')
+      expect(firstStep.with.script).toContain('CodeQL Security Analysis')
+      expect(firstStep.with.script).toContain("conclusion !== 'success'")
+    })
+
     it('should trigger on workflow completion', () => {
       const types = deployWorkflow.on.workflow_run.types
       expect(types).toContain('completed')
@@ -52,20 +65,8 @@ describe('Workflow Dependencies Tests', () => {
       expect(branches).toContain('main')
     })
 
-    it('should check for successful workflow conclusion', () => {
-      const buildJob = deployWorkflow.jobs.build
-      expect(buildJob.if).toBeDefined()
-      expect(buildJob.if).toMatch(/github\.event\.workflow_run\.conclusion/)
-      expect(buildJob.if).toMatch(/success/)
-    })
-
     it('should allow manual workflow_dispatch', () => {
       expect(deployWorkflow.on).toHaveProperty('workflow_dispatch')
-    })
-
-    it('should allow workflow_dispatch to bypass success check', () => {
-      const buildJob = deployWorkflow.jobs.build
-      expect(buildJob.if).toMatch(/workflow_dispatch/)
     })
   })
 
