@@ -326,6 +326,12 @@ pnpm run build
 - Primary: https://ffcadmin.org (custom domain)
 - Backup: https://freeforcharity.github.io/ffcadmin.org/
 
+**DNS Configuration:**
+
+- Custom domain DNS is routed by CloudFlare in proxy mode
+- CloudFlare acts as a CDN and provides additional caching layer
+- DNS changes may take additional time to propagate through CloudFlare's network
+
 ## Common Patterns & Conventions
 
 ### Component Structure
