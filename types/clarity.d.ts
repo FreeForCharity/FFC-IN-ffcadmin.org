@@ -1,5 +1,8 @@
 declare module '@microsoft/clarity' {
-  interface ClarityAPI {
+  /**
+   * Microsoft Clarity API for tracking user behavior and analytics
+   */
+  const Clarity: {
     /**
      * Initialize Microsoft Clarity with your project ID
      * @param projectId - Your Clarity project ID
@@ -44,8 +47,7 @@ declare module '@microsoft/clarity' {
      * @param eventName - The name of the event to track
      */
     event(eventName: string): void;
-  }
+  };
 
-  const Clarity: ClarityAPI;
   export default Clarity;
 }

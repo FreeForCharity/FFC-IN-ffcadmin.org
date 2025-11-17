@@ -154,11 +154,15 @@ export default function CookieConsent() {
   }
 
   const loadMicrosoftClarity = () => {
-    if (typeof window !== 'undefined' && !document.getElementById('clarity-script')) {
-      try {
-        Clarity.init(CLARITY_PROJECT_ID)
-      } catch (error) {
-        console.warn('Failed to initialize Microsoft Clarity:', error)
+    if (typeof window !== 'undefined') {
+      // Check if Clarity is already initialized by checking for the script element
+      // The NPM package creates a script element with id 'clarity-script'
+      if (!document.getElementById('clarity-script')) {
+        try {
+          Clarity.init(CLARITY_PROJECT_ID)
+        } catch (error) {
+          console.warn('Failed to initialize Microsoft Clarity:', error)
+        }
       }
     }
   }
