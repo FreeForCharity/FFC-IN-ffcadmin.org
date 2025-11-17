@@ -26,7 +26,7 @@ export default function Footer() {
                 >
                   <img
                     src="https://widgets.guidestar.org/gximage2?o=9159614&l=v4"
-                    alt="GuideStar Platinum Transparency 2024"
+                    alt=""
                     className="h-auto max-w-[150px]"
                   />
                 </a>
@@ -54,9 +54,7 @@ export default function Footer() {
                     />
                   </svg>
                 </a>
-                <p className="mt-2 text-xs text-gray-400">
-                  Free For Charity EIN: 46-2471893
-                </p>
+                <p className="mt-2 text-xs text-gray-400">Free For Charity EIN: 46-2471893</p>
               </div>
             </div>
           </div>
