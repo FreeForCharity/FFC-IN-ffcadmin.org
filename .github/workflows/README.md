@@ -78,7 +78,16 @@ This workflow helps identify security vulnerabilities early in the development p
 
 ## deploy.yml - Production Deployment
 
-Automatically builds and deploys the Next.js static site to GitHub Pages when changes are pushed to the `main` branch.
+Automatically builds and deploys the Next.js static site to GitHub Pages **after** CI and security checks complete successfully.
+
+### When it runs:
+
+- **After successful completion** of both:
+  - `CI - Build and Test` workflow
+  - `CodeQL Security Analysis` workflow
+- On manual trigger via `workflow_dispatch`
+
+This ensures code is never deployed without passing all quality and security checks.
 
 ### Prerequisites
 
@@ -110,10 +119,24 @@ The workflow exports a fully static site compatible with GitHub Pages, including
 
 ## Workflow Summary
 
-| Workflow            | Trigger                         | Purpose                         |
-| ------------------- | ------------------------------- | ------------------------------- |
-| ci.yml              | PRs and pushes to main          | Run tests and verify builds     |
-| codeql-analysis.yml | PRs, pushes to main, and weekly | Security vulnerability scanning |
-| deploy.yml          | Pushes to main only             | Deploy to GitHub Pages          |
+| Workflow            | Trigger                              | Purpose                         | Dependencies                |
+| ------------------- | ------------------------------------ | ------------------------------- | --------------------------- |
+| ci.yml              | PRs and pushes to main               | Run tests and verify builds     | None                        |
+| codeql-analysis.yml | PRs, pushes to main, and weekly      | Security vulnerability scanning | None                        |
+| deploy.yml          | After CI and CodeQL complete on main | Deploy to GitHub Pages          | ci.yml, codeql-analysis.yml |
+
+### Workflow Execution Order
+
+When code is pushed to `main`:
+
+1. **CI - Build and Test** and **CodeQL Security Analysis** run in parallel
+2. Once **both** complete successfully, **Deploy to GitHub Pages** runs
+3. If either CI or CodeQL fails, deployment is skipped
+
+This sequential execution ensures:
+
+- Code is fully validated before deployment
+- No broken code reaches production
+- Security vulnerabilities are caught before deployment
 
 All workflows must pass for pull requests to be merged into the main branch.
