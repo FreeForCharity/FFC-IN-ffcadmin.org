@@ -106,8 +106,9 @@ This ensures code is never deployed without passing all quality and security che
 4. Installs dependencies with `pnpm install --frozen-lockfile`
 5. Runs tests with `pnpm test` (validates build output and configuration)
 6. Builds the site with `pnpm run build` (creates `out/` directory)
-7. Uploads the `out/` directory as a Pages artifact
-8. Deploys to GitHub Pages
+7. Uploads the `out/` directory as a build artifact (for Lighthouse workflow, retained for 1 day)
+8. Uploads the `out/` directory as a Pages artifact (for GitHub Pages deployment)
+9. Deploys to GitHub Pages
 
 ### Output
 
@@ -132,14 +133,13 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 **Lighthouse Audit Job:**
 
 1. Checks out the code
-2. Installs pnpm 9.0.0
-3. Sets up Node.js 20 (LTS) with pnpm cache enabled
-4. Installs dependencies with `pnpm install --frozen-lockfile`
-5. Builds the project with `pnpm run build`
-6. Installs Lighthouse CI globally
-7. Runs Lighthouse audits on key pages (home, tech stack, documentation)
-8. Each page is tested 3 times for consistent results
-9. Uploads results as GitHub artifacts (retained for 30 days)
+2. Downloads the build artifact from the deployment workflow (reuses already-built `out/` directory)
+3. Installs Lighthouse CI globally
+4. Runs Lighthouse audits on key pages (home, tech stack, documentation)
+5. Each page is tested 3 times for consistent results
+6. Uploads results as GitHub artifacts (retained for 30 days)
+
+**Optimization:** This workflow reuses the build output from the deployment workflow rather than rebuilding, saving CI/CD time and ensuring the exact deployed version is audited.
 
 ### Configuration
 
