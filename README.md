@@ -9,6 +9,7 @@
 - [Overview](#overview)
 - [Quick Links](#quick-links)
 - [Deployment Status](#deployment-status)
+- [Lighthouse Performance Monitoring](#lighthouse-performance-monitoring)
 - [Responsive Design](#responsive-design)
 - [Understanding GitHub Pages Caching](#understanding-github-pages-caching)
 - [Analytics](#analytics)
@@ -69,6 +70,48 @@ The site is automatically deployed via GitHub Actions when changes are pushed to
 - ✅ Global CDN delivery through GitHub Pages
 - ✅ Custom domain with HTTPS
 - ✅ Fully responsive design (mobile, tablet, desktop)
+- ✅ Automated Lighthouse audits for performance and quality
+
+## Lighthouse Performance Monitoring
+
+**Status:** ✅ **Automated Audits Active**
+
+This project uses [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) to automatically audit web performance, accessibility, best practices, and SEO after each deployment.
+
+**What Lighthouse Measures:**
+
+- 🚀 **Performance**: Core Web Vitals, load times, and optimization metrics
+- ♿ **Accessibility**: WCAG compliance and screen reader compatibility
+- 🏆 **Best Practices**: Security, HTTPS, console errors, and modern standards
+- 🔍 **SEO**: Meta tags, crawlability, and search engine optimization
+
+**How It Works:**
+
+1. After each successful deployment to `main`, Lighthouse CI automatically runs
+2. Audits are performed on key pages (home, tech stack, documentation)
+3. Each page is tested 3 times to ensure consistent results
+4. Reports are uploaded as GitHub artifacts and stored for 30 days
+5. Results use a "warn" mode - they inform but don't block deployments
+
+**Viewing Reports:**
+
+1. Go to [Actions tab](https://github.com/FreeForCharity/ffcadmin.org/actions)
+2. Select the latest "Lighthouse CI" workflow run
+3. Download the "lighthouse-results" artifact to view detailed HTML reports
+
+**Configuration:**
+
+- Configuration: `lighthouserc.json`
+- Workflow: `.github/workflows/lighthouse.yml`
+- Minimum score thresholds: 90% for all categories (warning only)
+
+**Benefits:**
+
+- Proactive performance monitoring
+- Catch accessibility issues early
+- Validate SEO improvements
+- Track metrics over time
+- No build failures - informational only
 
 ## Responsive Design
 

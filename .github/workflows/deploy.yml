@@ -136,6 +136,13 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Upload build artifact for Lighthouse
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: ./out
+          retention-days: 1
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
