@@ -132,6 +132,8 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 
 **Lighthouse Audit Job:**
 
+**When triggered by deployment workflow:**
+
 1. Checks out the code
 2. Downloads the build artifact from the deployment workflow (reuses already-built `out/` directory)
 3. Installs Lighthouse CI globally
@@ -139,7 +141,17 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 5. Each page is tested 3 times for consistent results
 6. Uploads results as GitHub artifacts (retained for 30 days)
 
-**Optimization:** This workflow reuses the build output from the deployment workflow rather than rebuilding, saving CI/CD time and ensuring the exact deployed version is audited.
+**When manually triggered (`workflow_dispatch`):**
+
+1. Checks out the code
+2. Sets up Node.js and pnpm
+3. Installs dependencies and builds the project
+4. Installs Lighthouse CI globally
+5. Runs Lighthouse audits on key pages (home, tech stack, documentation)
+6. Each page is tested 3 times for consistent results
+7. Uploads results as GitHub artifacts (retained for 30 days)
+
+**Optimization:** When triggered by deployment, this workflow reuses the build output from the deployment workflow rather than rebuilding, saving CI/CD time and ensuring the exact deployed version is audited. Manual triggers build the project to ensure audits can run standalone.
 
 ### Configuration
 
