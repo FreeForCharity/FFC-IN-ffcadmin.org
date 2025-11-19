@@ -118,6 +118,58 @@ The workflow exports a fully static site compatible with GitHub Pages, including
 - Optimized JavaScript bundles
 - SEO files (robots.txt, sitemap.xml)
 
+## lighthouse.yml - Performance Auditing
+
+Runs automated Lighthouse performance, accessibility, best practices, and SEO audits after successful deployments.
+
+### When it runs:
+
+- After successful completion of `Deploy to GitHub Pages` workflow on main
+- On manual trigger via `workflow_dispatch`
+
+### What it does:
+
+**Lighthouse Audit Job:**
+
+1. Checks out the code
+2. Installs pnpm 9.0.0
+3. Sets up Node.js 20 (LTS) with pnpm cache enabled
+4. Installs dependencies with `pnpm install --frozen-lockfile`
+5. Builds the project with `pnpm run build`
+6. Installs Lighthouse CI globally
+7. Runs Lighthouse audits on key pages (home, tech stack, documentation)
+8. Each page is tested 3 times for consistent results
+9. Uploads results as GitHub artifacts (retained for 30 days)
+
+### Configuration
+
+**Location:** `lighthouserc.json`
+
+**Audited Categories:**
+
+- 🚀 **Performance**: Core Web Vitals, load times, optimization metrics
+- ♿ **Accessibility**: WCAG compliance, ARIA attributes, color contrast
+- 🏆 **Best Practices**: HTTPS, console errors, deprecated APIs
+- 🔍 **SEO**: Meta tags, structured data, mobile-friendliness
+
+**Minimum Scores:** 90% for all categories (warning mode only - doesn't fail builds)
+
+### Viewing Results
+
+1. Navigate to the [Actions tab](https://github.com/FreeForCharity/ffcadmin.org/actions)
+2. Select the latest "Lighthouse CI" workflow run
+3. Download the "lighthouse-results" artifact
+4. Extract and open the HTML reports in a browser
+
+### Benefits
+
+- Proactive monitoring of site performance and quality
+- Early detection of accessibility issues
+- Validation of SEO optimizations
+- Historical tracking without blocking deployments
+
+**Note:** This workflow runs in "warn" mode - it provides informational reports but will not fail or block deployments. This ensures continuous monitoring without impeding the deployment process.
+
 ## Workflow Summary
 
 | Workflow            | Trigger                              | Purpose                         | Dependencies                |
@@ -125,6 +177,7 @@ The workflow exports a fully static site compatible with GitHub Pages, including
 | ci.yml              | PRs and pushes to main               | Run tests and verify builds     | None                        |
 | codeql-analysis.yml | PRs, pushes to main, and weekly      | Security vulnerability scanning | None                        |
 | deploy.yml          | After CI and CodeQL complete on main | Deploy to GitHub Pages          | ci.yml, codeql-analysis.yml |
+| lighthouse.yml      | After successful deployment on main  | Performance and quality audits  | deploy.yml                  |
 
 ### Workflow Execution Order
 
@@ -134,6 +187,7 @@ When code is pushed to `main`:
 2. When **either** workflow completes, **Deploy to GitHub Pages** is triggered
 3. Deploy workflow's first step verifies **both** CI and CodeQL succeeded on the same commit
 4. If verification passes, deployment proceeds; otherwise, deployment fails immediately
+5. After successful deployment, **Lighthouse CI** runs to audit the deployed site
 
 **Implementation Detail:** GitHub Actions `workflow_run` with multiple workflows triggers when any one completes. To ensure both workflows succeed before deployment, the deploy workflow includes an explicit API-based verification step that checks the status of both workflows on the current commit before proceeding.
 
@@ -142,5 +196,6 @@ This sequential execution ensures:
 - Code is fully validated before deployment
 - No broken code reaches production
 - Security vulnerabilities are caught before deployment
+- Performance and quality metrics are tracked after deployment
 
-All workflows must pass for pull requests to be merged into the main branch.
+All workflows (except Lighthouse) must pass for pull requests to be merged into the main branch. Lighthouse runs post-deployment for monitoring and doesn't block deployments.

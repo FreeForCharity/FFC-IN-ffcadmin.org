@@ -205,6 +205,74 @@ pnpm test:coverage     # Generate coverage reports
 
 ---
 
+### 8. Performance Monitoring
+
+#### Lighthouse CI
+
+**Location:** `.github/workflows/lighthouse.yml`, `lighthouserc.json`
+
+**What Lighthouse Audits:**
+
+- ✅ **Performance**: Core Web Vitals, load times, optimization metrics
+- ✅ **Accessibility**: WCAG compliance, ARIA attributes, color contrast
+- ✅ **Best Practices**: HTTPS, console errors, deprecated APIs
+- ✅ **SEO**: Meta tags, structured data, mobile-friendliness
+
+**How It Works:**
+
+1. Runs automatically after each deployment to `main`
+2. Tests key pages (home, tech stack, documentation)
+3. Each page tested 3 times for consistent results
+4. Reports uploaded to GitHub artifacts (30-day retention)
+5. Uses "warn" mode - informs but doesn't block deployments
+
+**Configuration Highlights:**
+
+```json
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./out",
+      "numberOfRuns": 3
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["warn", { "minScore": 0.9 }],
+        "categories:accessibility": ["warn", { "minScore": 0.9 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }],
+        "categories:seo": ["warn", { "minScore": 0.9 }]
+      }
+    }
+  }
+}
+```
+
+**Minimum Score Thresholds:**
+
+- Performance: 90%
+- Accessibility: 90%
+- Best Practices: 90%
+- SEO: 90%
+
+**Benefits:**
+
+- Proactive performance monitoring
+- Early detection of accessibility issues
+- Validation of SEO optimizations
+- Historical tracking of site quality
+- No build failures - informational only
+
+**Viewing Reports:**
+
+1. Navigate to the Actions tab in GitHub
+2. Select the latest "Lighthouse CI" workflow run
+3. Download the "lighthouse-results" artifact
+4. Open the HTML reports in a browser
+
+**Status:** ✅ Active and running after deployments
+
+---
+
 ## What's Working Well
 
 ### Strengths

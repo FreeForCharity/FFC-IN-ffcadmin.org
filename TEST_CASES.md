@@ -100,6 +100,35 @@ These tests validate the project configuration files.
 - **Expected Result**: `pnpm-lock.yaml` exists and is parseable
 - **Rationale**: Ensures reproducible builds in CI
 
+### 6. Lighthouse Configuration Tests
+
+These tests verify that the Lighthouse CI performance monitoring is properly configured.
+
+#### Test Case 6.1: Lighthouse Configuration File Exists
+
+- **Purpose**: Verify `lighthouserc.json` configuration file is present
+- **Expected Result**: `lighthouserc.json` exists and is valid JSON
+- **Rationale**: Required for Lighthouse CI to run audits
+
+#### Test Case 6.2: Lighthouse Configuration Structure
+
+- **Purpose**: Verify Lighthouse configuration has correct structure
+- **Expected Result**: Configuration includes:
+  - `ci.collect` with `staticDistDir: './out'`
+  - `ci.assert` with assertions for performance, accessibility, best practices, and SEO
+  - `ci.collect.numberOfRuns >= 3` for consistent results
+  - Multiple URL paths for key pages
+- **Rationale**: Proper configuration ensures meaningful performance audits
+
+#### Test Case 6.3: Lighthouse Workflow Exists
+
+- **Purpose**: Verify Lighthouse CI workflow file is present and properly configured
+- **Expected Result**: `.github/workflows/lighthouse.yml` exists and:
+  - Contains `name: Lighthouse CI`
+  - Triggers on `workflow_run` after deployment
+  - Includes steps to build project and run Lighthouse
+- **Rationale**: Ensures automated performance monitoring runs after deployments
+
 ## Test Execution
 
 ### Running Tests Locally
@@ -134,11 +163,12 @@ Tests are automatically run as part of the GitHub Actions workflow before deploy
 
 ```
 __tests__/
-├── build-output.test.js       # Build output tests
+├── build-output.test.js        # Build output tests
 ├── github-pages-config.test.js # GitHub Pages configuration tests
-├── seo-metadata.test.js       # SEO and metadata tests
-├── route-generation.test.js   # Route generation tests
-└── config-validation.test.js  # Configuration validation tests
+├── seo-metadata.test.js        # SEO and metadata tests
+├── route-generation.test.js    # Route generation tests
+├── config-validation.test.js   # Configuration validation tests
+└── lighthouse-config.test.js   # Lighthouse configuration tests
 ```
 
 ## Coverage Goals
