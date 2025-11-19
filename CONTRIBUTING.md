@@ -32,6 +32,38 @@ pnpm run dev
 # 5. Open http://localhost:3000 in your browser
 ```
 
+### Pre-commit Hooks
+
+This project uses **Husky** and **lint-staged** to automatically format and lint your code before each commit.
+
+**What happens when you commit:**
+
+```bash
+git commit -m "Your message"
+# ✓ Automatically runs Prettier on changed files
+# ✓ Automatically runs ESLint on changed files
+# ✓ Fixes issues automatically where possible
+# ✓ Commits only if all checks pass
+```
+
+**Benefits:**
+
+- Catch formatting and linting issues before they reach CI
+- Automatic code fixes on commit
+- Faster feedback loop
+- Reduced CI failures
+- No need to manually run `pnpm run format` before committing
+
+**What if checks fail?**
+
+If pre-commit checks fail, the commit will be blocked. Fix the issues and try again:
+
+```bash
+# Fix the issues reported
+# Then commit again
+git commit -m "Your message"
+```
+
 ## Development Workflow
 
 ### Making Changes
@@ -94,6 +126,8 @@ git add .
 git commit -m "Brief description of your changes"
 git push origin feature/your-feature-name
 ```
+
+**Pre-commit Hooks:** The project now uses Husky and lint-staged to automatically format and lint your code before each commit. This happens automatically when you run `git commit` and helps catch issues before they reach CI.
 
 **Note:** All commits to `main` must be GPG-signed. For feature branches, signing is optional but recommended. The CI/CD pipeline will automatically sign commits when merging to `main`.
 

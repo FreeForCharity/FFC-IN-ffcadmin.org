@@ -63,4 +63,40 @@ describe('Configuration Validation Tests', () => {
       }
     })
   })
+
+  describe('Test Case 5.3: lint-staged Configuration', () => {
+    it('should have lint-staged configuration in package.json', () => {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+      expect(packageJson['lint-staged']).toBeDefined()
+    })
+
+    it('should include correct file patterns for JS/TS files', () => {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+      const lintStaged = packageJson['lint-staged']
+      expect(lintStaged['*.{js,jsx,ts,tsx}']).toBeDefined()
+    })
+
+    it('should include correct file patterns for JSON/MD/CSS files', () => {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+      const lintStaged = packageJson['lint-staged']
+      expect(lintStaged['*.{json,md,css}']).toBeDefined()
+    })
+
+    it('should run prettier before eslint for JS/TS files', () => {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+      const commands = packageJson['lint-staged']['*.{js,jsx,ts,tsx}']
+      expect(commands).toBeInstanceOf(Array)
+      expect(commands.length).toBeGreaterThanOrEqual(2)
+      // Prettier should come before ESLint (format before lint)
+      expect(commands[0]).toContain('prettier')
+      expect(commands[1]).toContain('eslint')
+    })
+
+    it('should run prettier for JSON/MD/CSS files', () => {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+      const commands = packageJson['lint-staged']['*.{json,md,css}']
+      expect(commands).toBeInstanceOf(Array)
+      expect(commands.some((cmd) => cmd.includes('prettier'))).toBe(true)
+    })
+  })
 })
