@@ -64,29 +64,14 @@ jobs:
 
       - name: Check for broken links
         run: |
-          # Install linkinator globally
-          npm install -g linkinator
+          # Run linkinator using local installation (skip patterns defined in .linkinatorrc.json)
+          pnpm exec linkinator ./out --config .linkinatorrc.json --format json > link-report.json || true
 
-          # Run linkinator on the built output directory
-          # Focus on checking critical external links (Microsoft Learn and GitHub Docs)
-          # Skip social media and third-party analytics that may have rate limiting
-          linkinator ./out \
-            --recurse \
-            --skip "https://www.guidestar.org/*" \
-            --skip "https://widgets.guidestar.org/*" \
-            --skip "https://facebook.com/*" \
-            --skip "https://twitter.com/*" \
-            --skip "https://linkedin.com/*" \
-            --skip "https://youtube.com/*" \
-            --skip "https://www.googletagmanager.com/*" \
-            --skip "https://freeforcharity.org/*" \
-            --skip "https://policies.google.com/*" \
-            --skip "https://privacy.microsoft.com/*" \
-            --skip "https://www.facebook.com/*" \
-            --skip "https://tools.google.com/*" \
-            --skip "https://www.cloudflare.com/*" \
-            --skip "https://www.lastpass.com/*" \
-            --format json > link-report.json || true
+          # Validate the report file exists and contains valid JSON
+          if [ ! -f "link-report.json" ] || ! jq empty link-report.json 2>/dev/null; then
+            echo "Error: Failed to generate valid link report"
+            exit 1
+          fi
 
           # Parse and display results
           echo "=== Link Validation Results ==="

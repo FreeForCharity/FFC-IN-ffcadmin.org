@@ -67,7 +67,7 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1
       linkinator:
-        specifier: ^6.1.2
+        specifier: ^6.3.0
         version: 6.3.0
       lint-staged:
         specifier: ^16.2.6
