@@ -18,7 +18,27 @@
         "categories:seo": ["warn", { "minScore": 0.9 }],
         "uses-http2": "off",
         "uses-rel-preconnect": "off",
-        "offscreen-images": "off"
+        "offscreen-images": "off",
+        "installable-manifest": "off",
+        "maskable-icon": "off",
+        "splash-screen": "off",
+        "themed-omnibox": "off",
+        "service-worker": "off",
+        "apple-touch-icon": "off",
+        "pwa-cross-browser": "off",
+        "pwa-page-transitions": "off",
+        "pwa-each-page-has-url": "off",
+        "csp-xss": "off",
+        "third-party-cookies": "off",
+        "color-contrast": ["warn"],
+        "errors-in-console": ["warn"],
+        "label-content-name-mismatch": ["warn"],
+        "link-in-text-block": ["warn"],
+        "total-byte-weight": ["warn"],
+        "inspector-issues": ["warn"],
+        "unsized-images": ["warn"],
+        "unused-javascript": ["warn"],
+        "uses-text-compression": ["warn"]
       }
     },
     "upload": {
