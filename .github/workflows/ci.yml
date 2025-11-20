@@ -61,3 +61,52 @@ jobs:
 
       - name: Run tests
         run: pnpm test
+
+      - name: Check for broken links
+        run: |
+          # Install linkinator globally
+          npm install -g linkinator
+
+          # Run linkinator on the built output directory
+          # Focus on checking critical external links (Microsoft Learn and GitHub Docs)
+          # Skip social media and third-party analytics that may have rate limiting
+          linkinator ./out \
+            --recurse \
+            --skip "https://www.guidestar.org/*" \
+            --skip "https://widgets.guidestar.org/*" \
+            --skip "https://facebook.com/*" \
+            --skip "https://twitter.com/*" \
+            --skip "https://linkedin.com/*" \
+            --skip "https://youtube.com/*" \
+            --skip "https://www.googletagmanager.com/*" \
+            --skip "https://freeforcharity.org/*" \
+            --skip "https://policies.google.com/*" \
+            --skip "https://privacy.microsoft.com/*" \
+            --skip "https://www.facebook.com/*" \
+            --skip "https://tools.google.com/*" \
+            --skip "https://www.cloudflare.com/*" \
+            --skip "https://www.lastpass.com/*" \
+            --format json > link-report.json || true
+
+          # Parse and display results
+          echo "=== Link Validation Results ==="
+
+          # Count different status codes
+          TOTAL_LINKS=$(cat link-report.json | jq '.links | length')
+          PASSED_LINKS=$(cat link-report.json | jq '[.links[] | select(.state == "OK")] | length')
+          BROKEN_LINKS=$(cat link-report.json | jq '[.links[] | select(.status >= 400 and .status < 600)] | length')
+
+          echo "Total links scanned: $TOTAL_LINKS"
+          echo "Passed links: $PASSED_LINKS"
+          echo "Broken links (4xx/5xx): $BROKEN_LINKS"
+
+          # Show any broken links (actual HTTP errors, not skipped links)
+          if [ "$BROKEN_LINKS" -gt 0 ]; then
+            echo ""
+            echo "❌ Broken links found:"
+            cat link-report.json | jq -r '.links[] | select(.status >= 400 and .status < 600) | "  [\(.status)] \(.url)"'
+            exit 1
+          fi
+
+          echo ""
+          echo "✓ All checked links are valid (no 4xx/5xx errors detected)"

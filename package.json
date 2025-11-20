@@ -13,6 +13,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "check-links": "linkinator ./out --recurse --skip 'https://www.guidestar.org/*' --skip 'https://widgets.guidestar.org/*' --skip 'https://facebook.com/*' --skip 'https://twitter.com/*' --skip 'https://linkedin.com/*' --skip 'https://youtube.com/*' --skip 'https://www.googletagmanager.com/*' --skip 'https://freeforcharity.org/*' --skip 'https://policies.google.com/*' --skip 'https://privacy.microsoft.com/*' --skip 'https://www.facebook.com/*' --skip 'https://tools.google.com/*' --skip 'https://www.cloudflare.com/*' --skip 'https://www.lastpass.com/*'",
     "prepare": "husky"
   },
   "dependencies": {
@@ -37,6 +38,7 @@
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "js-yaml": "^4.1.1",
+    "linkinator": "^6.1.2",
     "lint-staged": "^16.2.6",
     "postcss": "^8",
     "prettier": "^3.6.2",
