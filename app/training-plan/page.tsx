@@ -153,8 +153,8 @@ export default function TrainingPlan() {
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
                     $264.00 /user/year
                   </td>
-                  <td className="px-4 py-3 text-sm font-bold text-yellow-600 border-r border-gray-300">
-                    Small fee per seat
+                  <td className="px-4 py-3 text-sm font-bold text-green-600 border-r border-gray-300">
+                    $66.00 /user/year (75% discount)
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700">
                     Primary command infrastructure. Note: 300 free Business Basic accounts available
@@ -180,7 +180,7 @@ export default function TrainingPlan() {
                 </tr>
                 <tr>
                   <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-300">
-                    GitHub Copilot Pro (Personal)
+                    GitHub Copilot Pro
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
                     "Vibe Coding," CLI assistance, Automated PRs
@@ -410,6 +410,17 @@ export default function TrainingPlan() {
                       Describe Microsoft 365 security solutions
                     </a>{' '}
                     (Microsoft Learn)
+                  </li>
+                  <li className="text-gray-700">
+                    <strong>Training Resource:</strong>{' '}
+                    <a
+                      href="https://share.google/WN4KlwWZnm1Ykb5kV"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      Crash Course in Microsoft 365 Business Premium for Nonprofits
+                    </a>
                   </li>
                   <li className="text-gray-700">
                     <strong>Action:</strong> Configure personal MFA and secure authentication
