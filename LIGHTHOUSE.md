@@ -60,6 +60,22 @@ The following assertions are disabled due to GitHub Pages hosting limitations:
 
 **Documentation:** See [Cookie Policy](app/cookie-policy/page.tsx) and [Privacy Policy](app/privacy-policy/page.tsx).
 
+### Performance Optimizations (Not Applicable)
+
+The following performance-related assertions are disabled because they are either not applicable to the static site architecture or are handled automatically by Next.js:
+
+#### `uses-http2`
+
+**Why Disabled:** GitHub Pages does not provide configuration options for HTTP/2. The protocol version is determined by GitHub's infrastructure and cannot be controlled at the repository level.
+
+#### `uses-rel-preconnect`
+
+**Why Disabled:** Preconnect resource hints (`<link rel="preconnect">`) are not applicable for this static site architecture. All resources are served from the same origin (GitHub Pages), and external resources (GTM, Analytics) are loaded through GTM's optimized loading mechanism.
+
+#### `offscreen-images`
+
+**Why Disabled:** Image lazy loading and offscreen image optimization are handled automatically by Next.js defaults and the static export process. Manual configuration of this optimization is not necessary for this project.
+
 ## Checks Set to 'Warn' (Should Be Fixed in Future)
 
 The following checks are configured with "warn" level in `lighthouserc.json`. They are non-blocking in CI, but represent real quality issues that should be fixed over time:
