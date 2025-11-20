@@ -1,0 +1,21 @@
+{
+  "recurse": true,
+  "skip": [
+    "https://www.guidestar.org/*",
+    "https://widgets.guidestar.org/*",
+    "https://twitter.com/*",
+    "https://linkedin.com/*",
+    "https://youtube.com/*",
+    "https://www.googletagmanager.com/*",
+    "https://freeforcharity.org/*",
+    "https://policies.google.com/*",
+    "https://privacy.microsoft.com/*",
+    "https://www.facebook.com/*",
+    "https://facebook.com/*",
+    "https://tools.google.com/*",
+    "https://www.cloudflare.com/*",
+    "https://www.lastpass.com/*",
+    "https://github.com/FreeForCharity/ffcadmin.org*",
+    "https://github.com/features/*"
+  ]
+}

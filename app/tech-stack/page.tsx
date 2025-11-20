@@ -722,10 +722,10 @@ export default function TechStack() {
                     <td className="border border-gray-300 px-4 py-2">Hosting, CI/CD, Security</td>
                     <td className="border border-gray-300 px-4 py-2">
                       <a
-                        href="https://github.com/nonprofits"
+                        href="https://github.com/nonprofit"
                         className="text-blue-600 hover:underline"
                       >
-                        github.com/nonprofits
+                        github.com/nonprofit
                       </a>
                     </td>
                     <td className="border border-gray-300 px-4 py-2">$P_GITHUB</td>

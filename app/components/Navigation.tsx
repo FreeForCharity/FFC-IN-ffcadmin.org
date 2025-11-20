@@ -32,6 +32,12 @@ export default function Navigation() {
             <Link href="/tech-stack" className="hover:text-blue-200 transition-colors font-medium">
               Tech Stack
             </Link>
+            <Link
+              href="/training-plan"
+              className="hover:text-blue-200 transition-colors font-medium"
+            >
+              Training Plan
+            </Link>
             <a
               href="https://github.com/FreeForCharity"
               target="_blank"
@@ -85,6 +91,13 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(false)}
             >
               Tech Stack
+            </Link>
+            <Link
+              href="/training-plan"
+              className="block px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Training Plan
             </Link>
             <a
               href="https://github.com/FreeForCharity"

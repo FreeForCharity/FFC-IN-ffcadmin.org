@@ -61,3 +61,37 @@ jobs:
 
       - name: Run tests
         run: pnpm test
+
+      - name: Check for broken links
+        run: |
+          # Run linkinator using local installation (skip patterns defined in .linkinatorrc.json)
+          pnpm exec linkinator ./out --config .linkinatorrc.json --format json > link-report.json || true
+
+          # Validate the report file exists and contains valid JSON
+          if [ ! -f "link-report.json" ] || ! jq empty link-report.json 2>/dev/null; then
+            echo "Error: Failed to generate valid link report"
+            exit 1
+          fi
+
+          # Parse and display results
+          echo "=== Link Validation Results ==="
+
+          # Count different status codes
+          TOTAL_LINKS=$(jq '.links | length' link-report.json)
+          PASSED_LINKS=$(jq '[.links[] | select(.state == "OK")] | length' link-report.json)
+          BROKEN_LINKS=$(jq '[.links[] | select(.status >= 400 and .status < 600)] | length' link-report.json)
+
+          echo "Total links scanned: $TOTAL_LINKS"
+          echo "Passed links: $PASSED_LINKS"
+          echo "Broken links (4xx/5xx): $BROKEN_LINKS"
+
+          # Show any broken links (actual HTTP errors, not skipped links)
+          if [ "$BROKEN_LINKS" -gt 0 ]; then
+            echo ""
+            echo "❌ Broken links found:"
+            jq -r '.links[] | select(.status >= 400 and .status < 600) | "  [\(.status)] \(.url)"' link-report.json
+            exit 1
+          fi
+
+          echo ""
+          echo "✓ All checked links are valid (no 4xx/5xx errors detected)"
