@@ -43,7 +43,7 @@ The following assertions are disabled due to GitHub Pages hosting limitations:
 - All JavaScript is from trusted sources (GTM, Microsoft Clarity)
 - Consider re-enabling this check if:
   - The site moves to a hosting platform that supports custom headers
-  - A CDN like CloudFlare is used to add security headers
+  - A CDN like Cloudflare is used to add security headers
 
 **Documentation:** See [DEPLOYMENT.md](DEPLOYMENT.md) for GitHub Pages configuration details.
 
@@ -60,9 +60,9 @@ The following assertions are disabled due to GitHub Pages hosting limitations:
 
 **Documentation:** See [Cookie Policy](app/cookie-policy/page.tsx) and [Privacy Policy](app/privacy-policy/page.tsx).
 
-## Checks That Should NOT Be Disabled
+## Checks Set to 'Warn' (Should Be Fixed in Future)
 
-The following checks are NOT disabled because they represent real quality issues that should be fixed:
+The following checks are configured with "warn" level in `lighthouserc.json`. They are non-blocking in CI, but represent real quality issues that should be fixed over time:
 
 ### Accessibility
 
@@ -73,15 +73,14 @@ The following checks are NOT disabled because they represent real quality issues
 ### Performance
 
 - `total-byte-weight` - Bundle size should be optimized
-- `bootup-time` - JavaScript execution time matters
-- `dom-size` - DOM size affects performance
-- `mainthread-work-breakdown` - Main thread blocking should be minimized
-- `render-blocking-resources` - Critical rendering path should be optimized
-- `server-response-time` - Response times should be fast
+- `unsized-images` - Images should have explicit dimensions
+- `unused-javascript` - Unused JavaScript should be removed
+- `uses-text-compression` - Text resources should be compressed
 
 ### Best Practices
 
 - `errors-in-console` - Console errors indicate bugs that should be fixed
+- `inspector-issues` - Browser DevTools issues should be resolved
 
 ## Improving Scores
 
