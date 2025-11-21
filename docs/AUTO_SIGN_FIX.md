@@ -37,10 +37,14 @@ Replaced the actor-based check with email pattern-based bot detection:
     COMMITTER_EMAIL=$(git log -1 --pretty=format:'%ce')
 
     # Check if commit is from a bot
-    if echo "$AUTHOR_EMAIL" | grep -qE '(bot|noreply\.github\.com|copilot)'; then
+    # Pattern explanation:
+    # - \[bot\]@ matches accounts ending in [bot] like github-actions[bot]
+    # - @.*noreply\.github\.com matches GitHub bot email domains
+    # - Copilot@ matches Copilot bot accounts like 198982749+Copilot@...
+    if echo "$AUTHOR_EMAIL" | grep -qE '(\[bot\]@|@.*noreply\.github\.com|Copilot@)'; then
       echo "is_bot=true" >> $GITHUB_OUTPUT
       echo "✅ Detected bot commit from: $AUTHOR_EMAIL"
-    elif echo "$COMMITTER_EMAIL" | grep -qE '(bot|noreply\.github\.com|copilot)'; then
+    elif echo "$COMMITTER_EMAIL" | grep -qE '(\[bot\]@|@.*noreply\.github\.com|Copilot@)'; then
       echo "is_bot=true" >> $GITHUB_OUTPUT
       echo "✅ Detected bot commit from committer: $COMMITTER_EMAIL"
     else
