@@ -156,8 +156,11 @@ jobs:
           # Create artifact directory
           mkdir -p /tmp/artifact
 
-          # Create tar archive with all files including dotfiles
-          # Using tar with --dereference to follow symlinks and -czf for compression
+          # Create tar.gz archive with all files including dotfiles
+          # --dereference: Follow symbolic links (avoids symlink errors)
+          # --hard-dereference: Follow hard links (ensures all content is included)
+          # These flags ensure the archive meets GitHub Pages requirements:
+          # https://github.com/actions/upload-pages-artifact#artifact-validation
           cd ./out
           tar \
             --dereference --hard-dereference \
@@ -167,8 +170,8 @@ jobs:
 
           echo "✓ Created artifact.tar.gz with all files including .nojekyll"
 
-          # Verify .nojekyll is in the archive
-          if tar -tzf /tmp/artifact/artifact.tar.gz | grep -q "^\.nojekyll$"; then
+          # Verify .nojekyll is in the archive (flexible pattern to match ./nojekyll or .nojekyll)
+          if tar -tzf /tmp/artifact/artifact.tar.gz | grep -q "\.nojekyll$"; then
             echo "✓ Verified .nojekyll file is included in the artifact"
           else
             echo "Error: .nojekyll file not found in artifact"
