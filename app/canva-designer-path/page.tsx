@@ -502,7 +502,9 @@ export default function CanvaDesignerPath() {
                 </div>
 
                 <div className="bg-yellow-50 border-l-4 border-yellow-600 p-3 rounded mt-4">
-                  <p className="text-yellow-900 font-semibold mb-2"><span aria-hidden="true">⚠️</span> Quality Checklist:</p>
+                  <p className="text-yellow-900 font-semibold mb-2">
+                    <span aria-hidden="true">⚠️</span> Quality Checklist:
+                  </p>
                   <ul className="text-yellow-900 text-sm space-y-1 ml-4 list-disc">
                     <li>Does the brand kit reflect the nonprofit's mission and values?</li>
                     <li>Are all colors accessible (WCAG contrast standards)?</li>
