@@ -13,18 +13,28 @@ updates:
       - 'dependencies'
       - 'automated'
     groups:
-      # Group development dependencies together
+      # Group development dependencies together (minor and patch updates)
       development-dependencies:
         dependency-type: 'development'
         update-types:
           - 'minor'
           - 'patch'
+      # Group development dependencies together (major updates)
+      development-dependencies-major:
+        dependency-type: 'development'
+        update-types:
+          - 'major'
       # Group production dependencies together (minor and patch updates)
       production-dependencies:
         dependency-type: 'production'
         update-types:
           - 'minor'
           - 'patch'
+      # Group production dependencies together (major updates)
+      production-dependencies-major:
+        dependency-type: 'production'
+        update-types:
+          - 'major'
 
   # Enable version updates for GitHub Actions
   - package-ecosystem: 'github-actions'
