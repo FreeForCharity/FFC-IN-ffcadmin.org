@@ -103,7 +103,7 @@ export default function TrainingPlan() {
             Quartermaster's Report: Licensing & Costs
           </h3>
 
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto mb-6">
             <table className="min-w-full divide-y divide-gray-300 border border-gray-300">
               <caption className="sr-only">
                 Licensing costs and operational notes for Free For Charity products
@@ -126,13 +126,13 @@ export default function TrainingPlan() {
                     scope="col"
                     className="px-4 py-3 text-left text-sm font-semibold text-gray-900 border-r border-gray-300"
                   >
-                    Standard Price
+                    Standard Price (Annual)
                   </th>
                   <th
                     scope="col"
                     className="px-4 py-3 text-left text-sm font-semibold text-gray-900 border-r border-gray-300"
                   >
-                    Nonprofit / FFC Price
+                    Nonprofit / FFC Price (Annual)
                   </th>
                   <th
                     scope="col"
@@ -151,13 +151,14 @@ export default function TrainingPlan() {
                     Full Tenant Command, Intune, Defender, Conditional Access
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
-                    $22.00 /user/mo
+                    $264.00 /user/year
                   </td>
                   <td className="px-4 py-3 text-sm font-bold text-green-600 border-r border-gray-300">
-                    $0.00 (First 10 seats)
+                    $66.00 /user/year (75% discount)
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700">
-                    Primary command infrastructure
+                    Primary command infrastructure. Note: 300 free Business Basic accounts available
+                    but not suitable for Global Admins
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
@@ -168,7 +169,7 @@ export default function TrainingPlan() {
                     "Owner" status, branch protection, repo management
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
-                    $4.00 /user/mo
+                    $48.00 /user/year
                   </td>
                   <td className="px-4 py-3 text-sm font-bold text-green-600 border-r border-gray-300">
                     $0.00 (Unlimited seats)
@@ -179,16 +180,16 @@ export default function TrainingPlan() {
                 </tr>
                 <tr>
                   <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-300">
-                    GitHub Copilot Business
+                    GitHub Copilot Pro
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
                     "Vibe Coding," CLI assistance, Automated PRs
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
-                    $19.00 /user/mo
+                    $100.00 /user/year
                   </td>
                   <td className="px-4 py-3 text-sm font-bold text-red-600 border-r border-gray-300">
-                    $19.00 /user/mo
+                    $100.00 /user/year
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700">
                     Hard Cost. Essential for the "Issue-to-PR" workflow
@@ -202,10 +203,10 @@ export default function TrainingPlan() {
                     "Vibe Working," AI in Office/Teams, Agent building
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
-                    $30.00 /user/mo
+                    $360.00 /user/year
                   </td>
                   <td className="px-4 py-3 text-sm font-bold text-yellow-600 border-r border-gray-300">
-                    $25.50 /user/mo
+                    $306.00 /user/year
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700">
                     Strategic augmentation. Requires base license
@@ -219,7 +220,7 @@ export default function TrainingPlan() {
                     WAF, DDoS protection, Page Rules
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
-                    $20 - $200 /mo
+                    $240 - $2,400 /year
                   </td>
                   <td className="px-4 py-3 text-sm font-bold text-green-600 border-r border-gray-300">
                     $0.00
@@ -236,7 +237,7 @@ export default function TrainingPlan() {
                     Secure "Break Glass" vault
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
-                    $4.00 - $7.00 /user/mo
+                    $48.00 - $84.00 /user/year
                   </td>
                   <td className="px-4 py-3 text-sm font-bold text-yellow-600 border-r border-gray-300">
                     ~30% Discount
@@ -247,6 +248,106 @@ export default function TrainingPlan() {
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <h3 className="text-xl font-bold text-gray-900 mb-4">
+            Certification Costs (One-Time Investment)
+          </h3>
+
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-300 border border-gray-300">
+              <caption className="sr-only">
+                Certification exam costs with standard, student, and nonprofit pricing
+              </caption>
+              <thead className="bg-gray-50">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 text-left text-sm font-semibold text-gray-900 border-r border-gray-300"
+                  >
+                    Certification
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 text-left text-sm font-semibold text-gray-900 border-r border-gray-300"
+                  >
+                    Standard Price
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 text-left text-sm font-semibold text-gray-900 border-r border-gray-300"
+                  >
+                    Student Discount
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 text-left text-sm font-semibold text-gray-900 border-r border-gray-300"
+                  >
+                    Nonprofit Discount
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Notes
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 bg-white">
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-300">
+                    Microsoft 365 Fundamentals (MS-900)
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
+                    $99.00
+                  </td>
+                  <td className="px-4 py-3 text-sm font-bold text-green-600 border-r border-gray-300">
+                    Available
+                  </td>
+                  <td className="px-4 py-3 text-sm font-bold text-green-600 border-r border-gray-300">
+                    Available
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    Voucher fully funded at discounted rate
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-300">
+                    GitHub Foundations
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
+                    $99.00
+                  </td>
+                  <td className="px-4 py-3 text-sm font-bold text-green-600 border-r border-gray-300">
+                    $0.00 with GitHub Student Pack
+                  </td>
+                  <td className="px-4 py-3 text-sm font-bold text-green-600 border-r border-gray-300">
+                    Available
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    <strong>FREE</strong> with GitHub Student Developer Pack. Voucher fully funded
+                    at discounted rate otherwise.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded mt-6">
+            <p className="text-blue-900 font-semibold mb-2">Cost Optimization Notes:</p>
+            <ul className="space-y-2 text-blue-900">
+              <li>
+                • All pricing reflects <strong>annual billing</strong> to maximize available
+                discounts
+              </li>
+              <li>
+                • GitHub Foundations certification is <strong>free of charge</strong> when obtained
+                through the GitHub Student Developer Pack
+              </li>
+              <li>
+                • Test vouchers for both certifications are fully funded at nonprofit/student rates
+              </li>
+            </ul>
           </div>
         </section>
 
@@ -309,6 +410,17 @@ export default function TrainingPlan() {
                       Describe Microsoft 365 security solutions
                     </a>{' '}
                     (Microsoft Learn)
+                  </li>
+                  <li className="text-gray-700">
+                    <strong>Training Resource:</strong>{' '}
+                    <a
+                      href="https://share.google/WN4KlwWZnm1Ykb5kV"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      Crash Course in Microsoft 365 Business Premium for Nonprofits
+                    </a>
                   </li>
                   <li className="text-gray-700">
                     <strong>Action:</strong> Configure personal MFA and secure authentication
