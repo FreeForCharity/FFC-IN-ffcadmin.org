@@ -95,7 +95,7 @@ const documentationSections: DocSection[] = [
         description:
           'Comprehensive public-facing test documentation covering all 16 test suites, their purposes, what they test, why they are important, and how to verify them manually. Includes running instructions, CI/CD integration details, and test result interpretation. Essential for understanding the testing strategy and quality assurance processes.',
         audience: 'All Users - Developers, QA Testers, Administrators, Auditors',
-        githubUrl: 'https://ffcadmin.org/testing',
+        githubUrl: '/testing/',
       },
     ],
   },
