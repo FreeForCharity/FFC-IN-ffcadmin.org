@@ -138,13 +138,20 @@ When properly configured, you should see:
 
 The `auto-sign-commits.yml` workflow automatically signs bot commits:
 
-1. **Detects Bot Commits** - Identifies commits from copilot-swe-agent[bot] or github-actions[bot]
+1. **Detects Bot Commits** - Identifies commits from any bot or automated tool by checking the commit author/committer email for bot patterns (bot, noreply.github.com, copilot, etc.)
 2. **Checks Configuration** - Verifies `GPG_PRIVATE_KEY` secret is available
 3. **Imports GPG Key** - Loads the Free For Charity GPG key from secrets
 4. **Signs the Commit** - Adds a GPG signature to the unsigned commit
 5. **Updates Repository** - Force pushes the signed commit back to the branch
 
 **Workflow File:** `.github/workflows/auto-sign-commits.yml`
+
+**Key Features:**
+
+- Automatically detects bot commits based on email patterns (no manual actor list needed)
+- Provides detailed debugging information in workflow logs
+- Skips signing for human commits to avoid conflicts
+- Works with any bot: Copilot, GitHub Actions, Dependabot, etc.
 
 **When it runs:**
 

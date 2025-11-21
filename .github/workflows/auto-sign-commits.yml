@@ -15,10 +15,6 @@ permissions:
 jobs:
   check-and-sign:
     runs-on: ubuntu-latest
-    # Only run for bot commits
-    if: |
-      github.actor == 'copilot-swe-agent[bot]' ||
-      github.actor == 'github-actions[bot]'
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -26,6 +22,33 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Debug workflow context
+        run: |
+          echo "🔍 Workflow triggered by: ${{ github.actor }}"
+          echo "📝 Last commit author: $(git log -1 --pretty=format:'%an <%ae>')"
+          echo "📝 Last commit committer: $(git log -1 --pretty=format:'%cn <%ce>')"
+          echo "📝 Commit SHA: $(git log -1 --pretty=format:'%H')"
+          echo "📝 Commit message: $(git log -1 --pretty=format:'%s')"
+
+      - name: Check if commit is from a bot
+        id: bot_check
+        run: |
+          # Get commit author and committer emails
+          AUTHOR_EMAIL=$(git log -1 --pretty=format:'%ae')
+          COMMITTER_EMAIL=$(git log -1 --pretty=format:'%ce')
+
+          # Check if commit is from a bot (includes Copilot, GitHub Actions, etc.)
+          if echo "$AUTHOR_EMAIL" | grep -qE '(bot|noreply\.github\.com|copilot)'; then
+            echo "is_bot=true" >> $GITHUB_OUTPUT
+            echo "✅ Detected bot commit from: $AUTHOR_EMAIL"
+          elif echo "$COMMITTER_EMAIL" | grep -qE '(bot|noreply\.github\.com|copilot)'; then
+            echo "is_bot=true" >> $GITHUB_OUTPUT
+            echo "✅ Detected bot commit from committer: $COMMITTER_EMAIL"
+          else
+            echo "is_bot=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Not a bot commit (author: $AUTHOR_EMAIL, committer: $COMMITTER_EMAIL)"
+          fi
 
       - name: Check if GPG key is configured
         id: gpg_check
@@ -36,8 +59,17 @@ jobs:
             echo "configured=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Skip if not a bot commit
+        if: steps.bot_check.outputs.is_bot == 'false'
+        run: |
+          echo "ℹ️ This is not a bot commit, skipping auto-signing."
+          echo "ℹ️ Auto-signing only applies to commits from bots and automated tools."
+          exit 0
+
       - name: Import GPG key
-        if: steps.gpg_check.outputs.configured == 'true'
+        if: |
+          steps.bot_check.outputs.is_bot == 'true' &&
+          steps.gpg_check.outputs.configured == 'true'
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -61,6 +93,7 @@ jobs:
 
       - name: Sign last commit
         if: |
+          steps.bot_check.outputs.is_bot == 'true' &&
           steps.gpg_check.outputs.configured == 'true' &&
           steps.check_signature.outputs.signed == 'false'
         run: |
@@ -71,6 +104,7 @@ jobs:
 
       - name: Push signed commit
         if: |
+          steps.bot_check.outputs.is_bot == 'true' &&
           steps.gpg_check.outputs.configured == 'true' &&
           steps.check_signature.outputs.signed == 'false'
         run: |
@@ -79,9 +113,10 @@ jobs:
 
       - name: Warning if no GPG key
         if: |
+          steps.bot_check.outputs.is_bot == 'true' &&
           steps.gpg_check.outputs.configured == 'false' &&
           steps.check_signature.outputs.signed == 'false'
         run: |
-          echo "::warning::No GPG key configured. Commits unsigned."
+          echo "::warning::No GPG key configured. Commits from bots are unsigned."
           echo "::warning::Add GPG_PRIVATE_KEY to repository secrets."
           echo "::warning::See GPG_SIGNING.md for instructions."

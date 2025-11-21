@@ -1,6 +1,46 @@
 # GitHub Actions Workflows
 
-This repository uses three GitHub Actions workflows to ensure code quality, security, and automated deployment.
+This repository uses multiple GitHub Actions workflows to ensure code quality, security, and automated deployment.
+
+## auto-sign-commits.yml - Automatic GPG Signing
+
+Automatically signs commits from bots and automated tools to meet branch protection requirements.
+
+### When it runs:
+
+- On pushes to any branch except `main`
+- Triggered by commits from bots or automated tools
+
+### What it does:
+
+**Check and Sign Job:**
+
+1. Checks out the code with full history
+2. Displays debugging information (actor, commit author, commit details)
+3. Detects if the commit is from a bot by checking email patterns:
+   - Patterns: `bot`, `noreply.github.com`, `copilot`
+   - Checks both author and committer emails
+4. Verifies GPG key is configured in repository secrets
+5. Imports GPG key if available
+6. Checks if the last commit is already signed
+7. Signs the commit if unsigned (using `git commit --amend -S`)
+8. Force pushes the signed commit back to the branch
+
+**Key Features:**
+
+- **Automatic Bot Detection**: Uses email pattern matching instead of hardcoded actor names, so it works with any bot (Copilot, GitHub Actions, Dependabot, etc.)
+- **Non-Disruptive**: Skips human commits to avoid conflicts
+- **Debugging Support**: Comprehensive logging to diagnose issues
+- **Graceful Degradation**: Warns if GPG key is not configured but doesn't fail the workflow
+
+**Required Secrets:**
+
+- `GPG_PRIVATE_KEY` - Private GPG key for signing (required)
+- `GPG_PASSPHRASE` - Passphrase for GPG key (optional, if key is protected)
+
+### Why this matters:
+
+Branch protection rules require all commits to `main` to be GPG-signed. Bot commits are typically unsigned, which would prevent merging PRs. This workflow automatically signs bot commits, ensuring they can be merged while maintaining security requirements.
 
 ## ci.yml - Continuous Integration
 
@@ -205,12 +245,14 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 
 ## Workflow Summary
 
-| Workflow            | Trigger                              | Purpose                         | Dependencies                |
-| ------------------- | ------------------------------------ | ------------------------------- | --------------------------- |
-| ci.yml              | PRs and pushes to main               | Run tests and verify builds     | None                        |
-| codeql-analysis.yml | PRs, pushes to main, and weekly      | Security vulnerability scanning | None                        |
-| deploy.yml          | After CI and CodeQL complete on main | Deploy to GitHub Pages          | ci.yml, codeql-analysis.yml |
-| lighthouse.yml      | After successful deployment on main  | Performance and quality audits  | deploy.yml                  |
+| Workflow              | Trigger                              | Purpose                           | Dependencies                |
+| --------------------- | ------------------------------------ | --------------------------------- | --------------------------- |
+| auto-sign-commits.yml | Pushes to non-main branches          | Auto-sign bot commits with GPG    | None                        |
+| ci.yml                | PRs and pushes to main               | Run tests and verify builds       | None                        |
+| codeql-analysis.yml   | PRs, pushes to main, and weekly      | Security vulnerability scanning   | None                        |
+| deploy.yml            | After CI and CodeQL complete on main | Deploy to GitHub Pages            | ci.yml, codeql-analysis.yml |
+| lighthouse.yml        | After successful deployment on main  | Performance and quality audits    | deploy.yml                  |
+| sign-commits.yml      | Manual workflow dispatch             | Manually sign commits in a branch | None                        |
 
 ### Workflow Execution Order
 
