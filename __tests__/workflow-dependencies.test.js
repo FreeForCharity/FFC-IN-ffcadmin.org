@@ -54,7 +54,7 @@ describe('Workflow Dependencies Tests', () => {
         (step) => step.id === 'check' || step.name.includes('workflows status')
       )
       expect(checkStep).toBeDefined()
-      expect(checkStep.uses).toBe('actions/github-script@v7')
+      expect(checkStep.uses).toBe('actions/github-script@v8')
       expect(checkStep.with.script).toContain('CI - Build and Test')
       expect(checkStep.with.script).toContain('CodeQL Security Analysis')
       expect(checkStep.with.script).toContain("conclusion !== 'success'")

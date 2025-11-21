@@ -155,7 +155,7 @@ jobs:
         run: |
           # Create artifact directory
           mkdir -p /tmp/artifact
-          
+
           # Create tar archive with all files including dotfiles
           # Using tar with --dereference to follow symlinks and -czf for compression
           cd ./out
@@ -164,9 +164,9 @@ jobs:
             --directory . \
             -czf /tmp/artifact/artifact.tar.gz \
             .
-          
+
           echo "✓ Created artifact.tar.gz with all files including .nojekyll"
-          
+
           # Verify .nojekyll is in the archive
           if tar -tzf /tmp/artifact/artifact.tar.gz | grep -q "^\.nojekyll$"; then
             echo "✓ Verified .nojekyll file is included in the artifact"
