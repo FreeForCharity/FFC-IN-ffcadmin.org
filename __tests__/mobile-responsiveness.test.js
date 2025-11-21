@@ -17,12 +17,20 @@ describe('Mobile Responsiveness', () => {
     }
 
     // Find and read the CSS file
-    const outDir = path.join(__dirname, '..', 'out', '_next', 'static', 'css')
-    if (fs.existsSync(outDir)) {
-      const cssFiles = fs.readdirSync(outDir).filter((file) => file.endsWith('.css'))
-      if (cssFiles.length > 0) {
-        const cssPath = path.join(outDir, cssFiles[0])
-        cssContent = fs.readFileSync(cssPath, 'utf8')
+    // Next.js 16 with Turbopack uses static/chunks instead of static/css
+    const outDirs = [
+      path.join(__dirname, '..', 'out', '_next', 'static', 'chunks'),
+      path.join(__dirname, '..', 'out', '_next', 'static', 'css'),
+    ]
+
+    for (const outDir of outDirs) {
+      if (fs.existsSync(outDir)) {
+        const cssFiles = fs.readdirSync(outDir).filter((file) => file.endsWith('.css'))
+        if (cssFiles.length > 0) {
+          const cssPath = path.join(outDir, cssFiles[0])
+          cssContent = fs.readFileSync(cssPath, 'utf8')
+          break
+        }
       }
     }
   })
@@ -54,28 +62,31 @@ describe('Mobile Responsiveness', () => {
   })
 
   describe('CSS Media Queries', () => {
-    it('should have sm breakpoint (640px)', () => {
-      expect(cssContent).toMatch(/@media\s*\(min-width:\s*640px\)/)
+    it('should have sm breakpoint (640px = 40rem)', () => {
+      // Tailwind v4 uses rem units: 40rem = 640px
+      expect(cssContent).toMatch(/@media\s*\(min-width:40rem\)/)
     })
 
-    it('should have md breakpoint (768px)', () => {
-      expect(cssContent).toMatch(/@media\s*\(min-width:\s*768px\)/)
+    it('should have md breakpoint (768px = 48rem)', () => {
+      // Tailwind v4 uses rem units: 48rem = 768px
+      expect(cssContent).toMatch(/@media\s*\(min-width:48rem\)/)
     })
 
-    it('should have lg breakpoint (1024px)', () => {
-      expect(cssContent).toMatch(/@media\s*\(min-width:\s*1024px\)/)
+    it('should have lg breakpoint (1024px = 64rem)', () => {
+      // Tailwind v4 uses rem units: 64rem = 1024px
+      expect(cssContent).toMatch(/@media\s*\(min-width:64rem\)/)
     })
 
     it('should include md:flex utility class', () => {
-      expect(cssContent).toMatch(/\.md\\:flex\s*\{\s*display\s*:\s*flex\s*\}/)
+      expect(cssContent).toMatch(/\.md\\:flex\{display:flex\}/)
     })
 
     it('should include md:hidden utility class', () => {
-      expect(cssContent).toMatch(/\.md\\:hidden\s*\{\s*display\s*:\s*none\s*\}/)
+      expect(cssContent).toMatch(/\.md\\:hidden\{display:none\}/)
     })
 
     it('should include sm:block utility class', () => {
-      expect(cssContent).toMatch(/\.sm\\:block\s*\{\s*display\s*:\s*block\s*\}/)
+      expect(cssContent).toMatch(/\.sm\\:block\{display:block\}/)
     })
   })
 
@@ -104,7 +115,7 @@ describe('Mobile Responsiveness', () => {
     })
 
     it('should reference CSS from root path (custom domain)', () => {
-      expect(htmlContent).toMatch(/href="\/_next\/static\/css\//)
+      expect(htmlContent).toMatch(/href="\/_next\/static\/(css|chunks)\//)
     })
   })
 })
