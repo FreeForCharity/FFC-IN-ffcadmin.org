@@ -927,7 +927,7 @@ pnpm add -D @lhci/cli
 - [x] Lighthouse CI integrated into CI workflow (.github/workflows/lighthouse.yml)
 - [x] Initial baseline established (90% thresholds)
 - [x] Documentation updated with performance guidelines (LIGHTHOUSE.md)
-- [x] Test suite validates configuration (**tests**/lighthouse-config.test.js)
+- [x] Test suite validates configuration (__tests__/lighthouse-config.test.js)
 
 ### Implementation Notes
 
