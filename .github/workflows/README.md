@@ -191,8 +191,8 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 
 **Issue: "no artifacts found" when downloading build artifact**
 
-- **Cause:** The workflow was searching for artifacts from any recent deploy workflow run, not the specific run that triggered this workflow
-- **Fix:** Added `run_id: ${{ github.event.workflow_run.id }}` parameter to download artifacts from the exact workflow run that triggered this audit
+- **Cause:** The deploy workflow runs multiple times due to workflow_run triggers from both CI and CodeQL workflows. The first run often skips building (waiting for all checks), so no artifacts are created. The lighthouse workflow was trying to download from the first (skipped) run instead of building its own artifact.
+- **Fix:** Removed artifact download dependency. The lighthouse workflow now always builds its own artifact by checking out code, installing dependencies, and building the project. This ensures reliability regardless of deployment workflow timing or artifact retention.
 
 **Issue: "No files were found with the provided path: .lighthouseci"**
 
