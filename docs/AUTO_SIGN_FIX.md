@@ -81,13 +81,15 @@ Replaced the actor-based check with email pattern-based bot detection:
 
 ## Bot Detection Patterns
 
-The workflow now detects commits from bots by checking if the email contains:
+The workflow now detects commits from bots by checking if the email matches:
 
-| Pattern              | Matches                                                |
-| -------------------- | ------------------------------------------------------ |
-| `bot`                | github-actions[bot], copilot-swe-agent[bot], etc.      |
-| `noreply.github.com` | GitHub bot accounts (e.g., 198982749+Copilot@users...) |
-| `copilot`            | Copilot-specific accounts                              |
+| Pattern                   | Matches                         | Examples                                     |
+| ------------------------- | ------------------------------- | -------------------------------------------- |
+| `\[bot\]@`                | Accounts with [bot] in username | github-actions[bot]@users.noreply.github.com |
+| `@.*noreply\.github\.com` | GitHub bot email domains        | 198982749+Copilot@users.noreply.github.com   |
+| `Copilot@`                | Copilot-specific accounts       | Copilot@users.noreply.github.com             |
+
+These patterns are more specific than simple substring matching to avoid false positives.
 
 ## Testing
 
@@ -155,12 +157,12 @@ If the workflow still doesn't sign commits:
 - `.github/workflows/README.md` - All workflow documentation
 - `gpg-keys/README.md` - GPG key information
 
-## Commit Details
+## Implementation Details
 
-- **Commit**: 7756c57b2be98f5f17e6237e2498dec1d328bc11
 - **Type**: fix(ci)
 - **Scope**: Auto-sign workflow bot detection
-- **Date**: 2025-11-21
+- **Date**: November 2025
+- **Branch**: copilot/fix-auto-sign-commits-issue
 
 ---
 
