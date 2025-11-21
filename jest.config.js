@@ -11,6 +11,9 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   testMatch: ['**/__tests__/**/*.test.js', '**/__tests__/**/*.test.ts'],
   collectCoverageFrom: ['app/**/*.{js,jsx,ts,tsx}', '!app/**/*.d.ts', '!**/node_modules/**'],
+  // Coverage thresholds set to 0% because this project uses build-output validation tests
+  // rather than component unit tests. This is intentional for a static site generator.
+  // Tests validate the generated output structure rather than component behavior.
   coverageThreshold: {
     global: {
       branches: 0,
