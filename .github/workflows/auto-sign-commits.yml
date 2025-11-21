@@ -59,8 +59,13 @@ jobs:
         run: |
           if [ -n "${{ secrets.GPG_PRIVATE_KEY }}" ]; then
             echo "configured=true" >> $GITHUB_OUTPUT
+            echo "✅ GPG_PRIVATE_KEY secret is available"
           else
             echo "configured=false" >> $GITHUB_OUTPUT
+            echo "❌ GPG_PRIVATE_KEY secret is NOT available"
+            echo "⚠️ Note: Organization secrets must be explicitly enabled for this repository"
+            echo "⚠️ Go to: Settings → Secrets and variables → Actions → Organization secrets"
+            echo "⚠️ Or add the secret at the repository level instead"
           fi
 
       - name: Skip if not a bot commit
@@ -74,6 +79,7 @@ jobs:
         if: |
           steps.bot_check.outputs.is_bot == 'true' &&
           steps.gpg_check.outputs.configured == 'true'
+        id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -82,6 +88,24 @@ jobs:
           git_commit_gpgsign: true
           git_config_global: true
           git_tag_gpgsign: true
+
+      - name: Verify GPG import
+        if: |
+          steps.bot_check.outputs.is_bot == 'true' &&
+          steps.gpg_check.outputs.configured == 'true'
+        run: |
+          echo "🔑 GPG key imported:"
+          echo "  Key ID: ${{ steps.import_gpg.outputs.keyid }}"
+          echo "  Name: ${{ steps.import_gpg.outputs.name }}"
+          echo "  Email: ${{ steps.import_gpg.outputs.email }}"
+          echo "  Fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
+          echo ""
+          echo "📋 Available GPG keys:"
+          gpg --list-secret-keys --keyid-format LONG || echo "No keys found"
+          echo ""
+          echo "🔧 Git signing configuration:"
+          git config --get user.signingkey || echo "No signing key configured"
+          git config --get commit.gpgsign || echo "GPG signing not enabled"
 
       - name: Check last commit signature
         id: check_signature
@@ -121,6 +145,20 @@ jobs:
           steps.gpg_check.outputs.configured == 'false' &&
           steps.check_signature.outputs.signed == 'false'
         run: |
-          echo "::warning::No GPG key configured. Commits from bots are unsigned."
-          echo "::warning::Add GPG_PRIVATE_KEY to repository secrets."
-          echo "::warning::See GPG_SIGNING.md for instructions."
+          echo "::error::❌ GPG_PRIVATE_KEY secret is not accessible to this workflow"
+          echo "::error::📍 Current configuration:"
+          echo "::error::   - Secret exists at: Organization level"
+          echo "::error::   - Workflow trying to access: Repository secrets"
+          echo "::error::"
+          echo "::error::🔧 Solution 1: Enable organization secret for this repository"
+          echo "::error::   1. Go to: https://github.com/organizations/FreeForCharity/settings/secrets/actions"
+          echo "::error::   2. Find GPG_PRIVATE_KEY in organization secrets"
+          echo "::error::   3. Click 'Update' and ensure this repository is selected"
+          echo "::error::"
+          echo "::error::🔧 Solution 2: Copy secret to repository level"
+          echo "::error::   1. Go to: https://github.com/FreeForCharity/ffcadmin.org/settings/secrets/actions"
+          echo "::error::   2. Click 'New repository secret'"
+          echo "::error::   3. Name: GPG_PRIVATE_KEY"
+          echo "::error::   4. Paste the private key value"
+          echo "::error::"
+          echo "::error::📖 See GPG_SIGNING.md and QUICK_START.md for detailed instructions."
