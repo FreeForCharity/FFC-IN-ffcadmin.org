@@ -190,7 +190,7 @@ If the key has a passphrase:
 
 - [QUICK_START.md](../QUICK_START.md) - Quick setup guide for GPG signing
 - [GPG_SIGNING.md](../GPG_SIGNING.md) - Detailed GPG configuration documentation
-- [AUTO_SIGN_FIX.md](./AUTO_SIGN_FIX.md) - Documentation of the workflow fix
+- [AUTO_SIGN_FIX.md](AUTO_SIGN_FIX.md) - Documentation of the workflow fix
 - [GitHub Docs: Encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 - [GitHub Docs: Using secrets in workflows](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions)
 
