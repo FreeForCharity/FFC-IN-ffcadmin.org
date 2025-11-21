@@ -103,7 +103,15 @@ pnpm run lint
 
 This runs ESLint to check for code quality issues, best practices, and potential bugs.
 
-#### Step 5: Build the Project
+#### Step 5: Type Check
+
+```bash
+pnpm run type-check
+```
+
+This runs TypeScript type checking to catch type errors before building.
+
+#### Step 6: Build the Project
 
 ```bash
 pnpm run build
@@ -111,7 +119,7 @@ pnpm run build
 
 This compiles TypeScript, builds the Next.js application, and generates the static export in the `out/` directory.
 
-#### Step 6: Run Tests
+#### Step 7: Run Tests
 
 ```bash
 pnpm test
@@ -119,7 +127,7 @@ pnpm test
 
 This runs the Jest test suite to validate your changes.
 
-#### Step 7: Commit Your Changes
+#### Step 8: Commit Your Changes
 
 ```bash
 git add .
@@ -136,7 +144,7 @@ git push origin feature/your-feature-name
 **Critical:** Always follow this order when developing locally. The CI/CD pipeline follows the same sequence:
 
 ```
-1. Format → 2. Lint → 3. Build → 4. Test
+1. Format → 2. Lint → 3. Type Check → 4. Build → 5. Test
 ```
 
 ### Why This Order?
@@ -149,12 +157,17 @@ git push origin feature/your-feature-name
    - Runs after formatting to avoid style rule conflicts
    - Checks for bugs, best practices, and accessibility
 
-3. **Build Third** - Next.js builds the application
-   - Compiles TypeScript (catches type errors)
+3. **Type Check Third** - TypeScript validates types
+   - Faster feedback on type errors (doesn't require full build)
+   - Clearer error messages for type-related issues
+   - Runs independently before build
+
+4. **Build Fourth** - Next.js builds the application
+   - Compiles TypeScript and JavaScript
    - Generates static export for GitHub Pages
    - Validates all imports and dependencies
 
-4. **Test Last** - Jest validates functionality
+5. **Test Last** - Jest validates functionality
    - Tests the built output (not source files)
    - Validates build configuration
    - Ensures responsive design and routing work
@@ -164,7 +177,7 @@ git push origin feature/your-feature-name
 Run all steps in one command:
 
 ```bash
-pnpm run format && pnpm run lint && pnpm run build && pnpm test
+pnpm run format && pnpm run lint && pnpm run type-check && pnpm run build && pnpm test
 ```
 
 If this passes, your PR should pass CI checks.
@@ -244,7 +257,7 @@ Update documentation for development workflow
 
 ### Before Opening a PR
 
-1. ✅ Run all checks locally: `pnpm run format && pnpm run lint && pnpm run build && pnpm test`
+1. ✅ Run all checks locally: `pnpm run format && pnpm run lint && pnpm run type-check && pnpm run build && pnpm test`
 2. ✅ Test responsive design (mobile, tablet, desktop)
 3. ✅ Update documentation if you changed functionality
 4. ✅ Add tests for new features
@@ -265,6 +278,7 @@ Your PR must pass these automated checks:
 
 - ✅ **Format Check** - All files formatted with Prettier
 - ✅ **Lint Check** - No ESLint errors or warnings
+- ✅ **Type Check** - TypeScript type checking passes
 - ✅ **Build Check** - Next.js build succeeds
 - ✅ **Test Check** - All tests pass
 - ✅ **CodeQL** - Security scan passes
@@ -289,10 +303,11 @@ Runs on every PR and push to `main`:
 1. Install dependencies (pnpm install --frozen-lockfile)
 2. Check formatting (pnpm run format:check)
 3. Run linter (pnpm run lint)
-4. Build project (pnpm run build)
-5. Verify output directory
-6. Validate critical files exist
-7. Run tests (pnpm test)
+4. Type check (pnpm run type-check)
+5. Build project (pnpm run build)
+6. Verify output directory
+7. Validate critical files exist
+8. Run tests (pnpm test)
 ```
 
 ### Security Scanning (codeql-analysis.yml)

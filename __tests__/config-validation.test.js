@@ -64,7 +64,16 @@ describe('Configuration Validation Tests', () => {
     })
   })
 
-  describe('Test Case 5.3: lint-staged Configuration', () => {
+  describe('Test Case 5.3: TypeScript Configuration', () => {
+    it('should have type-check script in package.json', () => {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+      expect(packageJson.scripts['type-check']).toBeDefined()
+      expect(packageJson.scripts['type-check']).toContain('tsc')
+      expect(packageJson.scripts['type-check']).toContain('--noEmit')
+    })
+  })
+
+  describe('Test Case 5.4: lint-staged Configuration', () => {
     it('should have lint-staged configuration in package.json', () => {
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
       expect(packageJson['lint-staged']).toBeDefined()
