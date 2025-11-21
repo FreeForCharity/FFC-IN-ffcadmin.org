@@ -36,7 +36,13 @@ export default function Navigation() {
               href="/training-plan"
               className="hover:text-blue-200 transition-colors font-medium"
             >
-              Training Plan
+              Global Admin
+            </Link>
+            <Link
+              href="/canva-designer-path"
+              className="hover:text-blue-200 transition-colors font-medium"
+            >
+              Canva Designer
             </Link>
             <a
               href="https://github.com/FreeForCharity"
@@ -104,7 +110,14 @@ export default function Navigation() {
               className="block px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Training Plan
+              Global Admin
+            </Link>
+            <Link
+              href="/canva-designer-path"
+              className="block px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Canva Designer
             </Link>
             <a
               href="https://github.com/FreeForCharity"
