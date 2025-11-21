@@ -10,6 +10,21 @@ const path = require('path')
 describe('Security Documentation Tests', () => {
   const rootDir = process.cwd()
   const securityPath = path.join(rootDir, 'SECURITY.md')
+  let securityContent
+
+  // Load content once for all tests that need it
+  beforeAll(() => {
+    if (fs.existsSync(securityPath)) {
+      securityContent = fs.readFileSync(securityPath, 'utf-8')
+    }
+  })
+
+  // Helper function to skip tests when SECURITY.md doesn't exist
+  const skipIfNoContent = () => {
+    if (!securityContent) {
+      pending('SECURITY.md file does not exist')
+    }
+  }
 
   describe('SECURITY.md File', () => {
     it('should have SECURITY.md file in root directory', () => {
@@ -32,21 +47,6 @@ describe('Security Documentation Tests', () => {
   })
 
   describe('Required Security Policy Sections', () => {
-    let securityContent
-
-    beforeAll(() => {
-      if (fs.existsSync(securityPath)) {
-        securityContent = fs.readFileSync(securityPath, 'utf-8')
-      }
-    })
-
-    // Skip these tests if SECURITY.md doesn't exist
-    const skipIfNoContent = () => {
-      if (!securityContent) {
-        pending('SECURITY.md file does not exist')
-      }
-    }
-
     beforeEach(() => {
       skipIfNoContent()
     })
@@ -85,21 +85,6 @@ describe('Security Documentation Tests', () => {
   })
 
   describe('Security Best Practices', () => {
-    let securityContent
-
-    beforeAll(() => {
-      if (fs.existsSync(securityPath)) {
-        securityContent = fs.readFileSync(securityPath, 'utf-8')
-      }
-    })
-
-    // Skip these tests if SECURITY.md doesn't exist
-    const skipIfNoContent = () => {
-      if (!securityContent) {
-        pending('SECURITY.md file does not exist')
-      }
-    }
-
     beforeEach(() => {
       skipIfNoContent()
     })
