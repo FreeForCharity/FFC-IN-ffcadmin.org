@@ -93,6 +93,13 @@ export default function Navigation() {
               Tech Stack
             </Link>
             <Link
+              href="/testing"
+              className="block px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Testing
+            </Link>
+            <Link
               href="/training-plan"
               className="block px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
               onClick={() => setIsMenuOpen(false)}

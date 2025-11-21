@@ -89,6 +89,14 @@ const documentationSections: DocSection[] = [
         audience: 'Developers, Quality Assurance, Testers',
         githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/TEST_CASES.md',
       },
+      {
+        name: 'Test Documentation (Public Page)',
+        file: '/testing',
+        description:
+          'Comprehensive public-facing test documentation covering all 17 test suites, their purposes, what they test, why they are important, and how to verify them manually. Includes running instructions, CI/CD integration details, and test result interpretation. Essential for understanding the testing strategy and quality assurance processes.',
+        audience: 'All Users - Developers, QA Testers, Administrators, Auditors',
+        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/app/testing/page.tsx',
+      },
     ],
   },
   {
@@ -96,6 +104,14 @@ const documentationSections: DocSection[] = [
     description: 'Security practices and GPG commit signing',
     icon: '🔒',
     docs: [
+      {
+        name: 'Quick Start: GPG Signing Setup',
+        file: 'QUICK_START.md',
+        description:
+          'Comprehensive 5-minute setup guide for enabling automatic GPG commit signing. Includes step-by-step instructions, verification procedures, troubleshooting, how auto-signing works, and advanced topics. Consolidated from multiple GPG documentation files for easy access.',
+        audience: 'Repository Administrators, DevOps Engineers, Developers',
+        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/QUICK_START.md',
+      },
       {
         name: 'GPG Signing Configuration',
         file: 'GPG_SIGNING.md',
@@ -105,28 +121,12 @@ const documentationSections: DocSection[] = [
         githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/GPG_SIGNING.md',
       },
       {
-        name: 'Setup Auto-Signing',
-        file: 'SETUP_AUTO_SIGNING.md',
-        description:
-          'Detailed step-by-step instructions for setting up automated commit signing in GitHub Actions workflows. Covers generating GPG keys, configuring secrets, setting up workflows, and troubleshooting common issues.',
-        audience: 'Repository Administrators, DevOps Engineers',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/SETUP_AUTO_SIGNING.md',
-      },
-      {
         name: 'GPG Keys Directory',
         file: 'gpg-keys/README.md',
         description:
           'Documentation for the official Free For Charity GPG key including key information (ID, fingerprint, validity period), security warnings, setup instructions, and verification procedures. Explains how to safely manage public and private keys.',
         audience: 'Repository Administrators, Security Team',
         githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/gpg-keys/README.md',
-      },
-      {
-        name: 'Auto-Sign Test',
-        file: 'AUTO_SIGN_TEST.md',
-        description:
-          'Comprehensive verification guide for automatic GPG commit signing including workflow mechanics, verification methods (web interface and command line), troubleshooting common issues, and role-specific guidance for administrators and developers.',
-        audience: 'Quality Assurance, Repository Administrators',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/AUTO_SIGN_TEST.md',
       },
     ],
   },
@@ -139,18 +139,9 @@ const documentationSections: DocSection[] = [
         name: 'Responsive Design',
         file: 'RESPONSIVE_DESIGN.md',
         description:
-          'Complete responsive design documentation covering Tailwind CSS breakpoints, navigation behavior across devices (mobile hamburger menu vs desktop inline links), expected behavior at different screen sizes, and comprehensive troubleshooting guide for cache and CSS loading issues.',
+          'Complete responsive design documentation covering Tailwind CSS breakpoints, navigation behavior across devices (mobile hamburger menu vs desktop inline links), expected behavior at different screen sizes, comprehensive troubleshooting guide for cache and CSS loading issues, and detailed testing and verification results.',
         audience: 'Frontend Developers, Designers, QA Testers',
         githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/RESPONSIVE_DESIGN.md',
-      },
-      {
-        name: 'Responsive Testing Results',
-        file: 'RESPONSIVE_TESTING_RESULTS.md',
-        description:
-          'Documented results from responsive design testing across multiple devices and screen sizes. Includes test scenarios, actual behavior observed, and confirmation that the site works correctly on mobile, tablet, and desktop devices.',
-        audience: 'QA Testers, Frontend Developers, Product Managers',
-        githubUrl:
-          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/RESPONSIVE_TESTING_RESULTS.md',
       },
     ],
   },
@@ -167,14 +158,21 @@ const documentationSections: DocSection[] = [
         audience: 'Developers, Support Team, Repository Administrators',
         githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/ISSUE_RESOLUTION.md',
       },
+    ],
+  },
+  {
+    title: 'Archived Documentation',
+    description: 'Previously active documentation that has been consolidated or completed',
+    icon: '📦',
+    docs: [
       {
-        name: 'Implementation Issues',
-        file: 'IMPLEMENTATION_ISSUES.md',
+        name: 'Archived Files',
+        file: 'docs/archived/README.md',
         description:
-          'Detailed documentation of implementation challenges, technical decisions, workarounds, and solutions applied during development. Provides context for why certain approaches were chosen over alternatives.',
-        audience: 'Developers, Technical Architects',
+          'Documentation that has been archived includes: SETUP_AUTO_SIGNING.md and AUTO_SIGN_TEST.md (consolidated into QUICK_START.md), RESPONSIVE_TESTING_RESULTS.md (consolidated into RESPONSIVE_DESIGN.md), and IMPLEMENTATION_ISSUES.md (all 11 issues complete). Files are preserved for historical reference and audit purposes.',
+        audience: 'Repository Administrators, Auditors, Historical Reference',
         githubUrl:
-          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/IMPLEMENTATION_ISSUES.md',
+          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/docs/archived/README.md',
       },
     ],
   },
