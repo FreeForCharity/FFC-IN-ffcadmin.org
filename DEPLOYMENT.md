@@ -61,10 +61,9 @@ Located at `.github/workflows/deploy.yml`, this workflow:
 - Triggers on push to `main` branch
 - Uses Node.js 20 LTS and pnpm 9.0.0
 - Builds the site with `pnpm run build`
-- Creates a custom GitHub Pages artifact that includes dotfiles (`.nojekyll`)
-  - **Note**: As of `actions/upload-pages-artifact@v4`, dotfiles are excluded by default
-  - We manually create a tar.gz artifact following [GitHub Pages artifact requirements](https://github.com/actions/upload-pages-artifact#artifact-validation)
-  - This ensures the `.nojekyll` file is included in the deployment
+- Uses `actions/upload-pages-artifact@v3` to create the GitHub Pages artifact
+  - **Note**: Version 3 is used (not v4) because v4 excludes dotfiles by default
+  - The `.nojekyll` file is required for GitHub Pages to serve the `_next` directory correctly
 - Deploys the `out/` directory to GitHub Pages
 
 ### 3. Repository Settings

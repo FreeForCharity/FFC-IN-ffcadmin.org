@@ -152,39 +152,10 @@ jobs:
           fi
           echo "✓ .nojekyll file found in ./out directory"
 
-      - name: Create GitHub Pages artifact with dotfiles
-        run: |
-          # Create artifact directory
-          mkdir -p /tmp/artifact
-
-          # Create tar.gz archive with all files including dotfiles
-          # --dereference: Follow symbolic links (avoids symlink errors)
-          # --hard-dereference: Follow hard links (ensures all content is included)
-          # These flags ensure the archive meets GitHub Pages requirements:
-          # https://github.com/actions/upload-pages-artifact#artifact-validation
-          cd ./out
-          tar \
-            --dereference --hard-dereference \
-            --directory . \
-            -czf /tmp/artifact/artifact.tar.gz \
-            .
-
-          echo "✓ Created artifact.tar.gz with all files including .nojekyll"
-
-          # Verify .nojekyll is in the archive (pattern matches any line ending with .nojekyll, e.g. .nojekyll or ./.nojekyll)
-          if tar -tzf /tmp/artifact/artifact.tar.gz | grep -q "\.nojekyll$"; then
-            echo "✓ Verified .nojekyll file is included in the artifact"
-          else
-            echo "Error: .nojekyll file not found in artifact"
-            exit 1
-          fi
-
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-artifact@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
-          path: /tmp/artifact/artifact.tar.gz
-          retention-days: 1
+          path: ./out
 
   deploy:
     environment:
