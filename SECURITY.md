@@ -201,7 +201,7 @@ If you're contributing to this project, please follow these security guidelines:
 - Use `pnpm` (not npm or yarn) for consistency
 - Run `pnpm audit` before adding new dependencies
 - Keep local dependencies up to date
-- Use Node.js 20 LTS (as specified in `.nvmrc` or package.json)
+- Use Node.js 20 LTS (as specified in `package.json`)
 
 ### Testing Security Changes
 
@@ -229,7 +229,7 @@ pnpm audit
 - GPG signing is handled automatically by CI/CD
 - Write clear commit messages explaining security implications
 - Reference security advisories or CVEs when applicable
-- Use conventional commit format (enforced by commitlint)
+- Use conventional commit format (recommended and checked locally via commitlint)
 
 ## Additional Security Resources
 
