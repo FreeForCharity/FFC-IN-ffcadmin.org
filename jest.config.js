@@ -9,8 +9,22 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jest-environment-jsdom',
-  testMatch: ['**/__tests__/**/*.test.js', '**/__tests__/**/*.test.ts'],
+  testMatch: [
+    '**/__tests__/**/*.test.js',
+    '**/__tests__/**/*.test.ts',
+    '**/__tests__/**/*.test.tsx',
+  ],
   collectCoverageFrom: ['app/**/*.{js,jsx,ts,tsx}', '!app/**/*.d.ts', '!**/node_modules/**'],
+  // Coverage thresholds: This project uses both build-output validation tests
+  // and component unit tests. Thresholds are set based on current coverage levels.
+  coverageThreshold: {
+    global: {
+      branches: 2,
+      functions: 25,
+      lines: 13,
+      statements: 13,
+    },
+  },
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

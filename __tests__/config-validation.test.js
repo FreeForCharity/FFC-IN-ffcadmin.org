@@ -108,4 +108,42 @@ describe('Configuration Validation Tests', () => {
       expect(commands.some((cmd) => cmd.includes('prettier'))).toBe(true)
     })
   })
+
+  describe('Test Case 5.5: Test Coverage Configuration', () => {
+    const jestConfigPath = path.join(process.cwd(), 'jest.config.js')
+
+    it('should have jest.config.js file', () => {
+      expect(fs.existsSync(jestConfigPath)).toBe(true)
+    })
+
+    it('should have coverage thresholds defined in jest.config.js', () => {
+      const jestConfigContent = fs.readFileSync(jestConfigPath, 'utf-8')
+      expect(jestConfigContent).toContain('coverageThreshold')
+    })
+
+    it('should have global coverage thresholds', () => {
+      const jestConfigContent = fs.readFileSync(jestConfigPath, 'utf-8')
+      expect(jestConfigContent).toContain('global')
+    })
+
+    it('should specify branches threshold', () => {
+      const jestConfigContent = fs.readFileSync(jestConfigPath, 'utf-8')
+      expect(jestConfigContent).toContain('branches')
+    })
+
+    it('should specify functions threshold', () => {
+      const jestConfigContent = fs.readFileSync(jestConfigPath, 'utf-8')
+      expect(jestConfigContent).toContain('functions')
+    })
+
+    it('should specify lines threshold', () => {
+      const jestConfigContent = fs.readFileSync(jestConfigPath, 'utf-8')
+      expect(jestConfigContent).toContain('lines')
+    })
+
+    it('should specify statements threshold', () => {
+      const jestConfigContent = fs.readFileSync(jestConfigPath, 'utf-8')
+      expect(jestConfigContent).toContain('statements')
+    })
+  })
 })

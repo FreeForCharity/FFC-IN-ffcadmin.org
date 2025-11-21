@@ -62,8 +62,8 @@ jobs:
             echo "✓ Found $file"
           done
 
-      - name: Run tests
-        run: pnpm test
+      - name: Run tests with coverage
+        run: pnpm test:coverage
 
       - name: Check for broken links
         run: |

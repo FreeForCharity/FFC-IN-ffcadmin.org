@@ -17,3 +17,6 @@ public
 
 # GPG keys
 gpg-keys
+
+# Test coverage reports
+coverage
