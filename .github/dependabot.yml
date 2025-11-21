@@ -19,10 +19,11 @@ updates:
         update-types:
           - 'minor'
           - 'patch'
-      # Group production dependencies together (only patch updates)
+      # Group production dependencies together (minor and patch updates)
       production-dependencies:
         dependency-type: 'production'
         update-types:
+          - 'minor'
           - 'patch'
 
   # Enable version updates for GitHub Actions

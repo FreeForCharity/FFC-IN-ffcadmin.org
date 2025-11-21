@@ -8,7 +8,7 @@ This document contains detailed implementation plans for enhancing code quality 
 
 **Purpose:** Each section below represents a potential GitHub issue that can be created to track and implement code quality improvements.
 
-**Last Reviewed:** November 21, 2024  
+**Last Reviewed:** November 21, 2025  
 **Status:** 6 of 11 issues completed ✅ | 5 not started
 
 ## Current Status Summary
@@ -494,28 +494,43 @@ Configure Dependabot to automate dependency updates and security patch notificat
 
 ### Current State
 
-✅ **Dependabot is enabled and active via repository settings:**
+✅ **Dependabot is fully implemented with both repository settings and configuration file:**
 
-- Dependabot version updates: **Enabled**
-- Dependabot security updates: **Enabled**
-- Grouped security updates: **Enabled**
-- Configuration managed through GitHub repository settings (not `.github/dependabot.yml`)
+- Dependabot version updates: **Enabled** (via repository settings)
+- Dependabot security updates: **Enabled** (via repository settings)
+- Grouped security updates: **Enabled** (via repository settings)
+- `.github/dependabot.yml` configuration file added for fine-grained control
 - Successfully creating PRs (e.g., PR #54 for GitHub Actions updates)
-- Using group-based updates for GitHub Actions dependencies
+- Using group-based updates for both GitHub Actions and npm dependencies
 - Alert notifications configured for organization administrators and security managers
 
-**Note:** No `.github/dependabot.yml` file exists because configuration is managed entirely through repository settings UI, which is a valid alternative to file-based configuration.
+**Implementation Approach:** Hybrid configuration using both repository settings (for high-level toggles and security features) and `.github/dependabot.yml` (for detailed schedules, grouping rules, and portability).
 
 ### Implementation Details
 
-**Configuration Method:** Repository Settings (no `.github/dependabot.yml` file required)
+**Configuration Method:** Hybrid approach using both repository settings and `.github/dependabot.yml`
+
+**Repository Settings:**
+
+- Enable/disable toggles for version updates and security updates
+- Grouped security updates configuration
+- Alert access control for security team
+
+**Configuration File (`.github/dependabot.yml`):**
+
+- Weekly update schedule (Mondays at 09:00 UTC)
+- NPM package ecosystem with grouped dev/production dependencies
+- GitHub Actions ecosystem with grouped updates
+- PR limit: 5 open PRs maximum
+- Custom labels: `dependencies`, `automated`, `github_actions`
 
 **Active Features:**
 
 - ✅ Version updates for GitHub Actions (using groups)
-- ✅ Security updates (automatically enabled)
+- ✅ Version updates for NPM packages (grouped by dependency type)
+- ✅ Security updates (automatically enabled via repository settings)
 - ✅ Grouped updates to reduce PR noise
-- ✅ Automatic PR creation and labeling (`dependencies`, `github_actions`)
+- ✅ Automatic PR creation and labeling
 
 **Evidence of Activity:**
 
@@ -542,11 +557,12 @@ Configure Dependabot to automate dependency updates and security patch notificat
 
 ### Implementation Notes
 
-- Implemented via GitHub repository settings interface
-- No `.github/dependabot.yml` file needed (settings-based configuration is sufficient)
+- Hybrid implementation using both repository settings and `.github/dependabot.yml`
+- `.github/dependabot.yml` file added for better configuration control, portability, and version control
 - GitHub Actions updates use group-based configuration
-- NPM package ecosystem is also monitored (via repository settings)
+- NPM package ecosystem monitored with separate grouping for dev vs production dependencies
 - Security alerts and version updates both active
+- Configuration file allows for weekly schedules, PR limits, and custom grouping rules
 
 ### References
 
