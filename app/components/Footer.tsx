@@ -303,6 +303,27 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        {/* Copyright Section */}
+        <div className="border-t border-gray-800 pt-8 mt-8">
+          <div className="text-center text-sm text-gray-400">
+            <p>
+              © {new Date().getFullYear()} Free For Charity. All rights reserved. |{' '}
+              <a
+                href="https://freeforcharity.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                A project of Free For Charity
+              </a>
+            </p>
+            <p className="mt-2">
+              A 501(c)(3) nonprofit organization dedicated to providing free technology solutions
+              for charitable causes.
+            </p>
+          </div>
+        </div>
       </div>
     </footer>
   )
