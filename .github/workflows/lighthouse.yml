@@ -27,9 +27,11 @@ jobs:
         uses: dawidd6/action-download-artifact@v6
         with:
           workflow: deploy.yml
+          workflow_conclusion: success
           name: build-output
           path: ./out
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.event.workflow_run.id }}
 
       - name: Setup pnpm (for manual trigger)
         if: github.event_name == 'workflow_dispatch'
@@ -52,6 +54,15 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: pnpm run build
 
+      - name: Verify build output exists
+        run: |
+          if [ ! -d "./out" ]; then
+            echo "Error: ./out directory not found"
+            exit 1
+          fi
+          echo "Build output directory contents:"
+          ls -la ./out
+
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli@0.13.x
 
@@ -60,9 +71,19 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check Lighthouse results
+        if: always()
+        run: |
+          if [ -d ".lighthouseci" ]; then
+            echo "Lighthouse results directory exists"
+            ls -la .lighthouseci
+          else
+            echo "Warning: .lighthouseci directory not found"
+          fi
+
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && hashFiles('.lighthouseci/**') != ''
         with:
           name: lighthouse-results
           path: .lighthouseci
