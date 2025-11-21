@@ -20,11 +20,11 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download build artifact
         if: github.event_name == 'workflow_run'
-        uses: dawidd6/action-download-artifact@v6
+        uses: dawidd6/action-download-artifact@v11
         with:
           workflow: deploy.yml
           name: build-output
@@ -34,13 +34,13 @@ jobs:
 
       - name: Setup pnpm (for manual trigger)
         if: github.event_name == 'workflow_dispatch'
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 9.0.0
 
       - name: Setup Node.js (for manual trigger)
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'pnpm'
@@ -81,7 +81,7 @@ jobs:
           fi
 
       - name: Upload Lighthouse results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: (success() || failure()) && hashFiles('.lighthouseci/**') != ''
         with:
           name: lighthouse-results
