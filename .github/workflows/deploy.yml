@@ -170,7 +170,7 @@ jobs:
 
           echo "✓ Created artifact.tar.gz with all files including .nojekyll"
 
-          # Verify .nojekyll is in the archive (flexible pattern to match ./nojekyll or .nojekyll)
+          # Verify .nojekyll is in the archive (pattern matches any line ending with .nojekyll, e.g. .nojekyll or ./.nojekyll)
           if tar -tzf /tmp/artifact/artifact.tar.gz | grep -q "\.nojekyll$"; then
             echo "✓ Verified .nojekyll file is included in the artifact"
           else
