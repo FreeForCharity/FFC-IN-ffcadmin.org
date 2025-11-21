@@ -312,7 +312,7 @@ export default function Footer() {
               <a
                 href="https://freeforcharity.org"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
                 className="text-blue-400 hover:text-blue-300 transition-colors"
               >
                 A project of Free For Charity

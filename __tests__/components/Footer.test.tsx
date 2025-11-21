@@ -39,7 +39,7 @@ describe('Footer Component', () => {
       expect(ffcLink).toBeInTheDocument()
       expect(ffcLink).toHaveAttribute('href', 'https://freeforcharity.org')
       expect(ffcLink).toHaveAttribute('target', '_blank')
-      expect(ffcLink).toHaveAttribute('rel', 'noopener noreferrer')
+      expect(ffcLink).toHaveAttribute('rel', 'noopener')
     })
 
     it('should display privacy policy link', () => {
@@ -70,8 +70,10 @@ describe('Footer Component', () => {
       const links = screen.getAllByRole('link')
       const externalLinks = links.filter((link) => link.getAttribute('target') === '_blank')
       expect(externalLinks.length).toBeGreaterThan(0)
+      // All external links should at least have noopener for security
       externalLinks.forEach((link) => {
-        expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+        const rel = link.getAttribute('rel')
+        expect(rel).toContain('noopener')
       })
     })
   })
