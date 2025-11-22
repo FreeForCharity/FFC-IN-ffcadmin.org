@@ -1,8 +1,8 @@
 # Free For Charity Admin Portal
 
 [![Deployed](https://img.shields.io/badge/status-deployed-success)](https://ffcadmin.org)
-[![Next.js](https://img.shields.io/badge/Next.js-14.2-black)](https://nextjs.org/)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16.0.3-black)](https://nextjs.org/)
+[![License](https://img.shields.io/badge/license-AGPL--3.0-blue)](LICENSE)
 
 ## Table of Contents
 
