@@ -30,7 +30,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/tech-stack"
-                className="inline-flex items-center justify-center px-8 py-3 bg-white text-[#1B7FA1] rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center px-8 py-3 bg-white text-[var(--color-ffc-teal-dark)] rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 View Tech Stack
                 <svg
@@ -52,7 +52,7 @@ export default function Home() {
                 href="https://github.com/FreeForCharity"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-[#1B7FA1] transition-all"
+                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-[var(--color-ffc-teal-dark)] transition-all"
               >
                 <svg
                   className="mr-2 w-5 h-5"
@@ -88,7 +88,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#2A9BB8' }}
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -115,7 +115,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#F47933' }}
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -142,7 +142,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#1B7FA1' }}
+                style={{ backgroundColor: 'var(--color-ffc-teal-dark)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -169,7 +169,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#FF8C42' }}
+                style={{ backgroundColor: 'var(--color-ffc-orange)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -196,7 +196,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#2A9BB8' }}
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -223,7 +223,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#F47933' }}
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -264,11 +264,11 @@ export default function Home() {
             {/* Technology Infrastructure */}
             <div
               className="bg-gradient-to-br from-[#E6F4F8] to-[#D4EEF5] rounded-xl shadow-lg p-8 border-2"
-              style={{ borderColor: '#2A9BB8' }}
+              style={{ borderColor: 'var(--color-ffc-teal)' }}
             >
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#1B7FA1' }}
+                style={{ backgroundColor: 'var(--color-ffc-teal-dark)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -294,7 +294,7 @@ export default function Home() {
               <Link
                 href="/tech-stack"
                 className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
-                style={{ color: '#1B7FA1' }}
+                style={{ color: 'var(--color-ffc-teal-dark)' }}
               >
                 Explore Tech Stack
                 <svg
@@ -317,11 +317,11 @@ export default function Home() {
             {/* Professional Design */}
             <div
               className="bg-gradient-to-br from-[#FEF0E6] to-[#FFDEC2] rounded-xl shadow-lg p-8 border-2"
-              style={{ borderColor: '#FF8C42' }}
+              style={{ borderColor: 'var(--color-ffc-orange)' }}
             >
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#F47933' }}
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -349,7 +349,7 @@ export default function Home() {
               <Link
                 href="/canva-designer-path"
                 className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
-                style={{ color: '#F47933' }}
+                style={{ color: 'var(--color-ffc-orange-dark)' }}
               >
                 Learn About Design
                 <svg
@@ -412,7 +412,7 @@ export default function Home() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">
                     Global Administrator Track
                   </h3>
-                  <p className="font-semibold" style={{ color: '#1B7FA1' }}>
+                  <p className="font-semibold" style={{ color: 'var(--color-ffc-teal-dark)' }}>
                     Technical Infrastructure & Security
                   </p>
                 </div>
@@ -524,7 +524,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Canva Designer Track</h3>
-                  <p className="font-semibold" style={{ color: '#F47933' }}>
+                  <p className="font-semibold" style={{ color: 'var(--color-ffc-orange-dark)' }}>
                     Professional Visual Design
                   </p>
                 </div>
@@ -633,11 +633,11 @@ export default function Home() {
             {/* Documentation Hub */}
             <div
               className="bg-gradient-to-br from-[#E6F4F8] to-[#D4EEF5] rounded-xl shadow-lg p-8 border-2"
-              style={{ borderColor: '#2A9BB8' }}
+              style={{ borderColor: 'var(--color-ffc-teal)' }}
             >
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#2A9BB8' }}
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -663,7 +663,7 @@ export default function Home() {
               <Link
                 href="/documentation"
                 className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
-                style={{ color: '#2A9BB8' }}
+                style={{ color: 'var(--color-ffc-teal)' }}
               >
                 Browse Documentation
                 <svg
@@ -686,11 +686,11 @@ export default function Home() {
             {/* Testing Infrastructure */}
             <div
               className="bg-gradient-to-br from-[#FEF0E6] to-[#FFDEC2] rounded-xl shadow-lg p-8 border-2"
-              style={{ borderColor: '#FF8C42' }}
+              style={{ borderColor: 'var(--color-ffc-orange)' }}
             >
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#F47933' }}
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
               >
                 <svg
                   className="w-6 h-6 text-white"
@@ -716,7 +716,7 @@ export default function Home() {
               <Link
                 href="/testing"
                 className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
-                style={{ color: '#F47933' }}
+                style={{ color: 'var(--color-ffc-orange-dark)' }}
               >
                 View Test Documentation
                 <svg
