@@ -8,8 +8,20 @@ export const metadata: Metadata = {
     'contributor ladder, open source contribution, volunteer opportunities, nonprofit development, Free For Charity',
 }
 
+
+interface ContributorLevel {
+  id: number
+  title: string
+  nextLevel?: string
+  description: string
+  requirements: string[]
+  timeframe?: string
+  icon: JSX.Element
+  gradient: string
+}
+
 export default function ContributorLadder() {
-  const levels = [
+  const levels: ContributorLevel[] = [
     {
       id: 1,
       title: 'Contributor',
