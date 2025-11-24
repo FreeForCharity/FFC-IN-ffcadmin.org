@@ -52,6 +52,18 @@
       var(--color-ffc-teal) 100%
     );
   }
+
+  .bg-ffc-gradient-teal {
+    background: linear-gradient(135deg, var(--color-ffc-teal) 0%, var(--color-ffc-teal-dark) 100%);
+  }
+
+  .bg-ffc-gradient-orange {
+    background: linear-gradient(
+      135deg,
+      var(--color-ffc-orange) 0%,
+      var(--color-ffc-orange-dark) 100%
+    );
+  }
 }
 
 /* Smooth scrolling for anchor links */

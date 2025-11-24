@@ -262,10 +262,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Technology Infrastructure */}
-            <div
-              className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2"
-              style={{ borderColor: 'var(--color-ffc-teal)' }}
-            >
+            <div className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-teal)]">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
                 style={{ backgroundColor: 'var(--color-ffc-teal-dark)' }}
@@ -315,10 +312,7 @@ export default function Home() {
             </div>
 
             {/* Professional Design */}
-            <div
-              className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2"
-              style={{ borderColor: 'var(--color-ffc-orange)' }}
-            >
+            <div className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-orange)]">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
                 style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
@@ -389,10 +383,7 @@ export default function Home() {
             {/* Global Admin Path */}
             <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-all">
               <div className="flex items-start mb-6">
-                <div
-                  className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4"
-                  style={{ background: 'linear-gradient(135deg, #2A9BB8 0%, #1B7FA1 100%)' }}
-                >
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4 bg-ffc-gradient-teal">
                   <svg
                     className="w-8 h-8 text-white"
                     fill="none"
@@ -479,8 +470,7 @@ export default function Home() {
               </ul>
               <Link
                 href="/training-plan"
-                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg"
-                style={{ background: 'linear-gradient(135deg, #2A9BB8 0%, #1B7FA1 100%)' }}
+                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg bg-ffc-gradient-teal"
               >
                 View Training Plan
                 <svg
@@ -503,10 +493,7 @@ export default function Home() {
             {/* Canva Designer Path */}
             <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-all">
               <div className="flex items-start mb-6">
-                <div
-                  className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4"
-                  style={{ background: 'linear-gradient(135deg, #FF8C42 0%, #F47933 100%)' }}
-                >
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4 bg-ffc-gradient-orange">
                   <svg
                     className="w-8 h-8 text-white"
                     fill="none"
@@ -593,8 +580,7 @@ export default function Home() {
               </ul>
               <Link
                 href="/canva-designer-path"
-                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg"
-                style={{ background: 'linear-gradient(135deg, #FF8C42 0%, #F47933 100%)' }}
+                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg bg-ffc-gradient-orange"
               >
                 View Designer Path
                 <svg
@@ -631,10 +617,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Documentation Hub */}
-            <div
-              className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2"
-              style={{ borderColor: 'var(--color-ffc-teal)' }}
-            >
+            <div className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-teal)]">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
                 style={{ backgroundColor: 'var(--color-ffc-teal)' }}
@@ -684,10 +667,7 @@ export default function Home() {
             </div>
 
             {/* Testing Infrastructure */}
-            <div
-              className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2"
-              style={{ borderColor: 'var(--color-ffc-orange)' }}
-            >
+            <div className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-orange)]">
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
                 style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
