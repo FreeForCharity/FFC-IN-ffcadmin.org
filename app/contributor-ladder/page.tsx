@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactElement } from 'react'
 
 export const metadata: Metadata = {
   title: 'Contributor Ladder | Free For Charity',
@@ -8,7 +9,6 @@ export const metadata: Metadata = {
     'contributor ladder, open source contribution, volunteer opportunities, nonprofit development, Free For Charity',
 }
 
-
 interface ContributorLevel {
   id: number
   title: string
@@ -16,7 +16,7 @@ interface ContributorLevel {
   description: string
   requirements: string[]
   timeframe?: string
-  icon: JSX.Element
+  icon: ReactElement
   gradient: string
 }
 
