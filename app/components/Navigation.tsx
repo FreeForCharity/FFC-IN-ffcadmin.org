@@ -33,6 +33,12 @@ export default function Navigation() {
               Tech Stack
             </Link>
             <Link
+              href="/contributor-ladder"
+              className="hover:text-blue-200 transition-colors font-medium"
+            >
+              Contributor Ladder
+            </Link>
+            <Link
               href="/training-plan"
               className="hover:text-blue-200 transition-colors font-medium"
             >
@@ -106,6 +112,13 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(false)}
             >
               Tech Stack
+            </Link>
+            <Link
+              href="/contributor-ladder"
+              className="block px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contributor Ladder
             </Link>
             <Link
               href="/training-plan"
