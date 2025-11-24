@@ -136,7 +136,6 @@ export default function ContributorLadder() {
     {
       id: 5,
       title: 'Maintainer',
-      nextLevel: 'Final Level',
       description:
         'Own core components of the platform with full authority. Make architectural decisions, manage releases, and ensure the long-term success of Free For Charity.',
       requirements: [
