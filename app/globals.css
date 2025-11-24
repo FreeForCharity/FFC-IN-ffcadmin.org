@@ -8,6 +8,10 @@
   --color-ffc-orange: #ff8c42;
   --color-ffc-teal-light: #3aafce;
   --color-ffc-orange-light: #ffa866;
+  --color-ffc-teal-lightest: #e6f4f8;
+  --color-ffc-teal-lighter: #d4eef5;
+  --color-ffc-orange-lightest: #fef0e6;
+  --color-ffc-orange-lighter: #ffdec2;
 }
 
 @layer utilities {

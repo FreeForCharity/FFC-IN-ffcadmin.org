@@ -263,7 +263,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Technology Infrastructure */}
             <div
-              className="bg-gradient-to-br from-[#E6F4F8] to-[#D4EEF5] rounded-xl shadow-lg p-8 border-2"
+              className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2"
               style={{ borderColor: 'var(--color-ffc-teal)' }}
             >
               <div
@@ -316,7 +316,7 @@ export default function Home() {
 
             {/* Professional Design */}
             <div
-              className="bg-gradient-to-br from-[#FEF0E6] to-[#FFDEC2] rounded-xl shadow-lg p-8 border-2"
+              className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2"
               style={{ borderColor: 'var(--color-ffc-orange)' }}
             >
               <div
@@ -632,7 +632,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Documentation Hub */}
             <div
-              className="bg-gradient-to-br from-[#E6F4F8] to-[#D4EEF5] rounded-xl shadow-lg p-8 border-2"
+              className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2"
               style={{ borderColor: 'var(--color-ffc-teal)' }}
             >
               <div
@@ -685,7 +685,7 @@ export default function Home() {
 
             {/* Testing Infrastructure */}
             <div
-              className="bg-gradient-to-br from-[#FEF0E6] to-[#FFDEC2] rounded-xl shadow-lg p-8 border-2"
+              className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2"
               style={{ borderColor: 'var(--color-ffc-orange)' }}
             >
               <div
