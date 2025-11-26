@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative bg-ffc-gradient text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 dot-pattern" />
@@ -12,20 +12,25 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center">
+            <div className="flex justify-center mb-6">
+              <img
+                src="/ffc-logo.svg"
+                alt="Free For Charity Logo"
+                className="w-24 h-24 md:w-32 md:h-32 animate-fade-in"
+              />
+            </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
               Free For Charity
             </h1>
-            <p className="text-xl md:text-2xl mb-4 text-blue-100 font-light">
-              Administrative Portal
-            </p>
-            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-blue-50">
+            <p className="text-xl md:text-2xl mb-4 opacity-90 font-light">Administrative Portal</p>
+            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90">
               A nonprofit technology initiative delivering free, secure, and scalable websites for
               charities
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/tech-stack"
-                className="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center px-8 py-3 bg-white text-[var(--color-ffc-teal-dark)] rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 View Tech Stack
                 <svg
@@ -47,7 +52,7 @@ export default function Home() {
                 href="https://github.com/FreeForCharity"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all"
+                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-[var(--color-ffc-teal-dark)] transition-all"
               >
                 <svg
                   className="mr-2 w-5 h-5"
@@ -81,9 +86,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Speed & Simplicity */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-blue-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -105,9 +113,12 @@ export default function Home() {
 
             {/* Security */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-green-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -129,9 +140,12 @@ export default function Home() {
 
             {/* Compliance */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal-dark)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-purple-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -153,9 +167,12 @@ export default function Home() {
 
             {/* AI-Powered */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-indigo-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -177,9 +194,12 @@ export default function Home() {
 
             {/* Resilience */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-yellow-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -201,9 +221,12 @@ export default function Home() {
 
             {/* Open Source */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-red-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -239,8 +262,11 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Technology Infrastructure */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-lg p-8 border border-blue-100">
-              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-teal)]">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal-dark)' }}
+              >
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -264,7 +290,8 @@ export default function Home() {
               </p>
               <Link
                 href="/tech-stack"
-                className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
+                className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
+                style={{ color: 'var(--color-ffc-teal-dark)' }}
               >
                 Explore Tech Stack
                 <svg
@@ -285,8 +312,11 @@ export default function Home() {
             </div>
 
             {/* Professional Design */}
-            <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 border border-pink-100">
-              <div className="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-orange)]">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
+              >
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -312,7 +342,8 @@ export default function Home() {
               </p>
               <Link
                 href="/canva-designer-path"
-                className="inline-flex items-center text-pink-600 hover:text-pink-700 font-semibold"
+                className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
+                style={{ color: 'var(--color-ffc-orange-dark)' }}
               >
                 Learn About Design
                 <svg
@@ -352,7 +383,7 @@ export default function Home() {
             {/* Global Admin Path */}
             <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-all">
               <div className="flex items-start mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4 bg-ffc-gradient-teal">
                   <svg
                     className="w-8 h-8 text-white"
                     fill="none"
@@ -372,7 +403,9 @@ export default function Home() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">
                     Global Administrator Track
                   </h3>
-                  <p className="text-blue-600 font-semibold">Technical Infrastructure & Security</p>
+                  <p className="font-semibold" style={{ color: 'var(--color-ffc-teal-dark)' }}>
+                    Technical Infrastructure & Security
+                  </p>
                 </div>
               </div>
               <p className="text-gray-700 mb-6">
@@ -437,7 +470,7 @@ export default function Home() {
               </ul>
               <Link
                 href="/training-plan"
-                className="inline-flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
+                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg bg-ffc-gradient-teal"
               >
                 View Training Plan
                 <svg
@@ -460,7 +493,7 @@ export default function Home() {
             {/* Canva Designer Path */}
             <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-all">
               <div className="flex items-start mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-pink-600 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4 bg-ffc-gradient-orange">
                   <svg
                     className="w-8 h-8 text-white"
                     fill="none"
@@ -478,7 +511,9 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Canva Designer Track</h3>
-                  <p className="text-pink-600 font-semibold">Professional Visual Design</p>
+                  <p className="font-semibold" style={{ color: 'var(--color-ffc-orange-dark)' }}>
+                    Professional Visual Design
+                  </p>
                 </div>
               </div>
               <p className="text-gray-700 mb-6">
@@ -545,7 +580,7 @@ export default function Home() {
               </ul>
               <Link
                 href="/canva-designer-path"
-                className="inline-flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg font-semibold hover:from-pink-700 hover:to-purple-700 transition-all shadow-lg"
+                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg bg-ffc-gradient-orange"
               >
                 View Designer Path
                 <svg
@@ -582,8 +617,11 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Documentation Hub */}
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl shadow-lg p-8 border border-indigo-100">
-              <div className="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-teal)]">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
+              >
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -607,7 +645,8 @@ export default function Home() {
               </p>
               <Link
                 href="/documentation"
-                className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-semibold"
+                className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
+                style={{ color: 'var(--color-ffc-teal)' }}
               >
                 Browse Documentation
                 <svg
@@ -628,8 +667,11 @@ export default function Home() {
             </div>
 
             {/* Testing Infrastructure */}
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-lg p-8 border border-green-100">
-              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-orange)]">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
+              >
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -653,7 +695,8 @@ export default function Home() {
               </p>
               <Link
                 href="/testing"
-                className="inline-flex items-center text-green-600 hover:text-green-700 font-semibold"
+                className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
+                style={{ color: 'var(--color-ffc-orange-dark)' }}
               >
                 View Test Documentation
                 <svg

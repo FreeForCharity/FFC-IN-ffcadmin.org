@@ -1,0 +1,71 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Free For Charity Official Logo -->
+  <!-- Recreated based on official branding guidelines -->
+  
+  <defs>
+    <!-- Gradient for top-right teal segment -->
+    <linearGradient id="tealGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3DA8C8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1B7FA1;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gradient for bottom-left teal segment -->
+    <linearGradient id="tealGradient2" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#3DA8C8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1B7FA1;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gradient for top-left orange segment -->
+    <linearGradient id="orangeGradient1" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9B5A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F47933;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gradient for bottom-right orange segment -->
+    <linearGradient id="orangeGradient2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF9B5A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F47933;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle for cleaner edges -->
+  <circle cx="256" cy="256" r="240" fill="white"/>
+  
+  <!-- Top-right quadrant - Teal -->
+  <path d="M 256 256 L 256 40 A 216 216 0 0 1 472 256 Z" fill="url(#tealGradient1)"/>
+  
+  <!-- Top-left quadrant - Orange -->
+  <path d="M 256 256 L 256 40 A 216 216 0 0 0 40 256 Z" fill="url(#orangeGradient1)"/>
+  
+  <!-- Bottom-left quadrant - Teal -->
+  <path d="M 256 256 L 256 472 A 216 216 0 0 1 40 256 Z" fill="url(#tealGradient2)"/>
+  
+  <!-- Bottom-right quadrant - Orange -->
+  <path d="M 256 256 L 256 472 A 216 216 0 0 0 472 256 Z" fill="url(#orangeGradient2)"/>
+  
+  <!-- White center circle -->
+  <circle cx="256" cy="256" r="90" fill="white"/>
+  
+  <!-- White cross bars connecting to arrows -->
+  <rect x="236" y="40" width="40" height="126" fill="white" rx="2"/>
+  <rect x="346" y="236" width="126" height="40" fill="white" rx="2"/>
+  <rect x="236" y="346" width="40" height="126" fill="white" rx="2"/>
+  <rect x="40" y="236" width="126" height="40" fill="white" rx="2"/>
+  
+  <!-- Arrow heads pointing outward -->
+  <!-- Top arrow -->
+  <path d="M 256 16 L 226 56 L 286 56 Z" fill="white"/>
+  
+  <!-- Right arrow -->
+  <path d="M 496 256 L 456 226 L 456 286 Z" fill="white"/>
+  
+  <!-- Bottom arrow -->
+  <path d="M 256 496 L 286 456 L 226 456 Z" fill="white"/>
+  
+  <!-- Left arrow -->
+  <path d="M 16 256 L 56 286 L 56 226 Z" fill="white"/>
+  
+  <!-- Optional: Add subtle shadow/depth (commented out by default)
+  <circle cx="256" cy="256" r="240" fill="none" stroke="#000" stroke-width="2" opacity="0.1"/>
+  -->
+</svg>
