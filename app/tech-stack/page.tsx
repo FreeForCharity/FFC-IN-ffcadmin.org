@@ -695,9 +695,9 @@ export default function TechStack() {
                         github.com/nonprofit
                       </a>
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">$P_GITHUB</td>
+                    <td className="border border-gray-300 px-4 py-2">$0</td>
                     <td className="border border-gray-300 px-4 py-2">SEATS_DEV</td>
-                    <td className="border border-gray-300 px-4 py-2">= P_GITHUB × SEATS_DEV</td>
+                    <td className="border border-gray-300 px-4 py-2">= $0 × SEATS_DEV</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 px-4 py-2">GitHub Copilot Pro</td>
@@ -713,11 +713,9 @@ export default function TechStack() {
                         github.com/features/copilot
                       </a>
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">$P_COPILOT_PRO</td>
+                    <td className="border border-gray-300 px-4 py-2">$100</td>
                     <td className="border border-gray-300 px-4 py-2">SEATS_DEV</td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      = P_COPILOT_PRO × SEATS_DEV
-                    </td>
+                    <td className="border border-gray-300 px-4 py-2">= $100 × SEATS_DEV</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 px-4 py-2">
@@ -735,9 +733,9 @@ export default function TechStack() {
                         microsoft.com/nonprofits
                       </a>
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">$P_M365_BP</td>
+                    <td className="border border-gray-300 px-4 py-2">$66</td>
                     <td className="border border-gray-300 px-4 py-2">SEATS_M365</td>
-                    <td className="border border-gray-300 px-4 py-2">= P_M365_BP × SEATS_M365</td>
+                    <td className="border border-gray-300 px-4 py-2">= $66 × SEATS_M365</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 px-4 py-2">Microsoft Copilot for M365</td>
@@ -753,11 +751,9 @@ export default function TechStack() {
                         microsoft.com/nonprofits
                       </a>
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">$P_COPILOT_M365</td>
+                    <td className="border border-gray-300 px-4 py-2">$306</td>
                     <td className="border border-gray-300 px-4 py-2">SEATS_M365</td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      = P_COPILOT_M365 × SEATS_M365
-                    </td>
+                    <td className="border border-gray-300 px-4 py-2">= $306 × SEATS_M365</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 px-4 py-2">Cloudflare (Free + Zaraz)</td>
@@ -790,9 +786,9 @@ export default function TechStack() {
                         lastpass.com
                       </a>
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">$P_LASTPASS</td>
+                    <td className="border border-gray-300 px-4 py-2">$48</td>
                     <td className="border border-gray-300 px-4 py-2">SEATS_ADMIN</td>
-                    <td className="border border-gray-300 px-4 py-2">= P_LASTPASS × SEATS_ADMIN</td>
+                    <td className="border border-gray-300 px-4 py-2">= $48 × SEATS_ADMIN</td>
                   </tr>
                 </tbody>
               </table>
