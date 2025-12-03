@@ -632,9 +632,21 @@ export default function TrainingPlan() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-800 underline"
                     >
-                      Introduction to GitHub
+                      Introduction to GitHub (Concepts)
                     </a>{' '}
                     (Microsoft Learn)
+                  </li>
+                  <li className="text-gray-700">
+                    <strong>Training:</strong>{' '}
+                    <a
+                      href="https://github.com/skills/introduction-to-github"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      Introduction to GitHub (Hands-On)
+                    </a>{' '}
+                    (GitHub Skills)
                   </li>
                   <li className="text-gray-700">
                     <strong>Action:</strong> Create the GitHub account, set up 2FA, and create the
