@@ -28,7 +28,6 @@ interface LevelCardProps {
 }
 
 function LevelCard({ level, index, totalLevels, isDesktop }: LevelCardProps) {
-  const showNextLevel = index < totalLevels - 1
 
   if (isDesktop) {
     return (
