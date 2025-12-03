@@ -632,7 +632,7 @@ export default function TrainingPlan() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-800 underline"
                     >
-                      Introduction to GitHub
+                      Introduction to GitHub (Concepts)
                     </a>{' '}
                     (Microsoft Learn)
                   </li>
@@ -644,7 +644,7 @@ export default function TrainingPlan() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-800 underline"
                     >
-                      Introduction to GitHub
+                      Introduction to GitHub (Hands-On)
                     </a>{' '}
                     (GitHub Skills)
                   </li>
