@@ -51,6 +51,9 @@ export default function Navigation() {
             <Link href="/testing" className="hover:opacity-80 transition-opacity font-medium">
               Testing
             </Link>
+            <Link href="/sites-list" className="hover:opacity-80 transition-opacity font-medium">
+              Sites List
+            </Link>
             <a
               href="https://github.com/FreeForCharity"
               target="_blank"
@@ -139,6 +142,13 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(false)}
             >
               Testing
+            </Link>
+            <Link
+              href="/sites-list"
+              className="block px-3 py-2 rounded-md hover:bg-white/10 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Sites List
             </Link>
             <a
               href="https://github.com/FreeForCharity"
