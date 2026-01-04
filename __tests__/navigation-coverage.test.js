@@ -15,6 +15,7 @@ describe('Navigation Coverage', () => {
   const applicationPages = [
     { path: '/', name: 'Home' },
     { path: '/tech-stack', name: 'Tech Stack' },
+    { path: '/contributor-ladder', name: 'Contributor Ladder' },
     { path: '/documentation', name: 'Documentation' },
     { path: '/testing', name: 'Testing' },
     { path: '/training-plan', name: 'Training Plan' },
@@ -82,8 +83,8 @@ describe('Navigation Coverage', () => {
       expect(footerComponent).toContain('Quick Links')
     })
 
-    test('Footer has Admin Documentation section', () => {
-      expect(footerComponent).toContain('Admin Documentation')
+    test('Footer has Learning Paths section', () => {
+      expect(footerComponent).toContain('Learning Paths')
     })
 
     test('Footer has Free For Charity Policy section', () => {

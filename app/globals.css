@@ -1,5 +1,19 @@
 @import 'tailwindcss';
 
+/* Free For Charity Brand Colors */
+@theme {
+  --color-ffc-teal-dark: #1b7fa1;
+  --color-ffc-teal: #2a9bb8;
+  --color-ffc-orange-dark: #f47933;
+  --color-ffc-orange: #ff8c42;
+  --color-ffc-teal-light: #3aafce;
+  --color-ffc-orange-light: #ffa866;
+  --color-ffc-teal-lightest: #e6f4f8;
+  --color-ffc-teal-lighter: #d4eef5;
+  --color-ffc-orange-lightest: #fef0e6;
+  --color-ffc-orange-lighter: #ffdec2;
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 1s ease-in;
@@ -19,6 +33,36 @@
   .dot-pattern {
     background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0);
     background-size: 40px 40px;
+  }
+
+  .bg-ffc-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--color-ffc-teal) 0%,
+      var(--color-ffc-teal-dark) 50%,
+      var(--color-ffc-orange) 100%
+    );
+  }
+
+  .bg-ffc-gradient-reverse {
+    background: linear-gradient(
+      135deg,
+      var(--color-ffc-orange) 0%,
+      var(--color-ffc-orange-dark) 50%,
+      var(--color-ffc-teal) 100%
+    );
+  }
+
+  .bg-ffc-gradient-teal {
+    background: linear-gradient(135deg, var(--color-ffc-teal) 0%, var(--color-ffc-teal-dark) 100%);
+  }
+
+  .bg-ffc-gradient-orange {
+    background: linear-gradient(
+      135deg,
+      var(--color-ffc-orange) 0%,
+      var(--color-ffc-orange-dark) 100%
+    );
   }
 }
 

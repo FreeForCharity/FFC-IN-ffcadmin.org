@@ -68,8 +68,9 @@ jobs:
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v5
-        if: (success() || failure()) && hashFiles('.lighthouseci/**') != ''
+        if: success() || failure()
         with:
           name: lighthouse-results
           path: .lighthouseci
           retention-days: 30
+          if-no-files-found: warn

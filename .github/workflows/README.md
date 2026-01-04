@@ -144,7 +144,7 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 6. Each page is tested 3 times for consistent results
 7. Checks if Lighthouse results were generated
 8. Uploads results as GitHub artifacts (retained for 30 days)
-   - Only uploads if `.lighthouseci` directory contains files
+   - Warns if no files are found instead of failing the workflow
 
 **When manually triggered (`workflow_dispatch`):**
 
@@ -196,8 +196,8 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 
 **Issue: "No files were found with the provided path: .lighthouseci"**
 
-- **Cause:** The `.lighthouseci` directory wasn't being created (Lighthouse CI didn't run) or was empty, but the workflow tried to upload it anyway
-- **Fix:** Added condition `hashFiles('.lighthouseci/**') != ''` to only upload when the directory contains files
+- **Cause:** The `.lighthouseci` directory wasn't being created (Lighthouse CI didn't run) or was empty, but the workflow tried to upload it anyway. The initial fix using `hashFiles('.lighthouseci/**') != ''` didn't work correctly as the pattern might not match files at the root level of the directory.
+- **Fix:** Removed the complex `hashFiles` conditional and instead use the built-in `if-no-files-found: warn` parameter of `actions/upload-artifact@v5`, which properly handles the case when no files exist. The step now runs with `if: success() || failure()` to always attempt upload, but gracefully warns if no files are found instead of failing.
 
 **Issue: Workflow fails silently without clear error message**
 

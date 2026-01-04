@@ -16,6 +16,8 @@
     "https://www.cloudflare.com/*",
     "https://www.lastpass.com/*",
     "https://github.com/FreeForCharity/ffcadmin.org*",
-    "https://github.com/features/*"
+    "https://github.com/features/*",
+    "http://*",
+    "https://*"
   ]
 }

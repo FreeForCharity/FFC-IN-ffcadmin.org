@@ -17,7 +17,7 @@ describe('Navigation Component', () => {
 
     it('should render the brand logo and name', () => {
       render(<Navigation />)
-      expect(screen.getByText('F')).toBeInTheDocument()
+      expect(screen.getByAltText('Free For Charity Logo')).toBeInTheDocument()
       expect(screen.getByText('Free For Charity')).toBeInTheDocument()
       expect(screen.getByText('Admin Portal')).toBeInTheDocument()
     })
@@ -26,7 +26,8 @@ describe('Navigation Component', () => {
       render(<Navigation />)
       expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument()
       expect(screen.getByRole('link', { name: /tech stack/i })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: /training plan/i })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: /global admin/i })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: /canva designer/i })).toBeInTheDocument()
       expect(screen.getByRole('link', { name: /github/i })).toBeInTheDocument()
     })
 
@@ -79,10 +80,16 @@ describe('Navigation Component', () => {
       expect(techStackLink).toHaveAttribute('href', '/tech-stack')
     })
 
-    it('should have correct href for training plan link', () => {
+    it('should have correct href for global admin link', () => {
       render(<Navigation />)
-      const trainingPlanLink = screen.getByRole('link', { name: /training plan/i })
-      expect(trainingPlanLink).toHaveAttribute('href', '/training-plan')
+      const globalAdminLink = screen.getByRole('link', { name: /global admin/i })
+      expect(globalAdminLink).toHaveAttribute('href', '/training-plan')
+    })
+
+    it('should have correct href for canva designer link', () => {
+      render(<Navigation />)
+      const canvaDesignerLink = screen.getByRole('link', { name: /canva designer/i })
+      expect(canvaDesignerLink).toHaveAttribute('href', '/canva-designer-path')
     })
 
     it('should have external GitHub link with correct attributes', () => {

@@ -4,7 +4,6 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      {/* Hero Section */}
       <section
         className="relative text-white py-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
         style={{
@@ -94,9 +93,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Speed & Simplicity */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-blue-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -118,9 +120,12 @@ export default function Home() {
 
             {/* Security */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-green-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -142,9 +147,12 @@ export default function Home() {
 
             {/* Compliance */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal-dark)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-purple-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -166,9 +174,12 @@ export default function Home() {
 
             {/* AI-Powered */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-indigo-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -190,9 +201,12 @@ export default function Home() {
 
             {/* Resilience */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-yellow-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -214,9 +228,12 @@ export default function Home() {
 
             {/* Open Source */}
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
+              >
                 <svg
-                  className="w-6 h-6 text-red-600"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -239,26 +256,230 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Technology Stack CTA */}
+      {/* Our Mission Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-xl p-8 md:p-12 border border-blue-100">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex-1">
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">
-                  Explore Our Technology Stack
-                </h2>
-                <p className="text-lg text-gray-600">
-                  Discover the complete technology infrastructure powering Free For Charity,
-                  including development frameworks, security measures, compliance protocols, and
-                  operational procedures.
-                </p>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Mission</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Free For Charity delivers complete, production-ready technology solutions for
+              nonprofits—from secure infrastructure to professional design assets
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Technology Infrastructure */}
+            <div className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-teal)]">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal-dark)' }}
+              >
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                  />
+                </svg>
               </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Enterprise-Grade Technology</h3>
+              <p className="text-gray-700 mb-4">
+                We provide secure, scalable websites built with Next.js and React, deployed through
+                CI/CD pipelines with automated testing, security scanning, and compliance
+                monitoring.
+              </p>
               <Link
                 href="/tech-stack"
-                className="flex-shrink-0 inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
+                style={{ color: 'var(--color-ffc-teal-dark)' }}
               >
-                View Documentation
+                Explore Tech Stack
+                <svg
+                  className="ml-2 w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Professional Design */}
+            <div className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-orange)]">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
+              >
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                Professional Design Services
+              </h3>
+              <p className="text-gray-700 mb-4">
+                Our certified Canva designers create comprehensive brand kits, social media
+                templates, email designs, and marketing materials tailored to each nonprofit's
+                unique mission.
+              </p>
+              <Link
+                href="/canva-designer-path"
+                className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
+                style={{ color: 'var(--color-ffc-orange-dark)' }}
+              >
+                Learn About Design
+                <svg
+                  className="ml-2 w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Learning Paths Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Specialized Training Paths
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              We train volunteers in two distinct tracks, each with comprehensive certification
+              programs and hands-on project work
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Global Admin Path */}
+            <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-all">
+              <div className="flex items-start mb-6">
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4 bg-ffc-gradient-teal">
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    Global Administrator Track
+                  </h3>
+                  <p className="font-semibold" style={{ color: 'var(--color-ffc-teal-dark)' }}>
+                    Technical Infrastructure & Security
+                  </p>
+                </div>
+              </div>
+              <p className="text-gray-700 mb-6">
+                Comprehensive training in Microsoft 365, GitHub, and modern development practices.
+                Gain dual-hatted authority over nonprofit technology infrastructure with MS-900 and
+                GitHub Foundations certifications.
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-start">
+                  <svg
+                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-700">Microsoft 365 administration & security</span>
+                </li>
+                <li className="flex items-start">
+                  <svg
+                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-700">
+                    GitHub repository management & AI-assisted development
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <svg
+                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-700">CI/CD pipelines & automated deployments</span>
+                </li>
+              </ul>
+              <Link
+                href="/training-plan"
+                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg bg-ffc-gradient-teal"
+              >
+                View Training Plan
                 <svg
                   className="ml-2 w-5 h-5"
                   fill="none"
@@ -271,6 +492,232 @@ export default function Home() {
                     strokeLinejoin="round"
                     strokeWidth={2}
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Canva Designer Path */}
+            <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-all">
+              <div className="flex items-start mb-6">
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4 bg-ffc-gradient-orange">
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Canva Designer Track</h3>
+                  <p className="font-semibold" style={{ color: 'var(--color-ffc-orange-dark)' }}>
+                    Professional Visual Design
+                  </p>
+                </div>
+              </div>
+              <p className="text-gray-700 mb-6">
+                Master Canva Pro to create professional brand identities and marketing materials.
+                Complete official Canva Design School courses and build comprehensive template
+                libraries for nonprofits.
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-start">
+                  <svg
+                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-700">
+                    Complete brand kit development & style guides
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <svg
+                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-700">
+                    Social media templates for all major platforms
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <svg
+                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-700">Email marketing & print stationery designs</span>
+                </li>
+              </ul>
+              <Link
+                href="/canva-designer-path"
+                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg bg-ffc-gradient-orange"
+              >
+                View Designer Path
+                <svg
+                  className="ml-2 w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Documentation & Testing Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Documentation & Quality Assurance
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Comprehensive documentation and robust testing ensure reliability and transparency
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Documentation Hub */}
+            <div className="bg-gradient-to-br from-[var(--color-ffc-teal-lightest)] to-[var(--color-ffc-teal-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-teal)]">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-teal)' }}
+              >
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Documentation Center</h3>
+              <p className="text-gray-700 mb-4">
+                Complete guides covering deployment, security, responsive design, testing, and code
+                quality standards. Every aspect of our infrastructure is thoroughly documented for
+                transparency and knowledge transfer.
+              </p>
+              <Link
+                href="/documentation"
+                className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
+                style={{ color: 'var(--color-ffc-teal)' }}
+              >
+                Browse Documentation
+                <svg
+                  className="ml-2 w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Testing Infrastructure */}
+            <div className="bg-gradient-to-br from-[var(--color-ffc-orange-lightest)] to-[var(--color-ffc-orange-lighter)] rounded-xl shadow-lg p-8 border-2 border-[color:var(--color-ffc-orange)]">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'var(--color-ffc-orange-dark)' }}
+              >
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Testing & Quality</h3>
+              <p className="text-gray-700 mb-4">
+                Automated testing with Jest, accessibility validation with axe-core, responsive
+                design verification, and security scanning with CodeQL. Every deployment is
+                validated through comprehensive CI/CD pipelines.
+              </p>
+              <Link
+                href="/testing"
+                className="inline-flex items-center font-semibold hover:opacity-80 transition-opacity"
+                style={{ color: 'var(--color-ffc-orange-dark)' }}
+              >
+                View Test Documentation
+                <svg
+                  className="ml-2 w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
                   />
                 </svg>
               </Link>
