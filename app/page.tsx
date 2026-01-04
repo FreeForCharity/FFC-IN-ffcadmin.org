@@ -4,65 +4,79 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 dot-pattern" />
-        </div>
-
+      {/* Hero Section */}
+      <section
+        className="relative text-white py-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
+        style={{
+          background:
+            'linear-gradient(135deg, #2E6F8E 49.8%, #FFFFFF 49.8%, #FFFFFF 50.2%, #F57C20 50.2%)',
+        }}
+      >
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-              Free For Charity
-            </h1>
-            <p className="text-xl md:text-2xl mb-4 text-blue-100 font-light">
-              Administrative Portal
-            </p>
-            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-blue-50">
-              A nonprofit technology initiative delivering free, secure, and scalable websites for
-              charities
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/tech-stack"
-                className="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                View Tech Stack
-                <svg
-                  className="ml-2 w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
+          <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12">
+            {/* Left Column: Text & Content */}
+            <div className="flex-1 text-center md:text-left">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in drop-shadow-md">
+                Free For Charity
+              </h1>
+              <p className="text-xl md:text-2xl mb-4 opacity-95 font-light">Administrative Portal</p>
+              <p className="text-lg md:text-xl mb-8 opacity-95 max-w-2xl text-shadow-sm">
+                A nonprofit technology initiative delivering free, secure, and scalable websites for
+                charities
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <Link
+                  href="/tech-stack"
+                  className="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </Link>
-              <a
-                href="https://github.com/FreeForCharity"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all"
-              >
-                <svg
-                  className="mr-2 w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
+                  View Tech Stack
+                  <svg
+                    className="ml-2 w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
+                <a
+                  href="https://github.com/FreeForCharity"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                GitHub
-              </a>
+                  <svg
+                    className="mr-2 w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column: Logo */}
+            <div className="flex-1 flex justify-center md:justify-end">
+              <div className="relative w-64 h-64 md:w-80 md:h-80 bg-white rounded-full p-4 shadow-2xl animate-fade-in">
+                <img
+                  src="/hero-logo.png"
+                  alt="Free For Charity Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>
