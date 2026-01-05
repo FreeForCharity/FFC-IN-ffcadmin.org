@@ -20,6 +20,7 @@ interface SiteData {
   notes: string
   cloudflareIp: string
   repoUrl: string
+  siteHealth: string
   priority: string
 }
 
@@ -31,7 +32,7 @@ async function getSitesData(): Promise<SiteData[]> {
     Headers expected from update-sites-data.mjs:
     Section, Domain, Status, In WHMCS, In Cloudflare, In WPMUDEV, 
     Server In Use, Old Server Abandoned?, Notes, 
-    Cloudflare IP, Is In Cloudflare, Repo URL, Priority
+    Cloudflare IP, Is In Cloudflare, Repo URL, Site Health, Priority
   */
 
   const records = parse(fileContent, {
@@ -54,7 +55,8 @@ async function getSitesData(): Promise<SiteData[]> {
       cloudflareIp: columns[9]?.trim() || '',
       // col 10 is 'Is In Cloudflare' (redundant)
       repoUrl: columns[11]?.trim() || '',
-      priority: columns[12]?.trim() || 'Standard',
+      siteHealth: columns[12]?.trim() || '',
+      priority: columns[13]?.trim() || 'Standard',
     }
   })
 }
@@ -126,6 +128,19 @@ export default async function SitesListPage() {
     return 'bg-gray-100 text-gray-800'
   }
 
+  // Helper for Health Status Color
+  const getHealthColor = (health: string) => {
+    // 200 OK -> Green
+    if (health.includes('200')) return 'text-green-600 bg-green-100'
+    // 301/302 -> Yellow
+    if (health.includes('301') || health.includes('302')) return 'text-yellow-600 bg-yellow-100'
+    // 4xx/5xx/Unreachable -> Red
+    if (['404', '500', '503', 'Unreachable', 'No Response'].some((err) => health.includes(err)))
+      return 'text-red-600 bg-red-100'
+    // Unknown
+    return 'text-gray-600 bg-gray-100'
+  }
+
   // Categorize sites
   const fraudSites = sites.filter((s) => s.status.toLowerCase() === 'fraud')
   const expiredSites = sites.filter((s) =>
@@ -167,6 +182,12 @@ export default async function SitesListPage() {
                 className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80"
               >
                 Domain
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80"
+              >
+                Health
               </th>
               <th
                 scope="col"
@@ -217,6 +238,13 @@ export default async function SitesListPage() {
                     <a href={`https://${site.domain}`} target="_blank" rel="noopener noreferrer">
                       {site.domain}
                     </a>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-xs">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-bold border ${getHealthColor(site.siteHealth)}`}
+                    >
+                      {site.siteHealth || 'N/A'}
+                    </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-700 font-semibold">
                     {site.status}
