@@ -177,7 +177,7 @@ const documentationSections: DocSection[] = [
         name: 'Sites List (Public Page)',
         file: '/sites-list',
         description:
-          'Master list of all managed domains with automated health checks and data integration. Displays categorized tables for Active sites, Transferred domains, Expired/Cancelled sites, and Fraudulent/High Risk domains. Integrates data from WHMCS (domain registration), Cloudflare (DNS/CDN), and WPMUDEV (WordPress hosting). Includes real-time site health status (Live, Redirect, Error, Unreachable) and GitHub repository links. Updated automatically via scheduled workflows.',
+          'Master list of all managed domains with automated health checks and data integration. Displays categorized tables for Active sites, Transferred domains, Expired/Cancelled sites, and Fraudulent/High Risk domains. Integrates data from WHMCS (domain registration), Cloudflare (DNS/CDN), and WPMUDEV (WordPress hosting). Includes latest site health status from weekly automated checks (Live, Redirect, Error, Unreachable) and GitHub repository links. Updated automatically via scheduled workflows.',
         audience: 'All Users - Administrators, Site Managers, Auditors, Stakeholders',
         githubUrl:
           'https://github.com/FreeForCharity/ffcadmin.org/blob/main/app/sites-list/page.tsx',

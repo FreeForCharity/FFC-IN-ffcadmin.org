@@ -280,7 +280,7 @@ The Sites List page (`/sites-list`) displays this data in categorized tables:
 ### Benefits:
 
 - **Automated data synchronization** from multiple sources
-- **Real-time site health monitoring** with automated checks
+- **Weekly automated site health monitoring** with scheduled checks
 - **Categorized organization** for better site management
 - **Audit trail** via pull request workflow
 - **Reduced manual data entry** and human error
