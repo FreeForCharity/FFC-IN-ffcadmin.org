@@ -1,6 +1,10 @@
 # GitHub Actions Workflows
 
-This repository uses three GitHub Actions workflows to ensure code quality, security, and automated deployment.
+This repository uses multiple GitHub Actions workflows to ensure code quality, security, and automated deployment.
+
+## ~~auto-sign-commits.yml~~ and ~~sign-commits.yml~~ - REMOVED
+
+**These workflows have been removed.** The automatic GPG signing feature was attempted but ultimately failed due to persistent technical issues. See [FAILED_FEATURES.md](../../FAILED_FEATURES.md) for details.
 
 ## ci.yml - Continuous Integration
 

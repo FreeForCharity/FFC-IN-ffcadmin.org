@@ -1,8 +1,18 @@
-# Issue Resolution: Commits Require Verified Signatures
+# Issue Resolution: ARCHIVED - GPG Signing Requirements
 
-## Problem Statement
+**⚠️ THIS DOCUMENT IS NO LONGER ACTIVE ⚠️**
 
-The repository has branch protection rules that require all commits to have verified GPG signatures before they can be merged into `main`. This was blocking automated commits from tools like GitHub Copilot from being merged.
+The GPG signing requirement and associated auto-signing feature have been removed from this repository due to persistent technical issues.
+
+**See [FAILED_FEATURES.md](./FAILED_FEATURES.md) for details on why this feature was abandoned.**
+
+---
+
+## Historical Content (For Reference Only)
+
+### Original Problem Statement
+
+The repository previously had branch protection rules that required all commits to have verified GPG signatures before they could be merged into `main`. This was blocking automated commits from tools like GitHub Copilot from being merged.
 
 **Error Message:**
 

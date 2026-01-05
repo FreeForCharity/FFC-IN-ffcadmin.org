@@ -1,6 +1,16 @@
-# GPG Commit Signing: Quick Start Guide
+# GPG Commit Signing: ARCHIVED
 
-This comprehensive guide helps you set up automatic GPG commit signing for the Free For Charity repository.
+**⚠️ THIS GUIDE IS NO LONGER ACTIVE ⚠️**
+
+The GPG auto-signing feature was attempted but ultimately failed due to persistent technical issues. This document has been preserved for historical reference.
+
+**See [FAILED_FEATURES.md](./FAILED_FEATURES.md) for details on why this feature was abandoned.**
+
+---
+
+## Historical Content (For Reference Only)
+
+This comprehensive guide documented the attempted setup of automatic GPG commit signing for the Free For Charity repository.
 
 ## Table of Contents
 
@@ -138,13 +148,20 @@ When properly configured, you should see:
 
 The `auto-sign-commits.yml` workflow automatically signs bot commits:
 
-1. **Detects Bot Commits** - Identifies commits from copilot-swe-agent[bot] or github-actions[bot]
+1. **Detects Bot Commits** - Identifies commits from any bot or automated tool by checking the commit author/committer email for bot patterns (`\[bot\]@`, `@.*noreply.github.com`, `Copilot@`, etc.)
 2. **Checks Configuration** - Verifies `GPG_PRIVATE_KEY` secret is available
 3. **Imports GPG Key** - Loads the Free For Charity GPG key from secrets
 4. **Signs the Commit** - Adds a GPG signature to the unsigned commit
 5. **Updates Repository** - Force pushes the signed commit back to the branch
 
 **Workflow File:** `.github/workflows/auto-sign-commits.yml`
+
+**Key Features:**
+
+- Automatically detects bot commits based on email patterns (no manual actor list needed)
+- Provides detailed debugging information in workflow logs
+- Skips signing for human commits to avoid conflicts
+- Works with any bot: Copilot, GitHub Actions, Dependabot, etc.
 
 **When it runs:**
 

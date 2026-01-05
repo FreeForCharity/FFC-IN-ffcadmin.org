@@ -32,35 +32,38 @@ This document captures the key lessons learned from building the Free For Charit
 
 ## Critical Lessons: Most Disruptive Issues
 
-### 1. **GPG Commit Signing Requirements** (Issues #15, Multiple PRs)
+### 1. **GPG Commit Signing Requirements** (Issues #15, #93, Multiple PRs) - **ULTIMATELY ABANDONED**
 
 **The Problem:** Branch protection requiring verified GPG signatures blocked automated commits from GitHub Copilot and CI/CD workflows.
 
-**Impact:** High disruption - prevented multiple PRs from being merged for several days until solution was implemented.
+**Impact:** High disruption - prevented multiple PRs from being merged for several days, then consumed 2+ months attempting to fix.
 
-**Root Cause:** GitHub only marks commits as "Verified" when:
+**Solution Attempted:**
 
-- The commit is GPG/SSH signed
-- The public key is registered with the committer's GitHub account
-- The commit author email matches the GitHub account
+Multiple approaches were tried over 17 commits and 2+ months:
 
-**Solution Implemented:**
+- Automated signing workflows
+- Email pattern-based bot detection
+- GPG key import with various configurations
+- Author email reset mechanisms
+- Comprehensive diagnostics
 
-- Created comprehensive GPG signing documentation (`GPG_SIGNING.md`, `ISSUE_RESOLUTION.md`)
-- Added automated signing workflows (`.github/workflows/auto-sign-commits.yml`)
-- Included setup scripts (`scripts/setup-gpg-signing.sh`)
-- Created official Free For Charity GPG key (stored in `gpg-keys/`)
+**Final Outcome:** **FAILED - Feature Abandoned**
+
+After extensive troubleshooting, the GPG key import consistently failed silently. The `crazy-max/ghaction-import-gpg` action would report success but no keys would be imported to the GPG keyring, causing signing to fail with "No secret key" errors.
 
 **Key Takeaway:**
 
-> If using branch protection with signed commit requirements, **configure GPG signing for automated workflows FIRST** before setting up branch protection rules. This saves days of troubleshooting.
+> **Don't require GPG signing for bot commits unless absolutely necessary.** If you must have signing, test the entire workflow locally first and verify key import works before enabling branch protection. Consider that some security requirements may not be worth the development friction they create.
+
+**Decision:** Removed the GPG signing requirement from branch protection rules. See [FAILED_FEATURES.md](./FAILED_FEATURES.md) for complete details.
 
 **Prevention for Future Projects:**
 
-1. Document signing requirements in README upfront
-2. Set up GitHub Actions GPG signing before enabling branch protection
-3. Store GPG keys in repository secrets with clear rotation policy
-4. Consider exempting specific bot accounts from signing requirements
+1. **Evaluate if signing requirement is truly necessary** for your use case
+2. If needed, test GPG workflow end-to-end BEFORE enabling branch protection
+3. Consider exempting bot accounts from signing requirements
+4. Have a fallback plan if automation doesn't work
 
 ---
 
@@ -481,24 +484,13 @@ test('verifies critical file exists', () => {
 
 ## Security and Compliance
 
-### GPG Signing Implementation
+### ~~GPG Signing Implementation~~ - ABANDONED
 
-**Documentation Created:**
+**This feature was attempted but ultimately failed.** See [FAILED_FEATURES.md](./FAILED_FEATURES.md) for complete details.
 
-- `GPG_SIGNING.md` - Technical documentation
-- `ISSUE_RESOLUTION.md` - Complete issue analysis
-- `QUICK_START.md` - 5-minute setup guide
-- `SETUP_AUTO_SIGNING.md` - Detailed instructions
-- `scripts/setup-gpg-signing.sh` - Automated setup
+**Historical Note:** Extensive documentation was created during the 2+ month attempt to implement GPG auto-signing. This documentation has been archived in `docs/archived/` for reference.
 
-**Key Components:**
-
-1. Official Free For Charity GPG key (RSA 4096-bit)
-2. Automated signing workflows
-3. Manual signing workflow for existing commits
-4. Public key in `gpg-keys/` directory
-
-**Lesson Learned:** Security requirements should be documented **before** repository goes public, not after.
+**Lesson Learned:** Some security requirements may create more friction than value. Evaluate the actual security benefit against the development cost and maintenance burden. Not every feature that seems like a good idea will work in practice.
 
 ---
 
@@ -749,13 +741,13 @@ module.exports = withBundleAnalyzer(nextConfig)
 
 ## What We Would Do Differently
 
-### 1. **Configure GPG Signing Earlier**
+### 1. **~~Configure GPG Signing Earlier~~ - Don't Require It At All**
 
-**Issue:** Blocked multiple PRs for days
+**Issue:** Blocked multiple PRs for days, then consumed 2+ months in failed fix attempts
 
-**Better Approach:** Set up GPG signing in first week, **before** enabling branch protection.
+**Better Approach:** **Don't enable GPG signing requirement for bot commits.** It creates more problems than it solves.
 
-**Recommendation:** Make GPG setup part of initial repository template.
+**Recommendation:** Skip GPG signing requirements for automated workflows. If signing is truly needed, test the complete automation workflow locally before enabling branch protection rules.
 
 ---
 
@@ -808,9 +800,9 @@ module.exports = withBundleAnalyzer(nextConfig)
 1. ✅ Create repository from template
 2. ✅ Configure custom domain (if applicable)
 3. ✅ Add `.nojekyll` to `public/` directory
-4. ✅ Set up GPG signing for automation
+4. ~~Set up GPG signing for automation~~ - **SKIP** (feature abandoned, see [FAILED_FEATURES.md](./FAILED_FEATURES.md))
 5. ✅ Enable GitHub Pages (Source: GitHub Actions)
-6. ✅ Configure branch protection (after GPG setup)
+6. ✅ Configure branch protection (without GPG signing requirement)
 
 **Local Development:**
 
@@ -895,8 +887,8 @@ module.exports = withBundleAnalyzer(nextConfig)
 
 **Required Secrets (Set in GitHub Settings):**
 
-- ✅ `GPG_PRIVATE_KEY` - For automated commit signing
-- ✅ (Optional) `GPG_PASSPHRASE` - If GPG key has passphrase
+- ~~`GPG_PRIVATE_KEY`~~  - **NO LONGER NEEDED** (feature abandoned)
+- ~~`GPG_PASSPHRASE`~~ - **NO LONGER NEEDED** (feature abandoned)
 
 **Required Settings:**
 
@@ -905,7 +897,7 @@ module.exports = withBundleAnalyzer(nextConfig)
 - ✅ Branch protection on main:
   - Require PR reviews
   - Require status checks (ci, security)
-  - Require signed commits
+  - ~~Require signed commits~~ - **REMOVED** (feature abandoned)
 - ✅ Dependabot enabled
 - ✅ Security alerts enabled
 
@@ -991,11 +983,12 @@ module.exports = withBundleAnalyzer(nextConfig)
 
 Building this repository taught us that **comprehensive automation and documentation upfront saves exponential time later**. The most disruptive issues (GPG signing, `.nojekyll`, CI/CD order) could have been avoided with clearer templates and documentation.
 
-### Top 3 Takeaways:
+### Top 4 Takeaways:
 
-1. **Security First:** Configure GPG signing and branch protection before allowing contributions
+1. **Don't Over-Engineer Security:** GPG signing requirements created months of problems. Choose security measures that actually provide value and can be reliably implemented.
 2. **Test Early:** Add tests for deployment requirements (`.nojekyll`, build output) in first commit
 3. **Document Everything:** Over-communication prevents miscommunication and reduces troubleshooting time
+4. **Know When to Quit:** After 2+ months trying to fix GPG auto-signing, the pragmatic choice was to remove the requirement entirely.
 
 ### Template Value Proposition:
 

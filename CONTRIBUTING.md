@@ -246,12 +246,11 @@ Fix build error in tech-stack page
 Update documentation for development workflow
 ```
 
-### GPG Signing
+### Commit Requirements
 
-- All commits to `main` **must** be GPG-signed (enforced by branch protection)
-- Feature branch commits don't require GPG signing
-- GitHub Actions automatically signs commits when merging to `main`
-- See [QUICK_START.md](./QUICK_START.md) for GPG setup instructions
+- Follow conventional commit format (enforced by commitlint)
+- Keep commits focused and atomic
+- Write clear, descriptive commit messages
 
 ## Pull Request Process
 
