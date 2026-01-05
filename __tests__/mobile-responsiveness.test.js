@@ -56,8 +56,8 @@ describe('Mobile Responsiveness', () => {
       expect(htmlContent).toContain('hidden xl:flex')
     })
 
-    it('should hide brand text on small screens with hidden sm:block', () => {
-      expect(htmlContent).toContain('hidden sm:block')
+    it('should hide brand text on small screens with hidden lg:block', () => {
+      expect(htmlContent).toContain('hidden lg:block')
     })
   })
 
