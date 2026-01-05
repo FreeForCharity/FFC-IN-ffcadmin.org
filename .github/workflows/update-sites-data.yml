@@ -42,22 +42,30 @@ jobs:
           echo "Triggering DNS Summary Export..."
           gh workflow run "06. DNS - Export All Domains (Report)" --repo $REMOTE_REPO
 
+          echo "Triggering WPMUDEV Export..."
+          gh workflow run "13. WPMUDEV - Export Sites/Domains (Read-only)" --repo $REMOTE_REPO
+
           # Wait for workflows to start and get their IDs
           sleep 30
           
-          # Get the latest run IDs (assuming they are the ones we just triggered)
+          # Get the latest run IDs
           WHMCS_RUN_ID=$(gh run list --workflow "07. WHMCS - Export Domains (Report)" --repo $REMOTE_REPO --limit 1 --json databaseId --jq '.[0].databaseId')
           DNS_RUN_ID=$(gh run list --workflow "06. DNS - Export All Domains (Report)" --repo $REMOTE_REPO --limit 1 --json databaseId --jq '.[0].databaseId')
+          WPMUDEV_RUN_ID=$(gh run list --workflow "13. WPMUDEV - Export Sites/Domains (Read-only)" --repo $REMOTE_REPO --limit 1 --json databaseId --jq '.[0].databaseId')
           
           echo "Waiting for WHMCS Run ID: $WHMCS_RUN_ID"
           gh run watch $WHMCS_RUN_ID --repo $REMOTE_REPO
           
           echo "Waiting for DNS Run ID: $DNS_RUN_ID"
           gh run watch $DNS_RUN_ID --repo $REMOTE_REPO
+
+          echo "Waiting for WPMUDEV Run ID: $WPMUDEV_RUN_ID"
+          gh run watch $WPMUDEV_RUN_ID --repo $REMOTE_REPO
           
           echo "Downloading Artifacts..."
           gh run download $WHMCS_RUN_ID --repo $REMOTE_REPO --dir tmp_data/whmcs_domains
           gh run download $DNS_RUN_ID --repo $REMOTE_REPO --dir tmp_data/domain_summary
+          gh run download $WPMUDEV_RUN_ID --repo $REMOTE_REPO --dir tmp_data/wpmudev
 
       - name: Run Update Script
         run: node scripts/update-sites-data.mjs

@@ -126,11 +126,75 @@ export default async function SitesListPage() {
     return 'bg-gray-100 text-gray-800'
   }
 
-  const getAbandonColor = (status: string) => {
-    const s = status.toLowerCase()
-    if (s === 'yes') return 'text-red-600 font-bold'
-    return 'text-gray-500'
-  }
+  // Categorize sites
+  const fraudSites = sites.filter(s => s.status.toLowerCase() === 'fraud')
+  const expiredSites = sites.filter(s => ['expired', 'cancelled', 'terminated'].includes(s.status.toLowerCase()))
+  const transferredSites = sites.filter(s => s.status.toLowerCase() === 'transferred away')
+
+  // Active/Master list is everything else (Active, Pending, Unknown, etc.)
+  const activeSites = sites.filter(s =>
+    s.status.toLowerCase() !== 'fraud' &&
+    !['expired', 'cancelled', 'terminated'].includes(s.status.toLowerCase()) &&
+    s.status.toLowerCase() !== 'transferred away'
+  )
+
+  const renderTable = (data: SiteData[], title: string, headerColorClass: string, description?: string) => (
+    <div className={`rounded-lg shadow-lg overflow-hidden border border-gray-200 mb-10`}>
+      <div className={`px-6 py-4 border-b border-gray-200 ${headerColorClass}`}>
+        <h2 className="text-xl font-bold flex items-center">
+          {title}
+        </h2>
+        {description && <p className="text-sm mt-1 opacity-80">{description}</p>}
+      </div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className={headerColorClass.replace('text-white', 'bg-opacity-20')}>
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80">Section</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80">Domain</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80">Status</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80">WHMCS</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80">Cloudflare</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80">WPMUDEV</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80">Server</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80">Notes</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {data.length > 0 ? (
+              data.map((site, index) => (
+                <tr key={index} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-gray-700">{site.section}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium hover:underline text-blue-600">
+                    <a href={`https://${site.domain}`} target="_blank" rel="noopener noreferrer">{site.domain}</a>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-700 font-semibold">{site.status}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-xs">
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWhmcs)}`}>{site.inWhmcs}</span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-xs">
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inCloudflare)}`}>{site.inCloudflare}</span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-xs">
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWpmudev)}`}>{site.inWpmudev}</span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{site.serverInUse}</td>
+                  <td className="px-6 py-4 text-xs text-gray-500 max-w-xs truncate" title={site.notes}>{site.notes}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={8} className="px-6 py-4 text-center text-gray-500 italic">No sites found in this category.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+        <p className="text-sm text-gray-500">Total: <span className="font-medium">{data.length}</span></p>
+      </div>
+    </div>
+  )
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -223,123 +287,18 @@ export default async function SitesListPage() {
 
       <PriorityLegend />
 
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-ffc-teal-lightest">
-              <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-ffc-teal-dark uppercase tracking-wider"
-                >
-                  Section
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-ffc-teal-dark uppercase tracking-wider"
-                >
-                  Domain
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-ffc-teal-dark uppercase tracking-wider"
-                >
-                  Status
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-ffc-teal-dark uppercase tracking-wider"
-                >
-                  WHMCS
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-ffc-teal-dark uppercase tracking-wider"
-                >
-                  Cloudflare
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-ffc-teal-dark uppercase tracking-wider"
-                >
-                  WPMUDEV
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-ffc-teal-dark uppercase tracking-wider"
-                >
-                  Server
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-ffc-teal-dark uppercase tracking-wider"
-                >
-                  Notes
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {sites.map((site, index) => (
-                <tr
-                  key={index}
-                  className={
-                    index % 2 === 0
-                      ? 'bg-white hover:bg-ffc-teal-lightest/50'
-                      : 'bg-gray-50 hover:bg-ffc-teal-lightest/50'
-                  }
-                >
-                  <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-gray-700">
-                    {site.section}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-ffc-teal font-medium hover:underline">
-                    <a href={`https://${site.domain}`} target="_blank" rel="noopener noreferrer">
-                      {site.domain}
-                    </a>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-700">
-                    {site.status}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWhmcs)}`}
-                    >
-                      {site.inWhmcs}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inCloudflare)}`}
-                    >
-                      {site.inCloudflare}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWpmudev)}`}
-                    >
-                      {site.inWpmudev}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                    {site.serverInUse}
-                  </td>
-                  <td
-                    className="px-6 py-4 text-xs text-gray-500 max-w-xs truncate"
-                    title={site.notes}
-                  >
-                    {site.notes}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
-          <p className="text-sm text-gray-500">
-            Total Sites: <span className="font-medium">{sites.length}</span>
-          </p>
-        </div>
-      </div>
+      {/* 1. Master List (Active) */}
+      {renderTable(activeSites, 'Active / Master List', 'bg-ffc-teal-lightest text-ffc-teal-dark', 'Active, Pending, and Unknown status domains.')}
+
+      {/* 2. Transferred Away */}
+      {renderTable(transferredSites, 'TR: Transferred Away', 'bg-blue-100 text-blue-900', 'Domains that have been transferred to another registrar.')}
+
+      {/* 3. Expired / Cancelled */}
+      {renderTable(expiredSites, 'EX: Expired / Cancelled', 'bg-orange-100 text-orange-900', 'Domains that have expired, been cancelled, or terminated.')}
+
+      {/* 4. Fraud */}
+      {renderTable(fraudSites, 'FR: Fraudulent / High Risk', 'bg-red-100 text-red-900', 'Domains marked as Fraud in WHMCS.')}
+
     </div>
   )
 }
