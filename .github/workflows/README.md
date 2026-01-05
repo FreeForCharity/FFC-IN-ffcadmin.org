@@ -203,14 +203,101 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 
 - **Fix:** Added verification steps that check if build output exists and if Lighthouse results were generated, providing clear error messages for debugging
 
+## update-sites-data.yml - Sites List Data Automation
+
+Automatically updates the Sites List with data from WHMCS, Cloudflare, and WPMUDEV systems.
+
+### When it runs:
+
+- On manual trigger via `workflow_dispatch`
+- Scheduled: Weekly on Mondays at 8:00 AM UTC
+
+### What it does:
+
+**Update Data Job:**
+
+1. Checks out the code
+2. Sets up Node.js 20 and installs CSV parsing dependencies
+3. Authenticates with GitHub CLI using `GH_PAT` secret
+4. Triggers remote workflows in `FFC-Cloudflare-Automation-` repository:
+   - WHMCS domain export workflow
+   - DNS/Cloudflare domain summary export workflow
+   - WPMUDEV sites/domains export workflow
+5. Waits for all three remote workflows to complete
+6. Downloads artifacts from completed workflows:
+   - `whmcs_domains.csv` to `tmp_data/whmcs_domains/`
+   - `domain_summary.csv` to `tmp_data/domain_summary/`
+   - `wpmudev_domains.csv` to `tmp_data/wpmudev/wpmudev-domain-inventory/`
+7. Runs `scripts/update-sites-data.mjs` to merge and process data:
+   - Merges data from all three sources
+   - Performs automated site health checks (HTTP status, redirects, errors)
+   - Categorizes sites by status (Active, Transferred, Expired, Fraud)
+   - Updates `docs/sites_list.csv` with complete merged data
+8. Creates a pull request with the updated data
+
+### Data Sources and Integration:
+
+**WHMCS Integration:**
+
+- Provides domain registration status and customer information
+- Maps to `In WHMCS` column and `Status` field
+
+**Cloudflare Integration:**
+
+- Provides DNS configuration and IP address information
+- Maps to `In Cloudflare`, `Cloudflare IP`, and `Server In Use` columns
+- Enables detection of proxy configurations and DNS issues
+
+**WPMUDEV Integration:**
+
+- Provides WordPress site management and hosting information
+- Maps to `In WPMUDEV` column
+- Helps identify WordPress-managed sites
+
+**Site Health Automation:**
+
+- Automated HTTP checks for each domain
+- Reports status as: Live (200), Redirect (3xx), Error (4xx/5xx), or Unreachable
+- Runs during data update process with 5-second timeout per site
+- Processes sites in chunks of 10 to avoid overwhelming network
+
+### Output:
+
+The workflow generates an updated `docs/sites_list.csv` file with columns:
+
+- Section, Domain, Status
+- In WHMCS, In Cloudflare, In WPMUDEV
+- Server In Use, Old Server Abandoned?, Notes
+- Cloudflare IP, Repo URL, Site Health, Priority
+
+The Sites List page (`/sites-list`) displays this data in categorized tables:
+
+- **Active/Master List** - Active, Pending, and Unknown status domains
+- **Transferred Away (TR)** - Domains transferred to another registrar
+- **Expired/Cancelled (EX)** - Expired, cancelled, or terminated domains
+- **Fraudulent/High Risk (FR)** - Domains marked as Fraud in WHMCS
+
+### Benefits:
+
+- **Automated data synchronization** from multiple sources
+- **Real-time site health monitoring** with automated checks
+- **Categorized organization** for better site management
+- **Audit trail** via pull request workflow
+- **Reduced manual data entry** and human error
+
+### Required Secrets:
+
+- `GH_PAT` - Personal Access Token with workflow and repo permissions for triggering remote workflows and creating pull requests
+
 ## Workflow Summary
 
-| Workflow            | Trigger                              | Purpose                         | Dependencies                |
-| ------------------- | ------------------------------------ | ------------------------------- | --------------------------- |
-| ci.yml              | PRs and pushes to main               | Run tests and verify builds     | None                        |
-| codeql-analysis.yml | PRs, pushes to main, and weekly      | Security vulnerability scanning | None                        |
-| deploy.yml          | After CI and CodeQL complete on main | Deploy to GitHub Pages          | ci.yml, codeql-analysis.yml |
-| lighthouse.yml      | After successful deployment on main  | Performance and quality audits  | deploy.yml                  |
+| Workflow              | Trigger                              | Purpose                         | Dependencies                |
+| --------------------- | ------------------------------------ | ------------------------------- | --------------------------- |
+| ci.yml                | PRs and pushes to main               | Run tests and verify builds     | None                        |
+| codeql-analysis.yml   | PRs, pushes to main, and weekly      | Security vulnerability scanning | None                        |
+| deploy.yml            | After CI and CodeQL complete on main | Deploy to GitHub Pages          | ci.yml, codeql-analysis.yml |
+| lighthouse.yml        | After successful deployment on main  | Performance and quality audits  | deploy.yml                  |
+| update-sites-data.yml | Manual trigger, weekly schedule      | Update Sites List data          | External workflows          |
 
 ### Workflow Execution Order
 
