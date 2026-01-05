@@ -166,6 +166,14 @@ const documentationSections: DocSection[] = [
     icon: '🌍',
     docs: [
       {
+        name: 'Sites List Documentation',
+        file: 'docs/SITES_LIST.md',
+        description:
+          'Comprehensive documentation for the Sites List system. Covers categorized tables (Active, Transferred, Expired, Fraud), automated site health checks (Live, Redirect, Error, Unreachable), WPMUDEV/WHMCS/Cloudflare data integration, weekly automation workflow, data structure and columns, update script details, troubleshooting guide, and security considerations. Essential reading for understanding the complete Sites List architecture.',
+        audience: 'All Users - Administrators, Site Managers, Developers, Auditors',
+        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/docs/SITES_LIST.md',
+      },
+      {
         name: 'Sites List (Public Page)',
         file: '/sites-list',
         description:
