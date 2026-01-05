@@ -27,7 +27,10 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden xl:flex items-center space-x-5">
-            <Link href="/" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">
+            <Link
+              href="/"
+              className="text-blue-600 font-bold hover:text-blue-800 transition-colors"
+            >
               Home
             </Link>
             <Link href="/tech-stack" className="font-medium hover:text-blue-600 transition-colors">
@@ -60,7 +63,10 @@ export default function Navigation() {
             <Link href="/testing" className="font-medium hover:text-blue-600 transition-colors">
               Testing
             </Link>
-            <Link href="/sites-list" className="font-medium hover:text-blue-600 transition-colors whitespace-nowrap">
+            <Link
+              href="/sites-list"
+              className="font-medium hover:text-blue-600 transition-colors whitespace-nowrap"
+            >
               Sites List
             </Link>
             <a
@@ -102,7 +108,10 @@ export default function Navigation() {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="xl:hidden pb-4 space-y-1 bg-white border-t border-gray-100" id="mobile-menu">
+          <div
+            className="xl:hidden pb-4 space-y-1 bg-white border-t border-gray-100"
+            id="mobile-menu"
+          >
             <Link
               href="/"
               className="block px-3 py-2 rounded-md text-blue-600 font-bold bg-blue-50"

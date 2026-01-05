@@ -9,8 +9,7 @@ export default function TrainingPlan() {
   // Calculate total directives for progress tracking
   const totalDirectives = TRAINING_CURRICULUM.reduce(
     (total, phase) =>
-      total +
-      phase.blocks.reduce((blockTotal, block) => blockTotal + block.directives.length, 0),
+      total + phase.blocks.reduce((blockTotal, block) => blockTotal + block.directives.length, 0),
     0
   )
 
@@ -46,9 +45,7 @@ export default function TrainingPlan() {
         </div>
       </div>
 
-      {isLoaded && (
-        <ProgressBar percentage={progressPercentage} onReset={resetProgress} />
-      )}
+      {isLoaded && <ProgressBar percentage={progressPercentage} onReset={resetProgress} />}
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Executive Summary */}
@@ -366,7 +363,9 @@ export default function TrainingPlan() {
         {/* Interactive Curriculum */}
         {TRAINING_CURRICULUM.map((phase) => (
           <section key={phase.id} className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
-            <div className={`border-l-4 ${phase.id === 'phase-1' ? 'border-indigo-600' : 'border-purple-600'} pl-6 mb-6`}>
+            <div
+              className={`border-l-4 ${phase.id === 'phase-1' ? 'border-indigo-600' : 'border-purple-600'} pl-6 mb-6`}
+            >
               <h2 className="text-2xl font-bold text-gray-900 mb-2">{phase.title}</h2>
               <p className="text-gray-600">
                 <strong>Mission:</strong> {phase.mission}
@@ -386,8 +385,12 @@ export default function TrainingPlan() {
             ))}
 
             {phase.finalGate && (
-              <div className={`bg-${phase.id === 'phase-1' ? 'indigo' : 'purple'}-50 border-2 border-${phase.id === 'phase-1' ? 'indigo' : 'purple'}-600 p-6 rounded-lg`}>
-                <h3 className={`text-xl font-bold text-${phase.id === 'phase-1' ? 'indigo' : 'purple'}-900 mb-3`}>
+              <div
+                className={`bg-${phase.id === 'phase-1' ? 'indigo' : 'purple'}-50 border-2 border-${phase.id === 'phase-1' ? 'indigo' : 'purple'}-600 p-6 rounded-lg`}
+              >
+                <h3
+                  className={`text-xl font-bold text-${phase.id === 'phase-1' ? 'indigo' : 'purple'}-900 mb-3`}
+                >
                   {phase.finalGate.title}
                 </h3>
                 <ul className="space-y-2">

@@ -18,7 +18,9 @@ export default function Home() {
               <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in drop-shadow-md">
                 Free For Charity
               </h1>
-              <p className="text-xl md:text-2xl mb-4 opacity-95 font-light">Administrative Portal</p>
+              <p className="text-xl md:text-2xl mb-4 opacity-95 font-light">
+                Administrative Portal
+              </p>
               <p className="text-lg md:text-xl mb-8 opacity-95 max-w-2xl text-shadow-sm">
                 A nonprofit technology initiative delivering free, secure, and scalable websites for
                 charities

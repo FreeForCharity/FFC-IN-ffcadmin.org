@@ -173,8 +173,7 @@ export const TRAINING_CURRICULUM: TrainingPhase[] = [
   {
     id: 'phase-2',
     title: 'Phase 2: Operation Code Supremacy (GitHub & Copilot)',
-    mission:
-      'Deploy the web presence and master AI-driven development ("Vibe Coding").',
+    mission: 'Deploy the web presence and master AI-driven development ("Vibe Coding").',
     endState:
       'Candidate holds Code Owner rights, a live website, and the GitHub Foundations Certification.',
     blocks: [
@@ -203,8 +202,7 @@ export const TRAINING_CURRICULUM: TrainingPhase[] = [
         id: 'gate-2',
         title: 'Gate 2: Forward Operating Base (Coming Soon Site)',
         badge: '2',
-        description:
-          'Establishing the FOB. A placeholder presence to signal operations.',
+        description: 'Establishing the FOB. A placeholder presence to signal operations.',
         objective: 'Deploy a "Coming Soon" page using GitHub Pages.',
         directives: [
           {
@@ -225,8 +223,7 @@ export const TRAINING_CURRICULUM: TrainingPhase[] = [
         id: 'gate-3',
         title: 'Gate 3: Fortification (Security & Cloudflare)',
         badge: '3',
-        description:
-          'Securing the Perimeter. The repository is public; defenses must be active.',
+        description: 'Securing the Perimeter. The repository is public; defenses must be active.',
         objective: 'Secure the supply chain and map the custom domain.',
         directives: [
           {
