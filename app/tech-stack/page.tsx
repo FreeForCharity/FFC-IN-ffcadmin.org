@@ -623,7 +623,7 @@ export default function TechStack() {
               <a href="/sites-list" className="text-blue-600 hover:underline">
                 /sites-list
               </a>{' '}
-              for real‑time domain inventory and health status.
+              for real-time domain inventory and health status.
             </p>
           </section>
 

@@ -227,7 +227,7 @@ Special table showing fully migrated sites (Apex domain + Cloudflare + GitHub Pa
 
 To add a new data source:
 
-1. Add export workflow to `FFC-Cloudflare-Automation-` repository
+1. Add export workflow to the `FFC-Cloudflare-Automation-` repository (private automation repository)
 2. Update `update-sites-data.yml` to trigger and download new artifact
 3. Update `scripts/update-sites-data.mjs`:
    - Add new path constant
