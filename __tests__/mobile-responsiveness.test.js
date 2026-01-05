@@ -47,13 +47,13 @@ describe('Mobile Responsiveness', () => {
   })
 
   describe('Responsive Navigation', () => {
-    it('should have mobile hamburger menu button with md:hidden class', () => {
-      expect(htmlContent).toContain('md:hidden')
+    it('should have mobile hamburger menu button with xl:hidden class', () => {
+      expect(htmlContent).toContain('xl:hidden')
       expect(htmlContent).toContain('Toggle menu')
     })
 
-    it('should have desktop navigation with hidden md:flex classes', () => {
-      expect(htmlContent).toContain('hidden md:flex')
+    it('should have desktop navigation with hidden xl:flex classes', () => {
+      expect(htmlContent).toContain('hidden xl:flex')
     })
 
     it('should hide brand text on small screens with hidden sm:block', () => {

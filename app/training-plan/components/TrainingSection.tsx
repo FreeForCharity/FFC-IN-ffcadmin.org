@@ -13,18 +13,16 @@ export function TrainingSection({ block, completedItems, onToggle }: TrainingSec
 
   return (
     <div
-      className={`mb-8 rounded-xl shadow-lg overflow-hidden transition-colors duration-300 ${
-        isBlockComplete ? 'bg-blue-50 ring-2 ring-blue-500' : 'bg-white'
-      }`}
+      className={`mb-8 rounded-xl shadow-lg overflow-hidden transition-colors duration-300 ${isBlockComplete ? 'bg-blue-50 ring-2 ring-blue-500' : 'bg-white'
+        }`}
     >
       <div className="p-6 md:p-8">
         {/* Header */}
         <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
           {block.badge && (
             <span
-              className={`rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm font-bold transition-colors ${
-                isBlockComplete ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
-              }`}
+              className={`rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm font-bold transition-colors ${isBlockComplete ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                }`}
             >
               {isBlockComplete ? '✓' : block.badge}
             </span>
@@ -83,8 +81,9 @@ function DirectiveItem({
         <input
           type="checkbox"
           checked={isCompleted}
-          onChange={() => {}} // Handled by parent div click
+          onChange={() => { }} // Handled by parent div click
           className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+          aria-label={directive.text}
         />
       </div>
       <div className={`text-gray-700 ${isCompleted ? 'line-through opacity-50' : ''}`}>
