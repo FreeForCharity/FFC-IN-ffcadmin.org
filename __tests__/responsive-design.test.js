@@ -71,12 +71,12 @@ describe('Responsive Design', () => {
       }
     })
 
-    it('should have desktop navigation with hidden md:flex classes', () => {
-      expect(htmlContent).toContain('hidden md:flex')
+    it('should have desktop navigation with hidden xl:flex classes', () => {
+      expect(htmlContent).toContain('hidden xl:flex')
     })
 
-    it('should have mobile menu button with md:hidden class', () => {
-      expect(htmlContent).toContain('md:hidden')
+    it('should have mobile menu button with xl:hidden class', () => {
+      expect(htmlContent).toContain('xl:hidden')
     })
   })
 
