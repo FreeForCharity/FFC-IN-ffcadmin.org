@@ -143,9 +143,9 @@ export default async function SitesListPage() {
 
   // Categorize sites
   const fraudSites = sites.filter((s) => s.status.toLowerCase() === 'fraud')
-  const expiredSites = sites.filter((s) =>
-    ['expired', 'cancelled', 'terminated'].includes(s.status.toLowerCase())
-  )
+  const expiredSites = sites.filter((s) => s.status.toLowerCase() === 'expired')
+  const cancelledSites = sites.filter((s) => s.status.toLowerCase() === 'cancelled')
+  const terminatedSites = sites.filter((s) => s.status.toLowerCase() === 'terminated')
   const transferredSites = sites.filter((s) => s.status.toLowerCase() === 'transferred away')
 
   // Active/Master list is everything else (Active, Pending, Unknown, etc.)
@@ -175,7 +175,7 @@ export default async function SitesListPage() {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80"
               >
-                Section
+                Category
               </th>
               <th
                 scope="col"
@@ -283,7 +283,7 @@ export default async function SitesListPage() {
               ))
             ) : (
               <tr>
-                <td colSpan={8} className="px-6 py-4 text-center text-gray-500 italic">
+                <td colSpan={9} className="px-6 py-4 text-center text-gray-500 italic">
                   No sites found in this category.
                 </td>
               </tr>
@@ -324,7 +324,13 @@ export default async function SitesListPage() {
             <thead className="bg-green-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">
+                  Category
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">
                   Domain
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">
+                  Health
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">
                   Status
@@ -338,16 +344,35 @@ export default async function SitesListPage() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">
                   Cloudflare
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">
+                  WPMUDEV
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">
+                  Server
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">
+                  Notes
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-green-100">
               {migratedSites.length > 0 ? (
                 migratedSites.map((site, index) => (
                   <tr key={index} className="hover:bg-green-50">
+                    <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-gray-700">
+                      {site.section}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-green-900 font-bold hover:underline">
                       <a href={`https://${site.domain}`} target="_blank" rel="noopener noreferrer">
                         {site.domain}
                       </a>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-xs">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-bold border ${getHealthColor(site.siteHealth)}`}
+                      >
+                        {site.siteHealth || 'N/A'}
+                      </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-xs">
                       <span
@@ -370,13 +395,41 @@ export default async function SitesListPage() {
                         <span className="text-gray-400">-</span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-xs">{site.inWhmcs}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-xs">{site.inCloudflare}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-xs">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWhmcs)}`}
+                      >
+                        {site.inWhmcs}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-xs">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inCloudflare)}`}
+                      >
+                        {site.inCloudflare}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-xs">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWpmudev)}`}
+                      >
+                        {site.inWpmudev}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                      {site.serverInUse}
+                    </td>
+                    <td
+                      className="px-6 py-4 text-xs text-gray-500 max-w-xs truncate"
+                      title={site.notes}
+                    >
+                      {site.notes}
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="px-6 py-4 text-center text-gray-500 italic">
+                  <td colSpan={10} className="px-6 py-4 text-center text-gray-500 italic">
                     No fully migrated sites found yet.
                   </td>
                 </tr>
@@ -401,23 +454,39 @@ export default async function SitesListPage() {
         transferredSites,
         'TR: Transferred Away',
         'bg-blue-100 text-blue-900',
-        'Domains that have been transferred to another registrar.'
+        'Domains that have been transferred to another registrar. In WHMCS, this status indicates the domain registration has been moved to a different domain registrar.'
       )}
 
-      {/* 3. Expired / Cancelled */}
+      {/* 3. Expired */}
       {renderTable(
         expiredSites,
-        'EX: Expired / Cancelled',
+        'EX: Expired',
         'bg-orange-100 text-orange-900',
-        'Domains that have expired, been cancelled, or terminated.'
+        'Domains that have reached their expiration date and are no longer active. In WHMCS, the Expired status means the domain registration period has ended and the domain is in a grace period before becoming available for re-registration.'
       )}
 
-      {/* 4. Fraud */}
+      {/* 4. Cancelled */}
+      {renderTable(
+        cancelledSites,
+        'CA: Cancelled',
+        'bg-yellow-100 text-yellow-900',
+        'Domains with user-initiated cancellations. In WHMCS, the Cancelled status indicates that the client or account holder has requested to cancel the domain service, and the domain will not be renewed upon expiration.'
+      )}
+
+      {/* 5. Terminated */}
+      {renderTable(
+        terminatedSites,
+        'TM: Terminated',
+        'bg-red-200 text-red-900',
+        'Domains that have been administratively terminated. In WHMCS, the Terminated status indicates that an administrator has forcefully ended the service, typically due to policy violations, non-payment, or other administrative reasons.'
+      )}
+
+      {/* 6. Fraud */}
       {renderTable(
         fraudSites,
         'FR: Fraudulent / High Risk',
         'bg-red-100 text-red-900',
-        'Domains marked as Fraud in WHMCS.'
+        'Domains marked as Fraud in WHMCS. This status indicates the domain or account has been flagged for fraudulent activity, suspicious behavior, or high-risk indicators requiring investigation.'
       )}
     </div>
   )

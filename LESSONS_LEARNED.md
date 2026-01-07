@@ -887,7 +887,7 @@ module.exports = withBundleAnalyzer(nextConfig)
 
 **Required Secrets (Set in GitHub Settings):**
 
-- ~~`GPG_PRIVATE_KEY`~~  - **NO LONGER NEEDED** (feature abandoned)
+- ~~`GPG_PRIVATE_KEY`~~ - **NO LONGER NEEDED** (feature abandoned)
 - ~~`GPG_PASSPHRASE`~~ - **NO LONGER NEEDED** (feature abandoned)
 
 **Required Settings:**

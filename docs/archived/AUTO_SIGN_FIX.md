@@ -1,16 +1,16 @@
 # Auto-Sign Commits Workflow Fix
 
 > **⚠️ Archived Document – Historical Auto-Sign Workflow Fix**  
-> **Status:** Archived (auto-sign feature removed)  
->  
+> **Status:** Archived (auto-sign feature removed)
+>
 > This document describes a historical attempt to fix the `auto-sign-commits.yml` workflow.  
 > The change described here addressed one specific issue (bot detection), but the overall  
 > auto-sign feature later failed for other reasons and was ultimately abandoned and  
-> removed from this repository.  
->  
+> removed from this repository.
+>
 > Do not treat this as current guidance. It is retained only to document this past fix  
-> attempt and to provide historical context for earlier CI behavior.  
->  
+> attempt and to provide historical context for earlier CI behavior.
+>
 > **See [FAILED_FEATURES.md](../../FAILED_FEATURES.md) for complete details.**
 
 ---
