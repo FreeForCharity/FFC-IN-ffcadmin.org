@@ -161,6 +161,48 @@ const documentationSections: DocSection[] = [
     ],
   },
   {
+    title: 'Sites Management & Monitoring',
+    description: 'Domain and site management tools',
+    icon: '🌍',
+    docs: [
+      {
+        name: 'Sites List Documentation',
+        file: 'docs/SITES_LIST.md',
+        description:
+          'Comprehensive documentation for the Sites List system covering all features and capabilities. Topics include: categorized tables (Active, Transferred, Expired, Fraud), automated site health checks, WPMUDEV/WHMCS/Cloudflare data integration, weekly automation workflow, data structure, update script details, troubleshooting, and security. Essential reading for understanding the complete Sites List architecture.',
+        audience: 'All Users - Administrators, Site Managers, Developers, Auditors',
+        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/docs/SITES_LIST.md',
+      },
+      {
+        name: 'Sites List (Public Page)',
+        file: '/sites-list',
+        description:
+          'Master list of all managed domains with automated health checks and data integration. Displays categorized tables for Active sites, Transferred domains, Expired/Cancelled sites, and Fraudulent/High Risk domains. Integrates data from WHMCS (domain registration), Cloudflare (DNS/CDN), and WPMUDEV (WordPress hosting). Includes latest site health status from weekly automated checks (Live, Redirect, Error, Unreachable) and GitHub repository links. Updated automatically via scheduled workflows.',
+        audience: 'All Users - Administrators, Site Managers, Auditors, Stakeholders',
+        githubUrl:
+          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/app/sites-list/page.tsx',
+      },
+      {
+        name: 'Sites List Update Workflow',
+        file: '.github/workflows/update-sites-data.yml',
+        description:
+          'Automated workflow that updates the Sites List weekly. Triggers remote workflows to export data from WHMCS, Cloudflare, and WPMUDEV systems, downloads the exported data, runs automated site health checks (HTTP status validation), merges all data sources into a single CSV file, and creates a pull request with the updates. Enables automated site monitoring and reduces manual data entry.',
+        audience: 'Repository Administrators, DevOps Engineers, Site Managers',
+        githubUrl:
+          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/.github/workflows/update-sites-data.yml',
+      },
+      {
+        name: 'Sites Data Update Script',
+        file: 'scripts/update-sites-data.mjs',
+        description:
+          'Node.js script that processes and merges data from WHMCS, Cloudflare, and WPMUDEV CSV exports. Performs automated site health checks with HTTP requests, categorizes sites by status (Active, Transferred, Expired, Fraud), applies sorting and pairing logic for .org/.com domain pairs, and generates the final sites_list.csv file. Processes sites in chunks to avoid network throttling.',
+        audience: 'Developers, DevOps Engineers, Site Managers',
+        githubUrl:
+          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/scripts/update-sites-data.mjs',
+      },
+    ],
+  },
+  {
     title: 'Archived Documentation',
     description: 'Previously active documentation that has been consolidated or completed',
     icon: '📦',

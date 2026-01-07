@@ -575,7 +575,7 @@ export default function TechStack() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               8) Monitoring &amp; Observability
             </h2>
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
+            <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
               <li>
                 <strong>Uptime:</strong> UptimeRobot (or GitHub Status Pages) for public endpoint
                 checks
@@ -591,6 +591,40 @@ export default function TechStack() {
                 <strong>Performance telemetry:</strong> Lighthouse CI trends per commit/PR
               </li>
             </ul>
+
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">Sites List Management</h3>
+            <p className="text-gray-700 mb-2">
+              Automated domain and site inventory system with integrated health monitoring:
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
+              <li>
+                <strong>Data Integration:</strong> WHMCS (domain registration status), Cloudflare
+                (DNS/CDN configuration), WPMUDEV (WordPress hosting)
+              </li>
+              <li>
+                <strong>Automated Health Checks:</strong> HTTP status validation for all domains
+                (Live, Redirect, Error, Unreachable)
+              </li>
+              <li>
+                <strong>Categorized Tables:</strong> Active sites, Transferred domains,
+                Expired/Cancelled sites, Fraudulent/High Risk domains
+              </li>
+              <li>
+                <strong>Weekly Automation:</strong> Scheduled workflow triggers remote data exports,
+                processes merged data, and creates PR with updates
+              </li>
+              <li>
+                <strong>Audit Trail:</strong> All updates via pull request workflow with automated
+                commit signing
+              </li>
+            </ul>
+            <p className="text-gray-700 text-sm italic">
+              Access the Sites List at{' '}
+              <a href="/sites-list" className="text-blue-600 hover:underline">
+                /sites-list
+              </a>{' '}
+              for weekly-updated domain inventory and health status.
+            </p>
           </section>
 
           <section id="support-model" className="mb-8 bg-yellow-50 p-6 rounded-lg">

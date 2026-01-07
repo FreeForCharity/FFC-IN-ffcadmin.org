@@ -45,6 +45,7 @@ This repository contains the administrative portal for Free For Charity, built w
 - 🌐 [Deployment Guide](DEPLOYMENT.md) - GitHub Pages deployment instructions
 - 🔒 [GPG Signing Setup](SETUP_AUTO_SIGNING.md) - Configure automatic commit signing
 - 🔧 [Issue Resolution](ISSUE_RESOLUTION.md) - Troubleshooting common problems
+- 📋 [Sites List](https://ffcadmin.org/sites-list) - Master list with health checks and categorization
 
 **For Understanding the Project:**
 
@@ -71,6 +72,7 @@ The site is automatically deployed via GitHub Actions when changes are pushed to
 - ✅ Custom domain with HTTPS
 - ✅ Fully responsive design (mobile, tablet, desktop)
 - ✅ Automated Lighthouse audits for performance and quality
+- ✅ Sites List with automated health checks and data integration
 
 ## Lighthouse Performance Monitoring
 
