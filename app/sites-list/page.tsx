@@ -173,7 +173,31 @@ export default async function SitesListPage() {
     (s) => !s.serverInUse || s.serverInUse.trim() === ''
   )
 
-  // Helper function to sort sites by priority within a group
+  // Helper function to get health status severity (lower is healthier)
+  const getHealthSeverity = (health: string) => {
+    const h = health.toLowerCase()
+    // Live (200 OK) -> Healthiest (1)
+    if (h === 'live' || h.includes('200')) return 1
+    // Redirect (301/302) -> Good (2)
+    if (h === 'redirect' || h.includes('301') || h.includes('302')) return 2
+    // Error (4xx/5xx) -> Bad (3)
+    if (
+      h === 'error' ||
+      h.includes('404') ||
+      h.includes('403') ||
+      h.includes('400') ||
+      h.includes('500') ||
+      h.includes('503') ||
+      h.includes('502')
+    )
+      return 3
+    // Unreachable -> Worst (4)
+    if (h === 'unreachable' || h.includes('no response')) return 4
+    // Unknown/Other -> Default (5)
+    return 5
+  }
+
+  // Helper function to sort sites by health, then priority, then domain name
   const sortByPriority = (sitesList: SiteData[]) => {
     const priorityOrder: { [key: string]: number } = {
       'For-Profit': 1,
@@ -186,9 +210,17 @@ export default async function SitesListPage() {
       Unknown: 8,
     }
     return sitesList.sort((a, b) => {
+      // First sort by health status (healthiest first)
+      const healthA = getHealthSeverity(a.siteHealth)
+      const healthB = getHealthSeverity(b.siteHealth)
+      if (healthA !== healthB) return healthA - healthB
+
+      // Then sort by priority
       const priorityA = priorityOrder[a.section] || 999
       const priorityB = priorityOrder[b.section] || 999
       if (priorityA !== priorityB) return priorityA - priorityB
+
+      // Finally sort by domain name
       return a.domain.localeCompare(b.domain)
     })
   }
