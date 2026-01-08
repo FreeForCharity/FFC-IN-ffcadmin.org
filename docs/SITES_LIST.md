@@ -10,31 +10,72 @@ The **Sites List** is an automated domain and site inventory management system f
 
 ### 1. Categorized Tables
 
-Sites are automatically organized into four categories based on their status:
+Sites are organized by hosting provider and status for efficient management:
 
-#### Active / Master List
+#### Active Sites by Hosting Provider
 
-- **Status:** Active, Pending, Unknown
-- **Description:** Primary working inventory of all operational domains
-- **Use Case:** Daily site management and monitoring
+Active, Pending, and Unknown status domains are organized into separate tables by hosting provider. Within each hosting group, sites are sorted first by health status (Live → Redirect → Error → Unreachable), then by priority, and finally by domain name.
+
+- **Hostinger** - Largest hosting group with 33 sites
+- **Krystal.io** - 14 sites on Krystal hosting
+- **HostPapa** - 10 sites on HostPapa
+- **InterServer DA** - 11 sites on InterServer DirectAdmin
+- **InterServer RS1** - 2 sites on InterServer RS1
+- **InterServer cPanel** - Sites on InterServer cPanel
+- **GitHub Pages** - 9 sites on static GitHub Pages hosting
+- **Cloudflare Proxy** - 6 sites proxied through Cloudflare with unknown origin
+- **External Hosting** - 4 sites on external providers
+- **FFC-WHM-01** - 4 sites on FFC-WHM-01 server
+- **No A Record** - 6 sites without DNS A records
+- **Unknown Server** - 104 sites with unidentified hosting
+- **Kinsta** - Sites on Kinsta hosting (if any)
+
+All active site tables have consistent structure:
+
+- **Columns:** Category, Domain, Health, Status, WHMCS, Cloudflare, WPMUDEV, Server, Notes
 
 #### Transferred Away (TR)
 
 - **Status:** Transferred Away
-- **Description:** Domains that have been transferred to another registrar
+- **Description:** Domains that have been transferred to another registrar. In WHMCS, this status indicates the domain registration has been moved to a different domain registrar.
 - **Use Case:** Historical record of domains no longer under FFC management
+- **Columns:** Category, Domain, Health, Status, WHMCS, Cloudflare, WPMUDEV, Server, Notes
 
-#### Expired / Cancelled (EX)
+#### Expired (EX)
 
-- **Status:** Expired, Cancelled, Terminated
-- **Description:** Domains that are no longer active or have been terminated
-- **Use Case:** Cleanup planning and renewal decision tracking
+- **Status:** Expired
+- **Description:** Domains that have reached their expiration date and are no longer active. In WHMCS, the Expired status means the domain registration period has ended and the domain is in a grace period before becoming available for re-registration.
+- **Use Case:** Tracking domains that need renewal decisions or are in grace period
+- **Columns:** Category, Domain, Health, Status, WHMCS, Cloudflare, WPMUDEV, Server, Notes
+
+#### Cancelled (CA)
+
+- **Status:** Cancelled
+- **Description:** Domains with user-initiated cancellations. In WHMCS, the Cancelled status indicates that the client or account holder has requested to cancel the domain service, and the domain will not be renewed upon expiration.
+- **Use Case:** Tracking client-requested domain cancellations
+- **Columns:** Category, Domain, Health, Status, WHMCS, Cloudflare, WPMUDEV, Server, Notes
+
+#### Terminated (TM)
+
+- **Status:** Terminated
+- **Description:** Domains that have been administratively terminated. In WHMCS, the Terminated status indicates that an administrator has forcefully ended the service, typically due to policy violations, non-payment, or other administrative reasons.
+- **Use Case:** Tracking administratively terminated domains for compliance and security
+- **Columns:** Category, Domain, Health, Status, WHMCS, Cloudflare, WPMUDEV, Server, Notes
 
 #### Fraudulent / High Risk (FR)
 
 - **Status:** Fraud
-- **Description:** Domains marked as fraudulent or high risk in WHMCS
+- **Description:** Domains marked as Fraud in WHMCS. This status indicates the domain or account has been flagged for fraudulent activity, suspicious behavior, or high-risk indicators requiring investigation.
 - **Use Case:** Security monitoring and fraud prevention
+- **Columns:** Category, Domain, Health, Status, WHMCS, Cloudflare, WPMUDEV, Server, Notes
+
+#### Migrated Sites (Live)
+
+- **Special Category:** Fully migrated sites
+- **Criteria:** Apex domain + Cloudflare + GitHub Pages
+- **Description:** Sites that have been successfully migrated to GitHub Pages with Cloudflare DNS
+- **Use Case:** Tracking migration progress and success
+- **Columns:** Category, Domain, Health, Status, Repo, WHMCS, Cloudflare, WPMUDEV, Server, Notes
 
 ### 2. Site Health Check Automation
 
@@ -215,11 +256,14 @@ Special table showing fully migrated sites (Apex domain + Cloudflare + GitHub Pa
 
 ### Table Features
 
+- **Category column** as the leftmost column showing domain priority/classification
+- **Health column** displaying site availability status with color coding
 - Clickable domain names linking to live sites
 - Repository links (when available)
 - Truncated notes with hover tooltips
 - Total count footer for each category
 - Responsive design for mobile/tablet/desktop
+- Consistent column structure across all tables
 
 ## Maintenance
 
@@ -243,11 +287,18 @@ Edit the filtering logic in `app/sites-list/page.tsx`:
 
 ```typescript
 const fraudSites = sites.filter((s) => s.status.toLowerCase() === 'fraud')
-const expiredSites = sites.filter((s) =>
-  ['expired', 'cancelled', 'terminated'].includes(s.status.toLowerCase())
-)
+const expiredSites = sites.filter((s) => s.status.toLowerCase() === 'expired')
+const cancelledSites = sites.filter((s) => s.status.toLowerCase() === 'cancelled')
+const terminatedSites = sites.filter((s) => s.status.toLowerCase() === 'terminated')
+const transferredSites = sites.filter((s) => s.status.toLowerCase() === 'transferred away')
 // Add new categories as needed
 ```
+
+Each status category is now separated into its own table with:
+
+- Distinct color-coded headers
+- WHMCS status definitions in the description
+- Consistent column structure (Category, Domain, Health, Status, WHMCS, Cloudflare, WPMUDEV, Server, Notes)
 
 ### Changing Update Schedule
 
