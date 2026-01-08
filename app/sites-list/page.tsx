@@ -61,6 +61,63 @@ async function getSitesData(): Promise<SiteData[]> {
   })
 }
 
+// Helper function to get health status severity (lower is healthier)
+// Moved outside component to avoid recreation on every render
+function getHealthSeverity(health: string): number {
+  const h = health.toLowerCase()
+  // Live (200 OK) -> Healthiest (1)
+  if (h === 'live' || h.includes('200')) return 1
+  // Redirect (301/302) -> Good (2)
+  if (h === 'redirect' || h.includes('301') || h.includes('302')) return 2
+  // Error (4xx/5xx) -> Bad (3)
+  if (
+    h === 'error' ||
+    h.includes('404') ||
+    h.includes('403') ||
+    h.includes('400') ||
+    h.includes('500') ||
+    h.includes('503') ||
+    h.includes('502')
+  )
+    return 3
+  // Unreachable -> Worst (4)
+  if (h === 'unreachable' || h.includes('no response')) return 4
+  // Unknown/Other -> Default (5)
+  return 5
+}
+
+// Helper function to sort sites by health, then priority, then domain name
+// Moved outside component to avoid recreation on every render
+// Returns a new sorted array without mutating the input
+function sortByPriority(sitesList: SiteData[]): SiteData[] {
+  const priorityOrder: { [key: string]: number } = {
+    'For-Profit': 1,
+    'Org-WPAdmin': 2,
+    'Org-NoWP': 3,
+    'InterServer-Org': 4,
+    Subdomain: 5,
+    'Cloudflare-Only': 6,
+    'Krystal-New': 7,
+    Unknown: 8,
+  }
+
+  // Create a copy to avoid mutating the input array
+  return [...sitesList].sort((a, b) => {
+    // First sort by health status (healthiest first)
+    const healthA = getHealthSeverity(a.siteHealth)
+    const healthB = getHealthSeverity(b.siteHealth)
+    if (healthA !== healthB) return healthA - healthB
+
+    // Then sort by priority
+    const priorityA = priorityOrder[a.section] || 999
+    const priorityB = priorityOrder[b.section] || 999
+    if (priorityA !== priorityB) return priorityA - priorityB
+
+    // Finally sort by domain name
+    return a.domain.localeCompare(b.domain)
+  })
+}
+
 function PriorityLegend() {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mb-8 border border-gray-200">
@@ -173,57 +230,87 @@ export default async function SitesListPage() {
     (s) => !s.serverInUse || s.serverInUse.trim() === ''
   )
 
-  // Helper function to get health status severity (lower is healthier)
-  const getHealthSeverity = (health: string) => {
-    const h = health.toLowerCase()
-    // Live (200 OK) -> Healthiest (1)
-    if (h === 'live' || h.includes('200')) return 1
-    // Redirect (301/302) -> Good (2)
-    if (h === 'redirect' || h.includes('301') || h.includes('302')) return 2
-    // Error (4xx/5xx) -> Bad (3)
-    if (
-      h === 'error' ||
-      h.includes('404') ||
-      h.includes('403') ||
-      h.includes('400') ||
-      h.includes('500') ||
-      h.includes('503') ||
-      h.includes('502')
-    )
-      return 3
-    // Unreachable -> Worst (4)
-    if (h === 'unreachable' || h.includes('no response')) return 4
-    // Unknown/Other -> Default (5)
-    return 5
-  }
-
-  // Helper function to sort sites by health, then priority, then domain name
-  const sortByPriority = (sitesList: SiteData[]) => {
-    const priorityOrder: { [key: string]: number } = {
-      'For-Profit': 1,
-      'Org-WPAdmin': 2,
-      'Org-NoWP': 3,
-      'InterServer-Org': 4,
-      Subdomain: 5,
-      'Cloudflare-Only': 6,
-      'Krystal-New': 7,
-      Unknown: 8,
-    }
-    return sitesList.sort((a, b) => {
-      // First sort by health status (healthiest first)
-      const healthA = getHealthSeverity(a.siteHealth)
-      const healthB = getHealthSeverity(b.siteHealth)
-      if (healthA !== healthB) return healthA - healthB
-
-      // Then sort by priority
-      const priorityA = priorityOrder[a.section] || 999
-      const priorityB = priorityOrder[b.section] || 999
-      if (priorityA !== priorityB) return priorityA - priorityB
-
-      // Finally sort by domain name
-      return a.domain.localeCompare(b.domain)
-    })
-  }
+  // Define hosting providers configuration for data-driven rendering
+  const hostingProviders = [
+    {
+      sites: hostingerSites,
+      name: 'Hostinger',
+      colorClass: 'bg-purple-100 text-purple-900',
+      description: 'Domains hosted on Hostinger.',
+    },
+    {
+      sites: krystalSites,
+      name: 'Krystal.io',
+      colorClass: 'bg-indigo-100 text-indigo-900',
+      description: 'Domains hosted on Krystal.io.',
+    },
+    {
+      sites: hostPapaSites,
+      name: 'HostPapa',
+      colorClass: 'bg-pink-100 text-pink-900',
+      description: 'Domains hosted on HostPapa.',
+    },
+    {
+      sites: interServerDASites,
+      name: 'InterServer DA',
+      colorClass: 'bg-blue-100 text-blue-900',
+      description: 'Domains hosted on InterServer DirectAdmin.',
+    },
+    {
+      sites: interServerRS1Sites,
+      name: 'InterServer RS1',
+      colorClass: 'bg-cyan-100 text-cyan-900',
+      description: 'Domains hosted on InterServer RS1.',
+    },
+    {
+      sites: interServerCPanelSites,
+      name: 'InterServer cPanel',
+      colorClass: 'bg-teal-100 text-teal-900',
+      description: 'Domains hosted on InterServer cPanel.',
+    },
+    {
+      sites: githubPagesSites,
+      name: 'GitHub Pages',
+      colorClass: 'bg-green-100 text-green-900',
+      description: 'Domains hosted on GitHub Pages.',
+    },
+    {
+      sites: cloudflareProxySites,
+      name: 'Cloudflare Proxy',
+      colorClass: 'bg-orange-100 text-orange-900',
+      description: 'Domains proxied through Cloudflare with unknown origin.',
+    },
+    {
+      sites: externalSites,
+      name: 'External Hosting',
+      colorClass: 'bg-yellow-100 text-yellow-900',
+      description: 'Domains hosted on external providers.',
+    },
+    {
+      sites: ffcWhmSites,
+      name: 'FFC-WHM-01',
+      colorClass: 'bg-gray-100 text-gray-900',
+      description: 'Domains on FFC-WHM-01 server.',
+    },
+    {
+      sites: noARecordSites,
+      name: 'No A Record',
+      colorClass: 'bg-red-100 text-red-900',
+      description: 'Domains without DNS A records.',
+    },
+    {
+      sites: unknownServerSites,
+      name: 'Unknown Server',
+      colorClass: 'bg-gray-200 text-gray-800',
+      description: 'Domains with unidentified hosting.',
+    },
+    {
+      sites: kinstaSites,
+      name: 'Kinsta',
+      colorClass: 'bg-fuchsia-100 text-fuchsia-900',
+      description: 'Domains hosted on Kinsta.',
+    },
+  ]
 
   const renderTable = (
     data: SiteData[],
@@ -514,126 +601,23 @@ export default async function SitesListPage() {
       <div className="mb-10">
         <h2 className="text-2xl font-bold mb-4 text-gray-800">Active Sites by Hosting Provider</h2>
         <p className="text-sm text-gray-600 mb-6">
-          Active, Pending, and Unknown status domains organized by hosting provider.
+          Active, Pending, and Unknown status domains organized by hosting provider. Sites are
+          sorted first by health status (Live → Redirect → Error → Unreachable), then by priority,
+          and finally by domain name.
         </p>
       </div>
 
-      {/* 1a. Hostinger Sites */}
-      {hostingerSites.length > 0 &&
-        renderTable(
-          sortByPriority(hostingerSites),
-          'Hostinger',
-          'bg-purple-100 text-purple-900',
-          'Domains hosted on Hostinger. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1b. Krystal Sites */}
-      {krystalSites.length > 0 &&
-        renderTable(
-          sortByPriority(krystalSites),
-          'Krystal.io',
-          'bg-indigo-100 text-indigo-900',
-          'Domains hosted on Krystal.io. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1c. HostPapa Sites */}
-      {hostPapaSites.length > 0 &&
-        renderTable(
-          sortByPriority(hostPapaSites),
-          'HostPapa',
-          'bg-pink-100 text-pink-900',
-          'Domains hosted on HostPapa. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1d. InterServer DA Sites */}
-      {interServerDASites.length > 0 &&
-        renderTable(
-          sortByPriority(interServerDASites),
-          'InterServer DA',
-          'bg-blue-100 text-blue-900',
-          'Domains hosted on InterServer DirectAdmin. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1e. InterServer RS1 Sites */}
-      {interServerRS1Sites.length > 0 &&
-        renderTable(
-          sortByPriority(interServerRS1Sites),
-          'InterServer RS1',
-          'bg-cyan-100 text-cyan-900',
-          'Domains hosted on InterServer RS1. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1f. InterServer cPanel Sites */}
-      {interServerCPanelSites.length > 0 &&
-        renderTable(
-          sortByPriority(interServerCPanelSites),
-          'InterServer cPanel',
-          'bg-teal-100 text-teal-900',
-          'Domains hosted on InterServer cPanel. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1g. GitHub Pages Sites */}
-      {githubPagesSites.length > 0 &&
-        renderTable(
-          sortByPriority(githubPagesSites),
-          'GitHub Pages',
-          'bg-green-100 text-green-900',
-          'Domains hosted on GitHub Pages. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1h. Cloudflare Proxy Sites */}
-      {cloudflareProxySites.length > 0 &&
-        renderTable(
-          sortByPriority(cloudflareProxySites),
-          'Cloudflare Proxy',
-          'bg-orange-100 text-orange-900',
-          'Domains proxied through Cloudflare with unknown origin. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1i. External Hosting Sites */}
-      {externalSites.length > 0 &&
-        renderTable(
-          sortByPriority(externalSites),
-          'External Hosting',
-          'bg-yellow-100 text-yellow-900',
-          'Domains hosted on external providers. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1j. FFC-WHM-01 Sites */}
-      {ffcWhmSites.length > 0 &&
-        renderTable(
-          sortByPriority(ffcWhmSites),
-          'FFC-WHM-01',
-          'bg-gray-100 text-gray-900',
-          'Domains on FFC-WHM-01 server. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1k. No A Record Sites */}
-      {noARecordSites.length > 0 &&
-        renderTable(
-          sortByPriority(noARecordSites),
-          'No A Record',
-          'bg-red-100 text-red-900',
-          'Domains without DNS A records. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1l. Unknown Server Sites */}
-      {unknownServerSites.length > 0 &&
-        renderTable(
-          sortByPriority(unknownServerSites),
-          'Unknown Server',
-          'bg-gray-200 text-gray-800',
-          'Domains with unidentified hosting. Sites are sorted by priority within this hosting group.'
-        )}
-
-      {/* 1m. Kinsta Sites (if any) */}
-      {kinstaSites.length > 0 &&
-        renderTable(
-          sortByPriority(kinstaSites),
-          'Kinsta',
-          'bg-fuchsia-100 text-fuchsia-900',
-          'Domains hosted on Kinsta. Sites are sorted by priority within this hosting group.'
-        )}
+      {/* Render all hosting provider tables */}
+      {hostingProviders.map(
+        (provider) =>
+          provider.sites.length > 0 &&
+          renderTable(
+            sortByPriority(provider.sites),
+            provider.name,
+            provider.colorClass,
+            `${provider.description} Sites are sorted by health status (healthiest first), then by priority, and finally by domain name.`
+          )
+      )}
 
       {/* 2. Transferred Away */}
       {renderTable(

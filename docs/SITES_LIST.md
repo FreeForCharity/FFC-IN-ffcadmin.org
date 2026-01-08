@@ -14,7 +14,7 @@ Sites are organized by hosting provider and status for efficient management:
 
 #### Active Sites by Hosting Provider
 
-Active, Pending, and Unknown status domains are organized into separate tables by hosting provider. Each table is sorted by priority within the hosting group.
+Active, Pending, and Unknown status domains are organized into separate tables by hosting provider. Within each hosting group, sites are sorted first by health status (Live → Redirect → Error → Unreachable), then by priority, and finally by domain name.
 
 - **Hostinger** - Largest hosting group with 33 sites
 - **Krystal.io** - 14 sites on Krystal hosting
