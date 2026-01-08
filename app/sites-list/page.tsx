@@ -608,16 +608,16 @@ export default async function SitesListPage() {
       </div>
 
       {/* Render all hosting provider tables */}
-      {hostingProviders.map(
-        (provider) =>
-          provider.sites.length > 0 &&
+      {hostingProviders
+        .filter((provider) => provider.sites.length > 0)
+        .map((provider) =>
           renderTable(
             sortByPriority(provider.sites),
             provider.name,
             provider.colorClass,
             `${provider.description} Sites are sorted by health status (healthiest first), then by priority, and finally by domain name.`
           )
-      )}
+        )}
 
       {/* 2. Transferred Away */}
       {renderTable(
