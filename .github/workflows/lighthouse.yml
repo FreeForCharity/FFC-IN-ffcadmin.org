@@ -67,7 +67,7 @@ jobs:
           fi
 
       - name: Upload Lighthouse results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: success() || failure()
         with:
           name: lighthouse-results
