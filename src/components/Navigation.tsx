@@ -56,6 +56,12 @@ export default function Navigation() {
               Canva Designer
             </Link>
             <Link
+              href="/wordpress-to-nextjs-guide"
+              className="font-medium hover:text-blue-600 transition-colors whitespace-nowrap"
+            >
+              Conversion Guide
+            </Link>
+            <Link
               href="/documentation"
               className="font-medium hover:text-blue-600 transition-colors"
             >
@@ -147,6 +153,13 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(false)}
             >
               Canva Designer
+            </Link>
+            <Link
+              href="/wordpress-to-nextjs-guide"
+              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Conversion Guide
             </Link>
             <Link
               href="/documentation"
