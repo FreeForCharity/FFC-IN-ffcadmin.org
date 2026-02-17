@@ -172,7 +172,7 @@ const testSuites: TestSuite[] = [
     whyImportant:
       'Without .nojekyll, GitHub Pages Jekyll processing breaks Next.js assets. These tests prevent deployment issues that would make CSS and JavaScript fail to load.',
     manualVerification:
-      'After building, verify `out/.nojekyll` exists. Check next.config.js contains output: "export", images: { unoptimized: true }, and trailingSlash: true.',
+      'After building, verify `out/.nojekyll` exists. Check next.config.ts contains output: "export", images: { unoptimized: true }, and trailingSlash: true.',
     relatedDocs: ['DEPLOYMENT.md', 'ISSUE_RESOLUTION.md', 'public/.nojekyll'],
   },
   {

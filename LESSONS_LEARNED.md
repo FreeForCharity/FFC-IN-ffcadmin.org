@@ -157,7 +157,7 @@ it('should have .nojekyll file in output directory', () => {
 **Solution:**
 
 ```tsx
-// Correct pattern in app/components/Navigation.tsx
+// Correct pattern in src/components/Navigation.tsx
 <div className="md:hidden">  {/* Visible on mobile, hidden on tablet+ */}
   <button>☰</button>
 </div>
@@ -219,7 +219,7 @@ it('should have .nojekyll file in output directory', () => {
 **Configuration:**
 
 ```javascript
-// next.config.js
+// next.config.ts
 const nextConfig = {
   output: 'export', // Static HTML generation
   images: { unoptimized: true }, // Required for static export
@@ -518,7 +518,7 @@ test('verifies critical file exists', () => {
 
 **Implementation:**
 
-- Custom blocking consent banner (`app/components/CookieConsent.tsx`)
+- Custom blocking consent banner (`src/components/CookieConsent.tsx`)
 - Consent state stored in secure cookie
 - Analytics (Microsoft Clarity) loaded via Google Tag Manager
 - Privacy Policy and Cookie Policy pages
@@ -571,7 +571,7 @@ test('verifies critical file exists', () => {
 **Solution:**
 
 ```html
-<!-- app/layout.tsx -->
+<!-- src/app/layout.tsx -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
 
@@ -634,7 +634,7 @@ test('verifies critical file exists', () => {
 **Configuration:**
 
 ```javascript
-// next.config.js
+// next.config.ts
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
@@ -818,16 +818,16 @@ module.exports = withBundleAnalyzer(nextConfig)
 
 **Content Updates:**
 
-1. ✅ Update `app/page.tsx` (home page)
-2. ✅ Update navigation in `app/components/Navigation.tsx`
-3. ✅ Update footer in `app/components/Footer.tsx`
+1. ✅ Update `src/app/page.tsx` (home page)
+2. ✅ Update navigation in `src/components/Navigation.tsx`
+3. ✅ Update footer in `src/components/Footer.tsx`
 4. ✅ Update `README.md` with your organization info
 5. ✅ Update `public/robots.txt` and `public/sitemap.xml`
 
 **Styling:**
 
 1. ✅ Customize Tailwind colors in `tailwind.config.ts`
-2. ✅ Update global styles in `app/globals.css`
+2. ✅ Update global styles in `src/app/globals.css`
 3. ✅ Replace logo/branding assets
 
 ---
@@ -836,7 +836,7 @@ module.exports = withBundleAnalyzer(nextConfig)
 
 **New Pages:**
 
-1. Create route directory: `app/[route-name]/page.tsx`
+1. Create route directory: `src/app/[route-name]/page.tsx`
 2. Add to navigation
 3. Update sitemap.xml
 4. Test responsive design

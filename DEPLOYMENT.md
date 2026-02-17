@@ -4,7 +4,7 @@
 
 This Next.js site is configured for static export and deployment to GitHub Pages.
 
-## Next.js Configuration (`next.config.js`)
+## Next.js Configuration (`next.config.ts`)
 
 ```javascript
 const nextConfig = {
@@ -108,7 +108,7 @@ npx serve out
 
 ## Verification Checklist
 
-- ✅ `output: 'export'` configured in `next.config.js`
+- ✅ `output: 'export'` configured in `next.config.ts`
 - ✅ `images: { unoptimized: true }` configured
 - ✅ `trailingSlash: true` configured
 - ✅ `.nojekyll` file in `public/` directory
@@ -126,7 +126,7 @@ npx serve out
 
 ### 404 errors on page refresh
 
-- Verify `trailingSlash: true` is set in `next.config.js`
+- Verify `trailingSlash: true` is set in `next.config.ts`
 - Check that routes use trailing slashes (e.g., `/tech-stack/` not `/tech-stack`)
 
 ### Deployment fails

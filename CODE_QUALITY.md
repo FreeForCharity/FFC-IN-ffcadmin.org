@@ -183,7 +183,7 @@ pnpm test:coverage     # Generate coverage reports
 
 #### Next.js Configuration
 
-**Location:** `next.config.js`
+**Location:** `next.config.ts`
 
 **Key Settings:**
 
@@ -576,7 +576,7 @@ trim_trailing_whitespace = false
 pnpm add -D @next/bundle-analyzer
 ```
 
-Update `next.config.js`:
+Update `next.config.ts`:
 
 ```javascript
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
