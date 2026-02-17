@@ -29,22 +29,16 @@ test.describe('Smoke Tests', () => {
 
   test('training plan page loads', async ({ page }) => {
     await page.goto('/training-plan/')
-    await expect(
-      page.getByRole('heading', { name: 'Operation Digital Sovereignty' })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Operation Digital Sovereignty' })).toBeVisible()
   })
 
   test('privacy policy page loads', async ({ page }) => {
     await page.goto('/privacy-policy/')
-    await expect(
-      page.getByRole('heading', { name: 'Privacy Policy', exact: true })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Privacy Policy', exact: true })).toBeVisible()
   })
 
   test('cookie policy page loads', async ({ page }) => {
     await page.goto('/cookie-policy/')
-    await expect(
-      page.getByRole('heading', { name: 'Cookie Policy', exact: true })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Cookie Policy', exact: true })).toBeVisible()
   })
 })
