@@ -167,8 +167,8 @@ All content in the FreeForCharity.org Next.js site is **hardcoded** — there is
 ## SEO Metadata Ownership
 
 | Metadata                   | Location                                | Notes                                     |
-| -------------------------- | --------------------------------------- | ----------------------------------------- | ----------------- |
-| Global title template      | `src/app/layout.tsx`                    | `%s                                       | Free For Charity` |
+| -------------------------- | --------------------------------------- | ----------------------------------------- |
+| Global title template      | `src/app/layout.tsx`                    | `%s \| Free For Charity` (title template) |
 | Global description         | `src/app/layout.tsx`                    | Site-wide default                         |
 | Per-page title/description | Each `page.tsx` `export const metadata` | Some pages may be missing                 |
 | Open Graph defaults        | `src/app/layout.tsx`                    | Site-wide OG tags                         |

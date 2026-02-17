@@ -183,7 +183,7 @@ If zero HTML files are found, the push protection ruleset needs to be configured
 
 ## Reference
 
-- Simply Static Pro docs: https://developer.developer.developer.developer.developer.developer.developer
+- Simply Static Pro docs: https://simplystatic.com/docs/
 - GitHub Push Protection: https://docs.github.com/en/code-security/secret-scanning/push-protection-for-repositories-and-organizations
 - GitHub API Rate Limits: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api
 - FFC Conversion Guide: https://ffcadmin.org/wordpress-to-nextjs-guide

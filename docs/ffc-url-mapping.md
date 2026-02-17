@@ -134,11 +134,12 @@ These 301 redirects should be configured in Cloudflare (DNS-level, no CDN requir
 | `/codetest/`                          | `/`                  | Page dropped   |
 
 **If slug shortening is approved for directory/case study pages:**
-| Old URL | New URL | Reason |
-|---------|---------|--------|
-| `/charity-and-nonprofit-case-studies-to-help-your-organization-succeed/` | `/case-studies/` | Slug shortened |
-| `/charity-and-nonprofit-technology-directory/` | `/technology-directory/` | Slug shortened |
-| `/charity-and-nonprofit-service-and-consultant-directory/` | `/service-directory/` | Slug shortened |
+
+| Old URL                                                                  | New URL                  | Reason         |
+| ------------------------------------------------------------------------ | ------------------------ | -------------- |
+| `/charity-and-nonprofit-case-studies-to-help-your-organization-succeed/` | `/case-studies/`         | Slug shortened |
+| `/charity-and-nonprofit-technology-directory/`                           | `/technology-directory/` | Slug shortened |
+| `/charity-and-nonprofit-service-and-consultant-directory/`               | `/service-directory/`    | Slug shortened |
 
 ---
 
