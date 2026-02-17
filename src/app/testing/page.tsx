@@ -94,7 +94,7 @@ const testSuites: TestSuite[] = [
       'Bundle size directly impacts page load performance. These tests ensure the bundle analyzer is properly configured so developers can identify and address bloat before it reaches production.',
     manualVerification:
       'Run `pnpm run analyze` to generate bundle analysis reports. Review the generated HTML reports in your browser to identify large dependencies and optimization opportunities.',
-    relatedDocs: ['CODE_QUALITY.md', 'next.config.js'],
+    relatedDocs: ['CODE_QUALITY.md', 'next.config.ts'],
   },
   {
     name: 'Lighthouse Configuration',
@@ -155,7 +155,7 @@ const testSuites: TestSuite[] = [
       'Missing or incorrectly structured build output causes deployment failures or broken pages. These tests catch build configuration issues early.',
     manualVerification:
       'Run `pnpm run build` and inspect the out/ directory. Confirm all expected HTML files exist, _next/static/ contains CSS and JS files, and you can open out/index.html in a browser.',
-    relatedDocs: ['DEPLOYMENT.md', 'next.config.js'],
+    relatedDocs: ['DEPLOYMENT.md', 'next.config.ts'],
   },
   {
     name: 'GitHub Pages Configuration',
@@ -194,7 +194,7 @@ const testSuites: TestSuite[] = [
       'Missing route generation means 404 errors in production. These tests ensure every defined route is properly exported as a static page.',
     manualVerification:
       'After building, navigate through out/ directory and confirm each route has its own directory with an index.html file. Open each HTML file in a browser to verify it renders correctly.',
-    relatedDocs: ['DEPLOYMENT.md', 'app/ directory structure'],
+    relatedDocs: ['DEPLOYMENT.md', 'src/app/ directory structure'],
   },
   {
     name: 'SEO Metadata',
@@ -253,7 +253,7 @@ const testSuites: TestSuite[] = [
       'Mobile users represent a significant portion of traffic. These tests ensure mobile navigation works correctly and the viewport is configured for proper rendering on small screens.',
     manualVerification:
       'On a mobile device or DevTools mobile emulator at 375px width: 1) Hamburger menu should be visible, 2) Desktop links should be hidden, 3) Clicking hamburger opens the menu, 4) Page should not require horizontal scrolling.',
-    relatedDocs: ['RESPONSIVE_DESIGN.md', 'app/components/Navigation.tsx'],
+    relatedDocs: ['RESPONSIVE_DESIGN.md', 'src/components/Navigation.tsx'],
   },
   {
     name: 'Accessibility',
@@ -292,7 +292,7 @@ const testSuites: TestSuite[] = [
       'Pages that exist but are not linked from any navigation area are effectively invisible to users. This test ensures complete site discoverability and prevents orphaned content.',
     manualVerification:
       'For each page in the app, verify it can be reached by: 1) Clicking a link in the top navigation (desktop or mobile), 2) Clicking a link in the footer, or 3) Direct URL entry. No page should be completely unreachable through normal navigation.',
-    relatedDocs: ['app/components/Navigation.tsx', 'app/components/Footer.tsx'],
+    relatedDocs: ['src/components/Navigation.tsx', 'src/components/Footer.tsx'],
   },
 
   // Component Tests
@@ -316,7 +316,7 @@ const testSuites: TestSuite[] = [
       'The navigation is the primary way users move through the site. Broken navigation severely impacts usability and user experience.',
     manualVerification:
       'Desktop (>768px): Verify logo and inline links (Home, Tech Stack, Training Plan, GitHub) are visible. Mobile (<768px): Verify hamburger menu works - click to open, displays all navigation links including Testing, click link to close, click X to close.',
-    relatedDocs: ['app/components/Navigation.tsx', 'RESPONSIVE_DESIGN.md'],
+    relatedDocs: ['src/components/Navigation.tsx', 'RESPONSIVE_DESIGN.md'],
   },
   {
     name: 'Footer Component',
@@ -337,7 +337,7 @@ const testSuites: TestSuite[] = [
       'The footer provides essential links to legal pages and external resources. Broken footer links can cause compliance issues and frustrate users seeking information.',
     manualVerification:
       'Scroll to the bottom of any page. Verify: 1) Copyright shows current year, 2) All links are present and clickable, 3) Privacy Policy and Cookie Policy links work, 4) GitHub link opens in new tab.',
-    relatedDocs: ['app/components/Footer.tsx', 'app/privacy-policy/page.tsx'],
+    relatedDocs: ['src/components/Footer.tsx', 'src/app/privacy-policy/page.tsx'],
   },
   {
     name: 'Home Page Component',
@@ -356,7 +356,7 @@ const testSuites: TestSuite[] = [
       'The home page is the main entry point to the site. It must render correctly and guide users to important resources.',
     manualVerification:
       'Navigate to the home page (https://ffcadmin.org). Verify: 1) Page loads without errors, 2) All text and images display correctly, 3) All buttons and links are clickable, 4) Layout looks correct on mobile and desktop.',
-    relatedDocs: ['app/page.tsx'],
+    relatedDocs: ['src/app/page.tsx'],
   },
 ]
 

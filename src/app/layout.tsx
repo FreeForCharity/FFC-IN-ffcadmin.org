@@ -4,10 +4,14 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import CookieConsent from '@/components/CookieConsent'
+import { assetPath } from '@/lib/assetPath'
 
 export const metadata: Metadata = {
   title: 'Free For Charity Admin',
   description: 'Administrative portal for Free For Charity',
+  icons: {
+    icon: assetPath('/Svgs/ffc-logo.svg'),
+  },
 }
 
 export const viewport: Viewport = {
