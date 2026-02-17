@@ -27,6 +27,7 @@ following checklist.
 ### 2. Asset Path Patterns (Next.js Repos)
 
 - Images must use the `assetPath()` helper function, never hardcoded paths:
+
   ```tsx
   // CORRECT
   <Image src={assetPath('/images/hero.jpg')} alt="..." />
@@ -35,6 +36,7 @@ following checklist.
   <Image src="/images/hero.jpg" alt="..." />
   <Image src="/FFC-EX-example.org/images/hero.jpg" alt="..." />
   ```
+
 - The `assetPath()` function handles the GitHub Pages base path prefix automatically.
 
 ### 3. Security Checks
@@ -98,6 +100,7 @@ If the PR modifies `.ps1` files:
 ## PR Review: #42 - Add DNS export for new domains
 
 ### Summary
+
 Overall: 2 issues found, 1 suggestion
 
 ### Issues
@@ -114,6 +117,7 @@ Overall: 2 issues found, 1 suggestion
    Consider adding `aria-label` to the filter dropdown for screen reader users.
 
 ### Checks Passed
+
 - No hardcoded secrets
 - Folder naming conventions followed
 - assetPath() used correctly

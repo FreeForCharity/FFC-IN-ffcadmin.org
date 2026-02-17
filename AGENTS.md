@@ -22,15 +22,15 @@
 
 ## Core Commands
 
-| Command              | What It Does                | Typical Duration |
-| -------------------- | --------------------------- | ---------------- |
-| `pnpm install`       | Install dependencies        | ~17s             |
-| `pnpm run dev`       | Start dev server            | ~1s startup      |
-| `pnpm run format`    | Run Prettier to format code | ~2s              |
-| `pnpm run lint`      | Run ESLint                  | ~2s              |
-| `pnpm test`          | Run Jest unit tests         | ~5s              |
-| `pnpm run build`     | Production static build     | ~30s             |
-| `pnpm run test:e2e`  | Run Playwright E2E tests    | ~15s             |
+| Command             | What It Does                | Typical Duration |
+| ------------------- | --------------------------- | ---------------- |
+| `pnpm install`      | Install dependencies        | ~17s             |
+| `pnpm run dev`      | Start dev server            | ~1s startup      |
+| `pnpm run format`   | Run Prettier to format code | ~2s              |
+| `pnpm run lint`     | Run ESLint                  | ~2s              |
+| `pnpm test`         | Run Jest unit tests         | ~5s              |
+| `pnpm run build`    | Production static build     | ~30s             |
+| `pnpm run test:e2e` | Run Playwright E2E tests    | ~15s             |
 
 **NEVER CANCEL long-running commands.** Builds and E2E tests take time. Set your timeout to 180+ seconds and let them finish.
 
