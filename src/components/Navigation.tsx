@@ -19,6 +19,8 @@ export default function Navigation() {
             <img
               src={assetPath('/Images/hero-logo.png')}
               alt="Free For Charity Logo"
+              width={40}
+              height={40}
               className="h-10 w-auto object-contain"
             />
             <div className="hidden lg:block border-l border-gray-200 pl-3">

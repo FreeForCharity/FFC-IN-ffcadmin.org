@@ -75,6 +75,8 @@ export default function Home() {
                 <img
                   src={assetPath('/Images/figma-hero-img.webp')}
                   alt="Free For Charity Icon"
+                  width={384}
+                  height={384}
                   className="w-full h-full object-contain"
                 />
               </div>
