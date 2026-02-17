@@ -327,7 +327,7 @@ This site uses **Google Tag Manager (GTM)** to manage analytics and tracking too
 
 ### Google Tag Manager Setup
 
-Google Tag Manager is configured with container ID **GTM-WMZH965Q** and is loaded on all pages via `app/layout.tsx`. GTM manages the following tools:
+Google Tag Manager is configured with container ID **GTM-WMZH965Q** and is loaded on all pages via `src/app/layout.tsx`. GTM manages the following tools:
 
 - **Microsoft Clarity**: User behavior analytics and session recordings
 - Additional tracking tools can be configured within the GTM container
@@ -336,9 +336,9 @@ Google Tag Manager is configured with container ID **GTM-WMZH965Q** and is loade
 
 **Microsoft Clarity** and other analytics tools are managed entirely through Google Tag Manager:
 
-1. **GTM Container**: `GTM-WMZH965Q` is hardcoded in `app/layout.tsx`
+1. **GTM Container**: `GTM-WMZH965Q` is hardcoded in `src/app/layout.tsx`
 2. **Clarity Configuration**: Set up within GTM dashboard at [https://tagmanager.google.com/](https://tagmanager.google.com/)
-3. **Consent Management**: The cookie consent banner (`app/components/CookieConsent.tsx`) pushes consent events to GTM's dataLayer:
+3. **Consent Management**: The cookie consent banner (`src/components/CookieConsent.tsx`) pushes consent events to GTM's dataLayer:
    ```javascript
    window.dataLayer.push({
      event: 'consent_update',

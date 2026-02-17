@@ -46,7 +46,7 @@ These tests ensure the site is properly configured for GitHub Pages deployment.
 #### Test Case 2.2: Next.js Export Configuration
 
 - **Purpose**: Verify Next.js is configured for static export
-- **Expected Result**: `next.config.js` contains:
+- **Expected Result**: `next.config.ts` contains:
   - `output: 'export'`
   - `images: { unoptimized: true }`
   - `trailingSlash: true`
