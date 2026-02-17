@@ -35,3 +35,12 @@ next-env.d.ts
 
 # lighthouse
 .lighthouseci
+
+# playwright
+.playwright-mcp/
+/test-results/
+/playwright-report/
+
+# screenshots
+*.png
+!/public/**/*.png
