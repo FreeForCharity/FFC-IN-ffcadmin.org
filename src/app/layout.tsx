@@ -8,6 +8,9 @@ import CookieConsent from '@/components/CookieConsent'
 export const metadata: Metadata = {
   title: 'Free For Charity Admin',
   description: 'Administrative portal for Free For Charity',
+  icons: {
+    icon: '/Svgs/ffc-logo.svg',
+  },
 }
 
 export const viewport: Viewport = {
