@@ -11,7 +11,7 @@ test.describe('Smoke Tests', () => {
     await page.goto('/')
     const nav = page.locator('nav')
     await expect(nav.getByRole('link', { name: 'Tech Stack', exact: true })).toBeVisible()
-    await expect(nav.getByRole('link', { name: 'Documentation', exact: true })).toBeVisible()
+    await expect(nav.getByRole('link', { name: 'Docs', exact: true })).toBeVisible()
     await expect(nav.getByRole('link', { name: 'Training Plan', exact: true })).toBeVisible()
   })
 
