@@ -28,11 +28,11 @@ describe('Navigation Coverage', () => {
 
   beforeAll(() => {
     // Read Navigation component
-    const navPath = path.join(__dirname, '../app/components/Navigation.tsx')
+    const navPath = path.join(__dirname, '../src/components/Navigation.tsx')
     navigationComponent = fs.readFileSync(navPath, 'utf8')
 
     // Read Footer component
-    const footerPath = path.join(__dirname, '../app/components/Footer.tsx')
+    const footerPath = path.join(__dirname, '../src/components/Footer.tsx')
     footerComponent = fs.readFileSync(footerPath, 'utf8')
   })
 

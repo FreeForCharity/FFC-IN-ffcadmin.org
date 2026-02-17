@@ -1,6 +1,6 @@
 'use client'
 
-import { TRAINING_CURRICULUM } from './data'
+import { TRAINING_CURRICULUM } from '@/data/training-plan-data'
 import { useTrainingProgress } from './hooks/useTrainingProgress'
 import { ProgressBar } from './components/ProgressBar'
 import { TrainingSection } from './components/TrainingSection'

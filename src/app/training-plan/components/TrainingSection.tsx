@@ -1,6 +1,6 @@
 'use client'
 
-import { Directive, TrainingBlock } from '../data'
+import { Directive, TrainingBlock } from '@/data/training-plan-data'
 
 interface TrainingSectionProps {
   block: TrainingBlock

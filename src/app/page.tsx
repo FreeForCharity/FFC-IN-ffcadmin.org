@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { assetPath } from '@/lib/assetPath'
 
 export default function Home() {
   return (
@@ -72,7 +73,7 @@ export default function Home() {
             <div className="flex-1 flex justify-center md:justify-end">
               <div className="relative w-64 h-64 md:w-96 md:h-96 bg-white rounded-full p-6 shadow-2xl animate-fade-in flex items-center justify-center">
                 <img
-                  src="/figma-hero-img.webp"
+                  src={assetPath('/Images/figma-hero-img.webp')}
                   alt="Free For Charity Icon"
                   className="w-full h-full object-contain"
                 />

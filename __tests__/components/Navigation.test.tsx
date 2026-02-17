@@ -6,7 +6,7 @@
 
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
-import Navigation from '@/app/components/Navigation'
+import Navigation from '@/components/Navigation'
 
 describe('Navigation Component', () => {
   describe('Rendering', () => {

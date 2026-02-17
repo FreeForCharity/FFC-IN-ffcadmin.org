@@ -9,7 +9,7 @@ const path = require('path')
 
 describe('GitHub Pages Configuration Tests', () => {
   const outDir = path.join(process.cwd(), 'out')
-  const nextConfigPath = path.join(process.cwd(), 'next.config.js')
+  const nextConfigPath = path.join(process.cwd(), 'next.config.ts')
 
   describe('Test Case 2.1: .nojekyll File Exists', () => {
     it('should have .nojekyll file in output directory', () => {
@@ -27,7 +27,7 @@ describe('GitHub Pages Configuration Tests', () => {
   })
 
   describe('Test Case 2.2: Next.js Export Configuration', () => {
-    it('should have next.config.js file', () => {
+    it('should have next.config.ts file', () => {
       expect(fs.existsSync(nextConfigPath)).toBe(true)
     })
 
@@ -46,10 +46,10 @@ describe('GitHub Pages Configuration Tests', () => {
       expect(configContent).toMatch(/trailingSlash:\s*true/)
     })
 
-    it('should be configured for custom domain (no basePath)', () => {
+    it('should support optional basePath via NEXT_PUBLIC_BASE_PATH', () => {
       const configContent = fs.readFileSync(nextConfigPath, 'utf-8')
-      // Should NOT have basePath since we're using custom domain
-      expect(configContent).not.toMatch(/basePath:/)
+      // basePath should be driven by NEXT_PUBLIC_BASE_PATH env var
+      expect(configContent).toContain('NEXT_PUBLIC_BASE_PATH')
     })
   })
 })
