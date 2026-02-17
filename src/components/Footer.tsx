@@ -27,6 +27,8 @@ export default function Footer() {
                   <img
                     src="https://widgets.guidestar.org/gximage2?o=9159614&l=v4"
                     alt=""
+                    width={150}
+                    height={150}
                     className="h-auto max-w-[150px]"
                   />
                 </a>
