@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -16,6 +16,7 @@
     "test:coverage": "jest --coverage",
     "check-links": "linkinator ./out --config .linkinatorrc.json",
     "analyze": "ANALYZE=true pnpm build",
+    "test:e2e": "playwright test",
     "prepare": "husky"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@next/bundle-analyzer": "^16.0.3",
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/postcss": "^4.1.17",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -52,6 +54,7 @@
     "lint-staged": "^16.2.6",
     "postcss": "^8",
     "prettier": "^3.6.2",
+    "serve": "^14.2.5",
     "tailwindcss": "^4.1.17",
     "typescript": "^5"
   },

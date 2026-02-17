@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { assetPath } from '@/lib/assetPath'
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -16,7 +17,7 @@ export default function Navigation() {
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
           >
             <img
-              src="/hero-logo.png"
+              src={assetPath('/Images/hero-logo.png')}
               alt="Free For Charity Logo"
               className="h-10 w-auto object-contain"
             />

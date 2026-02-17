@@ -14,7 +14,7 @@ const customJestConfig = {
     '**/__tests__/**/*.test.ts',
     '**/__tests__/**/*.test.tsx',
   ],
-  collectCoverageFrom: ['app/**/*.{js,jsx,ts,tsx}', '!app/**/*.d.ts', '!**/node_modules/**'],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts', '!**/node_modules/**'],
   // Coverage thresholds: This project uses both build-output validation tests
   // and component unit tests. Thresholds are set based on current coverage levels.
   coverageThreshold: {

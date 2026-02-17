@@ -6,7 +6,7 @@
 
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import ContributorLadderPage from '../../app/contributor-ladder/page'
+import ContributorLadderPage from '@/app/contributor-ladder/page'
 
 // Mock Next.js Link component
 jest.mock('next/link', () => {

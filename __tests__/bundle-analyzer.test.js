@@ -9,7 +9,7 @@ const path = require('path')
 
 describe('Bundle Analyzer Configuration Tests', () => {
   const packageJsonPath = path.join(process.cwd(), 'package.json')
-  const nextConfigPath = path.join(process.cwd(), 'next.config.js')
+  const nextConfigPath = path.join(process.cwd(), 'next.config.ts')
 
   describe('Bundle Analyzer Dependencies', () => {
     it('should have @next/bundle-analyzer as devDependency', () => {
@@ -38,7 +38,7 @@ describe('Bundle Analyzer Configuration Tests', () => {
   })
 
   describe('Next.js Configuration', () => {
-    it('should have next.config.js file', () => {
+    it('should have next.config.ts file', () => {
       expect(fs.existsSync(nextConfigPath)).toBe(true)
     })
 

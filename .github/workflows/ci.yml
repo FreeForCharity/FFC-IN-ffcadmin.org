@@ -66,6 +66,12 @@ jobs:
       - name: Run tests with coverage
         run: pnpm test:coverage
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: pnpm run test:e2e
+
       - name: Check for broken links
         run: |
           # Run linkinator using local installation (skip patterns defined in .linkinatorrc.json)

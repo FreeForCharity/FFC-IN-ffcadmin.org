@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import './globals.css'
-import Navigation from './components/Navigation'
-import Footer from './components/Footer'
-import CookieConsent from './components/CookieConsent'
+import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
+import CookieConsent from '@/components/CookieConsent'
 
 export const metadata: Metadata = {
   title: 'Free For Charity Admin',
