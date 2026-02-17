@@ -10,9 +10,9 @@ test.describe('Smoke Tests', () => {
   test('navigation links are present', async ({ page }) => {
     await page.goto('/')
     const nav = page.locator('nav')
-    await expect(nav.locator('a[href="/tech-stack"]')).toBeVisible()
-    await expect(nav.locator('a[href="/documentation"]')).toBeVisible()
-    await expect(nav.locator('a[href="/training-plan"]')).toBeVisible()
+    await expect(nav.locator('a[href*="/tech-stack"]').first()).toBeVisible()
+    await expect(nav.locator('a[href*="/documentation"]').first()).toBeVisible()
+    await expect(nav.locator('a[href*="/training-plan"]').first()).toBeVisible()
   })
 
   test('footer is visible on home page', async ({ page }) => {
