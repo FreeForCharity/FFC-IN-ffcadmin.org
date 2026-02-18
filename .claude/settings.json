@@ -67,6 +67,14 @@
       "Bash(git clean -f)",
       "Bash(git clean -fd *)",
       "Bash(git clean -fd)",
+      "Bash(git filter-branch *)",
+      "Bash(git filter-branch)",
+      "Bash(git filter-repo *)",
+      "Bash(git filter-repo)",
+      "Bash(git reflog expire *)",
+      "Bash(git reflog expire)",
+      "Bash(git prune *)",
+      "Bash(git prune)",
       "Bash(*API_TOKEN*)",
       "Bash(*SECRET*)",
       "Bash(*PRIVATE_KEY*)",
@@ -74,7 +82,13 @@
       "Bash(curl * | bash *)",
       "Bash(curl * | bash)",
       "Bash(curl * | sh *)",
-      "Bash(curl * | sh)"
+      "Bash(curl * | sh)",
+      "Bash(wget * | bash *)",
+      "Bash(wget * | bash)",
+      "Bash(wget * | sh *)",
+      "Bash(wget * | sh)",
+      "Bash(curl * | sudo *)",
+      "Bash(wget * | sudo *)"
     ]
   }
 }
