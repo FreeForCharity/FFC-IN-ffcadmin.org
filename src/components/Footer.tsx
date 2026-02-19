@@ -9,8 +9,8 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Top Section with 5 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+        {/* Top Section with 6 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
           {/* Endorsements */}
           <div>
             <h3 className="text-white text-lg font-bold mb-4">Endorsements</h3>
@@ -162,6 +162,22 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
+                  href="/get-involved"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Get Involved
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contributor-ladder"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Contributor Ladder
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/training-plan"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
@@ -175,6 +191,51 @@ export default function Footer() {
                 >
                   Canva Designer
                 </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* For Nonprofits */}
+          <div>
+            <h3 className="text-white text-lg font-bold mb-4">For Nonprofits</h3>
+            <p className="text-sm text-gray-400 mb-3">
+              Looking for a free website for your 501(c)(3)?
+            </p>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a
+                  href="https://freeforcharity.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center hover:text-white transition-colors"
+                  style={{ color: 'var(--color-ffc-teal)' }}
+                >
+                  Apply at freeforcharity.org
+                  <svg
+                    className="w-3 h-3 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://freeforcharity.org/donate"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Support Our Mission
+                </a>
               </li>
             </ul>
           </div>

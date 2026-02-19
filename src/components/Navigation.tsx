@@ -50,6 +50,12 @@ export default function Navigation() {
             <Link href="/" className={linkClass('/')}>
               Home
             </Link>
+            <Link
+              href="/get-involved"
+              className={`${linkClass('/get-involved')} whitespace-nowrap`}
+            >
+              Get Involved
+            </Link>
             <Link href="/tech-stack" className={linkClass('/tech-stack')}>
               Tech Stack
             </Link>
@@ -128,6 +134,13 @@ export default function Navigation() {
           >
             <Link href="/" className={mobileLinkClass('/')} onClick={() => setIsMenuOpen(false)}>
               Home
+            </Link>
+            <Link
+              href="/get-involved"
+              className={mobileLinkClass('/get-involved')}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Get Involved
             </Link>
             <Link
               href="/tech-stack"

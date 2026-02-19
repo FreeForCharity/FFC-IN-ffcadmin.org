@@ -6,8 +6,9 @@ import HealthDashboard from './HealthDashboard'
 import FilterableHostingSection from './FilterableHostingSection'
 
 export const metadata: Metadata = {
-  title: 'Sites List | Free For Charity Admin',
-  description: 'Master list of all sites with server, Cloudflare, and pairing status.',
+  title: 'Sites Master List',
+  description:
+    'Operational dashboard of all FFC-managed domains with health status, server assignments, Cloudflare, and migration progress.',
 }
 
 interface SiteData {
@@ -458,6 +459,12 @@ export default async function SitesListPage() {
     </div>
   )
 
+  const liveSites = sites.filter((s) => getHealthSeverity(s.siteHealth) === 1)
+  const errorSites = sites.filter((s) => {
+    const severity = getHealthSeverity(s.siteHealth)
+    return severity === 3 || severity === 4
+  })
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Page Header */}
@@ -487,6 +494,26 @@ export default async function SitesListPage() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        {/* Summary Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 text-center">
+            <p className="text-3xl font-bold text-gray-900">{sites.length}</p>
+            <p className="text-sm text-gray-500 mt-1">Total Domains</p>
+          </div>
+          <div className="bg-white rounded-lg shadow-md border border-green-200 p-4 text-center">
+            <p className="text-3xl font-bold text-green-600">{liveSites.length}</p>
+            <p className="text-sm text-gray-500 mt-1">Live Sites</p>
+          </div>
+          <div className="bg-white rounded-lg shadow-md border border-blue-200 p-4 text-center">
+            <p className="text-3xl font-bold text-blue-600">{migratedSites.length}</p>
+            <p className="text-sm text-gray-500 mt-1">Fully Migrated</p>
+          </div>
+          <div className="bg-white rounded-lg shadow-md border border-red-200 p-4 text-center">
+            <p className="text-3xl font-bold text-red-600">{errorSites.length}</p>
+            <p className="text-sm text-gray-500 mt-1">Errors / Unreachable</p>
+          </div>
+        </div>
+
         {/* Health Dashboard */}
         <HealthDashboard sites={sites} />
 

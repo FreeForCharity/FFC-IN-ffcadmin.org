@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Free For Charity Admin',
-  description: 'Privacy Policy for Free For Charity administrative portal',
+  title: 'Privacy Policy',
+  description:
+    'Privacy Policy for ffcadmin.org. How we collect, use, and protect your data. GDPR and CCPA/CPRA compliant.',
 }
 
 // Update this date when the policy changes

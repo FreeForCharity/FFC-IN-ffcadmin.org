@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy | Free For Charity Admin',
-  description: 'Cookie Policy for Free For Charity administrative portal',
+  title: 'Cookie Policy',
+  description:
+    'Cookie Policy for ffcadmin.org. Details on necessary, analytics, and marketing cookies and how to manage your preferences.',
 }
 
 // Update this date when the policy changes

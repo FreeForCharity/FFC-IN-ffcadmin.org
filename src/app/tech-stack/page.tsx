@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import CollapsibleSection from '@/components/CollapsibleSection'
 
 export const metadata: Metadata = {
-  title: 'Technology Stack | Free For Charity',
+  title: 'Technology Stack',
   description:
-    'Complete technology stack documentation for Free For Charity - nonprofit technology initiative delivering free, secure, and scalable websites for charities.',
+    'Our full technology stack: Next.js, React, Tailwind CSS, GitHub Pages, Cloudflare, and Microsoft 365. Learn the tools FFC volunteers use to build nonprofit websites.',
   keywords:
-    'nonprofit technology, charity websites, GitHub Pages, Next.js, React, Cloudflare, technology stack',
+    'nonprofit technology, charity websites, GitHub Pages, Next.js, React, Cloudflare, volunteer web development',
 }
 
 export default function TechStack() {
