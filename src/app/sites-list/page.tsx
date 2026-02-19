@@ -2,6 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import { Metadata } from 'next'
 import { parse } from 'csv-parse/sync'
+import HealthDashboard from './HealthDashboard'
+import SitesFilter from './SitesFilter'
 
 export const metadata: Metadata = {
   title: 'Sites List | Free For Charity Admin',
@@ -485,6 +487,12 @@ export default async function SitesListPage() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        {/* Health Dashboard */}
+        <HealthDashboard sites={sites} />
+
+        {/* Search and Filter */}
+        <SitesFilter sites={activeSites} />
+
         {/* Migrated / Good Sites Table */}
         <div className="bg-green-50 rounded-lg shadow-md mb-10 overflow-hidden border border-green-200">
           <div className="px-6 py-4 border-b border-green-200 bg-green-100">

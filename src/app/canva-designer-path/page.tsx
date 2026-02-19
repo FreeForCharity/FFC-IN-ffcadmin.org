@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import DesignerChecklist from './components/DesignerChecklist'
 
 export const metadata: Metadata = {
   title: 'Canva Designer Learning Path | Free For Charity',
@@ -36,6 +37,9 @@ export default function CanvaDesignerPath() {
           </p>
         </div>
       </div>
+
+      {/* Interactive Progress Checklist */}
+      <DesignerChecklist />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Executive Summary */}
