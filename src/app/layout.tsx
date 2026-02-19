@@ -16,13 +16,9 @@ export const metadata: Metadata = {
   description:
     'Training hub for Free For Charity volunteers and administrators. Learn our tech stack, complete certification paths, and join the contributor ladder.',
   metadataBase: new URL(SITE_URL),
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: SITE_URL,
     siteName: 'Free For Charity Admin',
     title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
     description:

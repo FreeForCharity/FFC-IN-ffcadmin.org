@@ -456,13 +456,11 @@ export default async function SitesListPage() {
     </div>
   )
 
-  const liveSites = sites.filter((s) => s.siteHealth.includes('200'))
-  const errorSites = sites.filter(
-    (s) =>
-      ['404', '403', '400', '500', '503', '502'].some((code) => s.siteHealth.includes(code)) ||
-      s.siteHealth.toLowerCase().includes('unreachable') ||
-      s.siteHealth.toLowerCase().includes('no response')
-  )
+  const liveSites = sites.filter((s) => getHealthSeverity(s.siteHealth) === 1)
+  const errorSites = sites.filter((s) => {
+    const severity = getHealthSeverity(s.siteHealth)
+    return severity === 3 || severity === 4
+  })
 
   return (
     <div className="container mx-auto px-4 py-8">
