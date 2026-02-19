@@ -57,8 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
-      </head>
-      <body className="min-h-screen flex flex-col">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -85,6 +83,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }),
           }}
         />
+      </head>
+      <body className="min-h-screen flex flex-col">
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-WMZH965Q"
