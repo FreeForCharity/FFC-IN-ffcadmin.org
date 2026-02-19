@@ -4,11 +4,13 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import CookieConsent from '@/components/CookieConsent'
+import BackToTop from '@/components/BackToTop'
 import { assetPath } from '@/lib/assetPath'
 
 export const metadata: Metadata = {
-  title: 'Free For Charity Admin',
-  description: 'Administrative portal for Free For Charity',
+  title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
+  description:
+    'Training hub for Free For Charity volunteers and administrators. Learn our tech stack, complete certification paths, and join the contributor ladder.',
   icons: {
     icon: assetPath('/Svgs/ffc-logo.svg'),
   },
@@ -50,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-grow">{children}</main>
         <Footer />
         <CookieConsent />
+        <BackToTop />
       </body>
     </html>
   )
