@@ -2,8 +2,6 @@ import fs from 'fs'
 import path from 'path'
 import { Metadata } from 'next'
 import { parse } from 'csv-parse/sync'
-import SitesFilter from './SitesFilter'
-
 export const metadata: Metadata = {
   title: 'Sites Master List',
   description:

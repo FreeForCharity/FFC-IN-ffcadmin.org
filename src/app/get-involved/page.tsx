@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Get Involved | Free For Charity Admin',
+  title: 'Get Involved',
   description:
     'Join Free For Charity as a volunteer. Choose your track: web development, IT administration, or graphic design. Start training and make an impact.',
 }

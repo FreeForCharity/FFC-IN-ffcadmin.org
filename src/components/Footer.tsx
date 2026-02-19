@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="bg-black text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Top Section with 5 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
           {/* Endorsements */}
           <div>
             <h3 className="text-white text-lg font-bold mb-4">Endorsements</h3>
