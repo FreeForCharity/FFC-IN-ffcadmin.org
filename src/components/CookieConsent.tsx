@@ -184,6 +184,10 @@ export default function CookieConsent() {
   }
 
   const loadMetaPixel = () => {
+    // Skip loading if Meta Pixel ID is not configured (placeholder value)
+    if (!META_PIXEL_ID || META_PIXEL_ID === 'XXXXXXXXXXXXXXX') {
+      return
+    }
     if (typeof window !== 'undefined' && !document.querySelector('script[src*="fbevents.js"]')) {
       const fbScript = document.createElement('script')
       fbScript.textContent = `

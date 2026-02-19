@@ -4,6 +4,7 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import CookieConsent from '@/components/CookieConsent'
+import BackToTop from '@/components/BackToTop'
 import { assetPath } from '@/lib/assetPath'
 
 const SITE_URL = 'https://ffcadmin.org'
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-grow">{children}</main>
         <Footer />
         <CookieConsent />
+        <BackToTop />
       </body>
     </html>
   )

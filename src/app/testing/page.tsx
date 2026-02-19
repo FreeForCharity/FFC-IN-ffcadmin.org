@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import CollapsibleSection from '@/components/CollapsibleSection'
 
 export const metadata: Metadata = {
   title: 'Test Documentation',
@@ -504,123 +505,119 @@ export default function Testing() {
         {categories.map((category, idx) => (
           <div key={idx} className="mb-8">
             <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
-              <div className="flex items-center mb-4">
-                <span className="text-4xl mr-4" aria-hidden="true">
-                  {category.icon}
-                </span>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{category.name}</h2>
-                  <p className="text-gray-600">{category.description}</p>
-                </div>
-              </div>
+              <CollapsibleSection title={category.name} defaultOpen={idx === 0}>
+                <p className="text-gray-600 mb-4">{category.description}</p>
 
-              <div className="space-y-6">
-                {testSuites
-                  .filter((suite) => suite.category === category.name)
-                  .map((suite, suiteIdx) => (
-                    <div key={suiteIdx} className="border-l-4 border-green-600 pl-6 py-4">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-gray-900 mb-1">{suite.name}</h3>
-                          <p className="text-sm text-gray-500 font-mono mb-2">{suite.file}</p>
-                          <div className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
-                            <svg
-                              className="w-4 h-4 mr-1"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            </svg>
-                            {suite.testsCount} tests passing
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-semibold text-gray-900 mb-2">Purpose</h4>
-                          <p className="text-gray-700">{suite.purpose}</p>
-                        </div>
-
-                        <div>
-                          <h4 className="font-semibold text-gray-900 mb-2">What It Tests</h4>
-                          <ul className="list-disc list-inside text-gray-700 space-y-1">
-                            {suite.whatItTests.map((item, i) => (
-                              <li key={i}>{item}</li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div>
-                          <h4 className="font-semibold text-gray-900 mb-2">Why It's Important</h4>
-                          <p className="text-gray-700">{suite.whyImportant}</p>
-                        </div>
-
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                          <h4 className="font-semibold text-blue-900 mb-2 flex items-center">
-                            <svg
-                              className="w-5 h-5 mr-2"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-                              />
-                            </svg>
-                            Manual Verification
-                          </h4>
-                          <p className="text-blue-900 text-sm">{suite.manualVerification}</p>
-                        </div>
-
-                        {suite.relatedDocs && suite.relatedDocs.length > 0 && (
-                          <div>
-                            <h4 className="font-semibold text-gray-900 mb-2">
-                              Related Documentation
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {suite.relatedDocs.map((doc, i) => (
-                                <span
-                                  key={i}
-                                  className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                                >
-                                  <svg
-                                    className="w-4 h-4 mr-1"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                    />
-                                  </svg>
-                                  {doc}
-                                </span>
-                              ))}
+                <div className="space-y-6">
+                  {testSuites
+                    .filter((suite) => suite.category === category.name)
+                    .map((suite, suiteIdx) => (
+                      <div key={suiteIdx} className="border-l-4 border-green-600 pl-6 py-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                              {suite.name}
+                            </h3>
+                            <p className="text-sm text-gray-500 font-mono mb-2">{suite.file}</p>
+                            <div className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                              <svg
+                                className="w-4 h-4 mr-1"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                              {suite.testsCount} tests passing
                             </div>
                           </div>
-                        )}
+                        </div>
+
+                        <div className="space-y-4">
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-2">Purpose</h4>
+                            <p className="text-gray-700">{suite.purpose}</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-2">What It Tests</h4>
+                            <ul className="list-disc list-inside text-gray-700 space-y-1">
+                              {suite.whatItTests.map((item, i) => (
+                                <li key={i}>{item}</li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-2">Why It's Important</h4>
+                            <p className="text-gray-700">{suite.whyImportant}</p>
+                          </div>
+
+                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <h4 className="font-semibold text-blue-900 mb-2 flex items-center">
+                              <svg
+                                className="w-5 h-5 mr-2"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                                />
+                              </svg>
+                              Manual Verification
+                            </h4>
+                            <p className="text-blue-900 text-sm">{suite.manualVerification}</p>
+                          </div>
+
+                          {suite.relatedDocs && suite.relatedDocs.length > 0 && (
+                            <div>
+                              <h4 className="font-semibold text-gray-900 mb-2">
+                                Related Documentation
+                              </h4>
+                              <div className="flex flex-wrap gap-2">
+                                {suite.relatedDocs.map((doc, i) => (
+                                  <span
+                                    key={i}
+                                    className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
+                                  >
+                                    <svg
+                                      className="w-4 h-4 mr-1"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                      />
+                                    </svg>
+                                    {doc}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
+                    ))}
+                </div>
+              </CollapsibleSection>
             </div>
           </div>
         ))}
 
-        {/* Running Tests Section (truncated for length, continuing in next message) */}
+        {/* Running Tests Section */}
         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl shadow-lg p-6 md:p-8 border border-indigo-200 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Running Tests</h2>
 

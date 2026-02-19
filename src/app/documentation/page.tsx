@@ -32,7 +32,7 @@ const documentationSections: DocSection[] = [
         description:
           'The primary documentation for this repository. Covers deployment status, responsive design, analytics setup, testing, code quality standards, and commit signing requirements. This is your starting point for understanding the entire project.',
         audience: 'Everyone - Developers, Administrators, New Contributors',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/README.md',
+        githubUrl: 'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/README.md',
       },
       {
         name: 'Quick Start Guide',
@@ -40,7 +40,7 @@ const documentationSections: DocSection[] = [
         description:
           'A 5-minute setup guide for enabling automatic commit signing using the Free For Charity GPG key. Includes step-by-step instructions for adding the public key to GitHub and configuring repository secrets.',
         audience: 'Repository Administrators, New Developers',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/QUICK_START.md',
+        githubUrl: 'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/QUICK_START.md',
       },
     ],
   },
@@ -55,7 +55,7 @@ const documentationSections: DocSection[] = [
         description:
           'Comprehensive guide for deploying this Next.js site to GitHub Pages. Covers Next.js configuration for static export, custom domain setup, GitHub Actions workflow, build output structure, and troubleshooting common deployment issues.',
         audience: 'DevOps Engineers, Repository Administrators',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/DEPLOYMENT.md',
+        githubUrl: 'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/DEPLOYMENT.md',
       },
       {
         name: 'GitHub Actions Workflows',
@@ -64,7 +64,7 @@ const documentationSections: DocSection[] = [
           'Documentation for the three GitHub Actions workflows: CI (continuous integration with testing and linting), CodeQL Analysis (automated security scanning), and Deploy (production deployment to GitHub Pages).',
         audience: 'DevOps Engineers, Developers',
         githubUrl:
-          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/.github/workflows/README.md',
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/.github/workflows/README.md',
       },
     ],
   },
@@ -79,7 +79,8 @@ const documentationSections: DocSection[] = [
         description:
           'Comprehensive overview of code quality standards including ESLint configuration, TypeScript type safety, testing framework (Jest + React Testing Library), security scanning, and recommendations for enhancements. Essential reading for maintaining high code quality.',
         audience: 'Developers, Code Reviewers, Quality Assurance',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/CODE_QUALITY.md',
+        githubUrl:
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/CODE_QUALITY.md',
       },
       {
         name: 'Test Cases Documentation',
@@ -87,7 +88,7 @@ const documentationSections: DocSection[] = [
         description:
           'Detailed documentation of all test cases including build output validation, GitHub Pages configuration, SEO metadata, route generation, and configuration validation. Explains the test framework, coverage goals, and maintenance procedures.',
         audience: 'Developers, Quality Assurance, Testers',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/TEST_CASES.md',
+        githubUrl: 'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/TEST_CASES.md',
       },
       {
         name: 'Test Documentation (Public Page)',
@@ -96,7 +97,7 @@ const documentationSections: DocSection[] = [
           'Comprehensive public-facing test documentation covering all 17 test suites, their purposes, what they test, why they are important, and how to verify them manually. Includes running instructions, CI/CD integration details, and test result interpretation. Essential for understanding the testing strategy and quality assurance processes.',
         audience: 'All Users - Developers, QA Testers, Administrators, Auditors',
         githubUrl:
-          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/src/app/testing/page.tsx',
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/src/app/testing/page.tsx',
       },
     ],
   },
@@ -111,7 +112,7 @@ const documentationSections: DocSection[] = [
         description:
           'Comprehensive 5-minute setup guide for enabling automatic GPG commit signing. Includes step-by-step instructions, verification procedures, troubleshooting, how auto-signing works, and advanced topics. Consolidated from multiple GPG documentation files for easy access.',
         audience: 'Repository Administrators, DevOps Engineers, Developers',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/QUICK_START.md',
+        githubUrl: 'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/QUICK_START.md',
       },
       {
         name: 'GPG Signing Configuration',
@@ -119,7 +120,7 @@ const documentationSections: DocSection[] = [
         description:
           'Technical documentation explaining why GPG signatures are required, how GitHub verifies signatures, and five different solutions for enabling commit signing including repository settings, GitHub Apps, bot configuration, and workflow automation.',
         audience: 'Repository Administrators, Security Team, Developers',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/GPG_SIGNING.md',
+        githubUrl: 'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/GPG_SIGNING.md',
       },
       {
         name: 'GPG Keys Directory',
@@ -127,7 +128,8 @@ const documentationSections: DocSection[] = [
         description:
           'Documentation for the official Free For Charity GPG key including key information (ID, fingerprint, validity period), security warnings, setup instructions, and verification procedures. Explains how to safely manage public and private keys.',
         audience: 'Repository Administrators, Security Team',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/gpg-keys/README.md',
+        githubUrl:
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/gpg-keys/README.md',
       },
     ],
   },
@@ -142,7 +144,8 @@ const documentationSections: DocSection[] = [
         description:
           'Complete responsive design documentation covering Tailwind CSS breakpoints, navigation behavior across devices (mobile hamburger menu vs desktop inline links), expected behavior at different screen sizes, comprehensive troubleshooting guide for cache and CSS loading issues, and detailed testing and verification results.',
         audience: 'Frontend Developers, Designers, QA Testers',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/RESPONSIVE_DESIGN.md',
+        githubUrl:
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/RESPONSIVE_DESIGN.md',
       },
     ],
   },
@@ -157,7 +160,8 @@ const documentationSections: DocSection[] = [
         description:
           'Comprehensive analysis and resolution of issues encountered during development. Documents problems, root causes, solutions implemented, and lessons learned. Valuable resource for troubleshooting similar issues in the future.',
         audience: 'Developers, Support Team, Repository Administrators',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/ISSUE_RESOLUTION.md',
+        githubUrl:
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/ISSUE_RESOLUTION.md',
       },
     ],
   },
@@ -172,7 +176,8 @@ const documentationSections: DocSection[] = [
         description:
           'Comprehensive documentation for the Sites List system covering all features and capabilities. Topics include: categorized tables (Active, Transferred, Expired, Fraud), automated site health checks, WPMUDEV/WHMCS/Cloudflare data integration, weekly automation workflow, data structure, update script details, troubleshooting, and security. Essential reading for understanding the complete Sites List architecture.',
         audience: 'All Users - Administrators, Site Managers, Developers, Auditors',
-        githubUrl: 'https://github.com/FreeForCharity/ffcadmin.org/blob/main/docs/SITES_LIST.md',
+        githubUrl:
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/docs/SITES_LIST.md',
       },
       {
         name: 'Sites List (Public Page)',
@@ -181,7 +186,7 @@ const documentationSections: DocSection[] = [
           'Master list of all managed domains with automated health checks and data integration. Displays categorized tables for Active sites, Transferred domains, Expired/Cancelled sites, and Fraudulent/High Risk domains. Integrates data from WHMCS (domain registration), Cloudflare (DNS/CDN), and WPMUDEV (WordPress hosting). Includes latest site health status from weekly automated checks (Live, Redirect, Error, Unreachable) and GitHub repository links. Updated automatically via scheduled workflows.',
         audience: 'All Users - Administrators, Site Managers, Auditors, Stakeholders',
         githubUrl:
-          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/src/app/sites-list/page.tsx',
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/src/app/sites-list/page.tsx',
       },
       {
         name: 'Sites List Update Workflow',
@@ -190,7 +195,7 @@ const documentationSections: DocSection[] = [
           'Automated workflow that updates the Sites List weekly. Triggers remote workflows to export data from WHMCS, Cloudflare, and WPMUDEV systems, downloads the exported data, runs automated site health checks (HTTP status validation), merges all data sources into a single CSV file, and creates a pull request with the updates. Enables automated site monitoring and reduces manual data entry.',
         audience: 'Repository Administrators, DevOps Engineers, Site Managers',
         githubUrl:
-          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/.github/workflows/update-sites-data.yml',
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/.github/workflows/update-sites-data.yml',
       },
       {
         name: 'Sites Data Update Script',
@@ -199,7 +204,7 @@ const documentationSections: DocSection[] = [
           'Node.js script that processes and merges data from WHMCS, Cloudflare, and WPMUDEV CSV exports. Performs automated site health checks with HTTP requests, categorizes sites by status (Active, Transferred, Expired, Fraud), applies sorting and pairing logic for .org/.com domain pairs, and generates the final sites_list.csv file. Processes sites in chunks to avoid network throttling.',
         audience: 'Developers, DevOps Engineers, Site Managers',
         githubUrl:
-          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/scripts/update-sites-data.mjs',
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/scripts/update-sites-data.mjs',
       },
     ],
   },
@@ -215,7 +220,7 @@ const documentationSections: DocSection[] = [
           'Documentation that has been archived includes: SETUP_AUTO_SIGNING.md and AUTO_SIGN_TEST.md (consolidated into QUICK_START.md), RESPONSIVE_TESTING_RESULTS.md (consolidated into RESPONSIVE_DESIGN.md), and IMPLEMENTATION_ISSUES.md (all 11 issues complete). Files are preserved for historical reference and audit purposes.',
         audience: 'Repository Administrators, Auditors, Historical Reference',
         githubUrl:
-          'https://github.com/FreeForCharity/ffcadmin.org/blob/main/docs/archived/README.md',
+          'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/docs/archived/README.md',
       },
     ],
   },
@@ -477,7 +482,7 @@ export default function Documentation() {
               <strong>Contributing to Documentation:</strong> Found an error or want to improve the
               documentation? Visit our{' '}
               <a
-                href="https://github.com/FreeForCharity/ffcadmin.org"
+                href="https://github.com/FreeForCharity/FFC-IN-ffcadmin.org"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
