@@ -11,7 +11,7 @@ export default function Navigation() {
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/' || pathname === ''
-    return pathname.startsWith(href)
+    return pathname === href || pathname.startsWith(href + '/')
   }
 
   const linkClass = (href: string) =>
