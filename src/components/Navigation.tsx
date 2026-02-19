@@ -81,7 +81,7 @@ export default function Navigation() {
               Conversion Guide
             </Link>
             <Link href="/documentation" className={linkClass('/documentation')}>
-              Docs
+              Documentation
             </Link>
             <Link href="/testing" className={linkClass('/testing')}>
               Testing

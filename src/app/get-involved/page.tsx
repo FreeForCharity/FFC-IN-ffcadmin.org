@@ -9,25 +9,6 @@ export const metadata: Metadata = {
 
 const roles = [
   {
-    title: 'Web Developer',
-    subtitle: 'Build & Migrate Nonprofit Websites',
-    description:
-      'Help us convert WordPress sites to modern Next.js static sites hosted on GitHub Pages. Work with React, Tailwind CSS, and CI/CD pipelines.',
-    skills: ['React & Next.js', 'Tailwind CSS', 'GitHub Actions & CI/CD', 'WordPress migration'],
-    link: '/wordpress-to-nextjs-guide',
-    linkLabel: 'Start with the Conversion Guide',
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-      />
-    ),
-    gradient: 'from-blue-500 to-cyan-500',
-    estimate: '10-15 hrs/week',
-  },
-  {
     title: 'Global Administrator',
     subtitle: 'Manage Infrastructure & Security',
     description:
@@ -81,7 +62,7 @@ const steps = [
   {
     number: '1',
     title: 'Choose Your Track',
-    description: 'Pick a role that matches your skills and interests from the three tracks below.',
+    description: 'Pick a role that matches your skills and interests from the two tracks below.',
   },
   {
     number: '2',
@@ -93,7 +74,7 @@ const steps = [
     number: '3',
     title: 'Join the Contributor Ladder',
     description:
-      'Start as an Observer, level up to Contributor, and grow into a Maintainer or Mentor.',
+      'Start as a Contributor, level up through the ladder, and grow into a Maintainer or Mentor.',
   },
   {
     number: '4',
@@ -170,11 +151,11 @@ export default function GetInvolved() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">Choose Your Track</h2>
           <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            We need volunteers across three disciplines. Pick the one that fits your skills — or try
-            more than one.
+            We need volunteers across two disciplines. Pick the one that fits your skills — and use
+            our Conversion Guide when you're ready to build.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {roles.map((role) => (
               <div
                 key={role.title}
@@ -243,8 +224,9 @@ export default function GetInvolved() {
           <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl border border-gray-200 p-8 text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Not sure where to start?</h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Check out the Contributor Ladder to understand the progression from Observer to
-              Maintainer. You can also browse our GitHub repos to find issues labeled{' '}
+              Check out the Contributor Ladder to understand the progression from Contributor to
+              Maintainer. Already have development skills? Jump into the Conversion Guide to start
+              building charity websites. You can also browse our GitHub repos to find issues labeled{' '}
               <code className="bg-gray-200 px-1.5 py-0.5 rounded text-sm">help-wanted</code> and
               jump right in.
             </p>
@@ -254,6 +236,12 @@ export default function GetInvolved() {
                 className="inline-flex items-center justify-center px-6 py-2.5 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm"
               >
                 Contributor Ladder
+              </Link>
+              <Link
+                href="/wordpress-to-nextjs-guide"
+                className="inline-flex items-center justify-center px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-sm"
+              >
+                Conversion Guide
               </Link>
               <Link
                 href="/tech-stack"
