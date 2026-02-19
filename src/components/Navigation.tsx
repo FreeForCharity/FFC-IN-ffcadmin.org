@@ -2,10 +2,27 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { assetPath } from '@/lib/assetPath'
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname() ?? ''
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/' || pathname === ''
+    return pathname.startsWith(href)
+  }
+
+  const linkClass = (href: string) =>
+    isActive(href)
+      ? 'text-blue-600 font-bold hover:text-blue-800 transition-colors'
+      : 'font-medium hover:text-blue-600 transition-colors'
+
+  const mobileLinkClass = (href: string) =>
+    isActive(href)
+      ? 'block px-3 py-2 rounded-md text-blue-600 font-bold bg-blue-50'
+      : 'block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors'
 
   return (
     <nav className="bg-white text-gray-700 shadow-md sticky top-0 z-50">
@@ -30,52 +47,40 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden xl:flex items-center space-x-5">
-            <Link
-              href="/"
-              className="text-blue-600 font-bold hover:text-blue-800 transition-colors"
-            >
+            <Link href="/" className={linkClass('/')}>
               Home
             </Link>
-            <Link href="/tech-stack" className="font-medium hover:text-blue-600 transition-colors">
+            <Link href="/tech-stack" className={linkClass('/tech-stack')}>
               Tech Stack
             </Link>
-            <Link
-              href="/contributor-ladder"
-              className="font-medium hover:text-blue-600 transition-colors"
-            >
+            <Link href="/contributor-ladder" className={linkClass('/contributor-ladder')}>
               Contributor Ladder
             </Link>
             <Link
               href="/training-plan"
-              className="font-medium hover:text-blue-600 transition-colors whitespace-nowrap"
+              className={`${linkClass('/training-plan')} whitespace-nowrap`}
             >
               Global Admin
             </Link>
             <Link
               href="/canva-designer-path"
-              className="font-medium hover:text-blue-600 transition-colors whitespace-nowrap"
+              className={`${linkClass('/canva-designer-path')} whitespace-nowrap`}
             >
               Canva Designer
             </Link>
             <Link
               href="/wordpress-to-nextjs-guide"
-              className="font-medium hover:text-blue-600 transition-colors whitespace-nowrap"
+              className={`${linkClass('/wordpress-to-nextjs-guide')} whitespace-nowrap`}
             >
               Conversion Guide
             </Link>
-            <Link
-              href="/documentation"
-              className="font-medium hover:text-blue-600 transition-colors"
-            >
+            <Link href="/documentation" className={linkClass('/documentation')}>
               Docs
             </Link>
-            <Link href="/testing" className="font-medium hover:text-blue-600 transition-colors">
+            <Link href="/testing" className={linkClass('/testing')}>
               Testing
             </Link>
-            <Link
-              href="/sites-list"
-              className="font-medium hover:text-blue-600 transition-colors whitespace-nowrap"
-            >
+            <Link href="/sites-list" className={`${linkClass('/sites-list')} whitespace-nowrap`}>
               Sites List
             </Link>
             <a
@@ -121,65 +126,61 @@ export default function Navigation() {
             className="xl:hidden pb-4 space-y-1 bg-white border-t border-gray-100"
             id="mobile-menu"
           >
-            <Link
-              href="/"
-              className="block px-3 py-2 rounded-md text-blue-600 font-bold bg-blue-50"
-              onClick={() => setIsMenuOpen(false)}
-            >
+            <Link href="/" className={mobileLinkClass('/')} onClick={() => setIsMenuOpen(false)}>
               Home
             </Link>
             <Link
               href="/tech-stack"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              className={mobileLinkClass('/tech-stack')}
               onClick={() => setIsMenuOpen(false)}
             >
               Tech Stack
             </Link>
             <Link
               href="/contributor-ladder"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              className={mobileLinkClass('/contributor-ladder')}
               onClick={() => setIsMenuOpen(false)}
             >
               Contributor Ladder
             </Link>
             <Link
               href="/training-plan"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              className={mobileLinkClass('/training-plan')}
               onClick={() => setIsMenuOpen(false)}
             >
               Global Admin
             </Link>
             <Link
               href="/canva-designer-path"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              className={mobileLinkClass('/canva-designer-path')}
               onClick={() => setIsMenuOpen(false)}
             >
               Canva Designer
             </Link>
             <Link
               href="/wordpress-to-nextjs-guide"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              className={mobileLinkClass('/wordpress-to-nextjs-guide')}
               onClick={() => setIsMenuOpen(false)}
             >
               Conversion Guide
             </Link>
             <Link
               href="/documentation"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              className={mobileLinkClass('/documentation')}
               onClick={() => setIsMenuOpen(false)}
             >
               Documentation
             </Link>
             <Link
               href="/testing"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              className={mobileLinkClass('/testing')}
               onClick={() => setIsMenuOpen(false)}
             >
               Testing
             </Link>
             <Link
               href="/sites-list"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              className={mobileLinkClass('/sites-list')}
               onClick={() => setIsMenuOpen(false)}
             >
               Sites List
