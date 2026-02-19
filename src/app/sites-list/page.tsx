@@ -3,7 +3,7 @@ import path from 'path'
 import { Metadata } from 'next'
 import { parse } from 'csv-parse/sync'
 import HealthDashboard from './HealthDashboard'
-import SitesFilter from './SitesFilter'
+import FilterableHostingSection from './FilterableHostingSection'
 
 export const metadata: Metadata = {
   title: 'Sites List | Free For Charity Admin',
@@ -490,8 +490,15 @@ export default async function SitesListPage() {
         {/* Health Dashboard */}
         <HealthDashboard sites={sites} />
 
-        {/* Search and Filter */}
-        <SitesFilter sites={activeSites} />
+        {/* Search, Filter, and Hosting Provider Tables */}
+        <FilterableHostingSection
+          sites={activeSites}
+          providers={hostingProviders.map((p) => ({
+            name: p.name,
+            colorClass: p.colorClass,
+            description: p.description,
+          }))}
+        />
 
         {/* Migrated / Good Sites Table */}
         <div className="bg-green-50 rounded-lg shadow-md mb-10 overflow-hidden border border-green-200">
@@ -629,31 +636,6 @@ export default async function SitesListPage() {
         </div>
 
         <PriorityLegend />
-
-        {/* Active Sites by Hosting Provider */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">
-            Active Sites by Hosting Provider
-          </h2>
-          <p className="text-sm text-gray-600 mb-6">
-            Active, Pending, and Unknown status domains organized by hosting provider. Sites are
-            sorted first by health status (Live → Redirect → Error → Unreachable), then by priority,
-            and finally by domain name.
-          </p>
-        </div>
-
-        {/* Render all hosting provider tables */}
-        {hostingProviders
-          .filter((provider) => provider.sites.length > 0)
-          .map((provider) =>
-            renderTable(
-              sortByPriority(provider.sites),
-              provider.name,
-              provider.colorClass,
-              `${provider.description} Sites are sorted by health status (healthiest first), then by priority, and finally by domain name.`,
-              provider.name
-            )
-          )}
 
         {/* 2. Transferred Away */}
         {renderTable(

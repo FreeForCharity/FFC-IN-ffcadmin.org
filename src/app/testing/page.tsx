@@ -505,10 +505,7 @@ export default function Testing() {
         {categories.map((category, idx) => (
           <div key={idx} className="mb-8">
             <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
-              <CollapsibleSection
-                title={`${category.icon} ${category.name}`}
-                defaultOpen={idx === 0}
-              >
+              <CollapsibleSection title={category.name} defaultOpen={idx === 0}>
                 <p className="text-gray-600 mb-4">{category.description}</p>
 
                 <div className="space-y-6">

@@ -21,6 +21,7 @@ export default function CollapsibleSection({
   return (
     <div className={className}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between text-left group cursor-pointer"
         aria-expanded={isOpen}
@@ -39,6 +40,7 @@ export default function CollapsibleSection({
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
+      {/* max-h-[5000px] is sufficient for all current page sections; CSS grid-rows animation is not widely supported */}
       <div
         id={`section-${sectionId}`}
         className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[5000px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}

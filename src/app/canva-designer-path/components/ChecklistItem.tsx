@@ -8,20 +8,23 @@ interface ChecklistItemProps {
   link?: { url: string; label: string }
 }
 
-export function ChecklistItem({ text, isCompleted, onToggle, link }: ChecklistItemProps) {
+export function ChecklistItem({ id, text, isCompleted, onToggle, link }: ChecklistItemProps) {
   return (
-    <li className="flex items-start group cursor-pointer" onClick={onToggle}>
+    <li className="flex items-start group">
       <div className="flex items-center h-6 mr-3">
         <input
+          id={id}
           type="checkbox"
           checked={isCompleted}
-          onChange={() => {}}
+          onChange={onToggle}
           className="w-5 h-5 text-pink-600 border-gray-300 rounded focus:ring-pink-500 cursor-pointer"
           aria-label={text}
         />
       </div>
       <div className={`text-gray-700 ${isCompleted ? 'line-through opacity-50' : ''}`}>
-        <span>{text}</span>
+        <label htmlFor={id} className="cursor-pointer">
+          <span>{text}</span>
+        </label>
         {link && (
           <>
             {' '}
