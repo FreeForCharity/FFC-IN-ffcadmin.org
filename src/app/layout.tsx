@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'EducationalOrganization',
               name: 'Free For Charity',
               url: 'https://ffcadmin.org',
-              logo: 'https://ffcadmin.org/Images/hero-logo.png',
+              logo: `${SITE_URL}${assetPath('/Images/hero-logo.png')}`,
               description:
                 'Free For Charity trains volunteers in web development, IT administration, and graphic design to build free websites for 501(c)(3) nonprofits.',
               parentOrganization: {
