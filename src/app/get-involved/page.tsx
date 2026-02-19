@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Get Involved',
   description:
-    'Join Free For Charity as a volunteer. Choose your track: web development, IT administration, or graphic design. Start training and make an impact.',
+    'Join Free For Charity as a volunteer. Choose your path: Global Administrator or Canva Designer. Start training and make an impact.',
 }
 
 const roles = [

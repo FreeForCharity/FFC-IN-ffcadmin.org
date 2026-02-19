@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     siteName: 'Free For Charity Admin',
     title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
     description:
-      'Training hub for Free For Charity volunteers. Learn web development, IT administration, and graphic design while helping nonprofits.',
+      'Training hub for Free For Charity volunteers. Learn IT administration and graphic design skills while helping nonprofits.',
   },
   twitter: {
     card: 'summary',
     title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
     description:
-      'Training hub for Free For Charity volunteers. Learn web development, IT administration, and graphic design while helping nonprofits.',
+      'Training hub for Free For Charity volunteers. Learn IT administration and graphic design skills while helping nonprofits.',
   },
   icons: {
     icon: assetPath('/Svgs/ffc-logo.svg'),
@@ -68,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               url: 'https://ffcadmin.org',
               logo: `${SITE_URL}${assetPath('/Images/hero-logo.png')}`,
               description:
-                'Free For Charity trains volunteers in web development, IT administration, and graphic design to build free websites for 501(c)(3) nonprofits.',
+                'Free For Charity trains volunteers in IT administration and graphic design to build and manage free websites for 501(c)(3) nonprofits.',
               parentOrganization: {
                 '@type': 'NGO',
                 name: 'Free For Charity',

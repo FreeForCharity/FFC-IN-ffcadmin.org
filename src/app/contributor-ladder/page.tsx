@@ -4,7 +4,7 @@ import type { ReactElement } from 'react'
 export const metadata: Metadata = {
   title: 'Contributor Ladder',
   description:
-    'Progress from Observer to Maintainer. Our structured contributor ladder shows you how to grow your skills and impact as a Free For Charity volunteer.',
+    'Progress from Contributor to Maintainer. Our structured contributor ladder shows you how to grow your skills and impact as a Free For Charity volunteer.',
   keywords:
     'contributor ladder, open source contribution, volunteer opportunities, nonprofit volunteer, Free For Charity',
 }
