@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Documentation | Free For Charity Admin',
+  title: 'Documentation',
   description:
-    'Comprehensive documentation for Free For Charity administrative portal - guides, setup instructions, and technical references',
-  keywords: 'documentation, guides, setup, technical documentation, README files',
+    'Guides for FFC volunteers: deployment, security, responsive design, code quality, Lighthouse CI, and more. Everything you need to contribute.',
+  keywords: 'documentation, volunteer guides, deployment, security, nonprofit web development',
 }
 
 interface DocSection {

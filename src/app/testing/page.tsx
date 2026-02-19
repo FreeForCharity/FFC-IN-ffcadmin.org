@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Test Documentation | Free For Charity Admin',
+  title: 'Test Documentation',
   description:
-    'Comprehensive testing documentation for the Free For Charity administrative portal - test suites, verification procedures, and quality assurance',
+    'Testing documentation for the FFC admin portal: Jest, Playwright, accessibility, Lighthouse CI, and security scanning across 17 test suites.',
   keywords:
-    'testing, test suites, quality assurance, automated testing, jest, react testing library',
+    'testing, test suites, quality assurance, automated testing, jest, playwright, accessibility',
 }
 
 interface TestSuite {

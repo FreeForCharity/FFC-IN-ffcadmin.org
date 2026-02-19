@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'WordPress to Next.js Conversion Guide | Free For Charity Admin',
+  title: 'WordPress to Next.js Conversion Guide',
   description:
-    'Comprehensive guide for converting WordPress/Divi charity websites to Next.js static sites deployed on GitHub Pages. Covers content audit, Simply Static export, template setup, mandatory standards, CI/CD, testing, deployment, and DNS cutover.',
+    'Step-by-step guide for FFC volunteers to convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages. Covers content audit, export, CI/CD, testing, and DNS cutover.',
   keywords:
-    'WordPress migration, Next.js, static site, GitHub Pages, Divi, Simply Static, charity website, nonprofit, conversion guide',
+    'WordPress migration, Next.js, static site, GitHub Pages, volunteer guide, nonprofit website conversion',
 }
 
 interface GuideSection {

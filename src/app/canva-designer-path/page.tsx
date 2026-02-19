@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Canva Designer Learning Path | Free For Charity',
+  title: 'Canva Designer Learning Path',
   description:
-    'Comprehensive training path for Canva designers supporting nonprofits. Learn Canva Pro features, brand kit creation, social media templates, and nonprofit-specific design strategies.',
+    'Volunteer training path for Canva designers. Learn brand kit creation, social media templates, and nonprofit design strategies with Canva Pro.',
   keywords:
-    'Canva, designer training, nonprofit design, brand kit, social media templates, Canva Pro, Canva for Nonprofits, design certification',
+    'Canva volunteer training, nonprofit design, brand kit, social media templates, Canva Pro, design certification',
 }
 
 export default function CanvaDesignerPath() {

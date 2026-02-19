@@ -6,9 +6,34 @@ import Footer from '@/components/Footer'
 import CookieConsent from '@/components/CookieConsent'
 import { assetPath } from '@/lib/assetPath'
 
+const SITE_URL = 'https://ffcadmin.org'
+
 export const metadata: Metadata = {
-  title: 'Free For Charity Admin',
-  description: 'Administrative portal for Free For Charity',
+  title: {
+    default: 'Free For Charity Admin | Volunteer & Admin Training Hub',
+    template: '%s | Free For Charity Admin',
+  },
+  description:
+    'Training hub for Free For Charity volunteers and administrators. Learn our tech stack, complete certification paths, and join the contributor ladder.',
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: SITE_URL,
+    siteName: 'Free For Charity Admin',
+    title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
+    description:
+      'Training hub for Free For Charity volunteers. Learn web development, IT administration, and graphic design while helping nonprofits.',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
+    description:
+      'Training hub for Free For Charity volunteers. Learn web development, IT administration, and graphic design while helping nonprofits.',
+  },
   icons: {
     icon: assetPath('/Svgs/ffc-logo.svg'),
   },
@@ -38,6 +63,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'EducationalOrganization',
+              name: 'Free For Charity',
+              url: 'https://ffcadmin.org',
+              logo: 'https://ffcadmin.org/Images/hero-logo.png',
+              description:
+                'Free For Charity trains volunteers in web development, IT administration, and graphic design to build free websites for 501(c)(3) nonprofits.',
+              parentOrganization: {
+                '@type': 'NGO',
+                name: 'Free For Charity',
+                url: 'https://freeforcharity.org',
+                taxID: '46-2471893',
+              },
+              sameAs: [
+                'https://github.com/FreeForCharity',
+                'https://facebook.com/FreeForCharity',
+                'https://linkedin.com/company/freeforcharity',
+                'https://youtube.com/@FreeForCharity',
+              ],
+            }),
+          }}
+        />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-WMZH965Q"

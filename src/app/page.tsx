@@ -20,18 +20,37 @@ export default function Home() {
                 Free For Charity
               </h1>
               <p className="text-xl md:text-2xl mb-4 opacity-95 font-light">
-                Administrative Portal
+                Volunteer & Admin Training Hub
               </p>
               <p className="text-lg md:text-xl mb-8 opacity-95 max-w-2xl text-shadow-sm">
-                A nonprofit technology initiative delivering free, secure, and scalable websites for
-                charities
+                Learn how we build free, secure websites for nonprofits — then join us
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <Link
-                  href="/tech-stack"
+                  href="/get-involved"
                   className="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
-                  View Tech Stack
+                  Start Your Journey
+                  <svg
+                    className="ml-2 w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </Link>
+                <Link
+                  href="/contributor-ladder"
+                  className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all"
+                >
+                  Contributor Ladder
                   <svg
                     className="ml-2 w-5 h-5"
                     fill="none"
@@ -47,26 +66,6 @@ export default function Home() {
                     />
                   </svg>
                 </Link>
-                <a
-                  href="https://github.com/FreeForCharity"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all"
-                >
-                  <svg
-                    className="mr-2 w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  GitHub
-                </a>
               </div>
             </div>
 
@@ -611,6 +610,45 @@ export default function Home() {
                 </svg>
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* For Nonprofits Callout */}
+      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-bold text-gray-900">
+                Are you a nonprofit looking for a free website?
+              </h3>
+              <p className="text-gray-600 text-sm mt-1">
+                FFC provides free websites and domain management for verified 501(c)(3)
+                organizations.
+              </p>
+            </div>
+            <a
+              href="https://freeforcharity.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-6 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors whitespace-nowrap text-sm"
+            >
+              Apply at freeforcharity.org
+              <svg
+                className="ml-2 w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </section>

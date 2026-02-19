@@ -2,10 +2,12 @@ import fs from 'fs'
 import path from 'path'
 import { Metadata } from 'next'
 import { parse } from 'csv-parse/sync'
+import SitesFilter from './SitesFilter'
 
 export const metadata: Metadata = {
-  title: 'Sites List | Free For Charity Admin',
-  description: 'Master list of all sites with server, Cloudflare, and pairing status.',
+  title: 'Sites Master List',
+  description:
+    'Operational dashboard of all FFC-managed domains with health status, server assignments, Cloudflare, and migration progress.',
 }
 
 interface SiteData {
@@ -456,6 +458,14 @@ export default async function SitesListPage() {
     </div>
   )
 
+  const liveSites = sites.filter((s) => s.siteHealth.includes('200'))
+  const errorSites = sites.filter(
+    (s) =>
+      ['404', '403', '400', '500', '503', '502'].some((code) => s.siteHealth.includes(code)) ||
+      s.siteHealth.toLowerCase().includes('unreachable') ||
+      s.siteHealth.toLowerCase().includes('no response')
+  )
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -463,6 +473,26 @@ export default async function SitesListPage() {
         <p className="text-gray-600">
           Authoritative list of all domains, server assignments, and migration status.
         </p>
+      </div>
+
+      {/* Summary Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 text-center">
+          <p className="text-3xl font-bold text-gray-900">{sites.length}</p>
+          <p className="text-sm text-gray-500 mt-1">Total Domains</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-md border border-green-200 p-4 text-center">
+          <p className="text-3xl font-bold text-green-600">{liveSites.length}</p>
+          <p className="text-sm text-gray-500 mt-1">Live Sites</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-md border border-blue-200 p-4 text-center">
+          <p className="text-3xl font-bold text-blue-600">{migratedSites.length}</p>
+          <p className="text-sm text-gray-500 mt-1">Fully Migrated</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-md border border-red-200 p-4 text-center">
+          <p className="text-3xl font-bold text-red-600">{errorSites.length}</p>
+          <p className="text-sm text-gray-500 mt-1">Errors / Unreachable</p>
+        </div>
       </div>
 
       {/* Migrated / Good Sites Table */}

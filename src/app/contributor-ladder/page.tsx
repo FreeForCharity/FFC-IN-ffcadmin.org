@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import type { ReactElement } from 'react'
 
 export const metadata: Metadata = {
-  title: 'Contributor Ladder | Free For Charity',
+  title: 'Contributor Ladder',
   description:
-    'Join Free For Charity - A clear path from contributor to maintainer. Learn how to grow your skills and impact through our structured contributor ladder program.',
+    'Progress from Observer to Maintainer. Our structured contributor ladder shows you how to grow your skills and impact as a Free For Charity volunteer.',
   keywords:
-    'contributor ladder, open source contribution, volunteer opportunities, nonprofit development, Free For Charity',
+    'contributor ladder, open source contribution, volunteer opportunities, nonprofit volunteer, Free For Charity',
 }
 
 interface ContributorLevel {

@@ -30,11 +30,14 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden xl:flex items-center space-x-5">
-            <Link
-              href="/"
-              className="text-blue-600 font-bold hover:text-blue-800 transition-colors"
-            >
+            <Link href="/" className="font-medium hover:text-blue-600 transition-colors">
               Home
+            </Link>
+            <Link
+              href="/get-involved"
+              className="font-semibold text-blue-600 hover:text-blue-800 transition-colors whitespace-nowrap"
+            >
+              Get Involved
             </Link>
             <Link href="/tech-stack" className="font-medium hover:text-blue-600 transition-colors">
               Tech Stack
@@ -123,10 +126,17 @@ export default function Navigation() {
           >
             <Link
               href="/"
-              className="block px-3 py-2 rounded-md text-blue-600 font-bold bg-blue-50"
+              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
+            </Link>
+            <Link
+              href="/get-involved"
+              className="block px-3 py-2 rounded-md bg-blue-50 text-blue-600 font-semibold"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Get Involved
             </Link>
             <Link
               href="/tech-stack"
