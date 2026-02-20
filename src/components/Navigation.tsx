@@ -83,6 +83,9 @@ export default function Navigation() {
             <Link href="/documentation" className={linkClass('/documentation')}>
               Documentation
             </Link>
+            <Link href="/guides" className={linkClass('/guides')}>
+              Guides
+            </Link>
             <Link href="/testing" className={linkClass('/testing')}>
               Testing
             </Link>
@@ -183,6 +186,13 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(false)}
             >
               Documentation
+            </Link>
+            <Link
+              href="/guides"
+              className={mobileLinkClass('/guides')}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Guides
             </Link>
             <Link
               href="/testing"

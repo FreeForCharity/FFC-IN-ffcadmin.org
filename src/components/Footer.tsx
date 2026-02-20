@@ -94,6 +94,11 @@ export default function Footer() {
                   Get Involved
                 </Link>
               </li>
+              <li>
+                <Link href="/guides" className="text-gray-400 hover:text-white transition-colors">
+                  Technical Guides
+                </Link>
+              </li>
             </ul>
           </div>
 
