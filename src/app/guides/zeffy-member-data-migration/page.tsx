@@ -966,7 +966,7 @@ DECISION MAKING:
               "The conversation context has limits. For very long projects, Claude's context window may fill up and the session may need to continue in a new conversation. When this happens, Claude can read a summary of the prior conversation and continue.",
               'Check the Minors tab (or any separated data). When Claude creates subset tabs, verify they have all the columns from the original. Our Minors tab initially only had 8 columns instead of 26.',
             ].map((tip) => (
-              <li key={tip.substring(0, 30)} className="flex items-start text-gray-700 text-sm">
+              <li key={tip} className="flex items-start text-gray-700 text-sm">
                 <svg
                   className="w-5 h-5 text-violet-500 mt-0.5 mr-3 flex-shrink-0"
                   fill="none"
@@ -995,7 +995,7 @@ DECISION MAKING:
               'Shared email addresses are a real problem. CRM systems use email as the unique identifier. If spouses share an email, you need a deduplication strategy before import.',
               "Don't delete rows — clear them. We learned the hard way that deleting rows in Excel programmatically can corrupt data. Clearing cell values is safer.",
             ].map((tip) => (
-              <li key={tip.substring(0, 30)} className="flex items-start text-gray-700 text-sm">
+              <li key={tip} className="flex items-start text-gray-700 text-sm">
                 <svg
                   className="w-5 h-5 text-amber-500 mt-0.5 mr-3 flex-shrink-0"
                   fill="none"
@@ -1025,7 +1025,7 @@ DECISION MAKING:
               'Subscription Status controls newsletter opt-out. Setting it to "unsubscribed" opts the contact out of newsletters while still allowing transactional emails.',
               'Import one file at a time. Even if your files are small, importing one class at a time makes troubleshooting easier.',
             ].map((tip) => (
-              <li key={tip.substring(0, 30)} className="flex items-start text-gray-700 text-sm">
+              <li key={tip} className="flex items-start text-gray-700 text-sm">
                 <svg
                   className="w-5 h-5 text-blue-500 mt-0.5 mr-3 flex-shrink-0"
                   fill="none"
