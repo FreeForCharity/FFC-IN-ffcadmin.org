@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 const guides = [
   {
-    title: 'Member Data Migration to Zeffy',
+    title: 'Zeffy Member Data Migration Guide',
     description:
-      'A complete project guide for migrating membership records into Zeffy CRM using Claude AI & Cowork Mode. Covers data cleanup, import file generation, and verification.',
-    href: '/guides/member-data-migration',
+      'How to migrate nonprofit membership records into Zeffy CRM using Claude AI & Cowork Mode. Covers Zeffy CSV import format, data cleanup, payment history migration, and verification.',
+    href: '/guides/zeffy-member-data-migration',
     version: 'v2',
     date: 'February 2026',
     tags: ['Zeffy', 'CRM', 'Data Migration', 'Claude AI'],
