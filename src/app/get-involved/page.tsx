@@ -238,7 +238,7 @@ export default function GetInvolved() {
                 Contributor Ladder
               </Link>
               <Link
-                href="/wordpress-to-nextjs-guide"
+                href="/guides/wordpress-to-nextjs-guide"
                 className="inline-flex items-center justify-center px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-sm"
               >
                 Conversion Guide

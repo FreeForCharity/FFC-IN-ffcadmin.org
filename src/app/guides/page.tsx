@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
+import { guides as baseGuides } from '@/data/guides'
 
 export const metadata: Metadata = {
   title: 'Technical Guides',
@@ -7,12 +9,41 @@ export const metadata: Metadata = {
     'Step-by-step technical walkthroughs for Free For Charity operations. Data migrations, platform configurations, and operational procedures.',
 }
 
-const guides = [
+/**
+ * Landing-page display properties keyed by guide href.
+ * Core data (title, description, href) comes from src/data/guides.ts.
+ * Descriptions here are longer for the landing page cards.
+ */
+const guideDisplayProps: Record<
+  string,
   {
-    title: 'Zeffy Member Data Migration Guide',
-    description:
+    longDescription: string
+    version: string
+    date: string
+    tags: string[]
+    gradient: string
+    icon: ReactNode
+  }
+> = {
+  '/guides/wordpress-to-nextjs-guide': {
+    longDescription:
+      'Step-by-step guide for FFC volunteers to convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages. Covers content audit, export, CI/CD, testing, and DNS cutover.',
+    version: 'v1',
+    date: 'February 2026',
+    tags: ['WordPress', 'Next.js', 'GitHub Pages', 'Migration'],
+    gradient: 'from-blue-500 to-indigo-500',
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+      />
+    ),
+  },
+  '/guides/zeffy-member-data-migration': {
+    longDescription:
       'How to migrate nonprofit membership records into Zeffy CRM using Claude AI & Cowork Mode. Covers Zeffy CSV import format, data cleanup, payment history migration, and verification.',
-    href: '/guides/zeffy-member-data-migration',
     version: 'v2',
     date: 'February 2026',
     tags: ['Zeffy', 'CRM', 'Data Migration', 'Claude AI'],
@@ -26,7 +57,14 @@ const guides = [
       />
     ),
   },
-]
+}
+
+// Merge base guide data with landing-page display properties.
+// Order follows the shared guides array for consistency across the site.
+const guides = baseGuides.map((guide) => ({
+  ...guide,
+  ...guideDisplayProps[guide.href],
+}))
 
 export default function GuidesPage() {
   return (
@@ -73,7 +111,7 @@ export default function GuidesPage() {
                         {guide.version}
                       </span>
                     </div>
-                    <p className="text-gray-600 mb-4 text-sm">{guide.description}</p>
+                    <p className="text-gray-600 mb-4 text-sm">{guide.longDescription}</p>
                     <div className="flex flex-wrap items-center gap-2">
                       {guide.tags.map((tag) => (
                         <span
