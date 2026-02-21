@@ -104,8 +104,12 @@ export default function MemberDataMigrationGuide() {
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Metric</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Result</th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Metric
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Result
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -349,8 +353,10 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Feature</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Feature
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
                     You Must Ask For It
                   </th>
                 </tr>
@@ -538,8 +544,10 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Field</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Field
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
                     What We Used
                   </th>
                 </tr>
@@ -610,8 +618,10 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Field</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Field
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
                     What We Used
                   </th>
                 </tr>
@@ -752,10 +762,16 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Issue</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Records</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Severity</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Issue
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Records
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Severity
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
                     Resolution
                   </th>
                 </tr>
@@ -835,8 +851,15 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b w-16">Ver</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Changes</th>
+                  <th
+                    scope="col"
+                    className="text-left px-4 py-3 font-bold text-gray-900 border-b w-16"
+                  >
+                    Ver
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Changes
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -887,9 +910,15 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">File</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Records</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Purpose</th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    File
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Records
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Purpose
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 font-mono text-xs">
@@ -920,8 +949,10 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Tab</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Tab
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
                     Description
                   </th>
                 </tr>
@@ -1057,9 +1088,15 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Field</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Required</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Notes</th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Field
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Required
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Notes
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -1109,9 +1146,15 @@ DECISION MAKING:
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Field</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Required</th>
-                  <th className="text-left px-4 py-3 font-bold text-gray-900 border-b">Notes</th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Field
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Required
+                  </th>
+                  <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
+                    Notes
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
