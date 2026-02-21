@@ -58,7 +58,6 @@ Repository naming convention: `FFC-EX-<domain>`
 If the domain is already in Cloudflare, add DNS records. If not, create the zone first.
 
 **Create zone** (if needed):
-
 ```bash
 # Using workflow 11
 gh workflow run 11-cloudflare-zone-create.yml \
@@ -67,7 +66,6 @@ gh workflow run 11-cloudflare-zone-create.yml \
 ```
 
 **Add GitHub Pages records**:
-
 ```bash
 # Using workflow 3 (manage-record) for each record
 # A records for GitHub Pages
@@ -130,7 +128,6 @@ gh workflow run 5-m365-domain-and-dkim.yml \
 ```
 
 This creates:
-
 - MX record pointing to `legioninthewoods.org.mail.protection.outlook.com`
 - SPF TXT record: `v=spf1 include:spf.protection.outlook.com -all`
 - DKIM CNAME records (selector1 and selector2)
@@ -182,17 +179,17 @@ At the end of onboarding, verify:
 ```markdown
 ## Onboarding Complete: Legion In The Woods
 
-| Step            | Status  | Details                                      |
-| --------------- | ------- | -------------------------------------------- |
-| Repository      | Done    | FreeForCharity/FFC-EX-legioninthewoods.org   |
-| DNS (A records) | Done    | 4 A records pointing to GitHub Pages         |
-| DNS (WWW)       | Done    | CNAME to FreeForCharity.github.io            |
-| GitHub Pages    | Done    | Custom domain set, HTTPS enforced            |
-| M365 MX         | Done    | MX record configured                         |
-| M365 SPF        | Done    | SPF record present                           |
-| M365 DKIM       | Done    | Both selectors configured                    |
-| M365 DMARC      | Done    | p=reject policy active                       |
-| Content         | Pending | Template content needs customization         |
-| AI Configs      | Done    | All config files deployed                    |
-| Site Live       | Done    | https://legioninthewoods.org loads correctly |
+| Step | Status | Details |
+|------|--------|---------|
+| Repository | Done | FreeForCharity/FFC-EX-legioninthewoods.org |
+| DNS (A records) | Done | 4 A records pointing to GitHub Pages |
+| DNS (WWW) | Done | CNAME to FreeForCharity.github.io |
+| GitHub Pages | Done | Custom domain set, HTTPS enforced |
+| M365 MX | Done | MX record configured |
+| M365 SPF | Done | SPF record present |
+| M365 DKIM | Done | Both selectors configured |
+| M365 DMARC | Done | p=reject policy active |
+| Content | Pending | Template content needs customization |
+| AI Configs | Done | All config files deployed |
+| Site Live | Done | https://legioninthewoods.org loads correctly |
 ```
