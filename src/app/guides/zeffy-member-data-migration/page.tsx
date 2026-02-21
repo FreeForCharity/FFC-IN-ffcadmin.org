@@ -24,7 +24,7 @@ const tocItems = [
   { id: 'appendix', label: '12. Appendix: Zeffy Import Field Reference' },
 ]
 
-export default function MemberDataMigrationGuide() {
+export default function ZeffyMemberDataMigrationGuide() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
@@ -102,6 +102,7 @@ export default function MemberDataMigrationGuide() {
           <h3 className="text-xl font-bold text-gray-900 mb-4">What Was Accomplished</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">Project outcomes summary</caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
@@ -351,6 +352,9 @@ DECISION MAKING:
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">
+                Features requiring explicit instruction from Claude
+              </caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
@@ -542,6 +546,7 @@ DECISION MAKING:
           </p>
           <div className="overflow-x-auto mb-8">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">Payment CSV import fields and values used</caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
@@ -616,6 +621,7 @@ DECISION MAKING:
           </p>
           <div className="overflow-x-auto mb-8">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">Contact CSV import fields and values used</caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
@@ -760,6 +766,7 @@ DECISION MAKING:
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">Data quality issues and resolutions</caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
@@ -849,6 +856,7 @@ DECISION MAKING:
           <h3 className="text-xl font-bold text-gray-900 mb-4">Version History</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">Workbook version history and changes</caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th
@@ -908,6 +916,9 @@ DECISION MAKING:
           <h3 className="text-xl font-bold text-gray-900 mb-4">Active Files</h3>
           <div className="overflow-x-auto mb-8">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">
+                Active file inventory with record counts and purpose
+              </caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
@@ -947,6 +958,7 @@ DECISION MAKING:
           <h3 className="text-xl font-bold text-gray-900 mb-4">Workbook Tabs (v9)</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">Workbook tab names and descriptions</caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
@@ -1086,6 +1098,7 @@ DECISION MAKING:
           <h3 className="text-xl font-bold text-gray-900 mb-4">Payment Import Template</h3>
           <div className="overflow-x-auto mb-8">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">Zeffy payment import field reference</caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
@@ -1144,6 +1157,7 @@ DECISION MAKING:
           <h3 className="text-xl font-bold text-gray-900 mb-4">Contact Import Template</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <caption className="sr-only">Zeffy contact import field reference</caption>
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="text-left px-4 py-3 font-bold text-gray-900 border-b">
