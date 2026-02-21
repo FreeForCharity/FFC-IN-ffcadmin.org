@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { guides } from '@/data/guides'
 
 const GUIDESTAR_PROFILE_URL =
   'https://www.guidestar.org/profile/shared/bbbe173a-87b9-4af9-a8a2-cae255a95742'
@@ -106,22 +107,16 @@ export default function Footer() {
                   All Guides
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/guides/wordpress-to-nextjs-guide"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  WordPress to Next.js
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/guides/zeffy-member-data-migration"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Zeffy Data Migration
-                </Link>
-              </li>
+              {guides.map((guide) => (
+                <li key={guide.href}>
+                  <Link
+                    href={guide.href}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    {guide.shortTitle}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

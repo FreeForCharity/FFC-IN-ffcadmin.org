@@ -4,19 +4,7 @@ import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { assetPath } from '@/lib/assetPath'
-
-const guides = [
-  {
-    title: 'WordPress to Next.js Conversion Guide',
-    description: 'Convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages.',
-    href: '/guides/wordpress-to-nextjs-guide',
-  },
-  {
-    title: 'Zeffy Member Data Migration Guide',
-    description: 'Migrate nonprofit membership records into Zeffy CRM using Claude AI.',
-    href: '/guides/zeffy-member-data-migration',
-  },
-]
+import { guides } from '@/data/guides'
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -158,6 +146,7 @@ export default function Navigation() {
                 className={`${isActive('/guides') ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
                 aria-expanded={isGuidesOpen}
                 aria-haspopup="true"
+                aria-controls="guides-dropdown-menu"
                 onClick={() => setIsGuidesOpen(!isGuidesOpen)}
               >
                 Guides
@@ -178,11 +167,16 @@ export default function Navigation() {
               </button>
 
               {isGuidesOpen && (
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                <div
+                  id="guides-dropdown-menu"
+                  role="menu"
+                  className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                >
                   {guides.map((guide) => (
                     <Link
                       key={guide.href}
                       href={guide.href}
+                      role="menuitem"
                       className="block px-4 py-3 hover:bg-blue-50 transition-colors"
                       onClick={() => setIsGuidesOpen(false)}
                     >
@@ -190,15 +184,15 @@ export default function Navigation() {
                       <p className="text-xs text-gray-500 mt-0.5">{guide.description}</p>
                     </Link>
                   ))}
-                  <div className="border-t border-gray-100 mt-1 pt-1">
-                    <Link
-                      href="/guides"
-                      className="block px-4 py-2 text-sm text-blue-600 font-medium hover:bg-blue-50 transition-colors"
-                      onClick={() => setIsGuidesOpen(false)}
-                    >
-                      View All Guides &rarr;
-                    </Link>
-                  </div>
+                  <div role="separator" className="border-t border-gray-100 mt-1 pt-1" />
+                  <Link
+                    href="/guides"
+                    role="menuitem"
+                    className="block px-4 py-2 text-sm text-blue-600 font-medium hover:bg-blue-50 transition-colors"
+                    onClick={() => setIsGuidesOpen(false)}
+                  >
+                    View All Guides &rarr;
+                  </Link>
                 </div>
               )}
             </div>
@@ -309,6 +303,7 @@ export default function Navigation() {
                 className={`${isActive('/guides') ? 'text-blue-600 font-bold bg-blue-50' : 'hover:bg-gray-50 hover:text-blue-600'} w-full text-left px-3 py-2 rounded-md transition-colors inline-flex items-center justify-between`}
                 onClick={() => setIsMobileGuidesOpen(!isMobileGuidesOpen)}
                 aria-expanded={isMobileGuidesOpen}
+                aria-controls="mobile-guides-panel"
               >
                 Guides
                 <svg
@@ -327,7 +322,10 @@ export default function Navigation() {
                 </svg>
               </button>
               {isMobileGuidesOpen && (
-                <div className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-2">
+                <div
+                  id="mobile-guides-panel"
+                  className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-2"
+                >
                   {guides.map((guide) => (
                     <Link
                       key={guide.href}
