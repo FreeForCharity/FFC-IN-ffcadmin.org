@@ -64,6 +64,34 @@ export default function Navigation() {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isGuidesOpen])
 
+  // Close Guides dropdowns on route change to avoid stale open state
+  useEffect(() => {
+    const handler = () => {
+      setIsGuidesOpen(false)
+      setIsMobileGuidesOpen(false)
+    }
+    // Use popstate-like pattern: subscribe to the current pathname
+    // and reset dropdown states asynchronously via microtask
+    queueMicrotask(handler)
+    return () => {
+      if (guidesTimeoutRef.current) {
+        clearTimeout(guidesTimeoutRef.current)
+        guidesTimeoutRef.current = null
+      }
+    }
+  }, [pathname])
+
+  // Close desktop Guides dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (isGuidesOpen && guidesRef.current && !guidesRef.current.contains(e.target as Node)) {
+        setIsGuidesOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isGuidesOpen])
+
   return (
     <nav className="bg-white text-gray-700 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -193,7 +221,11 @@ export default function Navigation() {
 
           {/* Mobile menu button */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => {
+              const willClose = isMenuOpen
+              setIsMenuOpen(!isMenuOpen)
+              if (willClose) setIsMobileGuidesOpen(false)
+            }}
             className="xl:hidden p-2 rounded-md hover:bg-gray-100 text-gray-600 transition-colors"
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
@@ -301,7 +333,10 @@ export default function Navigation() {
                       key={guide.href}
                       href={guide.href}
                       className="block px-3 py-2 rounded-md text-sm hover:bg-gray-50 hover:text-blue-600 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => {
+                        setIsMobileGuidesOpen(false)
+                        setIsMenuOpen(false)
+                      }}
                     >
                       {guide.title}
                     </Link>
@@ -309,7 +344,10 @@ export default function Navigation() {
                   <Link
                     href="/guides"
                     className="block px-3 py-2 rounded-md text-sm text-blue-600 font-medium hover:bg-blue-50 transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      setIsMobileGuidesOpen(false)
+                      setIsMenuOpen(false)
+                    }}
                   >
                     View All Guides &rarr;
                   </Link>
