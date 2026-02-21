@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
+import { guides as baseGuides } from '@/data/guides'
 
 export const metadata: Metadata = {
   title: 'Technical Guides',
@@ -7,30 +9,25 @@ export const metadata: Metadata = {
     'Step-by-step technical walkthroughs for Free For Charity operations. Data migrations, platform configurations, and operational procedures.',
 }
 
-const guides = [
+/**
+ * Landing-page display properties keyed by guide href.
+ * Core data (title, description, href) comes from src/data/guides.ts.
+ * Descriptions here are longer for the landing page cards.
+ */
+const guideDisplayProps: Record<
+  string,
   {
-    title: 'Zeffy Member Data Migration Guide',
-    description:
-      'How to migrate nonprofit membership records into Zeffy CRM using Claude AI & Cowork Mode. Covers Zeffy CSV import format, data cleanup, payment history migration, and verification.',
-    href: '/guides/zeffy-member-data-migration',
-    version: 'v2',
-    date: 'February 2026',
-    tags: ['Zeffy', 'CRM', 'Data Migration', 'Claude AI'],
-    gradient: 'from-violet-500 to-purple-500',
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
-      />
-    ),
-  },
-  {
-    title: 'WordPress to Next.js Conversion Guide',
-    description:
+    longDescription: string
+    version: string
+    date: string
+    tags: string[]
+    gradient: string
+    icon: ReactNode
+  }
+> = {
+  '/guides/wordpress-to-nextjs-guide': {
+    longDescription:
       'Step-by-step guide for FFC volunteers to convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages. Covers content audit, export, CI/CD, testing, and DNS cutover.',
-    href: '/guides/wordpress-to-nextjs-guide',
     version: 'v1',
     date: 'February 2026',
     tags: ['WordPress', 'Next.js', 'GitHub Pages', 'Migration'],
@@ -44,7 +41,30 @@ const guides = [
       />
     ),
   },
-]
+  '/guides/zeffy-member-data-migration': {
+    longDescription:
+      'How to migrate nonprofit membership records into Zeffy CRM using Claude AI & Cowork Mode. Covers Zeffy CSV import format, data cleanup, payment history migration, and verification.',
+    version: 'v2',
+    date: 'February 2026',
+    tags: ['Zeffy', 'CRM', 'Data Migration', 'Claude AI'],
+    gradient: 'from-violet-500 to-purple-500',
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+      />
+    ),
+  },
+}
+
+// Merge base guide data with landing-page display properties.
+// Order follows the shared guides array for consistency across the site.
+const guides = baseGuides.map((guide) => ({
+  ...guide,
+  ...guideDisplayProps[guide.href],
+}))
 
 export default function GuidesPage() {
   return (
@@ -91,7 +111,7 @@ export default function GuidesPage() {
                         {guide.version}
                       </span>
                     </div>
-                    <p className="text-gray-600 mb-4 text-sm">{guide.description}</p>
+                    <p className="text-gray-600 mb-4 text-sm">{guide.longDescription}</p>
                     <div className="flex flex-wrap items-center gap-2">
                       {guide.tags.map((tag) => (
                         <span
