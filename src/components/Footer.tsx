@@ -9,8 +9,8 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Top Section with 6 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
+        {/* Top Section with 7 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8 mb-8">
           {/* Endorsements */}
           <div>
             <h3 className="text-white text-lg font-bold mb-4">Endorsements</h3>
@@ -94,9 +94,32 @@ export default function Footer() {
                   Get Involved
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/* Technical Guides */}
+          <div>
+            <h3 className="text-white text-lg font-bold mb-4">Technical Guides</h3>
+            <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/guides" className="text-gray-400 hover:text-white transition-colors">
-                  Technical Guides
+                  All Guides
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/guides/wordpress-to-nextjs-guide"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  WordPress to Next.js
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/guides/zeffy-member-data-migration"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Zeffy Data Migration
                 </Link>
               </li>
             </ul>

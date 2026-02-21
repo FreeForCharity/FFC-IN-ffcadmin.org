@@ -517,24 +517,15 @@ export default async function SitesListPage() {
         {/* Health Dashboard */}
         <HealthDashboard sites={sites} />
 
-        {/* Search, Filter, and Hosting Provider Tables */}
-        <FilterableHostingSection
-          sites={activeSites}
-          providers={hostingProviders.map((p) => ({
-            name: p.name,
-            colorClass: p.colorClass,
-            description: p.description,
-          }))}
-        />
-
-        {/* Migrated / Good Sites Table */}
+        {/* Migrated / Good Sites Table — shown first as the gold standard */}
         <div className="bg-green-50 rounded-lg shadow-md mb-10 overflow-hidden border border-green-200">
           <div className="px-6 py-4 border-b border-green-200 bg-green-100">
             <h2 className="text-xl font-bold text-green-800 flex items-center">
-              <span className="mr-2">✅</span> Migrated Sites (Live)
+              <span className="mr-2">✅</span> Fully Migrated Sites
             </h2>
             <p className="text-green-700 text-sm mt-1">
-              These sites are fully migrated: Apex domain + Cloudflare + GitHub Pages.
+              These sites are fully migrated: Apex domain + Cloudflare + GitHub Pages. This is the
+              desired end state for all FFC domains.
             </p>
           </div>
 
@@ -661,6 +652,16 @@ export default async function SitesListPage() {
             </table>
           </div>
         </div>
+
+        {/* Search, Filter, and Hosting Provider Tables */}
+        <FilterableHostingSection
+          sites={activeSites}
+          providers={hostingProviders.map((p) => ({
+            name: p.name,
+            colorClass: p.colorClass,
+            description: p.description,
+          }))}
+        />
 
         <PriorityLegend />
 

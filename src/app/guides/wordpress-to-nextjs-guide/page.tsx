@@ -1926,10 +1926,10 @@ export default function WordPressToNextJSGuide() {
             </a>{' '}
             and published at{' '}
             <a
-              href="https://ffcadmin.org/wordpress-to-nextjs-guide"
+              href="https://ffcadmin.org/guides/wordpress-to-nextjs-guide"
               className="text-blue-600 underline"
             >
-              ffcadmin.org/wordpress-to-nextjs-guide
+              ffcadmin.org/guides/wordpress-to-nextjs-guide
             </a>
           </p>
         </div>

@@ -26,6 +26,24 @@ const guides = [
       />
     ),
   },
+  {
+    title: 'WordPress to Next.js Conversion Guide',
+    description:
+      'Step-by-step guide for FFC volunteers to convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages. Covers content audit, export, CI/CD, testing, and DNS cutover.',
+    href: '/guides/wordpress-to-nextjs-guide',
+    version: 'v1',
+    date: 'February 2026',
+    tags: ['WordPress', 'Next.js', 'GitHub Pages', 'Migration'],
+    gradient: 'from-blue-500 to-indigo-500',
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+      />
+    ),
+  },
 ]
 
 export default function GuidesPage() {

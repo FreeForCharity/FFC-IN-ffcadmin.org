@@ -1,12 +1,29 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { assetPath } from '@/lib/assetPath'
 
+const guides = [
+  {
+    title: 'WordPress to Next.js Conversion Guide',
+    description: 'Convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages.',
+    href: '/guides/wordpress-to-nextjs-guide',
+  },
+  {
+    title: 'Zeffy Member Data Migration Guide',
+    description: 'Migrate nonprofit membership records into Zeffy CRM using Claude AI.',
+    href: '/guides/zeffy-member-data-migration',
+  },
+]
+
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isGuidesOpen, setIsGuidesOpen] = useState(false)
+  const [isMobileGuidesOpen, setIsMobileGuidesOpen] = useState(false)
+  const guidesRef = useRef<HTMLDivElement>(null)
+  const guidesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const pathname = usePathname() ?? ''
 
   const isActive = (href: string) => {
@@ -23,6 +40,29 @@ export default function Navigation() {
     isActive(href)
       ? 'block px-3 py-2 rounded-md text-blue-600 font-bold bg-blue-50'
       : 'block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors'
+
+  const handleGuidesMouseEnter = useCallback(() => {
+    if (guidesTimeoutRef.current) clearTimeout(guidesTimeoutRef.current)
+    setIsGuidesOpen(true)
+  }, [])
+
+  const handleGuidesMouseLeave = useCallback(() => {
+    guidesTimeoutRef.current = setTimeout(() => setIsGuidesOpen(false), 150)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (guidesTimeoutRef.current) clearTimeout(guidesTimeoutRef.current)
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isGuidesOpen) setIsGuidesOpen(false)
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isGuidesOpen])
 
   return (
     <nav className="bg-white text-gray-700 shadow-md sticky top-0 z-50">
@@ -74,18 +114,67 @@ export default function Navigation() {
             >
               Canva Designer
             </Link>
-            <Link
-              href="/wordpress-to-nextjs-guide"
-              className={`${linkClass('/wordpress-to-nextjs-guide')} whitespace-nowrap`}
-            >
-              Conversion Guide
-            </Link>
             <Link href="/documentation" className={linkClass('/documentation')}>
               Documentation
             </Link>
-            <Link href="/guides" className={linkClass('/guides')}>
-              Guides
-            </Link>
+
+            {/* Guides Mega Menu */}
+            <div
+              ref={guidesRef}
+              className="relative"
+              onMouseEnter={handleGuidesMouseEnter}
+              onMouseLeave={handleGuidesMouseLeave}
+            >
+              <button
+                type="button"
+                className={`${isActive('/guides') ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
+                aria-expanded={isGuidesOpen}
+                aria-haspopup="true"
+                onClick={() => setIsGuidesOpen(!isGuidesOpen)}
+              >
+                Guides
+                <svg
+                  className={`ml-1 h-4 w-4 transition-transform ${isGuidesOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {isGuidesOpen && (
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                  {guides.map((guide) => (
+                    <Link
+                      key={guide.href}
+                      href={guide.href}
+                      className="block px-4 py-3 hover:bg-blue-50 transition-colors"
+                      onClick={() => setIsGuidesOpen(false)}
+                    >
+                      <p className="text-sm font-semibold text-gray-900">{guide.title}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{guide.description}</p>
+                    </Link>
+                  ))}
+                  <div className="border-t border-gray-100 mt-1 pt-1">
+                    <Link
+                      href="/guides"
+                      className="block px-4 py-2 text-sm text-blue-600 font-medium hover:bg-blue-50 transition-colors"
+                      onClick={() => setIsGuidesOpen(false)}
+                    >
+                      View All Guides &rarr;
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <Link href="/testing" className={linkClass('/testing')}>
               Testing
             </Link>
@@ -174,26 +263,60 @@ export default function Navigation() {
               Canva Designer
             </Link>
             <Link
-              href="/wordpress-to-nextjs-guide"
-              className={mobileLinkClass('/wordpress-to-nextjs-guide')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Conversion Guide
-            </Link>
-            <Link
               href="/documentation"
               className={mobileLinkClass('/documentation')}
               onClick={() => setIsMenuOpen(false)}
             >
               Documentation
             </Link>
-            <Link
-              href="/guides"
-              className={mobileLinkClass('/guides')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Guides
-            </Link>
+
+            {/* Mobile Guides Collapsible */}
+            <div>
+              <button
+                type="button"
+                className={`${isActive('/guides') ? 'text-blue-600 font-bold bg-blue-50' : 'hover:bg-gray-50 hover:text-blue-600'} w-full text-left px-3 py-2 rounded-md transition-colors inline-flex items-center justify-between`}
+                onClick={() => setIsMobileGuidesOpen(!isMobileGuidesOpen)}
+                aria-expanded={isMobileGuidesOpen}
+              >
+                Guides
+                <svg
+                  className={`h-4 w-4 transition-transform ${isMobileGuidesOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              {isMobileGuidesOpen && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-2">
+                  {guides.map((guide) => (
+                    <Link
+                      key={guide.href}
+                      href={guide.href}
+                      className="block px-3 py-2 rounded-md text-sm hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {guide.title}
+                    </Link>
+                  ))}
+                  <Link
+                    href="/guides"
+                    className="block px-3 py-2 rounded-md text-sm text-blue-600 font-medium hover:bg-blue-50 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    View All Guides &rarr;
+                  </Link>
+                </div>
+              )}
+            </div>
+
             <Link
               href="/testing"
               className={mobileLinkClass('/testing')}
