@@ -2,7 +2,7 @@
 
 Welcome, Claude! This document provides specific instructions for working on FFC-IN-ffcadmin.org.
 
-**Project:** FFC-IN-ffcadmin.org -- a Free For Charity nonprofit website (ffcadmin.org)
+**Project:** FFC-IN-ffcadmin.org -- a Free For Charity nonprofit website
 
 See **AGENTS.md** for the full project reference including architecture, commands, conventions, and security rules. This file covers what is different or specific to your capabilities as Claude Code.
 
@@ -22,11 +22,11 @@ You have full terminal access via the Bash tool. Use it for all CLI operations.
 
 **Set timeout to 180+ seconds** for these commands:
 
-| Command             | Why                                                |
-| ------------------- | -------------------------------------------------- |
-| `pnpm run build`    | Static export can take 30-60s; do not cancel early |
-| `pnpm run test:e2e` | Playwright launches browsers; needs time           |
-| `pnpm install`      | Network-dependent; can be slow on first run        |
+| Command            | Why                                                |
+| ------------------ | -------------------------------------------------- |
+| `npm run build`    | Static export can take 30-60s; do not cancel early |
+| `npm run test:e2e` | Playwright launches browsers; needs time           |
+| `npm install`      | Network-dependent; can be slow on first run        |
 
 **NEVER CANCEL a running build, test, or install command.** Let it finish. If it fails, read the error output.
 
@@ -37,11 +37,11 @@ You have full terminal access via the Bash tool. Use it for all CLI operations.
 Run these in order before committing:
 
 ```bash
-pnpm run format    # Fix formatting
-pnpm run lint      # Check for lint errors
-pnpm test          # Run unit tests
-pnpm run build     # Verify static export
-pnpm run test:e2e  # Run E2E tests
+npm run format    # Fix formatting
+npm run lint      # Check for lint errors
+npm test          # Run unit tests
+npm run build     # Verify static export
+npm run test:e2e  # Run E2E tests
 ```
 
 If any step fails, fix the issue and re-run from that step forward.
