@@ -14,22 +14,31 @@ describe('Navigation Coverage', () => {
   // Define all application pages that should be accessible
   const applicationPages = [
     { path: '/', name: 'Home' },
+    { path: '/get-involved', name: 'Get Involved' },
     { path: '/tech-stack', name: 'Tech Stack' },
     { path: '/contributor-ladder', name: 'Contributor Ladder' },
     { path: '/documentation', name: 'Documentation' },
     { path: '/testing', name: 'Testing' },
     { path: '/training-plan', name: 'Training Plan' },
+    { path: '/canva-designer-path', name: 'Canva Designer Path' },
+    { path: '/sites-list', name: 'Sites List' },
+    { path: '/guides', name: 'Guides' },
     { path: '/privacy-policy', name: 'Privacy Policy' },
     { path: '/cookie-policy', name: 'Cookie Policy' },
   ]
 
   let navigationComponent
+  let navigationDataModule
   let footerComponent
 
   beforeAll(() => {
     // Read Navigation component
     const navPath = path.join(__dirname, '../src/components/Navigation.tsx')
     navigationComponent = fs.readFileSync(navPath, 'utf8')
+
+    // Read Navigation data module (dropdown items defined here)
+    const navDataPath = path.join(__dirname, '../src/data/navigation.ts')
+    navigationDataModule = fs.readFileSync(navDataPath, 'utf8')
 
     // Read Footer component
     const footerPath = path.join(__dirname, '../src/components/Footer.tsx')
@@ -39,7 +48,8 @@ describe('Navigation Coverage', () => {
   describe('All pages must be accessible from navigation', () => {
     applicationPages.forEach((page) => {
       test(`${page.name} (${page.path}) is accessible from at least one navigation area`, () => {
-        const isInNavigation = navigationComponent.includes(page.path)
+        const isInNavigation =
+          navigationComponent.includes(page.path) || navigationDataModule.includes(page.path)
         const isInFooter = footerComponent.includes(page.path)
 
         expect(isInNavigation || isInFooter).toBe(true)
@@ -97,8 +107,8 @@ describe('Navigation Coverage', () => {
   })
 
   describe('External links', () => {
-    test('GitHub link is present in navigation', () => {
-      expect(navigationComponent).toContain('https://github.com/FreeForCharity')
+    test('GitHub link is present in footer', () => {
+      expect(footerComponent).toContain('https://github.com/FreeForCharity')
     })
 
     test('Social media links are present in footer', () => {
@@ -112,7 +122,8 @@ describe('Navigation Coverage', () => {
   describe('Accessibility - All pages discoverable', () => {
     test('No orphaned pages - all pages have at least one navigation entry point', () => {
       const orphanedPages = applicationPages.filter((page) => {
-        const isInNavigation = navigationComponent.includes(page.path)
+        const isInNavigation =
+          navigationComponent.includes(page.path) || navigationDataModule.includes(page.path)
         const isInFooter = footerComponent.includes(page.path)
         return !isInNavigation && !isInFooter
       })

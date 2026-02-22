@@ -7,12 +7,31 @@ test.describe('Smoke Tests', () => {
     await expect(page.locator('nav')).toBeVisible()
   })
 
-  test('navigation links are present', async ({ page }) => {
+  test('navigation structure is correct', async ({ page }) => {
     await page.goto('/')
     const nav = page.locator('nav')
-    await expect(nav.locator('a[href*="/tech-stack"]').first()).toBeVisible()
-    await expect(nav.locator('a[href*="/documentation"]').first()).toBeVisible()
-    await expect(nav.locator('a[href*="/training-plan"]').first()).toBeVisible()
+    await expect(nav.locator('a[href="/"]').first()).toBeVisible()
+    await expect(nav.locator('a[href*="/get-involved"]').first()).toBeVisible()
+    await expect(nav.locator('a[href*="/sites-list"]').first()).toBeVisible()
+    await expect(nav.locator('button:has-text("Training")')).toBeVisible()
+    await expect(nav.locator('button:has-text("Resources")')).toBeVisible()
+  })
+
+  test('training dropdown links are accessible', async ({ page }) => {
+    await page.goto('/')
+    await page.locator('nav button:has-text("Training")').hover()
+    await expect(page.locator('nav a[href*="/training-plan"]').first()).toBeVisible()
+    await expect(page.locator('nav a[href*="/canva-designer-path"]').first()).toBeVisible()
+    await expect(page.locator('nav a[href*="/contributor-ladder"]').first()).toBeVisible()
+  })
+
+  test('resources dropdown links are accessible', async ({ page }) => {
+    await page.goto('/')
+    await page.locator('nav button:has-text("Resources")').hover()
+    await expect(page.locator('nav a[href*="/tech-stack"]').first()).toBeVisible()
+    await expect(page.locator('nav a[href*="/documentation"]').first()).toBeVisible()
+    await expect(page.locator('nav a[href*="/testing"]').first()).toBeVisible()
+    await expect(page.locator('nav a[href*="/guides"]').first()).toBeVisible()
   })
 
   test('footer is visible on home page', async ({ page }) => {

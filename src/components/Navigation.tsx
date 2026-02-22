@@ -4,20 +4,24 @@ import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { assetPath } from '@/lib/assetPath'
-import { guides } from '@/data/guides'
+import { trainingDropdown, resourcesDropdown, type NavDropdown } from '@/data/navigation'
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isGuidesOpen, setIsGuidesOpen] = useState(false)
-  const [isMobileGuidesOpen, setIsMobileGuidesOpen] = useState(false)
-  const guidesRef = useRef<HTMLDivElement>(null)
-  const guidesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [mobileAccordions, setMobileAccordions] = useState<Set<string>>(new Set())
+  const trainingRef = useRef<HTMLDivElement>(null)
+  const resourcesRef = useRef<HTMLDivElement>(null)
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const pathname = usePathname() ?? ''
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/' || pathname === ''
     return pathname === href || pathname.startsWith(href + '/')
   }
+
+  const isDropdownActive = (dropdown: NavDropdown) =>
+    dropdown.items.some((item) => isActive(item.href))
 
   const linkClass = (href: string) =>
     isActive(href)
@@ -29,56 +33,81 @@ export default function Navigation() {
       ? 'block px-3 py-2 rounded-md text-blue-600 font-bold bg-blue-50'
       : 'block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors'
 
-  const handleGuidesMouseEnter = useCallback(() => {
-    if (guidesTimeoutRef.current) clearTimeout(guidesTimeoutRef.current)
-    setIsGuidesOpen(true)
+  const handleDropdownMouseEnter = useCallback((id: string) => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
+    setOpenDropdown(id)
   }, [])
 
-  const handleGuidesMouseLeave = useCallback(() => {
-    guidesTimeoutRef.current = setTimeout(() => setIsGuidesOpen(false), 150)
+  const handleDropdownMouseLeave = useCallback(() => {
+    hoverTimeoutRef.current = setTimeout(() => setOpenDropdown(null), 150)
   }, [])
 
+  const toggleMobileAccordion = useCallback((id: string) => {
+    setMobileAccordions((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }, [])
+
+  // Cleanup hover timeout on unmount
   useEffect(() => {
     return () => {
-      if (guidesTimeoutRef.current) clearTimeout(guidesTimeoutRef.current)
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
     }
   }, [])
 
+  // Close dropdowns on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isGuidesOpen) setIsGuidesOpen(false)
+      if (e.key === 'Escape' && openDropdown) setOpenDropdown(null)
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isGuidesOpen])
+  }, [openDropdown])
 
-  // Close Guides dropdowns on route change to avoid stale open state
+  // Close dropdowns on route change
   useEffect(() => {
-    const handler = () => {
-      setIsGuidesOpen(false)
-      setIsMobileGuidesOpen(false)
-    }
-    // Use popstate-like pattern: subscribe to the current pathname
-    // and reset dropdown states asynchronously via microtask
-    queueMicrotask(handler)
+    queueMicrotask(() => {
+      setOpenDropdown(null)
+      setMobileAccordions(new Set())
+    })
     return () => {
-      if (guidesTimeoutRef.current) {
-        clearTimeout(guidesTimeoutRef.current)
-        guidesTimeoutRef.current = null
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
+        hoverTimeoutRef.current = null
       }
     }
   }, [pathname])
 
-  // Close desktop Guides dropdown on click outside
+  // Close desktop dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (isGuidesOpen && guidesRef.current && !guidesRef.current.contains(e.target as Node)) {
-        setIsGuidesOpen(false)
+      if (!openDropdown) return
+      const target = e.target as Node
+      if (!trainingRef.current?.contains(target) && !resourcesRef.current?.contains(target)) {
+        setOpenDropdown(null)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isGuidesOpen])
+  }, [openDropdown])
+
+  const chevronSvg = (isOpen: boolean) => (
+    <svg
+      className={`ml-1 h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    </svg>
+  )
 
   return (
     <nav className="bg-white text-gray-700 shadow-md sticky top-0 z-50">
@@ -102,7 +131,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center space-x-5">
+          <div className="hidden xl:flex items-center space-x-6">
             <Link href="/" className={linkClass('/')}>
               Home
             </Link>
@@ -112,127 +141,90 @@ export default function Navigation() {
             >
               Get Involved
             </Link>
-            <Link href="/tech-stack" className={linkClass('/tech-stack')}>
-              Tech Stack
-            </Link>
-            <Link href="/contributor-ladder" className={linkClass('/contributor-ladder')}>
-              Contributor Ladder
-            </Link>
-            <Link
-              href="/training-plan"
-              className={`${linkClass('/training-plan')} whitespace-nowrap`}
-            >
-              Global Admin
-            </Link>
-            <Link
-              href="/canva-designer-path"
-              className={`${linkClass('/canva-designer-path')} whitespace-nowrap`}
-            >
-              Canva Designer
-            </Link>
-            <Link href="/documentation" className={linkClass('/documentation')}>
-              Documentation
-            </Link>
 
-            {/* Guides Mega Menu */}
+            {/* Training Dropdown */}
             <div
-              ref={guidesRef}
+              ref={trainingRef}
               className="relative"
-              onMouseEnter={handleGuidesMouseEnter}
-              onMouseLeave={handleGuidesMouseLeave}
+              onMouseEnter={() => handleDropdownMouseEnter('training')}
+              onMouseLeave={handleDropdownMouseLeave}
             >
               <button
                 type="button"
-                className={`${isActive('/guides') ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
-                aria-expanded={isGuidesOpen}
+                className={`${isDropdownActive(trainingDropdown) ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
+                aria-expanded={openDropdown === 'training'}
                 aria-haspopup="true"
-                aria-controls="guides-dropdown-menu"
-                onClick={() => setIsGuidesOpen(!isGuidesOpen)}
+                aria-controls="training-dropdown-menu"
+                onClick={() => setOpenDropdown(openDropdown === 'training' ? null : 'training')}
               >
-                Guides
-                <svg
-                  className={`ml-1 h-4 w-4 transition-transform ${isGuidesOpen ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                Training
+                {chevronSvg(openDropdown === 'training')}
               </button>
-
-              {isGuidesOpen && (
+              {openDropdown === 'training' && (
                 <div
-                  id="guides-dropdown-menu"
+                  id="training-dropdown-menu"
                   role="menu"
-                  className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                  className="absolute left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
                 >
-                  {guides.map((guide) => (
+                  {trainingDropdown.items.map((item) => (
                     <Link
-                      key={guide.href}
-                      href={guide.href}
+                      key={item.href}
+                      href={item.href}
                       role="menuitem"
                       className="block px-4 py-3 hover:bg-blue-50 transition-colors"
-                      onClick={() => setIsGuidesOpen(false)}
+                      onClick={() => setOpenDropdown(null)}
                     >
-                      <p className="text-sm font-semibold text-gray-900">{guide.title}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{guide.description}</p>
+                      <p className="text-sm font-semibold text-gray-900">{item.label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>
                     </Link>
                   ))}
-                  <div role="separator" className="border-t border-gray-100 mt-1 pt-1" />
-                  <Link
-                    href="/guides"
-                    role="menuitem"
-                    className="block px-4 py-2 text-sm text-blue-600 font-medium hover:bg-blue-50 transition-colors"
-                    onClick={() => setIsGuidesOpen(false)}
-                  >
-                    View All Guides &rarr;
-                  </Link>
                 </div>
               )}
             </div>
 
-            <Link href="/testing" className={linkClass('/testing')}>
-              Testing
-            </Link>
+            {/* Resources Dropdown */}
+            <div
+              ref={resourcesRef}
+              className="relative"
+              onMouseEnter={() => handleDropdownMouseEnter('resources')}
+              onMouseLeave={handleDropdownMouseLeave}
+            >
+              <button
+                type="button"
+                className={`${isDropdownActive(resourcesDropdown) ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
+                aria-expanded={openDropdown === 'resources'}
+                aria-haspopup="true"
+                aria-controls="resources-dropdown-menu"
+                onClick={() => setOpenDropdown(openDropdown === 'resources' ? null : 'resources')}
+              >
+                Resources
+                {chevronSvg(openDropdown === 'resources')}
+              </button>
+              {openDropdown === 'resources' && (
+                <div
+                  id="resources-dropdown-menu"
+                  role="menu"
+                  className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                >
+                  {resourcesDropdown.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      role="menuitem"
+                      className="block px-4 py-3 hover:bg-blue-50 transition-colors"
+                      onClick={() => setOpenDropdown(null)}
+                    >
+                      <p className="text-sm font-semibold text-gray-900">{item.label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link href="/sites-list" className={`${linkClass('/sites-list')} whitespace-nowrap`}>
               Sites List
             </Link>
-            <a
-              href="https://github.com/FreeForCharity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium hover:text-blue-600 transition-colors"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://freeforcharity.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center font-medium text-teal-600 hover:text-teal-800 transition-colors whitespace-nowrap"
-            >
-              freeforcharity.org
-              <svg
-                className="ml-1 w-3.5 h-3.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -240,7 +232,7 @@ export default function Navigation() {
             onClick={() => {
               const willClose = isMenuOpen
               setIsMenuOpen(!isMenuOpen)
-              if (willClose) setIsMobileGuidesOpen(false)
+              if (willClose) setMobileAccordions(new Set())
             }}
             className="xl:hidden p-2 rounded-md hover:bg-gray-100 text-gray-600 transition-colors"
             aria-label="Toggle menu"
@@ -282,106 +274,69 @@ export default function Navigation() {
             >
               Get Involved
             </Link>
-            <Link
-              href="/tech-stack"
-              className={mobileLinkClass('/tech-stack')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Tech Stack
-            </Link>
-            <Link
-              href="/contributor-ladder"
-              className={mobileLinkClass('/contributor-ladder')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contributor Ladder
-            </Link>
-            <Link
-              href="/training-plan"
-              className={mobileLinkClass('/training-plan')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Global Admin
-            </Link>
-            <Link
-              href="/canva-designer-path"
-              className={mobileLinkClass('/canva-designer-path')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Canva Designer
-            </Link>
-            <Link
-              href="/documentation"
-              className={mobileLinkClass('/documentation')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Documentation
-            </Link>
 
-            {/* Mobile Guides Collapsible */}
+            {/* Mobile Training Accordion */}
             <div>
               <button
                 type="button"
-                className={`${isActive('/guides') ? 'text-blue-600 font-bold bg-blue-50' : 'hover:bg-gray-50 hover:text-blue-600'} w-full text-left px-3 py-2 rounded-md transition-colors inline-flex items-center justify-between`}
-                onClick={() => setIsMobileGuidesOpen(!isMobileGuidesOpen)}
-                aria-expanded={isMobileGuidesOpen}
-                aria-controls="mobile-guides-panel"
+                className={`${isDropdownActive(trainingDropdown) ? 'text-blue-600 font-bold bg-blue-50' : 'hover:bg-gray-50 hover:text-blue-600'} w-full text-left px-3 py-2 rounded-md transition-colors inline-flex items-center justify-between`}
+                onClick={() => toggleMobileAccordion('training')}
+                aria-expanded={mobileAccordions.has('training')}
+                aria-controls="mobile-training-panel"
               >
-                Guides
-                <svg
-                  className={`h-4 w-4 transition-transform ${isMobileGuidesOpen ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                Training
+                {chevronSvg(mobileAccordions.has('training'))}
               </button>
-              {isMobileGuidesOpen && (
+              {mobileAccordions.has('training') && (
                 <div
-                  id="mobile-guides-panel"
+                  id="mobile-training-panel"
                   className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-2"
                 >
-                  {guides.map((guide) => (
+                  {trainingDropdown.items.map((item) => (
                     <Link
-                      key={guide.href}
-                      href={guide.href}
+                      key={item.href}
+                      href={item.href}
                       className="block px-3 py-2 rounded-md text-sm hover:bg-gray-50 hover:text-blue-600 transition-colors"
-                      onClick={() => {
-                        setIsMobileGuidesOpen(false)
-                        setIsMenuOpen(false)
-                      }}
+                      onClick={() => setIsMenuOpen(false)}
                     >
-                      {guide.title}
+                      {item.label}
                     </Link>
                   ))}
-                  <Link
-                    href="/guides"
-                    className="block px-3 py-2 rounded-md text-sm text-blue-600 font-medium hover:bg-blue-50 transition-colors"
-                    onClick={() => {
-                      setIsMobileGuidesOpen(false)
-                      setIsMenuOpen(false)
-                    }}
-                  >
-                    View All Guides &rarr;
-                  </Link>
                 </div>
               )}
             </div>
 
-            <Link
-              href="/testing"
-              className={mobileLinkClass('/testing')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Testing
-            </Link>
+            {/* Mobile Resources Accordion */}
+            <div>
+              <button
+                type="button"
+                className={`${isDropdownActive(resourcesDropdown) ? 'text-blue-600 font-bold bg-blue-50' : 'hover:bg-gray-50 hover:text-blue-600'} w-full text-left px-3 py-2 rounded-md transition-colors inline-flex items-center justify-between`}
+                onClick={() => toggleMobileAccordion('resources')}
+                aria-expanded={mobileAccordions.has('resources')}
+                aria-controls="mobile-resources-panel"
+              >
+                Resources
+                {chevronSvg(mobileAccordions.has('resources'))}
+              </button>
+              {mobileAccordions.has('resources') && (
+                <div
+                  id="mobile-resources-panel"
+                  className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-2"
+                >
+                  {resourcesDropdown.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block px-3 py-2 rounded-md text-sm hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link
               href="/sites-list"
               className={mobileLinkClass('/sites-list')}
@@ -389,38 +344,6 @@ export default function Navigation() {
             >
               Sites List
             </Link>
-            <a
-              href="https://github.com/FreeForCharity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block px-3 py-2 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              GitHub
-            </a>
-            <a
-              href="https://freeforcharity.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center px-3 py-2 rounded-md text-teal-600 font-medium hover:bg-teal-50 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              freeforcharity.org
-              <svg
-                className="ml-1 w-3.5 h-3.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
           </div>
         )}
       </div>
