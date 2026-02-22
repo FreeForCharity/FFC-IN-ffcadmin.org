@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     'Volunteer training hub for Free For Charity. Complete Global Administrator or Canva Designer certification paths, learn our tech stack, and join the contributor ladder to build free websites for nonprofits.',
   metadataBase: new URL(SITE_URL),
   alternates: {
-    canonical: SITE_URL,
+    canonical: `${SITE_URL}/`,
   },
   keywords: [
     'nonprofit volunteer',

@@ -215,7 +215,7 @@ export default function Navigation() {
               href="https://freeforcharity.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 transition-colors whitespace-nowrap"
+              className="inline-flex items-center font-medium text-teal-600 hover:text-teal-800 transition-colors whitespace-nowrap"
             >
               freeforcharity.org
               <svg
@@ -402,7 +402,7 @@ export default function Navigation() {
               href="https://freeforcharity.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center px-3 py-2 rounded-md text-blue-600 font-medium hover:bg-blue-50 transition-colors"
+              className="flex items-center px-3 py-2 rounded-md text-teal-600 font-medium hover:bg-teal-50 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               freeforcharity.org
