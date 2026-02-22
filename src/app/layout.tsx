@@ -15,21 +15,35 @@ export const metadata: Metadata = {
     template: '%s | Free For Charity Admin',
   },
   description:
-    'Training hub for Free For Charity volunteers and administrators. Learn our tech stack, complete certification paths, and join the contributor ladder.',
+    'Volunteer training hub for Free For Charity. Complete Global Administrator or Canva Designer certification paths, learn our tech stack, and join the contributor ladder to build free websites for nonprofits.',
   metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: `${SITE_URL}/`,
+  },
+  keywords: [
+    'nonprofit volunteer',
+    'volunteer web development',
+    'free nonprofit website',
+    'IT volunteer program',
+    'open source charity',
+    'Microsoft 365 admin training',
+    'Canva designer nonprofit',
+    'nonprofit technology volunteer',
+    '501c3 free website',
+  ],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     siteName: 'Free For Charity Admin',
     title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
     description:
-      'Training hub for Free For Charity volunteers. Learn IT administration and graphic design skills while helping nonprofits.',
+      'Training hub for Free For Charity volunteers. Explore Global Administrator and Canva Designer certification paths while helping nonprofits.',
   },
   twitter: {
     card: 'summary',
     title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
     description:
-      'Training hub for Free For Charity volunteers. Learn IT administration and graphic design skills while helping nonprofits.',
+      'Training hub for Free For Charity volunteers. Explore Global Administrator and Canva Designer certification paths while helping nonprofits.',
   },
   icons: {
     icon: assetPath('/Svgs/ffc-logo.svg'),
@@ -68,7 +82,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               url: 'https://ffcadmin.org',
               logo: `${SITE_URL}${assetPath('/Images/hero-logo.png')}`,
               description:
-                'Free For Charity trains volunteers in IT administration and graphic design to build and manage free websites for 501(c)(3) nonprofits.',
+                'Free For Charity trains volunteers through Global Administrator and Canva Designer certification paths to build and manage free websites for 501(c)(3) nonprofits.',
+              foundingDate: '2013',
+              areaServed: 'US',
+              nonprofitStatus: '501c3',
+              knowsAbout: [
+                'Microsoft 365 Administration',
+                'GitHub Repository Management',
+                'Next.js Static Site Development',
+                'Canva Graphic Design',
+                'Nonprofit Technology',
+                'Website Accessibility',
+              ],
               parentOrganization: {
                 '@type': 'NGO',
                 name: 'Free For Charity',
