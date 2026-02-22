@@ -204,7 +204,7 @@ export default function Navigation() {
                 <div
                   id="resources-dropdown-menu"
                   role="menu"
-                  className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                  className="absolute left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
                 >
                   {resourcesDropdown.items.map((item) => (
                     <Link
