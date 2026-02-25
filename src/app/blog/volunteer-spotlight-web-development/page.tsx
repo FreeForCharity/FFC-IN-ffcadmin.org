@@ -29,6 +29,7 @@ export default function VolunteerSpotlightWebDev() {
       name: 'Free For Charity',
       url: 'https://ffcadmin.org',
     },
+    url: 'https://ffcadmin.org/blog/volunteer-spotlight-web-development/',
   }
 
   return (

@@ -29,6 +29,7 @@ export default function WelcomeToFFC() {
       name: 'Free For Charity',
       url: 'https://ffcadmin.org',
     },
+    url: 'https://ffcadmin.org/blog/welcome-to-ffc/',
   }
 
   return (

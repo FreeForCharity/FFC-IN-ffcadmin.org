@@ -28,6 +28,7 @@ export default function DayInTheLifeGlobalAdmin() {
       name: 'Free For Charity',
       url: 'https://ffcadmin.org',
     },
+    url: 'https://ffcadmin.org/blog/day-in-the-life-global-admin/',
   }
 
   return (

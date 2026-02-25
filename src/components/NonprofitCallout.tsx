@@ -1,6 +1,6 @@
 export default function NonprofitCallout() {
   return (
-    <section className="py-8 px-4 sm:px-6 lg:px-8">
+    <section className="bg-white py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
