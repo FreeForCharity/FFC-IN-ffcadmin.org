@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Breadcrumbs from '@/components/Breadcrumbs'
 import DesignerChecklist from './components/DesignerChecklist'
 
 export const metadata: Metadata = {
@@ -12,6 +13,13 @@ export const metadata: Metadata = {
 export default function CanvaDesignerPath() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Training', href: '/get-involved' },
+          { label: 'Canva Designer Path' },
+        ]}
+      />
       {/* Page Header */}
       <div className="bg-gradient-to-r from-pink-600 to-purple-600 text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">

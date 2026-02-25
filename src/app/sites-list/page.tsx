@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { parse } from 'csv-parse/sync'
 import HealthDashboard from './HealthDashboard'
 import FilterableHostingSection from './FilterableHostingSection'
+import NonprofitCallout from '@/components/NonprofitCallout'
 
 export const metadata: Metadata = {
   title: 'Sites Master List',
@@ -705,6 +706,8 @@ export default async function SitesListPage() {
           'Domains marked as Fraud in WHMCS. This status indicates the domain or account has been flagged for fraudulent activity, suspicious behavior, or high-risk indicators requiring investigation.'
         )}
       </div>
+
+      <NonprofitCallout />
     </div>
   )
 }

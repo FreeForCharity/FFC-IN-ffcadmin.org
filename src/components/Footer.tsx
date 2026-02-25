@@ -95,6 +95,19 @@ export default function Footer() {
                   Get Involved
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/volunteer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Volunteer
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-gray-400 hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
 

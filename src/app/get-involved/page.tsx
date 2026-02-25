@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import NonprofitCallout from '@/components/NonprofitCallout'
 
 export const metadata: Metadata = {
   title: 'Get Involved',
@@ -259,6 +260,8 @@ export default function GetInvolved() {
           </div>
         </div>
       </section>
+
+      <NonprofitCallout />
     </div>
   )
 }

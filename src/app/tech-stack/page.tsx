@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import CollapsibleSection from '@/components/CollapsibleSection'
+import NonprofitCallout from '@/components/NonprofitCallout'
 
 export const metadata: Metadata = {
   title: 'Technology Stack',
@@ -1118,6 +1119,8 @@ export default function TechStack() {
           </div>
         </div>
       </main>
+
+      <NonprofitCallout />
     </div>
   )
 }

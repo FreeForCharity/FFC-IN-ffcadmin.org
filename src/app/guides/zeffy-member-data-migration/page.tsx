@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
   title: 'Zeffy Member Data Migration Guide',
@@ -27,6 +28,13 @@ const tocItems = [
 export default function ZeffyMemberDataMigrationGuide() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Guides', href: '/guides' },
+          { label: 'Zeffy Data Migration' },
+        ]}
+      />
       {/* Hero */}
       <div className="bg-gradient-to-r from-violet-600 to-purple-600 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">

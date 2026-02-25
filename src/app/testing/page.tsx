@@ -883,6 +883,14 @@ export default function Testing() {
               <a href="/documentation" className="text-blue-600 hover:underline">
                 Documentation Center
               </a>
+              . Ready to contribute? Check the{' '}
+              <a href="/contributor-ladder" className="text-blue-600 hover:underline">
+                Contributor Ladder
+              </a>{' '}
+              or explore our{' '}
+              <a href="/tech-stack" className="text-blue-600 hover:underline">
+                Tech Stack
+              </a>
               .
             </p>
           </div>

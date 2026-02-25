@@ -32,6 +32,7 @@ test.describe('Smoke Tests', () => {
     await expect(page.locator('nav a[href*="/documentation"]').first()).toBeVisible()
     await expect(page.locator('nav a[href*="/testing"]').first()).toBeVisible()
     await expect(page.locator('nav a[href*="/guides"]').first()).toBeVisible()
+    await expect(page.locator('nav a[href*="/blog"]').first()).toBeVisible()
   })
 
   test('footer is visible on home page', async ({ page }) => {
@@ -59,5 +60,22 @@ test.describe('Smoke Tests', () => {
   test('cookie policy page loads', async ({ page }) => {
     await page.goto('/cookie-policy/')
     await expect(page.getByRole('heading', { name: 'Cookie Policy', exact: true })).toBeVisible()
+  })
+
+  test('blog page loads with posts', async ({ page }) => {
+    await page.goto('/blog/')
+    await expect(page.getByRole('heading', { name: 'Blog', level: 1 })).toBeVisible()
+    await expect(page.getByText('Welcome to Free For Charity')).toBeVisible()
+  })
+
+  test('volunteer page loads', async ({ page }) => {
+    await page.goto('/volunteer/')
+    await expect(page.getByText('Volunteer Your Skills.')).toBeVisible()
+  })
+
+  test('breadcrumbs are visible on nested pages', async ({ page }) => {
+    await page.goto('/blog/welcome-to-ffc/')
+    await expect(page.getByLabel('Breadcrumb')).toBeVisible()
+    await expect(page.getByLabel('Breadcrumb').getByText('Blog')).toBeVisible()
   })
 })

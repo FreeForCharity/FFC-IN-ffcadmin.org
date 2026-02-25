@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
   title: 'WordPress to Next.js Conversion Guide',
@@ -36,6 +37,13 @@ const sections: GuideSection[] = [
 export default function WordPressToNextJSGuide() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Guides', href: '/guides' },
+          { label: 'WordPress to Next.js' },
+        ]}
+      />
       {/* Page Header */}
       <div className="bg-gradient-to-r from-blue-700 to-indigo-700 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
