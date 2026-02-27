@@ -61,5 +61,10 @@ export const resourcesDropdown: NavDropdown = {
       href: '/guides',
       description: 'Step-by-step technical guides for common tasks.',
     },
+    {
+      label: 'Blog',
+      href: '/blog',
+      description: 'News, volunteer spotlights, and FFC stories.',
+    },
   ],
 }

@@ -126,6 +126,7 @@ describe('Navigation Component', () => {
       )
       expect(screen.getByRole('menuitem', { name: /testing/i })).toHaveAttribute('href', '/testing')
       expect(screen.getByRole('menuitem', { name: /guides/i })).toHaveAttribute('href', '/guides')
+      expect(screen.getByRole('menuitem', { name: /blog/i })).toHaveAttribute('href', '/blog')
     })
   })
 

@@ -1,5 +1,6 @@
 'use client'
 
+import Breadcrumbs from '@/components/Breadcrumbs'
 import { TRAINING_CURRICULUM } from '@/data/training-plan-data'
 import { useTrainingProgress } from './hooks/useTrainingProgress'
 import { ProgressBar } from './components/ProgressBar'
@@ -18,6 +19,13 @@ export default function TrainingPlan() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Training', href: '/get-involved' },
+          { label: 'Global Admin Training Plan' },
+        ]}
+      />
       {/* Page Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">

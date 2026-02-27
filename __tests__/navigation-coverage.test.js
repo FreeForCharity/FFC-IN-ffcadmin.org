@@ -23,6 +23,8 @@ describe('Navigation Coverage', () => {
     { path: '/canva-designer-path', name: 'Canva Designer Path' },
     { path: '/sites-list', name: 'Sites List' },
     { path: '/guides', name: 'Guides' },
+    { path: '/blog', name: 'Blog' },
+    { path: '/volunteer', name: 'Volunteer' },
     { path: '/privacy-policy', name: 'Privacy Policy' },
     { path: '/cookie-policy', name: 'Cookie Policy' },
   ]

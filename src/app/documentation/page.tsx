@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import NonprofitCallout from '@/components/NonprofitCallout'
 
 export const metadata: Metadata = {
   title: 'Documentation',
@@ -494,6 +495,8 @@ export default function Documentation() {
           </div>
         </div>
       </main>
+
+      <NonprofitCallout />
     </div>
   )
 }
