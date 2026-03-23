@@ -167,3 +167,31 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Post-deploy smoke test (site up)
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          node - <<'NODE'
+          const url = process.env.PAGE_URL;
+          if (!url) { console.error('Missing PAGE_URL'); process.exit(1); }
+          const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+          const attempts = 12;
+          (async () => {
+            for (let i = 1; i <= attempts; i++) {
+              try {
+                const res = await fetch(url, { redirect: 'follow' });
+                const code = res.status;
+                if (code >= 200 && code < 400) {
+                  console.log('OK (' + code + ') ' + url);
+                  process.exit(0);
+                }
+                console.log('Attempt ' + i + ': HTTP ' + code + '; retrying...');
+              } catch (e) {
+                console.log('Attempt ' + i + ': request failed; retrying...');
+              }
+              await sleep(10000);
+            }
+            console.error('Smoke test failed: ' + url);
+            process.exit(1);
+          })();
+        NODE
