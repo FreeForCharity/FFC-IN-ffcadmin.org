@@ -216,7 +216,6 @@ jobs:
               time.sleep(min(delay_seconds, remaining))
           PY
 
-
   notify-failure:
     name: Notify on production deploy failure
     needs: [deploy]
