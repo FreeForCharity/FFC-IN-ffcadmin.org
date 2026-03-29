@@ -3,6 +3,12 @@
 import Link from 'next/link'
 import { guides } from '@/data/guides'
 
+declare global {
+  interface Window {
+    openCookiePreferences?: () => void
+  }
+}
+
 const GUIDESTAR_PROFILE_URL =
   'https://www.guidestar.org/profile/shared/bbbe173a-87b9-4af9-a8a2-cae255a95742'
 
@@ -155,7 +161,7 @@ export default function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => (window as any).openCookiePreferences?.()}
+                  onClick={() => window.openCookiePreferences?.()}
                   className="text-gray-400 hover:text-white transition-colors text-left"
                   aria-label="Open cookie preferences dialog"
                 >
