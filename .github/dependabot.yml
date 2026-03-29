@@ -12,6 +12,13 @@ updates:
     labels:
       - 'dependencies'
       - 'automated'
+    ignore:
+      - dependency-name: 'eslint'
+        update-types:
+          - 'version-update:semver-major'
+      - dependency-name: 'typescript'
+        update-types:
+          - 'version-update:semver-major'
     groups:
       # Group development dependencies together (minor and patch updates)
       development-dependencies:

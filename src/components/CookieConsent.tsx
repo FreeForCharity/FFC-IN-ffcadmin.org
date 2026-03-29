@@ -6,23 +6,46 @@ import { useState, useEffect, useRef } from 'react'
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || 'XXXXXXXXXXXXXXX'
 
+type ConsentPreferences = {
+  necessary: boolean
+  analytics: boolean
+  marketing: boolean
+}
+
+type DataLayerValue = string | number | boolean | null | undefined
+
 // Define type for GTM dataLayer events
 interface DataLayerEvent {
   event: string
-  [key: string]: any
+  [key: string]: DataLayerValue
+}
+
+function isConsentPreferences(value: unknown): value is ConsentPreferences {
+  if (typeof value !== 'object' || value === null) {
+    return false
+  }
+
+  const preferences = value as Partial<ConsentPreferences>
+
+  return (
+    typeof preferences.necessary === 'boolean' &&
+    typeof preferences.analytics === 'boolean' &&
+    typeof preferences.marketing === 'boolean'
+  )
 }
 
 // Extend Window interface to include dataLayer
 declare global {
   interface Window {
     dataLayer: DataLayerEvent[]
+    openCookiePreferences?: () => void
   }
 }
 
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false)
   const [showPreferences, setShowPreferences] = useState(false)
-  const [preferences, setPreferences] = useState({
+  const [preferences, setPreferences] = useState<ConsentPreferences>({
     necessary: true, // Always true, cannot be changed
     analytics: false,
     marketing: false,
@@ -39,22 +62,16 @@ export default function CookieConsent() {
         if (showBannerIfMissing) setShowBanner(true)
         return
       }
-      let savedPreferences
+      let savedPreferences: unknown
       try {
         savedPreferences = JSON.parse(consent)
-      } catch (e) {
+      } catch {
         if (showBannerIfMissing) setShowBanner(true)
         return
       }
 
       // Validate the structure
-      if (
-        typeof savedPreferences === 'object' &&
-        savedPreferences !== null &&
-        typeof savedPreferences.necessary === 'boolean' &&
-        typeof savedPreferences.analytics === 'boolean' &&
-        typeof savedPreferences.marketing === 'boolean'
-      ) {
+      if (isConsentPreferences(savedPreferences)) {
         setPreferences(savedPreferences)
         setSavedPreferencesBackup(savedPreferences)
         applyConsent(savedPreferences)
@@ -70,7 +87,7 @@ export default function CookieConsent() {
 
   useEffect(() => {
     // Expose method to window for reopening preferences from other components
-    ;(window as any).openCookiePreferences = () => {
+    window.openCookiePreferences = () => {
       setShowBanner(true)
       setShowPreferences(true)
       loadPreferencesFromLocalStorage(false)
@@ -81,7 +98,7 @@ export default function CookieConsent() {
 
     // Cleanup function to remove the window method
     return () => {
-      delete (window as any).openCookiePreferences
+      delete window.openCookiePreferences
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -119,7 +136,7 @@ export default function CookieConsent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showPreferences])
 
-  const applyConsent = (prefs: typeof preferences, previousPrefs?: typeof preferences) => {
+  const applyConsent = (prefs: ConsentPreferences, previousPrefs?: ConsentPreferences) => {
     // Set a cookie to indicate consent status with Secure flag (only on HTTPS)
     const cookieValue = JSON.stringify(prefs)
     const secureFlag =
@@ -250,9 +267,9 @@ export default function CookieConsent() {
     setPreferences(allAccepted)
     try {
       localStorage.setItem('cookie-consent', JSON.stringify(allAccepted))
-    } catch (e) {
+    } catch (error) {
       // If localStorage is unavailable, continue anyway
-      console.warn('Unable to save preferences to localStorage:', e)
+      console.warn('Unable to save preferences to localStorage:', error)
     }
     applyConsent(allAccepted, savedPreferencesBackup)
     setSavedPreferencesBackup(allAccepted)
