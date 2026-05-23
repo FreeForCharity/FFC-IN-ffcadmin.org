@@ -17,7 +17,7 @@ keeps **every major category** it has today — we are not pruning pages,
 we are converting them to the Next.js / static architecture.
 
 What changes is the **emphasis** on each site, and the addition of a
-clearly demarcated **Legacy Administration** section on ffcadmin.org that
+clearly demarcated **Legacy WordPress Administration** section on ffcadmin.org that
 re-homes the operations-flavored content for the volunteer / admin
 audience.
 
@@ -61,7 +61,7 @@ Source: `docs/ffc-content-audit.csv`, `docs/ffc-url-mapping.md`.
 `freeforcharity.org/<slug>/` URL after cutover. The static Next.js
 implementation in `FreeForCharity/FreeForCharity.org` is the new
 authoritative copy. The "moves" below are **copies into ffcadmin.org's
-Legacy Administration section** — not removals from freeforcharity.org.
+Legacy WordPress Administration section** — not removals from freeforcharity.org.
 
 ### Keep on freeforcharity.org (donor / marketing / acquisition)
 
@@ -94,29 +94,144 @@ and remain there. The cutover plan does not remove them.
 | `/vulnerability-disclosure-policy/`  | Required legal                                |
 | `/security-acknowledgements/`        | Required legal                                |
 
-### Re-home on ffcadmin.org (Legacy Administration section)
+### Re-home on ffcadmin.org (Legacy WordPress Administration section)
 
 These pages are operational. They **remain published** at their
 freeforcharity.org URLs (rebuilt in Next.js) AND get a re-homed copy
-under ffcadmin.org's new `/legacy-administration/` hub, framed for the
-volunteer / admin audience. Each ffcadmin copy sets
+under ffcadmin.org's new `/legacy-wordpress-administration/` hub, framed
+for the volunteer / admin audience. Each ffcadmin copy sets
 `<link rel="canonical">` to itself (it's the operations-team copy) and
 cross-links to the public-facing freeforcharity.org page for charity
 visitors.
 
-| WordPress Slug                                            | freeforcharity.org (kept)                                 | ffcadmin.org re-home                                                    |
-| --------------------------------------------------------- | --------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `/free-training-programs/`                                | `/free-training-programs/`                                | `/legacy-administration/training-programs/` + link from `/training-plan/` |
-| `/free-for-charitys-tools-for-success/`                   | `/free-for-charitys-tools-for-success/`                   | `/legacy-administration/tools-for-success/`                             |
-| `/guidestar-guide/`                                       | `/guidestar-guide/`                                       | `/legacy-administration/guidestar-guide/`                               |
-| `/charity-validation-guide-.../`                          | `/charity-validation-guide-.../`                          | `/legacy-administration/charity-validation/`                            |
-| `/online-impacts-onboarding-guide/`                       | `/online-impacts-onboarding-guide/`                       | `/legacy-administration/online-impacts-onboarding/`                     |
-| `/ffc-volunteer-proving-ground-core-competencies/`        | `/ffc-volunteer-proving-ground-core-competencies/`        | `/legacy-administration/volunteer-proving-ground/` + link from `/contributor-ladder/` |
-| `/free-for-charity-ffc-web-developer-training-guide/`     | `/free-for-charity-ffc-web-developer-training-guide/`     | `/legacy-administration/web-developer-training/` + link from `/training-plan/` |
-| `/free-for-charity-ffc-service-delivery-stages/`          | `/free-for-charity-ffc-service-delivery-stages/`          | `/legacy-administration/service-delivery-stages/`                       |
-| `/techstack/`                                             | `/techstack/`                                             | merge into existing `/tech-stack/` + summary in Legacy Administration   |
-| `/ffcadmin/`                                              | `/ffcadmin/` (signpost page → links to ffcadmin.org)      | `/` (this site)                                                         |
-| `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/legacy-administration/cpanel-backup-sop/`                             |
+| WordPress Slug                                            | freeforcharity.org (kept)                                 | ffcadmin.org re-home                                                                       |
+| --------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `/free-training-programs/`                                | `/free-training-programs/`                                | `/legacy-wordpress-administration/training-programs/`                                       |
+| `/free-for-charitys-tools-for-success/`                   | `/free-for-charitys-tools-for-success/`                   | `/legacy-wordpress-administration/tools-for-success/`                                       |
+| `/guidestar-guide/`                                       | `/guidestar-guide/`                                       | `/legacy-wordpress-administration/guidestar-guide/`                                         |
+| `/charity-validation-guide-.../`                          | `/charity-validation-guide-.../`                          | `/legacy-wordpress-administration/charity-validation/`                                      |
+| `/online-impacts-onboarding-guide/`                       | `/online-impacts-onboarding-guide/`                       | `/legacy-wordpress-administration/online-impacts-onboarding/`                               |
+| `/ffc-volunteer-proving-ground-core-competencies/`        | `/ffc-volunteer-proving-ground-core-competencies/`        | `/legacy-wordpress-administration/volunteer-proving-ground/`                                |
+| `/free-for-charity-ffc-web-developer-training-guide/`     | `/free-for-charity-ffc-web-developer-training-guide/`     | `/legacy-wordpress-administration/web-developer-training/`                                  |
+| `/free-for-charity-ffc-service-delivery-stages/`          | `/free-for-charity-ffc-service-delivery-stages/`          | `/legacy-wordpress-administration/service-delivery-stages/`                                 |
+| `/techstack/`                                             | `/techstack/`                                             | `/legacy-wordpress-administration/hosting-techstack/` + summary into existing `/tech-stack/` |
+| `/ffcadmin/`                                              | `/ffcadmin/` (signpost page → links to ffcadmin.org)      | `/` (this site)                                                                            |
+| `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/legacy-wordpress-administration/cpanel-backup-sop/`                                       |
+
+### Section structure
+
+The Legacy WordPress Administration hub is **one-level-deep**: a hub
+landing plus ten sibling pages. Categorization happens visually on the
+hub landing and in the sidebar, driven by a single data file.
+
+**URL tree:**
+
+```
+/legacy-wordpress-administration/                    Hub landing (cards + audience framing)
+├── hosting-techstack/                                WordPress Operations
+├── cpanel-backup-sop/                                WordPress Operations
+├── online-impacts-onboarding/                        WordPress Operations
+├── charity-validation/                               Charity Onboarding
+├── guidestar-guide/                                  Charity Onboarding
+├── service-delivery-stages/                          Charity Onboarding
+├── training-programs/                                Volunteer Programs
+├── web-developer-training/                           Volunteer Programs
+├── tools-for-success/                                Volunteer Programs
+└── volunteer-proving-ground/                         Volunteer Programs
+```
+
+**Categories (visual only, not URL segments):**
+
+| Category               | Pages                                                                                                  |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| WordPress Operations   | hosting-techstack, cpanel-backup-sop, online-impacts-onboarding                                        |
+| Charity Onboarding     | charity-validation, guidestar-guide, service-delivery-stages                                           |
+| Volunteer Programs     | training-programs, web-developer-training, tools-for-success, volunteer-proving-ground                 |
+
+**File / component layout:**
+
+```
+src/app/legacy-wordpress-administration/
+  layout.tsx                      Sidebar + breadcrumb wrapper for the whole section
+  page.tsx                        Hub landing (intro, cross-link, category grid)
+  hosting-techstack/page.tsx
+  cpanel-backup-sop/page.tsx
+  online-impacts-onboarding/page.tsx
+  charity-validation/page.tsx
+  guidestar-guide/page.tsx
+  service-delivery-stages/page.tsx
+  training-programs/page.tsx
+  web-developer-training/page.tsx
+  tools-for-success/page.tsx
+  volunteer-proving-ground/page.tsx
+
+src/components/legacy-wordpress-administration/
+  Sidebar.tsx                     Category-grouped left-rail nav, shared by every child
+  PageHeader.tsx                  Top audience callout + public-version cross-link
+  CategoryGrid.tsx                Card grid for the hub landing
+
+src/data/
+  legacy-wordpress-administration.ts
+                                  Single source of truth: pages, categories,
+                                  freeforcharity.org cross-link map, summaries.
+                                  Loaded by Sidebar, CategoryGrid, sitemap.ts,
+                                  and each page's metadata export.
+```
+
+**Hub landing layout (`/legacy-wordpress-administration/`):**
+
+1. Hero: title + one-paragraph audience framing.
+2. "What this section is" callout: "Operations and SOP reference for
+   FFC volunteers, admins, and partner charities still running their
+   own WordPress. The public charity-facing versions of these pages
+   live on freeforcharity.org."
+3. Cross-link strip: "Looking for the charity-facing versions? →
+   freeforcharity.org".
+4. Three category sections, each a card grid:
+   - **WordPress Operations** (3 cards)
+   - **Charity Onboarding** (3 cards)
+   - **Volunteer Programs** (4 cards)
+5. "Why 'Legacy'?" — short explainer that the procedures stay
+   published because many partner charities still run WordPress.
+6. Bottom CTAs:
+   - "Ready to move off WordPress? → `/guides/wordpress-to-nextjs-guide/`"
+   - "Apply for FFC migration help → freeforcharity.org/submit-information"
+
+**Child page template (every leaf page):**
+
+1. Breadcrumb: Home → Legacy WordPress Administration → \<Category\> → \<Page\>.
+2. `PageHeader` component:
+   - Audience callout (one line).
+   - "Public version for charity visitors →" link to the matching
+     freeforcharity.org URL (from `legacy-wordpress-administration.ts`).
+3. Body content (migrated from WP, rewritten for the volunteer / admin
+   voice).
+4. Sidebar (left rail on desktop, collapsed accordion on mobile) —
+   category-grouped list of all 10 leaf pages with current page
+   highlighted.
+5. Bottom CTAs:
+   - "Back to Legacy WordPress Administration hub →"
+   - "Ready to move off WordPress? → `/guides/wordpress-to-nextjs-guide/`"
+
+**Navigation (`src/data/navigation.ts`):**
+
+Add a new top-level dropdown **"Legacy WP Admin"** (or place under
+Resources — see issue discussion). Items: the three category names as
+in-page anchors to the hub landing, plus "View all" linking to the hub.
+
+**Sitemap (`src/app/sitemap.ts`):**
+
+11 new URLs (hub + 10 children) at `priority: 0.6`, `changeFrequency:
+'monthly'`. Driven from `src/data/legacy-wordpress-administration.ts` so
+adding a page automatically adds a sitemap entry.
+
+**Canonicals:**
+
+Each ffcadmin page sets `metadata.alternates.canonical` to its own
+ffcadmin.org URL. The matching freeforcharity.org page also canonicals
+to itself. Both copies are intentional — different audience, different
+voice — so duplicate-content risk is mitigated by intent + cross-links,
+not by canonical pointing across domains.
 
 ### Drop (with redirects)
 
@@ -141,7 +256,8 @@ they are donor / trust-signal content. Do not move to ffcadmin.org's blog
 
 ## Changes Required on ffcadmin.org (this repo)
 
-1. **Build the Legacy Administration hub** at `/legacy-administration/`
+1. **Build the Legacy WordPress Administration hub** at
+   `/legacy-wordpress-administration/`
    that receives the 11 re-homed pages (listed above). Each page must:
    - Be authored in Next.js / Tailwind matching the existing
      `src/app/guides/` and `src/app/training-plan/` patterns.
@@ -162,11 +278,11 @@ they are donor / trust-signal content. Do not move to ffcadmin.org's blog
    site" block with one-line description and link.
 
 4. **Sitemap update** — `src/app/sitemap.ts` must include the new
-   Legacy Administration routes.
+   Legacy WordPress Administration routes.
 
 5. **Internal-link audit** — every in-body link from ffcadmin pages to
    freeforcharity.org should be reviewed: if it points to operations
-   content, redirect to the ffcadmin Legacy Administration page; if it
+   content, redirect to the ffcadmin Legacy WordPress Administration page; if it
    points to donor / applicant content, keep pointing to freeforcharity.
 
 ## Changes Required on freeforcharity.org (`FreeForCharity/FreeForCharity.org`)
