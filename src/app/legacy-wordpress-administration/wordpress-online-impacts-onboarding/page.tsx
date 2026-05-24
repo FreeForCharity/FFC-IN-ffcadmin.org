@@ -244,7 +244,13 @@ export default function Page() {
           Clarke Moyer (FFC founder) — clarkemoyer@freeforcharity.org,{' '}
           <a href="tel:5202228104">520-222-8104</a>
         </li>
-        <li>Pardhasaradhi Namburi (Online Impacts founder) — pardhu@onlineimpacts.org</li>
+        <li>
+          Online Impacts founder — contact via{' '}
+          <a href="https://onlineimpacts.org/" target="_blank" rel="noopener noreferrer">
+            onlineimpacts.org
+          </a>
+          .
+        </li>
       </ul>
 
       <h2>Cross-references</h2>

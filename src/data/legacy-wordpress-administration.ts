@@ -15,6 +15,19 @@
 
 export const LEGACY_WP_ADMIN_BASE = '/legacy-wordpress-administration'
 
+/**
+ * FFC founder escalation contact. Single source of truth so that role
+ * changes only need to land here. Avoid hardcoding in leaf page bodies.
+ */
+export const FFC_FOUNDER_CONTACT = {
+  name: 'Clarke Moyer',
+  role: 'FFC founder',
+  email: 'clarkemoyer@freeforcharity.org',
+  phone: '520-222-8104',
+  phoneHref: 'tel:5202228104',
+  escalationCadence: 'unresolved within 48 hours',
+} as const
+
 export type LegacyWpAdminCategoryId =
   | 'wordpress-operations'
   | 'charity-onboarding'
@@ -107,6 +120,15 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
     publicSourceUrl: 'https://freeforcharity.org/online-impacts-onboarding-guide/',
   },
   {
+    slug: 'wordpress-service-delivery-stages',
+    title: 'FFC Service Delivery Stages',
+    shortLabel: 'Service Delivery Stages',
+    summary:
+      'The intake → validation → build → handoff lifecycle FFC follows for every charity engagement.',
+    category: 'charity-onboarding',
+    publicSourceUrl: 'https://freeforcharity.org/free-for-charity-ffc-service-delivery-stages/',
+  },
+  {
     slug: 'wordpress-charity-validation',
     title: 'Charity Validation Guide (WordPress era)',
     shortLabel: 'Charity Validation',
@@ -124,15 +146,6 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
       'How FFC maintains Candid (GuideStar) profiles and the seal-of-transparency renewal cycle.',
     category: 'charity-onboarding',
     publicSourceUrl: 'https://freeforcharity.org/guidestar-guide/',
-  },
-  {
-    slug: 'wordpress-service-delivery-stages',
-    title: 'FFC Service Delivery Stages',
-    shortLabel: 'Service Delivery Stages',
-    summary:
-      'The intake → validation → build → handoff lifecycle FFC follows for every charity engagement.',
-    category: 'charity-onboarding',
-    publicSourceUrl: 'https://freeforcharity.org/free-for-charity-ffc-service-delivery-stages/',
   },
   {
     slug: 'wordpress-training-programs',

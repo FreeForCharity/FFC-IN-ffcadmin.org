@@ -31,8 +31,8 @@ export default function Sidebar() {
         aria-current={isOnHub ? 'page' : undefined}
         className={
           isOnHub
-            ? 'block font-bold text-blue-700'
-            : 'block font-semibold text-gray-700 hover:text-blue-700 transition-colors'
+            ? 'block font-bold text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded'
+            : 'block font-semibold text-gray-700 hover:text-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded'
         }
       >
         ← Section hub
@@ -56,8 +56,8 @@ export default function Sidebar() {
                       aria-current={active ? 'page' : undefined}
                       className={
                         active
-                          ? 'block px-3 py-2.5 rounded bg-blue-50 text-blue-700 font-semibold'
-                          : 'block px-3 py-2.5 rounded text-gray-700 hover:bg-gray-50 hover:text-blue-700 transition-colors'
+                          ? 'block px-3 py-2.5 rounded bg-blue-50 text-blue-700 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+                          : 'block px-3 py-2.5 rounded text-gray-700 hover:bg-gray-50 hover:text-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
                       }
                     >
                       {page.shortLabel}

@@ -34,7 +34,7 @@ const externalChecks: Check[] = [
     charitySideValue:
       'Verified GuideStar profile improves donor confidence and unlocks funding opportunities the charity may not have known about.',
     runbook: [
-      'Search the EIN at https://www.guidestar.org/.',
+      'Search the EIN at https://candid.org/ (formerly GuideStar).',
       'Confirm 501(c)(3) status is active (not revoked, not pending).',
       'Record the NTEE code in the FFC intake record.',
       'If no profile exists, queue the charity for GuideStar profile setup via the GuideStar guide.',

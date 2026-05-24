@@ -25,7 +25,7 @@ export default function CategoryGrid() {
                 <Link
                   key={page.slug}
                   href={getLegacyWpAdminHref(page.slug)}
-                  className="block bg-white rounded-lg border border-gray-200 p-5 hover:border-blue-400 hover:shadow-md transition-all"
+                  className="block bg-white rounded-lg border border-gray-200 p-5 hover:border-blue-400 hover:shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 >
                   <h3 className="text-base font-semibold text-gray-900 mb-2">{page.title}</h3>
                   <p className="text-sm text-gray-600">{page.summary}</p>

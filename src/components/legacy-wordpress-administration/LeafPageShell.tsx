@@ -34,7 +34,7 @@ export default function LeafPageShell({ page, children }: LeafPageShellProps) {
         </article>
         <aside
           aria-label="Section navigation"
-          className="lg:col-start-1 lg:row-start-1 lg:sticky lg:top-20 lg:self-start"
+          className="lg:col-start-1 lg:row-start-1 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto lg:border-r lg:border-gray-200 lg:pr-4"
         >
           <Sidebar />
         </aside>
