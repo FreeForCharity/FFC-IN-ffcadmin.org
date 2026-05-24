@@ -1,0 +1,12 @@
+{
+  "recurse": true,
+  "skip": [
+    "https://widgets.guidestar.org/*",
+    "https://www.googletagmanager.com/*",
+    "https://policies.google.com/*",
+    "https://privacy.microsoft.com/*",
+    "https://tools.google.com/*",
+    "^tel:.*",
+    "^mailto:.*"
+  ]
+}
