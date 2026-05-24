@@ -169,3 +169,13 @@ GitHub Actions enforces the following on every PR:
 6. **CodeQL** -- Static analysis and security scanning (separate workflow)
 
 PRs cannot merge until all checks pass.
+
+---
+
+## Section-Specific Guides
+
+Some sections have their own contribution patterns. Read the relevant guide before working in them.
+
+| Section                             | Guide                             |
+| ----------------------------------- | --------------------------------- |
+| `/legacy-wordpress-administration/` | `CONTRIBUTING-LEGACY-WP-ADMIN.md` |
