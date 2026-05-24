@@ -84,14 +84,14 @@ export default function LegacyWordPressAdministrationHubPage() {
       </section>
 
       {/* Category card grid */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <CategoryGrid />
         </div>
       </section>
 
       {/* Why "Legacy"? */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Why &ldquo;Legacy&rdquo;?</h2>
           <p className="text-gray-700 mb-3">
@@ -109,7 +109,7 @@ export default function LegacyWordPressAdministrationHubPage() {
       </section>
 
       {/* Bottom CTAs */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto grid gap-4 sm:grid-cols-2">
           <Link
             href="/guides/wordpress-to-nextjs-guide"
