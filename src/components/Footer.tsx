@@ -240,46 +240,53 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* For Nonprofits */}
+          {/* For Charities & Donors (sister site) */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-4">For Nonprofits</h3>
+            <h3 className="text-white text-lg font-bold mb-4">For Charities &amp; Donors</h3>
             <p className="text-sm text-gray-400 mb-3">
-              Looking for a free website for your 501(c)(3)?
+              Apply for a free site, donate, or read the public-facing FFC pages.
             </p>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  href="https://freeforcharity.org"
+                  href="https://freeforcharity.org/submit-information/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center hover:text-white transition-colors"
                   style={{ color: 'var(--color-ffc-teal)' }}
                 >
-                  Apply at freeforcharity.org
-                  <svg
-                    className="w-3 h-3 ml-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
-                  </svg>
+                  Apply for a free site →
                 </a>
               </li>
               <li>
                 <a
-                  href="https://freeforcharity.org/donate"
+                  href="https://freeforcharity.org/donate/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center hover:text-white transition-colors"
+                  style={{ color: 'var(--color-ffc-orange)' }}
+                >
+                  Donate →
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://freeforcharity.org/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Support Our Mission
+                  freeforcharity.org home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://freeforcharity.org/about-us/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  About FFC
                 </a>
               </li>
             </ul>
