@@ -104,78 +104,89 @@ for the volunteer / admin audience. Each ffcadmin copy sets
 cross-links to the public-facing freeforcharity.org page for charity
 visitors.
 
+**Slug convention:** every leaf page slug is prefixed `wordpress-` so the
+URL itself disambiguates the legacy operations copy from the canonical
+freeforcharity.org page. The slug naming holds up in breadcrumbs, nav
+labels, search results, and any in-body cross-reference.
+
 | WordPress Slug                                            | freeforcharity.org (kept)                                 | ffcadmin.org re-home                                                                       |
 | --------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `/free-training-programs/`                                | `/free-training-programs/`                                | `/legacy-wordpress-administration/training-programs/`                                       |
-| `/free-for-charitys-tools-for-success/`                   | `/free-for-charitys-tools-for-success/`                   | `/legacy-wordpress-administration/tools-for-success/`                                       |
-| `/guidestar-guide/`                                       | `/guidestar-guide/`                                       | `/legacy-wordpress-administration/guidestar-guide/`                                         |
-| `/charity-validation-guide-.../`                          | `/charity-validation-guide-.../`                          | `/legacy-wordpress-administration/charity-validation/`                                      |
-| `/online-impacts-onboarding-guide/`                       | `/online-impacts-onboarding-guide/`                       | `/legacy-wordpress-administration/online-impacts-onboarding/`                               |
-| `/ffc-volunteer-proving-ground-core-competencies/`        | `/ffc-volunteer-proving-ground-core-competencies/`        | `/legacy-wordpress-administration/volunteer-proving-ground/`                                |
-| `/free-for-charity-ffc-web-developer-training-guide/`     | `/free-for-charity-ffc-web-developer-training-guide/`     | `/legacy-wordpress-administration/web-developer-training/`                                  |
-| `/free-for-charity-ffc-service-delivery-stages/`          | `/free-for-charity-ffc-service-delivery-stages/`          | `/legacy-wordpress-administration/service-delivery-stages/`                                 |
-| `/techstack/`                                             | `/techstack/`                                             | `/legacy-wordpress-administration/hosting-techstack/` + summary into existing `/tech-stack/` |
+| `/techstack/`                                             | `/techstack/`                                             | `/legacy-wordpress-administration/wordpress-hosting-techstack/`                              |
+| `/free-charity-web-hosting/`                              | `/free-charity-web-hosting/`                              | `/legacy-wordpress-administration/wordpress-web-hosting/`                                    |
+| `/domains/`                                               | `/domains/`                                               | `/legacy-wordpress-administration/wordpress-domains/`                                        |
+| `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/legacy-wordpress-administration/wordpress-cpanel-backup-sop/`                              |
+| `/online-impacts-onboarding-guide/`                       | `/online-impacts-onboarding-guide/`                       | `/legacy-wordpress-administration/wordpress-online-impacts-onboarding/`                      |
+| `/charity-validation-guide-.../`                          | `/charity-validation-guide-.../`                          | `/legacy-wordpress-administration/wordpress-charity-validation/`                             |
+| `/guidestar-guide/`                                       | `/guidestar-guide/`                                       | `/legacy-wordpress-administration/wordpress-guidestar-guide/`                                |
+| `/free-for-charity-ffc-service-delivery-stages/`          | `/free-for-charity-ffc-service-delivery-stages/`          | `/legacy-wordpress-administration/wordpress-service-delivery-stages/`                        |
+| `/free-training-programs/`                                | `/free-training-programs/`                                | `/legacy-wordpress-administration/wordpress-training-programs/`                              |
+| `/free-for-charity-ffc-web-developer-training-guide/`     | `/free-for-charity-ffc-web-developer-training-guide/`     | `/legacy-wordpress-administration/wordpress-web-developer-training/`                         |
+| `/free-for-charitys-tools-for-success/`                   | `/free-for-charitys-tools-for-success/`                   | `/legacy-wordpress-administration/wordpress-tools-for-success/`                              |
+| `/ffc-volunteer-proving-ground-core-competencies/`        | `/ffc-volunteer-proving-ground-core-competencies/`        | `/legacy-wordpress-administration/wordpress-volunteer-proving-ground/`                       |
 | `/ffcadmin/`                                              | `/ffcadmin/` (signpost page → links to ffcadmin.org)      | `/` (this site)                                                                            |
-| `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/legacy-wordpress-administration/cpanel-backup-sop/`                                       |
 
 ### Section structure
 
 The Legacy WordPress Administration hub is **one-level-deep**: a hub
-landing plus ten sibling pages. Categorization happens visually on the
-hub landing and in the sidebar, driven by a single data file.
+landing plus twelve sibling pages. Categorization happens visually on
+the hub landing and in the sidebar, driven by a single data file.
 
 **URL tree:**
 
 ```
-/legacy-wordpress-administration/                    Hub landing (cards + audience framing)
-├── hosting-techstack/                                WordPress Operations
-├── cpanel-backup-sop/                                WordPress Operations
-├── online-impacts-onboarding/                        WordPress Operations
-├── charity-validation/                               Charity Onboarding
-├── guidestar-guide/                                  Charity Onboarding
-├── service-delivery-stages/                          Charity Onboarding
-├── training-programs/                                Volunteer Programs
-├── web-developer-training/                           Volunteer Programs
-├── tools-for-success/                                Volunteer Programs
-└── volunteer-proving-ground/                         Volunteer Programs
+/legacy-wordpress-administration/                                 Hub landing
+├── wordpress-hosting-techstack/                                   WordPress Operations
+├── wordpress-web-hosting/                                         WordPress Operations
+├── wordpress-domains/                                             WordPress Operations
+├── wordpress-cpanel-backup-sop/                                   WordPress Operations
+├── wordpress-online-impacts-onboarding/                           WordPress Operations
+├── wordpress-charity-validation/                                  Charity Onboarding
+├── wordpress-guidestar-guide/                                     Charity Onboarding
+├── wordpress-service-delivery-stages/                             Charity Onboarding
+├── wordpress-training-programs/                                   Volunteer Programs
+├── wordpress-web-developer-training/                              Volunteer Programs
+├── wordpress-tools-for-success/                                   Volunteer Programs
+└── wordpress-volunteer-proving-ground/                            Volunteer Programs
 ```
 
 **Categories (visual only, not URL segments):**
 
-| Category               | Pages                                                                                                  |
-| ---------------------- | ------------------------------------------------------------------------------------------------------ |
-| WordPress Operations   | hosting-techstack, cpanel-backup-sop, online-impacts-onboarding                                        |
-| Charity Onboarding     | charity-validation, guidestar-guide, service-delivery-stages                                           |
-| Volunteer Programs     | training-programs, web-developer-training, tools-for-success, volunteer-proving-ground                 |
+| Category               | Pages                                                                                                                                              |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| WordPress Operations   | wordpress-hosting-techstack, wordpress-web-hosting, wordpress-domains, wordpress-cpanel-backup-sop, wordpress-online-impacts-onboarding             |
+| Charity Onboarding     | wordpress-charity-validation, wordpress-guidestar-guide, wordpress-service-delivery-stages                                                          |
+| Volunteer Programs     | wordpress-training-programs, wordpress-web-developer-training, wordpress-tools-for-success, wordpress-volunteer-proving-ground                      |
 
 **File / component layout:**
 
 ```
 src/app/legacy-wordpress-administration/
-  layout.tsx                      Sidebar + breadcrumb wrapper for the whole section
-  page.tsx                        Hub landing (intro, cross-link, category grid)
-  hosting-techstack/page.tsx
-  cpanel-backup-sop/page.tsx
-  online-impacts-onboarding/page.tsx
-  charity-validation/page.tsx
-  guidestar-guide/page.tsx
-  service-delivery-stages/page.tsx
-  training-programs/page.tsx
-  web-developer-training/page.tsx
-  tools-for-success/page.tsx
-  volunteer-proving-ground/page.tsx
+  layout.tsx                              Sidebar + breadcrumb wrapper for the whole section
+  page.tsx                                Hub landing (intro, cross-link, category grid)
+  wordpress-hosting-techstack/page.tsx
+  wordpress-web-hosting/page.tsx
+  wordpress-domains/page.tsx
+  wordpress-cpanel-backup-sop/page.tsx
+  wordpress-online-impacts-onboarding/page.tsx
+  wordpress-charity-validation/page.tsx
+  wordpress-guidestar-guide/page.tsx
+  wordpress-service-delivery-stages/page.tsx
+  wordpress-training-programs/page.tsx
+  wordpress-web-developer-training/page.tsx
+  wordpress-tools-for-success/page.tsx
+  wordpress-volunteer-proving-ground/page.tsx
 
 src/components/legacy-wordpress-administration/
-  Sidebar.tsx                     Category-grouped left-rail nav, shared by every child
-  PageHeader.tsx                  Top audience callout + public-version cross-link
-  CategoryGrid.tsx                Card grid for the hub landing
+  Sidebar.tsx                             Category-grouped left-rail nav, shared by every child
+  PageHeader.tsx                          Top audience callout + public-version cross-link
+  CategoryGrid.tsx                        Card grid for the hub landing
 
 src/data/
   legacy-wordpress-administration.ts
-                                  Single source of truth: pages, categories,
-                                  freeforcharity.org cross-link map, summaries.
-                                  Loaded by Sidebar, CategoryGrid, sitemap.ts,
-                                  and each page's metadata export.
+                                          Single source of truth: pages, categories,
+                                          freeforcharity.org cross-link map, summaries.
+                                          Loaded by Sidebar, CategoryGrid, sitemap.ts,
+                                          and each page's metadata export.
 ```
 
 **Hub landing layout (`/legacy-wordpress-administration/`):**
@@ -188,7 +199,7 @@ src/data/
 3. Cross-link strip: "Looking for the charity-facing versions? →
    freeforcharity.org".
 4. Three category sections, each a card grid:
-   - **WordPress Operations** (3 cards)
+   - **WordPress Operations** (5 cards)
    - **Charity Onboarding** (3 cards)
    - **Volunteer Programs** (4 cards)
 5. "Why 'Legacy'?" — short explainer that the procedures stay
@@ -207,7 +218,7 @@ src/data/
 3. Body content (migrated from WP, rewritten for the volunteer / admin
    voice).
 4. Sidebar (left rail on desktop, collapsed accordion on mobile) —
-   category-grouped list of all 10 leaf pages with current page
+   category-grouped list of all 12 leaf pages with current page
    highlighted.
 5. Bottom CTAs:
    - "Back to Legacy WordPress Administration hub →"
@@ -221,7 +232,7 @@ in-page anchors to the hub landing, plus "View all" linking to the hub.
 
 **Sitemap (`src/app/sitemap.ts`):**
 
-11 new URLs (hub + 10 children) at `priority: 0.6`, `changeFrequency:
+13 new URLs (hub + 12 children) at `priority: 0.6`, `changeFrequency:
 'monthly'`. Driven from `src/data/legacy-wordpress-administration.ts` so
 adding a page automatically adds a sitemap entry.
 
@@ -230,8 +241,9 @@ adding a page automatically adds a sitemap entry.
 Each ffcadmin page sets `metadata.alternates.canonical` to its own
 ffcadmin.org URL. The matching freeforcharity.org page also canonicals
 to itself. Both copies are intentional — different audience, different
-voice — so duplicate-content risk is mitigated by intent + cross-links,
-not by canonical pointing across domains.
+voice, different slug — so duplicate-content risk is mitigated by
+intent + naming + cross-links, not by canonical pointing across
+domains.
 
 ### Drop (with redirects)
 
