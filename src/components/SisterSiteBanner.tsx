@@ -71,7 +71,7 @@ export default function SisterSiteBanner() {
         <button
           type="button"
           onClick={dismiss}
-          className="self-end sm:self-auto inline-flex items-center text-amber-900/80 hover:text-amber-900 text-xs px-2 py-1 rounded hover:bg-amber-100 transition-colors"
+          className="self-end sm:self-auto inline-flex items-center text-amber-900/80 hover:text-amber-900 text-xs px-2 py-1 rounded hover:bg-amber-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-amber-50"
           aria-label="Dismiss this notice"
         >
           Dismiss

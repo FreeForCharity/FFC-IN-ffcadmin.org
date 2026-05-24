@@ -196,9 +196,9 @@ export default function Page() {
       </p>
 
       <p>
-        The charity-facing version of this page is{' '}
+        The charity-facing version of this page is the{' '}
         <a href={page.publicSourceUrl} target="_blank" rel="noopener noreferrer">
-          freeforcharity.org/charity-validation-guide-.../
+          Charity Validation Guide on freeforcharity.org
         </a>{' '}
         and explains the &ldquo;mutual benefit&rdquo; framing in plain language. This page is the
         operations-team runbook — what an FFC volunteer admin actually does, in what order, for each

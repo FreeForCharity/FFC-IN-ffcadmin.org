@@ -53,7 +53,7 @@ const programs: Program[] = [
     name: 'Web Developers',
     level: 'Entry to high-level',
     description:
-      'Build and ship charity sites. The legacy curriculum centred on PHP and Divi; the modern curriculum centres on Next.js, GitHub Pages, and Cloudflare.',
+      'Build and ship charity sites. The legacy curriculum centered on PHP and Divi; the modern curriculum centers on Next.js, GitHub Pages, and Cloudflare.',
     salaryRange: '~$69,781 annually (full-time positions)',
     intakeNotes:
       'Volunteers entering through this track today should be routed to the Web Developer training guide and the WordPress-to-Next.js conversion guide.',
@@ -68,7 +68,7 @@ export default function Page() {
   return (
     <LeafPageShell page={page}>
       <p>
-        FFC&apos;s legacy training catalogue defined three volunteer tracks — Researchers, Business
+        FFC&apos;s legacy training catalog defined three volunteer tracks — Researchers, Business
         Analysts, and Web Developers — built around a &ldquo;win-win-win&rdquo; model: volunteers
         gain portfolio-grade skills, partner charities receive needed work at no cost, and FFC
         builds sector capacity.
@@ -136,7 +136,7 @@ export default function Page() {
       <h3>Eligibility?</h3>
       <p>
         Two requirements: motivation to learn and commitment to ship work that actually helps a
-        charity. Selection prioritises candidates who show up consistently to the weekly stand-ups
+        charity. Selection prioritizes candidates who show up consistently to the weekly stand-ups
         and finish their first project before chasing the next one.
       </p>
 
@@ -144,7 +144,7 @@ export default function Page() {
       <p>
         The modern FFC volunteer pipeline starts at <a href="/get-involved">/get-involved</a>,
         splits into the Global Administrator and Canva Designer paths, and progresses through the{' '}
-        <a href="/contributor-ladder">contributor ladder</a>. The legacy three-track catalogue feeds
+        <a href="/contributor-ladder">contributor ladder</a>. The legacy three-track catalog feeds
         into those paths but is no longer the primary intake.
       </p>
     </LeafPageShell>

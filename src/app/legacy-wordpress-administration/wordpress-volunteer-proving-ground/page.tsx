@@ -163,7 +163,7 @@ export default function Page() {
         <strong>
           {totalHoursLow}-{totalHoursHigh} hours total
         </strong>{' '}
-        and emphasises mastery over speed — time estimates are learning guides, not deadlines.
+        and emphasizes mastery over speed — time estimates are learning guides, not deadlines.
       </p>
 
       <p>

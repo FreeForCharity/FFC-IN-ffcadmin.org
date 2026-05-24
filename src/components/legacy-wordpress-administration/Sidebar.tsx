@@ -19,16 +19,18 @@ import {
  */
 export default function Sidebar() {
   const pathname = usePathname() ?? ''
+  const normalizedPath = pathname.replace(/\/$/, '')
 
-  const isActive = (href: string) =>
-    pathname === href || pathname === `${href}/` || pathname.startsWith(`${href}/`)
+  const isOnHub = normalizedPath === LEGACY_WP_ADMIN_BASE
+  const isLeafActive = (href: string) => normalizedPath === href
 
   return (
     <nav aria-label="Legacy WordPress Administration" className="space-y-6 text-sm">
       <Link
         href={LEGACY_WP_ADMIN_BASE}
+        aria-current={isOnHub ? 'page' : undefined}
         className={
-          isActive(LEGACY_WP_ADMIN_BASE) && pathname.replace(/\/$/, '') === LEGACY_WP_ADMIN_BASE
+          isOnHub
             ? 'block font-bold text-blue-700'
             : 'block font-semibold text-gray-700 hover:text-blue-700 transition-colors'
         }
@@ -46,7 +48,7 @@ export default function Sidebar() {
             <ul className="space-y-1">
               {pages.map((page) => {
                 const href = getLegacyWpAdminHref(page.slug)
-                const active = isActive(href)
+                const active = isLeafActive(href)
                 return (
                   <li key={page.slug}>
                     <Link

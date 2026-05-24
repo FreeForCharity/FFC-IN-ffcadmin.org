@@ -35,10 +35,12 @@ export default function PageHeader({ page }: PageHeaderProps) {
       <header className="bg-gradient-to-r from-slate-700 to-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           {category && (
-            <p className="text-xs uppercase tracking-wider text-slate-300 mb-2">{category.label}</p>
+            <p className="text-xs uppercase tracking-wider text-slate-100 mb-2 font-semibold">
+              {category.label}
+            </p>
           )}
           <h1 className="text-3xl md:text-4xl font-bold mb-3">{page.title}</h1>
-          <p className="text-slate-200 text-lg max-w-3xl">{page.summary}</p>
+          <p className="text-slate-100 text-lg max-w-3xl">{page.summary}</p>
         </div>
       </header>
 

@@ -92,7 +92,7 @@ const platformModules: PlatformModule[] = [
     name: 'Divi WordPress Theme',
     purpose: 'Page builder + theme for charity WordPress sites. Charities author content here.',
     setupNotes:
-      'Activate the Divi parent theme, install the FFC child layout, set theme options to match the charity brand colours. Clear the Static CSS cache before any export.',
+      'Activate the Divi parent theme, install the FFC child layout, set theme options to match the charity brand colors. Clear the Static CSS cache before any export.',
     commonChallenges: [
       'Divi cached CSS interfering with Simply Static exports — clear cache via Divi > Theme Options > Builder > Advanced > Static CSS before exporting.',
       'Visual builder broken on PHP 8.x minors — see Divi changelog for compatible version.',
@@ -119,7 +119,7 @@ const platformModules: PlatformModule[] = [
     id: 'clarity',
     index: 7,
     name: 'Microsoft Clarity',
-    purpose: 'Heatmaps, session recordings, and user-behaviour analytics on the live charity site.',
+    purpose: 'Heatmaps, session recordings, and user-behavior analytics on the live charity site.',
     setupNotes:
       'Install via the Clarity WordPress plugin or paste the snippet into the Divi integration field. Site is bound to one Clarity project per charity.',
     commonChallenges: [
@@ -152,7 +152,7 @@ const platformModules: PlatformModule[] = [
       'Cost spike if not rate-limited — set a daily budget alarm on the Azure subscription.',
     ],
     modernReplacement:
-      'Re-evaluating in favour of Claude / OpenAI APIs as cost-per-query drops. Not a current default.',
+      'Re-evaluating in favor of Claude / OpenAI APIs as cost-per-query drops. Not a current default.',
   },
 ]
 

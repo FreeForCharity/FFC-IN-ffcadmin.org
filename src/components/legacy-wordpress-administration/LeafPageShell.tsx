@@ -27,10 +27,16 @@ export default function LeafPageShell({ page, children }: LeafPageShellProps) {
       <PageHeader page={page} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-[16rem_minmax(0,1fr)] gap-10">
-        <aside className="lg:sticky lg:top-20 lg:self-start">
+        {/* Mobile: article reads first; desktop: sidebar in column 1, article in column 2. */}
+        <article className="prose prose-slate max-w-none lg:col-start-2 lg:row-start-1">
+          {children}
+        </article>
+        <aside
+          aria-label="Section navigation"
+          className="lg:col-start-1 lg:row-start-1 lg:sticky lg:top-20 lg:self-start"
+        >
           <Sidebar />
         </aside>
-        <article className="prose prose-slate max-w-none">{children}</article>
       </div>
 
       <section className="bg-white border-t border-gray-200">
