@@ -3,7 +3,7 @@ import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPage
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
 
 const SLUG = 'wordpress-hosting-techstack'
-const page = getLegacyWpAdminPageBySlug(SLUG)!
+const page = getLegacyWpAdminPageBySlug(SLUG)
 
 export const metadata: Metadata = {
   title: page.title,

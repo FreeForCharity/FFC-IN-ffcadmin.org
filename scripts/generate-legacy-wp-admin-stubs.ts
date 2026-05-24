@@ -31,8 +31,8 @@ function stubFor(page: LegacyWpAdminPage): string {
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
 
-const SLUG = ${JSON.stringify(page.slug)}
-const page = getLegacyWpAdminPageBySlug(SLUG)!
+const SLUG = ${JSON.stringify(page.slug)} as const
+const page = getLegacyWpAdminPageBySlug(SLUG)
 
 export const metadata: Metadata = {
   title: page.title,

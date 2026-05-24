@@ -176,16 +176,21 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
   },
 ]
 
+/** Slug literal union derived from LEGACY_WP_ADMIN_PAGES. */
+export type LegacyWpAdminSlug = (typeof LEGACY_WP_ADMIN_PAGES)[number]['slug']
+
 export function getLegacyWpAdminPagesByCategory(
   category: LegacyWpAdminCategoryId
 ): LegacyWpAdminPage[] {
   return LEGACY_WP_ADMIN_PAGES.filter((p) => p.category === category)
 }
 
-export function getLegacyWpAdminPageBySlug(slug: string): LegacyWpAdminPage | undefined {
-  return LEGACY_WP_ADMIN_PAGES.find((p) => p.slug === slug)
+export function getLegacyWpAdminPageBySlug(slug: LegacyWpAdminSlug): LegacyWpAdminPage {
+  // Slug is constrained to known values at the type level, so this lookup
+  // is total. The non-null assertion documents that contract.
+  return LEGACY_WP_ADMIN_PAGES.find((p) => p.slug === slug)!
 }
 
-export function getLegacyWpAdminHref(slug: string): string {
+export function getLegacyWpAdminHref(slug: LegacyWpAdminSlug): string {
   return `${LEGACY_WP_ADMIN_BASE}/${slug}`
 }

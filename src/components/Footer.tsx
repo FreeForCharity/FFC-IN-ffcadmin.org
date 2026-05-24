@@ -467,7 +467,7 @@ export default function Footer() {
               <a
                 href="https://freeforcharity.org"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="hover:opacity-80 transition-opacity"
                 style={{ color: 'var(--color-ffc-teal)' }}
               >

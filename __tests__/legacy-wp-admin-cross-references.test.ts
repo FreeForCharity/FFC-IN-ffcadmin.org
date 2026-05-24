@@ -11,16 +11,15 @@
 
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
-import { LEGACY_WP_ADMIN_BASE, LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
+import { LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
 
 const APP_DIR = join(process.cwd(), 'src', 'app', 'legacy-wordpress-administration')
 
 const KNOWN_SLUGS = new Set(LEGACY_WP_ADMIN_PAGES.map((p) => p.slug))
 
-const linkPattern = new RegExp(
-  `${LEGACY_WP_ADMIN_BASE.replace(/\//g, '\\/')}\\/([a-z0-9-]+)\\/?`,
-  'g'
-)
+// Hardcoded literal regex (CodeQL js/incomplete-sanitization compliant).
+// The section root is a fixed compile-time path; no dynamic interpolation.
+const linkPattern = /\/legacy-wordpress-administration\/([a-z0-9-]+)\/?/g
 
 function walk(dir: string): string[] {
   const out: string[] = []

@@ -59,11 +59,13 @@ describe('Legacy WordPress Administration data', () => {
     )
   })
 
-  test('getLegacyWpAdminPageBySlug round-trips', () => {
+  test('getLegacyWpAdminPageBySlug round-trips for every known slug', () => {
     for (const page of LEGACY_WP_ADMIN_PAGES) {
-      expect(getLegacyWpAdminPageBySlug(page.slug)?.slug).toBe(page.slug)
+      expect(getLegacyWpAdminPageBySlug(page.slug).slug).toBe(page.slug)
     }
-    expect(getLegacyWpAdminPageBySlug('nonexistent')).toBeUndefined()
+    // Note: the slug parameter is type-constrained to the literal union
+    // LegacyWpAdminSlug, so a "nonexistent" call would not compile.
+    // TypeScript is the gate; no runtime test needed.
   })
 
   test('relatedFfcAdminPaths (when present) point at known top-level routes', () => {

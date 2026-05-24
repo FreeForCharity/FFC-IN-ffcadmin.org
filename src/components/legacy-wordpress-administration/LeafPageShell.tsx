@@ -28,7 +28,8 @@ export default function LeafPageShell({ page, children }: LeafPageShellProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-[16rem_minmax(0,1fr)] gap-10">
         {/* Mobile: article reads first; desktop: sidebar in column 1, article in column 2. */}
-        <article className="prose prose-slate max-w-none lg:col-start-2 lg:row-start-1">
+        {/* Cap prose at 65ch on mobile/tablet for readability; let it fill the column on desktop. */}
+        <article className="prose prose-slate max-w-prose lg:max-w-none lg:col-start-2 lg:row-start-1">
           {children}
         </article>
         <aside
