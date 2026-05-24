@@ -100,7 +100,7 @@ const stages: Stage[] = [
     index: 7,
     name: 'Plugin & Theme Deployment',
     description:
-      'Install the WPMUDEV Dashboard plugin, Defender (security), Hummingbird / Smush (performance), Snapshot (backups). Deploy Divi parent theme and the FFC child layout.',
+      'Install the WPMUDEV Dashboard plugin, Defender (security), Hummingbird / Smush (performance), Snapshot Pro (backups). Deploy Divi parent theme and the FFC child layout.',
     exitGate:
       'WPMUDEV Dashboard reports green across security, performance, backup. Divi child theme is active.',
     blockerHandling:
