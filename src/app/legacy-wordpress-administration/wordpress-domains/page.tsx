@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
-import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
+import {
+  FFC_FOUNDER_CONTACT,
+  getLegacyWpAdminPageBySlug,
+} from '@/data/legacy-wordpress-administration'
 
 const SLUG = 'wordpress-domains'
 const page = getLegacyWpAdminPageBySlug(SLUG)
@@ -179,8 +182,9 @@ export default function Page() {
 
       <h2>Support contact</h2>
       <p>
-        Clarke Moyer (FFC founder): clarkemoyer@freeforcharity.org,{' '}
-        <a href="tel:5202228104">520-222-8104</a>.
+        {FFC_FOUNDER_CONTACT.name} ({FFC_FOUNDER_CONTACT.role}):{' '}
+        <a href={`mailto:${FFC_FOUNDER_CONTACT.email}`}>{FFC_FOUNDER_CONTACT.email}</a>,{' '}
+        <a href={FFC_FOUNDER_CONTACT.phoneHref}>{FFC_FOUNDER_CONTACT.phone}</a>.
       </p>
     </LeafPageShell>
   )

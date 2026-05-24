@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
-import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
+import {
+  FFC_FOUNDER_CONTACT,
+  getLegacyWpAdminPageBySlug,
+} from '@/data/legacy-wordpress-administration'
 
 const SLUG = 'wordpress-hosting-techstack'
 const page = getLegacyWpAdminPageBySlug(SLUG)
@@ -146,8 +149,10 @@ export default function Page() {
       </p>
 
       <p>
-        If a charity issue is unresolved within 48 hours of escalating, text founder Clarke Moyer at{' '}
-        <a href="tel:5202228104">520-222-8104</a> — same cadence as the charity-facing page.
+        If a charity issue is {FFC_FOUNDER_CONTACT.escalationCadence}, text{' '}
+        {FFC_FOUNDER_CONTACT.name} ({FFC_FOUNDER_CONTACT.role}) at{' '}
+        <a href={FFC_FOUNDER_CONTACT.phoneHref}>{FFC_FOUNDER_CONTACT.phone}</a> — same cadence as
+        the charity-facing page.
       </p>
 
       <h2>The six layers</h2>
