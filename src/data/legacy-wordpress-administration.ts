@@ -71,6 +71,14 @@ export interface LegacyWpAdminPage {
   publicSourceUrl: string
   /** Optional cross-link from another section of ffcadmin.org (e.g. /training-plan/). */
   relatedFfcAdminPaths?: string[]
+  /**
+   * Optional inline cross-references to sibling leaves. Renders via the
+   * <RelatedLeaves /> component. Each entry is a slug + a one-line note
+   * explaining the relationship. Slug typing is intentionally `string`
+   * here because the slug union is derived from this same array — a
+   * stricter type would create a circular type-check.
+   */
+  relatedLeaves?: Array<{ slug: string; note: string }>
 }
 
 export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
@@ -110,6 +118,16 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
       'Standard operating procedure for cPanel full and partial backups across FFC WordPress hosts.',
     category: 'wordpress-operations',
     publicSourceUrl: 'https://freeforcharity.org/ffcadmin-free-for-charity-cpanel-backup-sop/',
+    relatedLeaves: [
+      {
+        slug: 'wordpress-hosting-techstack',
+        note: 'the layer the backup operates against',
+      },
+      {
+        slug: 'wordpress-service-delivery-stages',
+        note: 'Stage 8 first-backup verification',
+      },
+    ],
   },
   {
     slug: 'wordpress-online-impacts-onboarding',
