@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { blogPosts } from '@/data/blog'
 import { guides } from '@/data/guides'
+import { LEGACY_WP_ADMIN_BASE, LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
 
 export const dynamic = 'force-static'
 
@@ -67,6 +68,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     { url: `${SITE_URL}/guides/`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    {
+      url: `${SITE_URL}${LEGACY_WP_ADMIN_BASE}/`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     { url: `${SITE_URL}/blog/`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     {
       url: `${SITE_URL}/privacy-policy/`,
@@ -98,5 +105,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...corePages, ...guidePages, ...blogPages]
+  // Legacy WordPress Administration leaf pages
+  const legacyWpAdminPages: MetadataRoute.Sitemap = LEGACY_WP_ADMIN_PAGES.map((page) => ({
+    url: `${SITE_URL}${LEGACY_WP_ADMIN_BASE}/${page.slug}/`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
+  return [...corePages, ...guidePages, ...blogPages, ...legacyWpAdminPages]
 }
