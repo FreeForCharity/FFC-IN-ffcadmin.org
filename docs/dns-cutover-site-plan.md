@@ -21,10 +21,10 @@ clearly demarcated **Legacy WordPress Administration** section on ffcadmin.org t
 re-homes the operations-flavored content for the volunteer / admin
 audience.
 
-| Site                | Repo                                  | Audience                              | Primary CTA                             |
-| ------------------- | ------------------------------------- | ------------------------------------- | --------------------------------------- |
-| freeforcharity.org  | `FreeForCharity/FreeForCharity.org`   | Donors, prospective charity clients   | **Apply for a free site** → backlog     |
-| ffcadmin.org        | `FreeForCharity/FFC-IN-ffcadmin.org`  | Volunteers, admins, partner charities | **Start training / contribute**         |
+| Site               | Repo                                 | Audience                              | Primary CTA                         |
+| ------------------ | ------------------------------------ | ------------------------------------- | ----------------------------------- |
+| freeforcharity.org | `FreeForCharity/FreeForCharity.org`  | Donors, prospective charity clients   | **Apply for a free site** → backlog |
+| ffcadmin.org       | `FreeForCharity/FFC-IN-ffcadmin.org` | Volunteers, admins, partner charities | **Start training / contribute**     |
 
 ffcadmin.org also remains the **public training portal and Legacy
 Administration archive for charities still running their own WordPress**
@@ -68,31 +68,31 @@ Legacy WordPress Administration section** — not removals from freeforcharity.o
 These pages are already built in the marketing repo per the URL mapping doc
 and remain there. The cutover plan does not remove them.
 
-| WordPress Slug                       | Why it stays                                  |
-| ------------------------------------ | --------------------------------------------- |
-| `/`                                  | Homepage — primary CTA = Apply                |
-| `/about-us/`                         | About FFC, leadership, history                |
-| `/contact-us/`                       | Donor / applicant contact                     |
-| `/donate/`                           | Donation flow                                 |
-| `/volunteer/`                        | Recruitment landing (links → ffcadmin.org)    |
-| `/501c3/`                            | Charity-applicant marketing                   |
-| `/pre501c3/`                         | Charity-applicant marketing                   |
-| `/domains/`                          | Charity-applicant marketing                   |
-| `/free-charity-web-hosting/`         | Charity-applicant marketing                   |
-| `/help-for-charities/`               | Charity-applicant marketing                   |
-| `/free-for-charity-endowment-fund/`  | Donor / sustainability story                  |
-| `/consulting/`                       | Acquisition for paid consulting               |
-| `/workforce-development/`            | Acquisition for volunteer / hire pipeline     |
-| `/case-studies/`                     | Donor / applicant social proof                |
-| `/technology-directory/`             | Public-facing partner / applicant resource    |
-| `/service-directory/`                | Public-facing partner / applicant resource    |
-| `/submit-information/`               | **Primary CTA target form** — apply for site  |
-| `/blog/` (donor-facing posts only)   | Press / SEO                                   |
-| `/privacy-policy/`                   | Required legal                                |
-| `/free-for-charity-terms-of-service/`| Required legal                                |
-| `/free-for-charity-donation-policy/` | Required legal                                |
-| `/vulnerability-disclosure-policy/`  | Required legal                                |
-| `/security-acknowledgements/`        | Required legal                                |
+| WordPress Slug                        | Why it stays                                 |
+| ------------------------------------- | -------------------------------------------- |
+| `/`                                   | Homepage — primary CTA = Apply               |
+| `/about-us/`                          | About FFC, leadership, history               |
+| `/contact-us/`                        | Donor / applicant contact                    |
+| `/donate/`                            | Donation flow                                |
+| `/volunteer/`                         | Recruitment landing (links → ffcadmin.org)   |
+| `/501c3/`                             | Charity-applicant marketing                  |
+| `/pre501c3/`                          | Charity-applicant marketing                  |
+| `/domains/`                           | Charity-applicant marketing                  |
+| `/free-charity-web-hosting/`          | Charity-applicant marketing                  |
+| `/help-for-charities/`                | Charity-applicant marketing                  |
+| `/free-for-charity-endowment-fund/`   | Donor / sustainability story                 |
+| `/consulting/`                        | Acquisition for paid consulting              |
+| `/workforce-development/`             | Acquisition for volunteer / hire pipeline    |
+| `/case-studies/`                      | Donor / applicant social proof               |
+| `/technology-directory/`              | Public-facing partner / applicant resource   |
+| `/service-directory/`                 | Public-facing partner / applicant resource   |
+| `/submit-information/`                | **Primary CTA target form** — apply for site |
+| `/blog/` (donor-facing posts only)    | Press / SEO                                  |
+| `/privacy-policy/`                    | Required legal                               |
+| `/free-for-charity-terms-of-service/` | Required legal                               |
+| `/free-for-charity-donation-policy/`  | Required legal                               |
+| `/vulnerability-disclosure-policy/`   | Required legal                               |
+| `/security-acknowledgements/`         | Required legal                               |
 
 ### Re-home on ffcadmin.org (Legacy WordPress Administration section)
 
@@ -109,21 +109,21 @@ URL itself disambiguates the legacy operations copy from the canonical
 freeforcharity.org page. The slug naming holds up in breadcrumbs, nav
 labels, search results, and any in-body cross-reference.
 
-| WordPress Slug                                            | freeforcharity.org (kept)                                 | ffcadmin.org re-home                                                                       |
-| --------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `/techstack/`                                             | `/techstack/`                                             | `/legacy-wordpress-administration/wordpress-hosting-techstack/`                              |
-| `/free-charity-web-hosting/`                              | `/free-charity-web-hosting/`                              | `/legacy-wordpress-administration/wordpress-web-hosting/`                                    |
-| `/domains/`                                               | `/domains/`                                               | `/legacy-wordpress-administration/wordpress-domains/`                                        |
-| `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/ffcadmin-free-for-charity-cpanel-backup-sop/`           | `/legacy-wordpress-administration/wordpress-cpanel-backup-sop/`                              |
-| `/online-impacts-onboarding-guide/`                       | `/online-impacts-onboarding-guide/`                       | `/legacy-wordpress-administration/wordpress-online-impacts-onboarding/`                      |
-| `/charity-validation-guide-.../`                          | `/charity-validation-guide-.../`                          | `/legacy-wordpress-administration/wordpress-charity-validation/`                             |
-| `/guidestar-guide/`                                       | `/guidestar-guide/`                                       | `/legacy-wordpress-administration/wordpress-guidestar-guide/`                                |
-| `/free-for-charity-ffc-service-delivery-stages/`          | `/free-for-charity-ffc-service-delivery-stages/`          | `/legacy-wordpress-administration/wordpress-service-delivery-stages/`                        |
-| `/free-training-programs/`                                | `/free-training-programs/`                                | `/legacy-wordpress-administration/wordpress-training-programs/`                              |
-| `/free-for-charity-ffc-web-developer-training-guide/`     | `/free-for-charity-ffc-web-developer-training-guide/`     | `/legacy-wordpress-administration/wordpress-web-developer-training/`                         |
-| `/free-for-charitys-tools-for-success/`                   | `/free-for-charitys-tools-for-success/`                   | `/legacy-wordpress-administration/wordpress-tools-for-success/`                              |
-| `/ffc-volunteer-proving-ground-core-competencies/`        | `/ffc-volunteer-proving-ground-core-competencies/`        | `/legacy-wordpress-administration/wordpress-volunteer-proving-ground/`                       |
-| `/ffcadmin/`                                              | `/ffcadmin/` (signpost page → links to ffcadmin.org)      | `/` (this site)                                                                            |
+| WordPress Slug                                        | freeforcharity.org (kept)                             | ffcadmin.org re-home                                                    |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------- |
+| `/techstack/`                                         | `/techstack/`                                         | `/legacy-wordpress-administration/wordpress-hosting-techstack/`         |
+| `/free-charity-web-hosting/`                          | `/free-charity-web-hosting/`                          | `/legacy-wordpress-administration/wordpress-web-hosting/`               |
+| `/domains/`                                           | `/domains/`                                           | `/legacy-wordpress-administration/wordpress-domains/`                   |
+| `/ffcadmin-free-for-charity-cpanel-backup-sop/`       | `/ffcadmin-free-for-charity-cpanel-backup-sop/`       | `/legacy-wordpress-administration/wordpress-cpanel-backup-sop/`         |
+| `/online-impacts-onboarding-guide/`                   | `/online-impacts-onboarding-guide/`                   | `/legacy-wordpress-administration/wordpress-online-impacts-onboarding/` |
+| `/charity-validation-guide-.../`                      | `/charity-validation-guide-.../`                      | `/legacy-wordpress-administration/wordpress-charity-validation/`        |
+| `/guidestar-guide/`                                   | `/guidestar-guide/`                                   | `/legacy-wordpress-administration/wordpress-guidestar-guide/`           |
+| `/free-for-charity-ffc-service-delivery-stages/`      | `/free-for-charity-ffc-service-delivery-stages/`      | `/legacy-wordpress-administration/wordpress-service-delivery-stages/`   |
+| `/free-training-programs/`                            | `/free-training-programs/`                            | `/legacy-wordpress-administration/wordpress-training-programs/`         |
+| `/free-for-charity-ffc-web-developer-training-guide/` | `/free-for-charity-ffc-web-developer-training-guide/` | `/legacy-wordpress-administration/wordpress-web-developer-training/`    |
+| `/free-for-charitys-tools-for-success/`               | `/free-for-charitys-tools-for-success/`               | `/legacy-wordpress-administration/wordpress-tools-for-success/`         |
+| `/ffc-volunteer-proving-ground-core-competencies/`    | `/ffc-volunteer-proving-ground-core-competencies/`    | `/legacy-wordpress-administration/wordpress-volunteer-proving-ground/`  |
+| `/ffcadmin/`                                          | `/ffcadmin/` (signpost page → links to ffcadmin.org)  | `/` (this site)                                                         |
 
 ### Section structure
 
@@ -151,11 +151,11 @@ the hub landing and in the sidebar, driven by a single data file.
 
 **Categories (visual only, not URL segments):**
 
-| Category               | Pages                                                                                                                                              |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| WordPress Operations   | wordpress-hosting-techstack, wordpress-web-hosting, wordpress-domains, wordpress-cpanel-backup-sop, wordpress-online-impacts-onboarding             |
-| Charity Onboarding     | wordpress-charity-validation, wordpress-guidestar-guide, wordpress-service-delivery-stages                                                          |
-| Volunteer Programs     | wordpress-training-programs, wordpress-web-developer-training, wordpress-tools-for-success, wordpress-volunteer-proving-ground                      |
+| Category             | Pages                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| WordPress Operations | wordpress-hosting-techstack, wordpress-web-hosting, wordpress-domains, wordpress-cpanel-backup-sop, wordpress-online-impacts-onboarding |
+| Charity Onboarding   | wordpress-charity-validation, wordpress-guidestar-guide, wordpress-service-delivery-stages                                              |
+| Volunteer Programs   | wordpress-training-programs, wordpress-web-developer-training, wordpress-tools-for-success, wordpress-volunteer-proving-ground          |
 
 **File / component layout:**
 
@@ -249,13 +249,13 @@ domains.
 
 Per the URL mapping doc — keep these decisions:
 
-| WordPress Slug              | Redirect target                |
-| --------------------------- | ------------------------------ |
-| `/sample-page/`             | `/`                            |
-| `/codetest/`                | `/`                            |
-| `/donor-dashboard/`         | `/donate/`                     |
-| `/donation-failed/`         | `/donate/`                     |
-| `/donation-confirmation/`   | `/donate/`                     |
+| WordPress Slug            | Redirect target |
+| ------------------------- | --------------- |
+| `/sample-page/`           | `/`             |
+| `/codetest/`              | `/`             |
+| `/donor-dashboard/`       | `/donate/`      |
+| `/donation-failed/`       | `/donate/`      |
+| `/donation-confirmation/` | `/donate/`      |
 
 ### Blog posts (6)
 
