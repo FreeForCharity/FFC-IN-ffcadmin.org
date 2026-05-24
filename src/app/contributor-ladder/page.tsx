@@ -427,6 +427,27 @@ export default function ContributorLadder() {
           </div>
         </div>
       </section>
+
+      {/* Legacy reference */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-sm uppercase tracking-wider text-gray-500 font-semibold mb-2">
+            Legacy reference
+          </p>
+          <p className="text-gray-700">
+            The WordPress-era proving-ground curriculum is preserved at{' '}
+            <a
+              href="/legacy-wordpress-administration/wordpress-volunteer-proving-ground"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              wordpress-volunteer-proving-ground
+            </a>{' '}
+            — seven core competencies (LastPass, AI assistants, MS-900, MS-700, OneDrive, Planner,
+            M365 Apps) covering 33–46 hours of self-study. Use it as supplemental reading when
+            moving through the modern contributor ladder.
+          </p>
+        </div>
+      </section>
     </div>
   )
 }

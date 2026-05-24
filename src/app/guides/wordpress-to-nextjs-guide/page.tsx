@@ -1940,6 +1940,17 @@ export default function WordPressToNextJSGuide() {
               ffcadmin.org/guides/wordpress-to-nextjs-guide
             </a>
           </p>
+          <p className="mt-4 text-sm text-gray-600">
+            For the WordPress side that this guide migrates <em>away</em> from, see the{' '}
+            <a
+              href="/legacy-wordpress-administration"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              Legacy WordPress Administration hub
+            </a>{' '}
+            — operations runbook covering hosting, domains, charity onboarding, and the legacy
+            volunteer training curriculum that this conversion guide replaces.
+          </p>
         </div>
       </main>
     </div>

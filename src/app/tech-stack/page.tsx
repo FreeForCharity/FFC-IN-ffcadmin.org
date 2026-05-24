@@ -1115,6 +1115,17 @@ export default function TechStack() {
                   520‑222‑8104
                 </a>
               </p>
+              <p className="mt-4 text-sm text-gray-600">
+                Still running WordPress? The legacy hosting layered model is preserved at{' '}
+                <a
+                  href="/legacy-wordpress-administration/wordpress-hosting-techstack"
+                  className="text-blue-600 hover:text-blue-800 underline"
+                >
+                  wordpress-hosting-techstack
+                </a>{' '}
+                — vendor-by-vendor escalation paths for InterServer, Hostinger, WPMUDEV, Divi,
+                Cloudflare, and Microsoft 365.
+              </p>
             </div>
           </div>
         </div>
