@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
 
@@ -98,6 +99,15 @@ const partialBackupTriggers = [
 export default function Page() {
   return (
     <LeafPageShell page={page}>
+      <HowToSchema
+        name={page.title}
+        description={page.summary}
+        url={`https://ffcadmin.org/legacy-wordpress-administration/${SLUG}/`}
+        steps={fullBackupSteps.map((s) => ({
+          name: s.name,
+          text: s.details.join(' '),
+        }))}
+      />
       <p>
         Every FFC-managed WordPress site is backed up automatically by WPMUDEV Snapshot Pro on a
         daily cadence. This SOP covers the <em>manual</em> backup path — what an FFC admin runs
