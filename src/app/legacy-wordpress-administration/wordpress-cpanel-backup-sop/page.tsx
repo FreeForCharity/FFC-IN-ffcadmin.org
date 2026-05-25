@@ -104,6 +104,25 @@ export default function Page() {
         before risky operations, on quarterly verification cadence, and during rescue scenarios.
       </p>
 
+      <aside className="not-prose my-6 rounded-lg border-l-4 border-amber-400 bg-amber-50 p-4 text-amber-900">
+        <p className="font-semibold mb-2">Before you start</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          <li>cPanel / DirectAdmin / hPanel login for the charity site (FFC password manager).</li>
+          <li>WPMUDEV Hub access for Snapshot Pro status.</li>
+          <li>
+            Workstation with <code>wp-cli</code> installed for the restore step.
+          </li>
+          <li>Block ~90 minutes of uninterrupted time — full backups can take 30-90 minutes.</li>
+          <li>
+            New to FFC&apos;s hosting layers? Read{' '}
+            <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
+              wordpress-hosting-techstack
+            </a>{' '}
+            first.
+          </li>
+        </ul>
+      </aside>
+
       <p>
         The charity-facing version of this page on{' '}
         <a href={page.publicSourceUrl} target="_blank" rel="noopener noreferrer">

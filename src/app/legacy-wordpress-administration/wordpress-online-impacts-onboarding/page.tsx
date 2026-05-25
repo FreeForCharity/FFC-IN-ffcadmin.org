@@ -175,6 +175,28 @@ export default function Page() {
         starts.
       </p>
 
+      <aside className="not-prose my-6 rounded-lg border-l-4 border-amber-400 bg-amber-50 p-4 text-amber-900">
+        <p className="font-semibold mb-2">Before you start</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          <li>FFC Hub (WHMCS) admin access for issuing the onboarding product.</li>
+          <li>Microsoft 365 nonprofit tenant ready to receive the new charity domain.</li>
+          <li>
+            The charity has already completed the validation gate (see{' '}
+            <a href="/legacy-wordpress-administration/wordpress-charity-validation/">
+              wordpress-charity-validation
+            </a>
+            ).
+          </li>
+          <li>
+            New to FFC&apos;s overall lifecycle? Read{' '}
+            <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
+              wordpress-service-delivery-stages
+            </a>{' '}
+            first — Online Impacts onboarding is Stage 5 of that broader flow.
+          </li>
+        </ul>
+      </aside>
+
       <p>
         The charity-facing version of this guide lives at{' '}
         <a href={page.publicSourceUrl} target="_blank" rel="noopener noreferrer">
