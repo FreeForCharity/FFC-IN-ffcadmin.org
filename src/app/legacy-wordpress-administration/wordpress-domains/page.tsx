@@ -5,6 +5,7 @@ import {
   FFC_FOUNDER_CONTACT,
   getLegacyWpAdminPageBySlug,
 } from '@/data/legacy-wordpress-administration'
+import { VENDOR_URLS } from '@/data/vendor-urls'
 
 const SLUG = 'wordpress-domains'
 const page = getLegacyWpAdminPageBySlug(SLUG)
@@ -32,8 +33,7 @@ const fourStepFlow: Step[] = [
     index: 1,
     id: 'cloudflare-signup',
     title: 'Charity creates Cloudflare account',
-    description:
-      'Direct the charity to https://dash.cloudflare.com/sign-up using their charity-domain Outlook mailbox. They must keep this tab open through the entire flow.',
+    description: `Direct the charity to ${VENDOR_URLS.cloudflareSignup.url} using their charity-domain Outlook mailbox. They must keep this tab open through the entire flow.`,
     adminCheck:
       'Confirm the account uses the charity-domain mailbox (not a personal Gmail). Cloudflare verification emails land in the same mailbox; personal addresses cause silent failures later.',
   },
@@ -131,14 +131,18 @@ export default function Page() {
       <ul>
         <li>
           <strong>501(c)(3) charities</strong> complete the standard onboarding via{' '}
-          <a href="https://freeforcharity.org/501c3/" target="_blank" rel="noopener noreferrer">
+          <a href={VENDOR_URLS.freeforcharity501c3.url} target="_blank" rel="noopener noreferrer">
             freeforcharity.org/501c3
           </a>{' '}
           before being issued a coupon.
         </li>
         <li>
           <strong>Pre-501(c)(3) organizations</strong> use the alternate flow at{' '}
-          <a href="https://freeforcharity.org/pre501c3/" target="_blank" rel="noopener noreferrer">
+          <a
+            href={VENDOR_URLS.freeforcharityPre501c3.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             freeforcharity.org/pre501c3
           </a>{' '}
           which trades a smaller toolkit for a faster path to a domain.
