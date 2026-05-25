@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
 
@@ -124,6 +125,15 @@ const stages: Stage[] = [
 export default function Page() {
   return (
     <LeafPageShell page={page}>
+      <HowToSchema
+        name={page.title}
+        description={page.summary}
+        url={`https://ffcadmin.org/legacy-wordpress-administration/${SLUG}/`}
+        steps={stages.map((s) => ({
+          name: s.name,
+          text: `${s.description} Exit gate: ${s.exitGate}`,
+        }))}
+      />
       <p>
         FFC delivers a charity website through an eight-stage lifecycle. Each stage has a clear exit
         gate, a clear owner role, and a documented way to handle the typical blockers. This page is

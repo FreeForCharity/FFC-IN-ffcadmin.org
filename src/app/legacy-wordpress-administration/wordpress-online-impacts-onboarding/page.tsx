@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import {
   FFC_FOUNDER_CONTACT,
@@ -168,6 +169,15 @@ const resourceSteps = [domainSteps, hostingSteps, wpInstallSteps]
 export default function Page() {
   return (
     <LeafPageShell page={page}>
+      <HowToSchema
+        name={page.title}
+        description={page.summary}
+        url={`https://ffcadmin.org/legacy-wordpress-administration/${SLUG}/`}
+        steps={onboardingSteps.map((s) => ({
+          name: s.title,
+          text: `${s.description} Admin action: ${s.adminAction}`,
+        }))}
+      />
       <p>
         Online Impacts charities transitioning into the FFC support footprint follow a structured
         onboarding sequence. The flow exists because Online Impacts and FFC have slightly different

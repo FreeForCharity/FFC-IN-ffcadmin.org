@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import {
   FFC_FOUNDER_CONTACT,
@@ -84,6 +85,15 @@ const transferGotchas = [
 export default function Page() {
   return (
     <LeafPageShell page={page}>
+      <HowToSchema
+        name={page.title}
+        description={page.summary}
+        url={`https://ffcadmin.org/legacy-wordpress-administration/${SLUG}/`}
+        steps={fourStepFlow.map((s) => ({
+          name: s.title,
+          text: `${s.description} Admin check: ${s.adminCheck}`,
+        }))}
+      />
       <p>
         FFC issues free .org domains to validated partner charities through its eNom Platinum
         reseller account. This page covers <strong>two scenarios in equal depth</strong>:
