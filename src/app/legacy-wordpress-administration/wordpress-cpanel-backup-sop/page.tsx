@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
+import RelatedLeaves from '@/components/legacy-wordpress-administration/RelatedLeaves'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
 
 const SLUG = 'wordpress-cpanel-backup-sop'
@@ -184,25 +185,11 @@ export default function Page() {
         <li>Spot-check: home, donate, two interior pages, admin login.</li>
       </ol>
 
-      <h2>Cross-references</h2>
-      <ul>
-        <li>
-          <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
-            wordpress-hosting-techstack
-          </a>{' '}
-          — the layer the backup operates against.
-        </li>
-        <li>
-          <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
-            wordpress-service-delivery-stages
-          </a>{' '}
-          — Stage 8 first-backup verification.
-        </li>
-        <li>
-          <code>docs/ffc-simply-static-config.md</code> — Simply Static export interactions with the
-          backup window.
-        </li>
-      </ul>
+      <RelatedLeaves page={page} />
+      <p>
+        See also <code>docs/ffc-simply-static-config.md</code> — Simply Static export interactions
+        with the backup window.
+      </p>
     </LeafPageShell>
   )
 }
