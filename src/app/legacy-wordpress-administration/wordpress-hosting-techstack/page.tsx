@@ -64,7 +64,7 @@ const layers: Layer[] = [
     vendor: 'WPMUDEV',
     metaphor: 'Essential utilities (electricity, water, HVAC).',
     responsibility:
-      'Security (Defender Pro), performance (Hummingbird, Smush Pro), backups (Snapshot Pro / Shipper Pro), and the WPMUDEV Dashboard plugin that ties everything together.',
+      'Security (Defender Pro), performance (Hummingbird, Smush Pro), backups (Snapshot Pro), migration tooling (Shipper Pro), and the WPMUDEV Dashboard plugin that ties everything together.',
     escalationOrder: [
       'WPMUDEV in-product help and documentation.',
       'FFC Global Admin for hub-level account access.',

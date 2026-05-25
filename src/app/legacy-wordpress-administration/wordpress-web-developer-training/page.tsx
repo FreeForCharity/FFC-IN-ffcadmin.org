@@ -105,7 +105,7 @@ const platformModules: PlatformModule[] = [
     index: 6,
     name: 'WPMUDEV Plugin Suite',
     purpose:
-      'Performance (Hummingbird, Smush), security (Defender), forms (Forminator), backups (Snapshot), white-labelling (Branda).',
+      'Performance (Hummingbird, Smush Pro), security (Defender Pro), forms (Forminator), backups (Snapshot Pro), migration tooling (Shipper Pro), white-labelling (Branda).',
     setupNotes:
       'Install the WPMUDEV Dashboard plugin first, log in with the FFC WPMUDEV account, then add the per-charity bundle from the Hub.',
     commonChallenges: [
