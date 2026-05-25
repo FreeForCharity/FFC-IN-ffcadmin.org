@@ -85,3 +85,11 @@ Invoke these when the task matches their purpose. If no matching agent exists, p
 - **Commit messages** use Conventional Commits: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`
 - **kebab-case** for all route folder names (SEO requirement).
 - **Use `assetPath()`** for all image and asset references (GitHub Pages compatibility).
+
+---
+
+## Section-Specific Guides
+
+| Section                             | Guide                             |
+| ----------------------------------- | --------------------------------- |
+| `/legacy-wordpress-administration/` | `CONTRIBUTING-LEGACY-WP-ADMIN.md` |

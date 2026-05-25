@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
+import RelatedLeaves from '@/components/legacy-wordpress-administration/RelatedLeaves'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
 
 const SLUG = 'wordpress-cpanel-backup-sop'
@@ -98,11 +100,39 @@ const partialBackupTriggers = [
 export default function Page() {
   return (
     <LeafPageShell page={page}>
+      <HowToSchema
+        name={page.title}
+        description={page.summary}
+        url={`https://ffcadmin.org/legacy-wordpress-administration/${SLUG}/`}
+        steps={fullBackupSteps.map((s) => ({
+          name: s.name,
+          text: s.details.join(' '),
+        }))}
+      />
       <p>
         Every FFC-managed WordPress site is backed up automatically by WPMUDEV Snapshot Pro on a
         daily cadence. This SOP covers the <em>manual</em> backup path — what an FFC admin runs
         before risky operations, on quarterly verification cadence, and during rescue scenarios.
       </p>
+
+      <aside className="not-prose my-6 rounded-lg border-l-4 border-amber-400 bg-amber-50 p-4 text-amber-900">
+        <p className="font-semibold mb-2">Before you start</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          <li>cPanel / DirectAdmin / hPanel login for the charity site (FFC password manager).</li>
+          <li>WPMUDEV Hub access for Snapshot Pro status.</li>
+          <li>
+            Workstation with <code>wp-cli</code> installed for the restore step.
+          </li>
+          <li>Block ~90 minutes of uninterrupted time — full backups can take 30-90 minutes.</li>
+          <li>
+            New to FFC&apos;s hosting layers? Read{' '}
+            <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
+              wordpress-hosting-techstack
+            </a>{' '}
+            first.
+          </li>
+        </ul>
+      </aside>
 
       <p>
         The charity-facing version of this page on{' '}
@@ -155,25 +185,11 @@ export default function Page() {
         <li>Spot-check: home, donate, two interior pages, admin login.</li>
       </ol>
 
-      <h2>Cross-references</h2>
-      <ul>
-        <li>
-          <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
-            wordpress-hosting-techstack
-          </a>{' '}
-          — the layer the backup operates against.
-        </li>
-        <li>
-          <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
-            wordpress-service-delivery-stages
-          </a>{' '}
-          — Stage 8 first-backup verification.
-        </li>
-        <li>
-          <code>docs/ffc-simply-static-config.md</code> — Simply Static export interactions with the
-          backup window.
-        </li>
-      </ul>
+      <RelatedLeaves page={page} />
+      <p>
+        See also <code>docs/ffc-simply-static-config.md</code> — Simply Static export interactions
+        with the backup window.
+      </p>
     </LeafPageShell>
   )
 }

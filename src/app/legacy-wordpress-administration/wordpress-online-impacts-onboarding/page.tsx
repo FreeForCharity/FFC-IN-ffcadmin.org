@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
+import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
-import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
+import {
+  FFC_FOUNDER_CONTACT,
+  getLegacyWpAdminPageBySlug,
+} from '@/data/legacy-wordpress-administration'
 
 const SLUG = 'wordpress-online-impacts-onboarding'
 const page = getLegacyWpAdminPageBySlug(SLUG)
@@ -165,12 +169,43 @@ const resourceSteps = [domainSteps, hostingSteps, wpInstallSteps]
 export default function Page() {
   return (
     <LeafPageShell page={page}>
+      <HowToSchema
+        name={page.title}
+        description={page.summary}
+        url={`https://ffcadmin.org/legacy-wordpress-administration/${SLUG}/`}
+        steps={onboardingSteps.map((s) => ({
+          name: s.title,
+          text: `${s.description} Admin action: ${s.adminAction}`,
+        }))}
+      />
       <p>
         Online Impacts charities transitioning into the FFC support footprint follow a structured
         onboarding sequence. The flow exists because Online Impacts and FFC have slightly different
         intake requirements, and the transition needs to capture the delta before service delivery
         starts.
       </p>
+
+      <aside className="not-prose my-6 rounded-lg border-l-4 border-amber-400 bg-amber-50 p-4 text-amber-900">
+        <p className="font-semibold mb-2">Before you start</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          <li>FFC Hub (WHMCS) admin access for issuing the onboarding product.</li>
+          <li>Microsoft 365 nonprofit tenant ready to receive the new charity domain.</li>
+          <li>
+            The charity has already completed the validation gate (see{' '}
+            <a href="/legacy-wordpress-administration/wordpress-charity-validation/">
+              wordpress-charity-validation
+            </a>
+            ).
+          </li>
+          <li>
+            New to FFC&apos;s overall lifecycle? Read{' '}
+            <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
+              wordpress-service-delivery-stages
+            </a>{' '}
+            first — Online Impacts onboarding is Stage 5 of that broader flow.
+          </li>
+        </ul>
+      </aside>
 
       <p>
         The charity-facing version of this guide lives at{' '}
@@ -241,8 +276,9 @@ export default function Page() {
       <h2>Support contacts</h2>
       <ul>
         <li>
-          Clarke Moyer (FFC founder) — clarkemoyer@freeforcharity.org,{' '}
-          <a href="tel:5202228104">520-222-8104</a>
+          {FFC_FOUNDER_CONTACT.name} ({FFC_FOUNDER_CONTACT.role}) —{' '}
+          <a href={`mailto:${FFC_FOUNDER_CONTACT.email}`}>{FFC_FOUNDER_CONTACT.email}</a>,{' '}
+          <a href={FFC_FOUNDER_CONTACT.phoneHref}>{FFC_FOUNDER_CONTACT.phone}</a>
         </li>
         <li>
           Online Impacts founder — contact via{' '}

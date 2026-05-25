@@ -32,7 +32,7 @@ export default function PageHeader({ page }: PageHeaderProps) {
         ]}
       />
 
-      <header className="bg-gradient-to-r from-slate-700 to-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+      <header className="bg-gradient-to-r from-slate-700 to-slate-900 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           {category && (
             <p className="text-xs uppercase tracking-wider text-slate-100 mb-2 font-semibold">

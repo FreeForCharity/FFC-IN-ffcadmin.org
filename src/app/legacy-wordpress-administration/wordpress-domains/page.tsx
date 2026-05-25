@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
+import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
-import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
+import {
+  FFC_FOUNDER_CONTACT,
+  getLegacyWpAdminPageBySlug,
+} from '@/data/legacy-wordpress-administration'
 import { VENDOR_URLS } from '@/data/vendor-urls'
 
 const SLUG = 'wordpress-domains'
@@ -81,10 +85,21 @@ const transferGotchas = [
 export default function Page() {
   return (
     <LeafPageShell page={page}>
+      <HowToSchema
+        name={page.title}
+        description={page.summary}
+        url={`https://ffcadmin.org/legacy-wordpress-administration/${SLUG}/`}
+        steps={fourStepFlow.map((s) => ({
+          name: s.title,
+          text: `${s.description} Admin check: ${s.adminCheck}`,
+        }))}
+      />
       <p>
         FFC issues free .org domains to validated partner charities through its eNom Platinum
-        reseller account. The flow is four steps for the charity and four matching checks for the
-        FFC admin. This page documents both sides.
+        reseller account. This page covers <strong>two scenarios in equal depth</strong>:
+        <strong> registering a new .org</strong> (the dominant flow) and{' '}
+        <strong>transferring an existing domain</strong> from another registrar (the gotcha-heavy
+        alternative).
       </p>
 
       <p>
@@ -94,6 +109,23 @@ export default function Page() {
         </a>
         .
       </p>
+
+      <h2>Which pathway applies</h2>
+      <p>
+        Use the table below to pick the right entry point. Both scenarios share the same four-step
+        flow once the registrar question is settled.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Charity does not yet have a domain</strong> → start at the four-step registration
+          flow.
+        </li>
+        <li>
+          <strong>Charity has a domain on another registrar</strong> (GoDaddy, Namecheap, etc.) →
+          read the transfer-in gotchas first, then run the four-step flow.
+        </li>
+      </ul>
 
       <h2>Two pathways into the domain flow</h2>
       <ul>
@@ -183,8 +215,9 @@ export default function Page() {
 
       <h2>Support contact</h2>
       <p>
-        Clarke Moyer (FFC founder): clarkemoyer@freeforcharity.org,{' '}
-        <a href="tel:5202228104">520-222-8104</a>.
+        {FFC_FOUNDER_CONTACT.name} ({FFC_FOUNDER_CONTACT.role}):{' '}
+        <a href={`mailto:${FFC_FOUNDER_CONTACT.email}`}>{FFC_FOUNDER_CONTACT.email}</a>,{' '}
+        <a href={FFC_FOUNDER_CONTACT.phoneHref}>{FFC_FOUNDER_CONTACT.phone}</a>.
       </p>
     </LeafPageShell>
   )
