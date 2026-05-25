@@ -39,7 +39,7 @@ describe('Footer Component', () => {
       expect(ffcLink).toBeInTheDocument()
       expect(ffcLink).toHaveAttribute('href', 'https://freeforcharity.org')
       expect(ffcLink).toHaveAttribute('target', '_blank')
-      expect(ffcLink).toHaveAttribute('rel', 'noopener')
+      expect(ffcLink).toHaveAttribute('rel', 'noopener noreferrer')
     })
 
     it('should display privacy policy link', () => {

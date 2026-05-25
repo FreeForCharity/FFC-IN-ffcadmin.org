@@ -5,7 +5,9 @@
       "url": [
         "http://localhost/index.html",
         "http://localhost/tech-stack/index.html",
-        "http://localhost/documentation/index.html"
+        "http://localhost/documentation/index.html",
+        "http://localhost/legacy-wordpress-administration/index.html",
+        "http://localhost/legacy-wordpress-administration/wordpress-web-hosting/index.html"
       ],
       "numberOfRuns": 3
     },

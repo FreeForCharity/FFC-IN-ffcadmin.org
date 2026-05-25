@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import CookieConsent from '@/components/CookieConsent'
 import BackToTop from '@/components/BackToTop'
+import SisterSiteBanner from '@/components/SisterSiteBanner'
 import { assetPath } from '@/lib/assetPath'
 
 const SITE_URL = 'https://ffcadmin.org'
@@ -119,6 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
+        <SisterSiteBanner />
         <Navigation />
         <main className="flex-grow">{children}</main>
         <Footer />

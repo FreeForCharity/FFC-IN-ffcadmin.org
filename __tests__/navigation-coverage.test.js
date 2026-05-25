@@ -24,6 +24,7 @@ describe('Navigation Coverage', () => {
     { path: '/sites-list', name: 'Sites List' },
     { path: '/guides', name: 'Guides' },
     { path: '/blog', name: 'Blog' },
+    { path: '/legacy-wordpress-administration', name: 'Legacy WordPress Administration' },
     { path: '/volunteer', name: 'Volunteer' },
     { path: '/privacy-policy', name: 'Privacy Policy' },
     { path: '/cookie-policy', name: 'Cookie Policy' },

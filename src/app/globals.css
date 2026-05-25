@@ -70,3 +70,70 @@
 html {
   scroll-behavior: smooth;
 }
+
+/*
+ * Print stylesheet.
+ *
+ * Legacy WordPress Administration SOPs are frequently saved as PDF or
+ * printed for offline reference, so the print layer must strip the
+ * interactive chrome and preserve link destinations on paper.
+ *
+ * Rules apply site-wide because the marketing pages may also be saved.
+ */
+@media print {
+  /* Hide site chrome — irrelevant on paper. */
+  nav,
+  footer,
+  [role='region'][aria-label='Sister site routing'],
+  nav[aria-label='Breadcrumb'],
+  aside[aria-label='Section navigation'],
+  aside[aria-label='Section context and cross-links'] {
+    display: none !important;
+  }
+
+  /* Hero gradient saturates ink on laser printers. Flatten. */
+  header[class*='bg-gradient'] {
+    background: white !important;
+    color: black !important;
+    border-bottom: 1px solid #999;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  header[class*='bg-gradient'] * {
+    color: black !important;
+  }
+
+  /* Show URLs after every external link so paper readers can follow them. */
+  a[href^='http']::after,
+  a[href^='tel:']::after,
+  a[href^='mailto:']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+  /* Don't append URLs to images, anchors-as-targets, or print-hidden links. */
+  a[href^='#']::after {
+    content: '';
+  }
+
+  /* Page-break control: keep prose sections together when possible. */
+  section,
+  ul,
+  ol,
+  pre,
+  table {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Universal contrast — laser printers wash out light blues / grays. */
+  body {
+    color: black;
+  }
+}

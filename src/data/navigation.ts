@@ -62,6 +62,11 @@ export const resourcesDropdown: NavDropdown = {
       description: 'Step-by-step technical guides for common tasks.',
     },
     {
+      label: 'Legacy WP Admin',
+      href: '/legacy-wordpress-administration',
+      description: 'WordPress-era operations, SOPs, and procedures for partner charities.',
+    },
+    {
       label: 'Blog',
       href: '/blog',
       description: 'News, volunteer spotlights, and FFC stories.',

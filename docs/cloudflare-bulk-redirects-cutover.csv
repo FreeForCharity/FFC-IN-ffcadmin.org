@@ -1,0 +1,7 @@
+source_url,target_url,status,preserve_query_string,preserve_path_suffix,subpath_matching,include_subdomains,enabled,notes
+https://freeforcharity.org/free-for-charity-terms-of-service/,https://freeforcharity.org/terms-of-service/,301,true,false,false,false,true,Slug shortened during static rebuild
+https://freeforcharity.org/donor-dashboard/,https://freeforcharity.org/donate/,301,true,false,false,false,true,WP-only page dropped; route donors to canonical donate flow
+https://freeforcharity.org/donation-failed/,https://freeforcharity.org/donate/,301,true,false,false,false,true,Legacy payment-flow page dropped; route to canonical donate flow
+https://freeforcharity.org/donation-confirmation/,https://freeforcharity.org/donate/,301,true,false,false,false,true,Legacy payment-flow page dropped; route to canonical donate flow
+https://freeforcharity.org/sample-page/,https://freeforcharity.org/,301,true,false,false,false,true,WordPress default sample page; no SEO value
+https://freeforcharity.org/codetest/,https://freeforcharity.org/,301,true,false,false,false,true,Developer test page; no SEO value
