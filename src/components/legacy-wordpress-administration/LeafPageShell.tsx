@@ -26,7 +26,7 @@ export default function LeafPageShell({ page, children }: LeafPageShellProps) {
     <div className="min-h-screen bg-gray-50">
       <PageHeader page={page} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-[16rem_minmax(0,1fr)] gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 lg:grid-cols-[16rem_minmax(0,1fr)] gap-10">
         {/* Mobile: article reads first; desktop: sidebar in column 1, article in column 2. */}
         {/* Cap prose at 65ch on mobile/tablet for readability; let it fill the column on desktop. */}
         <article className="prose prose-slate max-w-prose lg:max-w-none lg:col-start-2 lg:row-start-1">
@@ -41,7 +41,7 @@ export default function LeafPageShell({ page, children }: LeafPageShellProps) {
       </div>
 
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid gap-4 sm:grid-cols-2 text-sm">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid gap-4 sm:grid-cols-2 text-sm">
           <Link
             href={LEGACY_WP_ADMIN_BASE}
             className="block rounded-lg border border-gray-200 p-4 hover:border-blue-400 hover:shadow-md transition-all"
