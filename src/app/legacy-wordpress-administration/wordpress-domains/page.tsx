@@ -86,8 +86,10 @@ export default function Page() {
     <LeafPageShell page={page}>
       <p>
         FFC issues free .org domains to validated partner charities through its eNom Platinum
-        reseller account. The flow is four steps for the charity and four matching checks for the
-        FFC admin. This page documents both sides.
+        reseller account. This page covers <strong>two scenarios in equal depth</strong>:
+        <strong> registering a new .org</strong> (the dominant flow) and{' '}
+        <strong>transferring an existing domain</strong> from another registrar (the gotcha-heavy
+        alternative).
       </p>
 
       <p>
@@ -97,6 +99,23 @@ export default function Page() {
         </a>
         .
       </p>
+
+      <h2>Which pathway applies</h2>
+      <p>
+        Use the table below to pick the right entry point. Both scenarios share the same four-step
+        flow once the registrar question is settled.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Charity does not yet have a domain</strong> → start at the four-step registration
+          flow.
+        </li>
+        <li>
+          <strong>Charity has a domain on another registrar</strong> (GoDaddy, Namecheap, etc.) →
+          read the transfer-in gotchas first, then run the four-step flow.
+        </li>
+      </ul>
 
       <h2>Two pathways into the domain flow</h2>
       <ul>

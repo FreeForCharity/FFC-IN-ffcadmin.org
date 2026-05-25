@@ -98,7 +98,7 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
     title: 'WordPress Domain Administration',
     shortLabel: 'Domain Admin',
     summary:
-      'DNS handoff, registrar workflows, and Cloudflare configuration for FFC-managed WordPress domains.',
+      "FFC's free-.org registration flow plus the transfer-in gotchas for charities arriving with an existing domain.",
     category: 'wordpress-operations',
     publicSourceUrl: 'https://freeforcharity.org/domains/',
   },
