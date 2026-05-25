@@ -7,7 +7,9 @@ import { LEGACY_WP_ADMIN_CATEGORIES } from '@/data/legacy-wordpress-administrati
 const SITE_URL = 'https://ffcadmin.org'
 
 export const metadata: Metadata = {
-  title: 'Legacy WordPress Administration',
+  // Absolute title keeps the hub consistent with the leaves' "FFC Admin"
+  // suffix instead of inheriting the root layout's longer brand string.
+  title: { absolute: 'Legacy WordPress Administration | FFC Admin' },
   description:
     'Operations and SOP reference for FFC volunteers, admins, and partner charities still running their own WordPress — hosting, domains, charity onboarding, and volunteer programs.',
   alternates: {
