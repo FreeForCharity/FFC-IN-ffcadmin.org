@@ -42,6 +42,11 @@ export const resourcesDropdown: NavDropdown = {
   id: 'resources',
   items: [
     {
+      label: 'Dev Environment Setup',
+      href: '/developer-environment-setup',
+      description: 'Set up Antigravity or VS Code with AI agents and MCP servers.',
+    },
+    {
       label: 'Tech Stack',
       href: '/tech-stack',
       description: 'Technologies and tools used across FFC projects.',

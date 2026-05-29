@@ -15,6 +15,7 @@ describe('Navigation Coverage', () => {
   const applicationPages = [
     { path: '/', name: 'Home' },
     { path: '/get-involved', name: 'Get Involved' },
+    { path: '/developer-environment-setup', name: 'Developer Environment Setup' },
     { path: '/tech-stack', name: 'Tech Stack' },
     { path: '/contributor-ladder', name: 'Contributor Ladder' },
     { path: '/documentation', name: 'Documentation' },
