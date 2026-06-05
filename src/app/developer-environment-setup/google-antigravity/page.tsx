@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import PromptBox from '@/components/PromptBox'
 
 export const metadata: Metadata = {
   title: 'Google Antigravity Setup',
@@ -246,25 +247,33 @@ export default function GoogleAntigravitySetupGuide() {
             <h2 className="text-2xl font-bold text-gray-900">5. Install Git, Node, and pnpm</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            FFC sites are Next.js projects, so you need Git, Node.js 20+ and pnpm. The easiest path
-            is to let the agent check and guide you.
+            FFC sites are Next.js projects, so you need Git, Node.js 20+ and pnpm.{' '}
+            <strong>The recommended way to install them is to let the agent do it for you.</strong>{' '}
+            Open the Agent Manager and paste the prompt below — the agent will detect your operating
+            system, run the installs, and verify the versions.
           </p>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto mb-4">
-            <p className="text-emerald-400"># Open the Editor terminal and verify versions</p>
+          <PromptBox accent="emerald">
+            &ldquo;Set up my machine for Free For Charity Next.js development. Check whether Git,
+            Node.js 20 LTS or newer, and pnpm are installed. For anything missing, install it using
+            the right method for my operating system, then run <code>git --version</code>,{' '}
+            <code>node --version</code>, and <code>pnpm --version</code> and show me the output to
+            confirm everything works.&rdquo;
+          </PromptBox>
+          <p className="text-gray-700 mt-4 mb-2 text-sm">
+            Prefer to check by hand first? Open the Editor terminal and run:
+          </p>
+          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
+            <p className="text-emerald-400">
+              # Verify versions (the agent can install anything missing)
+            </p>
             <p>git --version</p>
             <p>node --version &nbsp;&nbsp;# should be v20 or newer</p>
             <p>pnpm --version</p>
           </div>
-          <p className="text-gray-700 mb-2 text-sm">
-            If any command is &ldquo;not found,&rdquo; ask the Agent Manager:
-          </p>
-          <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 text-sm text-emerald-900 italic">
-            &ldquo;Git / Node / pnpm is not installed on my [Windows/macOS/Linux] machine. Give me
-            the exact commands to install Node.js 20 LTS and pnpm, then verify the versions.&rdquo;
-          </div>
           <p className="text-gray-600 text-xs mt-3">
-            If you already have Node, install pnpm with{' '}
-            <code className="bg-gray-200 px-1 rounded">npm install -g pnpm</code>.
+            If you already have Node but not pnpm, the quickest manual install is{' '}
+            <code className="bg-gray-200 px-1 rounded">npm install -g pnpm</code> — or just let the
+            agent handle it with the prompt above.
           </p>
         </section>
 
@@ -313,6 +322,12 @@ export default function GoogleAntigravitySetupGuide() {
               </div>
             </div>
           </div>
+          <PromptBox accent="emerald">
+            &ldquo;Help me connect this editor to GitHub. Set my global Git <code>user.name</code>{' '}
+            and <code>user.email</code>, confirm I am signed in to GitHub, and verify I have access
+            to the FreeForCharity organization. Walk me through any browser authorization that is
+            needed.&rdquo;
+          </PromptBox>
           <div className="mt-4 bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
             <p className="text-amber-900 text-sm">
               Prefer the editor&apos;s built-in GitHub sign-in over a raw Personal Access Token
@@ -374,13 +389,20 @@ export default function GoogleAntigravitySetupGuide() {
             </div>
           </div>
 
-          <div className="mt-5 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
-            <p className="text-blue-900 text-sm">
-              <strong>Let the agent do it:</strong> you can paste the JSON above into the Agent
-              Manager and say &ldquo;Add these MCP servers to my Antigravity configuration and
-              reload.&rdquo; First Playwright run will download a browser — that is expected.
-            </p>
-          </div>
+          <p className="text-gray-700 mt-5 mb-1 text-sm">
+            <strong>Recommended:</strong> let the agent add the servers for you. Paste this into the
+            Agent Manager:
+          </p>
+          <PromptBox accent="emerald">
+            &ldquo;Add the Playwright and GitHub MCP servers to my Antigravity configuration. Use{' '}
+            <code>npx @playwright/mcp@latest</code> for Playwright and{' '}
+            <code>npx -y @modelcontextprotocol/server-github</code> for GitHub under the{' '}
+            <code>mcpServers</code> key. Then reload so the new tools are available, and confirm
+            they are connected.&rdquo;
+          </PromptBox>
+          <p className="text-gray-600 text-xs mt-2">
+            The first Playwright run downloads a browser — that is expected.
+          </p>
           <div className="mt-3 bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
             <p className="text-amber-900 text-sm">
               The GitHub MCP server authenticates with a token. Provide it through the editor&apos;s
@@ -411,6 +433,20 @@ export default function GoogleAntigravitySetupGuide() {
             </a>{' '}
             is the starting point for new charity sites and ships the full toolchain.
           </p>
+          <p className="text-gray-700 mb-1 text-sm">
+            <strong>Recommended:</strong> have the agent clone and verify the repo. Paste this into
+            the Agent Manager:
+          </p>
+          <PromptBox accent="emerald">
+            &ldquo;Clone the repository{' '}
+            <code>https://github.com/FreeForCharity/FFC_Single_Page_Template.git</code>, open it,
+            install dependencies with <code>pnpm install</code>, then run{' '}
+            <code>pnpm run build</code> and <code>pnpm run test:e2e</code>. Do not cancel
+            long-running commands. Tell me if anything fails and how to fix it.&rdquo;
+          </PromptBox>
+          <p className="text-gray-700 mt-4 mb-2 text-sm">
+            Prefer to do it by hand? The equivalent commands are:
+          </p>
           <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
             <p className="text-emerald-400"># Clone, install, and verify the toolchain</p>
             <p>git clone https://github.com/FreeForCharity/FFC_Single_Page_Template.git</p>
@@ -421,10 +457,8 @@ export default function GoogleAntigravitySetupGuide() {
           </div>
           <div className="mt-4 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
             <p className="text-blue-900 text-sm">
-              In the Editor choose <strong>Open Folder</strong> and select the cloned directory, or
-              ask the agent: &ldquo;Clone FFC_Single_Page_Template, install dependencies, and run
-              the build and tests.&rdquo; Do not cancel the build or E2E tests — they can take a
-              minute.
+              In the Editor you can also choose <strong>Open Folder</strong> to open the cloned
+              directory. Do not cancel the build or E2E tests — they can take a minute.
             </p>
           </div>
         </section>
@@ -448,6 +482,11 @@ export default function GoogleAntigravitySetupGuide() {
                 Ask the agent to list open issues on the repo, or to open a new one describing your
                 change.
               </p>
+              <PromptBox accent="emerald">
+                &ldquo;Using the GitHub MCP server, list the open issues on this repository. If
+                there is no issue for the small change I want to make, open a new issue titled
+                &lsquo;&lt;short title&gt;&rsquo; describing it.&rdquo;
+              </PromptBox>
             </div>
             <div className="border-l-4 border-emerald-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 2 — Branch and edit</h3>
@@ -456,6 +495,11 @@ export default function GoogleAntigravitySetupGuide() {
                 <code className="bg-gray-200 px-1 rounded">main</code>) and make the change. Review
                 the diff in the Editor.
               </p>
+              <PromptBox accent="emerald">
+                &ldquo;Create a new branch for issue #&lt;number&gt; (do not commit to{' '}
+                <code>main</code>), then make the change it describes. When you are done, show me
+                the full diff so I can review it before we go further.&rdquo;
+              </PromptBox>
             </div>
             <div className="border-l-4 border-emerald-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 3 — Run the checks</h3>
@@ -466,6 +510,12 @@ export default function GoogleAntigravitySetupGuide() {
                 <code className="bg-gray-200 px-1 rounded">pnpm run build</code>, and{' '}
                 <code className="bg-gray-200 px-1 rounded">pnpm run test:e2e</code>.
               </p>
+              <PromptBox accent="emerald">
+                &ldquo;Run the full pre-commit checklist in order: <code>pnpm run format</code>,{' '}
+                <code>pnpm run lint</code>, <code>pnpm test</code>, <code>pnpm run build</code>, and{' '}
+                <code>pnpm run test:e2e</code>. Do not cancel anything. Fix any failures and re-run
+                until everything passes.&rdquo;
+              </PromptBox>
             </div>
             <div className="border-l-4 border-emerald-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 4 — Open a PR and merge</h3>
@@ -483,6 +533,11 @@ export default function GoogleAntigravitySetupGuide() {
                 <code className="bg-gray-200 px-1 rounded">Fixes #NNN</code>. Once CI passes and a
                 maintainer approves, the PR merges into the repository.
               </p>
+              <PromptBox accent="emerald">
+                &ldquo;Commit the changes with a Conventional Commit message, push the branch, and
+                open a pull request that links the issue with &lsquo;Fixes #&lt;number&gt;&rsquo;.
+                Then watch the CI checks and fix anything that fails until they are green.&rdquo;
+              </PromptBox>
             </div>
           </div>
           <div className="mt-4 bg-green-50 border-l-4 border-green-600 p-4 rounded">

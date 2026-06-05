@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import PromptBox from '@/components/PromptBox'
 
 export const metadata: Metadata = {
   title: 'VS Code Setup',
@@ -161,25 +162,35 @@ export default function VSCodeSetupGuide() {
             <h2 className="text-2xl font-bold text-gray-900">3. Install Git, Node, and pnpm</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            FFC sites are Next.js projects. Open the integrated terminal (
-            <code className="bg-gray-200 px-1 rounded">Ctrl/Cmd + `</code>) and verify:
+            FFC sites are Next.js projects, so you need Git, Node.js 20+ and pnpm.{' '}
+            <strong>The recommended way to install them is to let Copilot do it for you.</strong>{' '}
+            Open Copilot Chat in <em>Agent</em> mode and paste the prompt below — it will detect
+            your operating system, run the installs in the integrated terminal, and verify the
+            versions.
           </p>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto mb-4">
-            <p className="text-blue-300"># Verify the toolchain</p>
+          <PromptBox accent="blue">
+            &ldquo;Set up my machine for Free For Charity Next.js development. Check whether Git,
+            Node.js 20 LTS or newer, and pnpm are installed. For anything missing, install it using
+            the right method for my operating system, then run <code>git --version</code>,{' '}
+            <code>node --version</code>, and <code>pnpm --version</code> and show me the output to
+            confirm everything works.&rdquo;
+          </PromptBox>
+          <p className="text-gray-700 mt-4 mb-2 text-sm">
+            Prefer to check by hand first? Open the integrated terminal (
+            <code className="bg-gray-200 px-1 rounded">Ctrl/Cmd + `</code>) and run:
+          </p>
+          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
+            <p className="text-blue-300">
+              # Verify versions (the agent can install anything missing)
+            </p>
             <p>git --version</p>
             <p>node --version &nbsp;&nbsp;# should be v20 or newer</p>
             <p>pnpm --version</p>
           </div>
-          <p className="text-gray-700 text-sm mb-2">
-            Missing something? Ask Copilot Chat (agent mode):
-          </p>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-900 italic">
-            &ldquo;Check whether Git, Node 20+, and pnpm are installed on my [Windows/macOS/Linux]
-            machine and give me exact install commands for anything missing.&rdquo;
-          </div>
           <p className="text-gray-600 text-xs mt-3">
-            If you already have Node, install pnpm with{' '}
-            <code className="bg-gray-200 px-1 rounded">npm install -g pnpm</code>.
+            If you already have Node but not pnpm, the quickest manual install is{' '}
+            <code className="bg-gray-200 px-1 rounded">npm install -g pnpm</code> — or just let
+            Copilot handle it with the prompt above.
           </p>
         </section>
 
@@ -254,6 +265,11 @@ export default function VSCodeSetupGuide() {
               </div>
             </div>
           </div>
+          <PromptBox accent="blue">
+            &ldquo;Help me connect VS Code to GitHub. Set my global Git <code>user.name</code> and{' '}
+            <code>user.email</code>, confirm I am signed in to GitHub, install the GitHub Pull
+            Requests extension, and verify I have access to the FreeForCharity organization.&rdquo;
+          </PromptBox>
         </section>
 
         {/* 6. Extensions */}
@@ -380,7 +396,18 @@ export default function VSCodeSetupGuide() {
             </div>
           </div>
 
-          <div className="mt-5 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+          <p className="text-gray-700 mt-5 mb-1 text-sm">
+            <strong>Recommended:</strong> let Copilot create the config for you. Paste this into
+            Copilot Chat (Agent mode):
+          </p>
+          <PromptBox accent="blue">
+            &ldquo;Create a <code>.vscode/mcp.json</code> in this workspace that registers two MCP
+            servers under the <code>servers</code> key: a <code>playwright</code> server that runs{' '}
+            <code>npx @playwright/mcp@latest</code>, and a <code>github</code> server of type{' '}
+            <code>http</code> at <code>https://api.githubcopilot.com/mcp</code>. Then start the
+            servers and confirm the Playwright and GitHub tools appear in Configure Tools.&rdquo;
+          </PromptBox>
+          <div className="mt-4 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
             <p className="text-blue-900 text-sm">
               <strong>Verify:</strong> switch Copilot Chat to <em>Agent</em> mode, click{' '}
               <strong>Configure Tools</strong>, and confirm the Playwright and GitHub tools are
@@ -409,6 +436,20 @@ export default function VSCodeSetupGuide() {
             </a>
             , the starting point for new charity sites.
           </p>
+          <p className="text-gray-700 mb-1 text-sm">
+            <strong>Recommended:</strong> have Copilot clone and verify the repo. Paste this into
+            Copilot Chat (Agent mode):
+          </p>
+          <PromptBox accent="blue">
+            &ldquo;Clone the repository{' '}
+            <code>https://github.com/FreeForCharity/FFC_Single_Page_Template.git</code>, open it in
+            this window, install dependencies with <code>pnpm install</code>, then run{' '}
+            <code>pnpm run build</code> and <code>pnpm run test:e2e</code>. Do not cancel
+            long-running commands. Tell me if anything fails and how to fix it.&rdquo;
+          </PromptBox>
+          <p className="text-gray-700 mt-4 mb-2 text-sm">
+            Prefer to do it by hand? The equivalent commands are:
+          </p>
           <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
             <p className="text-blue-300"># Clone, install, and verify</p>
             <p>git clone https://github.com/FreeForCharity/FFC_Single_Page_Template.git</p>
@@ -420,8 +461,7 @@ export default function VSCodeSetupGuide() {
           </div>
           <div className="mt-4 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
             <p className="text-blue-900 text-sm">
-              Or ask Copilot agent mode to do all of it. Do not cancel the build or E2E run — they
-              can take a minute.
+              Do not cancel the build or E2E run — they can take a minute.
             </p>
           </div>
         </section>
@@ -444,6 +484,11 @@ export default function VSCodeSetupGuide() {
               <p className="text-sm text-gray-700">
                 Ask the agent to list open issues, or open a new one describing your change.
               </p>
+              <PromptBox accent="blue">
+                &ldquo;Using the GitHub MCP server, list the open issues on this repository. If
+                there is no issue for the small change I want to make, open a new issue titled
+                &lsquo;&lt;short title&gt;&rsquo; describing it.&rdquo;
+              </PromptBox>
             </div>
             <div className="border-l-4 border-blue-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 2 — Branch and edit</h3>
@@ -452,6 +497,11 @@ export default function VSCodeSetupGuide() {
                 <code className="bg-gray-200 px-1 rounded">main</code>) and make the change. Review
                 the diff in Source Control.
               </p>
+              <PromptBox accent="blue">
+                &ldquo;Create a new branch for issue #&lt;number&gt; (do not commit to{' '}
+                <code>main</code>), then make the change it describes. When you are done, show me
+                the full diff so I can review it before we go further.&rdquo;
+              </PromptBox>
             </div>
             <div className="border-l-4 border-blue-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 3 — Run the checks</h3>
@@ -462,6 +512,12 @@ export default function VSCodeSetupGuide() {
                 <code className="bg-gray-200 px-1 rounded">pnpm run build</code>, and{' '}
                 <code className="bg-gray-200 px-1 rounded">pnpm run test:e2e</code>.
               </p>
+              <PromptBox accent="blue">
+                &ldquo;Run the full pre-commit checklist in order: <code>pnpm run format</code>,{' '}
+                <code>pnpm run lint</code>, <code>pnpm test</code>, <code>pnpm run build</code>, and{' '}
+                <code>pnpm run test:e2e</code>. Do not cancel anything. Fix any failures and re-run
+                until everything passes.&rdquo;
+              </PromptBox>
             </div>
             <div className="border-l-4 border-blue-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 4 — Open a PR and merge</h3>
@@ -479,6 +535,11 @@ export default function VSCodeSetupGuide() {
                 <code className="bg-gray-200 px-1 rounded">Fixes #NNN</code>. After CI passes and a
                 maintainer approves, it merges.
               </p>
+              <PromptBox accent="blue">
+                &ldquo;Commit the changes with a Conventional Commit message, push the branch, and
+                open a pull request that links the issue with &lsquo;Fixes #&lt;number&gt;&rsquo;.
+                Then watch the CI checks and fix anything that fails until they are green.&rdquo;
+              </PromptBox>
             </div>
           </div>
           <div className="mt-4 bg-green-50 border-l-4 border-green-600 p-4 rounded">
