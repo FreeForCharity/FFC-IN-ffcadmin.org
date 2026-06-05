@@ -68,7 +68,7 @@ const loopSteps: Step[] = [
     number: '2',
     title: 'Branch & build',
     description:
-      'The agent creates a branch, edits files, and runs the local checks (format, lint, test, build) for you.',
+      'The agent creates a branch, edits files, and runs the local checks (format, lint, build, test) for you.',
   },
   {
     number: '3',
@@ -267,8 +267,12 @@ export default function DeveloperEnvironmentSetupPage() {
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2 font-bold">3.</span>
                   <span>
-                    <strong>pnpm</strong> &mdash; package manager (
-                    <code className="bg-gray-200 px-1 rounded">npm install -g pnpm</code>)
+                    <strong>pnpm</strong> &mdash; package manager. Our repos pin pnpm 9 via{' '}
+                    <code className="bg-gray-200 px-1 rounded">package.json</code>, so install the
+                    matching major with{' '}
+                    <code className="bg-gray-200 px-1 rounded">npm install -g pnpm@9</code> (or run{' '}
+                    <code className="bg-gray-200 px-1 rounded">corepack enable</code> to use the
+                    pinned version automatically)
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -429,7 +433,7 @@ export default function DeveloperEnvironmentSetupPage() {
           <div className="mt-6 bg-green-50 border-l-4 border-green-600 p-4 rounded">
             <p className="text-green-900 text-sm">
               <strong>Never push directly to main.</strong> Every change goes through a branch and a
-              pull request, and CI checks (format, lint, tests, build, Playwright) must pass before
+              pull request, and CI checks (format, lint, build, tests, Playwright) must pass before
               merge. Your AI agent follows this rule automatically when it is set up correctly.
             </p>
           </div>

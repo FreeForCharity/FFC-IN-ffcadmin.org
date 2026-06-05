@@ -188,9 +188,11 @@ export default function VSCodeSetupGuide() {
             <p>pnpm --version</p>
           </div>
           <p className="text-gray-600 text-xs mt-3">
-            If you already have Node but not pnpm, the quickest manual install is{' '}
-            <code className="bg-gray-200 px-1 rounded">npm install -g pnpm</code> — or just let
-            Copilot handle it with the prompt above.
+            If you already have Node but not pnpm, install the major version our repos pin in{' '}
+            <code className="bg-gray-200 px-1 rounded">package.json</code> with{' '}
+            <code className="bg-gray-200 px-1 rounded">npm install -g pnpm@9</code> (or run{' '}
+            <code className="bg-gray-200 px-1 rounded">corepack enable</code>) — or just let Copilot
+            handle it with the prompt above.
           </p>
         </section>
 
@@ -508,13 +510,15 @@ export default function VSCodeSetupGuide() {
               <p className="text-sm text-gray-700">
                 <code className="bg-gray-200 px-1 rounded">pnpm run format</code>,{' '}
                 <code className="bg-gray-200 px-1 rounded">pnpm run lint</code>,{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm test</code>,{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm run build</code>, and{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm run test:e2e</code>.
+                <code className="bg-gray-200 px-1 rounded">pnpm run build</code>,{' '}
+                <code className="bg-gray-200 px-1 rounded">pnpm test</code>, and{' '}
+                <code className="bg-gray-200 px-1 rounded">pnpm run test:e2e</code> — in that order,
+                which matches CI (build before tests, since some tests check the build output).
               </p>
               <PromptBox accent="blue">
-                &ldquo;Run the full pre-commit checklist in order: <code>pnpm run format</code>,{' '}
-                <code>pnpm run lint</code>, <code>pnpm test</code>, <code>pnpm run build</code>, and{' '}
+                &ldquo;Run the full pre-commit checklist in this order, which matches CI:{' '}
+                <code>pnpm run format</code>, <code>pnpm run lint</code>,{' '}
+                <code>pnpm run build</code>, <code>pnpm test</code>, and{' '}
                 <code>pnpm run test:e2e</code>. Do not cancel anything. Fix any failures and re-run
                 until everything passes.&rdquo;
               </PromptBox>
