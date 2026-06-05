@@ -30,7 +30,10 @@ const ACCENTS = {
 } as const
 
 interface PromptBoxProps {
-  /** Accent color, usually matching the guide (emerald = Antigravity, blue = VS Code). */
+  /**
+   * Accent color, usually matching the guide:
+   * emerald = Antigravity, blue = VS Code, amber = Claude Desktop, slate = Codex.
+   */
   accent?: keyof typeof ACCENTS
   /** Optional override for the label above the prompt. */
   label?: string

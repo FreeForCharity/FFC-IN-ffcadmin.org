@@ -15,9 +15,15 @@ interface Agent {
   vendor: string
   easiest: string
   easiestHref?: string
-  advanced: string
-  advancedHref: string
+  advanced: { label: string; href: string }[]
+  advancedNote?: string
   ifYouPay: string
+}
+
+const VSCODE = { label: 'VS Code', href: '/developer-environment-setup/vscode' }
+const ANTIGRAVITY = {
+  label: 'Antigravity',
+  href: '/developer-environment-setup/google-antigravity',
 }
 
 const agents: Agent[] = [
@@ -26,8 +32,8 @@ const agents: Agent[] = [
     vendor: 'Anthropic',
     easiest: 'Claude Desktop + Claude Mobile',
     easiestHref: '/developer-environment-setup/claude-desktop',
-    advanced: 'VS Code or Antigravity (Claude CLI / plug-in)',
-    advancedHref: '/developer-environment-setup/vscode',
+    advanced: [VSCODE, ANTIGRAVITY],
+    advancedNote: 'run Claude as a CLI or plug-in',
     ifYouPay: 'Have Claude Pro or Max? Use Claude.',
   },
   {
@@ -35,8 +41,8 @@ const agents: Agent[] = [
     vendor: 'OpenAI',
     easiest: 'Codex app (desktop)',
     easiestHref: '/developer-environment-setup/codex',
-    advanced: 'VS Code or Antigravity (Codex CLI / extension)',
-    advancedHref: '/developer-environment-setup/vscode',
+    advanced: [VSCODE, ANTIGRAVITY],
+    advancedNote: 'run Codex as a CLI or extension',
     ifYouPay: 'Have ChatGPT Plus or Pro? Use Codex.',
   },
   {
@@ -44,8 +50,7 @@ const agents: Agent[] = [
     vendor: 'Google',
     easiest: 'Google Antigravity (agent-first IDE)',
     easiestHref: '/developer-environment-setup/google-antigravity',
-    advanced: 'Google Antigravity',
-    advancedHref: '/developer-environment-setup/google-antigravity',
+    advanced: [ANTIGRAVITY],
     ifYouPay: 'Have a Google AI / Gemini plan? Use Gemini.',
   },
   {
@@ -53,8 +58,7 @@ const agents: Agent[] = [
     vendor: 'GitHub / Microsoft',
     easiest: 'VS Code (agent mode)',
     easiestHref: '/developer-environment-setup/vscode',
-    advanced: 'VS Code',
-    advancedHref: '/developer-environment-setup/vscode',
+    advanced: [VSCODE],
     ifYouPay: 'Have GitHub Copilot? Use Copilot in VS Code.',
   },
 ]
@@ -273,12 +277,18 @@ export default function DeveloperEnvironmentSetupPage() {
                       )}
                     </td>
                     <td className="p-3 border border-gray-200">
-                      <Link
-                        href={a.advancedHref}
-                        className="text-blue-700 underline hover:text-blue-900"
-                      >
-                        {a.advanced}
-                      </Link>
+                      {a.advanced.map((env, j) => (
+                        <span key={env.href}>
+                          {j > 0 && ' or '}
+                          <Link
+                            href={env.href}
+                            className="text-blue-700 underline hover:text-blue-900"
+                          >
+                            {env.label}
+                          </Link>
+                        </span>
+                      ))}
+                      {a.advancedNote && <span className="text-gray-500"> ({a.advancedNote})</span>}
                     </td>
                     <td className="p-3 border border-gray-200 text-gray-700">{a.ifYouPay}</td>
                   </tr>
@@ -453,7 +463,8 @@ export default function DeveloperEnvironmentSetupPage() {
                   <span className="text-blue-600 mr-2 font-bold">2.</span>
                   <span>
                     An <strong>AI account</strong> — Claude, ChatGPT/Codex, Google/Gemini, or GitHub
-                    Copilot (a paid tier is recommended for real work).
+                    Copilot. Every one has a free tier that is enough to start; upgrade to a paid
+                    tier only if and when you hit usage limits.
                   </span>
                 </li>
               </ul>
