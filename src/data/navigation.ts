@@ -42,6 +42,11 @@ export const resourcesDropdown: NavDropdown = {
   id: 'resources',
   items: [
     {
+      label: 'Edit My Charity Website',
+      href: '/site-owner',
+      description: 'Site owners: edit your FFC-built site in plain English — no coding.',
+    },
+    {
       label: 'Dev Environment Setup',
       href: '/developer-environment-setup',
       description: 'Start with your AI of choice — Claude, Codex, Gemini, or Copilot.',
