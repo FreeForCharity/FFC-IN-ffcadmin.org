@@ -17,6 +17,16 @@ const ACCENTS = {
     label: 'text-blue-700',
     text: 'text-blue-900',
   },
+  amber: {
+    container: 'border-amber-300 bg-amber-50',
+    label: 'text-amber-700',
+    text: 'text-amber-900',
+  },
+  slate: {
+    container: 'border-slate-300 bg-slate-100',
+    label: 'text-slate-600',
+    text: 'text-slate-900',
+  },
 } as const
 
 interface PromptBoxProps {

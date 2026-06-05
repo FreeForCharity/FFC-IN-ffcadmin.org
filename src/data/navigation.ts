@@ -44,7 +44,7 @@ export const resourcesDropdown: NavDropdown = {
     {
       label: 'Dev Environment Setup',
       href: '/developer-environment-setup',
-      description: 'Set up Antigravity or VS Code with AI agents and MCP servers.',
+      description: 'Start with your AI of choice — Claude, Codex, Gemini, or Copilot.',
     },
     {
       label: 'Tech Stack',

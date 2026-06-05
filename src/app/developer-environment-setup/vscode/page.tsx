@@ -78,6 +78,38 @@ export default function VSCodeSetupGuide() {
       </div>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Advanced positioning */}
+        <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-5 mb-8">
+          <p className="text-sm text-indigo-900">
+            <strong>This is an advanced environment.</strong> If you are new to development, start
+            with{' '}
+            <Link
+              href="/developer-environment-setup/claude-desktop"
+              className="text-indigo-800 underline font-medium"
+            >
+              Claude Desktop
+            </Link>{' '}
+            — most charity website work never needs more. Come here when you want local builds,
+            browser debugging, or larger refactors. VS Code&apos;s agent mode is Copilot-native, but
+            you can also run{' '}
+            <Link
+              href="/developer-environment-setup/claude-desktop"
+              className="text-indigo-800 underline"
+            >
+              Claude
+            </Link>{' '}
+            or{' '}
+            <Link href="/developer-environment-setup/codex" className="text-indigo-800 underline">
+              Codex
+            </Link>{' '}
+            as the agent. See the{' '}
+            <Link href="/developer-environment-setup" className="text-indigo-800 underline">
+              setup hub
+            </Link>{' '}
+            to compare options.
+          </p>
+        </div>
+
         {/* TOC */}
         <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">On this page</h2>
