@@ -77,6 +77,38 @@ export default function GoogleAntigravitySetupGuide() {
       </div>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Advanced positioning */}
+        <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-5 mb-8">
+          <p className="text-sm text-indigo-900">
+            <strong>This is an advanced environment.</strong> If you are new to development, start
+            with{' '}
+            <Link
+              href="/developer-environment-setup/claude-desktop"
+              className="text-indigo-800 underline font-medium"
+            >
+              Claude Desktop
+            </Link>{' '}
+            — most charity website work never needs more. Come here when you want local builds,
+            browser debugging, or larger refactors. Antigravity ships Gemini agents, but you can
+            also run{' '}
+            <Link
+              href="/developer-environment-setup/claude-desktop"
+              className="text-indigo-800 underline"
+            >
+              Claude
+            </Link>{' '}
+            or{' '}
+            <Link href="/developer-environment-setup/codex" className="text-indigo-800 underline">
+              Codex
+            </Link>{' '}
+            as the agent. See the{' '}
+            <Link href="/developer-environment-setup" className="text-indigo-800 underline">
+              setup hub
+            </Link>{' '}
+            to compare options.
+          </p>
+        </div>
+
         {/* TOC */}
         <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">On this page</h2>
@@ -247,36 +279,16 @@ export default function GoogleAntigravitySetupGuide() {
             <h2 className="text-2xl font-bold text-gray-900">5. Install Git, Node, and pnpm</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            FFC sites are Next.js projects, so you need Git, Node.js 20+ and pnpm.{' '}
-            <strong>The recommended way to install them is to let the agent do it for you.</strong>{' '}
-            Open the Agent Manager and paste the prompt below — the agent will detect your operating
-            system, run the installs, and verify the versions.
+            FFC sites are Next.js projects, so you need Git, Node.js 20+ and pnpm 9 (our repos pin
+            pnpm 9). <strong>Do not look up install commands — let the agent do it for you.</strong>{' '}
+            Open the Agent Manager and ask:
           </p>
           <PromptBox accent="emerald">
             &ldquo;Set up my machine for Free For Charity Next.js development. Check whether Git,
-            Node.js 20 LTS or newer, and pnpm are installed. For anything missing, install it using
-            the right method for my operating system, then run <code>git --version</code>,{' '}
-            <code>node --version</code>, and <code>pnpm --version</code> and show me the output to
-            confirm everything works.&rdquo;
+            Node.js 20 LTS or newer, and pnpm 9 are installed, install anything missing using the
+            right method for my operating system, and confirm the versions when you are done. Our
+            repositories pin pnpm 9, so match that.&rdquo;
           </PromptBox>
-          <p className="text-gray-700 mt-4 mb-2 text-sm">
-            Prefer to check by hand first? Open the Editor terminal and run:
-          </p>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
-            <p className="text-emerald-400">
-              # Verify versions (the agent can install anything missing)
-            </p>
-            <p>git --version</p>
-            <p>node --version &nbsp;&nbsp;# should be v20 or newer</p>
-            <p>pnpm --version</p>
-          </div>
-          <p className="text-gray-600 text-xs mt-3">
-            If you already have Node but not pnpm, install the major version our repos pin in{' '}
-            <code className="bg-gray-200 px-1 rounded">package.json</code> with{' '}
-            <code className="bg-gray-200 px-1 rounded">npm install -g pnpm@9</code> (or run{' '}
-            <code className="bg-gray-200 px-1 rounded">corepack enable</code>) — or just let the
-            agent handle it with the prompt above.
-          </p>
         </section>
 
         {/* 6. GitHub */}
@@ -312,23 +324,18 @@ export default function GoogleAntigravitySetupGuide() {
               <h3 className="font-bold text-gray-900 mb-2">
                 6.2 — Sign in to GitHub in the editor
               </h3>
-              <p className="text-sm text-gray-700 mb-2">
+              <p className="text-sm text-gray-700">
                 Use the built-in GitHub sign-in (Accounts / Source Control panel) and authorize in
                 the browser. This stores credentials securely so Git can push without pasting
-                passwords. You can confirm in the terminal:
+                passwords. The agent can set up your Git identity and confirm everything for you —
+                just ask.
               </p>
-              <div className="bg-gray-900 text-gray-100 p-3 rounded-lg text-sm font-mono">
-                git config --global user.name &quot;Your Name&quot;
-                <br />
-                git config --global user.email &quot;you@example.com&quot;
-              </div>
             </div>
           </div>
           <PromptBox accent="emerald">
-            &ldquo;Help me connect this editor to GitHub. Set my global Git <code>user.name</code>{' '}
-            and <code>user.email</code>, confirm I am signed in to GitHub, and verify I have access
-            to the FreeForCharity organization. Walk me through any browser authorization that is
-            needed.&rdquo;
+            &ldquo;Help me connect this editor to GitHub. Set my Git name and email, confirm I am
+            signed in, and verify I have access to the FreeForCharity organization. Walk me through
+            any browser authorization that is needed.&rdquo;
           </PromptBox>
           <div className="mt-4 bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
             <p className="text-amber-900 text-sm">
@@ -348,69 +355,26 @@ export default function GoogleAntigravitySetupGuide() {
           </div>
           <p className="text-gray-700 mb-4">
             MCP (Model Context Protocol) servers give the agent extra abilities. For FFC work you
-            need at least <strong>Playwright</strong> (browser testing) and <strong>GitHub</strong>{' '}
-            (issues and PRs). Antigravity offers two ways to add them.
-          </p>
-
-          <div className="space-y-6">
-            <div className="border-l-4 border-emerald-600 pl-4">
-              <h3 className="font-bold text-gray-900 mb-2">Option A — MCP Store (easiest)</h3>
-              <p className="text-sm text-gray-700">
-                Open the <strong>MCP Store</strong> from the Agent Manager / settings, search for
-                the server you want (for example <em>Playwright</em> or <em>GitHub</em>), and click{' '}
-                <strong>Install</strong>. Antigravity walks you through any sign-in the server
-                needs.
-              </p>
-            </div>
-
-            <div className="border-l-4 border-emerald-600 pl-4">
-              <h3 className="font-bold text-gray-900 mb-2">Option B — Edit the MCP config</h3>
-              <p className="text-sm text-gray-700 mb-2">
-                Open Antigravity&apos;s MCP configuration (Settings &rarr; search &ldquo;MCP&rdquo;
-                &rarr; <em>Edit configuration</em>). Antigravity uses the{' '}
-                <code className="bg-gray-200 px-1 rounded">mcpServers</code> key (the same style as
-                other VS Code-derived agent editors):
-              </p>
-              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs font-mono overflow-x-auto">
-                <pre>{`{
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
-    },
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"]
-    }
-  }
-}`}</pre>
-              </div>
-              <p className="text-sm text-gray-700 mt-2">
-                After saving, reload the agent. The new tools appear in the agent&apos;s tool list.
-              </p>
-            </div>
-          </div>
-
-          <p className="text-gray-700 mt-5 mb-1 text-sm">
-            <strong>Recommended:</strong> let the agent add the servers for you. Paste this into the
-            Agent Manager:
+            need at least <strong>GitHub</strong> (issues and PRs) and <strong>Playwright</strong>{' '}
+            (browser testing). Antigravity ships an <strong>MCP Store</strong> where these are
+            available as one-click installs — you do not assemble any configuration by hand. The
+            easiest path is to let the agent enable them:
           </p>
           <PromptBox accent="emerald">
-            &ldquo;Add the Playwright and GitHub MCP servers to my Antigravity configuration. Use{' '}
-            <code>npx @playwright/mcp@latest</code> for Playwright and{' '}
-            <code>npx -y @modelcontextprotocol/server-github</code> for GitHub under the{' '}
-            <code>mcpServers</code> key. Then reload so the new tools are available, and confirm
-            they are connected.&rdquo;
+            &ldquo;Enable the GitHub and Playwright MCP servers for me — install them from the MCP
+            Store or wherever they live in this version, walk me through any sign-in, then reload
+            and confirm the new tools are available. I&apos;ll use them to work on
+            FreeForCharity&apos;s repositories.&rdquo;
           </PromptBox>
           <p className="text-gray-600 text-xs mt-2">
             The first Playwright run downloads a browser — that is expected.
           </p>
           <div className="mt-3 bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
             <p className="text-amber-900 text-sm">
-              The GitHub MCP server authenticates with a token. Provide it through the editor&apos;s
-              secure prompt or an environment variable —{' '}
-              <strong>never hard-code a token in the JSON file</strong>, which lives in your repo or
-              home folder.
+              <strong>Let the agent handle the particulars.</strong> Store entries and config
+              formats change between versions, so we keep this prompt-driven. The GitHub server
+              needs a token — provide it through the editor&apos;s secure prompt or an environment
+              variable, and never paste a token into a file, an issue, or chat.
             </p>
           </div>
         </section>
@@ -436,31 +400,21 @@ export default function GoogleAntigravitySetupGuide() {
             is the starting point for new charity sites and ships the full toolchain.
           </p>
           <p className="text-gray-700 mb-1 text-sm">
-            <strong>Recommended:</strong> have the agent clone and verify the repo. Paste this into
-            the Agent Manager:
+            Let the agent clone it, install dependencies, and run the checks — it knows the commands
+            for the current toolchain, so you do not have to:
           </p>
           <PromptBox accent="emerald">
-            &ldquo;Clone the repository{' '}
-            <code>https://github.com/FreeForCharity/FFC_Single_Page_Template.git</code>, open it,
-            install dependencies with <code>pnpm install</code>, then run{' '}
-            <code>pnpm run build</code> and <code>pnpm run test:e2e</code>. Do not cancel
-            long-running commands. Tell me if anything fails and how to fix it.&rdquo;
+            &ldquo;Clone <strong>FreeForCharity/FFC_Single_Page_Template</strong>, open it, install
+            dependencies, then run our full set of checks in the order our <code>AGENTS.md</code>{' '}
+            describes (formatting, linting, build, tests, and end-to-end tests). For an example of a
+            finished Free For Charity site, also pull up{' '}
+            <strong>FreeForCharity/FFC-IN-ffcadmin.org</strong>. Do not cancel long-running
+            commands; tell me if anything fails and how to fix it.&rdquo;
           </PromptBox>
-          <p className="text-gray-700 mt-4 mb-2 text-sm">
-            Prefer to do it by hand? The equivalent commands are:
-          </p>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
-            <p className="text-emerald-400"># Clone, install, and verify the toolchain</p>
-            <p>git clone https://github.com/FreeForCharity/FFC_Single_Page_Template.git</p>
-            <p>cd FFC_Single_Page_Template</p>
-            <p>pnpm install</p>
-            <p>pnpm run build</p>
-            <p>pnpm run test:e2e &nbsp;&nbsp;# exercises the Playwright setup</p>
-          </div>
           <div className="mt-4 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
             <p className="text-blue-900 text-sm">
               In the Editor you can also choose <strong>Open Folder</strong> to open the cloned
-              directory. Do not cancel the build or E2E tests — they can take a minute.
+              directory. The build and end-to-end tests can take a minute — let them finish.
             </p>
           </div>
         </section>
@@ -499,26 +453,27 @@ export default function GoogleAntigravitySetupGuide() {
               </p>
               <PromptBox accent="emerald">
                 &ldquo;Create a new branch for issue #&lt;number&gt; (do not commit to{' '}
-                <code>main</code>), then make the change it describes. When you are done, show me
-                the full diff so I can review it before we go further.&rdquo;
+                <code>main</code>) and make the change it describes. Follow the repo&apos;s{' '}
+                <code>AGENTS.md</code> conventions, and use{' '}
+                <strong>FreeForCharity/FFC-IN-ffcadmin.org</strong> as an example of how a finished
+                site is built. When you are done, show me the full diff so I can review it before we
+                go further.&rdquo;
               </PromptBox>
             </div>
             <div className="border-l-4 border-emerald-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 3 — Run the checks</h3>
               <p className="text-sm text-gray-700">
-                Have the agent run <code className="bg-gray-200 px-1 rounded">pnpm run format</code>
-                , <code className="bg-gray-200 px-1 rounded">pnpm run lint</code>,{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm run build</code>,{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm test</code>, and{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm run test:e2e</code> — in that order,
-                which matches CI (build before tests, since some tests check the build output).
+                Have the agent run our full set of checks — formatting, linting, build, unit tests,
+                and end-to-end tests — in the order our{' '}
+                <code className="bg-gray-200 px-1 rounded">AGENTS.md</code> specifies (build before
+                tests, to match CI). You do not need to remember the exact commands; the agent reads
+                them from the repo.
               </p>
               <PromptBox accent="emerald">
-                &ldquo;Run the full pre-commit checklist in this order, which matches CI:{' '}
-                <code>pnpm run format</code>, <code>pnpm run lint</code>,{' '}
-                <code>pnpm run build</code>, <code>pnpm test</code>, and{' '}
-                <code>pnpm run test:e2e</code>. Do not cancel anything. Fix any failures and re-run
-                until everything passes.&rdquo;
+                &ldquo;Run our full pre-commit checklist in the order documented in this repo&apos;s{' '}
+                <code>AGENTS.md</code> (formatting, linting, build, unit tests, then end-to-end
+                tests). Do not cancel anything. Fix any failures and re-run until everything
+                passes.&rdquo;
               </PromptBox>
             </div>
             <div className="border-l-4 border-emerald-600 pl-4">
@@ -634,17 +589,14 @@ export default function GoogleAntigravitySetupGuide() {
                 <tr className="bg-gray-50">
                   <td className="p-3 border border-gray-200">MCP tools not showing</td>
                   <td className="p-3 border border-gray-200">
-                    Reload the agent after editing the config; confirm{' '}
-                    <code className="bg-gray-200 px-1 rounded">mcpServers</code> (not{' '}
-                    <code className="bg-gray-200 px-1 rounded">servers</code>) is the root key.
+                    Reload the agent after enabling a server; if it still does not appear, ask the
+                    agent to re-enable it and confirm it started.
                   </td>
                 </tr>
                 <tr>
                   <td className="p-3 border border-gray-200">Playwright cannot launch a browser</td>
                   <td className="p-3 border border-gray-200">
-                    Run{' '}
-                    <code className="bg-gray-200 px-1 rounded">pnpm exec playwright install</code>{' '}
-                    once to download browsers.
+                    Ask the agent to install the Playwright browsers once.
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
