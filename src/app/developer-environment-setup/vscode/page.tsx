@@ -6,9 +6,9 @@ import PromptBox from '@/components/PromptBox'
 export const metadata: Metadata = {
   title: 'VS Code Setup',
   description:
-    'Set up Microsoft VS Code for Free For Charity website development. Install it, sign in with GitHub Copilot, connect GitHub, and configure the Playwright and GitHub MCP servers via .vscode/mcp.json so the AI agent can open issues, make PRs, and merge changes.',
+    'Set up Microsoft VS Code for Free For Charity website development. Install it, sign in with GitHub Copilot agent mode, connect GitHub, and enable the GitHub and Playwright MCP servers so the AI agent can open issues, make PRs, and merge changes.',
   keywords:
-    'VS Code, GitHub Copilot, agent mode, MCP servers, mcp.json, Playwright MCP, GitHub MCP, AI coding agent, Free For Charity, developer environment',
+    'VS Code, GitHub Copilot, agent mode, MCP servers, Playwright MCP, GitHub MCP, AI coding agent, Free For Charity, developer environment',
 }
 
 interface GuideSection {
@@ -194,38 +194,16 @@ export default function VSCodeSetupGuide() {
             <h2 className="text-2xl font-bold text-gray-900">3. Install Git, Node, and pnpm</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            FFC sites are Next.js projects, so you need Git, Node.js 20+ and pnpm.{' '}
-            <strong>The recommended way to install them is to let Copilot do it for you.</strong>{' '}
-            Open Copilot Chat in <em>Agent</em> mode and paste the prompt below — it will detect
-            your operating system, run the installs in the integrated terminal, and verify the
-            versions.
+            FFC sites are Next.js projects, so you need Git, Node.js 20+ and pnpm 9 (our repos pin
+            pnpm 9). <strong>Do not look up install commands — let Copilot do it for you.</strong>{' '}
+            Open Copilot Chat in <em>Agent</em> mode and ask:
           </p>
           <PromptBox accent="blue">
             &ldquo;Set up my machine for Free For Charity Next.js development. Check whether Git,
-            Node.js 20 LTS or newer, and pnpm are installed. For anything missing, install it using
-            the right method for my operating system, then run <code>git --version</code>,{' '}
-            <code>node --version</code>, and <code>pnpm --version</code> and show me the output to
-            confirm everything works.&rdquo;
+            Node.js 20 LTS or newer, and pnpm 9 are installed, install anything missing using the
+            right method for my operating system, and confirm the versions when you are done. Our
+            repositories pin pnpm 9, so match that.&rdquo;
           </PromptBox>
-          <p className="text-gray-700 mt-4 mb-2 text-sm">
-            Prefer to check by hand first? Open the integrated terminal (
-            <code className="bg-gray-200 px-1 rounded">Ctrl/Cmd + `</code>) and run:
-          </p>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
-            <p className="text-blue-300">
-              # Verify versions (the agent can install anything missing)
-            </p>
-            <p>git --version</p>
-            <p>node --version &nbsp;&nbsp;# should be v20 or newer</p>
-            <p>pnpm --version</p>
-          </div>
-          <p className="text-gray-600 text-xs mt-3">
-            If you already have Node but not pnpm, install the major version our repos pin in{' '}
-            <code className="bg-gray-200 px-1 rounded">package.json</code> with{' '}
-            <code className="bg-gray-200 px-1 rounded">npm install -g pnpm@9</code> (or run{' '}
-            <code className="bg-gray-200 px-1 rounded">corepack enable</code>) — or just let Copilot
-            handle it with the prompt above.
-          </p>
         </section>
 
         {/* 4. Copilot */}
@@ -287,22 +265,18 @@ export default function VSCodeSetupGuide() {
             </div>
             <div className="border-l-4 border-blue-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-2">5.2 — Sign in to GitHub in VS Code</h3>
-              <p className="text-sm text-gray-700 mb-2">
+              <p className="text-sm text-gray-700">
                 Use the <strong>Accounts</strong> menu (bottom-left) to sign in to GitHub, and
                 install the <strong>GitHub Pull Requests</strong> extension so you can manage issues
-                and PRs from the sidebar. Set your Git identity once:
+                and PRs from the sidebar. Copilot can set up your Git identity and confirm the
+                connection for you.
               </p>
-              <div className="bg-gray-900 text-gray-100 p-3 rounded-lg text-sm font-mono">
-                git config --global user.name &quot;Your Name&quot;
-                <br />
-                git config --global user.email &quot;you@example.com&quot;
-              </div>
             </div>
           </div>
           <PromptBox accent="blue">
-            &ldquo;Help me connect VS Code to GitHub. Set my global Git <code>user.name</code> and{' '}
-            <code>user.email</code>, confirm I am signed in to GitHub, install the GitHub Pull
-            Requests extension, and verify I have access to the FreeForCharity organization.&rdquo;
+            &ldquo;Help me connect VS Code to GitHub. Set my Git name and email, confirm I am signed
+            in, install the GitHub Pull Requests extension, and verify I have access to the
+            FreeForCharity organization.&rdquo;
           </PromptBox>
         </section>
 
@@ -373,79 +347,24 @@ export default function VSCodeSetupGuide() {
             <h2 className="text-2xl font-bold text-gray-900">7. Configure MCP Servers</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            VS Code reads MCP server configuration from{' '}
-            <code className="bg-gray-200 px-1 rounded">.vscode/mcp.json</code> in your workspace
-            (shareable in the repo) or from your user profile. For FFC work, enable{' '}
-            <strong>Playwright</strong> and <strong>GitHub</strong>.
-          </p>
-
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-5">
-            <p className="text-red-800 text-sm">
-              <strong>Critical:</strong> VS Code uses the root key{' '}
-              <code className="bg-red-100 px-1 rounded">servers</code> &mdash; not{' '}
-              <code className="bg-red-100 px-1 rounded">mcpServers</code>. Copy-pasting a Cursor or
-              Antigravity config without changing this key is the number-one setup mistake.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            <div className="border-l-4 border-blue-600 pl-4">
-              <h3 className="font-bold text-gray-900 mb-2">Option A — Command palette</h3>
-              <p className="text-sm text-gray-700">
-                Open the Command Palette (
-                <code className="bg-gray-200 px-1 rounded">Ctrl/Cmd+Shift+P</code>) and run{' '}
-                <strong>MCP: Add Server</strong>. Choose <em>Workspace</em> to create{' '}
-                <code className="bg-gray-200 px-1 rounded">.vscode/mcp.json</code>, then follow the
-                guided flow. Or install Playwright directly: in the Extensions view search{' '}
-                <code className="bg-gray-200 px-1 rounded">@mcp playwright</code> and click Install.
-              </p>
-            </div>
-
-            <div className="border-l-4 border-blue-600 pl-4">
-              <h3 className="font-bold text-gray-900 mb-2">
-                Option B — Edit <code>.vscode/mcp.json</code>
-              </h3>
-              <p className="text-sm text-gray-700 mb-2">
-                Run <strong>MCP: Open Workspace Folder Configuration</strong> and paste:
-              </p>
-              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs font-mono overflow-x-auto">
-                <pre>{`{
-  "servers": {
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
-    },
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp"
-    }
-  }
-}`}</pre>
-              </div>
-              <p className="text-sm text-gray-700 mt-2">
-                The GitHub server is the hosted Copilot MCP endpoint; VS Code handles its
-                authentication through your Copilot/GitHub sign-in. Save the file, then enable the
-                servers when VS Code prompts.
-              </p>
-            </div>
-          </div>
-
-          <p className="text-gray-700 mt-5 mb-1 text-sm">
-            <strong>Recommended:</strong> let Copilot create the config for you. Paste this into
-            Copilot Chat (Agent mode):
+            VS Code reads MCP server configuration for a workspace, and the servers you need —{' '}
+            <strong>GitHub</strong> (issues and PRs) and <strong>Playwright</strong> (browser
+            testing) — are available without hand-writing any config. Rather than copy a snippet
+            that could be stale, let Copilot set them up in agent mode:
           </p>
           <PromptBox accent="blue">
-            &ldquo;Create a <code>.vscode/mcp.json</code> in this workspace that registers two MCP
-            servers under the <code>servers</code> key: a <code>playwright</code> server that runs{' '}
-            <code>npx @playwright/mcp@latest</code>, and a <code>github</code> server of type{' '}
-            <code>http</code> at <code>https://api.githubcopilot.com/mcp</code>. Then start the
-            servers and confirm the Playwright and GitHub tools appear in Configure Tools.&rdquo;
+            &ldquo;Configure the MCP servers I need for this workspace so you can work on Free For
+            Charity repositories: a GitHub server (issues and pull requests) and a Playwright server
+            (for our end-to-end tests). Add them however the current version of VS Code expects,
+            start them, and confirm both appear in <strong>Configure Tools</strong>. I&apos;ll
+            approve any sign-in.&rdquo;
           </PromptBox>
           <div className="mt-4 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
             <p className="text-blue-900 text-sm">
-              <strong>Verify:</strong> switch Copilot Chat to <em>Agent</em> mode, click{' '}
-              <strong>Configure Tools</strong>, and confirm the Playwright and GitHub tools are
-              listed and enabled. First Playwright run downloads a browser — that is expected.
+              <strong>Verify:</strong> make sure Copilot Chat is in <em>Agent</em> mode (Ask/Edit
+              cannot use MCP tools), open <strong>Configure Tools</strong>, and check the GitHub and
+              Playwright tools are listed and enabled. The first Playwright run downloads a browser
+              — that is expected.
             </p>
           </div>
         </section>
@@ -471,31 +390,20 @@ export default function VSCodeSetupGuide() {
             , the starting point for new charity sites.
           </p>
           <p className="text-gray-700 mb-1 text-sm">
-            <strong>Recommended:</strong> have Copilot clone and verify the repo. Paste this into
-            Copilot Chat (Agent mode):
+            Let Copilot clone it, install dependencies, and run the checks — it knows the commands
+            for the current toolchain:
           </p>
           <PromptBox accent="blue">
-            &ldquo;Clone the repository{' '}
-            <code>https://github.com/FreeForCharity/FFC_Single_Page_Template.git</code>, open it in
-            this window, install dependencies with <code>pnpm install</code>, then run{' '}
-            <code>pnpm run build</code> and <code>pnpm run test:e2e</code>. Do not cancel
-            long-running commands. Tell me if anything fails and how to fix it.&rdquo;
+            &ldquo;Clone <strong>FreeForCharity/FFC_Single_Page_Template</strong>, open it in this
+            window, install dependencies, then run our full set of checks in the order this
+            repo&apos;s <code>AGENTS.md</code> describes (formatting, linting, build, tests, and
+            end-to-end tests). For an example of a finished Free For Charity site, also pull up{' '}
+            <strong>FreeForCharity/FFC-IN-ffcadmin.org</strong>. Do not cancel long-running
+            commands; tell me if anything fails.&rdquo;
           </PromptBox>
-          <p className="text-gray-700 mt-4 mb-2 text-sm">
-            Prefer to do it by hand? The equivalent commands are:
-          </p>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
-            <p className="text-blue-300"># Clone, install, and verify</p>
-            <p>git clone https://github.com/FreeForCharity/FFC_Single_Page_Template.git</p>
-            <p>cd FFC_Single_Page_Template</p>
-            <p>code .</p>
-            <p>pnpm install</p>
-            <p>pnpm run build</p>
-            <p>pnpm run test:e2e &nbsp;&nbsp;# exercises Playwright</p>
-          </div>
           <div className="mt-4 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
             <p className="text-blue-900 text-sm">
-              Do not cancel the build or E2E run — they can take a minute.
+              The build and end-to-end run can take a minute — let them finish.
             </p>
           </div>
         </section>
@@ -533,26 +441,27 @@ export default function VSCodeSetupGuide() {
               </p>
               <PromptBox accent="blue">
                 &ldquo;Create a new branch for issue #&lt;number&gt; (do not commit to{' '}
-                <code>main</code>), then make the change it describes. When you are done, show me
-                the full diff so I can review it before we go further.&rdquo;
+                <code>main</code>) and make the change it describes. Follow the repo&apos;s{' '}
+                <code>AGENTS.md</code> conventions, and use{' '}
+                <strong>FreeForCharity/FFC-IN-ffcadmin.org</strong> as an example of how a finished
+                site is built. When you are done, show me the full diff so I can review it before we
+                go further.&rdquo;
               </PromptBox>
             </div>
             <div className="border-l-4 border-blue-600 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 3 — Run the checks</h3>
               <p className="text-sm text-gray-700">
-                <code className="bg-gray-200 px-1 rounded">pnpm run format</code>,{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm run lint</code>,{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm run build</code>,{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm test</code>, and{' '}
-                <code className="bg-gray-200 px-1 rounded">pnpm run test:e2e</code> — in that order,
-                which matches CI (build before tests, since some tests check the build output).
+                Have the agent run our full set of checks — formatting, linting, build, unit tests,
+                and end-to-end tests — in the order our{' '}
+                <code className="bg-gray-200 px-1 rounded">AGENTS.md</code> specifies (build before
+                tests, to match CI). The agent reads the exact commands from the repo, so you do not
+                have to.
               </p>
               <PromptBox accent="blue">
-                &ldquo;Run the full pre-commit checklist in this order, which matches CI:{' '}
-                <code>pnpm run format</code>, <code>pnpm run lint</code>,{' '}
-                <code>pnpm run build</code>, <code>pnpm test</code>, and{' '}
-                <code>pnpm run test:e2e</code>. Do not cancel anything. Fix any failures and re-run
-                until everything passes.&rdquo;
+                &ldquo;Run our full pre-commit checklist in the order documented in this repo&apos;s{' '}
+                <code>AGENTS.md</code> (formatting, linting, build, unit tests, then end-to-end
+                tests). Do not cancel anything. Fix any failures and re-run until everything
+                passes.&rdquo;
               </PromptBox>
             </div>
             <div className="border-l-4 border-blue-600 pl-4">
@@ -597,16 +506,14 @@ export default function VSCodeSetupGuide() {
             <li className="flex items-start">
               <span className="text-red-500 mr-2 mt-0.5">&#10005;</span>
               <span>
-                Never paste tokens or keys into chat, code, commits, or{' '}
-                <code className="bg-gray-200 px-1 rounded">.vscode/mcp.json</code> (it is committed
-                to the repo).
+                Never paste tokens or keys into chat, code, commits, or any workspace MCP config
+                file (those can be committed to the repo).
               </span>
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-2 mt-0.5">&#10003;</span>
               <span>
-                Use VS Code&apos;s secure input prompts (
-                <code className="bg-gray-200 px-1 rounded">inputs</code>) or a git-ignored{' '}
+                Use VS Code&apos;s secure input prompts or a git-ignored{' '}
                 <code className="bg-gray-200 px-1 rounded">.env</code> for any secrets.
               </span>
             </li>
@@ -666,18 +573,14 @@ export default function VSCodeSetupGuide() {
                 <tr className="bg-gray-50">
                   <td className="p-3 border border-gray-200">Server fails to start</td>
                   <td className="p-3 border border-gray-200">
-                    Confirm the root key is{' '}
-                    <code className="bg-gray-200 px-1 rounded">servers</code> (not{' '}
-                    <code className="bg-gray-200 px-1 rounded">mcpServers</code>) and reload the
-                    window.
+                    Ask Copilot to re-add the server the way the current version of VS Code expects,
+                    then reload the window.
                   </td>
                 </tr>
                 <tr>
                   <td className="p-3 border border-gray-200">Playwright cannot launch a browser</td>
                   <td className="p-3 border border-gray-200">
-                    Run{' '}
-                    <code className="bg-gray-200 px-1 rounded">pnpm exec playwright install</code>{' '}
-                    once.
+                    Ask the agent to install the Playwright browsers once.
                   </td>
                 </tr>
                 <tr className="bg-gray-50">

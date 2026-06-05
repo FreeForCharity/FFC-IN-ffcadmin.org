@@ -235,71 +235,35 @@ export default function ClaudeDesktopSetupGuide() {
             <h2 className="text-2xl font-bold text-gray-900">6. Connect GitHub via MCP</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            Claude Desktop calls MCP servers <strong>connectors</strong>. You need the{' '}
-            <strong>GitHub</strong> connector. There are two ways to add it.
+            Claude Desktop calls MCP servers <strong>connectors</strong>, and the GitHub connector
+            is already available — you do not install anything by hand. The simplest path is to let
+            Claude set it up: paste the prompt below and follow whatever sign-in it walks you
+            through. (If you prefer to click through it yourself, the <strong>+</strong> button at
+            the bottom of the chat box has a <strong>Connectors</strong> option, and{' '}
+            <strong>Settings &rarr; Connectors</strong> lists what is enabled.)
           </p>
 
-          <div className="space-y-6">
-            <div className="border-l-4 border-amber-500 pl-4">
-              <h3 className="font-bold text-gray-900 mb-2">
-                Option A — Connectors directory (easiest)
-              </h3>
-              <p className="text-sm text-gray-700">
-                Click the <strong>+</strong> button at the bottom of the chat box and choose{' '}
-                <strong>Connectors</strong>. Browse the directory, add <strong>GitHub</strong>, and
-                follow the sign-in prompts. When a connector is active, a small{' '}
-                <strong>hammer / tools icon</strong> appears under the chat box showing how many
-                tools are available.
-              </p>
-            </div>
-
-            <div className="border-l-4 border-amber-500 pl-4">
-              <h3 className="font-bold text-gray-900 mb-2">
-                Option B — Edit the config file (manual)
-              </h3>
-              <p className="text-sm text-gray-700 mb-2">
-                Go to <strong>Settings &rarr; Developer &rarr; Edit Config</strong>. This opens{' '}
-                <code className="bg-gray-200 px-1 rounded">claude_desktop_config.json</code> (it is
-                created if missing). Claude Desktop uses the{' '}
-                <code className="bg-gray-200 px-1 rounded">mcpServers</code> key. The official
-                GitHub MCP server runs locally via Docker:
-              </p>
-              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs font-mono overflow-x-auto">
-                <pre>{`{
-  "mcpServers": {
-    "github": {
-      "command": "docker",
-      "args": [
-        "run", "-i", "--rm",
-        "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<your token>"
-      }
-    }
-  }
-}`}</pre>
-              </div>
-              <p className="text-sm text-gray-700 mt-2">
-                Fully quit Claude Desktop (Cmd+Q / Quit from the tray) and reopen it so the
-                connector loads.
-              </p>
-            </div>
-          </div>
-
           <PromptBox accent="amber">
-            &ldquo;I want to use you with the Free For Charity GitHub repositories. Walk me through
-            adding the GitHub connector in Claude Desktop, confirm the tools are available, and then
-            list the open issues on the FreeForCharity/FFC_Single_Page_Template repository.&rdquo;
+            &ldquo;I want to work on Free For Charity&apos;s website repositories on GitHub (the
+            organization is FreeForCharity). Set yourself up end to end: enable the GitHub connector
+            so you can read issues and open pull requests for me, and walk me through any sign-in.
+            When you are ready, confirm you can see the{' '}
+            <strong>FreeForCharity/FFC_Single_Page_Template</strong> repository and list its open
+            issues.&rdquo;
           </PromptBox>
+
+          <div className="mt-4 bg-emerald-50 border border-emerald-200 rounded-lg p-4 text-sm text-emerald-900">
+            When a connector is active, a small <strong>hammer / tools icon</strong> appears under
+            the chat box showing how many tools are available. If it is missing, fully quit Claude
+            Desktop (Cmd+Q or Quit from the tray) and reopen.
+          </div>
 
           <div className="mt-4 bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
             <p className="text-amber-900 text-sm">
-              <strong>Token safety:</strong> if you use Option B, create a fine-grained Personal
-              Access Token with the narrowest scope that works, paste it only into the config file
-              on your own machine, and never put it in a repository, an issue, or a chat message.
-              Prefer Option A, where Claude manages the sign-in for you.
+              <strong>Let Claude handle the details.</strong> Connector names, sign-in screens, and
+              setup steps change over time, so we deliberately do not print exact configuration here
+              — Claude will use whatever the current version needs. Your job is to approve the
+              sign-in and never paste a token into chat, an issue, or a repository.
             </p>
           </div>
         </section>
@@ -363,8 +327,11 @@ export default function ClaudeDesktopSetupGuide() {
               <h3 className="font-bold text-gray-900 mb-1">Step 2 — Make the change on a branch</h3>
               <PromptBox accent="amber">
                 &ldquo;Create a new branch for issue #&lt;number&gt; (never commit to{' '}
-                <code>main</code>), make the change it describes, and show me exactly what you
-                changed before opening anything.&rdquo;
+                <code>main</code>) and make the change it describes. Our template is{' '}
+                <strong>FreeForCharity/FFC_Single_Page_Template</strong>; for an example of how a
+                finished Free For Charity site is structured, look at{' '}
+                <strong>FreeForCharity/FFC-IN-ffcadmin.org</strong> and match its conventions. Show
+                me exactly what you changed before opening anything.&rdquo;
               </PromptBox>
             </div>
             <div className="border-l-4 border-amber-500 pl-4">

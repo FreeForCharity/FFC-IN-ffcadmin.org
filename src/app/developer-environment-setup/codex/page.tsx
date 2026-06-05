@@ -160,13 +160,12 @@ export default function CodexSetupGuide() {
               </a>{' '}
               and install it.
             </li>
-            <li>Launch the app.</li>
+            <li>Launch the app and sign in (next step).</li>
             <li>
               <span className="text-gray-600">
-                (Optional, advanced) Prefer the terminal? The Codex CLI installs with{' '}
-                <code className="bg-gray-200 px-1 rounded">npm install -g @openai/codex</code>, then
-                run <code className="bg-gray-200 px-1 rounded">codex</code>. The CLI and app share
-                the same configuration.
+                (Optional, advanced) There is also a Codex command-line tool if you prefer the
+                terminal. It shares the same account and configuration as the app — ask Codex to set
+                it up for you when you get there.
               </span>
             </li>
           </ol>
@@ -181,8 +180,7 @@ export default function CodexSetupGuide() {
             <h2 className="text-2xl font-bold text-gray-900">3. Sign In with ChatGPT</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            Open the app (or run <code className="bg-gray-200 px-1 rounded">codex</code>) and choose{' '}
-            <strong>Sign in with ChatGPT</strong>. Codex is included with{' '}
+            Open the app and choose <strong>Sign in with ChatGPT</strong>. Codex is included with{' '}
             <strong>ChatGPT Plus, Pro, Business, Edu, and Enterprise</strong> plans — Plus or Pro is
             plenty for FFC work. (An OpenAI API key also works but needs extra setup; signing in
             with ChatGPT is simpler.)
@@ -244,42 +242,28 @@ export default function CodexSetupGuide() {
             <h2 className="text-2xl font-bold text-gray-900">5. Add MCP Servers</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            Codex supports MCP servers in both the app/CLI and the IDE extension. Add{' '}
-            <strong>GitHub</strong> (and, once you are doing browser tests,{' '}
-            <strong>Playwright</strong>
-            ). The quickest way is the{' '}
-            <code className="bg-gray-200 px-1 rounded">codex mcp add</code> command:
+            Codex understands MCP servers in the app, the CLI, and the IDE extension. You need{' '}
+            <strong>GitHub</strong> (and, once you are running browser tests,{' '}
+            <strong>Playwright</strong>). Rather than memorize commands or config files — which
+            change between versions — just ask Codex to set them up:
           </p>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto">
-            <p className="text-slate-400"># Add the GitHub and Playwright MCP servers</p>
-            <p>codex mcp add github -- npx @github/github-mcp-server</p>
-            <p>codex mcp add playwright -- npx @playwright/mcp</p>
-          </div>
-          <p className="text-gray-700 mt-4 mb-2 text-sm">
-            Prefer a config file? Edit{' '}
-            <code className="bg-gray-200 px-1 rounded">~/.codex/config.toml</code>:
-          </p>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs font-mono overflow-x-auto">
-            <pre>{`[mcp_servers.github]
-command = "npx"
-args = ["@github/github-mcp-server"]
-
-[mcp_servers.playwright]
-command = "npx"
-args = ["@playwright/mcp"]`}</pre>
-          </div>
 
           <PromptBox accent="slate">
-            &ldquo;Add the GitHub and Playwright MCP servers to my Codex configuration, then confirm
-            they are connected and list the open issues on
-            FreeForCharity/FFC_Single_Page_Template.&rdquo;
+            &ldquo;I want to work on Free For Charity&apos;s website repositories on GitHub
+            (organization: FreeForCharity). Set yourself up: enable the GitHub MCP server so you can
+            read issues and open pull requests, and the Playwright MCP server if we will run the
+            site&apos;s end-to-end tests. Install or enable whatever you need, walk me through any
+            sign-in, then confirm you can see{' '}
+            <strong>FreeForCharity/FFC_Single_Page_Template</strong> and list its open
+            issues.&rdquo;
           </PromptBox>
 
           <div className="mt-4 bg-slate-100 border-l-4 border-slate-500 p-4 rounded">
             <p className="text-slate-800 text-sm">
-              <strong>Token safety:</strong> the GitHub MCP server authenticates with a token.
-              Provide it through an environment variable or Codex&apos;s secure configuration —
-              never hard-code it in a file you might commit.
+              <strong>Let Codex handle the particulars.</strong> Server names and setup steps drift
+              over time, so we keep this prompt-driven instead of pasting config that could be
+              stale. The GitHub server needs a token — provide it only through Codex&apos;s secure
+              prompt or an environment variable, and never paste it into a file, an issue, or chat.
             </p>
           </div>
         </section>
@@ -329,8 +313,11 @@ args = ["@playwright/mcp"]`}</pre>
             <div className="border-l-4 border-slate-500 pl-4">
               <h3 className="font-bold text-gray-900 mb-1">Step 2 — Make the change on a branch</h3>
               <PromptBox accent="slate">
-                &ldquo;Create a branch for issue #&lt;number&gt; (never <code>main</code>), make the
-                change, and show me the diff to review before opening anything.&rdquo;
+                &ldquo;Create a branch for issue #&lt;number&gt; (never <code>main</code>) and make
+                the change. Follow the repo&apos;s <code>AGENTS.md</code>; our template is{' '}
+                <strong>FreeForCharity/FFC_Single_Page_Template</strong>, and{' '}
+                <strong>FreeForCharity/FFC-IN-ffcadmin.org</strong> is a live example of a finished
+                site to match. Show me the diff to review before opening anything.&rdquo;
               </PromptBox>
             </div>
             <div className="border-l-4 border-slate-500 pl-4">
@@ -470,10 +457,8 @@ args = ["@playwright/mcp"]`}</pre>
                 <tr className="bg-gray-50">
                   <td className="p-3 border border-gray-200">MCP server not connecting</td>
                   <td className="p-3 border border-gray-200">
-                    Re-run <code className="bg-gray-200 px-1 rounded">codex mcp add</code> or check{' '}
-                    <code className="bg-gray-200 px-1 rounded">~/.codex/config.toml</code>; raise{' '}
-                    <code className="bg-gray-200 px-1 rounded">startup_timeout_sec</code> if it is
-                    slow to launch.
+                    Ask Codex to re-enable the server and confirm it started; if it is slow to
+                    launch, ask it to increase the server&apos;s startup timeout.
                   </td>
                 </tr>
                 <tr>

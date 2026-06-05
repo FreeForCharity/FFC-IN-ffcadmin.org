@@ -497,7 +497,9 @@ export default function DeveloperEnvironmentSetupPage() {
           <p className="text-gray-700 mb-4">
             MCP (Model Context Protocol) servers are small connectors that all four AI agents
             understand. At a minimum, enable <strong>GitHub</strong>. Add{' '}
-            <strong>Playwright</strong> once you are working in an IDE and running browser tests.
+            <strong>Playwright</strong> once you are working in an IDE and running browser tests. In
+            most apps these come as ready-made plugins or connectors — you rarely install anything
+            by hand; just ask your agent to enable what it needs.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
