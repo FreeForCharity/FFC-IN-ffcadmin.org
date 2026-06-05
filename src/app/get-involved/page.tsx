@@ -129,6 +129,93 @@ export default function GetInvolved() {
         </div>
       </div>
 
+      {/* Which describes you? — pathway fork */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-3">
+            Which describes you?
+          </h2>
+          <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+            There are two ways to be here. Pick the one that fits — you can always explore the other
+            later.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Site owner */}
+            <Link
+              href="/site-owner"
+              className="group block rounded-xl border-2 border-emerald-200 bg-emerald-50 p-6 hover:border-emerald-400 hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center mb-2">
+                <span className="text-3xl mr-3" aria-hidden="true">
+                  🌱
+                </span>
+                <h3 className="text-lg font-bold text-emerald-900">
+                  &ldquo;FFC built my charity&apos;s website and I want to edit it&rdquo;
+                </h3>
+              </div>
+              <p className="text-sm text-emerald-900/80 mb-3">
+                You run one nonprofit, you&apos;re not technical, and you just want to keep your own
+                site up to date. No coding, no jargon — describe changes in plain English and
+                approve them.
+              </p>
+              <span className="inline-flex items-center text-sm font-semibold text-emerald-700 group-hover:text-emerald-900">
+                Start the Site Owner walkthrough
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </Link>
+
+            {/* Holistic volunteer */}
+            <a
+              href="#choose-your-track"
+              className="group block rounded-xl border-2 border-blue-200 bg-blue-50 p-6 hover:border-blue-400 hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center mb-2">
+                <span className="text-3xl mr-3" aria-hidden="true">
+                  🚀
+                </span>
+                <h3 className="text-lg font-bold text-blue-900">
+                  &ldquo;I want to help charities and FFC more broadly&rdquo;
+                </h3>
+              </div>
+              <p className="text-sm text-blue-900/80 mb-3">
+                You want to volunteer across many nonprofits — infrastructure, design, or web
+                development. Pick a track below and grow through the contributor ladder.
+              </p>
+              <span className="inline-flex items-center text-sm font-semibold text-blue-700 group-hover:text-blue-900">
+                See the volunteer tracks
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
@@ -148,7 +235,7 @@ export default function GetInvolved() {
       </section>
 
       {/* Role Cards */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="choose-your-track" className="py-16 px-4 sm:px-6 lg:px-8 bg-white scroll-mt-20">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">Choose Your Track</h2>
           <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">

@@ -179,6 +179,46 @@ export default function DeveloperEnvironmentSetupPage() {
       </div>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Site-owner fork — sits above the full agent matrix */}
+        <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-5 md:p-6 mb-8">
+          <div className="flex items-start gap-4">
+            <span className="text-3xl" aria-hidden="true">
+              🌱
+            </span>
+            <div>
+              <h2 className="text-lg font-bold text-emerald-900">
+                Just want to edit one charity&apos;s website FFC built for you?
+              </h2>
+              <p className="text-sm text-emerald-900/90 mt-1">
+                You don&apos;t need this whole page. If you run a single nonprofit and only want to
+                update your own site, there&apos;s a short, jargon-free walkthrough made for you —
+                no IDE, no local builds, no code. This page is for volunteers who want to develop
+                across many charities.
+              </p>
+              <Link
+                href="/site-owner"
+                className="mt-3 inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-900"
+              >
+                Go to “Edit My Charity Website”
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* Step 1: Start with your AI */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <div className="flex items-center mb-4">
