@@ -34,8 +34,8 @@ const sections: PageSection[] = [
 const tldr = [
   {
     step: '1',
-    title: 'Accept your invite',
-    body: 'Open the email from GitHub and click Accept — this gives you the keys to your site.',
+    title: 'Get access',
+    body: 'Text FFC to be added to your repo as a writer, then accept the GitHub invite.',
   },
   {
     step: '2',
@@ -266,7 +266,8 @@ export default function SiteOwnerPage() {
                   >
                     github.com/signup
                   </a>
-                  . Use an email you check — your repository invitation comes here.
+                  . Use an email you check — your repository invitation comes here. Make a note of
+                  your <strong>GitHub username</strong>; you&apos;ll share it in the next step.
                 </p>
               </div>
             </li>
@@ -275,25 +276,55 @@ export default function SiteOwnerPage() {
                 2
               </span>
               <div>
-                <h3 className="font-bold text-gray-900">
-                  Accept the invitation to your repository
-                </h3>
+                <h3 className="font-bold text-gray-900">Request access to your repository</h3>
                 <p className="text-sm text-gray-700">
-                  FFC adds you as a <strong>collaborator</strong> on your charity&apos;s repository
-                  — just your one repo, nothing else. You&apos;ll get an email titled something like
-                  “[your charity] invited you to collaborate” and a notification on GitHub. Open it
-                  and click <strong>Accept invitation</strong>. That&apos;s what gives you (and your
-                  assistant) permission to make changes.
+                  FFC has to grant you access before you can edit anything. Text{' '}
+                  <strong>Clarke Moyer at (520)&nbsp;222-8104</strong> (or message{' '}
+                  <a
+                    href="https://github.com/clarkemoyer"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-teal-700 underline hover:text-teal-900"
+                  >
+                    github.com/clarkemoyer
+                  </a>
+                  ) and ask to be added to your charity&apos;s repository as a{' '}
+                  <strong>writer</strong> (write access). Include your charity&apos;s name, your{' '}
+                  <strong>GitHub username</strong> from step&nbsp;1, and that you&apos;re the site
+                  owner who&apos;ll be editing the site.
                 </p>
-                <div className="mt-2 bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-xs text-amber-900">
-                  Didn&apos;t get an invite, or the link expired? Email your FFC contact and ask
-                  them to re-send the collaborator invitation to your GitHub username.
+                <div className="mt-2 bg-teal-50 border-l-4 border-teal-400 p-3 rounded text-xs text-teal-900">
+                  <strong>Copy &amp; send:</strong> “Hi Clarke — this is &lt;your name&gt; from
+                  &lt;charity name&gt;. Please add my GitHub username &lt;username&gt; as a writer
+                  on our website repository so I can edit our site. Thank you!”
                 </div>
               </div>
             </li>
             <li className="flex items-start">
               <span className="flex-shrink-0 w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold mr-4">
                 3
+              </span>
+              <div>
+                <h3 className="font-bold text-gray-900">
+                  Accept the invitation to your repository
+                </h3>
+                <p className="text-sm text-gray-700">
+                  Once FFC adds you, you become a <strong>collaborator</strong> on your
+                  charity&apos;s repository — just your one repo, nothing else. You&apos;ll get an
+                  email titled something like “[your charity] invited you to collaborate” and a
+                  notification on GitHub. Open it and click <strong>Accept invitation</strong>.
+                  That&apos;s what gives you (and your assistant) permission to make changes.
+                </p>
+                <div className="mt-2 bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-xs text-amber-900">
+                  Didn&apos;t get an invite within a day, or the link expired? Text Clarke again at
+                  (520)&nbsp;222-8104 and ask to re-send the writer invitation to your GitHub
+                  username.
+                </div>
+              </div>
+            </li>
+            <li className="flex items-start">
+              <span className="flex-shrink-0 w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                4
               </span>
               <div>
                 <h3 className="font-bold text-gray-900">Install your AI assistant</h3>
@@ -323,7 +354,7 @@ export default function SiteOwnerPage() {
             </li>
             <li className="flex items-start">
               <span className="flex-shrink-0 w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold mr-4">
-                4
+                5
               </span>
               <div>
                 <h3 className="font-bold text-gray-900">Connect your assistant to GitHub (once)</h3>
