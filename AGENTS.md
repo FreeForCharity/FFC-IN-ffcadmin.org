@@ -43,11 +43,11 @@ All changes follow this process:
 1. **Issue** -- Work starts from a GitHub Issue
 2. **Branch** -- Create a feature branch from `main`
 3. **Develop** -- Make changes, commit frequently
-4. **Pre-commit checklist** (run in this order):
+4. **Pre-commit checklist** (run in this order -- build before tests, the same ordering CI uses; CI additionally runs `type-check` and uses `format:check`):
    1. `pnpm run format` -- Auto-fix formatting
    2. `pnpm run lint` -- Catch code quality issues
-   3. `pnpm test` -- Run unit tests
-   4. `pnpm run build` -- Verify the static export succeeds
+   3. `pnpm run build` -- Verify the static export succeeds
+   4. `pnpm test` -- Run unit tests (some tests check the build output, so build first)
    5. `pnpm run test:e2e` -- Run end-to-end tests
 5. **PR** -- Open a Pull Request, link to the issue with `Fixes #NNN` or `Refs #NNN`
 6. **Merge** -- Merge via merge queue (no direct commits to `main`)
@@ -163,10 +163,11 @@ GitHub Actions enforces the following on every PR:
 
 1. **Prettier** -- `pnpm run format:check` (formatting must pass)
 2. **ESLint** -- `pnpm run lint` (no errors allowed)
-3. **Jest** -- `pnpm test` (all unit tests must pass)
+3. **TypeScript** -- `pnpm run type-check` (no type errors)
 4. **Build** -- `pnpm run build` (static export must succeed)
-5. **Playwright** -- `pnpm run test:e2e` (E2E tests must pass)
-6. **CodeQL** -- Static analysis and security scanning (separate workflow)
+5. **Jest** -- `pnpm test` (all unit tests must pass; some assert against the build output)
+6. **Playwright** -- `pnpm run test:e2e` (E2E tests must pass)
+7. **CodeQL** -- Static analysis and security scanning (separate workflow)
 
 PRs cannot merge until all checks pass.
 
