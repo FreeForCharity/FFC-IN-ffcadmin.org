@@ -100,8 +100,10 @@ export function approvedEntries(entries: HoursEntry[]): HoursEntry[] {
   const out: HoursEntry[] = []
   for (const e of entries) {
     if (e.status !== 'approved') continue
-    if (seen.has(e.dedupKey)) continue
-    seen.add(e.dedupKey)
+    // Normalize the key so de-dup is robust even if a backend emits inconsistent casing.
+    const key = e.dedupKey.toLowerCase()
+    if (seen.has(key)) continue
+    seen.add(key)
     out.push(e)
   }
   return out
@@ -118,8 +120,15 @@ export function creditability(
   entry: HoursEntry,
   body: CeBody
 ): { creditable: boolean; reason: string } {
+  // Only approved entries count; pending/rejected are never creditable.
+  if (entry.status !== 'approved') {
+    return { creditable: false, reason: `Entry is ${entry.status}, not approved.` }
+  }
   if (!body.supported) {
-    return { creditable: false, reason: `${body.name} has no CE-hours model.` }
+    return {
+      creditable: false,
+      reason: body.unsupportedReason ?? `${body.name} has no CE-hours model.`,
+    }
   }
   const channel = body.channels[entry.channel]
   if (channel.support === 'no') {
@@ -170,7 +179,13 @@ export const SAMPLE_HOURS_ENTRIES: HoursEntry[] = [
     source: 'github',
     evidenceUrl: 'https://github.com/FreeForCharity/example/pull/1',
     domainRelevant: true,
-    dedupKey: 'sample|2026-05-01|pull_request|https://github.com/freeforcharity/example/pull/1',
+    dedupKey: makeDedupKey({
+      volunteer: 'Sample Volunteer',
+      githubHandle: 'sample',
+      date: '2026-05-01',
+      activityType: 'pull_request',
+      evidenceUrl: 'https://github.com/FreeForCharity/example/pull/1',
+    }),
     approver: 'Program Lead',
     status: 'approved',
   },
@@ -186,7 +201,12 @@ export const SAMPLE_HOURS_ENTRIES: HoursEntry[] = [
     source: 'self-log',
     moduleId: 'security-trust',
     domainRelevant: true,
-    dedupKey: 'sample|2026-05-03|training-received|',
+    dedupKey: makeDedupKey({
+      volunteer: 'Sample Volunteer',
+      githubHandle: 'sample',
+      date: '2026-05-03',
+      activityType: 'training-received',
+    }),
     approver: 'Program Lead',
     status: 'pending',
   },
