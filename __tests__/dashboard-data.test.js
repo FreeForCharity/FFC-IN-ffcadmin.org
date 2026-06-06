@@ -53,10 +53,48 @@ describe('Domain expiry data contract', () => {
   })
 })
 
+describe('Volunteer hours data contract (#361/#362)', () => {
+  const file = path.join(dataDir, 'volunteer-hours.json')
+  const channels = ['education', 'teaching', 'work']
+
+  it('exists and is valid JSON', () => {
+    expect(fs.existsSync(file)).toBe(true)
+    expect(() => JSON.parse(fs.readFileSync(file, 'utf8'))).not.toThrow()
+  })
+
+  it('matches the contract shape', () => {
+    const data = JSON.parse(fs.readFileSync(file, 'utf8'))
+    expect(typeof data.generatedAt).toBe('string')
+    expect(data.source).toBe('github-issues')
+    expect(typeof data.summary.approvedCount).toBe('number')
+    for (const c of channels) expect(typeof data.summary.byChannel[c]).toBe('number')
+    expect(Array.isArray(data.entries)).toBe(true)
+  })
+
+  it('has an Issue Form for self-logging hours', () => {
+    const tmpl = path.join(process.cwd(), '.github', 'ISSUE_TEMPLATE', 'volunteer-hours.yml')
+    expect(fs.existsSync(tmpl)).toBe(true)
+    const content = fs.readFileSync(tmpl, 'utf8')
+    expect(content).toContain('volunteer-hours')
+  })
+
+  it('has a scheduled workflow that ingests approved issues', () => {
+    const wf = fs.readFileSync(
+      path.join(process.cwd(), '.github', 'workflows', 'update-volunteer-hours.yml'),
+      'utf8'
+    )
+    expect(wf).toContain('scripts/generate-volunteer-hours.mjs')
+    expect(wf).toContain('issues:')
+  })
+})
+
 describe('Pipeline wiring', () => {
   it('generator scripts exist', () => {
     expect(fs.existsSync(path.join(process.cwd(), 'scripts', 'generate-ci-status.mjs'))).toBe(true)
     expect(fs.existsSync(path.join(process.cwd(), 'scripts', 'generate-domain-expiry.mjs'))).toBe(
+      true
+    )
+    expect(fs.existsSync(path.join(process.cwd(), 'scripts', 'generate-volunteer-hours.mjs'))).toBe(
       true
     )
   })
