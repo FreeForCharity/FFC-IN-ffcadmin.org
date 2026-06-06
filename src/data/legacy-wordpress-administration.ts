@@ -215,9 +215,9 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
     publicSourceUrl: 'https://freeforcharity.org/free-for-charitys-tools-for-success/',
   },
   {
-    slug: 'wordpress-volunteer-proving-ground',
-    title: 'FFC Volunteer Proving Ground: Core Competencies',
-    shortLabel: 'Volunteer Proving Ground',
+    slug: 'wordpress-volunteer-core-competencies',
+    title: 'FFC Volunteer Core Competencies',
+    shortLabel: 'Volunteer Core Competencies',
     summary:
       'Core-competency checklist volunteers complete to advance through the FFC contributor ladder.',
     category: 'volunteer-programs',

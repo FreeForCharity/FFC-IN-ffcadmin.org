@@ -473,12 +473,12 @@ export default function ContributorLadder() {
             Legacy reference
           </p>
           <p className="text-gray-700">
-            The WordPress-era proving-ground curriculum is preserved at{' '}
+            The WordPress-era core-competencies curriculum is preserved at{' '}
             <a
-              href="/legacy-wordpress-administration/wordpress-volunteer-proving-ground"
+              href="/legacy-wordpress-administration/wordpress-volunteer-core-competencies"
               className="text-blue-600 underline hover:text-blue-800"
             >
-              wordpress-volunteer-proving-ground
+              wordpress-volunteer-core-competencies
             </a>{' '}
             — seven core competencies (LastPass, AI assistants, MS-900, MS-700, OneDrive, Planner,
             M365 Apps) covering 33–46 hours of self-study. Use it as supplemental reading when
