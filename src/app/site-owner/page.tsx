@@ -666,7 +666,11 @@ export default function SiteOwnerPage() {
               <span className="text-teal-600 mr-2 mt-0.5">&#10003;</span>
               <span>
                 <strong>Stuck?</strong> Ask your assistant to explain in simpler terms, or text your
-                FFC contact (Clarke Moyer, (520)&nbsp;222-8104) — we&apos;re happy to help.
+                FFC contact (Clarke Moyer,{' '}
+                <a href="tel:520-222-8104" className="text-teal-700 underline hover:text-teal-900">
+                  (520)&nbsp;222-8104
+                </a>
+                ) — we&apos;re happy to help.
               </span>
             </li>
           </ul>
@@ -702,7 +706,11 @@ export default function SiteOwnerPage() {
             <div className="border-l-4 border-teal-200 pl-4">
               <dt className="font-bold text-gray-900 text-sm">Who do I contact at FFC?</dt>
               <dd className="text-sm text-gray-700">
-                Text Clarke Moyer at (520)&nbsp;222-8104 or message{' '}
+                Text Clarke Moyer at{' '}
+                <a href="tel:520-222-8104" className="text-teal-700 underline hover:text-teal-900">
+                  (520)&nbsp;222-8104
+                </a>{' '}
+                or message{' '}
                 <a
                   href="https://github.com/clarkemoyer"
                   target="_blank"
