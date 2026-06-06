@@ -77,17 +77,17 @@ const faqs = [
   {
     question: 'Do I need prior experience?',
     answer:
-      'No. Both the Global Administrator and Canva Designer tracks include full training from scratch. We provide self-paced curricula with interactive checklists.',
+      'No. The Web Developer, Global Administrator, and Canva Designer tracks all include guidance from scratch — the developer path starts with an AI agent (Claude Desktop) and no heavy local setup. We provide self-paced curricula with interactive checklists.',
   },
   {
     question: 'How much time does it take?',
     answer:
-      'Global Administrators typically contribute 8-12 hours per week. Canva Designers contribute 5-10 hours per week. Both roles are flexible and remote.',
+      'It is flexible and remote. Web Developers can contribute as little or as much as they like, an issue at a time. Global Administrators typically contribute 8-12 hours per week and Canva Designers 5-10 hours per week.',
   },
   {
     question: 'What technologies will I learn?',
     answer:
-      'Global Admins learn Microsoft 365, GitHub, Cloudflare, DNS management, and CI/CD pipelines. Canva Designers learn Canva Pro, brand design, and digital marketing materials.',
+      'Web Developers learn Next.js/React static sites and the AI-agent (Claude/Codex) GitHub workflow. Global Admins learn Microsoft 365, GitHub, Cloudflare, DNS, and CI/CD pipelines. Canva Designers learn Canva Pro, brand design, and digital marketing materials.',
   },
   {
     question: 'Is this an internship or paid position?',
@@ -97,7 +97,7 @@ const faqs = [
   {
     question: 'How do I get started?',
     answer:
-      'Visit the Get Involved page, choose your track (Global Admin or Canva Designer), and start working through the self-paced training plan.',
+      'Visit the Get Involved page, choose your track (Web Developer, Global Admin, or Canva Designer), and start working through the self-paced path. If you just want to edit your own charity’s FFC site, head to the Site Owner walkthrough instead.',
   },
 ]
 
@@ -200,7 +200,91 @@ export default function VolunteerPage() {
               organizations — from domain registration to deployment.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Web Developer Track</h3>
+              <p className="text-gray-600 mb-4">
+                Build and maintain charity websites with your AI agent. Describe changes in plain
+                English, open pull requests, and let CI run the checks — no heavy local setup
+                required.
+              </p>
+              <ul className="text-sm text-gray-700 space-y-2">
+                <li className="flex items-center">
+                  <svg
+                    className="w-4 h-4 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Next.js &amp; React static sites
+                </li>
+                <li className="flex items-center">
+                  <svg
+                    className="w-4 h-4 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  GitHub issue → PR → merge workflow
+                </li>
+                <li className="flex items-center">
+                  <svg
+                    className="w-4 h-4 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  AI-agent development (Claude / Codex)
+                </li>
+                <li className="flex items-center">
+                  <svg
+                    className="w-4 h-4 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Automated testing &amp; accessibility
+                </li>
+              </ul>
+              <Link
+                href="/developer-environment-setup"
+                className="mt-4 inline-block text-blue-600 font-semibold hover:text-blue-800 text-sm"
+              >
+                Set up your environment &rarr;
+              </Link>
+            </div>
             <div className="bg-teal-50 border border-teal-200 rounded-xl p-6">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Global Administrator Track</h3>
               <p className="text-gray-600 mb-4">
@@ -367,6 +451,27 @@ export default function VolunteerPage() {
                 View designer path &rarr;
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Site owner callout */}
+      <section className="px-4 sm:px-6 lg:px-8 -mt-4 pb-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-emerald-50 border-l-4 border-emerald-500 rounded p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <p className="text-sm text-emerald-900">
+              <span className="text-lg mr-1" aria-hidden="true">
+                🌱
+              </span>
+              <strong>Just here to edit your own charity&apos;s FFC site?</strong> You don&apos;t
+              need a volunteer track — there&apos;s a short, no-code walkthrough made for you.
+            </p>
+            <Link
+              href="/site-owner"
+              className="inline-flex items-center whitespace-nowrap text-sm font-semibold text-emerald-700 hover:text-emerald-900"
+            >
+              Edit my charity&apos;s website &rarr;
+            </Link>
           </div>
         </div>
       </section>

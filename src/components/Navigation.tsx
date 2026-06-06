@@ -141,6 +141,9 @@ export default function Navigation() {
             >
               Get Involved
             </Link>
+            <Link href="/site-owner" className={`${linkClass('/site-owner')} whitespace-nowrap`}>
+              Edit My Site
+            </Link>
 
             {/* Training Dropdown */}
             <div
@@ -296,6 +299,13 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(false)}
             >
               Get Involved
+            </Link>
+            <Link
+              href="/site-owner"
+              className={mobileLinkClass('/site-owner')}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Edit My Site
             </Link>
 
             {/* Mobile Training Accordion */}
