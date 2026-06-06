@@ -127,6 +127,34 @@ describe('Route Generation Tests', () => {
     })
   })
 
+  describe('Test Case 4.2d: Continuing Education Pages', () => {
+    const pillarPath = path.join(outDir, 'continuing-education', 'index.html')
+    const landingSlugs = ['free-cpe-credits-isc2', 'free-pdus-pmi', 'free-ceus-comptia']
+
+    it('should generate the CE pillar page with a self-canonical URL', () => {
+      expect(fs.existsSync(pillarPath)).toBe(true)
+      if (fs.existsSync(pillarPath)) {
+        const content = fs.readFileSync(pillarPath, 'utf-8')
+        expect(content).toContain(
+          '<link rel="canonical" href="https://ffcadmin.org/continuing-education/"/>'
+        )
+      }
+    })
+
+    it('should generate each per-body landing page with a self-canonical URL', () => {
+      for (const slug of landingSlugs) {
+        const p = path.join(outDir, 'continuing-education', slug, 'index.html')
+        expect(fs.existsSync(p)).toBe(true)
+        if (fs.existsSync(p)) {
+          const content = fs.readFileSync(p, 'utf-8')
+          expect(content).toContain(
+            `<link rel="canonical" href="https://ffcadmin.org/continuing-education/${slug}/"/>`
+          )
+        }
+      }
+    })
+  })
+
   describe('Test Case 4.2c: MOVSM Funnel Page', () => {
     const pagePath = path.join(outDir, 'movsm', 'index.html')
 

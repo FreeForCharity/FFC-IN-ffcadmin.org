@@ -64,6 +64,11 @@ export const trainingDropdown: NavDropdown = {
       href: '/recognition',
       description: 'Volunteer badges that map 1:1 to GitHub access roles.',
     },
+    {
+      label: 'Continuing Education',
+      href: '/continuing-education',
+      description: 'Earn free CE credit (CPE/PDU/CEU) toward your certification by volunteering.',
+    },
   ],
 }
 
