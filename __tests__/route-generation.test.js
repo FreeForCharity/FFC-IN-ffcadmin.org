@@ -127,6 +127,22 @@ describe('Route Generation Tests', () => {
     })
   })
 
+  describe('Test Case 4.2c: MOVSM Funnel Page', () => {
+    const pagePath = path.join(outDir, 'movsm', 'index.html')
+
+    it('should generate index.html for the MOVSM page', () => {
+      expect(fs.existsSync(pagePath)).toBe(true)
+    })
+
+    it('should set a self-canonical URL and carry the DRAFT marker', () => {
+      if (fs.existsSync(pagePath)) {
+        const content = fs.readFileSync(pagePath, 'utf-8')
+        expect(content).toContain('<link rel="canonical" href="https://ffcadmin.org/movsm/"/>')
+        expect(content).toContain('DRAFT')
+      }
+    })
+  })
+
   describe('Test Case 4.3a: New Volunteer Training Tracks', () => {
     const trackSlugs = ['google-workspace-admin', 'data-analytics']
 
