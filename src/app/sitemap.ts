@@ -3,6 +3,7 @@ import { blogPosts } from '@/data/blog'
 import { guides } from '@/data/guides'
 import { LEGACY_WP_ADMIN_BASE, LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
 import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
+import { CE_LANDING_BODIES } from '@/data/ce-bodies'
 
 export const dynamic = 'force-static'
 
@@ -37,6 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/continuing-education/`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/training/`,
@@ -212,5 +219,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...corePages, ...guidePages, ...blogPages, ...legacyWpAdminPages, ...volunteerRolePages]
+  // Continuing-education per-body landing pages (#363)
+  const ceLandingPages: MetadataRoute.Sitemap = CE_LANDING_BODIES.map((b) => ({
+    url: `${SITE_URL}/continuing-education/${b.landing!.slug}/`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  return [
+    ...corePages,
+    ...guidePages,
+    ...blogPages,
+    ...legacyWpAdminPages,
+    ...volunteerRolePages,
+    ...ceLandingPages,
+  ]
 }

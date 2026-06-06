@@ -176,6 +176,16 @@ export default function MovsmPage() {
             the tiers, you build both community standing and a documented service record for your
             MOVSM application.
           </p>
+          <p className="text-sm text-gray-700 mt-3">
+            You can also earn{' '}
+            <Link
+              href="/continuing-education"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              continuing-education (CE) credit
+            </Link>{' '}
+            for these same hours toward certifications like CompTIA, PMI, and ISC2.
+          </p>
         </section>
 
         {/* Get started */}
