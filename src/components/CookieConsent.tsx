@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react'
 
 // Environment variables for tracking IDs (replace with actual values)
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
-const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || 'XXXXXXXXXXXXXXX'
 
 type ConsentPreferences = {
   necessary: boolean
@@ -169,9 +168,7 @@ export default function CookieConsent() {
       // Microsoft Clarity is now managed via Google Tag Manager
       // No direct Clarity initialization needed
     }
-    if (prefs.marketing) {
-      loadMetaPixel()
-    }
+    // Marketing consent currently loads no third-party tags (Meta Pixel removed, #189).
   }
 
   const loadGoogleAnalytics = () => {
@@ -197,38 +194,6 @@ export default function CookieConsent() {
         });
       `
       document.head.appendChild(gaConfigScript)
-    }
-  }
-
-  const loadMetaPixel = () => {
-    // Skip loading if Meta Pixel ID is not configured (placeholder value)
-    if (!META_PIXEL_ID || META_PIXEL_ID === 'XXXXXXXXXXXXXXX') {
-      return
-    }
-    if (typeof window !== 'undefined' && !document.querySelector('script[src*="fbevents.js"]')) {
-      const fbScript = document.createElement('script')
-      fbScript.textContent = `
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '${META_PIXEL_ID}');
-        fbq('track', 'PageView');
-      `
-      document.head.appendChild(fbScript)
-
-      const fbNoScript = document.createElement('noscript')
-      const img = document.createElement('img')
-      img.height = 1
-      img.width = 1
-      img.style.display = 'none'
-      img.src = `https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`
-      fbNoScript.appendChild(img)
-      document.body.appendChild(fbNoScript)
     }
   }
 
@@ -418,10 +383,11 @@ export default function CookieConsent() {
                 </label>
               </div>
               <p className="text-sm text-gray-600 mb-2">
-                These cookies are used to track visitors across websites. The intention is to
-                display ads that are relevant and engaging for the individual user.
+                These cookies would be used to track visitors across websites to display relevant
+                ads. We do not currently use any marketing trackers; this preference is reserved in
+                case we add one in the future.
               </p>
-              <p className="text-xs text-gray-500">Services: Meta Pixel (Facebook)</p>
+              <p className="text-xs text-gray-500">Services: none currently active</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 mt-6">
