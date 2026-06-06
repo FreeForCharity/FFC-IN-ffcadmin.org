@@ -15,6 +15,11 @@ permissions:
 jobs:
   update-hours:
     runs-on: ubuntu-latest
+    # On issue events, only run for volunteer-hours issues (avoid churn on
+    # unrelated issue activity). Scheduled/manual runs always proceed.
+    if: >-
+      github.event_name != 'issues' ||
+      contains(github.event.issue.labels.*.name, 'volunteer-hours')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6

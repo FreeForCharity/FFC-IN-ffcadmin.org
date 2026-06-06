@@ -129,16 +129,27 @@ async function main() {
 
   let entries = []
   try {
-    // Approved, certified hours issues only.
-    const issues = await ghJson(
-      `/repos/${repo}/issues?state=all&labels=volunteer-hours,approved&per_page=100`
-    )
-    entries = (issues || [])
-      .filter((i) => !i.pull_request)
-      .map(toEntry)
-      .filter((e) => e.date && e.rawHours > 0)
+    // Approved, certified hours issues only — paginate so we never silently
+    // drop entries beyond the first 100.
+    let page = 1
+    for (;;) {
+      const issues = await ghJson(
+        `/repos/${repo}/issues?state=all&labels=volunteer-hours,approved&per_page=100&page=${page}`
+      )
+      const batch = issues || []
+      entries.push(
+        ...batch
+          .filter((i) => !i.pull_request)
+          .map(toEntry)
+          .filter((e) => e.date && e.rawHours > 0)
+      )
+      if (batch.length < 100) break
+      page++
+    }
   } catch (err) {
-    console.warn(`Hours ingest failed: ${err.message}`)
+    // Degrade gracefully: leave the existing file unchanged on API/network failure.
+    console.warn(`Hours ingest failed; leaving volunteer-hours.json unchanged: ${err.message}`)
+    return
   }
 
   const out = {

@@ -16,7 +16,7 @@ metrics are tracked as follow-ups (see #187).
 | `public/data/domain-expiry.json`   | `scripts/generate-domain-expiry.mjs`   | `.github/workflows/update-domain-expiry.yml`   | Weekly                    |
 | `public/data/volunteer-hours.json` | `scripts/generate-volunteer-hours.mjs` | `.github/workflows/update-volunteer-hours.yml` | On issue events + daily   |
 
-Both generators write a committed JSON file; the workflows open a rolling pull
+Each generator writes a committed JSON file; its workflow opens a rolling pull
 request with the refreshed data (same pattern as `update-sites-data.yml`). No
 secrets are hardcoded — workflows use `${{ secrets.* }}` / the default
 `GITHUB_TOKEN` only.
