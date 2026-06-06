@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'November 16, 2025'
+const LAST_UPDATED = 'June 6, 2026'
 
 export default function CookiePolicy() {
   return (
@@ -73,7 +73,9 @@ export default function CookiePolicy() {
                     These cookies (and equivalent browser storage) are essential for the website to
                     function properly. They enable basic features like storing your cookie consent
                     preferences and remembering interface choices. They do not store any personally
-                    identifiable information and cannot be disabled.
+                    identifiable information and are always active (they are not controlled by the
+                    consent banner). You can still block cookies and site storage in your browser
+                    settings, but doing so may break core functionality.
                   </p>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <table className="w-full text-sm">
