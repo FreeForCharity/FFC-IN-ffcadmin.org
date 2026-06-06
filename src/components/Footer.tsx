@@ -207,6 +207,22 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
+                  href="/site-owner"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Edit My Charity Website
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/developer-environment-setup"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Dev Environment Setup
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/get-involved"
                   className="text-gray-400 hover:text-white transition-colors"
                 >

@@ -79,7 +79,7 @@ public/           --> Static assets (Images/, Svgs/, fonts)
    import { assetPath } from '@/lib/assetPath'
    ;<img src={assetPath('/Images/volunteers.jpg')} alt="Volunteers" />
    ```
-4. Run the pre-commit checklist: `pnpm run format && pnpm run lint && pnpm test && pnpm run build`
+4. Run the pre-commit checklist: `pnpm run format && pnpm run lint && pnpm run build && pnpm test`
 
 ### Updating Site Content
 

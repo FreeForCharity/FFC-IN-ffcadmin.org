@@ -39,8 +39,8 @@ Run these in order before committing:
 ```bash
 pnpm run format    # Fix formatting
 pnpm run lint      # Check for lint errors
-pnpm test          # Run unit tests
 pnpm run build     # Verify static export
+pnpm test          # Run unit tests (build first; some tests check build output)
 pnpm run test:e2e  # Run E2E tests
 ```
 
