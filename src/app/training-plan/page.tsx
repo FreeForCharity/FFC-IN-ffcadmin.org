@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import { TRAINING_CURRICULUM } from '@/data/training-plan-data'
 import { useTrainingProgress } from './hooks/useTrainingProgress'
@@ -435,21 +436,21 @@ export default function TrainingPlan() {
           <p className="text-gray-700 mb-3">
             The legacy three-track FFC training catalog (Researcher / Business Analyst / Web
             Developer) lives at{' '}
-            <a
+            <Link
               href="/legacy-wordpress-administration/wordpress-training-programs"
               className="text-blue-600 underline hover:text-blue-800"
             >
               wordpress-training-programs
-            </a>{' '}
+            </Link>{' '}
             — useful for the salary anchors and the win-win-win pitch. The WordPress-era
             developer-specific curriculum (WHMCS, Cloudflare, M365, InterServer, Divi, WPMUDEV,
             Clarity, Tawk.to, Azure AI) is preserved at{' '}
-            <a
+            <Link
               href="/legacy-wordpress-administration/wordpress-web-developer-training"
               className="text-blue-600 underline hover:text-blue-800"
             >
               wordpress-web-developer-training
-            </a>{' '}
+            </Link>{' '}
             with per-module modern equivalents called out.
           </p>
         </section>

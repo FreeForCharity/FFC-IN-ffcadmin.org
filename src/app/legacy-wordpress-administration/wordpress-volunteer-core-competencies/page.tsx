@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
@@ -227,37 +228,37 @@ export default function Page() {
       <h2>What comes after</h2>
       <p>
         Volunteers who complete the proving ground graduate into the{' '}
-        <a href="/contributor-ladder">contributor ladder</a> and pick one of the two modern training
-        paths:
+        <Link href="/contributor-ladder">contributor ladder</Link> and pick one of the two modern
+        training paths:
       </p>
       <ul>
         <li>
-          <a href="/training-plan">Global Administrator</a> — Microsoft 365 + GitHub + DNS
+          <Link href="/training-plan">Global Administrator</Link> — Microsoft 365 + GitHub + DNS
           administration.
         </li>
         <li>
-          <a href="/canva-designer-path">Canva Designer</a> — brand identities + marketing materials
-          for charities.
+          <Link href="/canva-designer-path">Canva Designer</Link> — brand identities + marketing
+          materials for charities.
         </li>
       </ul>
 
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-training-programs/">
+          <Link href="/legacy-wordpress-administration/wordpress-training-programs/">
             wordpress-training-programs
-          </a>{' '}
+          </Link>{' '}
           — the broader catalog this proving ground sits inside.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-web-developer-training/">
+          <Link href="/legacy-wordpress-administration/wordpress-web-developer-training/">
             wordpress-web-developer-training
-          </a>{' '}
+          </Link>{' '}
           — the developer-specific platform tour that follows the proving ground.
         </li>
         <li>
-          <a href="/contributor-ladder">/contributor-ladder</a> — modern progression path beyond the
-          proving ground.
+          <Link href="/contributor-ladder">/contributor-ladder</Link> — modern progression path
+          beyond the proving ground.
         </li>
       </ul>
     </LeafPageShell>

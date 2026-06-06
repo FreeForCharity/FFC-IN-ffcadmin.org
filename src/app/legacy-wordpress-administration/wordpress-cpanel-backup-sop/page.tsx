@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
@@ -126,9 +127,9 @@ export default function Page() {
           <li>Block ~90 minutes of uninterrupted time — full backups can take 30-90 minutes.</li>
           <li>
             New to FFC&apos;s hosting layers? Read{' '}
-            <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
+            <Link href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
               wordpress-hosting-techstack
-            </a>{' '}
+            </Link>{' '}
             first.
           </li>
         </ul>

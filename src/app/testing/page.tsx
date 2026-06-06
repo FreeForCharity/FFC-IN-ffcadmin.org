@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import CollapsibleSection from '@/components/CollapsibleSection'
 
@@ -880,17 +881,17 @@ export default function Testing() {
                 GitHub Issues
               </a>{' '}
               or review the{' '}
-              <a href="/documentation" className="text-blue-600 hover:underline">
+              <Link href="/documentation" className="text-blue-600 hover:underline">
                 Documentation Center
-              </a>
+              </Link>
               . Ready to contribute? Check the{' '}
-              <a href="/contributor-ladder" className="text-blue-600 hover:underline">
+              <Link href="/contributor-ladder" className="text-blue-600 hover:underline">
                 Contributor Ladder
-              </a>{' '}
+              </Link>{' '}
               or explore our{' '}
-              <a href="/tech-stack" className="text-blue-600 hover:underline">
+              <Link href="/tech-stack" className="text-blue-600 hover:underline">
                 Tech Stack
-              </a>
+              </Link>
               .
             </p>
           </div>

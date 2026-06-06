@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import CollapsibleSection from '@/components/CollapsibleSection'
 import NonprofitCallout from '@/components/NonprofitCallout'
@@ -620,9 +621,9 @@ export default function TechStack() {
               </ul>
               <p className="text-gray-700 text-sm italic">
                 Access the Sites List at{' '}
-                <a href="/sites-list" className="text-blue-600 hover:underline">
+                <Link href="/sites-list" className="text-blue-600 hover:underline">
                   /sites-list
-                </a>{' '}
+                </Link>{' '}
                 for weekly-updated domain inventory and health status.
               </p>
             </CollapsibleSection>
@@ -1117,12 +1118,12 @@ export default function TechStack() {
               </p>
               <p className="mt-4 text-sm text-gray-600">
                 Still running WordPress? The legacy hosting layered model is preserved at{' '}
-                <a
+                <Link
                   href="/legacy-wordpress-administration/wordpress-hosting-techstack"
                   className="text-blue-600 hover:text-blue-800 underline"
                 >
                   wordpress-hosting-techstack
-                </a>{' '}
+                </Link>{' '}
                 — vendor-by-vendor escalation paths for InterServer, Hostinger, WPMUDEV, Divi,
                 Cloudflare, and Microsoft 365.
               </p>

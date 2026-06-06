@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import {
@@ -202,9 +203,9 @@ export default function Page() {
       </p>
       <p>
         Read the{' '}
-        <a href="/guides/wordpress-to-nextjs-guide">WordPress-to-Next.js conversion guide</a> for
-        the migration playbook, and the <a href="/tech-stack">current FFC tech stack</a> for the
-        modern equivalent of this page.
+        <Link href="/guides/wordpress-to-nextjs-guide">WordPress-to-Next.js conversion guide</Link>{' '}
+        for the migration playbook, and the <Link href="/tech-stack">current FFC tech stack</Link>{' '}
+        for the modern equivalent of this page.
       </p>
     </LeafPageShell>
   )

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
@@ -185,32 +186,34 @@ export default function Page() {
         (post a few news items, respond to a contact-form submission, manage their own user
         accounts), FFC unlocks advanced services: full design polish, custom functionality, advocacy
         tooling, and increasingly, a static-site migration to the modern{' '}
-        <a href="/tech-stack">FFC Next.js stack</a>.
+        <Link href="/tech-stack">FFC Next.js stack</Link>.
       </p>
 
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-charity-validation/">
+          <Link href="/legacy-wordpress-administration/wordpress-charity-validation/">
             wordpress-charity-validation
-          </a>{' '}
+          </Link>{' '}
           — Stage 2 detail.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-guidestar-guide/">
+          <Link href="/legacy-wordpress-administration/wordpress-guidestar-guide/">
             wordpress-guidestar-guide
-          </a>{' '}
+          </Link>{' '}
           — Eligibility floor.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
+          <Link href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
             wordpress-hosting-techstack
-          </a>{' '}
+          </Link>{' '}
           — Stages 4-8 vendor map.
         </li>
         <li>
-          <a href="/guides/wordpress-to-nextjs-guide">WordPress-to-Next.js conversion guide</a> —
-          Where charities go after they outgrow the WordPress delivery.
+          <Link href="/guides/wordpress-to-nextjs-guide">
+            WordPress-to-Next.js conversion guide
+          </Link>{' '}
+          — Where charities go after they outgrow the WordPress delivery.
         </li>
       </ul>
     </LeafPageShell>

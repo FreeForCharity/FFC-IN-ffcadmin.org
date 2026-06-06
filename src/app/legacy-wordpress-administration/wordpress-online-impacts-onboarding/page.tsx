@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
@@ -192,16 +193,16 @@ export default function Page() {
           <li>Microsoft 365 nonprofit tenant ready to receive the new charity domain.</li>
           <li>
             The charity has already completed the validation gate (see{' '}
-            <a href="/legacy-wordpress-administration/wordpress-charity-validation/">
+            <Link href="/legacy-wordpress-administration/wordpress-charity-validation/">
               wordpress-charity-validation
-            </a>
+            </Link>
             ).
           </li>
           <li>
             New to FFC&apos;s overall lifecycle? Read{' '}
-            <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
+            <Link href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
               wordpress-service-delivery-stages
-            </a>{' '}
+            </Link>{' '}
             first — Online Impacts onboarding is Stage 5 of that broader flow.
           </li>
         </ul>
@@ -230,9 +231,9 @@ export default function Page() {
       <h2>External validation accounts</h2>
       <p>
         Each account below maps to a check from{' '}
-        <a href="/legacy-wordpress-administration/wordpress-charity-validation/">
+        <Link href="/legacy-wordpress-administration/wordpress-charity-validation/">
           wordpress-charity-validation
-        </a>
+        </Link>
         :
       </p>
       <ul>
@@ -292,21 +293,21 @@ export default function Page() {
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
+          <Link href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
             wordpress-service-delivery-stages
-          </a>{' '}
+          </Link>{' '}
           — broader lifecycle this fits into.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-charity-validation/">
+          <Link href="/legacy-wordpress-administration/wordpress-charity-validation/">
             wordpress-charity-validation
-          </a>{' '}
+          </Link>{' '}
           — checks that gate each step.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-guidestar-guide/">
+          <Link href="/legacy-wordpress-administration/wordpress-guidestar-guide/">
             wordpress-guidestar-guide
-          </a>{' '}
+          </Link>{' '}
           — seal progression requirement.
         </li>
       </ul>

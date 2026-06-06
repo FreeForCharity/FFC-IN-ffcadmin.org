@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -130,9 +131,9 @@ export default function PrivacyPolicy() {
               </ul>
               <p>
                 For more detailed information about cookies, please see our{' '}
-                <a href="/cookie-policy" className="text-blue-600 hover:underline">
+                <Link href="/cookie-policy" className="text-blue-600 hover:underline">
                   Cookie Policy
-                </a>
+                </Link>
                 .
               </p>
             </section>

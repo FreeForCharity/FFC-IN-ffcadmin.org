@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
@@ -1855,30 +1856,30 @@ export default function WordPressToNextJSGuide() {
             <h3 className="font-bold text-gray-900 mb-3">FFC Admin Documentation</h3>
             <ul className="space-y-2 text-sm text-gray-700">
               <li>
-                <a href="/documentation" className="text-blue-600 underline hover:text-blue-800">
+                <Link href="/documentation" className="text-blue-600 underline hover:text-blue-800">
                   Documentation Center
-                </a>
+                </Link>
                 <span className="text-gray-500"> &mdash; All admin portal documentation</span>
               </li>
               <li>
-                <a href="/tech-stack" className="text-blue-600 underline hover:text-blue-800">
+                <Link href="/tech-stack" className="text-blue-600 underline hover:text-blue-800">
                   Tech Stack Overview
-                </a>
+                </Link>
                 <span className="text-gray-500"> &mdash; Complete technology stack details</span>
               </li>
               <li>
-                <a href="/sites-list" className="text-blue-600 underline hover:text-blue-800">
+                <Link href="/sites-list" className="text-blue-600 underline hover:text-blue-800">
                   Sites List
-                </a>
+                </Link>
                 <span className="text-gray-500">
                   {' '}
                   &mdash; All managed charity domains and health status
                 </span>
               </li>
               <li>
-                <a href="/testing" className="text-blue-600 underline hover:text-blue-800">
+                <Link href="/testing" className="text-blue-600 underline hover:text-blue-800">
                   Testing Documentation
-                </a>
+                </Link>
                 <span className="text-gray-500"> &mdash; Test suites and quality assurance</span>
               </li>
             </ul>
@@ -1942,12 +1943,12 @@ export default function WordPressToNextJSGuide() {
           </p>
           <p className="mt-4 text-sm text-gray-600">
             For the WordPress side that this guide migrates <em>away</em> from, see the{' '}
-            <a
+            <Link
               href="/legacy-wordpress-administration"
               className="text-blue-600 underline hover:text-blue-800"
             >
               Legacy WordPress Administration hub
-            </a>{' '}
+            </Link>{' '}
             — operations runbook covering hosting, domains, charity onboarding, and the legacy
             volunteer training curriculum that this conversion guide replaces.
           </p>

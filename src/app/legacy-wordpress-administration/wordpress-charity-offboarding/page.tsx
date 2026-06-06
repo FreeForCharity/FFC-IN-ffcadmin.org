@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
@@ -133,19 +134,19 @@ export default function Page() {
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-domains/">wordpress-domains</a> — the
-          registration flow this reverses (transfer-out, EPP codes, WHOIS privacy).
+          <Link href="/legacy-wordpress-administration/wordpress-domains/">wordpress-domains</Link>{' '}
+          — the registration flow this reverses (transfer-out, EPP codes, WHOIS privacy).
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-cpanel-backup-sop/">
+          <Link href="/legacy-wordpress-administration/wordpress-cpanel-backup-sop/">
             wordpress-cpanel-backup-sop
-          </a>{' '}
+          </Link>{' '}
           — the final backup before archival.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
+          <Link href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
             wordpress-service-delivery-stages
-          </a>{' '}
+          </Link>{' '}
           — offboarding closes this lifecycle.
         </li>
       </ul>

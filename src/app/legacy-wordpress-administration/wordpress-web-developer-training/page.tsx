@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
@@ -217,25 +218,27 @@ export default function Page() {
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/training-plan">/training-plan</a> — the modern Global Admin training plan this
-          developer guide partially pre-dates.
+          <Link href="/training-plan">/training-plan</Link> — the modern Global Admin training plan
+          this developer guide partially pre-dates.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
+          <Link href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
             wordpress-hosting-techstack
-          </a>{' '}
+          </Link>{' '}
           — the layered model these platforms fit into.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-volunteer-core-competencies/">
+          <Link href="/legacy-wordpress-administration/wordpress-volunteer-core-competencies/">
             wordpress-volunteer-core-competencies
-          </a>{' '}
+          </Link>{' '}
           — the core-competency checklist developers complete before getting admin access to charity
           sites.
         </li>
         <li>
-          <a href="/guides/wordpress-to-nextjs-guide">WordPress-to-Next.js conversion guide</a> —
-          what to read next once you understand the WP stack.
+          <Link href="/guides/wordpress-to-nextjs-guide">
+            WordPress-to-Next.js conversion guide
+          </Link>{' '}
+          — what to read next once you understand the WP stack.
         </li>
       </ul>
     </LeafPageShell>
