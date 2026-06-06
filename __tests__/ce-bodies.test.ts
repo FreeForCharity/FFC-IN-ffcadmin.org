@@ -35,7 +35,7 @@ describe('CE compliance matrix (#356)', () => {
 
   it('every supported body defines all three channels and a source URL', () => {
     for (const b of SUPPORTED_CE_BODIES) {
-      for (const ch of ['education', 'teaching', 'work']) {
+      for (const ch of ['education', 'teaching', 'work'] as const) {
         expect(['yes', 'limited', 'no']).toContain(b.channels[ch].support)
         expect(b.channels[ch].note.length).toBeGreaterThan(0)
       }
@@ -44,7 +44,7 @@ describe('CE compliance matrix (#356)', () => {
   })
 
   it('landing bodies have unique, keyword-front-loaded slugs', () => {
-    const slugs = CE_LANDING_BODIES.map((b) => b.landing.slug)
+    const slugs = CE_LANDING_BODIES.map((b) => b.landing!.slug)
     expect(new Set(slugs).size).toBe(slugs.length)
     expect(slugs).toContain('free-cpe-credits-isc2')
     expect(slugs).toContain('free-pdus-pmi')
