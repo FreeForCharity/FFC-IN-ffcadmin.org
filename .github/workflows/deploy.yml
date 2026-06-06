@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_run:
-    workflows: ['CI - Build and Test', 'CodeQL Security Analysis']
+    workflows: ['CI - Build and Test']
     types:
       - completed
     branches:
@@ -25,7 +25,7 @@ jobs:
     outputs:
       should_deploy: ${{ steps.check.outputs.should_deploy }}
     steps:
-      - name: Check both CI and CodeQL workflows status
+      - name: Check CI workflow status
         id: check
         uses: actions/github-script@v9
         with:
@@ -41,9 +41,11 @@ jobs:
               throw new Error('Unable to determine commit SHA')
             }
 
+            // CodeQL runs via the org-level default setup (workflow name not
+            // resolvable through listRepoWorkflows), so it no longer gates the
+            // deploy. Security scanning still runs independently on push to main.
             const workflowsToCheck = [
-              'CI - Build and Test',
-              'CodeQL Security Analysis'
+              'CI - Build and Test'
             ]
 
             console.log(`Checking workflows for commit ${sha}...`)

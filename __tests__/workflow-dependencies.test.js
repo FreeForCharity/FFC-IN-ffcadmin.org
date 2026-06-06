@@ -2,7 +2,11 @@
  * GitHub Actions Workflow Dependencies Tests
  *
  * These tests ensure that workflows are properly configured with dependencies
- * to prevent premature deployment before CI and security checks complete.
+ * to prevent premature deployment before CI checks complete.
+ *
+ * Note: CodeQL security analysis runs via the organization-level default setup
+ * (its workflow is not resolvable through listRepoWorkflows), so it no longer
+ * gates deployment. The custom codeql-analysis.yml workflow has been removed.
  */
 
 const fs = require('fs')
@@ -13,7 +17,6 @@ describe('Workflow Dependencies Tests', () => {
   const workflowsDir = path.join(process.cwd(), '.github', 'workflows')
   const deployWorkflowPath = path.join(workflowsDir, 'deploy.yml')
   const ciWorkflowPath = path.join(workflowsDir, 'ci.yml')
-  const codeqlWorkflowPath = path.join(workflowsDir, 'codeql-analysis.yml')
 
   describe('Test Case: Deploy Workflow Dependencies', () => {
     let deployWorkflow
@@ -37,26 +40,19 @@ describe('Workflow Dependencies Tests', () => {
       expect(workflows).toContain('CI - Build and Test')
     })
 
-    it('should depend on CodeQL Security Analysis workflow', () => {
-      const workflows = deployWorkflow.on.workflow_run.workflows
-      expect(workflows).toContain('CodeQL Security Analysis')
-    })
-
-    // Note: workflow_run with multiple workflows triggers when ANY ONE completes.
-    // The actual verification that BOTH succeeded is handled by a separate check-workflows job
-    // using GitHub Actions API to check both workflow statuses.
-    it('should have check-workflows job to verify both workflows succeeded', () => {
+    // The check-workflows job uses the GitHub Actions API to verify the required
+    // workflow(s) succeeded for the deployed commit before allowing deployment.
+    it('should have check-workflows job to verify the CI workflow succeeded', () => {
       expect(deployWorkflow.jobs).toHaveProperty('check-workflows')
       const checkWorkflowsJob = deployWorkflow.jobs['check-workflows']
       expect(checkWorkflowsJob.outputs).toHaveProperty('should_deploy')
 
       const checkStep = checkWorkflowsJob.steps.find(
-        (step) => step.id === 'check' || step.name.includes('workflows status')
+        (step) => step.id === 'check' || step.name.includes('workflow status')
       )
       expect(checkStep).toBeDefined()
       expect(checkStep.uses).toBe('actions/github-script@v9')
       expect(checkStep.with.script).toContain('CI - Build and Test')
-      expect(checkStep.with.script).toContain('CodeQL Security Analysis')
       expect(checkStep.with.script).toContain("conclusion !== 'success'")
     })
 
@@ -85,37 +81,22 @@ describe('Workflow Dependencies Tests', () => {
     })
   })
 
-  describe('Test Case: CI and CodeQL Workflow Names', () => {
+  describe('Test Case: CI Workflow Name', () => {
     it('should verify CI workflow has correct name', () => {
       const ciContent = fs.readFileSync(ciWorkflowPath, 'utf-8')
       const ciWorkflow = yaml.load(ciContent)
       expect(ciWorkflow.name).toBe('CI - Build and Test')
     })
-
-    it('should verify CodeQL workflow has correct name', () => {
-      const codeqlContent = fs.readFileSync(codeqlWorkflowPath, 'utf-8')
-      const codeqlWorkflow = yaml.load(codeqlContent)
-      expect(codeqlWorkflow.name).toBe('CodeQL Security Analysis')
-    })
   })
 
   describe('Test Case: Workflow Independence', () => {
-    it('should allow CI and CodeQL to run in parallel (no dependencies)', () => {
+    it('should run CI on push (not gated behind another workflow)', () => {
       const ciContent = fs.readFileSync(ciWorkflowPath, 'utf-8')
       const ciWorkflow = yaml.load(ciContent)
 
       // CI should trigger on push, not workflow_run
       expect(ciWorkflow.on).toHaveProperty('push')
       expect(ciWorkflow.on).not.toHaveProperty('workflow_run')
-    })
-
-    it('should allow CodeQL to run independently', () => {
-      const codeqlContent = fs.readFileSync(codeqlWorkflowPath, 'utf-8')
-      const codeqlWorkflow = yaml.load(codeqlContent)
-
-      // CodeQL should trigger on push, not workflow_run
-      expect(codeqlWorkflow.on).toHaveProperty('push')
-      expect(codeqlWorkflow.on).not.toHaveProperty('workflow_run')
     })
   })
 })
