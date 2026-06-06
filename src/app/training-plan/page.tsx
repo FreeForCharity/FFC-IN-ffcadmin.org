@@ -23,10 +23,12 @@ export default function TrainingPlan() {
   // depth in the modular training model (#320/#328). Surface that composition
   // here so this canonical cert page stays in step with the module catalog.
   const globalAdminPath = getPath('global-admin')
-  const globalAdminModules = (globalAdminPath?.entries ?? [])
+  const globalAdminEntries = globalAdminPath?.entries ?? []
+  const globalAdminModules = globalAdminEntries
     .map((entry) => ({ entry, mod: getModule(entry.moduleId) }))
-    .filter((m): m is { entry: (typeof m)['entry']; mod: NonNullable<(typeof m)['mod']> } =>
-      Boolean(m.mod)
+    .filter(
+      (m): m is { entry: (typeof globalAdminEntries)[number]; mod: NonNullable<typeof m.mod> } =>
+        Boolean(m.mod)
     )
 
   return (
