@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { blogPosts } from '@/data/blog'
 import { guides } from '@/data/guides'
 import { LEGACY_WP_ADMIN_BASE, LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
+import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 
 export const dynamic = 'force-static'
 
@@ -179,5 +180,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...corePages, ...guidePages, ...blogPages, ...legacyWpAdminPages]
+  // Volunteer recruitment landing pages
+  const volunteerRolePages: MetadataRoute.Sitemap = VOLUNTEER_ROLES.map((role) => ({
+    url: `${SITE_URL}/volunteer/${role.slug}/`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
+  return [...corePages, ...guidePages, ...blogPages, ...legacyWpAdminPages, ...volunteerRolePages]
 }

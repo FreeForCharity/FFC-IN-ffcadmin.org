@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 
 export const metadata: Metadata = {
   title: 'Volunteer with Free For Charity',
@@ -455,8 +456,40 @@ export default function VolunteerPage() {
         </div>
       </section>
 
+      {/* Explore all roles */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Explore Volunteer Roles</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Each role has its own landing page with what you&apos;ll do and how to start. Not sure
+              which fits? Text us and we&apos;ll help you choose.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {VOLUNTEER_ROLES.map((role) => (
+              <Link
+                key={role.slug}
+                href={`/volunteer/${role.slug}`}
+                className="group block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg hover:border-gray-300 transition-all"
+              >
+                <div className="flex items-center mb-2">
+                  <span className="text-3xl mr-3" aria-hidden="true">
+                    {role.icon}
+                  </span>
+                  <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-700">
+                    {role.title}
+                  </h3>
+                </div>
+                <p className="text-sm text-gray-600">{role.tagline}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Site owner callout */}
-      <section className="px-4 sm:px-6 lg:px-8 -mt-4 pb-4">
+      <section className="px-4 sm:px-6 lg:px-8 mt-4 pb-4">
         <div className="max-w-5xl mx-auto">
           <div className="bg-emerald-50 border-l-4 border-emerald-500 rounded p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-sm text-emerald-900">

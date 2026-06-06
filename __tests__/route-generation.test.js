@@ -110,6 +110,35 @@ describe('Route Generation Tests', () => {
     })
   })
 
+  describe('Test Case 4.3b: Volunteer Recruitment Landing Pages', () => {
+    const roleSlugs = [
+      'web-developer',
+      'microsoft-365-admin',
+      'google-workspace-admin',
+      'data-analytics',
+      'canva-designer',
+      'military-volunteers',
+    ]
+
+    it('should generate index.html for every volunteer role page', () => {
+      for (const slug of roleSlugs) {
+        const rolePath = path.join(outDir, 'volunteer', slug, 'index.html')
+        expect(fs.existsSync(rolePath)).toBe(true)
+      }
+    })
+
+    it('every role page sets a self-canonical URL', () => {
+      for (const slug of roleSlugs) {
+        const rolePath = path.join(outDir, 'volunteer', slug, 'index.html')
+        if (fs.existsSync(rolePath)) {
+          const content = fs.readFileSync(rolePath, 'utf-8')
+          const expected = `https://ffcadmin.org/volunteer/${slug}/`
+          expect(content).toContain(`<link rel="canonical" href="${expected}"/>`)
+        }
+      }
+    })
+  })
+
   describe('Test Case 4.4: Legacy WordPress Administration Section', () => {
     const sectionRoot = path.join(outDir, 'legacy-wordpress-administration')
     const hubPath = path.join(sectionRoot, 'index.html')
