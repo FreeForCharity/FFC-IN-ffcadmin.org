@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import { TRAINING_CURRICULUM } from '@/data/training-plan-data'
+import { getPath, getModule, TIER_LABELS } from '@/data/training-modules'
 import { useTrainingProgress } from './hooks/useTrainingProgress'
 import { ProgressBar } from './components/ProgressBar'
 import { TrainingSection } from './components/TrainingSection'
@@ -17,6 +18,18 @@ export default function TrainingPlan() {
 
   const { completedItems, toggleItem, resetProgress, progressPercentage, isLoaded } =
     useTrainingProgress(totalDirectives)
+
+  // The Global Administrator role is the full module set at Administrator (T3)
+  // depth in the modular training model (#320/#328). Surface that composition
+  // here so this canonical cert page stays in step with the module catalog.
+  const globalAdminPath = getPath('global-admin')
+  const globalAdminEntries = globalAdminPath?.entries ?? []
+  const globalAdminModules = globalAdminEntries
+    .map((entry) => ({ entry, mod: getModule(entry.moduleId) }))
+    .filter(
+      (m): m is { entry: (typeof globalAdminEntries)[number]; mod: NonNullable<typeof m.mod> } =>
+        Boolean(m.mod)
+    )
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -368,6 +381,41 @@ export default function TrainingPlan() {
             </ul>
           </div>
         </section>
+
+        {/* Module-model composition (#328) */}
+        {globalAdminModules.length > 0 && (
+          <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              This track in the module model
+            </h2>
+            <p className="text-gray-600 text-sm mb-6">
+              In the{' '}
+              <Link href="/training" className="text-blue-600 underline hover:text-blue-800">
+                modular training model
+              </Link>
+              , the Global Administrator role is simply the full set of responsibility modules at{' '}
+              <strong>{TIER_LABELS.T3}</strong> depth — the same content below, organized by what
+              you own. The two certifications ({globalAdminPath?.certifications?.join(' and ')}) are
+              the gates.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {globalAdminModules.map(({ entry, mod }) => (
+                <div key={mod.id} className="flex items-start p-2 rounded-lg bg-gray-50">
+                  <span className="text-xl mr-3" aria-hidden="true">
+                    {mod.icon}
+                  </span>
+                  <span className="text-sm">
+                    <span className="font-semibold text-gray-900">{mod.title}</span>
+                    <span className="ml-2 text-[10px] font-bold uppercase tracking-wide bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded">
+                      {entry.tier} · {TIER_LABELS[entry.tier]}
+                    </span>
+                    <span className="block text-gray-600">{mod.responsibility}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Interactive Curriculum */}
         {TRAINING_CURRICULUM.map((phase) => (
