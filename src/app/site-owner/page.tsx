@@ -138,6 +138,61 @@ export default function SiteOwnerPage() {
           </p>
         </div>
 
+        {/* What to expect */}
+        <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+          <div className="flex items-center mb-4">
+            <span className="text-4xl mr-4" aria-hidden="true">
+              🤝
+            </span>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">What to expect</h2>
+              <p className="text-gray-600">How this works between you and FFC</p>
+            </div>
+          </div>
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li className="flex items-start">
+              <span className="text-teal-600 mr-2 mt-0.5">&#10003;</span>
+              <span>
+                <strong>FFC builds and hosts your site for free.</strong> You keep the content
+                current — that&apos;s your part.
+              </span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-teal-600 mr-2 mt-0.5">&#10003;</span>
+              <span>
+                <strong>You&apos;re always the approver.</strong> Nothing reaches your live site
+                until you read the change and say yes.
+              </span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-teal-600 mr-2 mt-0.5">&#10003;</span>
+              <span>
+                <strong>After you request access</strong> (you&apos;ll text FFC in step&nbsp;2
+                below), expect your repository invitation within a day or so.
+              </span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-teal-600 mr-2 mt-0.5">&#10003;</span>
+              <span>
+                <strong>Want to see what a finished site looks like?</strong> This very site (
+                <a
+                  href="https://ffcadmin.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-teal-700 underline hover:text-teal-900"
+                >
+                  ffcadmin.org
+                </a>
+                ) is an example built the same way, and you can browse more on the{' '}
+                <Link href="/sites-list" className="text-teal-700 underline hover:text-teal-900">
+                  Sites List
+                </Link>
+                .
+              </span>
+            </li>
+          </ul>
+        </section>
+
         {/* TL;DR */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <div className="flex items-center mb-6">
@@ -610,11 +665,56 @@ export default function SiteOwnerPage() {
             <li className="flex items-start">
               <span className="text-teal-600 mr-2 mt-0.5">&#10003;</span>
               <span>
-                <strong>Stuck?</strong> Ask your assistant to explain in simpler terms, or email
-                your FFC contact — we&apos;re happy to help.
+                <strong>Stuck?</strong> Ask your assistant to explain in simpler terms, or text your
+                FFC contact (Clarke Moyer, (520)&nbsp;222-8104) — we&apos;re happy to help.
               </span>
             </li>
           </ul>
+
+          <h3 className="text-lg font-bold text-gray-900 mt-8 mb-3">Quick answers</h3>
+          <dl className="space-y-4">
+            <div className="border-l-4 border-teal-200 pl-4">
+              <dt className="font-bold text-gray-900 text-sm">I think I broke something — help!</dt>
+              <dd className="text-sm text-gray-700">
+                Don&apos;t worry: nothing is live until you approve it, and every past version is
+                saved. Ask your assistant to &ldquo;undo the last change&rdquo; or revert to how the
+                site looked before, then tell FFC if you&apos;re unsure.
+              </dd>
+            </div>
+            <div className="border-l-4 border-teal-200 pl-4">
+              <dt className="font-bold text-gray-900 text-sm">
+                How do I get a photo to my assistant?
+              </dt>
+              <dd className="text-sm text-gray-700">
+                Save the photo on your computer or phone, then attach or upload it in the chat with
+                your assistant and say where it should go on the site.
+              </dd>
+            </div>
+            <div className="border-l-4 border-teal-200 pl-4">
+              <dt className="font-bold text-gray-900 text-sm">
+                The assistant did something I didn&apos;t want.
+              </dt>
+              <dd className="text-sm text-gray-700">
+                Just tell it in plain English — &ldquo;that&apos;s not what I meant, please change
+                it back&rdquo; — and review again. You only approve when it&apos;s right.
+              </dd>
+            </div>
+            <div className="border-l-4 border-teal-200 pl-4">
+              <dt className="font-bold text-gray-900 text-sm">Who do I contact at FFC?</dt>
+              <dd className="text-sm text-gray-700">
+                Text Clarke Moyer at (520)&nbsp;222-8104 or message{' '}
+                <a
+                  href="https://github.com/clarkemoyer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-teal-700 underline hover:text-teal-900"
+                >
+                  github.com/clarkemoyer
+                </a>
+                .
+              </dd>
+            </div>
+          </dl>
         </section>
 
         {/* Footer nav */}

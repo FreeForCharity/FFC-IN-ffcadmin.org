@@ -12,6 +12,13 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    title: 'Build a Charity Site from the Template',
+    shortTitle: 'Build from Template',
+    description:
+      'Stand up a new charity website from the FFC single-page template with your AI agent — from repo to deployed site.',
+    href: '/guides/build-charity-site-from-template',
+  },
+  {
     title: 'WordPress to Next.js Conversion Guide',
     shortTitle: 'WordPress to Next.js',
     description: 'Convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages.',

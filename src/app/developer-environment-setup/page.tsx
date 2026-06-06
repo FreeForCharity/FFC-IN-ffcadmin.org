@@ -688,6 +688,26 @@ export default function DeveloperEnvironmentSetupPage() {
               automatically.
             </p>
           </div>
+
+          <div className="mt-6 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+            <p className="text-blue-900 text-sm mb-2">
+              <strong>Find your first task.</strong> New here? Pick something small and well-scoped
+              to start. Browse open issues labeled{' '}
+              <a
+                href="https://github.com/search?q=org%3AFreeForCharity+is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22&type=issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-800 underline font-medium"
+              >
+                good first issue
+              </a>{' '}
+              across FFC, or ask your agent:
+            </p>
+            <p className="font-mono text-xs text-blue-900 bg-white/60 rounded p-3">
+              &ldquo;List the open issues labeled &lsquo;good first issue&rsquo; in the
+              FreeForCharity organization and help me pick one I can finish, then start it.&rdquo;
+            </p>
+          </div>
         </section>
 
         {/* Related */}

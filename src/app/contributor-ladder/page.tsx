@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import type { ReactElement } from 'react'
+import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
@@ -295,6 +296,43 @@ export default function ContributorLadder() {
               </div>
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Who the ladder is for */}
+      <section className="px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+          <h2 className="text-lg font-bold text-gray-900 mb-2">Is the ladder for you?</h2>
+          <p className="text-sm text-gray-700 mb-3">
+            The ladder is for <strong>volunteers who want to grow with FFC</strong> across many
+            charities. It enters at <strong>Contributor</strong> — web developers begin there by
+            setting up their environment. Two groups don&apos;t need the ladder:
+          </p>
+          <ul className="space-y-1.5 text-sm text-gray-700">
+            <li className="flex items-start">
+              <span className="text-emerald-600 mr-2 mt-0.5">&#8226;</span>
+              <span>
+                <strong>Charity site owners</strong> editing their own FFC-built site — start with{' '}
+                <Link href="/site-owner" className="text-blue-600 underline hover:text-blue-800">
+                  Edit Your Charity&apos;s Website
+                </Link>
+                .
+              </span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2 mt-0.5">&#8226;</span>
+              <span>
+                <strong>Developers getting started</strong> — set up your agent on{' '}
+                <Link
+                  href="/developer-environment-setup"
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  Developer Environment Setup
+                </Link>
+                , then climb the ladder as you contribute.
+              </span>
+            </li>
+          </ul>
         </div>
       </section>
 

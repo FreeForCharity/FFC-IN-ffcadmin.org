@@ -184,8 +184,8 @@ describe('Contributor Ladder Page', () => {
       // h1 for page title
       expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
 
-      // h2 for call to action section
-      expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument()
+      // h2 for section headings (call to action, "is the ladder for you?", etc.)
+      expect(screen.getAllByRole('heading', { level: 2 }).length).toBeGreaterThanOrEqual(1)
 
       // h3 for each level (× 2 for mobile and desktop)
       const h3Headings = screen.getAllByRole('heading', { level: 3 })
