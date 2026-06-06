@@ -623,6 +623,18 @@ export default function SiteOwnerPage() {
           <ul className="space-y-2 text-sm text-gray-700">
             <li>
               <Link
+                href="/site-owner/training"
+                className="text-teal-700 underline hover:text-teal-900"
+              >
+                Site Owner Training
+              </Link>
+              <span className="text-gray-500">
+                {' '}
+                &mdash; everything you&apos;re responsible for (domain, email, security &amp; more)
+              </span>
+            </li>
+            <li>
+              <Link
                 href="/site-owner/common-edits"
                 className="text-teal-700 underline hover:text-teal-900"
               >
