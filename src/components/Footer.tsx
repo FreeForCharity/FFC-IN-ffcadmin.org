@@ -264,6 +264,14 @@ export default function Footer() {
             </p>
             <ul className="space-y-2 text-sm">
               <li>
+                <Link
+                  href="/what-ffc-delivers"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  What FFC Delivers
+                </Link>
+              </li>
+              <li>
                 <a
                   href="https://freeforcharity.org/submit-information/"
                   target="_blank"

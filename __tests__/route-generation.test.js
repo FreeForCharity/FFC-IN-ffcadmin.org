@@ -34,6 +34,23 @@ describe('Route Generation Tests', () => {
     })
   })
 
+  describe('Test Case 4.1b: What FFC Delivers Page Generation', () => {
+    const pagePath = path.join(outDir, 'what-ffc-delivers', 'index.html')
+
+    it('should generate index.html for the what-ffc-delivers page', () => {
+      expect(fs.existsSync(pagePath)).toBe(true)
+    })
+
+    it('should set a self-canonical URL', () => {
+      if (fs.existsSync(pagePath)) {
+        const content = fs.readFileSync(pagePath, 'utf-8')
+        expect(content).toContain(
+          '<link rel="canonical" href="https://ffcadmin.org/what-ffc-delivers/"/>'
+        )
+      }
+    })
+  })
+
   describe('Test Case 4.2: Tech Stack Page Generation', () => {
     const techStackPath = path.join(outDir, 'tech-stack', 'index.html')
 
