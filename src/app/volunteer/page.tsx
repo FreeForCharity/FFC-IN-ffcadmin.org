@@ -527,7 +527,7 @@ export default function VolunteerPage() {
                 we&apos;ll point you to the right next step.
               </p>
               <a
-                href="tel:520-222-8104"
+                href="sms:520-222-8104"
                 className="inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-900"
               >
                 Text (520)&nbsp;222-8104 →
