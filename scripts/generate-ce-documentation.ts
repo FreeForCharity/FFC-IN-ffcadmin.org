@@ -24,7 +24,7 @@ function arg(name: string): string | undefined {
 }
 
 function main() {
-  const handle = arg('handle')
+  const handle = arg('handle')?.replace(/^@/, '')
   const volunteer = arg('volunteer')
   const bodySlug = arg('body')
   const ein = arg('ein')
@@ -44,11 +44,16 @@ function main() {
 
   const file = join(process.cwd(), 'public', 'data', 'volunteer-hours.json')
   const data = JSON.parse(readFileSync(file, 'utf8')) as { entries: HoursEntry[] }
+  const entries = data.entries || []
+
+  // Resolve the volunteer's real name from the hours log when only a handle is given.
+  const resolvedName =
+    volunteer || entries.find((e) => e.githubHandle === handle)?.volunteer || handle || 'Unknown'
 
   const doc = buildCeDocument({
-    volunteer: volunteer || handle || 'Unknown',
+    volunteer: resolvedName,
     githubHandle: handle,
-    entries: data.entries || [],
+    entries,
     body,
     issuer: ein ? { ...FFC_ISSUER, ein } : FFC_ISSUER,
   })

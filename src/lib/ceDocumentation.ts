@@ -13,7 +13,7 @@
  */
 import type { CeBody } from '../data/ce-bodies'
 import { CE_DISCLAIMER } from '../data/ce-bodies'
-import { creditability, type HoursEntry } from '../data/hours-model'
+import { approvedEntries, creditability, type HoursEntry } from '../data/hours-model'
 import { FFC_FOUNDER_CONTACT } from '../data/legacy-wordpress-administration'
 import type { CreditChannel } from '../data/ce-bodies'
 
@@ -85,10 +85,10 @@ export function buildCeDocument(opts: {
   const issuer = opts.issuer ?? FFC_ISSUER
   const now = opts.now ?? new Date()
 
-  const mine = opts.entries.filter(
-    (e) =>
-      e.status === 'approved' &&
-      (opts.githubHandle ? e.githubHandle === opts.githubHandle : e.volunteer === opts.volunteer)
+  // approvedEntries() filters to approved status AND de-dups by key, so the
+  // document never double-counts hours or lists duplicate rows.
+  const mine = approvedEntries(opts.entries).filter((e) =>
+    opts.githubHandle ? e.githubHandle === opts.githubHandle : e.volunteer === opts.volunteer
   )
 
   const rows: CeDocumentRow[] = mine
@@ -137,8 +137,9 @@ export function renderCeDocumentMarkdown(doc: CeDocument): string {
     `This letter certifies that **${doc.volunteer}**${
       doc.githubHandle ? ` (GitHub: @${doc.githubHandle})` : ''
     } completed the volunteer and training activities below with ${doc.issuer.org}. ` +
-      `Of these, **${doc.totalEligibleHours} hour(s)** are eligible for ${doc.body.name} ` +
-      `${doc.body.unitPlural} under that body's published rules.`
+      `Of these, **${doc.totalEligibleHours} hour(s)** are eligible to be submitted toward ` +
+      `${doc.body.name} recertification under that body's published rules — ${doc.body.name} ` +
+      `determines how these hours convert to ${doc.body.unitPlural} and applies its own caps.`
   )
   lines.push('')
   lines.push('## Activities')
@@ -181,5 +182,5 @@ export function renderCeDocumentMarkdown(doc: CeDocument): string {
 }
 
 function escapePipes(s: string): string {
-  return s.replace(/\|/g, '\\|').replace(/\n/g, ' ')
+  return s.replace(/\|/g, '\\|').replace(/[\r\n]+/g, ' ')
 }
