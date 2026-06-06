@@ -168,7 +168,7 @@ export default function RecognitionPage() {
             Recognized volunteers are recorded in a committed data file (
             <code className="bg-gray-100 px-1 py-0.5 rounded">src/data/recognition.ts</code>),
             updated by maintainers. This also feeds the military volunteer pathway —{' '}
-            <Link href="/volunteer/military-volunteers" className="text-blue-600 underline">
+            <Link href="/movsm" className="text-blue-600 underline">
               MOVSM
             </Link>{' '}
             — where certified hours matter.
