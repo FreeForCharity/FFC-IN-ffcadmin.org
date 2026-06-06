@@ -10,7 +10,7 @@ the maintainer's to perform.
 
 - [x] Audience-split routing live on ffcadmin.org (SisterSiteBanner, nav + footer
       "For Charities & Donors", `/site-owner` for owners).
-- [x] `app/sitemap.ts` includes all current routes; legacy leaves set self-canonicals.
+- [x] `src/app/sitemap.ts` includes all current routes; legacy leaves set self-canonicals.
 - [x] Bulk-redirect map committed: `docs/cloudflare-bulk-redirects-cutover.csv`.
 
 ## Cutover day (external — maintainer)
