@@ -47,10 +47,11 @@ describe('Legacy WordPress Administration data', () => {
     }
   })
 
-  test('category counts match the documented structure (5 / 3 / 4)', () => {
+  test('category counts match the documented structure (5 / 3 / 3 / 1)', () => {
     expect(getLegacyWpAdminPagesByCategory('wordpress-operations')).toHaveLength(5)
     expect(getLegacyWpAdminPagesByCategory('charity-onboarding')).toHaveLength(3)
-    expect(getLegacyWpAdminPagesByCategory('volunteer-programs')).toHaveLength(4)
+    expect(getLegacyWpAdminPagesByCategory('volunteer-programs')).toHaveLength(3)
+    expect(getLegacyWpAdminPagesByCategory('reference')).toHaveLength(1)
   })
 
   test('getLegacyWpAdminHref returns the canonical path shape', () => {

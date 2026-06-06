@@ -24,7 +24,8 @@ export default function LegacyWordPressAdministrationHubPage() {
         items={[{ label: 'Home', href: '/' }, { label: 'Legacy WordPress Administration' }]}
       />
 
-      {/* Hero */}
+      {/* Hero — intentional slate gradient: signals this is an archival/legacy
+          section, deliberately distinct from the FFC-branded (teal/blue) pages (#264). */}
       <header className="bg-gradient-to-r from-slate-700 to-slate-900 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <p className="text-xs uppercase tracking-wider text-slate-300 mb-3">
