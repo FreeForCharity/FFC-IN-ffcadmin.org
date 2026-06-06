@@ -217,42 +217,12 @@ export default function CookiePolicy() {
                     for publishers and advertisers.
                   </p>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold mb-2">Meta Pixel (Facebook Pixel)</h4>
-                    <p className="text-sm mb-2">
-                      The Meta Pixel is an analytics tool that helps us measure the effectiveness of
-                      advertising by understanding the actions people take on our website.
-                    </p>
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b">
-                          <th className="text-left py-2 pr-4">Cookie Name</th>
-                          <th className="text-left py-2 pr-4">Purpose</th>
-                          <th className="text-left py-2">Duration</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="border-b">
-                          <td className="py-2 pr-4 font-mono">_fbp</td>
-                          <td className="py-2 pr-4">Tracks user behavior for advertising</td>
-                          <td className="py-2">3 months</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2 pr-4 font-mono">fr</td>
-                          <td className="py-2 pr-4">Enables ad delivery and targeting</td>
-                          <td className="py-2">3 months</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <p className="text-xs mt-2 text-gray-600">
-                      Privacy Policy:{' '}
-                      <a
-                        href="https://www.facebook.com/privacy/policy/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        https://www.facebook.com/privacy/policy/
-                      </a>
+                    <p className="text-sm">
+                      <strong>
+                        We do not currently use any marketing or advertising trackers.
+                      </strong>{' '}
+                      The marketing preference is reserved in case we add one in the future; if we
+                      do, we will list it here and it will load only with your consent.
                     </p>
                   </div>
                 </div>

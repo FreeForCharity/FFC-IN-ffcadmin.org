@@ -123,8 +123,9 @@ export default function PrivacyPolicy() {
                   our website (Google Analytics, Microsoft Clarity). Requires consent.
                 </li>
                 <li>
-                  <strong>Marketing Cookies:</strong> Used to track visitors across websites for
-                  advertising purposes (Meta Pixel). Requires consent.
+                  <strong>Marketing Cookies:</strong> Would be used to track visitors across
+                  websites for advertising. We do not currently use any; reserved for future use and
+                  would require consent.
                 </li>
               </ul>
               <p>
@@ -147,10 +148,6 @@ export default function PrivacyPolicy() {
                 </li>
                 <li>
                   <strong>Microsoft Clarity:</strong> User behavior analytics (only with consent)
-                </li>
-                <li>
-                  <strong>Meta Pixel:</strong> Marketing and advertising analytics (only with
-                  consent)
                 </li>
               </ul>
               <p>
