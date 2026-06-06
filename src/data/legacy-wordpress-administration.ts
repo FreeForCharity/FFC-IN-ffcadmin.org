@@ -241,6 +241,20 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
       },
     ],
   },
+  {
+    slug: 'wordpress-escalation-runbook',
+    title: 'Vendor & FFC Escalation Runbook',
+    shortLabel: 'Escalation Runbook',
+    summary:
+      'Where to escalate when something breaks: vendor support paths, the FFC Global Admin 48-hour threshold, founder escalation, and a P1–P4 severity matrix. (Vendor specifics are DRAFT — confirm before relying on them.)',
+    category: 'wordpress-operations',
+    publicSourceUrl: 'https://freeforcharity.org/escalation-runbook/',
+    relatedLeaves: [
+      { slug: 'wordpress-hosting-techstack', note: 'the layered stack each vendor owns' },
+      { slug: 'wordpress-web-hosting', note: 'host-level incidents start here' },
+      { slug: 'wordpress-charity-offboarding', note: 'escalation during a contested departure' },
+    ],
+  },
 ]
 
 /** Slug literal union derived from LEGACY_WP_ADMIN_PAGES. */

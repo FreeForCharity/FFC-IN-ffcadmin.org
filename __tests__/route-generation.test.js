@@ -111,6 +111,7 @@ describe('Route Generation Tests', () => {
       'wordpress-tools-for-success',
       'wordpress-volunteer-core-competencies',
       'wordpress-charity-offboarding',
+      'wordpress-escalation-runbook',
     ]
 
     it('should generate the hub page', () => {
