@@ -175,6 +175,76 @@ export interface RecognizedVolunteer {
   roles: string[]
   /** First recognized, as YYYY-MM (drives the rolling aggregate). */
   since: string
+  /** CE designation badge ids earned (#359); optional. */
+  ceBadges?: string[]
+}
+
+/**
+ * FFC Continuing-Education (CE) designation badges (#359).
+ *
+ * A DRAFT first pass (names/criteria pending owner confirmation), layered on the
+ * volunteer tracks and consistent with the #336 recognition model: validation is
+ * manual (GitHub commit history + mentor/board certification — no self-claim).
+ * The three channel badges mirror the CE credit channels (training received /
+ * delivered / domain-relevant work); the capstone recognizes all three sustained.
+ * Earning CE badges goes hand-in-hand with requesting FFC's CE documentation
+ * (see /continuing-education).
+ */
+export interface CeBadge {
+  id: string
+  name: string
+  /** The CE credit channel this badge recognizes (or 'all' for the capstone). */
+  channel: 'education' | 'teaching' | 'work' | 'all'
+  description: string
+  /** How it's earned (manual validation, per #336). */
+  criteria: string
+  icon: string
+  gradient: string
+}
+
+export const CE_BADGES: CeBadge[] = [
+  {
+    id: 'ce-learner',
+    name: 'CE Learner',
+    channel: 'education',
+    description: 'Completed CE-eligible FFC training (the “training received” channel).',
+    criteria: 'Certified completion of training modules with published CE-eligible hours.',
+    icon: '📚',
+    gradient: 'from-sky-500 to-blue-600',
+  },
+  {
+    id: 'ce-educator',
+    name: 'CE Educator',
+    channel: 'teaching',
+    description: 'Taught, mentored, or authored training for others (“training delivered”).',
+    criteria:
+      'Mentoring on the Contributor Ladder or authoring a module, certified by a program lead.',
+    icon: '🧑‍🏫',
+    gradient: 'from-violet-500 to-purple-600',
+  },
+  {
+    id: 'ce-practitioner',
+    name: 'CE Practitioner',
+    channel: 'work',
+    description: 'Logged domain-relevant volunteer work toward a professional credential.',
+    criteria:
+      'Certified, profession-relevant contribution hours (commit history + board certification).',
+    icon: '🛠️',
+    gradient: 'from-teal-500 to-emerald-600',
+  },
+  {
+    id: 'ce-champion',
+    name: 'CE Champion',
+    channel: 'all',
+    description: 'Demonstrated all three CE channels with sustained certified hours.',
+    criteria: 'Earned all three channel badges and sustained certified CE hours across a cycle.',
+    icon: '🏆',
+    gradient: 'from-amber-500 to-orange-600',
+  },
+]
+
+export function getCeBadge(id: string): CeBadge | undefined {
+  return CE_BADGES.find((b) => b.id === id)
 }
 
 /**

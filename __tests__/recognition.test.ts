@@ -1,7 +1,9 @@
 import {
   RECOGNITION_TIERS,
   RECOGNIZED_VOLUNTEERS,
+  CE_BADGES,
   getTier,
+  getCeBadge,
   publicVolunteers,
   recognitionAggregate,
 } from '../src/data/recognition'
@@ -44,6 +46,25 @@ describe('Volunteer recognition data model (#336)', () => {
     expect(pub.every((v) => v.publicOptIn)).toBe(true)
     for (let i = 1; i < pub.length; i++) {
       expect(pub[i - 1].tierId).toBeGreaterThanOrEqual(pub[i].tierId)
+    }
+  })
+
+  it('defines CE badges for each channel plus a capstone (#359)', () => {
+    const ids = CE_BADGES.map((b) => b.id)
+    expect(new Set(ids).size).toBe(ids.length)
+    const channels = CE_BADGES.map((b) => b.channel)
+    for (const c of ['education', 'teaching', 'work', 'all']) {
+      expect(channels).toContain(c)
+    }
+    expect(getCeBadge('ce-champion')?.channel).toBe('all')
+    expect(getCeBadge('nope')).toBeUndefined()
+  })
+
+  it('any volunteer CE badges reference real badges', () => {
+    for (const v of RECOGNIZED_VOLUNTEERS) {
+      for (const id of v.ceBadges ?? []) {
+        expect(getCeBadge(id)).toBeDefined()
+      }
     }
   })
 
