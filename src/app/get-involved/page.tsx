@@ -5,10 +5,34 @@ import NonprofitCallout from '@/components/NonprofitCallout'
 export const metadata: Metadata = {
   title: 'Get Involved',
   description:
-    'Join Free For Charity as a volunteer. Choose your path: Global Administrator or Canva Designer. Start training and make an impact.',
+    'Join Free For Charity as a volunteer. Choose your track: Web Developer, Global Administrator, or Canva Designer — or just edit your own charity’s FFC website. Start building and make an impact.',
 }
 
 const roles = [
+  {
+    title: 'Web Developer',
+    subtitle: 'Build & Maintain Charity Websites',
+    description:
+      'Build and update charity websites with your AI agent. Describe changes in plain English, open pull requests, and let CI handle the checks — no heavy local setup required.',
+    skills: [
+      'Next.js & React static sites',
+      'GitHub issue → PR → merge workflow',
+      'AI-agent development (Claude / Codex)',
+      'Automated testing & accessibility',
+    ],
+    link: '/developer-environment-setup',
+    linkLabel: 'Set Up Your Environment',
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+      />
+    ),
+    gradient: 'from-blue-500 to-indigo-600',
+    estimate: 'flexible',
+  },
   {
     title: 'Global Administrator',
     subtitle: 'Manage Infrastructure & Security',
@@ -63,7 +87,7 @@ const steps = [
   {
     number: '1',
     title: 'Choose Your Track',
-    description: 'Pick a role that matches your skills and interests from the two tracks below.',
+    description: 'Pick a role that matches your skills and interests from the tracks below.',
   },
   {
     number: '2',
@@ -236,14 +260,14 @@ export default function GetInvolved() {
 
       {/* Role Cards */}
       <section id="choose-your-track" className="py-16 px-4 sm:px-6 lg:px-8 bg-white scroll-mt-20">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">Choose Your Track</h2>
           <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            We need volunteers across two disciplines. Pick the one that fits your skills — and use
-            our Conversion Guide when you're ready to build.
+            We need volunteers across several disciplines. Pick the one that fits your skills — and
+            use our Conversion Guide when you're ready to build.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {roles.map((role) => (
               <div
                 key={role.title}

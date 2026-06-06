@@ -85,6 +85,121 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Persona router */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              What brings you here?
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Pick the path that fits you — each one leads straight to the right starting point.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Charity site owner */}
+            <Link
+              href="/site-owner"
+              className="group block rounded-xl border-2 border-emerald-200 bg-emerald-50 p-6 hover:border-emerald-400 hover:shadow-lg transition-all"
+            >
+              <span className="text-3xl" aria-hidden="true">
+                🌱
+              </span>
+              <h3 className="text-lg font-bold text-emerald-900 mt-3 mb-1">
+                I run a charity and want to edit my site
+              </h3>
+              <p className="text-sm text-emerald-900/80 mb-3">
+                FFC built your website — keep it up to date in plain English, no coding.
+              </p>
+              <span className="inline-flex items-center text-sm font-semibold text-emerald-700 group-hover:text-emerald-900">
+                Edit my charity&apos;s website
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </Link>
+
+            {/* Web developer */}
+            <Link
+              href="/developer-environment-setup"
+              className="group block rounded-xl border-2 border-blue-200 bg-blue-50 p-6 hover:border-blue-400 hover:shadow-lg transition-all"
+            >
+              <span className="text-3xl" aria-hidden="true">
+                💻
+              </span>
+              <h3 className="text-lg font-bold text-blue-900 mt-3 mb-1">
+                I&apos;m a developer who wants to build sites
+              </h3>
+              <p className="text-sm text-blue-900/80 mb-3">
+                Use your AI agent to build and maintain charity websites — start with Claude
+                Desktop.
+              </p>
+              <span className="inline-flex items-center text-sm font-semibold text-blue-700 group-hover:text-blue-900">
+                Set up your environment
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </Link>
+
+            {/* Broader volunteer */}
+            <Link
+              href="/get-involved"
+              className="group block rounded-xl border-2 border-teal-200 bg-teal-50 p-6 hover:border-teal-400 hover:shadow-lg transition-all"
+            >
+              <span className="text-3xl" aria-hidden="true">
+                🚀
+              </span>
+              <h3 className="text-lg font-bold text-teal-900 mt-3 mb-1">
+                I want to help charities &amp; FFC broadly
+              </h3>
+              <p className="text-sm text-teal-900/80 mb-3">
+                Volunteer across many nonprofits — admin, design, or development tracks.
+              </p>
+              <span className="inline-flex items-center text-sm font-semibold text-teal-700 group-hover:text-teal-900">
+                See the volunteer tracks
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Key Features Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
