@@ -20,6 +20,21 @@ export const trainingDropdown: NavDropdown = {
   id: 'training',
   items: [
     {
+      label: 'All Training Tracks',
+      href: '/training',
+      description: 'Pick your role and see what you’re responsible for, by depth.',
+    },
+    {
+      label: 'Site Owner',
+      href: '/site-owner/training',
+      description: 'Operator-level training for editing your own charity site.',
+    },
+    {
+      label: 'Web Developer',
+      href: '/training/web-developer',
+      description: 'Build and maintain charity sites with an AI agent.',
+    },
+    {
       label: 'Global Admin',
       href: '/training-plan',
       description: 'Microsoft 365 Global Administrator certification path.',

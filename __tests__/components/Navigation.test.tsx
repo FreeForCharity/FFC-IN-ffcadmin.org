@@ -7,6 +7,7 @@
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent, act } from '@testing-library/react'
 import Navigation from '@/components/Navigation'
+import { trainingDropdown } from '@/data/navigation'
 
 // Helper to render and flush the queueMicrotask from the pathname effect
 async function renderNavigation() {
@@ -193,7 +194,7 @@ describe('Navigation Component', () => {
       await renderNavigation()
       fireEvent.click(screen.getByRole('button', { name: /training/i }))
       const menuItems = screen.getAllByRole('menuitem')
-      expect(menuItems.length).toBe(3)
+      expect(menuItems.length).toBe(trainingDropdown.items.length)
     })
   })
 })
