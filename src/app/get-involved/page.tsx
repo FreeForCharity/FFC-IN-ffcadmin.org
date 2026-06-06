@@ -5,7 +5,7 @@ import NonprofitCallout from '@/components/NonprofitCallout'
 export const metadata: Metadata = {
   title: 'Get Involved',
   description:
-    'Join Free For Charity as a volunteer. Choose your track: Web Developer, Global Administrator, or Canva Designer — or just edit your own charity’s FFC website. Start building and make an impact.',
+    'Join Free For Charity as a volunteer. Choose your track: Web Developer, Global Administrator, Google Workspace Admin, Data & Analytics, or Canva Designer — or just edit your own charity’s FFC website. Start building and make an impact.',
 }
 
 const roles = [
@@ -56,6 +56,54 @@ const roles = [
     ),
     gradient: 'from-teal-500 to-emerald-500',
     estimate: '8-12 hrs/week',
+  },
+  {
+    title: 'Google Workspace Admin',
+    subtitle: 'Manage Google Workspace for Charities',
+    description:
+      'Run accounts, groups, shared drives, sharing, and security in the Google Admin console for charities that live on Google — a first-class role split out from general admin work.',
+    skills: [
+      'Users, groups & shared drives',
+      'Security & sharing controls',
+      'Email routing (MX, SPF, DKIM, DMARC)',
+      'Google Workspace Administrator cert',
+    ],
+    link: '/training/google-workspace-admin',
+    linkLabel: 'Start the Workspace Track',
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+      />
+    ),
+    gradient: 'from-amber-500 to-orange-600',
+    estimate: '5-10 hrs/week',
+  },
+  {
+    title: 'Data & Analytics',
+    subtitle: 'Measure Impact with Analytics & Dashboards',
+    description:
+      'Set up GA4 and Tag Manager (consent-gated), build impact dashboards in Looker Studio, and turn data into clear reporting for charity boards. You partner closely with web developers during site builds.',
+    skills: [
+      'GA4 & Google Tag Manager',
+      'Looker Studio impact dashboards',
+      'On-page & technical SEO',
+      'Google Analytics certification',
+    ],
+    link: '/training/data-analytics',
+    linkLabel: 'Start the Data & Analytics Track',
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+      />
+    ),
+    gradient: 'from-violet-500 to-purple-600',
+    estimate: 'flexible',
   },
   {
     title: 'Canva Designer',
