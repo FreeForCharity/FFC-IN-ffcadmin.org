@@ -191,6 +191,10 @@ export default function ContinuingEducationPage() {
                           >
                             {s.label}
                           </span>
+                          {/* Caps/rules text for screen readers (the title tooltip is mouse-only). */}
+                          <span className="sr-only">
+                            . {CHANNEL_LABELS[ch]} for {b.name}: {b.channels[ch].note}
+                          </span>
                         </td>
                       )
                     })}

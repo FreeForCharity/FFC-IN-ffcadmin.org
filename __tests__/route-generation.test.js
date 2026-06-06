@@ -129,7 +129,9 @@ describe('Route Generation Tests', () => {
 
   describe('Test Case 4.2d: Continuing Education Pages', () => {
     const pillarPath = path.join(outDir, 'continuing-education', 'index.html')
-    const landingSlugs = ['free-cpe-credits-isc2', 'free-pdus-pmi', 'free-ceus-comptia']
+    // Derive slugs from the data so the test never drifts as bodies are added/removed.
+    const { CE_LANDING_BODIES } = require('../src/data/ce-bodies')
+    const landingSlugs = CE_LANDING_BODIES.map((b) => b.landing.slug)
 
     it('should generate the CE pillar page with a self-canonical URL', () => {
       expect(fs.existsSync(pillarPath)).toBe(true)
