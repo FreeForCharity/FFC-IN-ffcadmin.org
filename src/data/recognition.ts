@@ -218,8 +218,11 @@ export interface RecognitionAggregate {
  * broken down further later.
  */
 export function recognitionAggregate(now: Date = new Date()): RecognitionAggregate {
-  const year = String(now.getFullYear())
-  const month = `${year}-${String(now.getMonth() + 1).padStart(2, '0')}`
+  // Derive the slice from the UTC date so results don't depend on the runtime
+  // timezone (build server / test runner) around month/year boundaries.
+  const iso = now.toISOString() // YYYY-MM-DDTHH:mm:ss.sssZ
+  const year = iso.slice(0, 4)
+  const month = iso.slice(0, 7)
 
   const byYearMap = new Map<string, number>()
   for (const v of RECOGNIZED_VOLUNTEERS) {

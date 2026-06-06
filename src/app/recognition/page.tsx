@@ -192,7 +192,7 @@ export default function RecognitionPage() {
                 const tier = getTier(v.tierId)
                 return (
                   <div
-                    key={v.name}
+                    key={v.githubHandle ?? `${v.name}-${v.since}`}
                     className="flex items-center gap-3 rounded-lg border border-gray-200 p-4"
                   >
                     <span
