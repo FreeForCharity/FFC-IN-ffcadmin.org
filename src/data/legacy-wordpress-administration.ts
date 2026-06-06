@@ -32,11 +32,16 @@ export type LegacyWpAdminCategoryId =
   | 'wordpress-operations'
   | 'charity-onboarding'
   | 'volunteer-programs'
+  | 'reference'
 
 export interface LegacyWpAdminCategory {
   id: LegacyWpAdminCategoryId
   label: string
   description: string
+  /** Emoji icon shown in the hub category header. */
+  icon: string
+  /** Tailwind gradient classes for the category accent (matches the /guides card style). */
+  accent: string
 }
 
 export const LEGACY_WP_ADMIN_CATEGORIES: LegacyWpAdminCategory[] = [
@@ -44,16 +49,30 @@ export const LEGACY_WP_ADMIN_CATEGORIES: LegacyWpAdminCategory[] = [
     id: 'wordpress-operations',
     label: 'WordPress Operations',
     description: 'Hosting, domains, cPanel, and the layered WordPress stack FFC operates.',
+    icon: '🛠️',
+    accent: 'from-blue-500 to-indigo-600',
   },
   {
     id: 'charity-onboarding',
     label: 'Charity Onboarding',
     description: 'Validation, GuideStar maintenance, and the service-delivery lifecycle.',
+    icon: '🤝',
+    accent: 'from-teal-500 to-emerald-600',
   },
   {
     id: 'volunteer-programs',
     label: 'Volunteer Programs',
-    description: 'Training programs, web-developer paths, tools, and proving-ground competencies.',
+    description: 'Training programs, web-developer paths, and proving-ground competencies.',
+    icon: '🎓',
+    accent: 'from-violet-500 to-purple-600',
+  },
+  {
+    id: 'reference',
+    label: 'Reference',
+    description:
+      'Cross-cutting tooling and reference material. Note: validation, volunteer-management, and financial tools (e.g. LastPass) also function as charity onboarding steps.',
+    icon: '📚',
+    accent: 'from-slate-500 to-slate-700',
   },
 ]
 
@@ -191,8 +210,8 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
     title: "Free For Charity's Tools for Success",
     shortLabel: 'Tools for Success',
     summary:
-      'The full toolset (productivity, design, communication, finance) FFC issues to partner charities and volunteers.',
-    category: 'volunteer-programs',
+      'The full toolset (productivity, design, communication, finance) FFC issues to partner charities and volunteers — also a core part of charity onboarding.',
+    category: 'reference',
     publicSourceUrl: 'https://freeforcharity.org/free-for-charitys-tools-for-success/',
   },
   {
