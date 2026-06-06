@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import HowToSchema from '@/components/legacy-wordpress-administration/HowToSchema'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
@@ -185,30 +186,30 @@ export default function Page() {
       <p>
         Once the domain resolves through Cloudflare, the charity moves to Microsoft 365 Business
         Premium for email — free for verified 501(c)(3) organizations, up to 10 mailboxes. See{' '}
-        <a href="/legacy-wordpress-administration/wordpress-online-impacts-onboarding/">
+        <Link href="/legacy-wordpress-administration/wordpress-online-impacts-onboarding/">
           wordpress-online-impacts-onboarding
-        </a>{' '}
+        </Link>{' '}
         for the M365 provisioning steps.
       </p>
 
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-web-hosting/">
+          <Link href="/legacy-wordpress-administration/wordpress-web-hosting/">
             wordpress-web-hosting
-          </a>{' '}
+          </Link>{' '}
           — host setup that pairs with this domain registration.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
+          <Link href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
             wordpress-hosting-techstack
-          </a>{' '}
+          </Link>{' '}
           — DNS / SSL layer.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
+          <Link href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
             wordpress-service-delivery-stages
-          </a>{' '}
+          </Link>{' '}
           — Stage 4-5 (Basic Services + Charity System & Website Setup).
         </li>
       </ul>

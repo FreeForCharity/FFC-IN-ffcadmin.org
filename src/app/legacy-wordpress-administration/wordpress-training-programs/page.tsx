@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
@@ -142,10 +143,10 @@ export default function Page() {
 
       <h2>Where to point volunteers today</h2>
       <p>
-        The modern FFC volunteer pipeline starts at <a href="/get-involved">/get-involved</a>,
+        The modern FFC volunteer pipeline starts at <Link href="/get-involved">/get-involved</Link>,
         splits into the Global Administrator and Canva Designer paths, and progresses through the{' '}
-        <a href="/contributor-ladder">contributor ladder</a>. The legacy three-track catalog feeds
-        into those paths but is no longer the primary intake.
+        <Link href="/contributor-ladder">contributor ladder</Link>. The legacy three-track catalog
+        feeds into those paths but is no longer the primary intake.
       </p>
     </LeafPageShell>
   )

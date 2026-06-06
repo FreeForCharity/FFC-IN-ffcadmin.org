@@ -422,7 +422,7 @@ export default function ContributorLadder() {
             training programs and start making an impact today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
+            <Link
               href="/training-plan"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl"
             >
@@ -441,8 +441,8 @@ export default function ContributorLadder() {
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/canva-designer-path"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg font-semibold hover:from-pink-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
             >
@@ -461,7 +461,7 @@ export default function ContributorLadder() {
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -474,12 +474,12 @@ export default function ContributorLadder() {
           </p>
           <p className="text-gray-700">
             The WordPress-era core-competencies curriculum is preserved at{' '}
-            <a
+            <Link
               href="/legacy-wordpress-administration/wordpress-volunteer-core-competencies"
               className="text-blue-600 underline hover:text-blue-800"
             >
               wordpress-volunteer-core-competencies
-            </a>{' '}
+            </Link>{' '}
             — seven core competencies (LastPass, AI assistants, MS-900, MS-700, OneDrive, Planner,
             M365 Apps) covering 33–46 hours of self-study. Use it as supplemental reading when
             moving through the modern contributor ladder.

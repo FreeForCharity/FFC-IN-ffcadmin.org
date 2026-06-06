@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
@@ -180,16 +181,16 @@ export default function Page() {
       <ul>
         <li>
           Charity validation gate that requires this seal:{' '}
-          <a href="/legacy-wordpress-administration/wordpress-charity-validation/">
+          <Link href="/legacy-wordpress-administration/wordpress-charity-validation/">
             wordpress-charity-validation
-          </a>
+          </Link>
           .
         </li>
         <li>
           Stage where this typically blocks delivery:{' '}
-          <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
+          <Link href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
             wordpress-service-delivery-stages
-          </a>
+          </Link>
           .
         </li>
       </ul>

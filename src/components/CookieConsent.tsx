@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 
 // Environment variables for tracking IDs (replace with actual values)
@@ -427,12 +428,12 @@ export default function CookieConsent() {
               non-essential cookies.
             </p>
             <div className="flex items-center gap-4 text-xs text-gray-500">
-              <a href="/privacy-policy" className="text-blue-600 hover:underline">
+              <Link href="/privacy-policy" className="text-blue-600 hover:underline">
                 Privacy Policy
-              </a>
-              <a href="/cookie-policy" className="text-blue-600 hover:underline">
+              </Link>
+              <Link href="/cookie-policy" className="text-blue-600 hover:underline">
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">

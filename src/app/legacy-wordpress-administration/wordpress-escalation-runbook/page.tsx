@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import {
@@ -175,15 +176,15 @@ export default function Page() {
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
+          <Link href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
             wordpress-hosting-techstack
-          </a>{' '}
+          </Link>{' '}
           — the layered stack so you know which vendor owns a given failure.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-web-hosting/">
+          <Link href="/legacy-wordpress-administration/wordpress-web-hosting/">
             wordpress-web-hosting
-          </a>{' '}
+          </Link>{' '}
           — host-level operations.
         </li>
       </ul>

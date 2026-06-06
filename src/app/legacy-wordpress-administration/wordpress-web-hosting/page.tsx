@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
@@ -165,31 +166,33 @@ export default function Page() {
       <h2>Source of truth for per-charity mapping</h2>
       <p>
         The full list of FFC-managed charity domains, the host each lives on, and the migration
-        status is at <a href="/sites-list">/sites-list</a> — refreshed automatically from{' '}
+        status is at <Link href="/sites-list">/sites-list</Link> — refreshed automatically from{' '}
         <code>docs/SITES_LIST.md</code> on every push to main.
       </p>
 
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
+          <Link href="/legacy-wordpress-administration/wordpress-hosting-techstack/">
             wordpress-hosting-techstack
-          </a>{' '}
+          </Link>{' '}
           — the layered model these hosts fit into.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-cpanel-backup-sop/">
+          <Link href="/legacy-wordpress-administration/wordpress-cpanel-backup-sop/">
             wordpress-cpanel-backup-sop
-          </a>{' '}
+          </Link>{' '}
           — what to run before risky host operations.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-domains/">wordpress-domains</a> — DNS
-          and registrar side.
+          <Link href="/legacy-wordpress-administration/wordpress-domains/">wordpress-domains</Link>{' '}
+          — DNS and registrar side.
         </li>
         <li>
-          <a href="/guides/wordpress-to-nextjs-guide">WordPress-to-Next.js conversion guide</a> —
-          the modern destination for charity sites.
+          <Link href="/guides/wordpress-to-nextjs-guide">
+            WordPress-to-Next.js conversion guide
+          </Link>{' '}
+          — the modern destination for charity sites.
         </li>
       </ul>
     </LeafPageShell>

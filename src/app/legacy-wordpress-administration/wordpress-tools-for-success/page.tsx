@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
@@ -284,19 +285,20 @@ export default function Page() {
       <h2>Cross-references</h2>
       <ul>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-online-impacts-onboarding/">
+          <Link href="/legacy-wordpress-administration/wordpress-online-impacts-onboarding/">
             wordpress-online-impacts-onboarding
-          </a>{' '}
+          </Link>{' '}
           — the external-validation account checklist.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-guidestar-guide/">
+          <Link href="/legacy-wordpress-administration/wordpress-guidestar-guide/">
             wordpress-guidestar-guide
-          </a>{' '}
+          </Link>{' '}
           — Candid is the most-required tool on this list.
         </li>
         <li>
-          <a href="/training-plan">/training-plan</a> — the FFC volunteer-side toolkit alignment.
+          <Link href="/training-plan">/training-plan</Link> — the FFC volunteer-side toolkit
+          alignment.
         </li>
       </ul>
     </LeafPageShell>

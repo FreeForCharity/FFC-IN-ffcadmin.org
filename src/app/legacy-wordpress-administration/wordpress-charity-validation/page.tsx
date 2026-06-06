@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
@@ -209,9 +210,9 @@ export default function Page() {
       <p>
         Validation runs during <strong>Stage 1 — Intake</strong> in the FFC service-delivery
         lifecycle. See{' '}
-        <a href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
+        <Link href="/legacy-wordpress-administration/wordpress-service-delivery-stages/">
           service delivery stages
-        </a>{' '}
+        </Link>{' '}
         for how this fits into the broader engagement.
       </p>
 
