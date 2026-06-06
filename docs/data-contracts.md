@@ -10,15 +10,41 @@ metrics are tracked as follow-ups (see #187).
 
 ## Files
 
-| File                             | Produced by                          | Workflow                                     | Cadence                   |
-| -------------------------------- | ------------------------------------ | -------------------------------------------- | ------------------------- |
-| `public/data/ci-status.json`     | `scripts/generate-ci-status.mjs`     | `.github/workflows/update-ci-status.yml`     | After each CI run + daily |
-| `public/data/domain-expiry.json` | `scripts/generate-domain-expiry.mjs` | `.github/workflows/update-domain-expiry.yml` | Weekly                    |
+| File                               | Produced by                            | Workflow                                       | Cadence                   |
+| ---------------------------------- | -------------------------------------- | ---------------------------------------------- | ------------------------- |
+| `public/data/ci-status.json`       | `scripts/generate-ci-status.mjs`       | `.github/workflows/update-ci-status.yml`       | After each CI run + daily |
+| `public/data/domain-expiry.json`   | `scripts/generate-domain-expiry.mjs`   | `.github/workflows/update-domain-expiry.yml`   | Weekly                    |
+| `public/data/volunteer-hours.json` | `scripts/generate-volunteer-hours.mjs` | `.github/workflows/update-volunteer-hours.yml` | On issue events + daily   |
 
-Both generators write a committed JSON file; the workflows open a rolling pull
+Each generator writes a committed JSON file; its workflow opens a rolling pull
 request with the refreshed data (same pattern as `update-sites-data.yml`). No
 secrets are hardcoded — workflows use `${{ secrets.* }}` / the default
 `GITHUB_TOKEN` only.
+
+## `volunteer-hours.json`
+
+The GitHub-as-data hours backend (#361/#362). Approved `volunteer-hours` issues
+(program-lead certified via the `approved` label) are parsed into `HoursEntry`
+records (see [`hours-evidence-model.md`](./hours-evidence-model.md)). Self-logged
+via the `volunteer-hours` Issue Form; code work is auto-evidenced from GitHub.
+
+```jsonc
+{
+  "generatedAt": "2026-06-06T05:00:00Z",
+  "seed": false,
+  "source": "github-issues",
+  "summary": {
+    "approvedCount": 12,
+    "byChannel": { "education": 20, "teaching": 8, "work": 14 },
+  },
+  "entries": [
+    /* HoursEntry[] — see src/data/hours-model.ts */
+  ],
+}
+```
+
+Totals are queryable by channel for the CE documentation (#358), MOVSM (#335),
+and recognition badges (#359/#336).
 
 ## `ci-status.json`
 

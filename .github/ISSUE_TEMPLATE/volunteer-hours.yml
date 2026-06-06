@@ -1,0 +1,91 @@
+name: Volunteer hours log
+description: Log volunteer or training hours for FFC continuing-education credit, MOVSM, and recognition.
+title: '[Hours] <short description>'
+labels: ['volunteer-hours']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to log **non-code** work (design, admin, meetings, mentoring, training).
+        Code work (PRs/commits/issues/reviews) is auto-evidenced from GitHub.
+
+        Nothing counts until a program lead reviews this issue and adds the **`approved`** label.
+        See the [hours evidence model](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/docs/hours-evidence-model.md).
+  - type: input
+    id: volunteer
+    attributes:
+      label: Volunteer name
+      placeholder: Jane Doe
+    validations:
+      required: true
+  - type: input
+    id: github-handle
+    attributes:
+      label: GitHub handle
+      placeholder: janedoe
+    validations:
+      required: false
+  - type: input
+    id: date
+    attributes:
+      label: Date (YYYY-MM-DD)
+      placeholder: '2026-06-01'
+    validations:
+      required: true
+  - type: dropdown
+    id: activity-type
+    attributes:
+      label: Activity type
+      options:
+        - design
+        - admin
+        - meeting
+        - mentoring
+        - training-received
+        - training-delivered
+        - other
+    validations:
+      required: true
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Credit channel
+      description: 'training received = education · training delivered = teaching · domain work = work'
+      options:
+        - education
+        - teaching
+        - work
+    validations:
+      required: true
+  - type: input
+    id: hours
+    attributes:
+      label: Hours
+      description: Raw hours, before any per-body caps.
+      placeholder: '2.5'
+    validations:
+      required: true
+  - type: textarea
+    id: activity
+    attributes:
+      label: What you did
+      placeholder: Designed a brand kit for an FFC charity.
+    validations:
+      required: true
+  - type: input
+    id: evidence-url
+    attributes:
+      label: Evidence link (optional)
+      placeholder: https://...
+    validations:
+      required: false
+  - type: dropdown
+    id: domain-relevant
+    attributes:
+      label: Relevant to your certification's profession/domain?
+      description: Most IT/security bodies only credit domain-relevant work.
+      options:
+        - 'yes'
+        - 'no'
+    validations:
+      required: true
