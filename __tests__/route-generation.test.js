@@ -110,6 +110,23 @@ describe('Route Generation Tests', () => {
     })
   })
 
+  describe('Test Case 4.2b: Volunteer Recognition Page', () => {
+    const pagePath = path.join(outDir, 'recognition', 'index.html')
+
+    it('should generate index.html for the recognition page', () => {
+      expect(fs.existsSync(pagePath)).toBe(true)
+    })
+
+    it('should set a self-canonical URL', () => {
+      if (fs.existsSync(pagePath)) {
+        const content = fs.readFileSync(pagePath, 'utf-8')
+        expect(content).toContain(
+          '<link rel="canonical" href="https://ffcadmin.org/recognition/"/>'
+        )
+      }
+    })
+  })
+
   describe('Test Case 4.3a: New Volunteer Training Tracks', () => {
     const trackSlugs = ['google-workspace-admin', 'data-analytics']
 

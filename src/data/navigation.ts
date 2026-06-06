@@ -40,6 +40,16 @@ export const trainingDropdown: NavDropdown = {
       description: 'Microsoft 365 Global Administrator certification path.',
     },
     {
+      label: 'Google Workspace Admin',
+      href: '/training/google-workspace-admin',
+      description: 'Manage Google Workspace for charities, backed by certification.',
+    },
+    {
+      label: 'Data & Analytics',
+      href: '/training/data-analytics',
+      description: 'GA4, dashboards, and impact reporting for nonprofits.',
+    },
+    {
       label: 'Canva Designer',
       href: '/canva-designer-path',
       description: 'Canva Designer certification path for nonprofits.',
@@ -48,6 +58,11 @@ export const trainingDropdown: NavDropdown = {
       label: 'Contributor Ladder',
       href: '/contributor-ladder',
       description: 'Progress from Contributor to Maintainer to Mentor.',
+    },
+    {
+      label: 'Recognition',
+      href: '/recognition',
+      description: 'Volunteer badges that map 1:1 to GitHub access roles.',
     },
   ],
 }
