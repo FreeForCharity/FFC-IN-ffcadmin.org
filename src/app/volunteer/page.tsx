@@ -506,6 +506,92 @@ export default function VolunteerPage() {
         </div>
       </section>
 
+      {/* Ways in & getting help */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-100">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">
+            Getting started &amp; getting help
+          </h2>
+          <p className="text-lg text-gray-600 text-center mb-10 max-w-2xl mx-auto">
+            Brand new? The fastest way in is to reach out — we&apos;ll help you find the right
+            track.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
+              <h3 className="text-lg font-bold text-emerald-900 mb-2">
+                New here? Start the easy way
+              </h3>
+              <p className="text-sm text-emerald-900/90 mb-3">
+                Text <strong>Clarke Moyer at (520) 222-8104</strong> to become a volunteer and
+                we&apos;ll point you to the right next step.
+              </p>
+              <a
+                href="tel:520-222-8104"
+                className="inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-900"
+              >
+                Text (520)&nbsp;222-8104 →
+              </a>
+            </div>
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+              <h3 className="text-lg font-bold text-blue-900 mb-2">Already a volunteer?</h3>
+              <p className="text-sm text-blue-900/90">
+                Collaborate with the team in <strong>Microsoft Teams</strong> (our day-to-day
+                channel, on the Microsoft 365 stack FFC runs). Ask your FFC contact for an invite if
+                you don&apos;t have access yet.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Common ways volunteers find us</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              Many volunteers come through these platforms — they&apos;re also tools we recommend to
+              the charities we serve:
+            </p>
+            <ul className="space-y-2 text-sm text-gray-700">
+              <li className="flex items-start">
+                <span className="text-teal-600 mr-2 mt-0.5">&bull;</span>
+                <span>
+                  <a
+                    href="https://www.taproot.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline hover:text-blue-800"
+                  >
+                    Taproot Foundation
+                  </a>{' '}
+                  — skills-based pro bono projects.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-teal-600 mr-2 mt-0.5">&bull;</span>
+                <span>
+                  <a
+                    href="https://www.volunteermatch.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline hover:text-blue-800"
+                  >
+                    VolunteerMatch
+                  </a>{' '}
+                  (and{' '}
+                  <a
+                    href="https://www.idealist.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline hover:text-blue-800"
+                  >
+                    Idealist
+                  </a>
+                  ) — nonprofit volunteer and role listings.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-3xl mx-auto">
