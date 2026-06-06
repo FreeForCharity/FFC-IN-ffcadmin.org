@@ -110,6 +110,28 @@ describe('Route Generation Tests', () => {
     })
   })
 
+  describe('Test Case 4.3a: New Volunteer Training Tracks', () => {
+    const trackSlugs = ['google-workspace-admin', 'data-analytics']
+
+    it('should generate index.html for each new training track', () => {
+      for (const slug of trackSlugs) {
+        const trackPath = path.join(outDir, 'training', slug, 'index.html')
+        expect(fs.existsSync(trackPath)).toBe(true)
+      }
+    })
+
+    it('each new track sets a self-canonical URL', () => {
+      for (const slug of trackSlugs) {
+        const trackPath = path.join(outDir, 'training', slug, 'index.html')
+        if (fs.existsSync(trackPath)) {
+          const content = fs.readFileSync(trackPath, 'utf-8')
+          const expected = `https://ffcadmin.org/training/${slug}/`
+          expect(content).toContain(`<link rel="canonical" href="${expected}"/>`)
+        }
+      }
+    })
+  })
+
   describe('Test Case 4.3b: Volunteer Recruitment Landing Pages', () => {
     const roleSlugs = [
       'web-developer',

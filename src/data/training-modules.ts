@@ -480,6 +480,157 @@ export const TRAINING_MODULES: TrainingModule[] = [
           },
         ],
       },
+      T3: {
+        objective: 'Own analytics and search presence end to end for the charities you support.',
+        directives: [
+          {
+            id: 'm-analytics-t3-1',
+            text: 'Stand up GA4 and Google Tag Manager properly: property/stream setup, consent-mode wiring, and event/conversion definitions that respect the cookie banner.',
+            link: {
+              url: 'https://skillshop.exceedlms.com/student/path/508845',
+              label: 'Google Analytics certification',
+            },
+          },
+          {
+            id: 'm-analytics-t3-2',
+            text: 'Verify a clean data layer (Tag Assistant / DebugView), exclude internal traffic, and document the measurement plan for each site.',
+          },
+          {
+            id: 'm-analytics-t3-3',
+            text: 'Own technical and on-page SEO: Search Console verification, sitemap submission, structured data, and Core Web Vitals follow-up.',
+            link: {
+              url: 'https://search.google.com/search-console/about',
+              label: 'Google Search Console',
+            },
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 'google-workspace',
+    title: 'Google Workspace',
+    icon: '🗂️',
+    responsibility: 'Accounts, groups, and sharing for charities that run on Google.',
+    tiers: {
+      T1: {
+        objective: 'Use Google Workspace safely day to day and know what to ask an admin for.',
+        directives: [
+          {
+            id: 'm-gws-t1-1',
+            text: 'Understand the core apps (Gmail, Drive, Docs, Calendar, Meet) and that your charity account is managed — turn on 2-Step Verification.',
+            link: {
+              url: 'https://support.google.com/a/users/answer/9282734',
+              label: 'Workspace for users',
+            },
+          },
+          {
+            id: 'm-gws-t1-2',
+            text: 'Know the difference between a user account, a group, and a shared drive — and request new ones from your Workspace admin rather than guessing.',
+          },
+          {
+            id: 'm-gws-t1-3',
+            text: 'Share files responsibly: prefer shared drives over personal Drive, and check link-sharing scope before sending anything outside the charity.',
+          },
+        ],
+      },
+      T2: {
+        objective: 'Perform common Google Admin console tasks.',
+        directives: [
+          {
+            id: 'm-gws-t2-1',
+            text: 'Create and suspend users, build groups, and provision shared drives in the Admin console.',
+            link: {
+              url: 'https://support.google.com/a/answer/7332836',
+              label: 'Get started with Admin console',
+            },
+          },
+          {
+            id: 'm-gws-t2-2',
+            text: 'Manage organizational units and apply basic sharing and access settings.',
+          },
+        ],
+      },
+      T3: {
+        objective: 'Administer Google Workspace end to end, backed by certification.',
+        directives: [
+          {
+            id: 'm-gws-t3-1',
+            text: 'Configure security: 2SV enforcement, context-aware access, and admin-role delegation; review the security dashboard and alert center.',
+            link: {
+              url: 'https://support.google.com/a/answer/9211704',
+              label: 'Security best practices',
+            },
+          },
+          {
+            id: 'm-gws-t3-2',
+            text: 'Own domain and email routing (MX, SPF, DKIM, DMARC), data regions, and retention/Vault policy for the tenant.',
+          },
+          {
+            id: 'm-gws-t3-3',
+            text: 'Work toward the Google Workspace Administrator certification.',
+            link: {
+              url: 'https://cloud.google.com/learn/certification/workspace-administrator',
+              label: 'Workspace Administrator cert',
+            },
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 'data-reporting',
+    title: 'Impact Dashboards & Reporting',
+    icon: '📊',
+    responsibility: 'Turning raw analytics into impact a charity board can read.',
+    tiers: {
+      T1: {
+        objective: 'Read a dashboard and understand what the charity’s numbers mean.',
+        directives: [
+          {
+            id: 'm-data-t1-1',
+            text: 'Learn to read your traffic dashboard: sessions, top pages, and where visitors come from — and ask your AI assistant to explain anything unclear.',
+          },
+          {
+            id: 'm-data-t1-2',
+            text: 'Agree on the handful of metrics that actually matter to your mission (e.g. donations started, volunteer sign-ups) rather than vanity numbers.',
+          },
+        ],
+      },
+      T2: {
+        objective: 'Build a shareable impact dashboard from analytics data.',
+        directives: [
+          {
+            id: 'm-data-t2-1',
+            text: 'Connect GA4 to Looker Studio and build a one-page impact dashboard the charity can revisit.',
+            link: {
+              url: 'https://support.google.com/looker-studio/answer/6283323',
+              label: 'Looker Studio',
+            },
+          },
+          {
+            id: 'm-data-t2-2',
+            text: 'Define goals/conversions for the metrics that matter and annotate big changes (campaigns, launches).',
+          },
+        ],
+      },
+      T3: {
+        objective: 'Own the reporting pipeline and turn it into recurring insight.',
+        directives: [
+          {
+            id: 'm-data-t3-1',
+            text: 'Model the measurement plan across sites, standardize naming, and (where useful) export GA4 to BigQuery for deeper analysis.',
+            link: {
+              url: 'https://support.google.com/analytics/answer/9358801',
+              label: 'GA4 BigQuery export',
+            },
+          },
+          {
+            id: 'm-data-t3-2',
+            text: 'Deliver a recurring impact report and partner with web developers so tracking is built in during the initial site build.',
+          },
+        ],
+      },
     },
   },
   {
@@ -652,6 +803,43 @@ export const LEARNING_PATHS: LearningPath[] = [
       { moduleId: 'publishing-deploy', tier: 'T3' },
       { moduleId: 'building-with-ai', tier: 'T3' },
       { moduleId: 'site-build-code', tier: 'T3' },
+    ],
+  },
+  {
+    id: 'google-workspace-admin',
+    title: 'Google Workspace Admin',
+    persona: 'You manage Google Workspace for the charities FFC supports.',
+    intro:
+      'The administrator path for charities that run on Google: own accounts, groups, shared drives, sharing, and security in the Admin console — backed by the Google Workspace Administrator certification. Used to be folded into general admin work; now a first-class role.',
+    icon: '🗂️',
+    gradient: 'from-amber-500 to-orange-600',
+    href: '/training/google-workspace-admin',
+    certifications: ['Google Workspace Administrator'],
+    entries: [
+      { moduleId: 'google-workspace', tier: 'T3' },
+      { moduleId: 'accounts-access', tier: 'T2' },
+      { moduleId: 'security-trust', tier: 'T2' },
+      { moduleId: 'building-with-ai', tier: 'T1' },
+      { moduleId: 'governance-privacy', tier: 'T1' },
+      { moduleId: 'domains-dns', tier: 'T1' },
+    ],
+  },
+  {
+    id: 'data-analytics',
+    title: 'Data & Analytics',
+    persona: 'You measure impact — analytics, dashboards, and reporting for charities.',
+    intro:
+      'The data path: set up GA4/Tag Manager (consent-gated), build impact dashboards, and turn data into clear reporting for charity boards. Deeply connected to the initial website build, so you partner closely with web developers.',
+    icon: '📈',
+    gradient: 'from-violet-500 to-purple-600',
+    href: '/training/data-analytics',
+    certifications: ['Google Analytics (GA4)'],
+    entries: [
+      { moduleId: 'analytics-seo', tier: 'T3' },
+      { moduleId: 'data-reporting', tier: 'T3' },
+      { moduleId: 'accounts-access', tier: 'T2' },
+      { moduleId: 'building-with-ai', tier: 'T2' },
+      { moduleId: 'governance-privacy', tier: 'T1' },
     ],
   },
   {
