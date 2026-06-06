@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import LeafPageShell from '@/components/legacy-wordpress-administration/LeafPageShell'
 import { getLegacyWpAdminPageBySlug } from '@/data/legacy-wordpress-administration'
 
-const SLUG = 'wordpress-volunteer-proving-ground'
+const SLUG = 'wordpress-volunteer-core-competencies'
 const page = getLegacyWpAdminPageBySlug(SLUG)
 
 export const metadata: Metadata = {

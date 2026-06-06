@@ -227,10 +227,10 @@ export default function Page() {
           — the layered model these platforms fit into.
         </li>
         <li>
-          <a href="/legacy-wordpress-administration/wordpress-volunteer-proving-ground/">
-            wordpress-volunteer-proving-ground
+          <a href="/legacy-wordpress-administration/wordpress-volunteer-core-competencies/">
+            wordpress-volunteer-core-competencies
           </a>{' '}
-          — the proving-ground checklist developers complete before getting admin access to charity
+          — the core-competency checklist developers complete before getting admin access to charity
           sites.
         </li>
         <li>

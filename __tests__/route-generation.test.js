@@ -109,7 +109,7 @@ describe('Route Generation Tests', () => {
       'wordpress-training-programs',
       'wordpress-web-developer-training',
       'wordpress-tools-for-success',
-      'wordpress-volunteer-proving-ground',
+      'wordpress-volunteer-core-competencies',
     ]
 
     it('should generate the hub page', () => {
