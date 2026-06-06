@@ -5,7 +5,7 @@ import NonprofitCallout from '@/components/NonprofitCallout'
 export const metadata: Metadata = {
   title: 'Get Involved',
   description:
-    'Join Free For Charity as a volunteer. Choose your path: Global Administrator or Canva Designer. Start training and make an impact.',
+    'Join Free For Charity as a volunteer. Choose your track: Web Developer, Global Administrator, or Canva Designer — or just edit your own charity’s FFC website. Start building and make an impact.',
 }
 
 const roles = [
