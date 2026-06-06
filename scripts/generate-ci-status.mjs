@@ -43,9 +43,7 @@ async function main() {
   const workflows = []
   for (const name of TRACKED) {
     try {
-      const data = await ghJson(
-        `/repos/${repo}/actions/runs?branch=main&per_page=20&exclude_pull_requests=true`
-      )
+      const data = await ghJson(`/repos/${repo}/actions/runs?branch=main&per_page=20`)
       const run = (data.workflow_runs || []).find((r) => r.name === name)
       if (run) {
         workflows.push({

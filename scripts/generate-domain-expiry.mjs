@@ -29,7 +29,10 @@ function bucketFor(daysRemaining) {
   return 'ok'
 }
 
-/** Parse apex domains from the sites CSV (column 1 = Domain, column 2 = Status). */
+/**
+ * Parse apex domains from the sites CSV. Columns (0-indexed) are:
+ * 0 = Section, 1 = Domain, 2 = Status, ... (see update-sites-data.mjs).
+ */
 function readDomains() {
   const text = readFileSync(CSV, 'utf8')
   const lines = text.split('\n').slice(1) // skip header
@@ -38,8 +41,15 @@ function readDomains() {
     if (!line.trim()) continue
     // naive CSV split is fine: domain/status never contain commas
     const cols = line.split(',')
-    const domain = (cols[1] || '').trim().toLowerCase()
+    let domain = (cols[1] || '').trim().toLowerCase()
     const status = (cols[2] || '').trim().toLowerCase()
+    if (!domain) continue
+    // Strip any scheme, path, query, or port so we have a registrable domain.
+    domain = domain
+      .replace(/^https?:\/\//, '')
+      .split('/')[0]
+      .split('?')[0]
+      .split(':')[0]
     if (!domain) continue
     if (['expired', 'cancelled', 'terminated', 'fraud', 'transferred away'].includes(status))
       continue

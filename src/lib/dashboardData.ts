@@ -52,11 +52,16 @@ function readJson<T>(file: string): T | null {
 }
 
 export function loadCiStatus(): CiStatusData | null {
-  return readJson<CiStatusData>('ci-status.json')
+  const data = readJson<CiStatusData>('ci-status.json')
+  // Shape guard: a syntactically valid but malformed file degrades to null.
+  if (!data || !Array.isArray(data.workflows)) return null
+  return data
 }
 
 export function loadDomainExpiry(): DomainExpiryData | null {
-  return readJson<DomainExpiryData>('domain-expiry.json')
+  const data = readJson<DomainExpiryData>('domain-expiry.json')
+  if (!data || typeof data.summary !== 'object' || !Array.isArray(data.domains)) return null
+  return data
 }
 
 /** True when `generatedAt` is older than `maxAgeDays` (or unparseable). */
