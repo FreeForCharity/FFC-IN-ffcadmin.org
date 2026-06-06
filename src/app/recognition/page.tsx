@@ -3,7 +3,9 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import {
   RECOGNITION_TIERS,
+  CE_BADGES,
   getTier,
+  getCeBadge,
   publicVolunteers,
   recognitionAggregate,
 } from '@/data/recognition'
@@ -175,6 +177,55 @@ export default function RecognitionPage() {
           </p>
         </section>
 
+        {/* CE designation badges (#359) */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Continuing-education badges</h2>
+          <p className="text-gray-600 text-sm mb-2">
+            A designation layered on the volunteer tracks: as you earn{' '}
+            <Link
+              href="/continuing-education"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              continuing-education credit
+            </Link>{' '}
+            by volunteering, FFC recognizes each CE channel — validated the same way (commit history
+            + mentor/board certification). Mentoring on the{' '}
+            <Link
+              href="/contributor-ladder"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              Contributor Ladder
+            </Link>{' '}
+            feeds the “training delivered” badge.
+          </p>
+          <p className="text-xs text-amber-700 mb-4">
+            Draft tiers — names and thresholds pending final confirmation.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {CE_BADGES.map((badge) => (
+              <div
+                key={badge.id}
+                className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm"
+              >
+                <div
+                  className={`bg-gradient-to-r ${badge.gradient} p-4 flex items-center gap-2 text-white`}
+                >
+                  <span className="text-2xl" aria-hidden="true">
+                    {badge.icon}
+                  </span>
+                  <h3 className="text-sm font-bold">{badge.name}</h3>
+                </div>
+                <div className="p-4">
+                  <p className="text-sm text-gray-700">{badge.description}</p>
+                  <p className="text-xs text-gray-500 mt-2">
+                    <span className="font-semibold">How:</span> {badge.criteria}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Honor roll */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-200">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Recognized volunteers</h2>
@@ -222,6 +273,28 @@ export default function RecognitionPage() {
                       </p>
                       {v.roles.length > 0 && (
                         <p className="text-xs text-gray-500 mt-0.5">{v.roles.join(', ')}</p>
+                      )}
+                      {v.ceBadges && v.ceBadges.length > 0 && (
+                        <p
+                          className="mt-1 flex flex-wrap gap-1"
+                          aria-label="Continuing-education badges"
+                        >
+                          {v.ceBadges.map((id) => {
+                            const badge = getCeBadge(id)
+                            if (!badge) return null
+                            return (
+                              <span
+                                key={id}
+                                className="inline-flex items-center gap-1 text-[10px] font-semibold bg-gray-100 text-gray-700 rounded-full px-1.5 py-0.5"
+                                title={badge.description}
+                              >
+                                <span aria-hidden="true">{badge.icon}</span>
+                                {badge.name}
+                                <span className="sr-only">: {badge.description}</span>
+                              </span>
+                            )
+                          })}
+                        </p>
                       )}
                     </div>
                   </div>
