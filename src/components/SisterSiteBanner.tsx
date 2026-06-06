@@ -53,7 +53,7 @@ export default function SisterSiteBanner() {
     <div
       role="region"
       aria-label="Sister site routing"
-      className="bg-amber-50 border-b border-amber-200 text-amber-900"
+      className="bg-blue-50 border-b border-blue-200 text-blue-900"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm">
         <p>
@@ -71,7 +71,7 @@ export default function SisterSiteBanner() {
         <button
           type="button"
           onClick={dismiss}
-          className="self-end sm:self-auto inline-flex items-center text-amber-900/80 hover:text-amber-900 text-sm px-3 py-2 rounded hover:bg-amber-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-amber-50"
+          className="self-end sm:self-auto inline-flex items-center text-blue-900/80 hover:text-blue-900 text-sm px-3 py-2 rounded hover:bg-blue-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-50"
           aria-label="Dismiss this notice"
         >
           Dismiss

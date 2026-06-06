@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'November 16, 2025'
+const LAST_UPDATED = 'June 6, 2026'
 
 export default function CookiePolicy() {
   return (
@@ -70,15 +70,19 @@ export default function CookiePolicy() {
                     3.1 Necessary Cookies (Always Active)
                   </h3>
                   <p className="mb-4">
-                    These cookies are essential for the website to function properly. They enable
-                    basic features like storing your cookie consent preferences. These cookies do
-                    not store any personally identifiable information and cannot be disabled.
+                    These cookies (and equivalent browser storage) are essential for the website to
+                    function properly. They enable basic features like storing your cookie consent
+                    preferences and remembering interface choices. They do not store any personally
+                    identifiable information and are always active (they are not controlled by the
+                    consent banner). You can still block cookies and site storage in your browser
+                    settings, but doing so may break core functionality.
                   </p>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <table className="w-full text-sm">
                       <thead>
                         <tr className="border-b">
-                          <th className="text-left py-2 pr-4">Cookie Name</th>
+                          <th className="text-left py-2 pr-4">Name</th>
+                          <th className="text-left py-2 pr-4">Type</th>
                           <th className="text-left py-2 pr-4">Purpose</th>
                           <th className="text-left py-2">Duration</th>
                         </tr>
@@ -86,8 +90,21 @@ export default function CookiePolicy() {
                       <tbody>
                         <tr className="border-b">
                           <td className="py-2 pr-4 font-mono">cookie-consent</td>
+                          <td className="py-2 pr-4">Cookie</td>
                           <td className="py-2 pr-4">Stores your cookie preferences</td>
                           <td className="py-2">12 months</td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="py-2 pr-4 font-mono">
+                            ffc-sister-site-banner-dismissed-v1
+                          </td>
+                          <td className="py-2 pr-4">Local storage</td>
+                          <td className="py-2 pr-4">
+                            Remembers that you dismissed the &ldquo;looking for a free site or to
+                            donate?&rdquo; banner so it stays hidden. No personal data; never leaves
+                            your device.
+                          </td>
+                          <td className="py-2">Until cleared</td>
                         </tr>
                       </tbody>
                     </table>
