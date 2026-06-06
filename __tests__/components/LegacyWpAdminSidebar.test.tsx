@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import Sidebar from '@/components/legacy-wordpress-administration/Sidebar'
+import { LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
 
 const mockUsePathname = jest.fn<string, []>()
 
@@ -21,11 +22,11 @@ describe('Legacy WordPress Administration Sidebar', () => {
     expect(screen.getByText('Volunteer Programs')).toBeInTheDocument()
   })
 
-  test('renders every leaf as a link (12 leaves + hub = 13)', () => {
+  test('renders every leaf as a link (all leaves + hub)', () => {
     mockUsePathname.mockReturnValue('/legacy-wordpress-administration')
     render(<Sidebar />)
     const nav = screen.getByRole('navigation', { name: /legacy wordpress administration/i })
-    expect(nav.querySelectorAll('a').length).toBe(13)
+    expect(nav.querySelectorAll('a').length).toBe(LEGACY_WP_ADMIN_PAGES.length + 1)
   })
 
   test('marks only the current leaf as aria-current="page"', () => {
