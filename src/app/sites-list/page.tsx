@@ -4,7 +4,9 @@ import { Metadata } from 'next'
 import { parse } from 'csv-parse/sync'
 import HealthDashboard from './HealthDashboard'
 import FilterableHostingSection from './FilterableHostingSection'
+import DomainExpiry from './DomainExpiry'
 import NonprofitCallout from '@/components/NonprofitCallout'
+import { loadDomainExpiry, relativeAge } from '@/lib/dashboardData'
 
 export const metadata: Metadata = {
   title: 'Sites Master List',
@@ -172,6 +174,16 @@ function PriorityLegend() {
 
 export default async function SitesListPage() {
   const sites = await getSitesData()
+  const domainExpiry = loadDomainExpiry()
+
+  // When the CSV was last refreshed by the update-sites-data workflow.
+  let csvUpdated = ''
+  try {
+    const stat = fs.statSync(path.join(process.cwd(), 'docs', 'sites_list.csv'))
+    csvUpdated = relativeAge(stat.mtime.toISOString())
+  } catch {
+    csvUpdated = ''
+  }
 
   // Filter for "Good" sites: Apex domain + In Cloudflare + On GitHub Pages
   const migratedSites = sites.filter((site) => {
@@ -491,6 +503,9 @@ export default async function SitesListPage() {
           <p className="text-teal-100 text-lg max-w-3xl">
             Authoritative list of all domains, server assignments, and migration status.
           </p>
+          {csvUpdated && (
+            <p className="text-teal-200 text-xs mt-2">Site data refreshed {csvUpdated}</p>
+          )}
         </div>
       </div>
 
@@ -517,6 +532,9 @@ export default async function SitesListPage() {
 
         {/* Health Dashboard */}
         <HealthDashboard sites={sites} />
+
+        {/* Domain Expiration Tracker (#337) */}
+        <DomainExpiry data={domainExpiry} />
 
         {/* Migrated / Good Sites Table — shown first as the gold standard */}
         <div className="bg-green-50 rounded-lg shadow-md mb-10 overflow-hidden border border-green-200">

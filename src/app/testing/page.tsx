@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import CollapsibleSection from '@/components/CollapsibleSection'
+import CiStatusBadge from '@/components/CiStatusBadge'
+import { loadCiStatus } from '@/lib/dashboardData'
 
 export const metadata: Metadata = {
   title: 'Test Documentation',
@@ -393,6 +395,7 @@ export default function Testing() {
   // Calculate test statistics dynamically from the testSuites array
   const totalTestSuites = testSuites.length
   const totalTests = testSuites.reduce((sum, suite) => sum + suite.testsCount, 0)
+  const ciStatus = loadCiStatus()
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -423,6 +426,11 @@ export default function Testing() {
       </div>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Live CI status (#337) */}
+        <div className="mb-8">
+          <CiStatusBadge data={ciStatus} />
+        </div>
+
         {/* Introduction */}
         <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">About Testing</h2>
