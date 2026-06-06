@@ -224,6 +224,23 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
     publicSourceUrl: 'https://freeforcharity.org/ffc-volunteer-proving-ground-core-competencies/',
     relatedFfcAdminPaths: ['/contributor-ladder'],
   },
+  {
+    slug: 'wordpress-charity-offboarding',
+    title: 'Charity Offboarding & Deprovisioning',
+    shortLabel: 'Charity Offboarding',
+    summary:
+      'End-of-lifecycle SOP for a departing charity: domain transfer-back, Microsoft 365 / Google Workspace deprovisioning, backup archival (90-day retention), Cloudflare zone, and WHMCS closure.',
+    category: 'charity-onboarding',
+    publicSourceUrl: 'https://freeforcharity.org/',
+    relatedLeaves: [
+      { slug: 'wordpress-domains', note: 'domain transfer-back is the reverse of registration' },
+      { slug: 'wordpress-cpanel-backup-sop', note: 'final backup before archival' },
+      {
+        slug: 'wordpress-service-delivery-stages',
+        note: 'offboarding closes the service-delivery lifecycle',
+      },
+    ],
+  },
 ]
 
 /** Slug literal union derived from LEGACY_WP_ADMIN_PAGES. */

@@ -9,7 +9,7 @@ import {
 
 describe('Legacy WordPress Administration data', () => {
   test('exposes exactly the documented page count', () => {
-    expect(LEGACY_WP_ADMIN_PAGES).toHaveLength(12)
+    expect(LEGACY_WP_ADMIN_PAGES).toHaveLength(13)
   })
 
   test('every slug is prefixed `wordpress-`', () => {
@@ -47,9 +47,9 @@ describe('Legacy WordPress Administration data', () => {
     }
   })
 
-  test('category counts match the documented structure (5 / 3 / 3 / 1)', () => {
+  test('category counts match the documented structure (5 / 4 / 3 / 1)', () => {
     expect(getLegacyWpAdminPagesByCategory('wordpress-operations')).toHaveLength(5)
-    expect(getLegacyWpAdminPagesByCategory('charity-onboarding')).toHaveLength(3)
+    expect(getLegacyWpAdminPagesByCategory('charity-onboarding')).toHaveLength(4)
     expect(getLegacyWpAdminPagesByCategory('volunteer-programs')).toHaveLength(3)
     expect(getLegacyWpAdminPagesByCategory('reference')).toHaveLength(1)
   })
