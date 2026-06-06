@@ -68,6 +68,18 @@ describe('Volunteer recognition data model (#336)', () => {
     }
   })
 
+  it('the CE Champion capstone is only held alongside all three channel badges', () => {
+    const channelBadges = ['ce-learner', 'ce-educator', 'ce-practitioner']
+    for (const v of RECOGNIZED_VOLUNTEERS) {
+      const badges = v.ceBadges ?? []
+      if (badges.includes('ce-champion')) {
+        for (const required of channelBadges) {
+          expect(badges).toContain(required)
+        }
+      }
+    }
+  })
+
   it('aggregate counts lifetime and slices by year', () => {
     const agg = recognitionAggregate(new Date('2026-06-06T00:00:00Z'))
     expect(agg.lifetime).toBe(RECOGNIZED_VOLUNTEERS.length)

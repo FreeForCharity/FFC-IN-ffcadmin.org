@@ -466,6 +466,47 @@ export default function ContributorLadder() {
         </div>
       </section>
 
+      {/* Designations earned by climbing the ladder (#359) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-900 mb-3 text-center">
+            Designations you earn as you climb
+          </h2>
+          <p className="text-gray-700 text-center mb-6 max-w-2xl mx-auto">
+            Progressing the ladder isn&apos;t just access — it&apos;s recognition you can take with
+            you. Mentoring and teaching rungs feed the continuing-education{' '}
+            <span className="font-semibold">&ldquo;training delivered&rdquo;</span> channel.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/recognition"
+              className="block rounded-xl border border-gray-200 p-5 hover:shadow-lg transition-shadow"
+            >
+              <div className="text-2xl mb-1" aria-hidden="true">
+                🏅
+              </div>
+              <h3 className="font-bold text-gray-900">Recognition badges</h3>
+              <p className="text-sm text-gray-600">
+                Warm, progression-based badges that map 1:1 to your GitHub access role.
+              </p>
+            </Link>
+            <Link
+              href="/continuing-education"
+              className="block rounded-xl border border-gray-200 p-5 hover:shadow-lg transition-shadow"
+            >
+              <div className="text-2xl mb-1" aria-hidden="true">
+                🎓
+              </div>
+              <h3 className="font-bold text-gray-900">Continuing-education credit</h3>
+              <p className="text-sm text-gray-600">
+                Turn your volunteer and training hours into free CE credit toward your professional
+                certification.
+              </p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Legacy reference */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
         <div className="max-w-4xl mx-auto text-center">

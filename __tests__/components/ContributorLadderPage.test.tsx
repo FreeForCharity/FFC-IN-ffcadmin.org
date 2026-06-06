@@ -187,9 +187,10 @@ describe('Contributor Ladder Page', () => {
       // h2 for section headings (call to action, "is the ladder for you?", etc.)
       expect(screen.getAllByRole('heading', { level: 2 }).length).toBeGreaterThanOrEqual(1)
 
-      // h3 for each level (× 2 for mobile and desktop)
+      // h3 for each level (× 2 for mobile and desktop) = 10, plus any
+      // designation-callout cards (Recognition / Continuing Education).
       const h3Headings = screen.getAllByRole('heading', { level: 3 })
-      expect(h3Headings.length).toBe(10) // 5 levels × 2 layouts
+      expect(h3Headings.length).toBeGreaterThanOrEqual(10) // 5 levels × 2 layouts
 
       // h4 for requirements sections (× 2 for mobile and desktop)
       const h4Headings = screen.getAllByRole('heading', { level: 4 })

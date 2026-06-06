@@ -290,6 +290,7 @@ export default function RecognitionPage() {
                               >
                                 <span aria-hidden="true">{badge.icon}</span>
                                 {badge.name}
+                                <span className="sr-only">: {badge.description}</span>
                               </span>
                             )
                           })}
