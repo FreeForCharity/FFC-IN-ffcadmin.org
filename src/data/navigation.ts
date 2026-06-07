@@ -2,8 +2,8 @@
  * Shared navigation data used by the Navigation component.
  *
  * Top level (audience-first): Home · Volunteer ▾ · Edit My Site · Training ▾ ·
- * Operate ▾ · Resources ▾ · For Charities ↗. Add new items here so desktop and
- * mobile menus stay in sync.
+ * Operate ▾ · Resources ▾ · For Charities & Donors ↗. Add new items here so
+ * desktop and mobile menus stay in sync.
  */
 
 export interface NavDropdownItem {

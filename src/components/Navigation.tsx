@@ -122,6 +122,7 @@ export default function Navigation() {
     >
       <button
         type="button"
+        id={`${dropdown.id}-dropdown-button`}
         className={`${isDropdownActive(dropdown) ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
         aria-expanded={openDropdown === dropdown.id}
         aria-haspopup="true"
@@ -135,6 +136,7 @@ export default function Navigation() {
         <div
           id={`${dropdown.id}-dropdown-menu`}
           role="menu"
+          aria-labelledby={`${dropdown.id}-dropdown-button`}
           className="absolute left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
         >
           {dropdown.items.map((item) => (
