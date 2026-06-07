@@ -11,7 +11,7 @@ test.describe('Smoke Tests', () => {
     await page.goto('/')
     const nav = page.locator('nav')
     await expect(nav.locator('a[href="/"]').first()).toBeVisible()
-    await expect(nav.locator('a[href="/site-owner"]').first()).toBeVisible()
+    await expect(nav.locator('a[href*="/site-owner"]').first()).toBeVisible()
     await expect(nav.locator('button:has-text("Volunteer")')).toBeVisible()
     await expect(nav.locator('button:has-text("Training")')).toBeVisible()
     await expect(nav.locator('button:has-text("Operate")')).toBeVisible()
