@@ -151,6 +151,7 @@ function SiteRow({ site }: { site: SiteData }) {
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:text-blue-800 hover:underline"
+            aria-label={`Open the live site ${site.domain}`}
             title={`Open ${site.domain}`}
           >
             Site
@@ -161,6 +162,7 @@ function SiteRow({ site }: { site: SiteData }) {
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-800 hover:underline"
+              aria-label={`Open the GitHub repository for ${site.domain}`}
               title="Open the GitHub repository"
             >
               Repo
@@ -207,8 +209,8 @@ function SiteTable({
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {sites.map((site, index) => (
-              <SiteRow key={index} site={site} />
+            {sites.map((site) => (
+              <SiteRow key={site.domain} site={site} />
             ))}
           </tbody>
         </table>
