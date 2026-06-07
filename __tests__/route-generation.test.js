@@ -225,20 +225,26 @@ describe('Route Generation Tests', () => {
   })
 
   describe('Test Case 4.1c: OpenGraph Images (#255)', () => {
+    // The metadata image route is emitted as a static file; tolerate any
+    // extension (e.g. `opengraph-image` or `opengraph-image.png`).
+    const hasOgFile = (dir) =>
+      fs.existsSync(dir) && fs.readdirSync(dir).some((f) => /^opengraph-image/.test(f))
+
     it('generates a branded site-wide OG image and sets og:image on the home page', () => {
       const home = path.join(outDir, 'index.html')
       if (fs.existsSync(home)) {
         const content = fs.readFileSync(home, 'utf-8')
         expect(content).toMatch(/property="og:image"[^>]*opengraph-image/)
       }
-      // The metadata image route is emitted as a static file under out/.
-      expect(fs.existsSync(path.join(outDir, 'opengraph-image'))).toBe(true)
+      expect(hasOgFile(outDir)).toBe(true)
     })
 
-    it('gives each legacy WP admin leaf its own per-page OG image', () => {
-      const leaves = ['wordpress-domains', 'wordpress-web-hosting', 'wordpress-escalation-runbook']
-      for (const slug of leaves) {
-        const leaf = path.join(outDir, 'legacy-wordpress-administration', slug, 'index.html')
+    it('gives every legacy WP admin leaf its own per-page OG image', () => {
+      // Derive from the data so coverage never drifts as leaves are added.
+      const { LEGACY_WP_ADMIN_PAGES } = require('../src/data/legacy-wordpress-administration')
+      for (const { slug } of LEGACY_WP_ADMIN_PAGES) {
+        const dir = path.join(outDir, 'legacy-wordpress-administration', slug)
+        const leaf = path.join(dir, 'index.html')
         if (fs.existsSync(leaf)) {
           const content = fs.readFileSync(leaf, 'utf-8')
           // Each leaf points at its own opengraph-image, not the root one.
@@ -247,6 +253,7 @@ describe('Route Generation Tests', () => {
               `property="og:image"[^>]*legacy-wordpress-administration/${slug}/opengraph-image`
             )
           )
+          expect(hasOgFile(dir)).toBe(true)
         }
       }
     })

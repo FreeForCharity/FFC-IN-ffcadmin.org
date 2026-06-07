@@ -68,9 +68,16 @@ export function renderOgImage({
 /** Per-leaf OG image for a Legacy WordPress Administration page (#255). */
 export function renderLegacyLeafOg(slug: string): ImageResponse {
   const page = LEGACY_WP_ADMIN_PAGES.find((p) => p.slug === slug)
+  // Fail the build loudly on a slug/data mismatch rather than shipping a
+  // generic image with the wrong title.
+  if (!page) {
+    throw new Error(
+      `renderLegacyLeafOg: no LEGACY_WP_ADMIN_PAGES entry for slug "${slug}" — directory/data mismatch.`
+    )
+  }
   return renderOgImage({
     eyebrow: 'Legacy WordPress Administration',
-    title: page?.title ?? 'Legacy WordPress Administration',
+    title: page.title,
     accent: '#38bdf8',
   })
 }
