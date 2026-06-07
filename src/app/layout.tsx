@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       'Training hub for Free For Charity volunteers. Explore Global Administrator and Canva Designer certification paths while helping nonprofits.',
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
     description:
       'Training hub for Free For Charity volunteers. Explore Global Administrator and Canva Designer certification paths while helping nonprofits.',

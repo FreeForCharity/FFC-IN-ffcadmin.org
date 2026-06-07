@@ -224,6 +224,34 @@ describe('Route Generation Tests', () => {
     })
   })
 
+  describe('Test Case 4.1c: OpenGraph Images (#255)', () => {
+    it('generates a branded site-wide OG image and sets og:image on the home page', () => {
+      const home = path.join(outDir, 'index.html')
+      if (fs.existsSync(home)) {
+        const content = fs.readFileSync(home, 'utf-8')
+        expect(content).toMatch(/property="og:image"[^>]*opengraph-image/)
+      }
+      // The metadata image route is emitted as a static file under out/.
+      expect(fs.existsSync(path.join(outDir, 'opengraph-image'))).toBe(true)
+    })
+
+    it('gives each legacy WP admin leaf its own per-page OG image', () => {
+      const leaves = ['wordpress-domains', 'wordpress-web-hosting', 'wordpress-escalation-runbook']
+      for (const slug of leaves) {
+        const leaf = path.join(outDir, 'legacy-wordpress-administration', slug, 'index.html')
+        if (fs.existsSync(leaf)) {
+          const content = fs.readFileSync(leaf, 'utf-8')
+          // Each leaf points at its own opengraph-image, not the root one.
+          expect(content).toMatch(
+            new RegExp(
+              `property="og:image"[^>]*legacy-wordpress-administration/${slug}/opengraph-image`
+            )
+          )
+        }
+      }
+    })
+  })
+
   describe('Test Case 4.4: Legacy WordPress Administration Section', () => {
     const sectionRoot = path.join(outDir, 'legacy-wordpress-administration')
     const hubPath = path.join(sectionRoot, 'index.html')
