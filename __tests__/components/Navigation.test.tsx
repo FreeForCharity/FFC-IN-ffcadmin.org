@@ -33,9 +33,10 @@ describe('Navigation Component', () => {
     it('should render desktop navigation links and dropdown buttons', async () => {
       await renderNavigation()
       expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: /get involved/i })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: /sites list/i })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: /edit my site/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /volunteer/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /training/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /operate/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /resources/i })).toBeInTheDocument()
     })
 
@@ -82,16 +83,31 @@ describe('Navigation Component', () => {
       expect(homeLink).toHaveAttribute('href', '/')
     })
 
-    it('should have correct href for get involved link', async () => {
+    it('should have correct href for edit my site link', async () => {
       await renderNavigation()
-      const link = screen.getByRole('link', { name: /get involved/i })
-      expect(link).toHaveAttribute('href', '/get-involved')
+      const link = screen.getByRole('link', { name: /edit my site/i })
+      expect(link).toHaveAttribute('href', '/site-owner')
     })
 
-    it('should have correct href for sites list link', async () => {
+    it('should render volunteer dropdown items when opened', async () => {
       await renderNavigation()
-      const link = screen.getByRole('link', { name: /sites list/i })
-      expect(link).toHaveAttribute('href', '/sites-list')
+      fireEvent.click(screen.getByRole('button', { name: /volunteer/i }))
+      expect(screen.getByRole('menuitem', { name: /get involved/i })).toHaveAttribute(
+        'href',
+        '/get-involved'
+      )
+      expect(screen.getByRole('menuitem', { name: /recognition/i })).toHaveAttribute(
+        'href',
+        '/recognition'
+      )
+      expect(screen.getByRole('menuitem', { name: /continuing education/i })).toHaveAttribute(
+        'href',
+        '/continuing-education'
+      )
+      expect(screen.getByRole('menuitem', { name: /contributor ladder/i })).toHaveAttribute(
+        'href',
+        '/contributor-ladder'
+      )
     })
 
     it('should render training dropdown items when opened', async () => {
@@ -107,27 +123,36 @@ describe('Navigation Component', () => {
         'href',
         '/canva-designer-path'
       )
-      expect(screen.getByRole('menuitem', { name: /contributor ladder/i })).toHaveAttribute(
+      expect(screen.getByRole('menuitem', { name: /data & analytics/i })).toHaveAttribute(
         'href',
-        '/contributor-ladder'
+        '/training/data-analytics'
       )
     })
 
-    it('should render resources dropdown items when opened', async () => {
+    it('should render operate dropdown items when opened', async () => {
       await renderNavigation()
-      const resourcesBtn = screen.getByRole('button', { name: /resources/i })
-      fireEvent.click(resourcesBtn)
-      expect(screen.getByRole('menuitem', { name: /tech stack/i })).toHaveAttribute(
+      fireEvent.click(screen.getByRole('button', { name: /operate/i }))
+      expect(screen.getByRole('menuitem', { name: /sites list/i })).toHaveAttribute(
         'href',
-        '/tech-stack'
+        '/sites-list'
       )
       expect(screen.getByRole('menuitem', { name: /documentation/i })).toHaveAttribute(
         'href',
         '/documentation'
       )
       expect(screen.getByRole('menuitem', { name: /testing/i })).toHaveAttribute('href', '/testing')
+    })
+
+    it('should render resources dropdown items when opened', async () => {
+      await renderNavigation()
+      const resourcesBtn = screen.getByRole('button', { name: /resources/i })
+      fireEvent.click(resourcesBtn)
       expect(screen.getByRole('menuitem', { name: /guides/i })).toHaveAttribute('href', '/guides')
       expect(screen.getByRole('menuitem', { name: /blog/i })).toHaveAttribute('href', '/blog')
+      expect(screen.getByRole('menuitem', { name: /what ffc delivers/i })).toHaveAttribute(
+        'href',
+        '/what-ffc-delivers'
+      )
     })
   })
 
