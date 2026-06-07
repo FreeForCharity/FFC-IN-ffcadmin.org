@@ -12,9 +12,6 @@ permissions:
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    # GH_PAT is stored as a secret on the "GH CLI" environment, so the job
-    # must declare that environment to read it (otherwise secrets.GH_PAT is empty).
-    environment: 'GH CLI'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
