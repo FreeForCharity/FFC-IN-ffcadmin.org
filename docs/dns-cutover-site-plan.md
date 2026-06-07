@@ -330,6 +330,11 @@ Only the WordPress-only drops and the slug-shortening redirects remain:
 
 All redirects use **301 Permanent** and **preserve query strings**.
 
+The ready-to-import Cloudflare Bulk Redirect List is committed at
+[`docs/cloudflare-bulk-redirects-cutover.csv`](./cloudflare-bulk-redirects-cutover.csv)
+(#244) — load it against the freeforcharity.org zone, then verify each row with
+`curl -I` before and after the DNS cutover.
+
 > Note: `/ffcadmin/` on freeforcharity.org stays as a thin signpost page
 > linking to `https://ffcadmin.org/` — it is not a redirect.
 
