@@ -62,17 +62,24 @@ function getSitesData(): SiteData[] {
     openPrs: r['Open PRs'] || '',
     lastCommit: r['Last Commit'] || '',
     devStatus: r['Dev Status'] || '',
-    // Fall back to a derived tier if the data predates enrichment.
-    workTier: r['Work Tier'] || deriveTier(r),
+    // Trust the enriched Work Tier, but defensively force hard-dead statuses to
+    // Tier 6 so stale/incorrect data never surfaces a dead domain as work.
+    workTier: coerceDeadTier(r['Work Tier'] || deriveTier(r), r['Status']),
   }))
 }
 
-// Fallback tiering for data that hasn't been through the enrichment step yet.
+const HARD_DEAD = ['expired', 'cancelled', 'fraud', 'terminated']
+
+// Hard-dead lifecycle states always belong in Tier 6, regardless of repo activity.
+function coerceDeadTier(tier: string, status: string): string {
+  return HARD_DEAD.includes((status || '').toLowerCase()) ? '6 - Inactive / Archive' : tier
+}
+
+// Fallback tiering for data that predates the enrichment step (no dev signal).
 function deriveTier(r: Record<string, string>): string {
   const status = (r['Status'] || '').toLowerCase()
   const server = (r['Server In Use'] || '').toLowerCase()
-  if (['expired', 'cancelled', 'fraud', 'terminated', 'transferred away'].includes(status))
-    return '6 - Inactive / Archive'
+  if ([...HARD_DEAD, 'transferred away'].includes(status)) return '6 - Inactive / Archive'
   if (server === 'github pages') return '4 - Done / Stable'
   if (
     ['hostpapa', 'interserver', 'hostinger', 'krystal', 'cloudflare proxy'].some((s) =>
@@ -140,21 +147,35 @@ const TIERS = [
   },
 ]
 
-function healthBadge(health: string): string {
+// Normalize health to a category, tolerant of both word forms ("Live",
+// "Redirect", "Error", "Unreachable") and HTTP-code text ("200 OK", "301", "404").
+function healthCategory(health: string): 'live' | 'redirect' | 'error' | 'unreachable' | 'unknown' {
   const h = health.toLowerCase()
-  if (h === 'live') return 'text-green-700 bg-green-100 border-green-200'
-  if (h === 'redirect') return 'text-yellow-700 bg-yellow-100 border-yellow-200'
-  if (h === 'error' || h === 'unreachable') return 'text-red-700 bg-red-100 border-red-200'
-  return 'text-gray-600 bg-gray-100 border-gray-200'
+  if (h === 'live' || h.includes('200')) return 'live'
+  if (h === 'redirect' || h.includes('301') || h.includes('302')) return 'redirect'
+  if (h === 'unreachable' || h.includes('no response')) return 'unreachable'
+  if (h === 'error' || /\b(4\d\d|5\d\d)\b/.test(h)) return 'error'
+  return 'unknown'
+}
+
+function healthBadge(health: string): string {
+  switch (healthCategory(health)) {
+    case 'live':
+      return 'text-green-700 bg-green-100 border-green-200'
+    case 'redirect':
+      return 'text-yellow-700 bg-yellow-100 border-yellow-200'
+    case 'error':
+    case 'unreachable':
+      return 'text-red-700 bg-red-100 border-red-200'
+    default:
+      return 'text-gray-600 bg-gray-100 border-gray-200'
+  }
 }
 
 function tierRank(s: SiteData): number {
-  const h = s.siteHealth.toLowerCase()
-  if (h === 'live') return 1
-  if (h === 'redirect') return 2
-  if (h === 'error') return 3
-  if (h === 'unreachable') return 4
-  return 5
+  return { live: 1, redirect: 2, error: 3, unreachable: 4, unknown: 5 }[
+    healthCategory(s.siteHealth)
+  ]
 }
 
 // Within a tier, lead with the most recently active (tiers 1/2) or healthiest.
@@ -174,27 +195,30 @@ function repoName(url: string): string {
 }
 
 function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
+  // Dev tiers (1, 2) lead with repo activity; other tiers hide those columns.
   const showRepoCols = num === '1' || num === '2'
+  const headers = showRepoCols
+    ? ['Domain', 'Repo', 'Last PR', 'Open PRs', 'Health', 'Server', 'Status', 'Notes']
+    : ['Domain', 'Health', 'Server', 'Status', 'Notes']
+  const dash = <span className="text-gray-300">—</span>
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200 text-sm">
         <thead className="bg-gray-50">
           <tr>
-            {['Domain', 'Repo', 'Last PR', 'Open PRs', 'Health', 'Server', 'Status', 'Notes'].map(
-              (h) => (
-                <th
-                  key={h}
-                  className="px-4 py-2 text-left text-xs font-bold uppercase tracking-wider text-gray-500"
-                >
-                  {h}
-                </th>
-              )
-            )}
+            {headers.map((h) => (
+              <th
+                key={h}
+                className="px-4 py-2 text-left text-xs font-bold uppercase tracking-wider text-gray-500"
+              >
+                {h}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-100">
-          {sites.map((s, i) => (
-            <tr key={i} className="hover:bg-gray-50">
+          {sites.map((s) => (
+            <tr key={`${num}-${s.domain}`} className="hover:bg-gray-50">
               <td className="px-4 py-2 whitespace-nowrap font-medium">
                 <a
                   href={`https://${s.domain}`}
@@ -205,31 +229,31 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
                   {s.domain}
                 </a>
               </td>
-              <td className="px-4 py-2 whitespace-nowrap text-xs">
-                {s.repoUrl ? (
-                  <a
-                    href={s.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-indigo-600 hover:underline"
-                    title={repoName(s.repoUrl)}
-                  >
-                    {showRepoCols ? repoName(s.repoUrl).split('/').pop() : 'Repo'}
-                  </a>
-                ) : (
-                  <span className="text-gray-300">—</span>
-                )}
-              </td>
-              <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-600">
-                {s.lastPrClosed || <span className="text-gray-300">—</span>}
-              </td>
-              <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-600">
-                {s.openPrs && s.openPrs !== '0' ? (
-                  s.openPrs
-                ) : (
-                  <span className="text-gray-300">—</span>
-                )}
-              </td>
+              {showRepoCols && (
+                <>
+                  <td className="px-4 py-2 whitespace-nowrap text-xs">
+                    {s.repoUrl ? (
+                      <a
+                        href={s.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:underline"
+                        title={repoName(s.repoUrl)}
+                      >
+                        {repoName(s.repoUrl).split('/').pop()}
+                      </a>
+                    ) : (
+                      dash
+                    )}
+                  </td>
+                  <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-600">
+                    {s.lastPrClosed || dash}
+                  </td>
+                  <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-600">
+                    {s.openPrs && s.openPrs !== '0' ? s.openPrs : dash}
+                  </td>
+                </>
+              )}
               <td className="px-4 py-2 whitespace-nowrap">
                 <span
                   className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${healthBadge(s.siteHealth)}`}
@@ -238,7 +262,7 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
                 </span>
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-700">
-                {s.serverInUse || <span className="text-gray-300">—</span>}
+                {s.serverInUse || dash}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-700">{s.status}</td>
               <td className="px-4 py-2 text-xs text-gray-500 max-w-xs truncate" title={s.notes}>
