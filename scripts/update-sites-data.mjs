@@ -64,6 +64,21 @@ async function main() {
   const wpmudevData = readCSV(WPMUDEV_PATH)
   const repos = readJSON(REPOS_JSON_PATH)
 
+  // Track which upstream exports are actually present. When a source is
+  // missing (e.g. an upstream export workflow failed, or we are only
+  // refreshing health locally) we must PRESERVE the existing membership
+  // flags rather than overwrite every domain with "No" and silently wipe
+  // the WHMCS / Cloudflare / WPMUDEV columns.
+  const hasWhmcs = fs.existsSync(WHMCS_PATH)
+  const hasCf = fs.existsSync(CF_PATH)
+  const hasWpmudev = fs.existsSync(WPMUDEV_PATH)
+  console.log(
+    `Sources detected -> WHMCS: ${hasWhmcs}, Cloudflare: ${hasCf}, WPMUDEV: ${hasWpmudev}`
+  )
+  if (!hasWhmcs && !hasCf && !hasWpmudev) {
+    console.log('No upstream exports found: preserving membership flags, refreshing health only.')
+  }
+
   // Indexing for fast lookup
   const whmcsMap = new Map(
     whmcsData.filter((d) => d.domainname).map((d) => [d.domainname.toLowerCase(), d])
@@ -113,10 +128,16 @@ async function main() {
           Section: manualEntry['Section'] || 'Unknown',
           Domain: domain,
           Status: whmcsEntry?.status || manualEntry['Status'] || 'Unknown',
-          // Mapping new columns
-          'In WHMCS': whmcsEntry ? 'Yes' : 'No',
-          'In Cloudflare': cfEntry ? 'Yes' : 'No',
-          'In WPMUDEV': wpmudevEntry ? 'Yes' : 'No',
+          // Mapping new columns. Only derive a flag from a source when that
+          // source export is present; otherwise keep the existing value so a
+          // missing/failed export never wipes the column.
+          'In WHMCS': hasWhmcs ? (whmcsEntry ? 'Yes' : 'No') : manualEntry['In WHMCS'] || 'No',
+          'In Cloudflare': hasCf ? (cfEntry ? 'Yes' : 'No') : manualEntry['In Cloudflare'] || 'No',
+          'In WPMUDEV': hasWpmudev
+            ? wpmudevEntry
+              ? 'Yes'
+              : 'No'
+            : manualEntry['In WPMUDEV'] || 'No',
 
           // Preserved Manual Columns
           'Server In Use': manualEntry['Server In Use'] || '',
@@ -127,7 +148,11 @@ async function main() {
           'Cloudflare IP': cfEntry
             ? cfEntry.apex_a_ips || '(no A record)'
             : manualEntry['Cloudflare IP'] || '(no A record)',
-          'Is In Cloudflare': cfEntry ? 'Yes' : 'No',
+          'Is In Cloudflare': hasCf
+            ? cfEntry
+              ? 'Yes'
+              : 'No'
+            : manualEntry['Is In Cloudflare'] || 'No',
           'Repo URL': manualEntry['Repo URL'] || manualEntry['URL'] || '',
           'Site Health': healthStatus, // New Column
         }

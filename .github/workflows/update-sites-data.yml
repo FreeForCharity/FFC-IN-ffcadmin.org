@@ -24,12 +24,15 @@ jobs:
       - name: Install dependencies
         run: npm install csv-parse csv-stringify
 
-      - name: Authenticate GitHub CLI
-        run: |
-          echo "${{ secrets.GH_PAT }}" > .github_token
-          gh auth login --with-token < .github_token
+      - name: Validate authentication secret
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "::error::Required secret GH_PAT is not set. Add a PAT with access to FreeForCharity/FFC-Cloudflare-Automation- in repository secrets."
+            exit 1
+          fi
+          echo "GH_PAT is present."
 
       - name: Trigger Remote Workflows and Wait
         env:
