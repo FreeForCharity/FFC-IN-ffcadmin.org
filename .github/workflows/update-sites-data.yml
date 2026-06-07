@@ -1,89 +1,44 @@
-name: Update Sites List Data
+name: Sync Sites List Data
+
+# The sites list is generated in FreeForCharity/FFC-Cloudflare-Automation, which
+# owns the WHMCS / Cloudflare / WPMUDEV export environments and the GitHub PAT
+# needed to run them. This workflow simply pulls the published, public files and
+# opens a PR. It needs NO secrets.
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 8 * * 1' # Weekly on Mondays at 8am
+    - cron: '0 9 * * 1' # Weekly on Mondays at 09:00 UTC (after the upstream generator)
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  update-data:
+  sync:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install csv-parse csv-stringify
-
-      - name: Validate authentication secret
+      - name: Fetch published sites list
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          SRC: https://raw.githubusercontent.com/FreeForCharity/FFC-Cloudflare-Automation/main/sites-list
         run: |
-          if [ -z "$GH_PAT" ]; then
-            echo "::error::Required secret GH_PAT is not set. Add a PAT with access to FreeForCharity/FFC-Cloudflare-Automation- in repository secrets."
-            exit 1
-          fi
-          echo "GH_PAT is present."
-
-      - name: Trigger Remote Workflows and Wait
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-          REMOTE_REPO: FreeForCharity/FFC-Cloudflare-Automation-
-        run: |
-          echo "Triggering WHMCS Export..."
-          gh workflow run "07. WHMCS - Export Domains (Report)" --repo $REMOTE_REPO
-
-          echo "Triggering DNS Summary Export..."
-          gh workflow run "06. DNS - Export All Domains (Report)" --repo $REMOTE_REPO
-
-          echo "Triggering WPMUDEV Export..."
-          gh workflow run "13. WPMUDEV - Export Sites/Domains (Read-only)" --repo $REMOTE_REPO
-
-          # Wait for workflows to start and get their IDs
-          sleep 30
-
-          # Get the latest run IDs
-          WHMCS_RUN_ID=$(gh run list --workflow "07. WHMCS - Export Domains (Report)" --repo $REMOTE_REPO --limit 1 --json databaseId --jq '.[0].databaseId')
-          DNS_RUN_ID=$(gh run list --workflow "06. DNS - Export All Domains (Report)" --repo $REMOTE_REPO --limit 1 --json databaseId --jq '.[0].databaseId')
-          WPMUDEV_RUN_ID=$(gh run list --workflow "13. WPMUDEV - Export Sites/Domains (Read-only)" --repo $REMOTE_REPO --limit 1 --json databaseId --jq '.[0].databaseId')
-
-          echo "Waiting for WHMCS Run ID: $WHMCS_RUN_ID"
-          gh run watch $WHMCS_RUN_ID --repo $REMOTE_REPO
-
-          echo "Waiting for DNS Run ID: $DNS_RUN_ID"
-          gh run watch $DNS_RUN_ID --repo $REMOTE_REPO
-
-          echo "Waiting for WPMUDEV Run ID: $WPMUDEV_RUN_ID"
-          gh run watch $WPMUDEV_RUN_ID --repo $REMOTE_REPO
-
-          echo "Downloading Artifacts..."
-          gh run download $WHMCS_RUN_ID --repo $REMOTE_REPO --dir tmp_data/whmcs_domains
-          gh run download $DNS_RUN_ID --repo $REMOTE_REPO --dir tmp_data/domain_summary
-          gh run download $WPMUDEV_RUN_ID --repo $REMOTE_REPO --dir tmp_data/wpmudev
-
-      - name: Run Update Script
-        run: node scripts/update-sites-data.mjs
+          set -euo pipefail
+          curl -fsSL "$SRC/sites_list.csv" -o docs/sites_list.csv
+          curl -fsSL "$SRC/sites_list.json" -o docs/sites_list.json
+          echo "Fetched $(wc -l < docs/sites_list.csv) lines of CSV."
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.GH_PAT }}
-          commit-message: 'feat(data): Automated sites list update'
-          branch: 'data/automated-update'
+          commit-message: 'chore(data): sync sites list from FFC-Cloudflare-Automation'
+          branch: 'data/sites-list-sync'
           delete-branch: true
-          title: 'feat(data): Automated sites list update'
+          title: 'chore(data): sync sites list from FFC-Cloudflare-Automation'
           body: |
-            Automated update of `sites_list.csv` sourced from WHMCS and Cloudflare via `FFC-Cloudflare-Automation-`.
-
-            **Changes:**
-            - Synced with latest remote data.
-            - Applied sorting and pairing logic.
+            Automated sync of the published sites list (`sites_list.csv` and
+            `sites_list.json`) from `FreeForCharity/FFC-Cloudflare-Automation`,
+            where the data is generated from the WHMCS / Cloudflare / WPMUDEV
+            exports. No secrets are used on this side.
