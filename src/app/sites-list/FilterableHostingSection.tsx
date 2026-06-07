@@ -29,6 +29,19 @@ interface FilterableHostingSectionProps {
   providers: ProviderConfig[]
 }
 
+const COLUMNS = [
+  'Category',
+  'Domain',
+  'Health',
+  'Status',
+  'WHMCS',
+  'Cloudflare',
+  'WPMUDEV',
+  'Server',
+  'Notes',
+  'Links',
+]
+
 function getHealthSeverity(health: string): number {
   const h = health.toLowerCase()
   if (h === 'live' || h.includes('200')) return 1
@@ -84,6 +97,131 @@ function getHealthColor(health: string) {
   return 'text-gray-600 bg-gray-100'
 }
 
+/** One site row, shared by the provider tables and the unknown-server table. */
+function SiteRow({ site }: { site: SiteData }) {
+  return (
+    <tr className="hover:bg-gray-50">
+      <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-gray-700">
+        {site.section}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium hover:underline text-blue-600">
+        <a href={`https://${site.domain}`} target="_blank" rel="noopener noreferrer">
+          {site.domain}
+        </a>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xs">
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-bold border ${getHealthColor(site.siteHealth)}`}
+        >
+          {site.siteHealth || 'N/A'}
+        </span>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-700 font-semibold">
+        {site.status}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xs">
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWhmcs)}`}
+        >
+          {site.inWhmcs}
+        </span>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xs">
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inCloudflare)}`}
+        >
+          {site.inCloudflare}
+        </span>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xs">
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWpmudev)}`}
+        >
+          {site.inWpmudev}
+        </span>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{site.serverInUse}</td>
+      <td className="px-6 py-4 text-xs text-gray-500 max-w-xs truncate" title={site.notes}>
+        {site.notes}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xs">
+        <div className="flex items-center gap-2">
+          <a
+            href={`https://${site.domain}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 hover:underline"
+            title={`Open ${site.domain}`}
+          >
+            Site
+          </a>
+          {site.repoUrl ? (
+            <a
+              href={site.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 hover:underline"
+              title="Open the GitHub repository"
+            >
+              Repo
+            </a>
+          ) : (
+            <span className="text-gray-300">—</span>
+          )}
+        </div>
+      </td>
+    </tr>
+  )
+}
+
+function SiteTable({
+  title,
+  description,
+  colorClass,
+  sites,
+}: {
+  title: string
+  description: string
+  colorClass: string
+  sites: SiteData[]
+}) {
+  return (
+    <div className="rounded-lg shadow-lg overflow-hidden border border-gray-200 mb-10">
+      <div className={`px-6 py-4 border-b border-gray-200 ${colorClass}`}>
+        <h2 className="text-xl font-bold flex items-center">{title}</h2>
+        <p className="text-sm mt-1 opacity-80">{description}</p>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className={colorClass.replace('text-white', 'bg-opacity-20')}>
+            <tr>
+              {COLUMNS.map((col) => (
+                <th
+                  key={col}
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80"
+                >
+                  {col}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {sites.map((site, index) => (
+              <SiteRow key={index} site={site} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+        <p className="text-sm text-gray-500">
+          Total: <span className="font-medium">{sites.length}</span>
+        </p>
+      </div>
+    </div>
+  )
+}
+
 export default function FilterableHostingSection({
   sites,
   providers,
@@ -125,6 +263,10 @@ export default function FilterableHostingSection({
   }, [sites, query, healthFilter, serverFilter])
 
   const isFiltering = query || healthFilter !== 'all' || serverFilter !== 'all'
+
+  const unknownSites = sortByPriority(
+    filtered.filter((s) => !s.serverInUse || !providers.some((p) => p.name === s.serverInUse))
+  )
 
   return (
     <>
@@ -224,122 +366,26 @@ export default function FilterableHostingSection({
         <p className="text-sm text-gray-600 mb-6">
           Active, Pending, and Unknown status domains organized by hosting provider. Sites are
           sorted first by health status (Live &rarr; Redirect &rarr; Error &rarr; Unreachable), then
-          by priority, and finally by domain name.
+          by priority, and finally by domain name. The <strong>Links</strong> column gives quick
+          access to the live site and its GitHub repository.
         </p>
       </div>
 
-      {providers
-        .map((provider) => {
-          const providerSites = sortByPriority(
-            filtered.filter((s) => s.serverInUse === provider.name)
-          )
-          if (providerSites.length === 0) return null
-          return (
-            <div
-              key={provider.name}
-              className="rounded-lg shadow-lg overflow-hidden border border-gray-200 mb-10"
-            >
-              <div className={`px-6 py-4 border-b border-gray-200 ${provider.colorClass}`}>
-                <h2 className="text-xl font-bold flex items-center">{provider.name}</h2>
-                <p className="text-sm mt-1 opacity-80">
-                  {provider.description} Sites are sorted by health status (healthiest first), then
-                  by priority, and finally by domain name.
-                </p>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className={provider.colorClass.replace('text-white', 'bg-opacity-20')}>
-                    <tr>
-                      {[
-                        'Category',
-                        'Domain',
-                        'Health',
-                        'Status',
-                        'WHMCS',
-                        'Cloudflare',
-                        'WPMUDEV',
-                        'Server',
-                        'Notes',
-                      ].map((col) => (
-                        <th
-                          key={col}
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80"
-                        >
-                          {col}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {providerSites.map((site, index) => (
-                      <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-gray-700">
-                          {site.section}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium hover:underline text-blue-600">
-                          <a
-                            href={`https://${site.domain}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {site.domain}
-                          </a>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-xs">
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-bold border ${getHealthColor(site.siteHealth)}`}
-                          >
-                            {site.siteHealth || 'N/A'}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-700 font-semibold">
-                          {site.status}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-xs">
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWhmcs)}`}
-                          >
-                            {site.inWhmcs}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-xs">
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inCloudflare)}`}
-                          >
-                            {site.inCloudflare}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-xs">
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWpmudev)}`}
-                          >
-                            {site.inWpmudev}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {site.serverInUse}
-                        </td>
-                        <td
-                          className="px-6 py-4 text-xs text-gray-500 max-w-xs truncate"
-                          title={site.notes}
-                        >
-                          {site.notes}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
-                <p className="text-sm text-gray-500">
-                  Total: <span className="font-medium">{providerSites.length}</span>
-                </p>
-              </div>
-            </div>
-          )
-        })
-        .filter(Boolean)}
+      {providers.map((provider) => {
+        const providerSites = sortByPriority(
+          filtered.filter((s) => s.serverInUse === provider.name)
+        )
+        if (providerSites.length === 0) return null
+        return (
+          <SiteTable
+            key={provider.name}
+            title={provider.name}
+            description={`${provider.description} Sites are sorted by health status (healthiest first), then by priority, and finally by domain name.`}
+            colorClass={provider.colorClass}
+            sites={providerSites}
+          />
+        )
+      })}
 
       {isFiltering && filtered.length === 0 && (
         <div className="text-center py-12 text-gray-500">
@@ -358,111 +404,15 @@ export default function FilterableHostingSection({
         </div>
       )}
 
-      {/* Also include sites with unknown/empty server that match filters */}
-      {(() => {
-        const unknownSites = sortByPriority(
-          filtered.filter((s) => !s.serverInUse || !providers.some((p) => p.name === s.serverInUse))
-        )
-        if (unknownSites.length === 0) return null
-        return (
-          <div className="rounded-lg shadow-lg overflow-hidden border border-gray-200 mb-10">
-            <div className="px-6 py-4 border-b border-gray-200 bg-gray-200 text-gray-800">
-              <h2 className="text-xl font-bold flex items-center">Unknown Server</h2>
-              <p className="text-sm mt-1 opacity-80">Domains with unidentified hosting.</p>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-200 bg-opacity-20">
-                  <tr>
-                    {[
-                      'Category',
-                      'Domain',
-                      'Health',
-                      'Status',
-                      'WHMCS',
-                      'Cloudflare',
-                      'WPMUDEV',
-                      'Server',
-                      'Notes',
-                    ].map((col) => (
-                      <th
-                        key={col}
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider opacity-80"
-                      >
-                        {col}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {unknownSites.map((site, index) => (
-                    <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-gray-700">
-                        {site.section}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium hover:underline text-blue-600">
-                        <a
-                          href={`https://${site.domain}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {site.domain}
-                        </a>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-xs">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-bold border ${getHealthColor(site.siteHealth)}`}
-                        >
-                          {site.siteHealth || 'N/A'}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-700 font-semibold">
-                        {site.status}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-xs">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWhmcs)}`}
-                        >
-                          {site.inWhmcs}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-xs">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inCloudflare)}`}
-                        >
-                          {site.inCloudflare}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-xs">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(site.inWpmudev)}`}
-                        >
-                          {site.inWpmudev}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                        {site.serverInUse}
-                      </td>
-                      <td
-                        className="px-6 py-4 text-xs text-gray-500 max-w-xs truncate"
-                        title={site.notes}
-                      >
-                        {site.notes}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
-              <p className="text-sm text-gray-500">
-                Total: <span className="font-medium">{unknownSites.length}</span>
-              </p>
-            </div>
-          </div>
-        )
-      })()}
+      {/* Sites with unknown/empty server that match filters */}
+      {unknownSites.length > 0 && (
+        <SiteTable
+          title="Unknown Server"
+          description="Domains with unidentified hosting."
+          colorClass="bg-gray-200 text-gray-800"
+          sites={unknownSites}
+        />
+      )}
     </>
   )
 }
