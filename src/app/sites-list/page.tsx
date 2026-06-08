@@ -33,6 +33,7 @@ interface SiteData {
   lastCommit: string
   devStatus: string
   workTier: string
+  leftFfc: string
 }
 
 function getSitesData(): SiteData[] {
@@ -62,29 +63,38 @@ function getSitesData(): SiteData[] {
     openPrs: r['Open PRs'] || '',
     lastCommit: r['Last Commit'] || '',
     devStatus: r['Dev Status'] || '',
-    // Trust the enriched Work Tier, but defensively force hard-dead statuses to
-    // Tier 6 so stale/incorrect data never surfaces a dead domain as work.
-    workTier: coerceDeadTier(r['Work Tier'] || deriveTier(r), r['Status']),
+    leftFfc: r['Left FFC'] || derivedLeftFfc(r),
+    // Trust the enriched Work Tier, but defensively force genuinely-dead domains
+    // to Tier 6 so stale/incorrect data never surfaces one as work.
+    workTier: coerceDeadTier(r['Work Tier'] || deriveTier(r), r),
   }))
 }
 
 const HARD_DEAD = ['expired', 'cancelled', 'fraud', 'terminated']
 
-// Hard-dead lifecycle states always belong in Tier 6, regardless of repo activity.
-// "Transferred Away" is deliberately NOT here: a domain whose registration moved
-// can still be a live, actively-developed site (e.g. the flagship freeforcharity.org),
-// so the generator's dev-aware Work Tier keeps those in Tier 1 rather than burying
-// them in archive. Transferred domains without active development land in Tier 6
-// via the generator / deriveTier fallback.
-function coerceDeadTier(tier: string, status: string): string {
-  return HARD_DEAD.includes((status || '').toLowerCase()) ? '6 - Inactive / Archive' : tier
+// "Transferred Away" means the registration left eNom. It only means FFC lost the
+// domain if it's also no longer in FFC Cloudflare; a transfer that stayed in
+// Cloudflare is fine and the domain is tiered normally.
+function derivedLeftFfc(r: Record<string, string>): string {
+  return (r['Status'] || '').toLowerCase() === 'transferred away' &&
+    (r['In Cloudflare'] || '').toLowerCase() !== 'yes'
+    ? 'Yes'
+    : ''
+}
+
+// Force genuinely-dead domains to Tier 6: hard-dead lifecycle states, plus
+// transfers that left FFC Cloudflare. A transfer still in Cloudflare is NOT dead.
+function coerceDeadTier(tier: string, r: Record<string, string>): string {
+  const status = (r['Status'] || '').toLowerCase()
+  if (HARD_DEAD.includes(status) || derivedLeftFfc(r) === 'Yes') return '6 - Inactive / Archive'
+  return tier
 }
 
 // Fallback tiering for data that predates the enrichment step (no dev signal).
 function deriveTier(r: Record<string, string>): string {
   const status = (r['Status'] || '').toLowerCase()
   const server = (r['Server In Use'] || '').toLowerCase()
-  if ([...HARD_DEAD, 'transferred away'].includes(status)) return '6 - Inactive / Archive'
+  if (HARD_DEAD.includes(status) || derivedLeftFfc(r) === 'Yes') return '6 - Inactive / Archive'
   if (server === 'github pages') return '4 - Done / Stable'
   if (
     ['hostpapa', 'interserver', 'hostinger', 'krystal', 'cloudflare proxy'].some((s) =>
@@ -297,6 +307,12 @@ export default function SitesListPage() {
   const byTier = (num: string) => sites.filter((s) => s.workTier.startsWith(num))
   const counts = Object.fromEntries(TIERS.map((t) => [t.num, byTier(t.num).length]))
 
+  // Domains transferred away from eNom AND no longer in FFC Cloudflare — i.e.
+  // they actually left FFC. Surfaced prominently for cleanup/outreach.
+  const leftFfcSites = sites
+    .filter((s) => s.leftFfc === 'Yes')
+    .sort((a, b) => a.domain.localeCompare(b.domain))
+
   const stat = (label: string, value: number, color: string, icon: string) => (
     <div className={`bg-white rounded-lg shadow-md border p-4 text-center ${color}`}>
       <p className="text-3xl font-bold">
@@ -340,6 +356,22 @@ export default function SitesListPage() {
           {stat('Needs Migration', counts['3'], 'border-blue-200', '🚚')}
           {stat('Done / Stable', counts['4'], 'border-teal-200', '✅')}
         </div>
+
+        {/* Domains that left FFC (transferred away + not in FFC Cloudflare) */}
+        {leftFfcSites.length > 0 && (
+          <details className="mb-8 rounded-lg shadow-md border border-red-300 bg-red-50 overflow-hidden">
+            <summary className="px-6 py-4 cursor-pointer bg-red-100 text-red-900 border-b border-red-200">
+              <span className="text-lg font-bold">🚨 Left FFC — needs attention</span>
+              <span className="ml-2 text-sm font-semibold opacity-80">({leftFfcSites.length})</span>
+              <p className="text-sm mt-1 opacity-80 font-normal">
+                Transferred away from eNom <strong>and</strong> no longer in FFC Cloudflare — FFC no
+                longer manages DNS for these. Still in WHMCS, so worth a cleanup/outreach pass (some
+                are still live under their new owner).
+              </p>
+            </summary>
+            <TierTable sites={leftFfcSites} num="6" />
+          </details>
+        )}
 
         {/* Work Tier sections */}
         {TIERS.map((t) => {
