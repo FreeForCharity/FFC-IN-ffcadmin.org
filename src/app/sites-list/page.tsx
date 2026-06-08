@@ -71,6 +71,11 @@ function getSitesData(): SiteData[] {
 const HARD_DEAD = ['expired', 'cancelled', 'fraud', 'terminated']
 
 // Hard-dead lifecycle states always belong in Tier 6, regardless of repo activity.
+// "Transferred Away" is deliberately NOT here: a domain whose registration moved
+// can still be a live, actively-developed site (e.g. the flagship freeforcharity.org),
+// so the generator's dev-aware Work Tier keeps those in Tier 1 rather than burying
+// them in archive. Transferred domains without active development land in Tier 6
+// via the generator / deriveTier fallback.
 function coerceDeadTier(tier: string, status: string): string {
   return HARD_DEAD.includes((status || '').toLowerCase()) ? '6 - Inactive / Archive' : tier
 }
@@ -209,6 +214,7 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
             {headers.map((h) => (
               <th
                 key={h}
+                scope="col"
                 className="px-4 py-2 text-left text-xs font-bold uppercase tracking-wider text-gray-500"
               >
                 {h}
