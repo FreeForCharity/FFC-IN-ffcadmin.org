@@ -6,6 +6,7 @@ import HealthDashboard from './HealthDashboard'
 import DomainExpiry from './DomainExpiry'
 import NonprofitCallout from '@/components/NonprofitCallout'
 import { loadDomainExpiry, relativeAge } from '@/lib/dashboardData'
+import { ViewNav } from './PersonaView'
 
 export const metadata: Metadata = {
   title: 'Sites Master List',
@@ -345,9 +346,15 @@ export default function SitesListPage() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        <ViewNav current="/sites-list" />
+
         {/* Volunteer guide */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8 border border-gray-200">
           <h2 className="text-xl font-bold text-ffc-teal-dark mb-2">Where should I help?</h2>
+          <p className="text-gray-600 text-sm mb-2">
+            New: pick a <strong>volunteer view</strong> above — 🚚 Migration, 🔧 Maintenance, or 🛠️
+            Development — for a ranked, scored worklist tailored to that kind of work.
+          </p>
           <p className="text-gray-600 text-sm">
             Sites are sorted into <strong>Work Tiers</strong>. Start at the top: 🔨 sites under
             active development (keep the momentum), then 🌱 stalled repos (revive them), then 🚚
