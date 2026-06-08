@@ -1,116 +1,15 @@
-import fs from 'fs'
-import path from 'path'
 import { Metadata } from 'next'
-import { parse } from 'csv-parse/sync'
 import HealthDashboard from './HealthDashboard'
 import DomainExpiry from './DomainExpiry'
 import NonprofitCallout from '@/components/NonprofitCallout'
-import { loadDomainExpiry, relativeAge } from '@/lib/dashboardData'
+import { loadDomainExpiry } from '@/lib/dashboardData'
 import { ViewNav } from './PersonaView'
+import { SiteData, loadSites, dataRefreshedAge, healthBadge, healthCategory } from './sitesData'
 
 export const metadata: Metadata = {
   title: 'Sites Master List',
   description:
     'Volunteer-focused dashboard of FFC-managed domains, grouped by how much effort they need — active development, stalled, needs migration, done, triage, and inactive.',
-}
-
-interface SiteData {
-  section: string
-  domain: string
-  status: string
-  inWhmcs: string
-  inCloudflare: string
-  inWpmudev: string
-  serverInUse: string
-  oldServerAbandoned: string
-  notes: string
-  cloudflareIp: string
-  repoUrl: string
-  siteHealth: string
-  priority: string
-  repoArchived: string
-  lastPrClosed: string
-  openPrs: string
-  lastCommit: string
-  devStatus: string
-  workTier: string
-  leftFfc: string
-}
-
-function getSitesData(): SiteData[] {
-  const filePath = path.join(process.cwd(), 'docs', 'sites_list.csv')
-  const fileContent = fs.readFileSync(filePath, 'utf8')
-  const records: Record<string, string>[] = parse(fileContent, {
-    columns: true,
-    skip_empty_lines: true,
-    trim: true,
-  })
-  return records.map((r) => ({
-    section: r['Section'] || '',
-    domain: r['Domain'] || '',
-    status: r['Status'] || '',
-    inWhmcs: r['In WHMCS'] || '',
-    inCloudflare: r['In Cloudflare'] || '',
-    inWpmudev: r['In WPMUDEV'] || '',
-    serverInUse: r['Server In Use'] || '',
-    oldServerAbandoned: r['Old Server Abandoned?'] || '',
-    notes: r['Notes'] || '',
-    cloudflareIp: r['Cloudflare IP'] || '',
-    repoUrl: r['Repo URL'] || '',
-    siteHealth: r['Site Health'] || '',
-    priority: r['Priority'] || 'Standard',
-    repoArchived: r['Repo Archived'] || '',
-    lastPrClosed: r['Last PR Closed'] || '',
-    openPrs: r['Open PRs'] || '',
-    lastCommit: r['Last Commit'] || '',
-    devStatus: r['Dev Status'] || '',
-    leftFfc: isLeftFfc(r) ? 'Yes' : '',
-    // Trust the enriched Work Tier, but defensively force genuinely-dead domains
-    // to Tier 6 so stale/incorrect data never surfaces one as work.
-    workTier: coerceDeadTier(r['Work Tier'] || deriveTier(r), r),
-  }))
-}
-
-const HARD_DEAD = ['expired', 'cancelled', 'fraud', 'terminated']
-
-// "Transferred Away" means the registration left eNom. It only means FFC lost the
-// domain if it's also no longer in FFC Cloudflare; a transfer that stayed in
-// Cloudflare is fine and the domain is tiered normally.
-function derivedLeftFfc(r: Record<string, string>): boolean {
-  return (
-    (r['Status'] || '').toLowerCase() === 'transferred away' &&
-    (r['In Cloudflare'] || '').toLowerCase() !== 'yes'
-  )
-}
-
-// Single source of truth for "left FFC": trust the generator's explicit column
-// when the data is enriched (Work Tier present); only derive it for pre-enrichment data.
-function isLeftFfc(r: Record<string, string>): boolean {
-  if (r['Work Tier']) return (r['Left FFC'] || '').toLowerCase() === 'yes'
-  return derivedLeftFfc(r)
-}
-
-// Force genuinely-dead domains to Tier 6: hard-dead lifecycle states, plus
-// transfers that left FFC Cloudflare. A transfer still in Cloudflare is NOT dead.
-function coerceDeadTier(tier: string, r: Record<string, string>): string {
-  const status = (r['Status'] || '').toLowerCase()
-  if (HARD_DEAD.includes(status) || isLeftFfc(r)) return '6 - Inactive / Archive'
-  return tier
-}
-
-// Fallback tiering for data that predates the enrichment step (no dev signal).
-function deriveTier(r: Record<string, string>): string {
-  const status = (r['Status'] || '').toLowerCase()
-  const server = (r['Server In Use'] || '').toLowerCase()
-  if (HARD_DEAD.includes(status) || isLeftFfc(r)) return '6 - Inactive / Archive'
-  if (server === 'github pages') return '4 - Done / Stable'
-  if (
-    ['hostpapa', 'interserver', 'hostinger', 'krystal', 'cloudflare proxy'].some((s) =>
-      server.includes(s)
-    )
-  )
-    return '3 - Needs Migration'
-  return '5 - Needs Triage'
 }
 
 const TIERS = [
@@ -169,31 +68,6 @@ const TIERS = [
     open: false,
   },
 ]
-
-// Normalize health to a category, tolerant of both word forms ("Live",
-// "Redirect", "Error", "Unreachable") and HTTP-code text ("200 OK", "301", "404").
-function healthCategory(health: string): 'live' | 'redirect' | 'error' | 'unreachable' | 'unknown' {
-  const h = health.toLowerCase()
-  if (h === 'live' || h.includes('200')) return 'live'
-  if (h === 'redirect' || h.includes('301') || h.includes('302')) return 'redirect'
-  if (h === 'unreachable' || h.includes('no response')) return 'unreachable'
-  if (h === 'error' || /\b(4\d\d|5\d\d)\b/.test(h)) return 'error'
-  return 'unknown'
-}
-
-function healthBadge(health: string): string {
-  switch (healthCategory(health)) {
-    case 'live':
-      return 'text-green-700 bg-green-100 border-green-200'
-    case 'redirect':
-      return 'text-yellow-700 bg-yellow-100 border-yellow-200'
-    case 'error':
-    case 'unreachable':
-      return 'text-red-700 bg-red-100 border-red-200'
-    default:
-      return 'text-gray-600 bg-gray-100 border-gray-200'
-  }
-}
 
 function tierRank(s: SiteData): number {
   return { live: 1, redirect: 2, error: 3, unreachable: 4, unknown: 5 }[
@@ -301,16 +175,9 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
 }
 
 export default function SitesListPage() {
-  const sites = getSitesData()
+  const sites = loadSites()
   const domainExpiry = loadDomainExpiry()
-
-  let csvUpdated = ''
-  try {
-    const stat = fs.statSync(path.join(process.cwd(), 'docs', 'sites_list.csv'))
-    csvUpdated = relativeAge(stat.mtime.toISOString())
-  } catch {
-    csvUpdated = ''
-  }
+  const csvUpdated = dataRefreshedAge()
 
   const byTier = (num: string) => sites.filter((s) => s.workTier.startsWith(num))
   const counts = Object.fromEntries(TIERS.map((t) => [t.num, byTier(t.num).length]))
