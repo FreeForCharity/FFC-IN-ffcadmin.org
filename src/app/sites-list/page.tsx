@@ -63,7 +63,7 @@ function getSitesData(): SiteData[] {
     openPrs: r['Open PRs'] || '',
     lastCommit: r['Last Commit'] || '',
     devStatus: r['Dev Status'] || '',
-    leftFfc: r['Left FFC'] || derivedLeftFfc(r),
+    leftFfc: isLeftFfc(r) ? 'Yes' : '',
     // Trust the enriched Work Tier, but defensively force genuinely-dead domains
     // to Tier 6 so stale/incorrect data never surfaces one as work.
     workTier: coerceDeadTier(r['Work Tier'] || deriveTier(r), r),
@@ -75,18 +75,25 @@ const HARD_DEAD = ['expired', 'cancelled', 'fraud', 'terminated']
 // "Transferred Away" means the registration left eNom. It only means FFC lost the
 // domain if it's also no longer in FFC Cloudflare; a transfer that stayed in
 // Cloudflare is fine and the domain is tiered normally.
-function derivedLeftFfc(r: Record<string, string>): string {
-  return (r['Status'] || '').toLowerCase() === 'transferred away' &&
+function derivedLeftFfc(r: Record<string, string>): boolean {
+  return (
+    (r['Status'] || '').toLowerCase() === 'transferred away' &&
     (r['In Cloudflare'] || '').toLowerCase() !== 'yes'
-    ? 'Yes'
-    : ''
+  )
+}
+
+// Single source of truth for "left FFC": trust the generator's explicit column
+// when the data is enriched (Work Tier present); only derive it for pre-enrichment data.
+function isLeftFfc(r: Record<string, string>): boolean {
+  if (r['Work Tier']) return (r['Left FFC'] || '').toLowerCase() === 'yes'
+  return derivedLeftFfc(r)
 }
 
 // Force genuinely-dead domains to Tier 6: hard-dead lifecycle states, plus
 // transfers that left FFC Cloudflare. A transfer still in Cloudflare is NOT dead.
 function coerceDeadTier(tier: string, r: Record<string, string>): string {
   const status = (r['Status'] || '').toLowerCase()
-  if (HARD_DEAD.includes(status) || derivedLeftFfc(r) === 'Yes') return '6 - Inactive / Archive'
+  if (HARD_DEAD.includes(status) || isLeftFfc(r)) return '6 - Inactive / Archive'
   return tier
 }
 
@@ -94,7 +101,7 @@ function coerceDeadTier(tier: string, r: Record<string, string>): string {
 function deriveTier(r: Record<string, string>): string {
   const status = (r['Status'] || '').toLowerCase()
   const server = (r['Server In Use'] || '').toLowerCase()
-  if (HARD_DEAD.includes(status) || derivedLeftFfc(r) === 'Yes') return '6 - Inactive / Archive'
+  if (HARD_DEAD.includes(status) || isLeftFfc(r)) return '6 - Inactive / Archive'
   if (server === 'github pages') return '4 - Done / Stable'
   if (
     ['hostpapa', 'interserver', 'hostinger', 'krystal', 'cloudflare proxy'].some((s) =>
