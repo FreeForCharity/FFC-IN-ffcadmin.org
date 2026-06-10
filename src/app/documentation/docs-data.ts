@@ -225,7 +225,7 @@ export const documentationSections: DocSection[] = [
         name: 'Sites List Update Workflow',
         file: '.github/workflows/update-sites-data.yml',
         description:
-          'Automated weekly workflow that exports data from WHMCS, Cloudflare, and WPMUDEV, runs site health checks, merges into a single CSV, and opens a pull request with the updates.',
+          'Automated weekly workflow that fetches the published sites list (CSV + JSON) from FreeForCharity/FFC-Cloudflare-Automation — where the WHMCS/Cloudflare/WPMUDEV merge, health checks, and scoring run — and opens a pull request to sync it here.',
         audience: 'Repository Administrators, DevOps Engineers, Site Managers',
         githubUrl: `${GH_BLOB}/.github/workflows/update-sites-data.yml`,
       },
