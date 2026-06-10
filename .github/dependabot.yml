@@ -19,6 +19,13 @@ updates:
       - dependency-name: 'typescript'
         update-types:
           - 'version-update:semver-major'
+      # eslint-plugin-react-hooks >= 7.1 adds stricter rules (immutability,
+      # setState-in-effect, use-before-declare) that currently error in
+      # CookieConsent.tsx. Hold at 7.0.x until that refactor lands (see #389).
+      - dependency-name: 'eslint-plugin-react-hooks'
+        update-types:
+          - 'version-update:semver-major'
+          - 'version-update:semver-minor'
     groups:
       # Group development dependencies together (minor and patch updates)
       development-dependencies:
