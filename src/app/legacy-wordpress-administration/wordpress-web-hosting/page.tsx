@@ -166,8 +166,9 @@ export default function Page() {
       <h2>Source of truth for per-charity mapping</h2>
       <p>
         The full list of FFC-managed charity domains, the host each lives on, and the migration
-        status is at <Link href="/sites-list">/sites-list</Link> — refreshed automatically from{' '}
-        <code>docs/SITES_LIST.md</code> on every push to main.
+        status is at <Link href="/sites-list">/sites-list</Link>, built from{' '}
+        <code>docs/sites_list.csv</code> — synced weekly from the canonical, machine-generated copy
+        in <code>FreeForCharity/FFC-Cloudflare-Automation</code>.
       </p>
 
       <h2>Cross-references</h2>

@@ -214,14 +214,6 @@ export const documentationSections: DocSection[] = [
         liveUrl: '/sites-list',
       },
       {
-        name: 'Sites List Documentation',
-        file: 'docs/SITES_LIST.md',
-        description:
-          'Comprehensive documentation for the Sites List system: categorized tables, automated health checks, data integration, the weekly automation workflow, data structure, and troubleshooting.',
-        audience: 'Administrators, Site Managers, Developers, Auditors',
-        githubUrl: `${GH_BLOB}/docs/SITES_LIST.md`,
-      },
-      {
         name: 'Sites List Update Workflow',
         file: '.github/workflows/update-sites-data.yml',
         description:
