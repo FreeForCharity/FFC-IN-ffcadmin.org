@@ -98,6 +98,7 @@ export default function DocSearch() {
                         <Link
                           href={doc.liveUrl}
                           className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                          aria-label={`Open the ${doc.name} page`}
                         >
                           Open page
                         </Link>
@@ -114,7 +115,7 @@ export default function DocSearch() {
                       </a>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-2 font-mono">{doc.file}</p>
+                  <p className="text-sm text-gray-600 mb-2 font-mono break-all">{doc.file}</p>
                   <p className="text-gray-700 mb-3">{doc.description}</p>
                   <p className="text-sm text-gray-600">
                     <strong>Audience:</strong> {doc.audience}
