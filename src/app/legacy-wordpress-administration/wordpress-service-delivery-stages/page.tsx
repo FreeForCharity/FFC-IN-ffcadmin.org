@@ -56,7 +56,7 @@ const stages: Stage[] = [
     index: 3,
     name: 'FFC Offers Services',
     description:
-      'Approved charity receives a service offer based on mission fit and operational capacity. Priority is given to charities with under $1M revenue that are not federally grant-funded. FFC supports up to 100 organizations.',
+      'Approved charity receives a service offer based on mission fit and operational capacity. Priority is given to charities with under $1M revenue that are not federally grant-funded. FFC supports a limited number of organizations based on current capacity.',
     exitGate: 'Charity accepts the offer in writing (WHMCS quote signed).',
     blockerHandling:
       'Over capacity → backlog with a quarterly review. Mission misalignment → polite decline with rationale.',
