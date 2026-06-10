@@ -1,0 +1,24 @@
+{
+  "recurse": true,
+  "skip": [
+    "https://www.guidestar.org/*",
+    "https://widgets.guidestar.org/*",
+    "https://twitter.com/*",
+    "https://x.com/*",
+    "https://www.linkedin.com/*",
+    "https://linkedin.com/*",
+    "https://www.youtube.com/*",
+    "https://youtube.com/*",
+    "https://www.facebook.com/*",
+    "https://facebook.com/*",
+    "https://www.googletagmanager.com/*",
+    "https://policies.google.com/*",
+    "https://tools.google.com/*",
+    "https://privacy.microsoft.com/*",
+    "https://www.cloudflare.com/*",
+    "https://www.lastpass.com/*",
+    "https://github.com/features/*",
+    "^tel:.*",
+    "^mailto:.*"
+  ]
+}

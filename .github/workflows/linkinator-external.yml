@@ -1,13 +1,14 @@
-name: Weekly Linkinator — /legacy-wordpress-administration/
+name: Weekly Linkinator — External Links (site-wide)
 
-# Scans the legacy WP admin section for broken vendor URLs.
+# Scans the whole built site for broken external/vendor URLs.
 #
-# The main CI linkinator (in ci.yml) skips ALL external URLs by policy,
-# so vendor link rot in this section would otherwise go undetected for
-# months. This workflow runs once a week and surfaces 4xx/5xx as an
-# issue or workflow failure so a human can triage.
+# The main CI linkinator (in ci.yml) skips ALL external URLs by policy
+# (they are flaky in PR CI), so external link rot would otherwise go
+# undetected. This separate weekly job checks external links across the
+# entire site and surfaces 4xx/5xx as a workflow failure for a human to
+# triage. Known bot-blocking/rate-limited hosts are skipped in the config.
 #
-# Tracking issue: #251.
+# Tracking issues: #251, #391.
 
 on:
   schedule:
@@ -21,7 +22,7 @@ permissions:
 
 jobs:
   scan:
-    name: Scan vendor URLs in the legacy WP admin section
+    name: Scan external URLs across the whole site
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -50,8 +51,8 @@ jobs:
         id: linkinator
         run: |
           set +e
-          pnpm exec linkinator ./out/legacy-wordpress-administration \
-            --config .linkinatorrc-legacy-wp-admin.json \
+          pnpm exec linkinator ./out \
+            --config .linkinatorrc-external.json \
             --format json \
             > link-report.json
           status=$?
@@ -78,12 +79,12 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: linkinator-legacy-wp-admin-report
+          name: linkinator-external-report
           path: link-report.json
           retention-days: 30
 
       - name: Fail the workflow if broken links were found
         if: steps.linkinator.outputs.broken == 'true'
         run: |
-          echo "::error::Broken vendor URLs detected in /legacy-wordpress-administration/. See workflow logs + uploaded artifact."
+          echo "::error::Broken external URLs detected. See workflow logs + uploaded artifact."
           exit 1
