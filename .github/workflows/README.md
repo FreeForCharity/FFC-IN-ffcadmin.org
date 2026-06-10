@@ -207,91 +207,41 @@ Runs automated Lighthouse performance, accessibility, best practices, and SEO au
 
 - **Fix:** Added verification steps that check if build output exists and if Lighthouse results were generated, providing clear error messages for debugging
 
-## update-sites-data.yml - Sites List Data Automation
+## update-sites-data.yml - Sites List Data Sync
 
-Automatically updates the Sites List with data from WHMCS, Cloudflare, and WPMUDEV systems.
+Syncs the Sites List into this repo from the canonical, machine-generated copy.
+
+> **Note:** the data is **generated in
+> [`FreeForCharity/FFC-Cloudflare-Automation`](https://github.com/FreeForCharity/FFC-Cloudflare-Automation)**,
+> which owns the WHMCS / Cloudflare / WPMUDEV export environments. That repo
+> merges the three exports with the curated base list, runs per-domain health
+> checks, computes the Work Tiers and volunteer-persona scores, and publishes
+> `sites-list/sites_list.csv` + `sites_list.json`. This workflow only **consumes**
+> those published files — it does not generate data and needs no secrets.
 
 ### When it runs:
 
 - On manual trigger via `workflow_dispatch`
-- Scheduled: Weekly on Mondays at 8:00 AM UTC
+- Scheduled: Weekly on Mondays at 9:00 AM UTC (after the upstream generator)
 
 ### What it does:
 
-**Update Data Job:**
-
-1. Checks out the code
-2. Sets up Node.js 20 and installs CSV parsing dependencies
-3. Authenticates with GitHub CLI using `GH_PAT` secret
-4. Triggers remote workflows in `FFC-Cloudflare-Automation-` repository:
-   - WHMCS domain export workflow
-   - DNS/Cloudflare domain summary export workflow
-   - WPMUDEV sites/domains export workflow
-5. Waits for all three remote workflows to complete
-6. Downloads artifacts from completed workflows:
-   - `whmcs_domains.csv` to `tmp_data/whmcs_domains/`
-   - `domain_summary.csv` to `tmp_data/domain_summary/`
-   - `wpmudev_domains.csv` to `tmp_data/wpmudev/wpmudev-domain-inventory/`
-7. Runs `scripts/update-sites-data.mjs` to merge and process data:
-   - Merges data from all three sources
-   - Performs automated site health checks (HTTP status, redirects, errors)
-   - Categorizes sites by status (Active, Transferred, Expired, Fraud)
-   - Updates `docs/sites_list.csv` with complete merged data
-8. Creates a pull request with the updated data
-
-### Data Sources and Integration:
-
-**WHMCS Integration:**
-
-- Provides domain registration status and customer information
-- Maps to `In WHMCS` column and `Status` field
-
-**Cloudflare Integration:**
-
-- Provides DNS configuration and IP address information
-- Maps to `In Cloudflare`, `Cloudflare IP`, and `Server In Use` columns
-- Enables detection of proxy configurations and DNS issues
-
-**WPMUDEV Integration:**
-
-- Provides WordPress site management and hosting information
-- Maps to `In WPMUDEV` column
-- Helps identify WordPress-managed sites
-
-**Site Health Automation:**
-
-- Automated HTTP checks for each domain
-- Reports status as: Live (200), Redirect (3xx), Error (4xx/5xx), or Unreachable
-- Runs during data update process with 5-second timeout per site
-- Processes sites in chunks of 10 to avoid overwhelming network
+1. Fetches the published `sites_list.csv` and `sites_list.json` from the
+   `FFC-Cloudflare-Automation` `main` branch via public raw URL.
+2. If a file is unavailable, warns and exits cleanly (no empty/failed runs).
+3. Writes them to `docs/sites_list.csv` and `docs/sites_list.json`.
+4. Opens a pull request with the synced data (no PR if nothing changed).
 
 ### Output:
 
-The workflow generates an updated `docs/sites_list.csv` file with columns:
-
-- Section, Domain, Status
-- In WHMCS, In Cloudflare, In WPMUDEV
-- Server In Use, Old Server Abandoned?, Notes
-- Cloudflare IP, Repo URL, Site Health, Priority
-
-The Sites List page (`/sites-list`) displays this data in categorized tables:
-
-- **Active/Master List** - Active, Pending, and Unknown status domains
-- **Transferred Away (TR)** - Domains transferred to another registrar
-- **Expired/Cancelled (EX)** - Expired, cancelled, or terminated domains
-- **Fraudulent/High Risk (FR)** - Domains marked as Fraud in WHMCS
-
-### Benefits:
-
-- **Automated data synchronization** from multiple sources
-- **Weekly automated site health monitoring** with scheduled checks
-- **Categorized organization** for better site management
-- **Audit trail** via pull request workflow
-- **Reduced manual data entry** and human error
+`docs/sites_list.csv` / `docs/sites_list.json`, consumed at build time by the
+Sites List page (`/sites-list`) and its volunteer views (Migration / Maintenance
+/ Development). See the upstream repo for the full column schema.
 
 ### Required Secrets:
 
-- `GH_PAT` - Personal Access Token with workflow and repo permissions for triggering remote workflows and creating pull requests
+- None. The source files are public and the PR is created with the default
+  `GITHUB_TOKEN`.
 
 ## Workflow Summary
 
@@ -301,7 +251,7 @@ The Sites List page (`/sites-list`) displays this data in categorized tables:
 | codeql-analysis.yml   | PRs, pushes to main, and weekly      | Security vulnerability scanning | None                        |
 | deploy.yml            | After CI and CodeQL complete on main | Deploy to GitHub Pages          | ci.yml, codeql-analysis.yml |
 | lighthouse.yml        | After successful deployment on main  | Performance and quality audits  | deploy.yml                  |
-| update-sites-data.yml | Manual trigger, weekly schedule      | Update Sites List data          | External workflows          |
+| update-sites-data.yml | Manual trigger, weekly schedule      | Sync Sites List from upstream   | None (public raw fetch)     |
 
 ### Workflow Execution Order
 
