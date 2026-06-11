@@ -157,6 +157,33 @@ describe('Route Generation Tests', () => {
     })
   })
 
+  describe('Test Case 4.2e: Account Setup Guides', () => {
+    const { SETUP_GUIDES } = require('../src/data/setup-guides')
+
+    it('generates each setup guide under /guides with a self-canonical URL', () => {
+      for (const g of SETUP_GUIDES) {
+        const p = path.join(outDir, 'guides', g.slug, 'index.html')
+        expect(fs.existsSync(p)).toBe(true)
+        if (fs.existsSync(p)) {
+          const content = fs.readFileSync(p, 'utf-8')
+          expect(content).toContain(
+            `<link rel="canonical" href="https://ffcadmin.org/guides/${g.slug}/"/>`
+          )
+        }
+      }
+    })
+
+    it('still generates the original static technical guides', () => {
+      for (const slug of [
+        'build-charity-site-from-template',
+        'wordpress-to-nextjs-guide',
+        'zeffy-member-data-migration',
+      ]) {
+        expect(fs.existsSync(path.join(outDir, 'guides', slug, 'index.html'))).toBe(true)
+      }
+    })
+  })
+
   describe('Test Case 4.2c: MOVSM Funnel Page', () => {
     const pagePath = path.join(outDir, 'movsm', 'index.html')
 

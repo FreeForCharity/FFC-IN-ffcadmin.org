@@ -4,6 +4,7 @@ import { guides } from '@/data/guides'
 import { LEGACY_WP_ADMIN_BASE, LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
 import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 import { CE_LANDING_BODIES } from '@/data/ce-bodies'
+import { SETUP_GUIDES } from '@/data/setup-guides'
 
 export const dynamic = 'force-static'
 
@@ -195,6 +196,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
+  // Account & tool setup guides (/guides/[guide])
+  const setupGuidePages: MetadataRoute.Sitemap = SETUP_GUIDES.map((g) => ({
+    url: `${SITE_URL}/guides/${g.slug}/`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
   // Blog post pages
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${SITE_URL}${post.href}/`,
@@ -230,6 +239,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...corePages,
     ...guidePages,
+    ...setupGuidePages,
     ...blogPages,
     ...legacyWpAdminPages,
     ...volunteerRolePages,
