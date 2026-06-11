@@ -210,7 +210,7 @@ export default function MovsmPage() {
             Already active? Collaborate with the team in <strong>Microsoft Teams</strong>. Many
             volunteers also find us through{' '}
             <a
-              href="https://www.taproot.org/"
+              href="https://taprootfoundation.org/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 underline hover:text-blue-800"

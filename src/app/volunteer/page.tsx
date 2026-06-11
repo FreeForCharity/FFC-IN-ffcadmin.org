@@ -587,7 +587,7 @@ export default function VolunteerPage() {
                 <span className="text-teal-600 mr-2 mt-0.5">&bull;</span>
                 <span>
                   <a
-                    href="https://www.taproot.org/"
+                    href="https://taprootfoundation.org/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 underline hover:text-blue-800"
