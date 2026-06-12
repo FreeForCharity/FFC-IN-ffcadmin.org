@@ -121,7 +121,9 @@ export default function SetupGuide({ guide }: { guide: SetupGuide }) {
             <ul className="space-y-2">
               {guide.newPhone.map((line, i) => (
                 <li key={i} className="flex items-start text-sm text-rose-900/90">
-                  <span className="mr-2 mt-0.5">•</span>
+                  <span className="mr-2 mt-0.5" aria-hidden="true">
+                    •
+                  </span>
                   <span>{emphasize(line, `np-${i}`)}</span>
                 </li>
               ))}

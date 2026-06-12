@@ -50,6 +50,6 @@ describe('Account & tool setup guides', () => {
 
   it('the MFA guide documents new-phone precautions', () => {
     const mfa = getSetupGuide('multi-factor-authentication')
-    expect(mfa?.newPhone && mfa.newPhone.length).toBeGreaterThan(0)
+    expect(mfa?.newPhone?.length ?? 0).toBeGreaterThan(0)
   })
 })
