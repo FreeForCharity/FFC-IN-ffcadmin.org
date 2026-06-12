@@ -367,8 +367,12 @@ function download(filename: string, mime: string, content: string) {
   const a = document.createElement('a')
   a.href = url
   a.download = filename
+  // Attach before clicking (Safari) and revoke on a delay so the browser
+  // has started the download before the blob URL disappears.
+  document.body.appendChild(a)
   a.click()
-  URL.revokeObjectURL(url)
+  a.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
 /**
@@ -520,12 +524,15 @@ export default function SitesExplorer({ sites }: { sites: SiteData[] }) {
         <div className="mt-3 flex flex-wrap items-center gap-2">
           {FILTER_PRESETS.map((p) => {
             const isOn = presetActive(p.filters)
+            // Compose with whatever else is set: toggling a preset only
+            // touches its own facets (off = clear those facets, keep the rest).
+            const cleared = Object.fromEntries(Object.keys(p.filters).map((k) => [k, '']))
             return (
               <button
                 key={p.label}
                 type="button"
                 aria-pressed={isOn}
-                onClick={() => syncUrl({ ...EMPTY_FILTERS, ...(isOn ? {} : p.filters) })}
+                onClick={() => syncUrl({ ...filters, ...(isOn ? cleared : p.filters) })}
                 className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
                   isOn
                     ? 'bg-ffc-teal-dark text-white border-ffc-teal-dark'
