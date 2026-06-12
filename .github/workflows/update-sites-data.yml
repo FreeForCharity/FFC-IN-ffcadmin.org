@@ -38,6 +38,11 @@ jobs:
             echo "fetched=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          # Keep the outgoing snapshot so the Sites List can highlight rows
+          # that changed between refreshes (#425).
+          if [ -f docs/sites_list.csv ]; then
+            cp docs/sites_list.csv docs/sites_list.prev.csv
+          fi
           mv "$tmp/sites_list.csv" docs/sites_list.csv
           mv "$tmp/sites_list.json" docs/sites_list.json
           echo "fetched=true" >> "$GITHUB_OUTPUT"

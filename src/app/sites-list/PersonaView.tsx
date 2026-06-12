@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SiteData, healthBadge } from './sitesData'
+import { SiteData, healthBadge, migrationSteps } from './sitesData'
 
 const VIEWS = [
   { href: '/sites-list', label: 'Overview', icon: '📋' },
@@ -28,7 +28,7 @@ export function ViewNav({ current }: { current: string }) {
   )
 }
 
-type Col = 'host' | 'wp' | 'age' | 'repo' | 'lastPr' | 'staging'
+type Col = 'host' | 'wp' | 'age' | 'repo' | 'lastPr' | 'staging' | 'progress'
 
 export function PersonaView({
   href,
@@ -60,6 +60,7 @@ export function PersonaView({
     repo: 'Repo',
     lastPr: 'Last PR',
     staging: 'Staging',
+    progress: 'Progress',
   }
   const dash = <span className="text-gray-300">—</span>
   const cell = (s: SiteData, c: Col) => {
@@ -87,6 +88,19 @@ export function PersonaView({
         return s.lastPrClosed || dash
       case 'staging':
         return s.isStaging === 'Yes' ? '🧪' : dash
+      case 'progress': {
+        const steps = migrationSteps(s)
+        const done = steps.filter((x) => x.done).length
+        return (
+          <span title={steps.map((x) => `${x.done ? '✓' : '○'} ${x.label}`).join('\n')}>
+            <span aria-hidden="true" className="tracking-widest text-ffc-teal-dark">
+              {steps.map((x) => (x.done ? '●' : '○')).join('')}
+            </span>
+            <span className="sr-only">{`${done} of ${steps.length} migration steps complete`}</span>
+            <span className="ml-1 text-[11px] text-gray-500 tabular-nums">{done}/4</span>
+          </span>
+        )
+      }
     }
   }
 
