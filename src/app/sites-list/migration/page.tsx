@@ -17,7 +17,7 @@ export default function MigrationView() {
       accent="from-blue-600 to-indigo-600"
       sites={loadSites()}
       score={(s) => s.migrationScore}
-      columns={['host', 'wp', 'age']}
+      columns={['host', 'wp', 'age', 'progress']}
       refreshed={dataRefreshedAge()}
     />
   )

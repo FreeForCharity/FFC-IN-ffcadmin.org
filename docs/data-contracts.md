@@ -116,3 +116,25 @@ Dashboards must never crash on missing/stale data:
   awaiting-first-run placeholder.
 - **Stale `generatedAt`** (older than the cadence above) → the dashboard shows a
   "may be out of date" note alongside the data.
+
+## `docs/sites_list.csv` — optional enrichment columns (#418–#421, #425)
+
+The Sites List reads these **optional** columns when the upstream
+`FFC-Cloudflare-Automation` generator emits them, and renders nothing when it
+doesn't (no empty columns):
+
+| Column            | Shape        | Renders as                                        |
+| ----------------- | ------------ | ------------------------------------------------- |
+| `SSL Expiry`      | ISO date     | Badge (red ≤ 14 days, amber ≤ 30, green beyond)   |
+| `NS Match`        | `Yes` / `No` | ⚠ NS flag next to the domain when `No`            |
+| `Redirect Target` | URL          | "→ target" detail under the Redirect health badge |
+| `Lighthouse`      | 0–100        | Badge (green ≥ 90, amber ≥ 50, red below)         |
+
+**Refresh diff:** `update-sites-data.yml` copies the outgoing snapshot to
+`docs/sites_list.prev.csv` before overwriting. At build time the page compares
+Health/Status/Tier/Server per domain and marks changed rows with a Δ badge.
+When no `.prev.csv` exists yet, diffing silently does nothing.
+
+**Owners:** `src/data/site-owners.ts` (this repo) maps lowercase domain →
+GitHub handle or display name; an Owner column appears in any tier table where
+at least one row is mapped.

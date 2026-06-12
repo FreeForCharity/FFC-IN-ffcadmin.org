@@ -2,8 +2,10 @@ import { Metadata } from 'next'
 import HealthDashboard from './HealthDashboard'
 import DomainExpiry from './DomainExpiry'
 import NonprofitCallout from '@/components/NonprofitCallout'
-import { loadDomainExpiry } from '@/lib/dashboardData'
+import { loadDomainExpiry, relativeAge } from '@/lib/dashboardData'
+import { isGithubHandle } from '@/data/site-owners'
 import { ViewNav } from './PersonaView'
+import CopyRowButton from './CopyRowButton'
 import {
   SiteData,
   loadSites,
@@ -11,6 +13,16 @@ import {
   healthBadge,
   healthCategory,
   cloudflareZoneUrl,
+  cloudflareDnsRecordsUrl,
+  dnsCheckerUrl,
+  pagesSettingsUrl,
+  newIssueUrl,
+  rowMarkdown,
+  migrationSteps,
+  sslBadge,
+  lighthouseBadge,
+  dataGeneratedAt,
+  dataIsStale,
 } from './sitesData'
 
 export const metadata: Metadata = {
@@ -98,12 +110,97 @@ function repoName(url: string): string {
   return url.replace('https://github.com/', '')
 }
 
+// Data source per column, surfaced as header tooltips and in the legend (#417).
+const COLUMN_SOURCE: Record<string, string> = {
+  Domain: 'WHMCS export (domain inventory)',
+  Repo: 'GitHub API',
+  'Last PR': 'GitHub API',
+  'Open PRs': 'GitHub API',
+  Health: 'HTTP health probe',
+  SSL: 'TLS probe (upstream pipeline)',
+  LH: 'Lighthouse CI (upstream pipeline)',
+  Owner: 'src/data/site-owners.ts in this repo',
+  Progress: 'Derived from Cloudflare, repo, server, and health fields',
+  Server: 'HTTP health probe / host detection',
+  Status: 'WHMCS export',
+  Notes: 'WHMCS export',
+}
+
+// Compact per-row quick-action links under the domain (#408, #410, #411, #423).
+function RowActions({ s, showRepoLink }: { s: SiteData; showRepoLink: boolean }) {
+  const action = (href: string, label: string, title: string) => (
+    <a
+      key={label}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={title}
+      aria-label={title}
+      className="text-gray-500 hover:text-gray-800 hover:underline"
+    >
+      {label}
+    </a>
+  )
+  const cf = cloudflareZoneUrl(s)
+  const dnsRecords = cloudflareDnsRecordsUrl(s)
+  const actions = [
+    cf && action(cf, '☁ CF', `Open ${s.domain} in the Cloudflare dashboard`),
+    dnsRecords && action(dnsRecords, 'DNS', `Cloudflare DNS records for ${s.domain}`),
+    action(dnsCheckerUrl(s.domain), 'check', `DNS propagation check for ${s.domain}`),
+    showRepoLink &&
+      s.repoUrl &&
+      action(
+        s.repoUrl,
+        s.openPrs && s.openPrs !== '0' ? `repo (${s.openPrs} PRs)` : 'repo',
+        `GitHub repository: ${repoName(s.repoUrl)}`
+      ),
+    pagesSettingsUrl(s) &&
+      action(pagesSettingsUrl(s), 'pages', `GitHub Pages settings for ${s.domain}`),
+    action(newIssueUrl(s), '+issue', `Open a prefilled GitHub issue about ${s.domain}`),
+  ].filter(Boolean)
+  return (
+    <div className="mt-0.5 flex flex-wrap gap-x-2 gap-y-0.5 text-[11px] leading-4">
+      {actions}
+      <CopyRowButton text={rowMarkdown(s)} domain={s.domain} />
+    </div>
+  )
+}
+
+// 4-step migration progress dots, derived from existing fields (#424).
+function MigrationProgress({ s }: { s: SiteData }) {
+  const steps = migrationSteps(s)
+  const done = steps.filter((x) => x.done).length
+  return (
+    <span title={steps.map((x) => `${x.done ? '✓' : '○'} ${x.label}`).join('\n')}>
+      <span aria-hidden="true" className="tracking-widest text-ffc-teal-dark">
+        {steps.map((x) => (x.done ? '●' : '○')).join('')}
+      </span>
+      <span className="sr-only">{`${done} of ${steps.length} migration steps complete`}</span>
+      <span className="ml-1 text-[11px] text-gray-500 tabular-nums">{done}/4</span>
+    </span>
+  )
+}
+
 function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
   // Dev tiers (1, 2) lead with repo activity; other tiers hide those columns.
   const showRepoCols = num === '1' || num === '2'
-  const headers = showRepoCols
-    ? ['Domain', 'Repo', 'Last PR', 'Open PRs', 'Health', 'Server', 'Status', 'Notes']
-    : ['Domain', 'Health', 'Server', 'Status', 'Notes']
+  // Optional data-signal columns render only when the snapshot carries data.
+  const hasSsl = sites.some((s) => s.sslExpiry)
+  const hasLh = sites.some((s) => s.lighthouse)
+  const hasOwner = sites.some((s) => s.owner)
+  const showProgress = num === '3'
+  const headers = [
+    'Domain',
+    ...(showRepoCols ? ['Repo', 'Last PR', 'Open PRs'] : []),
+    'Health',
+    ...(hasSsl ? ['SSL'] : []),
+    ...(hasLh ? ['LH'] : []),
+    ...(hasOwner ? ['Owner'] : []),
+    ...(showProgress ? ['Progress'] : []),
+    'Server',
+    'Status',
+    'Notes',
+  ]
   const dash = <span className="text-gray-300">—</span>
   return (
     <div className="overflow-x-auto">
@@ -114,6 +211,7 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
               <th
                 key={h}
                 scope="col"
+                title={COLUMN_SOURCE[h] ? `Source: ${COLUMN_SOURCE[h]}` : undefined}
                 className="px-4 py-2 text-left text-xs font-bold uppercase tracking-wider text-gray-500"
               >
                 {h}
@@ -123,31 +221,37 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
         </thead>
         <tbody className="bg-white divide-y divide-gray-100">
           {sites.map((s) => {
-            const cfUrl = cloudflareZoneUrl(s)
             return (
               <tr key={`${num}-${s.domain}`} className="hover:bg-gray-50">
                 <td className="px-4 py-2 whitespace-nowrap font-medium">
-                  <a
-                    href={`https://${s.domain}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
-                  >
-                    {s.domain}
-                  </a>
-                  {cfUrl && (
+                  <div className="flex items-center gap-1.5">
                     <a
-                      href={cfUrl}
+                      href={`https://${s.domain}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-2 inline-flex items-center text-xs text-orange-600 hover:underline"
-                      aria-label={`Open ${s.domain} in the Cloudflare dashboard`}
-                      title={`Open ${s.domain} in the Cloudflare dashboard`}
+                      className="text-blue-600 hover:underline"
                     >
-                      <span aria-hidden="true">☁</span>
-                      <span className="ml-0.5">CF</span>
+                      {s.domain}
                     </a>
-                  )}
+                    {s.nsMatch.toLowerCase() === 'no' && (
+                      <span
+                        title="Live nameservers do not match Cloudflare"
+                        className="px-1.5 py-0.5 rounded text-[11px] font-semibold bg-red-100 text-red-700 border border-red-200"
+                      >
+                        <span aria-hidden="true">⚠ </span>NS
+                      </span>
+                    )}
+                    {s.changed && (
+                      <span
+                        title={s.changed}
+                        className="px-1.5 py-0.5 rounded text-[11px] font-semibold bg-purple-100 text-purple-700 border border-purple-200"
+                      >
+                        Δ
+                        <span className="sr-only">{` Changed since last refresh: ${s.changed}`}</span>
+                      </span>
+                    )}
+                  </div>
+                  <RowActions s={s} showRepoLink={!showRepoCols} />
                 </td>
                 {showRepoCols && (
                   <>
@@ -180,7 +284,68 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
                   >
                     {s.siteHealth || 'N/A'}
                   </span>
+                  {s.redirectTarget && (
+                    <p
+                      className="mt-0.5 text-[11px] text-gray-500 max-w-[12rem] truncate"
+                      title={`Redirects to ${s.redirectTarget}`}
+                    >
+                      → {s.redirectTarget}
+                    </p>
+                  )}
                 </td>
+                {hasSsl && (
+                  <td className="px-4 py-2 whitespace-nowrap text-xs">
+                    {s.sslExpiry ? (
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${sslBadge(s.sslExpiry)}`}
+                        title={`TLS certificate expires ${s.sslExpiry}`}
+                      >
+                        {s.sslExpiry}
+                      </span>
+                    ) : (
+                      dash
+                    )}
+                  </td>
+                )}
+                {hasLh && (
+                  <td className="px-4 py-2 whitespace-nowrap text-xs">
+                    {s.lighthouse ? (
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${lighthouseBadge(Number(s.lighthouse))}`}
+                        title={`Lighthouse score ${s.lighthouse}/100`}
+                      >
+                        {s.lighthouse}
+                      </span>
+                    ) : (
+                      dash
+                    )}
+                  </td>
+                )}
+                {hasOwner && (
+                  <td className="px-4 py-2 whitespace-nowrap text-xs">
+                    {s.owner ? (
+                      isGithubHandle(s.owner) ? (
+                        <a
+                          href={`https://github.com/${s.owner}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 hover:underline"
+                        >
+                          @{s.owner}
+                        </a>
+                      ) : (
+                        s.owner
+                      )
+                    ) : (
+                      dash
+                    )}
+                  </td>
+                )}
+                {showProgress && (
+                  <td className="px-4 py-2 whitespace-nowrap text-xs">
+                    <MigrationProgress s={s} />
+                  </td>
+                )}
                 <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-700">
                   {s.serverInUse || dash}
                 </td>
@@ -237,6 +402,29 @@ export default function SitesListPage() {
 
       <div className="container mx-auto px-4 py-8">
         <ViewNav current="/sites-list" />
+
+        {/* Stale-data warning (#416): the snapshot can't be newer than the
+            newest GitHub activity it recorded, so an old max date means the
+            weekly sync likely failed. */}
+        {dataIsStale(sites) && (
+          <div
+            role="status"
+            className="mb-8 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900"
+          >
+            <span aria-hidden="true">⚠️ </span>
+            <strong>Site data may be stale.</strong> The newest activity in this snapshot is from{' '}
+            {dataGeneratedAt(sites)} ({relativeAge(dataGeneratedAt(sites))}). The weekly{' '}
+            <a
+              href="https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/actions/workflows/update-sites-data.yml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-amber-700"
+            >
+              Sync Sites List Data
+            </a>{' '}
+            workflow may have failed.
+          </div>
+        )}
 
         {/* Volunteer guide */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8 border border-gray-200">
@@ -301,6 +489,48 @@ export default function SitesListPage() {
             </details>
           )
         })}
+
+        {/* Data provenance legend (#417) */}
+        <details className="mb-6 rounded-lg border border-gray-200 bg-white px-6 py-4 text-sm text-gray-700 shadow-md">
+          <summary className="cursor-pointer font-bold text-gray-900">
+            Where this data comes from
+          </summary>
+          <ul className="mt-3 space-y-1 list-disc pl-5">
+            <li>
+              <strong>WHMCS export</strong> — domain inventory, status, notes, expiry, recurring.
+            </li>
+            <li>
+              <strong>Cloudflare API</strong> — In Cloudflare, zone IPs (powers the ☁ CF and DNS
+              quick-links).
+            </li>
+            <li>
+              <strong>GitHub API</strong> — repo, last PR, open PRs, last commit, archived.
+            </li>
+            <li>
+              <strong>HTTP health probe</strong> — health badge, redirect detail, server detection.
+            </li>
+            <li>
+              <strong>Derived by the generator</strong> — work tiers, persona scores, migration
+              progress.
+            </li>
+            <li>
+              <strong>This repo</strong> — owners (<code>src/data/site-owners.ts</code>; PR a line
+              to claim a site).
+            </li>
+          </ul>
+          <p className="mt-3 text-xs text-gray-500">
+            Hover any column header for its source. Assembled weekly by the{' '}
+            <a
+              href="https://github.com/FreeForCharity/FFC-Cloudflare-Automation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              FFC-Cloudflare-Automation
+            </a>{' '}
+            generator; a Δ badge marks rows that changed since the previous refresh.
+          </p>
+        </details>
 
         {/* Supporting context */}
         <div className="mt-10">
