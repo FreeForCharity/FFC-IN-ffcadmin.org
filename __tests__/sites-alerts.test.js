@@ -38,12 +38,13 @@ describe('generate-sites-alerts.mjs (#427)', () => {
   })
 
   it('never alerts on inactive/archived (tier 6) domains', () => {
+    const { parse } = require('csv-parse/sync')
     const csv = fs.readFileSync(path.join(process.cwd(), 'docs', 'sites_list.csv'), 'utf8')
+    const rows = parse(csv, { columns: true, skip_empty_lines: true, trim: true })
     const healthDomains = feed.alerts.filter((a) => a.type === 'health').map((a) => a.domain)
-    for (const line of csv.split('\n')) {
-      if (line.includes('6 - Inactive')) {
-        const domain = line.split(',')[1]
-        expect(healthDomains).not.toContain(domain)
+    for (const row of rows) {
+      if ((row['Work Tier'] || '').startsWith('6')) {
+        expect(healthDomains).not.toContain(row['Domain'])
       }
     }
   })

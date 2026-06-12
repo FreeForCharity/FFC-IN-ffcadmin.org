@@ -151,6 +151,7 @@ left-FFC domains excluded) with expired / ≤ 60-day domain expirations from
 {
   "generatedAt": "2026-06-12T00:00:00Z",
   "source": "docs/sites_list.csv + public/data/domain-expiry.json",
+  "docs": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/docs/data-contracts.md",
   "summary": { "total": 12, "health": 9, "expiry": 3 },
   "alerts": [
     {

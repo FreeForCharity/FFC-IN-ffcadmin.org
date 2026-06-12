@@ -69,13 +69,15 @@ try {
 const summary = {}
 for (const a of alerts) summary[a.type] = (summary[a.type] || 0) + 1
 
+const severityRank = { high: 0, medium: 1, low: 2 }
 const feed = {
   generatedAt: new Date().toISOString(),
   source: 'docs/sites_list.csv + public/data/domain-expiry.json',
   docs: 'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/docs/data-contracts.md',
   summary: { total: alerts.length, ...summary },
   alerts: alerts.sort(
-    (a, b) => a.severity.localeCompare(b.severity) || a.domain.localeCompare(b.domain)
+    (a, b) =>
+      severityRank[a.severity] - severityRank[b.severity] || a.domain.localeCompare(b.domain)
   ),
 }
 
