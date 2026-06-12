@@ -6,6 +6,7 @@ const VIEWS = [
   { href: '/sites-list/migration', label: 'Migration', icon: '🚚' },
   { href: '/sites-list/maintenance', label: 'Maintenance', icon: '🔧' },
   { href: '/sites-list/development', label: 'Development', icon: '🛠️' },
+  { href: '/sites-list/summary', label: 'Summary', icon: '🖨' },
 ]
 
 export function ViewNav({ current }: { current: string }) {

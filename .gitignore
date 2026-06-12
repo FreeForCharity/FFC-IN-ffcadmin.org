@@ -44,3 +44,6 @@ next-env.d.ts
 # screenshots
 *.png
 !/public/**/*.png
+
+# Generated on every build from committed data (#427)
+public/data/sites-alerts.json
