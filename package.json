@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "node scripts/generate-sites-alerts.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
     "export": "next build",
