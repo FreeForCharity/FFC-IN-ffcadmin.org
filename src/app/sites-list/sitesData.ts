@@ -44,8 +44,9 @@ export const FFC_CLOUDFLARE_ACCOUNT_ID = '0fa33828a8a294ba7c3e945cec827f12'
 // Quick-link to a domain's Cloudflare zone overview, when FFC manages its DNS.
 // Returns '' when the site isn't in FFC Cloudflare (no useful destination).
 export function cloudflareZoneUrl(s: Pick<SiteData, 'domain' | 'inCloudflare'>): string {
-  if ((s.inCloudflare || '').toLowerCase() !== 'yes' || !s.domain) return ''
-  return `https://dash.cloudflare.com/${FFC_CLOUDFLARE_ACCOUNT_ID}/${s.domain}`
+  const domain = (s.domain || '').trim()
+  if ((s.inCloudflare || '').toLowerCase() !== 'yes' || !domain) return ''
+  return `https://dash.cloudflare.com/${FFC_CLOUDFLARE_ACCOUNT_ID}/${encodeURIComponent(domain)}`
 }
 
 export function derivedLeftFfc(r: Record<string, string>): boolean {

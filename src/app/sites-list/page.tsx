@@ -122,71 +122,75 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-100">
-          {sites.map((s) => (
-            <tr key={`${num}-${s.domain}`} className="hover:bg-gray-50">
-              <td className="px-4 py-2 whitespace-nowrap font-medium">
-                <a
-                  href={`https://${s.domain}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
-                >
-                  {s.domain}
-                </a>
-                {cloudflareZoneUrl(s) && (
+          {sites.map((s) => {
+            const cfUrl = cloudflareZoneUrl(s)
+            return (
+              <tr key={`${num}-${s.domain}`} className="hover:bg-gray-50">
+                <td className="px-4 py-2 whitespace-nowrap font-medium">
                   <a
-                    href={cloudflareZoneUrl(s)}
+                    href={`https://${s.domain}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ml-2 inline-flex items-center text-xs text-orange-600 hover:underline"
-                    title={`Open ${s.domain} in the Cloudflare dashboard`}
+                    className="text-blue-600 hover:underline"
                   >
-                    <span aria-hidden="true">☁</span>
-                    <span className="ml-0.5">CF</span>
+                    {s.domain}
                   </a>
+                  {cfUrl && (
+                    <a
+                      href={cfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-2 inline-flex items-center text-xs text-orange-600 hover:underline"
+                      aria-label={`Open ${s.domain} in the Cloudflare dashboard`}
+                      title={`Open ${s.domain} in the Cloudflare dashboard`}
+                    >
+                      <span aria-hidden="true">☁</span>
+                      <span className="ml-0.5">CF</span>
+                    </a>
+                  )}
+                </td>
+                {showRepoCols && (
+                  <>
+                    <td className="px-4 py-2 whitespace-nowrap text-xs">
+                      {s.repoUrl ? (
+                        <a
+                          href={s.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 hover:underline"
+                          title={repoName(s.repoUrl)}
+                        >
+                          {repoName(s.repoUrl).split('/').pop()}
+                        </a>
+                      ) : (
+                        dash
+                      )}
+                    </td>
+                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-600">
+                      {s.lastPrClosed || dash}
+                    </td>
+                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-600">
+                      {s.openPrs && s.openPrs !== '0' ? s.openPrs : dash}
+                    </td>
+                  </>
                 )}
-              </td>
-              {showRepoCols && (
-                <>
-                  <td className="px-4 py-2 whitespace-nowrap text-xs">
-                    {s.repoUrl ? (
-                      <a
-                        href={s.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:underline"
-                        title={repoName(s.repoUrl)}
-                      >
-                        {repoName(s.repoUrl).split('/').pop()}
-                      </a>
-                    ) : (
-                      dash
-                    )}
-                  </td>
-                  <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-600">
-                    {s.lastPrClosed || dash}
-                  </td>
-                  <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-600">
-                    {s.openPrs && s.openPrs !== '0' ? s.openPrs : dash}
-                  </td>
-                </>
-              )}
-              <td className="px-4 py-2 whitespace-nowrap">
-                <span
-                  className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${healthBadge(s.siteHealth)}`}
-                >
-                  {s.siteHealth || 'N/A'}
-                </span>
-              </td>
-              <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-700">
-                {s.serverInUse || dash}
-              </td>
-              <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-700">{s.status}</td>
-              <td className="px-4 py-2 text-xs text-gray-500 max-w-xs truncate" title={s.notes}>
-                {s.notes}
-              </td>
-            </tr>
-          ))}
+                <td className="px-4 py-2 whitespace-nowrap">
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${healthBadge(s.siteHealth)}`}
+                  >
+                    {s.siteHealth || 'N/A'}
+                  </span>
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-700">
+                  {s.serverInUse || dash}
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-700">{s.status}</td>
+                <td className="px-4 py-2 text-xs text-gray-500 max-w-xs truncate" title={s.notes}>
+                  {s.notes}
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>
