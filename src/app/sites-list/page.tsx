@@ -4,7 +4,14 @@ import DomainExpiry from './DomainExpiry'
 import NonprofitCallout from '@/components/NonprofitCallout'
 import { loadDomainExpiry } from '@/lib/dashboardData'
 import { ViewNav } from './PersonaView'
-import { SiteData, loadSites, dataRefreshedAge, healthBadge, healthCategory } from './sitesData'
+import {
+  SiteData,
+  loadSites,
+  dataRefreshedAge,
+  healthBadge,
+  healthCategory,
+  cloudflareZoneUrl,
+} from './sitesData'
 
 export const metadata: Metadata = {
   title: 'Sites Master List',
@@ -126,6 +133,18 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
                 >
                   {s.domain}
                 </a>
+                {cloudflareZoneUrl(s) && (
+                  <a
+                    href={cloudflareZoneUrl(s)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-2 inline-flex items-center text-xs text-orange-600 hover:underline"
+                    title={`Open ${s.domain} in the Cloudflare dashboard`}
+                  >
+                    <span aria-hidden="true">☁</span>
+                    <span className="ml-0.5">CF</span>
+                  </a>
+                )}
               </td>
               {showRepoCols && (
                 <>

@@ -37,6 +37,17 @@ export interface SiteData {
 
 export const HARD_DEAD = ['expired', 'cancelled', 'fraud', 'terminated']
 
+// FFC's Cloudflare account ID — a non-secret identifier used to build dashboard
+// deep-links. The per-zone overview lives at dash.cloudflare.com/<account>/<domain>.
+export const FFC_CLOUDFLARE_ACCOUNT_ID = '0fa33828a8a294ba7c3e945cec827f12'
+
+// Quick-link to a domain's Cloudflare zone overview, when FFC manages its DNS.
+// Returns '' when the site isn't in FFC Cloudflare (no useful destination).
+export function cloudflareZoneUrl(s: Pick<SiteData, 'domain' | 'inCloudflare'>): string {
+  if ((s.inCloudflare || '').toLowerCase() !== 'yes' || !s.domain) return ''
+  return `https://dash.cloudflare.com/${FFC_CLOUDFLARE_ACCOUNT_ID}/${s.domain}`
+}
+
 export function derivedLeftFfc(r: Record<string, string>): boolean {
   return (
     (r['Status'] || '').toLowerCase() === 'transferred away' &&
