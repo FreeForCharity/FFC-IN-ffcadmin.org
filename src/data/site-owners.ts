@@ -1,9 +1,9 @@
 /**
  * Owner / assignee mapping for FFC-managed sites (#422).
  *
- * Keyed by apex domain (exactly as it appears in docs/sites_list.csv).
- * Values are GitHub usernames (preferred — rendered as a profile link)
- * or a plain display name.
+ * Keyed by apex domain in lowercase (lookups lowercase the CSV domain,
+ * so a mixed-case key would never match). Values are GitHub usernames
+ * (preferred — rendered as a profile link) or a plain display name.
  *
  * To claim or assign a site, add a line here and open a PR.
  */

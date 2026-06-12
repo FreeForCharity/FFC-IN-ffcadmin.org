@@ -127,7 +127,7 @@ const COLUMN_SOURCE: Record<string, string> = {
 }
 
 // Compact per-row quick-action links under the domain (#408, #410, #411, #423).
-function RowActions({ s, showRepoLink }: { s: SiteData; showRepoLink: boolean }) {
+function RowActions({ s }: { s: SiteData }) {
   const action = (href: string, label: string, title: string) => (
     <a
       key={label}
@@ -147,8 +147,7 @@ function RowActions({ s, showRepoLink }: { s: SiteData; showRepoLink: boolean })
     cf && action(cf, '☁ CF', `Open ${s.domain} in the Cloudflare dashboard`),
     dnsRecords && action(dnsRecords, 'DNS', `Cloudflare DNS records for ${s.domain}`),
     action(dnsCheckerUrl(s.domain), 'check', `DNS propagation check for ${s.domain}`),
-    showRepoLink &&
-      s.repoUrl &&
+    s.repoUrl &&
       action(
         s.repoUrl,
         s.openPrs && s.openPrs !== '0' ? `repo (${s.openPrs} PRs)` : 'repo',
@@ -215,6 +214,9 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
                 className="px-4 py-2 text-left text-xs font-bold uppercase tracking-wider text-gray-500"
               >
                 {h}
+                {COLUMN_SOURCE[h] && (
+                  <span className="sr-only">{` (source: ${COLUMN_SOURCE[h]})`}</span>
+                )}
               </th>
             ))}
           </tr>
@@ -251,7 +253,7 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
                       </span>
                     )}
                   </div>
-                  <RowActions s={s} showRepoLink={!showRepoCols} />
+                  <RowActions s={s} />
                 </td>
                 {showRepoCols && (
                   <>
