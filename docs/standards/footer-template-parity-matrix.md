@@ -3,7 +3,8 @@
 This matrix is the ffcadmin control-plane record for WS-A footer-template parity.
 It has been refreshed for the current state of the footer-only repo: the initial
 footer parity wave is clean on `main` at
-`99b4d3390614c26905651b286452d3918f927883`.
+`99b4d3390614c26905651b286452d3918f927883`, and the manifest/Lighthouse tail
+has landed on `main` at `40e0175d9680bad9c7669d2174a68f19d5ab803e`.
 
 ffcadmin is a static control-plane reader for this workstream. It should publish
 this matrix and coordination links, but it must not become a live scanner,
@@ -14,9 +15,12 @@ implementation issue owns its own repo changes and validation evidence.
 
 - Initial footer parity wave: clean on footer-only `main` at
   `99b4d3390614c26905651b286452d3918f927883`.
+- Manifest/Lighthouse tail: [Issue #61](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template/issues/61) / [PR #62](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template/pull/62) merged to footer-only `main` at
+  `40e0175d9680bad9c7669d2174a68f19d5ab803e`; post-merge CI, deploy, and Lighthouse passed.
+- Full-template contract work: [Issue #195](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/issues/195) / [draft PR #343](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/pull/343).
 - ffcadmin role: documentation-only coordination for PR #443 / issue #442.
 - Generated fleet data and `docs/SITES_LIST.md`: out of scope for this PR.
-- Next planned wave: template contract plus the footer manifest/Lighthouse tail.
+- Remaining sequence: get maintainer feedback on the full-template contract, then use ffcadmin only to report against the agreed contract.
 
 ## Operating Rules
 
@@ -72,6 +76,14 @@ baseline and should stay outside this ffcadmin PR except for coordination docs.
 | 1     | Template contract    | Define the reusable footer-template contract that future footer-only sites should consume. Keep it explicit about inputs, required routes/artifacts, validation commands, and what remains intentionally site-specific. | Issue/PR in the footer-only template repo with file claims and local validation output.               |
 | 2     | Footer manifest tail | Finish/verify the footer-specific manifest tail after the template contract is stable, avoiding generated fleet data and production-setting changes.                                                                    | Artifact/file validation in the footer-only repo; no ffcadmin live scanning.                          |
 | 3     | Lighthouse tail      | Align the remaining Lighthouse expectations with the footer-only static export and contract, without turning ffcadmin into a CI runner.                                                                                 | Footer-only CI/local validation evidence; any ffcadmin changes limited to static documentation links. |
+
+## Contract/Tail Wave Status
+
+The template contract and footer tail wave is now split across the owning repos:
+
+- Full-template contract: [FreeForCharity/FFC-IN-FFC_Single_Page_Template#195](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/issues/195) / [draft PR #343](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/pull/343). This remains draft/PR-only pending maintainer review.
+- Footer manifest/Lighthouse tail: [FreeForCharity/FFC-IN-Footer_Only_Template#61](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template/issues/61) / [PR #62](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template/pull/62), merged at `40e0175d9680bad9c7669d2174a68f19d5ab803e` after local gates, adversarial review, green PR checks, and green post-merge main CI/deploy/Lighthouse.
+- ffcadmin control-plane docs: this PR records the matrix only. It should not run live scans, change generated fleet data, or become the source of truth for another repo's validation state.
 
 ## Skipped Full-Template Surfaces
 
