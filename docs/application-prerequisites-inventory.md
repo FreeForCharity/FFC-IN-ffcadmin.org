@@ -110,6 +110,10 @@ of. This principle is what makes the flow in Section 2 logical and ordered.
 
 ## At a glance — the journey, in order
 
+_Who reads what:_ a **charity applicant** follows Sections 1–4 (their journey);
+**FFC volunteers/admins** also use Sections 5–8 (the back-office that runs after
+submission). The **Glossary** at the end defines the terms.
+
 1. **Eligibility floor** (Section 1) — US-based, with a US-citizen contact; an
    active 501(c)(3) **or** the pre-501(c)(3) track.
 2. **Phase 0 prerequisites** (Section 2) — devices, the three security tools +
