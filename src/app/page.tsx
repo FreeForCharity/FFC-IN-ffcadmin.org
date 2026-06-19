@@ -31,7 +31,7 @@ export default function Home() {
                   href="/get-involved"
                   className="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
-                  Start Your Journey
+                  Volunteer With FFC
                   <svg
                     className="ml-2 w-5 h-5"
                     fill="none"
