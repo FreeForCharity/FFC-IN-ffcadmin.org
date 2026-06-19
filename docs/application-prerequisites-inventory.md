@@ -3,7 +3,8 @@
 > **Status: Draft for verification.** This document inventories the application
 > and prerequisite steps that the FFC site currently describes, assembled from
 > the existing pages and data files in this repository **and from the
-> freeforcharity.org onboarding pages** (`/501c3`, `/pre501c3`, tools-for-success)
+> freeforcharity.org onboarding pages** (`/501c3`, `/pre501c3`,
+> `/free-for-charitys-tools-for-success`)
 > referenced throughout. The FFC founder should verify, add, or remove steps
 > before this is treated as authoritative.
 
@@ -15,13 +16,15 @@
 > policy**, **LastPass** as the password manager, and the **GitHub-only
 > application flow** (Section 2). The new policies are **not
 > yet implemented in the rendered guides/site** (e.g. `src/data/setup-guides.ts`
-> still says "Google _or_ Microsoft Authenticator" and "LastPass _or_
-> Bitwarden"). New-policy items are tagged inline. **Implementing them is exactly
+> still allows **either** Google or Microsoft Authenticator, and **either**
+> LastPass or Bitwarden). New-policy items are tagged inline. **Implementing them
+> is exactly
 > the site update we will make once this flow is accepted.**
 
 > **Source precedence (sources differ by age).** The repo blends two eras. The
 > **current** model is captured by `src/data/setup-guides.ts` and the
-> freeforcharity.org `/501c3`, `/pre501c3`, and tools-for-success pages. The
+> freeforcharity.org `/501c3`, `/pre501c3`, and
+> `/free-for-charitys-tools-for-success` pages. The
 > **legacy** WordPress / Online Impacts era is captured by the
 > `legacy-wordpress-administration/*` pages (WHMCS product checkout, InterServer
 > hosting, GuideStar-as-universal-gate, the eight-stage WordPress lifecycle).
@@ -210,14 +213,14 @@ an offer is made.
 
 ### 3a. External validation checks (six third-party signals)
 
-| #   | Check                                                                        | Demonstrates                                                     |
-| --- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)               | Legitimacy; mission-alignment scoring                            |
-| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")          | Independent vetting; unlocks discounted-software pipeline        |
-| 3   | **VolunteerMatch engagement check**                                          | Charity can receive and act on volunteer work                    |
-| 4   | **Verified Facebook page** (cross-checked vs. intake form)                   | Identity/branding consistency                                    |
-| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo) | Technical readiness; enables SPF/DKIM/DMARC under charity domain |
-| 6   | **WHMCS account + PayPal donor flow**                                        | KYC step; donor funding path                                     |
+| #   | Check                                                                                                                        | Demonstrates                                                     |
+| --- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                               | Legitimacy; mission-alignment scoring                            |
+| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                          | Independent vetting; unlocks discounted-software pipeline        |
+| 3   | **VolunteerMatch engagement check**                                                                                          | Charity can receive and act on volunteer work                    |
+| 4   | **Verified Facebook page** (cross-checked vs. intake form)                                                                   | Identity/branding consistency                                    |
+| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                 | Technical readiness; enables SPF/DKIM/DMARC under charity domain |
+| 6   | **WHMCS account + PayPal donor flow** _(WHMCS is **legacy** — retired with the GitHub-only intake; PayPal donor flow stays)_ | KYC step; donor funding path                                     |
 
 ### 3b. Internal validation checks (three FFC reviews)
 
@@ -278,9 +281,10 @@ Purpose, and applies on the pre-501(c)(3) track as well.
 
 ## 6. Where the application hands off to service delivery
 
-Once validation passes and the charity accepts the written offer (signed WHMCS
-quote), the prerequisite/application phase is complete and the engagement moves
-into provisioning. The full lifecycle (for reference) is an eight-stage flow:
+Once validation passes and the charity accepts the written offer (historically a
+signed WHMCS quote — **legacy/pending replacement** under the GitHub-only intake),
+the prerequisite/application phase is complete and the engagement moves into
+provisioning. The full lifecycle (for reference) is an eight-stage flow:
 
 1. Initial Contact & Onboarding
 2. **FFC Validation Checks** ← prerequisite gate (Sections 3–4)
@@ -298,7 +302,8 @@ into provisioning. The full lifecycle (for reference) is an eight-stage flow:
 This is the **intersection** — the prerequisites and onboarding steps that are
 the **same regardless of track**, assembled from the totality of the FFC
 guidance on this repo and the freeforcharity.org main site (`/501c3`,
-`/pre501c3`, the tools-for-success guide, the validation guide, and the
+`/pre501c3`, the `/free-for-charitys-tools-for-success` guide, the validation
+guide, and the
 onboarding guide). Track-specific items (e.g., GuideStar **Gold** + Form 990 for
 501(c)(3); IRS 1023 / state-formation work for pre-501(c)(3)) are **not** listed
 here — only what both must do.
@@ -379,14 +384,14 @@ account.
 
 ### 8a. The three approved free providers (founder-directed policy — pending implementation)
 
-> **Policy note.** The three-provider rule below is **founder-directed policy,
-> confirmed in review of this document.** It is **not yet reflected in
-> `src/data/setup-guides.ts`**, which currently labels itself the "single source
-> of truth" and still reads "Google _or_ Microsoft Authenticator" and "LastPass
-> _or_ Bitwarden." Implementing this policy means **updating those rendered
-> guides** (a tracked action in Open Questions); until that change ships, the
-> live guides still show the older options. This document records the **intended
-> policy** so the site update can follow it.
+> **Policy note.** The three-provider rule below is a **founder-directed policy
+> set while drafting this document** — treat it as the **intended policy, pending
+> implementation**, not as existing repo guidance. It is **not yet reflected in
+> `src/data/setup-guides.ts`** (which labels itself the "single source of truth"
+> and currently allows **either** Google or Microsoft Authenticator and **either**
+> LastPass or Bitwarden). Implementing this policy means **updating those rendered
+> guides** (a tracked action in Open Questions); until that change ships, the live
+> guides still show the older options.
 
 Under this policy, FFC requires **all three** free providers per person — they
 are **not interchangeable**. A generic TOTP app (including LastPass) can produce
@@ -764,11 +769,11 @@ it is identical for both tracks.
 
 **Organization Facebook Page**
 
-4. From the applicant's **personal Facebook account** (Phase 0, Group D): **Create
+1. From the applicant's **personal Facebook account** (Phase 0, Group D): **Create
    → Page**, enter the organization name, choose category **Nonprofit
    Organization**, add a short description, set the logo as the profile picture
    and a banner as the cover.
-5. **Add at least one more admin** (Settings → Page access) so the Page survives
+2. **Add at least one more admin** (Settings → Page access) so the Page survives
    any single account being lost, and publish a welcome post.
 
 > The **organizational** GitHub (the charity's repo/org), **Microsoft 365** email,
