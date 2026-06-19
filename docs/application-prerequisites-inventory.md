@@ -850,6 +850,49 @@ eight-stage flow (stages 6–8 in particular reflect the old stack); it is retai
 
 ---
 
+## Glossary
+
+Plain-language definitions for the terms used above (charity applicants are often
+non-technical).
+
+- **501(c)(3)** — a US nonprofit the IRS has recognized as tax-exempt and
+  charitable; donations to it are tax-deductible.
+- **pre-501(c)(3)** — an organization not yet IRS-recognized (forming, or with a
+  Form 1023 in progress). FFC supports these on a separate track.
+- **EIN** — Employer Identification Number, the organization's federal tax ID.
+- **IRS Form 1023** — the application a nonprofit files to be recognized as a
+  501(c)(3).
+- **IRS Form 990** — the annual information return most 501(c)(3)s file; a key
+  transparency document.
+- **IRS determination letter** — the IRS letter confirming 501(c)(3) status.
+- **Candid (formerly GuideStar)** — the canonical public registry of US
+  nonprofits; its **transparency seals** run Bronze → Silver → Gold → Platinum.
+- **NTEE code** — National Taxonomy of Exempt Entities code; classifies a
+  charity's mission/sector.
+- **MFA / 2FA** — multi-factor / two-factor authentication: a second proof of
+  identity (beyond a password) at sign-in.
+- **TOTP** — time-based one-time password; the rotating 6-digit codes an
+  authenticator app produces.
+- **Authenticator app** — a phone app that generates TOTP codes (here: Google
+  Authenticator, Microsoft Authenticator).
+- **Passkey** — a newer, phishing-resistant sign-in that uses your device's
+  biometric or PIN instead of a password (the **FIDO2 / WebAuthn** standard);
+  e.g. **Windows Hello**.
+- **Password manager** — a secure vault for unique passwords and MFA recovery
+  codes (here: LastPass).
+- **Organization Page** — a charity's LinkedIn or Facebook Page, created and
+  administered from a real person's **personal** account.
+- **AUP** — Acceptable Use Policy.
+- **Cloudflare** — the service FFC uses to register/secure charity domains; also
+  offers the domain name-availability check used in Phase 0.
+- **WHMCS** — the legacy client/billing portal once used for intake; **retired**
+  as the application mechanism under the GitHub-only flow.
+- **TechSoup** — nonprofit tech-discount and validation service.
+- **VolunteerMatch / Idealist / Taproot** — platforms for finding volunteers and
+  (Taproot) skills-based/pro-bono help.
+
+---
+
 ## Open questions for verification
 
 ### A. Decided — pending site implementation
