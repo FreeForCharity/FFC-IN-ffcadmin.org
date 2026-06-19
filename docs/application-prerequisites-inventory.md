@@ -266,6 +266,7 @@ three-provider policy and the "account is a person" principle.
   above (not instead of it).
 - _You:_ faster, phishing-resistant sign-in that's hard to steal.
 - _FFC:_ stronger account security with less password risk to clean up.
+- _Guide:_ <https://ffcadmin.org/guides/passkeys/>
 
 ### 2b. The flow — Phase 0, then the organizational pages
 
@@ -368,7 +369,7 @@ into the categories below.
     recoverable.
   - _Guide:_ <https://ffcadmin.org/guides/password-manager/>
 - **Microsoft Teams (desktop application + mobile app) — the first mandatory
-  install** _(new FFC policy — not yet in the rendered setup guides)_
+  install** _(new FFC policy)_
   - _What:_ The **Teams desktop application** on the computer (not just the web
     version) **and** the Teams app on the phone. The **first install** every
     applicant completes. For now, sign in with a **free/personal Microsoft
@@ -379,6 +380,7 @@ into the categories below.
   - _FFC:_ Our standard meeting/screen-share channel, so we can guide you live.
     Installing it also **proves your computer can install software** — the first
     connector test, and the verification for the computer requirement above.
+  - _Guide:_ <https://ffcadmin.org/guides/microsoft-teams/>
 - **A calendar app (Google Calendar or Outlook Calendar)**
   - _What:_ A working calendar on the phone/computer.
   - _You:_ Schedule and keep onboarding and training sessions.
@@ -396,9 +398,7 @@ into the categories below.
     the IRS memo the moment it arrives means it's never lost.
   - _FFC:_ Clean, organized documents make validation fast, and shared storage
     lets us help without emailing sensitive files around.
-  - _Action:_ **New guide needed** — using Drive/OneDrive to store core charity
-    files and how to scan documents such as the IRS memo. (Tracked in Open
-    Questions.)
+  - _Guide:_ <https://ffcadmin.org/guides/cloud-storage-scanning/>
 
 #### Group C — Personal identity, email & recovery
 
@@ -464,6 +464,7 @@ into the categories below.
     the platform from the volunteer side first.
   - _FFC:_ You already know the tool when it's time to post the charity's
     opportunities — one fewer account to teach during delivery.
+  - _Guide:_ <https://ffcadmin.org/guides/idealist/>
 - **A personal Candid account** (candid.org)
   - _What:_ Your own **Candid** (formerly GuideStar) account. The organization's
     Candid profile and transparency seal come later (Section 6).
@@ -473,6 +474,7 @@ into the categories below.
     comparable-charities prerequisite in Group F).
   - _FFC:_ Familiarity with Candid before the org-profile/seal work speeds that
     step and reduces what we teach later.
+  - _Guide:_ <https://ffcadmin.org/guides/candid/>
 - **A personal Taproot account** (taprootfoundation.org / Taproot Plus)
   - _What:_ Your own **Taproot** account, the skills-based (pro-bono) volunteering
     marketplace. Organizational variations come later.
@@ -480,6 +482,7 @@ into the categories below.
     requested.
   - _FFC:_ Another standard nonprofit tool learned during prerequisites, not
     during delivery.
+  - _Guide:_ <https://ffcadmin.org/guides/taproot/>
 
 #### Group E — Skills, AI & commitment
 
@@ -931,22 +934,25 @@ These are founder-directed decisions captured in this document; the work is to
 implement them in the rendered site/code (the site update referenced in the
 top-of-document disclaimer).
 
-- **GitHub-only application channel** — build/define the actual GitHub entry
-  point (repo + issue template or form); the freeforcharity.org pages
-  (<https://freeforcharity.org/submit-information/>, <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>) become
-  landing pages that point into it, and the legacy WHMCS checkout is retired.
-- **Three-provider policy → update `src/data/setup-guides.ts`** — the live code
-  still recommends **one** authenticator app (Google _or_ Microsoft) and allows
-  **LastPass _or_ Bitwarden**; the Section 2a policy is stricter (**all three** —
-  Google Authenticator, Microsoft Authenticator, LastPass — per person, no other
-  tools). Update the guide to remove Bitwarden and require all three.
-- **Implement the other Phase 0 new-policy items in the guides** — Chrome/Edge-only
-  browser, Microsoft Teams as the first install, and the passkey guidance are not
-  yet in `setup-guides.ts`.
-- **New guide to create: cloud storage + document scanning** — using **Google
-  Drive or Microsoft OneDrive** to store the charity's core files (state
-  formation / incorporation papers, board documents) and how to **scan** the IRS
-  determination memo into either provider. A new entry in `src/data/setup-guides.ts`.
+- **Done — new setup guides added** to `src/data/setup-guides.ts`: **Microsoft
+  Teams**, **cloud storage + document scanning**, **passkeys**, **Candid**,
+  **Idealist**, and **Taproot** (live at `https://ffcadmin.org/guides/<slug>/`).
+  Every Phase 0 account/tool type now has a guide.
+- **Still pending — GitHub-only application channel:** build/define the actual
+  GitHub entry point (repo + issue template or form); the freeforcharity.org
+  pages (<https://freeforcharity.org/submit-information/>,
+  <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>)
+  become landing pages that point into it, and the legacy WHMCS checkout is
+  retired.
+- **Still pending — three-provider policy in the existing guides:** the live
+  `multi-factor-authentication` and `password-manager` guides still recommend
+  **one** authenticator app (Google _or_ Microsoft) and allow **LastPass _or_
+  Bitwarden**; the Section 2a policy is stricter (**all three** — Google
+  Authenticator, Microsoft Authenticator, LastPass — per person, no other tools).
+  Updating these existing guides reverses currently-published guidance, so it
+  awaits explicit founder confirmation before the edit.
+- **Still pending — Chrome/Edge-only browser policy** is not yet stated in any
+  rendered guide.
 
 ### B. Genuinely open — need a founder decision
 
