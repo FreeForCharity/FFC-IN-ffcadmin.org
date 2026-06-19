@@ -1,18 +1,19 @@
 /**
  * Navigation Component Tests
  *
- * These tests validate the Navigation component behavior and rendering.
+ * These tests validate the Navigation component behavior and rendering for the
+ * audience-first mega-menu structure: Home · Manage My Site · Volunteer ▾ ·
+ * Operate ▾ · For Charities ↗.
  */
 
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent, act } from '@testing-library/react'
 import Navigation from '@/components/Navigation'
-import { trainingDropdown } from '@/data/navigation'
+import { volunteerMenu, menuItems } from '@/data/navigation'
 
 // Helper to render and flush the queueMicrotask from the pathname effect
 async function renderNavigation() {
   render(<Navigation />)
-  // Flush the queueMicrotask scheduled by the pathname change effect
   await act(async () => {})
 }
 
@@ -26,24 +27,21 @@ describe('Navigation Component', () => {
     it('should render the brand logo and name', async () => {
       await renderNavigation()
       expect(screen.getByAltText('Free For Charity Logo')).toBeInTheDocument()
-
       expect(screen.getByText('Admin Portal')).toBeInTheDocument()
     })
 
-    it('should render desktop navigation links and dropdown buttons', async () => {
+    it('should render the top-level links and the two mega-menu buttons', async () => {
       await renderNavigation()
       expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: /edit my site/i })).toBeInTheDocument()
+      // Both desktop and mobile render a Manage My Site link
+      expect(screen.getAllByRole('link', { name: /manage my site/i }).length).toBeGreaterThan(0)
       expect(screen.getByRole('button', { name: /volunteer/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /training/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /operate/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /resources/i })).toBeInTheDocument()
     })
 
     it('should render mobile menu button', async () => {
       await renderNavigation()
-      const menuButton = screen.getByRole('button', { name: /menu/i })
-      expect(menuButton).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /menu/i })).toBeInTheDocument()
     })
   })
 
@@ -51,26 +49,15 @@ describe('Navigation Component', () => {
     it('should toggle mobile menu when button is clicked', async () => {
       await renderNavigation()
       const menuButton = screen.getByRole('button', { name: /menu/i })
-
-      // Menu should be closed initially
-      expect(screen.queryByText(/close/i)).not.toBeInTheDocument()
-
-      // Open menu
       fireEvent.click(menuButton)
-
-      // Check if menu is open (aria-expanded should be true)
       expect(menuButton).toHaveAttribute('aria-expanded', 'true')
     })
 
     it('should close mobile menu when clicked twice', async () => {
       await renderNavigation()
       const menuButton = screen.getByRole('button', { name: /menu/i })
-
-      // Open menu
       fireEvent.click(menuButton)
       expect(menuButton).toHaveAttribute('aria-expanded', 'true')
-
-      // Close menu
       fireEvent.click(menuButton)
       expect(menuButton).toHaveAttribute('aria-expanded', 'false')
     })
@@ -79,76 +66,47 @@ describe('Navigation Component', () => {
   describe('Links', () => {
     it('should have correct href for home link', async () => {
       await renderNavigation()
-      const homeLink = screen.getByRole('link', { name: /home/i })
-      expect(homeLink).toHaveAttribute('href', '/')
+      expect(screen.getByRole('link', { name: /home/i })).toHaveAttribute('href', '/')
     })
 
-    it('should have correct href for edit my site link', async () => {
+    it('should point Manage My Site at the site-owner landing', async () => {
       await renderNavigation()
-      const link = screen.getByRole('link', { name: /edit my site/i })
-      expect(link).toHaveAttribute('href', '/site-owner')
+      const links = screen.getAllByRole('link', { name: /manage my site/i })
+      links.forEach((l) => expect(l).toHaveAttribute('href', '/site-owner'))
     })
 
-    it('should render volunteer dropdown items when opened', async () => {
+    it('should render volunteer mega-menu items (incl. nested training) when opened', async () => {
       await renderNavigation()
       fireEvent.click(screen.getByRole('button', { name: /volunteer/i }))
       expect(screen.getByRole('menuitem', { name: /get involved/i })).toHaveAttribute(
         'href',
         '/get-involved'
       )
-      expect(screen.getByRole('menuitem', { name: /recognition/i })).toHaveAttribute(
-        'href',
-        '/recognition'
-      )
-      expect(screen.getByRole('menuitem', { name: /continuing education/i })).toHaveAttribute(
-        'href',
-        '/continuing-education'
-      )
       expect(screen.getByRole('menuitem', { name: /contributor ladder/i })).toHaveAttribute(
         'href',
         '/contributor-ladder'
       )
-    })
-
-    it('should render training dropdown items when opened', async () => {
-      await renderNavigation()
-      const trainingBtn = screen.getByRole('button', { name: /training/i })
-      fireEvent.click(trainingBtn)
-      // Items have role="menuitem" which overrides the implicit link role
-      expect(screen.getByRole('menuitem', { name: /global admin/i })).toHaveAttribute(
+      // Training tracks now live under Volunteer
+      expect(screen.getByRole('menuitem', { name: /web developer/i })).toHaveAttribute(
         'href',
-        '/training-plan'
+        '/training/web-developer'
       )
       expect(screen.getByRole('menuitem', { name: /canva designer/i })).toHaveAttribute(
         'href',
         '/canva-designer-path'
       )
-      expect(screen.getByRole('menuitem', { name: /data & analytics/i })).toHaveAttribute(
-        'href',
-        '/training/data-analytics'
-      )
     })
 
-    it('should render operate dropdown items when opened', async () => {
+    it('should render operate mega-menu items (incl. nested resources) when opened', async () => {
       await renderNavigation()
       fireEvent.click(screen.getByRole('button', { name: /operate/i }))
       expect(screen.getByRole('menuitem', { name: /sites list/i })).toHaveAttribute(
         'href',
         '/sites-list'
       )
-      expect(screen.getByRole('menuitem', { name: /documentation/i })).toHaveAttribute(
-        'href',
-        '/documentation'
-      )
       expect(screen.getByRole('menuitem', { name: /testing/i })).toHaveAttribute('href', '/testing')
-    })
-
-    it('should render resources dropdown items when opened', async () => {
-      await renderNavigation()
-      const resourcesBtn = screen.getByRole('button', { name: /resources/i })
-      fireEvent.click(resourcesBtn)
+      // Resources now live under Operate
       expect(screen.getByRole('menuitem', { name: /guides/i })).toHaveAttribute('href', '/guides')
-      expect(screen.getByRole('menuitem', { name: /blog/i })).toHaveAttribute('href', '/blog')
       expect(screen.getByRole('menuitem', { name: /what ffc delivers/i })).toHaveAttribute(
         'href',
         '/what-ffc-delivers'
@@ -159,33 +117,33 @@ describe('Navigation Component', () => {
   describe('Dropdown Behavior', () => {
     it('should only have one dropdown open at a time', async () => {
       await renderNavigation()
-      const trainingBtn = screen.getByRole('button', { name: /training/i })
-      const resourcesBtn = screen.getByRole('button', { name: /resources/i })
+      const volunteerBtn = screen.getByRole('button', { name: /volunteer/i })
+      const operateBtn = screen.getByRole('button', { name: /operate/i })
 
-      fireEvent.click(trainingBtn)
-      expect(trainingBtn).toHaveAttribute('aria-expanded', 'true')
+      fireEvent.click(volunteerBtn)
+      expect(volunteerBtn).toHaveAttribute('aria-expanded', 'true')
 
-      fireEvent.click(resourcesBtn)
-      expect(resourcesBtn).toHaveAttribute('aria-expanded', 'true')
-      expect(trainingBtn).toHaveAttribute('aria-expanded', 'false')
+      fireEvent.click(operateBtn)
+      expect(operateBtn).toHaveAttribute('aria-expanded', 'true')
+      expect(volunteerBtn).toHaveAttribute('aria-expanded', 'false')
     })
 
     it('should close dropdown when clicking the same trigger again', async () => {
       await renderNavigation()
-      const trainingBtn = screen.getByRole('button', { name: /training/i })
-      fireEvent.click(trainingBtn)
-      expect(trainingBtn).toHaveAttribute('aria-expanded', 'true')
-      fireEvent.click(trainingBtn)
-      expect(trainingBtn).toHaveAttribute('aria-expanded', 'false')
+      const volunteerBtn = screen.getByRole('button', { name: /volunteer/i })
+      fireEvent.click(volunteerBtn)
+      expect(volunteerBtn).toHaveAttribute('aria-expanded', 'true')
+      fireEvent.click(volunteerBtn)
+      expect(volunteerBtn).toHaveAttribute('aria-expanded', 'false')
     })
 
     it('should close dropdown on Escape key', async () => {
       await renderNavigation()
-      const trainingBtn = screen.getByRole('button', { name: /training/i })
-      fireEvent.click(trainingBtn)
-      expect(trainingBtn).toHaveAttribute('aria-expanded', 'true')
+      const volunteerBtn = screen.getByRole('button', { name: /volunteer/i })
+      fireEvent.click(volunteerBtn)
+      expect(volunteerBtn).toHaveAttribute('aria-expanded', 'true')
       fireEvent.keyDown(document, { key: 'Escape' })
-      expect(trainingBtn).toHaveAttribute('aria-expanded', 'false')
+      expect(volunteerBtn).toHaveAttribute('aria-expanded', 'false')
     })
   })
 
@@ -199,11 +157,11 @@ describe('Navigation Component', () => {
 
     it('dropdown buttons should have aria-haspopup', async () => {
       await renderNavigation()
-      expect(screen.getByRole('button', { name: /training/i })).toHaveAttribute(
+      expect(screen.getByRole('button', { name: /volunteer/i })).toHaveAttribute(
         'aria-haspopup',
         'true'
       )
-      expect(screen.getByRole('button', { name: /resources/i })).toHaveAttribute(
+      expect(screen.getByRole('button', { name: /operate/i })).toHaveAttribute(
         'aria-haspopup',
         'true'
       )
@@ -211,15 +169,14 @@ describe('Navigation Component', () => {
 
     it('dropdown menus should have role="menu"', async () => {
       await renderNavigation()
-      fireEvent.click(screen.getByRole('button', { name: /training/i }))
+      fireEvent.click(screen.getByRole('button', { name: /volunteer/i }))
       expect(screen.getByRole('menu')).toBeInTheDocument()
     })
 
-    it('dropdown items should have role="menuitem"', async () => {
+    it('dropdown items should have role="menuitem" for every item across sections', async () => {
       await renderNavigation()
-      fireEvent.click(screen.getByRole('button', { name: /training/i }))
-      const menuItems = screen.getAllByRole('menuitem')
-      expect(menuItems.length).toBe(trainingDropdown.items.length)
+      fireEvent.click(screen.getByRole('button', { name: /volunteer/i }))
+      expect(screen.getAllByRole('menuitem').length).toBe(menuItems(volunteerMenu).length)
     })
   })
 })

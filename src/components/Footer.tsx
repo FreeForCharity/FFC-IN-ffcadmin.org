@@ -16,6 +16,30 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Charity site-owner CTA band */}
+        <div className="mb-10 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h3 className="text-xl font-bold text-white">Run a charity FFC built a site for?</h3>
+            <p className="text-sm text-emerald-50">
+              Follow the complete, every-step path to start editing your own website — no coding.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/site-owner"
+              className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-teal-700 hover:bg-emerald-50 transition-colors"
+            >
+              <span aria-hidden="true">🌱&nbsp;</span>Edit My Site
+            </Link>
+            <Link
+              href="/site-owner/accept-invitation"
+              className="inline-flex items-center justify-center rounded-lg border border-white/70 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+            >
+              Accept my GitHub invitation →
+            </Link>
+          </div>
+        </div>
+
         {/* Top Section with 7 columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8 mb-8">
           {/* Endorsements */}
@@ -238,11 +262,40 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/training" className="text-gray-400 hover:text-white transition-colors">
+                  All Training Tracks
+                </Link>
+              </li>
+              <li>
                 <Link
                   href="/training-plan"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Global Administrator
+                  Microsoft 365 Administrator
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/training/google-workspace-admin"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Google Workspace Administrator
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/training/web-developer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Web Developer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/training/data-analytics"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Data &amp; Analytics
                 </Link>
               </li>
               <li>

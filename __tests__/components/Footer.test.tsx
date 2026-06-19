@@ -81,7 +81,7 @@ describe('Footer Component', () => {
   describe('Social Links', () => {
     it('should have GitHub icon link in social bar', () => {
       render(<Footer />)
-      const githubLink = screen.getByRole('link', { name: /github/i })
+      const githubLink = screen.getByRole('link', { name: /on GitHub/i })
       expect(githubLink).toHaveAttribute('href', 'https://github.com/FreeForCharity')
       expect(githubLink).toHaveAttribute('target', '_blank')
       expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')

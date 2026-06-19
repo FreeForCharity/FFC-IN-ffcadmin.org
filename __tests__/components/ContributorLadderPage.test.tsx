@@ -130,19 +130,23 @@ describe('Contributor Ladder Page', () => {
 
     it('should have links to training programs', () => {
       render(<ContributorLadderPage />)
-      const globalAdminLinks = screen.getAllByRole('link', { name: /Global Admin Track/i })
+      const m365AdminLinks = screen.getAllByRole('link', {
+        name: /Microsoft 365 Administrator Track/i,
+      })
       const canvaDesignerLinks = screen.getAllByRole('link', { name: /Canva Designer Track/i })
 
-      expect(globalAdminLinks.length).toBeGreaterThan(0)
+      expect(m365AdminLinks.length).toBeGreaterThan(0)
       expect(canvaDesignerLinks.length).toBeGreaterThan(0)
     })
 
     it('should have correct URLs for training program links', () => {
       render(<ContributorLadderPage />)
-      const globalAdminLinks = screen.getAllByRole('link', { name: /Global Admin Track/i })
+      const m365AdminLinks = screen.getAllByRole('link', {
+        name: /Microsoft 365 Administrator Track/i,
+      })
       const canvaDesignerLinks = screen.getAllByRole('link', { name: /Canva Designer Track/i })
 
-      expect(globalAdminLinks[0]).toHaveAttribute('href', '/training-plan')
+      expect(m365AdminLinks[0]).toHaveAttribute('href', '/training-plan')
       expect(canvaDesignerLinks[0]).toHaveAttribute('href', '/canva-designer-path')
     })
   })

@@ -12,9 +12,9 @@ import {
 export const metadata: Metadata = {
   title: 'Training Tracks',
   description:
-    'Free For Charity training is organized as responsibility modules at three depths — Operator, Practitioner, and Administrator. Pick your role (Site Owner, Web Developer, Global Administrator, or Canva Designer) and see exactly what you’re responsible for.',
+    'Free For Charity training is organized as responsibility modules at three depths — Operator, Practitioner, and Administrator. Pick your role (Site Owner, Web Developer, Microsoft 365 Administrator, or Canva Designer) and see exactly what you’re responsible for.',
   keywords:
-    'FFC training tracks, site owner training, web developer training, global administrator, Canva designer, nonprofit technology training, Free For Charity',
+    'FFC training tracks, site owner training, web developer training, Microsoft 365 administrator, Google Workspace administrator, Canva designer, nonprofit technology training, Free For Charity',
   alternates: {
     canonical: 'https://ffcadmin.org/training/',
   },

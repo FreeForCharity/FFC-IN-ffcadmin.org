@@ -5,7 +5,7 @@ import NonprofitCallout from '@/components/NonprofitCallout'
 export const metadata: Metadata = {
   title: 'Get Involved',
   description:
-    'Join Free For Charity as a volunteer. Choose your track: Web Developer, Global Administrator, Google Workspace Admin, Data & Analytics, or Canva Designer — or just edit your own charity’s FFC website. Start building and make an impact.',
+    'Join Free For Charity as a volunteer. Choose your track: Web Developer, Microsoft 365 Administrator, Google Workspace Admin, Data & Analytics, or Canva Designer — or just edit your own charity’s FFC website. Start building and make an impact.',
 }
 
 const roles = [
@@ -34,7 +34,7 @@ const roles = [
     estimate: 'flexible',
   },
   {
-    title: 'Global Administrator',
+    title: 'Microsoft 365 Administrator',
     subtitle: 'Manage Infrastructure & Security',
     description:
       'Become a dual-hatted admin for Microsoft 365 and GitHub. Manage DNS, email, security policies, and deployments for all FFC charity sites.',
