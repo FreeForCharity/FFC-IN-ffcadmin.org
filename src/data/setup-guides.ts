@@ -57,7 +57,7 @@ const MFA_STEP_SHARED: SetupStep = {
   title: 'Turn on multi-factor authentication (MFA)',
   body: [
     'MFA means that after your password, you also approve a second step from your phone — so a stolen password alone can’t get in. See the full walkthrough in the Multi-Factor Authentication guide.',
-    'Use the **same authenticator app you already use for your bank or email** — most commonly **Google Authenticator** or **Microsoft Authenticator**. If you don’t have one, install one from your phone’s app store first.',
+    'Open one of your **authenticator apps** — FFC has you install **both Google Authenticator and Microsoft Authenticator** (see the Multi-Factor Authentication guide). Use the one that matches the account where you can; for sites that aren’t Google or Microsoft, either app works.',
     'When the site shows a **QR code**, open your authenticator app, tap **+ / Add**, and **scan the QR code**. The app starts showing a 6-digit code that changes every 30 seconds. Type the current code back into the website to confirm.',
   ],
   tip: 'Always save the backup / recovery codes the site gives you right after setup — store them in your password manager. They are how you get back in if you lose your phone.',
@@ -462,6 +462,15 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
       {
+        title: 'Know how to actually see a saved password (not just autofill)',
+        body: [
+          'Every one of these managers lets you **reveal** a stored password after you re-confirm it’s you (Face ID / fingerprint / device PIN / your account password) — you’re not stuck with autofill-only. You’ll need this when signing in on a device the manager can’t autofill into, or when adding a teammate to a shared account.',
+          '**Apple Passwords / iCloud Keychain:** open the **Passwords** app (iPhone: Settings → Passwords; Mac: Passwords app), authenticate with Face ID / Touch ID / your passcode, tap the entry, then tap the password to reveal or copy it.',
+          '**Google Password Manager (Android/Chrome):** go to **passwords.google.com** or Chrome → Settings → Google Password Manager, pick the site, and tap the **eye icon** — it asks for your phone screen lock or Google password first.',
+          '**Edge (Microsoft):** Edge → Settings → Profiles → **Passwords**, choose the site, and click the **eye icon**; Windows asks for your Windows Hello PIN / account password to show it.',
+        ],
+      },
+      {
         title: 'Store your MFA recovery codes here',
         body: [
           'Save each account’s **recovery codes** (from the MFA setup) in the manager — a secure note in LastPass, or your browser/Google account’s secure notes. This is what saves you when you lose or replace your phone.',
@@ -473,6 +482,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         q: 'Built-in browser manager or LastPass — which?',
         a: 'Start with the built-in manager in your Chrome or Edge profile; it’s free and automatic. Add (or move to) LastPass when you need the same logins to work across many browsers/devices, or to share credentials with your team at the organizational phase.',
+      },
+      {
+        q: 'What happens to my passwords if I lose my phone?',
+        a: 'This is the whole reason FFC insists on a holistic setup with sync turned on. Apple Passwords (iCloud Keychain) and Google Password Manager both sync to your account in the cloud, so signing into iCloud or your Google account on a replacement phone restores every password and passkey — provided sync was on before you lost the device. The real danger is a manager that only kept passwords locally with no backup: if that device is gone, so are those passwords. So (1) keep iCloud Keychain or Google sync enabled, (2) keep a second copy on your computer’s browser profile, and (3) store each account’s MFA recovery codes in the vault, so even if you’re locked out of one factor you can still get back in.',
       },
     ],
     related: ['multi-factor-authentication', 'github-account', 'chrome', 'edge'],

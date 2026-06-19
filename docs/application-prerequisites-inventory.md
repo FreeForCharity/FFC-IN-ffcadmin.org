@@ -11,14 +11,16 @@
 > **Two kinds of content (read this first).** This document now contains both:
 > (1) an **inventory of existing guidance** already in the repo, and (2) **new
 > founder-directed policy decisions** made while drafting it — specifically the
-> **Phase 0 baseline** (Section 2), the **three approved providers**
-> (Section 2a), **Microsoft Teams as the first install**, the **Chrome/Edge-only browser
-> policy**, **LastPass** as the password manager, and the **GitHub-only
-> application flow** (Section 3). The new policies are **not
-> yet implemented in the rendered guides/site** (e.g. `src/data/setup-guides.ts`
-> still allows **either** Google or Microsoft Authenticator, and **either**
-> LastPass or Bitwarden). New-policy items are tagged inline. **Implementing them
-> is exactly
+> **Phase 0 baseline** (Section 2), the **approved authenticator & password
+> providers** (Section 2a), **Microsoft Teams as the first install**, the **Chrome/Edge-only browser
+> policy**, **holistic password management** (mobile-tied + browser-built-in, with
+> LastPass at the organizational phase), and the **GitHub-only
+> application flow** (Section 3). Many of these are **now implemented in the
+> rendered guides** (`src/data/setup-guides.ts`): the Multi-Factor Authentication
+> guide requires **both** Google and Microsoft Authenticator, the password-manager
+> guide describes the holistic approach, and dedicated **Chrome** and **Edge**
+> guides now exist. Items still pending in the rendered site are tagged inline.
+> **Closing the remaining gaps is exactly
 > the site update we will make once this flow is accepted.**
 
 > **Source precedence (sources differ by age).** The repo blends two eras. The
@@ -257,7 +259,7 @@ tied to an ecosystem:
 
 Passkeys are becoming the default sign-in across Google, Microsoft, Apple,
 LinkedIn, and Facebook, and they reinforce the same vendor-alignment behind the
-three-provider policy and the "account is a person" principle.
+approved-provider policy and the "account is a person" principle.
 
 - _FFC stance:_ **enable passkeys where offered** — Windows Hello on the computer
   and the platform passkey on the phone — **alongside** the authenticator-app MFA
@@ -276,13 +278,15 @@ sides. If any item is missing, the applicant **cannot proceed** and should be
 routed to **Contact us for help** (offered at every step). The items are grouped
 into the categories below.
 
-> **Mixed status:** Phase 0 combines **existing guidance** (e.g. the GitHub, MFA,
-> LinkedIn, Facebook, password-manager, and Canva setup guides already in
-> `src/data/setup-guides.ts`) with **new founder-directed policy** items that are
-> **pending implementation** (the three-provider rule, Microsoft Teams as the
-> first install, Chrome/Edge-only, passkeys, and the Idealist/Candid/Taproot and
-> cloud-storage requirements). New-policy items are tagged inline; don't read the
-> whole list as already-shipped guidance.
+> **Mixed status:** Most of Phase 0 is now reflected in
+> `src/data/setup-guides.ts` — there are setup guides for GitHub, MFA (now
+> requiring **both** authenticators), LinkedIn, Facebook, the holistic
+> password manager, Canva, **Microsoft Teams**, **Chrome**, **Edge**,
+> **passkeys**, **Candid**, **Idealist**, **Taproot**, and
+> **cloud storage + scanning**. A few founder-directed policy points (e.g. the
+> hard eligibility gates and the precise sequencing below) live only in this
+> document for now. New-policy items still ahead of the rendered site are tagged
+> inline.
 
 #### Group A — Devices & connectivity (the hardware floor)
 
@@ -951,15 +955,16 @@ top-of-document disclaimer).
   <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>)
   become landing pages that point into it, and the legacy WHMCS checkout is
   retired.
-- **Still pending — three-provider policy in the existing guides:** the live
-  `multi-factor-authentication` and `password-manager` guides still recommend
-  **one** authenticator app (Google _or_ Microsoft) and allow **LastPass _or_
-  Bitwarden**; the Section 2a policy is stricter (**all three** — Google
-  Authenticator, Microsoft Authenticator, LastPass — per person, no other tools).
-  Updating these existing guides reverses currently-published guidance, so it
-  awaits explicit founder confirmation before the edit.
-- **Still pending — Chrome/Edge-only browser policy** is not yet stated in any
-  rendered guide.
+- **Done — authenticator & password-manager guides updated:** the live
+  `multi-factor-authentication` guide now requires **both** Google Authenticator
+  and Microsoft Authenticator, and the `password-manager` guide describes the
+  **holistic** approach (a mobile-tied manager — Apple Passwords / iCloud Keychain
+  or Google Password Manager — plus the browser-profile manager, with LastPass as
+  the advanced/organizational-phase option for credential sharing). It also covers
+  how to **reveal a saved password** in each manager and what to do if you **lose
+  your phone**.
+- **Done — Chrome/Edge-only browser policy** now has dedicated **Chrome** and
+  **Edge** guides and is stated as the support policy in Phase 0 Group B.
 
 ### B. Genuinely open — need a founder decision
 
