@@ -34,6 +34,15 @@ charities demonstrate readiness through the validation steps before
 service-delivery resources commit, protecting volunteer time and ensuring every
 shipped site lands at a charity that can run it.
 
+> **Prerequisite-first framing & acceptance expectation.** This guide is
+> organized around the **prerequisite steps** and a **self-check** (Section 8c)
+> so an applicant can see, up front, **everything they will need to do**. The
+> expectation is explicit: a charity completes the prerequisite ladder
+> (Section 8) **before FFC provides any other service**. Completing it is what
+> moves the organization from "interested" to **accepted** — no domain, email,
+> website, or other service is provisioned until the prerequisites are met. The
+> only thing always available before then is the **Contact us for help** path.
+
 ### The social-page litmus test (technical-readiness gate)
 
 > **Emphasis:** An applicant must be able to **create a Facebook Page and a
@@ -378,57 +387,71 @@ Rules that follow from this:
 
 ### 8b. The flow, step by step
 
-**Phase A — Device & identity foundation**
+**Phase 0 — Baseline capabilities (mandatory; the floor under everything)**
 
-1. Have a **smartphone with its primary email** set up (the identity on the
-   phone): Android → the Google/Gmail account; iPhone → the iCloud/Apple email
-   (or Google if Gmail is the main address). This email is how account recovery
-   reaches the applicant.
+If any of these is missing, the applicant **cannot proceed** and should be routed
+to **Contact us for help** (the help path is offered at every step).
 
-**Phase B — Establish the three approved security/credential tools**
+- **A smartphone (mandatory).** Not a tablet or a desktop. Two non-negotiable
+  reasons: (1) **multi-factor authentication cannot be done exclusively on a
+  tablet or desktop** — the authenticator apps live on the phone; and (2) the
+  phone is needed to **send and receive text messages with a US-based phone
+  number** (verification codes and FFC contact). The smartphone must be able to
+  install apps from the Apple App Store or Google Play.
+- **A US-based mobile phone number** on that smartphone (ties to the US-based
+  eligibility floor in Section 1).
+- **Reliable internet access.**
+- **A primary email account on the phone** (Android → Google/Gmail; iPhone →
+  iCloud/Apple, or Google if Gmail is the main address). This is the identity and
+  account-recovery address for everything that follows.
+- **Basic web literacy** — open a site, complete a form, scan a QR code.
+- _(Recommended)_ **a computer** — Page creation is easier on a larger screen,
+  though possible on the phone.
 
-2. Install **Google Authenticator** from the phone's app store.
-3. Install **Microsoft Authenticator** from the phone's app store.
-4. Create a **LastPass** account (the password manager). Choose a strong,
+**Phase A — Establish the three approved security/credential tools**
+
+1. Install **Google Authenticator** from the phone's app store.
+2. Install **Microsoft Authenticator** from the phone's app store.
+3. Create a **LastPass** account (the password manager). Choose a strong,
    memorable **master password**, and **turn on MFA for LastPass itself** using
    one of the authenticators. Use LastPass to **generate and store** a unique
    strong password for every account from here on, and to **store MFA recovery
    codes**.
 
-**Phase C — Personal LinkedIn profile (first social rung)**
+**Phase B — Personal LinkedIn profile (first social rung)**
 
-5. Create the applicant's **personal LinkedIn profile** at linkedin.com using the
+4. Create the applicant's **personal LinkedIn profile** at linkedin.com using the
    phone's email and the applicant's **real name**; add a photo, headline, and
    current role at the organization.
-6. Turn on LinkedIn **two-step verification** (Me → Settings & Privacy → Sign in
+5. Turn on LinkedIn **two-step verification** (Me → Settings & Privacy → Sign in
    & security) with an authenticator app; save the recovery codes in LastPass.
-7. Repeat steps 5–6 for **each board member** — or, on the pre-501(c)(3) track,
+6. Repeat steps 4–5 for **each board member** — or, on the pre-501(c)(3) track,
    each **planned board member** — whose personal LinkedIn profile is required.
 
-**Phase D — Create the organization LinkedIn Page (first organizational account)**
+**Phase C — Create the organization LinkedIn Page (first organizational account)**
 
-8. From the personal profile: **For Business → Create a Company Page**, choose
+7. From the personal profile: **For Business → Create a Company Page**, choose
    **Company / Nonprofit**, enter the organization name, website, and logo, and
    confirm authorization to act on its behalf.
-9. **Add at least one other admin** (Admin tools → Manage admins), complete the
+8. **Add at least one other admin** (Admin tools → Manage admins), complete the
    About section, add logo + banner, and publish a first post so the Page looks
    active.
 
-**Phase E — Personal Facebook account**
+**Phase D — Personal Facebook account**
 
-10. Create the applicant's **personal Facebook account** at facebook.com using
-    the device email/phone and the applicant's **real name**. (Never create a
-    fake "charity person" account — Facebook removes those.)
-11. Turn on Facebook **two-factor authentication** (Settings → Accounts Center →
-    Password and security → Two-factor authentication → Authentication app);
-    save recovery codes in LastPass.
+9. Create the applicant's **personal Facebook account** at facebook.com using the
+   device email/phone and the applicant's **real name**. (Never create a fake
+   "charity person" account — Facebook removes those.)
+10. Turn on Facebook **two-factor authentication** (Settings → Accounts Center →
+    Password and security → Two-factor authentication → Authentication app); save
+    recovery codes in LastPass.
 
-**Phase F — Create the organization Facebook Page (final step of this flow)**
+**Phase E — Create the organization Facebook Page (final step of this flow)**
 
-12. From the personal account: **Create → Page**, enter the organization name,
+11. From the personal account: **Create → Page**, enter the organization name,
     choose category **Nonprofit Organization**, add a short description, set the
     logo as the profile picture and a banner as the cover.
-13. **Add at least one more admin** (Settings → Page access) so the Page survives
+12. **Add at least one more admin** (Settings → Page access) so the Page survives
     any single account being lost, and publish a welcome post.
 
 **End state:** the applicant has, unaided — a secured personal identity with all
@@ -439,13 +462,50 @@ literacy to operate the infrastructure FFC delivers next (email, domain,
 website); one who cannot is exactly the case the "filter out" philosophy catches
 early.
 
-### 8c. What comes after this flow
+### 8c. Applicant self-check (everything you must complete to be accepted)
 
-Once the social Pages exist, the applicant proceeds to the organizational
-accounts in Section 7b (organizational email on Microsoft 365 by default, domain
+Show this checklist at the **start** of the application so applicants know the
+full commitment before investing time, and so the **acceptance expectation** is
+unambiguous: **every box must be checked before FFC provides any other service.**
+If you get stuck on any item, use **Contact us for help**.
 
-- `info@` routing, then the website/template) and — on the 501(c)(3) track — the
-  GuideStar/validation work in Sections 3–4.
+**Baseline (mandatory floor):**
+
+- [ ] I have a **smartphone** that can install apps (not just a tablet/desktop).
+- [ ] It has a **US-based mobile phone number** that can send/receive texts.
+- [ ] I have **reliable internet** and a **primary email** on the phone.
+
+**The three approved tools (all three, per person):**
+
+- [ ] **Google Authenticator** installed.
+- [ ] **Microsoft Authenticator** installed.
+- [ ] **LastPass** set up, with its own MFA on, storing my passwords + recovery
+      codes.
+
+**Personal accounts (secured with MFA):**
+
+- [ ] My **personal LinkedIn** profile.
+- [ ] A **personal LinkedIn** profile for **each board / planned-board member**.
+- [ ] My **personal Facebook** account.
+
+**Organization pages (the hard gate — required before applying):**
+
+- [ ] Our **organization LinkedIn Page** (with a backup admin).
+- [ ] Our **organization Facebook Page** (with a backup admin).
+
+**Eligibility & materials:**
+
+- [ ] US-based, with a **US-citizen point of contact**.
+- [ ] Track chosen (**501(c)(3)** or **pre-501(c)(3)**) and its documents gathered
+      (Section 10 / Section 2 materials list).
+
+### 8d. What comes after this flow
+
+Once the social Pages exist and the self-check is complete, the applicant submits
+the application (Section 2 / 11) and proceeds to the organizational accounts in
+Section 7b (organizational email on Microsoft 365 by default, domain + `info@`
+routing, then the website/template) and — on the 501(c)(3) track — the
+GuideStar/validation work in Sections 3–4.
 
 ---
 
