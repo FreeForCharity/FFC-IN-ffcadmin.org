@@ -821,8 +821,8 @@ status and documentation**:
 
 After acceptance, FFC then provides the **services** (not prerequisites):
 organizational email on Microsoft 365 by default, domain + `info@` routing, and
-the website/template (Section 7b), plus — on the 501(c)(3) track — the
-validation work in Sections 3–4.
+the website/template, plus — on the 501(c)(3) track — the validation work in
+Sections 3–4.
 
 ---
 
