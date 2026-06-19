@@ -431,17 +431,20 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
      (Section 1), gives us a direct line for time-sensitive verification, and
      provides an SMS fallback before an authenticator app is set up.
 
-3. **A desktop or laptop computer you own, with the ability to install software**
+3. **A desktop or laptop computer you own — install-capable and still supported**
    - _What:_ A Windows or Mac computer on which **you have administrator rights
-     to install applications and browser extensions**.
+     to install applications and browser extensions**, that is **still receiving
+     operating-system updates** (e.g. Windows 11, or a macOS version Apple still
+     supports) with **at least 8 GB of RAM**. This OS/spec floor is part of the
+     requirement, not a nice-to-have.
    - _Why it benefits you:_ This is where the real work happens — editing your
      website, designing in Canva, and using the **AI tools** that let you
-     maintain your own content. Install rights let you add the AI-tool
-     connectors and helpers used later in the process.
+     maintain your own content. A supported, install-capable machine means those
+     tools and connectors actually run instead of failing to install.
    - _Why it benefits FFC:_ Several AI tools and **connectors we use later must
-     be installed on a desktop**; without an install-capable computer the charity
-     cannot self-serve and the work falls back onto our volunteers. It keeps you
-     self-sufficient and our support load low.
+     be installed on a desktop**; an unsupported or underpowered machine can't
+     run them, and without self-serve the work falls back onto our volunteers. It
+     keeps you self-sufficient and our support load low.
 
 4. **Reliable internet access**
    - _What:_ A stable broadband / Wi-Fi connection for both the computer and the
@@ -473,7 +476,9 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
 7. **Microsoft Teams (desktop application + mobile app) — the first mandatory install**
    - _What:_ The **Microsoft Teams desktop application** installed on the
      computer (not just the web version), **and** the Teams app on the
-     smartphone. This is the **first install** every applicant completes.
+     smartphone. This is the **first install** every applicant completes. For now,
+     sign in with a **free/personal Microsoft account**; the charity `@org`
+     identity is added to Teams later, once FFC provisions Microsoft 365.
    - _Why it benefits you:_ Teams is how you meet with FFC — screen sharing,
      live walkthroughs, and real-time help during onboarding and beyond; having
      it on your phone means you can join from anywhere.
@@ -585,7 +590,8 @@ If you get stuck on any item, use **Contact us for help**.
 
 - [ ] I have a **smartphone** that can install apps (not just a tablet/desktop).
 - [ ] It has a **US-based mobile phone number** that can send/receive texts.
-- [ ] I have a **desktop/laptop I can install software on** (admin rights).
+- [ ] I have a **desktop/laptop I can install software on** (admin rights), still
+      getting **OS updates**, with **8 GB+ RAM**.
 - [ ] I have **reliable internet**, **Chrome or Edge** (Firefox/Safari not
       supported), and a **primary email** on the phone.
 - [ ] **Microsoft Teams** installed on my computer **and** phone (first install).
