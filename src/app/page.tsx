@@ -85,6 +85,53 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Charity site-owner spotlight — the most common visitor task */}
+      <section className="py-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-emerald-600 to-teal-700">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div className="max-w-2xl">
+            <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-3">
+              Most charity owners start here
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+              FFC built your charity a website? Manage it yourself.
+            </h2>
+            <p className="text-emerald-50">
+              A complete, every-step path from creating your GitHub account to making your first
+              edit — in plain English, no coding. Includes the part everyone gets stuck on:{' '}
+              <strong>accepting your repository invitation</strong>.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 flex-shrink-0">
+            <Link
+              href="/site-owner"
+              className="inline-flex items-center justify-center px-6 py-3 bg-white text-teal-700 rounded-lg font-semibold hover:bg-emerald-50 transition-colors shadow-lg"
+            >
+              <span aria-hidden="true">🌱&nbsp;</span>Edit My Site
+              <svg
+                className="ml-2 w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </Link>
+            <Link
+              href="/site-owner/accept-invitation"
+              className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors"
+            >
+              Accept my GitHub invitation
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Persona router */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto">

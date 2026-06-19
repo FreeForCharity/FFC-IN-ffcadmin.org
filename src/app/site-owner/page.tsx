@@ -138,6 +138,89 @@ export default function SiteOwnerPage() {
           </p>
         </div>
 
+        {/* Complete linear path */}
+        <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8 border-2 border-teal-200">
+          <div className="flex items-center mb-2">
+            <span className="text-4xl mr-4" aria-hidden="true">
+              🧭
+            </span>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Your complete path, in order</h2>
+              <p className="text-gray-600">
+                Brand new? Do these in sequence. Each one links to a spell-it-all-out guide.
+              </p>
+            </div>
+          </div>
+          <ol className="mt-4 space-y-3">
+            {[
+              {
+                n: '1',
+                title: 'Create your GitHub account',
+                body: 'A free account in your own name — this is the login that owns your access.',
+                href: '/guides/github-account',
+                cta: 'Open the GitHub account guide',
+              },
+              {
+                n: '2',
+                title: 'Turn on multi-factor authentication (MFA)',
+                body: 'A second step at login so a stolen password alone can’t get in. Required.',
+                href: '/guides/multi-factor-authentication',
+                cta: 'Open the MFA guide',
+              },
+              {
+                n: '3',
+                title: 'Send FFC your GitHub username',
+                body: 'Text Clarke your username + charity name so we can invite you. (Copy-paste message in step 2 below.)',
+                href: '#before-you-start',
+                cta: 'See the message to send',
+              },
+              {
+                n: '4',
+                title: 'Accept your repository invitation',
+                body: 'The step most people get stuck on — what the email looks like, who it’s from, and three ways to accept.',
+                href: '/site-owner/accept-invitation',
+                cta: 'Open the accept-invitation walkthrough',
+                highlight: true,
+              },
+              {
+                n: '5',
+                title: 'Install your AI assistant & connect it once',
+                body: 'Download Claude, sign in, and connect it to GitHub a single time.',
+                href: '#before-you-start',
+                cta: 'Jump to setup',
+              },
+              {
+                n: '6',
+                title: 'Make your first edit',
+                body: 'Describe a small change in plain English, read it, approve it — it’s live.',
+                href: '#first-edit',
+                cta: 'Jump to your first edit',
+              },
+            ].map((s) => (
+              <li
+                key={s.n}
+                className={`flex items-start gap-4 rounded-lg border p-4 ${
+                  s.highlight ? 'border-teal-300 bg-teal-50' : 'border-gray-200 bg-gray-50'
+                }`}
+              >
+                <span className="flex-shrink-0 w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold">
+                  {s.n}
+                </span>
+                <div className="min-w-0">
+                  <h3 className="font-bold text-gray-900">{s.title}</h3>
+                  <p className="text-sm text-gray-700 mb-1">{s.body}</p>
+                  <Link
+                    href={s.href}
+                    className="text-sm font-semibold text-teal-700 underline hover:text-teal-900"
+                  >
+                    {s.cta} →
+                  </Link>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
         {/* What to expect */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <div className="flex items-center mb-4">
@@ -365,12 +448,22 @@ export default function SiteOwnerPage() {
                 </h3>
                 <p className="text-sm text-gray-700">
                   Once FFC adds you, you become a <strong>collaborator</strong> on your
-                  charity&apos;s repository — just your one repo, nothing else. You&apos;ll get an
-                  email titled something like “[your charity] invited you to collaborate” and a
-                  notification on GitHub. Open it and click <strong>Accept invitation</strong>.
-                  That&apos;s what gives you (and your assistant) permission to make changes.
+                  charity&apos;s repository — just your one repo, nothing else. The invitation
+                  arrives as an email from GitHub <em>and</em> as a green banner on your repository
+                  page. This is the step people get stuck on, so we wrote a separate, every-click
+                  walkthrough — what the email looks like, who it&apos;s from, where to find it if
+                  it&apos;s not in your inbox, and two other ways to accept.
                 </p>
-                <div className="mt-2 bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-xs text-amber-900">
+                <Link
+                  href="/site-owner/accept-invitation"
+                  className="mt-3 inline-flex items-center justify-center px-5 py-2.5 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity text-sm"
+                >
+                  <span aria-hidden="true" className="mr-2">
+                    📨
+                  </span>
+                  Open the &ldquo;Accept your invitation&rdquo; walkthrough →
+                </Link>
+                <div className="mt-3 bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-xs text-amber-900">
                   Didn&apos;t get an invite within a day, or the link expired? Text Clarke again at
                   (520)&nbsp;222-8104 and ask to re-send the writer invitation to your GitHub
                   username.
@@ -729,6 +822,27 @@ export default function SiteOwnerPage() {
         <div className="bg-gradient-to-br from-gray-50 to-teal-50 rounded-xl shadow-lg p-6 md:p-8 border border-gray-200">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Where to next</h2>
           <ul className="space-y-2 text-sm text-gray-700">
+            <li>
+              <Link
+                href="/site-owner/accept-invitation"
+                className="text-teal-700 underline hover:text-teal-900"
+              >
+                Accept your repository invitation
+              </Link>
+              <span className="text-gray-500">
+                {' '}
+                &mdash; the every-click walkthrough for the step people get stuck on
+              </span>
+            </li>
+            <li>
+              <Link href="/guides" className="text-teal-700 underline hover:text-teal-900">
+                Account &amp; tool setup guides
+              </Link>
+              <span className="text-gray-500">
+                {' '}
+                &mdash; GitHub, MFA, charity email, password manager &amp; more
+              </span>
+            </li>
             <li>
               <Link
                 href="/site-owner/training"
