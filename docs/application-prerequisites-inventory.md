@@ -330,15 +330,18 @@ into the categories below.
 
 #### Group B — Required software on your devices
 
-- **An approved web browser — Chrome or Edge only** _(new FFC support policy —
-  not yet in the rendered guides)_
-  - _What:_ A current **Google Chrome or Microsoft Edge** on the computer.
-    **Firefox, Safari, and any other browser are not approved or supported.**
-  - _You:_ Chrome/Edge run the web apps, the password-manager extension, and the
-    AI-tool integrations exactly the way the guides expect.
+- **An approved web browser — Chrome or Edge only** _(new FFC support policy)_
+  - _What:_ A current **Google Chrome or Microsoft Edge** on the computer,
+    **signed into your Google (Chrome) or Microsoft (Edge) account**. **Firefox,
+    Safari, and any other browser are not approved or supported.**
+  - _You:_ Your browser profile becomes your **built-in password manager** and
+    backs up your bookmarks; Chrome/Edge also run the web apps and AI-tool
+    integrations the way the guides expect.
   - _FFC:_ A single supported browser pair means our guides and screenshots match
     your screen, with no time lost to browser-specific quirks.
-- **Google Authenticator (MFA app)** _(one of the three required providers — see
+  - _Guide:_ <https://ffcadmin.org/guides/chrome/> ·
+    <https://ffcadmin.org/guides/edge/>
+- **Google Authenticator (MFA app)** _(required — set up both authenticators; see
   Section 2a)_
   - _What:_ Install from the phone's app store. You scan QR codes into it to turn
     on app-based two-factor authentication.
@@ -347,7 +350,7 @@ into the categories below.
   - _FFC:_ MFA on every account is how we keep the charity's accounts from being
     trivially compromised.
   - _Guide:_ <https://ffcadmin.org/guides/multi-factor-authentication/>
-- **Microsoft Authenticator (MFA app)** _(one of the three required providers —
+- **Microsoft Authenticator (MFA app)** _(required — set up both authenticators;
   see Section 2a)_
   - _What:_ Install from the phone's app store. Required for Microsoft 365
     two-factor authentication.
@@ -355,16 +358,17 @@ into the categories below.
   - _FFC:_ Extends MFA coverage across the Microsoft ecosystem the charity runs
     on.
   - _Guide:_ <https://ffcadmin.org/guides/multi-factor-authentication/>
-- **LastPass (password manager)** _(the third required provider — see
-  Section 2a)_
-  - _What:_ Create an account with a strong **master password**; turn on
-    LastPass's own MFA; use it to generate/store a unique password for every
-    account and to store your **MFA recovery codes**. (Not a fourth tool — it is
-    the password manager of the three.)
-  - _You:_ One vault for every credential and recovery code, so a new or lost
-    phone never locks you out.
-  - _FFC:_ Credential hygiene that keeps the charity's accounts both secure and
+- **A password manager (holistic — mobile + browser)** _(see Section 2a)_
+  - _What:_ At least one manager **tied to your phone** — **Apple Passwords /
+    iCloud Keychain** (iPhone/Mac) or **Google Password Manager** (Android) —
+    plus your **browser-profile** manager (Chrome → Google, Edge → Microsoft).
+    Store your **MFA recovery codes** here too.
+  - _You:_ A unique strong password for every account and a safe home for
+    recovery codes, so a new or lost phone never locks you out.
+  - _FFC:_ Credential hygiene that keeps the charity's accounts secure and
     recoverable.
+  - _Advanced:_ **LastPass** (third-party, cross-platform) at the organizational
+    phase for **credential sharing** across the team.
   - _Guide:_ <https://ffcadmin.org/guides/password-manager/>
 - **Microsoft Teams (desktop application + mobile app) — the first mandatory
   install** _(new FFC policy)_
@@ -642,12 +646,17 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] **Passkeys enabled where offered** (e.g., Windows Hello), alongside MFA.
 - [ ] I've set aside **dedicated time** to finish the ladder and maintain the site.
 
-**The three approved tools (all three, per person):**
+**Authenticators & password management (per person):**
 
 - [ ] **Google Authenticator** installed.
 - [ ] **Microsoft Authenticator** installed.
-- [ ] **LastPass** set up, with its own MFA on, storing my passwords + recovery
-      codes.
+- [ ] A **password manager tied to my phone** — Apple Passwords/iCloud Keychain
+      (iPhone) or Google Password Manager (Android) — storing my **MFA recovery
+      codes**.
+- [ ] My computer browser is **Chrome or Edge**, signed into my Google/Microsoft
+      account (built-in password manager + bookmark backup).
+- [ ] _(Advanced / org phase)_ **LastPass** for cross-platform use + credential
+      sharing.
 
 **Personal accounts (mine, in my real name, secured with MFA):**
 
