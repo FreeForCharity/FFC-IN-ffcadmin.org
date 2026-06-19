@@ -850,32 +850,37 @@ eight-stage flow (stages 6–8 in particular reflect the old stack); it is retai
 
 ## Open questions for verification
 
-- **Application channel: GitHub-only** — founder-directed policy, **pending
-  implementation** (same status as the other new policies; see the disclaimer at
-  the top). The freeforcharity.org pages
+### A. Decided — pending site implementation
+
+These are founder-directed decisions captured in this document; the work is to
+implement them in the rendered site/code (the site update referenced in the
+top-of-document disclaimer).
+
+- **GitHub-only application channel** — build/define the actual GitHub entry
+  point (repo + issue template or form); the freeforcharity.org pages
   (<https://freeforcharity.org/submit-information/>, `/501c3`, `/pre501c3`) become
-  informational landing pages that point into the GitHub flow, and the legacy
-  WHMCS checkout is retired. Remaining work: build/define the actual GitHub
-  application entry point (repo + issue template or form).
+  landing pages that point into it, and the legacy WHMCS checkout is retired.
+- **Three-provider policy → update `src/data/setup-guides.ts`** — the live code
+  still recommends **one** authenticator app (Google _or_ Microsoft) and allows
+  **LastPass _or_ Bitwarden**; the Section 2a policy is stricter (**all three** —
+  Google Authenticator, Microsoft Authenticator, LastPass — per person, no other
+  tools). Update the guide to remove Bitwarden and require all three.
+- **Implement the other Phase 0 new-policy items in the guides** — Chrome/Edge-only
+  browser, Microsoft Teams as the first install, and the passkey guidance are not
+  yet in `setup-guides.ts`.
+- **New guide to create: cloud storage + document scanning** — using **Google
+  Drive or Microsoft OneDrive** to store the charity's core files (state
+  formation / incorporation papers, board documents) and how to **scan** the IRS
+  determination memo into either provider. A new entry in `src/data/setup-guides.ts`.
+
+### B. Genuinely open — need a founder decision
+
 - Is **"under $1M and not federally grant-funded"** a hard gate or only a
-  prioritization signal? (Currently documented as priority criterion.)
-- Are the **six external / three internal** checks still the current set, or
-  have any been added/retired (e.g., Instagram, Google for Nonprofits)?
+  prioritization signal? (Currently documented as a priority criterion.)
+- Are the **six external / three internal** validation checks still the current
+  set, or have any been added/retired (e.g., Instagram, Google for Nonprofits)?
 - Should the **organization Facebook Page and LinkedIn Page** (and the personal
   LinkedIn profiles) be promoted into the formal Section 5a validation checks,
   given they are now hard requirements on both tracks?
 - Should **AUP acknowledgment** and a **conflict-of-interest / data-handling**
   agreement be explicit prerequisite line items?
-- **New guide to create: cloud storage + document scanning.** A walkthrough on
-  using **Google Drive or Microsoft OneDrive** to store the charity's core files
-  (state formation / incorporation papers, board documents) and how to **scan**
-  documents such as the IRS determination memo into either provider. Would be a
-  new entry in `src/data/setup-guides.ts`.
-- **Confirm the three-provider policy, then update `src/data/setup-guides.ts` to
-  match.** The current code recommends **one** authenticator app (Google _or_
-  Microsoft) and allows **LastPass _or_ Bitwarden**. The founder-directed policy
-  in Section 2a is stricter: **all three** of Google Authenticator, Microsoft
-  Authenticator, and LastPass, per person, with no other tools. This document
-  records that policy as authoritative; the **live setup guide has not yet been
-  updated** to remove Bitwarden / require all three. Confirm the policy and I'll
-  make that site change.
