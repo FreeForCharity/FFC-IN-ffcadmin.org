@@ -50,6 +50,9 @@ shipped site lands at a charity that can run it.
 | Onboarding prerequisites + accounts      | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx` |
 | What the charity receives in return      | `src/app/what-ffc-delivers/page.tsx`                                                   |
 | Public application entry point           | `https://freeforcharity.org/submit-information/` (linked from What FFC Delivers)       |
+| 501(c)(3) onboarding entry point         | `https://freeforcharity.org/501c3/`                                                    |
+| Pre-501(c)(3) onboarding entry point     | `https://freeforcharity.org/pre501c3/`                                                 |
+| Recommended tools + setup order          | `https://freeforcharity.org/free-for-charitys-tools-for-success/`                      |
 
 ---
 
@@ -223,6 +226,114 @@ into provisioning. The full lifecycle (for reference) is an eight-stage flow:
 6. Technical Stack Assignment
 7. Plugin & Theme Deployment
 8. Initial Site Launch & Configuration
+
+---
+
+## 7. Track-agnostic minimum prerequisites (both 501(c)(3) and pre-501(c)(3))
+
+This is the **intersection** — the prerequisites and onboarding steps that are
+the **same regardless of track**, assembled from the totality of the FFC
+guidance on this repo and the freeforcharity.org main site (`/501c3`,
+`/pre501c3`, the tools-for-success guide, the validation guide, and the
+onboarding guide). Track-specific items (e.g., GuideStar **Gold** + Form 990 for
+501(c)(3); IRS 1023 / state-formation work for pre-501(c)(3)) are **not** listed
+here — only what both must do.
+
+### 7a. Personal qualifications of the applicant
+
+- **US-based**, with a **US-citizen point of contact** (eligibility floor).
+- A named **primary contact** and a named **technical contact** (may be the same
+  person), with timezone and preferred contact hours.
+- The applicant's **own personal LinkedIn profile** (required on both tracks).
+- **Personal LinkedIn profiles of the board members** — or, on the
+  pre-501(c)(3) track, of the **planned board members**.
+- Practical ability to **self-serve account creation** — demonstrated by
+  standing up the organization's own Facebook and LinkedIn pages (the
+  technical-readiness litmus test in Purpose).
+
+### 7b. Core organizational profiles & accounts (common to both tracks)
+
+| Account / profile                                      | Track-agnostic? | Notes                                                                                                            |
+| ------------------------------------------------------ | --------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Password manager** (LastPass)                        | Yes             | Tools-for-success says set this up **first**, before any other account, so the rest are created securely.        |
+| **Organizational Microsoft 365 / Outlook email**       | Yes             | FFC-recommended productivity + email suite; `<charityname>@outlook.com` to start, then charity-domain mailboxes. |
+| **Organization Facebook Page**                         | Yes             | Applicant creates it themselves.                                                                                 |
+| **Organization LinkedIn Page**                         | Yes             | Applicant creates it themselves.                                                                                 |
+| **Domain** (`yourcharityname.org`)                     | Yes             | Registered/transferred via FFC.                                                                                  |
+| **WordPress website**                                  | Yes             | The delivered site (legacy track) / FFC template.                                                                |
+| **Charity email routing** (`info@yourcharityname.org`) | Yes             | Professional addressing under the charity domain.                                                                |
+| **Board structure** (mandatory officers)               | Yes             | Seated board for 501(c)(3); planned/elected board for pre-501(c)(3).                                             |
+| **Mission statement**                                  | Yes             | Required by both.                                                                                                |
+
+> **Track-specific (not part of the common minimum):** GuideStar/Candid **Gold**
+> seal, Form 990, audited financials, IRS determination letter (501(c)(3) only);
+> IRS 1023 application, state nonprofit formation, charitable-solicitation
+> registration (pre-501(c)(3) only); TechSoup, VolunteerMatch, and PayPal are
+> emphasized on the 501(c)(3) path.
+
+### 7c. Common onboarding steps
+
+1. Establish the **password manager** first (LastPass).
+2. Stand up **organizational email** (Microsoft 365 / Outlook).
+3. Create the **organization LinkedIn Page** and **Facebook Page** (applicant-run).
+4. Register/transfer the **domain** through FFC and set up `info@` routing.
+5. Provide **board + primary/technical contact** information, including the
+   personal LinkedIn profiles described in 7a.
+6. Receive and configure the **WordPress website / FFC template**.
+
+---
+
+## 8. Proposed additions — the personal-to-organizational technical-literacy ladder
+
+> **Status: Proposal for the founder.** The items below are **not** yet stated
+> as formal prerequisites. They are recommended because every organizational
+> account FFC requires is technically **built on top of a personal account**,
+> and making that dependency explicit closes the most common "the applicant got
+> stuck" gaps. The guiding principle: _before_ an applicant can create
+> organizational infrastructure, they must prove they can establish and secure
+> **their own** accounts. **LinkedIn is the first rung** — you cannot create a
+> LinkedIn organization Page without a qualifying personal LinkedIn profile.
+
+### 8a. The dependency chain (why this matters)
+
+| Organizational account FFC requires         | Personal prerequisite it depends on                                                                                                                                                                                                   |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **LinkedIn organization Page**              | A **personal LinkedIn profile** that meets LinkedIn's Page-creation bar (real name, profile photo, an established set of connections, and the person listed in a current position). Without it, the Page literally cannot be created. |
+| **Facebook organization Page**              | A **personal Facebook account** to create and administer the Page.                                                                                                                                                                    |
+| **Microsoft 365 / Google Workspace tenant** | A **personal Microsoft/Google account** + a monitored email and a phone number to receive verification.                                                                                                                               |
+| **Every account above**                     | A **password manager** and **MFA/authenticator** habit to store credentials and pass 2-factor challenges.                                                                                                                             |
+
+### 8b. Recommended applicant-level checklist (the literacy ladder)
+
+Proposed order — each rung proves a competency the next one needs:
+
+1. **Personal password manager** set up first (LastPass/Bitwarden) — credential
+   hygiene before anything else. _(Already the stated #1 in tools-for-success;
+   recommend promoting it into the formal prerequisites.)_
+2. **A monitored personal email** the applicant controls (for verification
+   links).
+3. **A phone number** for SMS/authenticator-app 2-factor verification.
+4. **MFA / authenticator app** enabled on their personal accounts — basic
+   security literacy.
+5. **Personal LinkedIn profile** (applicant + each board / planned board
+   member), meeting the LinkedIn Page-creation criteria. **← first social rung.**
+6. **Personal Facebook account** capable of creating/administering a Page.
+
+Only after these does the applicant attempt the **organizational** accounts in
+Section 7b. An applicant who completes rungs 1–6 unaided has demonstrated the
+technical literacy to operate the infrastructure FFC delivers; one who cannot is
+the case the "filter out" philosophy is designed to catch early.
+
+### 8c. Suggested formal-prerequisite changes for the founder to weigh
+
+- **Promote LinkedIn to the first explicit prerequisite**, stated as
+  _personal-profile-then-Company-Page_, so applicants don't hit the
+  can't-create-a-Page wall.
+- **Add the password manager (LastPass)** as a named prerequisite, not just a
+  tools-for-success recommendation.
+- **Add an MFA/2-factor requirement** as a literacy checkpoint.
+- Consider an explicit **"can you do this yourself?" self-check gate** at the top
+  of the application that lists rungs 1–6.
 
 ---
 
