@@ -82,6 +82,11 @@ export const volunteerMenu: NavMenu = {
           description: 'Pick your role and see what you’re responsible for, by depth.',
         },
         {
+          label: 'Site Owner',
+          href: '/site-owner/training',
+          description: 'Operator-level training for editing your own charity site.',
+        },
+        {
           label: 'Web Developer',
           href: '/training/web-developer',
           description: 'Build and maintain charity sites with an AI agent.',
