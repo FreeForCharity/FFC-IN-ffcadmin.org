@@ -55,6 +55,18 @@ describe('Account & tool setup guides', () => {
     }
   })
 
+  it('every counterpart resolves and is reciprocal across tracks', () => {
+    for (const g of SETUP_GUIDES) {
+      if (!g.counterpart) continue
+      const other = getSetupGuide(g.counterpart)
+      expect(other).toBeDefined()
+      // The counterpart must point back to this guide.
+      expect(other?.counterpart).toBe(g.slug)
+      // A personal guide pairs with an organizational one and vice versa.
+      expect(g.track === 'organizational').toBe(other?.track !== 'organizational')
+    }
+  })
+
   it('the GitHub guide carries the person-not-entity principle', () => {
     const gh = getSetupGuide('github-account')
     expect(gh?.principle).toBeDefined()

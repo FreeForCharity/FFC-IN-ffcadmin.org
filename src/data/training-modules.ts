@@ -915,3 +915,8 @@ export function getModule(id: string): TrainingModule | undefined {
 export function getPath(id: string): LearningPath | undefined {
   return LEARNING_PATHS.find((p) => p.id === id)
 }
+
+/** Learning paths that list the given setup-guide slug as a prerequisite. */
+export function getPathsForPrerequisite(slug: string): LearningPath[] {
+  return LEARNING_PATHS.filter((p) => p.prerequisiteGuides?.includes(slug))
+}

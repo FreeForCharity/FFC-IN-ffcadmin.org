@@ -8,6 +8,7 @@ import {
   TIER_BLURB,
   type Tier,
 } from '@/data/training-modules'
+import { getSetupGuide } from '@/data/setup-guides'
 
 export const metadata: Metadata = {
   title: 'Training Tracks',
@@ -74,52 +75,81 @@ export default function TrainingHubPage() {
           ))}
         </section>
 
+        {/* Before any track — set up your accounts */}
+        <section className="mb-10 bg-white rounded-xl shadow border border-gray-200 border-l-4 border-l-blue-500 p-5 md:p-6">
+          <h2 className="text-lg font-bold text-gray-900">New here? Set up your accounts first</h2>
+          <p className="text-sm text-gray-600 mt-1">
+            Every track starts from the same personal accounts — your GitHub, multi-factor
+            authentication, password manager, and AI assistant. Set them up once with the
+            step-by-step{' '}
+            <Link href="/guides" className="text-blue-700 underline hover:text-blue-900">
+              Account &amp; Tool Setup guides
+            </Link>
+            , then pick your role below. Each track also lists its exact prerequisites.
+          </p>
+        </section>
+
         {/* Role cards */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Choose your role</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {LEARNING_PATHS.map((path) => (
-              <Link
-                key={path.id}
-                href={path.href}
-                className="group block rounded-xl border border-gray-200 bg-white overflow-hidden hover:shadow-xl transition-shadow"
-              >
-                <div
-                  className={`bg-gradient-to-r ${path.gradient} p-5 flex items-center gap-3 text-white`}
+            {LEARNING_PATHS.map((path) => {
+              const prereqs = (path.prerequisiteGuides ?? [])
+                .map((slug) => getSetupGuide(slug))
+                .filter((g): g is NonNullable<typeof g> => Boolean(g))
+              return (
+                <Link
+                  key={path.id}
+                  href={path.href}
+                  className="group block rounded-xl border border-gray-200 bg-white overflow-hidden hover:shadow-xl transition-shadow"
                 >
-                  <span className="text-3xl" aria-hidden="true">
-                    {path.icon}
-                  </span>
-                  <h3 className="text-lg font-bold">{path.title}</h3>
-                </div>
-                <div className="p-5">
-                  <p className="text-sm text-gray-700">{path.persona}</p>
-                  {path.certifications && (
-                    <p className="text-xs text-gray-500 mt-2">
-                      <span className="font-semibold">Certifications:</span>{' '}
-                      {path.certifications.join(', ')}
-                    </p>
-                  )}
-                  <span className="mt-3 inline-flex items-center text-sm font-semibold text-blue-700 group-hover:text-blue-900">
-                    View track
-                    <svg
-                      className="w-4 h-4 ml-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
-            ))}
+                  <div
+                    className={`bg-gradient-to-r ${path.gradient} p-5 flex items-center gap-3 text-white`}
+                  >
+                    <span className="text-3xl" aria-hidden="true">
+                      {path.icon}
+                    </span>
+                    <h3 className="text-lg font-bold">{path.title}</h3>
+                  </div>
+                  <div className="p-5">
+                    <p className="text-sm text-gray-700">{path.persona}</p>
+                    {path.certifications && (
+                      <p className="text-xs text-gray-500 mt-2">
+                        <span className="font-semibold">Certifications:</span>{' '}
+                        {path.certifications.join(', ')}
+                      </p>
+                    )}
+                    {prereqs.length > 0 && (
+                      <p className="mt-3 flex items-center gap-1.5 text-xs text-gray-500">
+                        <span className="font-semibold text-gray-600">Set up first:</span>
+                        {prereqs.map((g) => (
+                          <span key={g.slug} title={g.shortTitle} aria-hidden="true">
+                            {g.icon}
+                          </span>
+                        ))}
+                      </p>
+                    )}
+                    <span className="mt-3 inline-flex items-center text-sm font-semibold text-blue-700 group-hover:text-blue-900">
+                      View track
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </section>
 

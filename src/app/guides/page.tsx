@@ -198,6 +198,49 @@ export default function GuidesPage() {
             steps require 501(c)(3) recognition).
           </p>
           <SetupGuideGrid guides={ORGANIZATIONAL_GUIDES} />
+
+          {/* Where these lead — cross-links to tracks and the dev environment */}
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/training"
+              className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-5 hover:shadow-lg hover:border-gray-300 transition-all"
+            >
+              <span className="text-2xl" aria-hidden="true">
+                🎓
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-base font-bold text-gray-900 group-hover:text-blue-700">
+                  Ready to volunteer? Pick a training track
+                </span>
+                <span className="block text-sm text-gray-600">
+                  These accounts are the prerequisites for every role — Site Owner, Web Developer,
+                  admins, and designer.
+                </span>
+              </span>
+              <span className="text-gray-300 group-hover:text-blue-600" aria-hidden="true">
+                →
+              </span>
+            </Link>
+            <Link
+              href="/developer-environment-setup"
+              className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-5 hover:shadow-lg hover:border-gray-300 transition-all"
+            >
+              <span className="text-2xl" aria-hidden="true">
+                💻
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-base font-bold text-gray-900 group-hover:text-blue-700">
+                  Building websites? Set up your dev environment
+                </span>
+                <span className="block text-sm text-gray-600">
+                  Develop with the AI agent of your choice — Claude, Codex, Gemini, or Copilot.
+                </span>
+              </span>
+              <span className="text-gray-300 group-hover:text-blue-600" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 

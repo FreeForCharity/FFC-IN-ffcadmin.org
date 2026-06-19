@@ -47,6 +47,12 @@ export const volunteerMenu: NavMenu = {
           description: 'Ways to volunteer with FFC and how to start.',
         },
         {
+          label: 'Account & Tool Setup',
+          href: '/guides',
+          description:
+            'Set up the accounts every role needs — GitHub, MFA, AI assistant, and more.',
+        },
+        {
           label: 'Volunteer Roles',
           href: '/volunteer',
           description: 'Web dev, Microsoft 365 / Google Workspace admin, data, design, military.',
