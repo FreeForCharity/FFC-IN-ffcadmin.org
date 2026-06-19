@@ -219,7 +219,10 @@ export default function Navigation() {
 
             <Link
               href="/site-owner"
-              className="inline-flex items-center whitespace-nowrap rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition-opacity"
+              aria-current={isActive('/site-owner') ? 'page' : undefined}
+              className={`inline-flex items-center whitespace-nowrap rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2 ${
+                isActive('/site-owner') ? 'ring-2 ring-emerald-700 ring-offset-2' : ''
+              }`}
             >
               <span aria-hidden="true" className="mr-1.5">
                 🌱
@@ -300,10 +303,11 @@ export default function Navigation() {
 
             <Link
               href="/site-owner"
-              className="block rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 px-3 py-2 my-1 text-center font-semibold text-white"
+              aria-current={isActive('/site-owner') ? 'page' : undefined}
+              className="block rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 px-3 py-2 my-1 text-center font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              🌱 Edit My Site
+              <span aria-hidden="true">🌱 </span>Edit My Site
             </Link>
 
             {mobileDropdown(trainingDropdown)}

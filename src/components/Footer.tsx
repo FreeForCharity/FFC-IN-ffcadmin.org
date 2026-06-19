@@ -29,7 +29,7 @@ export default function Footer() {
               href="/site-owner"
               className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-teal-700 hover:bg-emerald-50 transition-colors"
             >
-              🌱 Edit My Site
+              <span aria-hidden="true">🌱&nbsp;</span>Edit My Site
             </Link>
             <Link
               href="/site-owner/accept-invitation"

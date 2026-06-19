@@ -106,7 +106,7 @@ export default function Home() {
               href="/site-owner"
               className="inline-flex items-center justify-center px-6 py-3 bg-white text-teal-700 rounded-lg font-semibold hover:bg-emerald-50 transition-colors shadow-lg"
             >
-              🌱 Edit My Site
+              <span aria-hidden="true">🌱&nbsp;</span>Edit My Site
               <svg
                 className="ml-2 w-5 h-5"
                 fill="none"
