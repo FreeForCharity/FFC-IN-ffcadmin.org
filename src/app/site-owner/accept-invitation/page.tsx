@@ -317,10 +317,10 @@ export default function AcceptInvitationPage() {
             https://github.com/{EXAMPLE_REPO}/invitations
           </p>
           <p className="text-sm text-gray-700">
-            Some repositories also show a green banner at the top of the main repo page (github.com/
-            {EXAMPLE_REPO}) — if you see it, its <strong>Accept invitation</strong> button does the
-            same thing. It doesn&apos;t always appear, which is why the{' '}
-            <strong>/invitations</strong> link above is the reliable one.
+            Some repositories also show a green banner at the top of the main repo page (
+            <span className="font-mono">{`github.com/${EXAMPLE_REPO}`}</span>) — if you see it, its{' '}
+            <strong>Accept invitation</strong> button does the same thing. It doesn&apos;t always
+            appear, which is why the <strong>/invitations</strong> link above is the reliable one.
           </p>
           <BannerMock />
         </Route>
