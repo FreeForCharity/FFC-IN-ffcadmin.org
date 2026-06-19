@@ -87,12 +87,12 @@ export const volunteerMenu: NavMenu = {
           description: 'Build and maintain charity sites with an AI agent.',
         },
         {
-          label: 'Global Admin',
+          label: 'Microsoft 365 Administrator',
           href: '/training-plan',
-          description: 'Microsoft 365 Global Administrator certification path.',
+          description: 'Run M365 email, identity & security — MS-900 + GitHub Foundations.',
         },
         {
-          label: 'Google Workspace Admin',
+          label: 'Google Workspace Administrator',
           href: '/training/google-workspace-admin',
           description: 'Manage Google Workspace for charities, backed by certification.',
         },

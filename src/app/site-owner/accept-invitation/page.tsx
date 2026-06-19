@@ -11,7 +11,29 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/site-owner/accept-invitation/' },
 }
 
-const EXAMPLE_REPO = 'FreeForCharity/FFC-EX-yourcharity.org'
+// A real, live FFC charity site used as the running example so the repo name is
+// recognizable and clickable. The repo name is always FFC-EX- + the domain.
+const EXAMPLE_DOMAIN = 'mitchellnchistory.org'
+const EXAMPLE_REPO = `FreeForCharity/FFC-EX-${EXAMPLE_DOMAIN}`
+
+// Three deliberately different kinds of charity, to show the same pattern holds.
+const PATTERN_EXAMPLES = [
+  {
+    kind: 'History museum',
+    domain: 'mitchellnchistory.org',
+    repo: 'FreeForCharity/FFC-EX-mitchellnchistory.org',
+  },
+  {
+    kind: 'Veterans post',
+    domain: 'americanlegionpost64.org',
+    repo: 'FreeForCharity/FFC-EX-americanlegionpost64.org',
+  },
+  {
+    kind: 'Environmental nonprofit',
+    domain: 'savewatersaveplanet.org',
+    repo: 'FreeForCharity/FFC-EX-savewatersaveplanet.org',
+  },
+]
 
 /** A faithful, illustration-only reproduction of the GitHub invitation email. */
 function EmailMock() {
@@ -57,8 +79,8 @@ function EmailMock() {
         </div>
       </div>
       <figcaption className="text-center text-xs text-gray-400 mt-2">
-        Illustration of the email you&apos;ll receive — your repository name will be your
-        charity&apos;s.
+        Real example: the Mitchell County NC history museum at <strong>{EXAMPLE_DOMAIN}</strong>.
+        Yours will show your charity&apos;s own domain.
       </figcaption>
     </figure>
   )
@@ -202,6 +224,51 @@ export default function AcceptInvitationPage() {
             There&apos;s also a direct accept link for your repository (Route&nbsp;C) that always
             works. If a place looks empty, it&apos;s almost always because you&apos;re signed in as
             the wrong account — check that first, below.
+          </p>
+        </section>
+
+        {/* The naming pattern, shown with real charities */}
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h2 className="text-lg font-bold text-gray-900 mb-1">
+            What your repository is called (the pattern)
+          </h2>
+          <p className="text-sm text-gray-700 mb-4">
+            Every FFC charity site lives in a repository named{' '}
+            <span className="font-mono">FFC-EX-</span>
+            <em>your-domain</em> inside the <strong>FreeForCharity</strong> organization. Once you
+            know your charity&apos;s website address, you know your repository address. These are
+            three real, live FFC charities — open any one to see a finished site and the repository
+            behind it:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {PATTERN_EXAMPLES.map((ex) => (
+              <div key={ex.domain} className="rounded-lg border border-gray-200 bg-gray-50 p-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1">
+                  {ex.kind}
+                </p>
+                <a
+                  href={`https://${ex.domain}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm font-semibold text-blue-600 hover:underline break-all"
+                >
+                  {ex.domain}
+                </a>
+                <a
+                  href={`https://github.com/${ex.repo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 block text-xs font-mono text-indigo-600 hover:underline break-all"
+                >
+                  github.com/{ex.repo}
+                </a>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-gray-500 mt-3">
+            See how each repository name is just <span className="font-mono">FFC-EX-</span> followed
+            by that charity&apos;s domain? Yours follows the same rule. (These are real examples —
+            you&apos;ll only ever be invited to your own.)
           </p>
         </section>
 

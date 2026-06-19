@@ -34,7 +34,7 @@ const roles = [
     estimate: 'flexible',
   },
   {
-    title: 'Global Administrator',
+    title: 'Microsoft 365 Administrator',
     subtitle: 'Manage Infrastructure & Security',
     description:
       'Become a dual-hatted admin for Microsoft 365 and GitHub. Manage DNS, email, security policies, and deployments for all FFC charity sites.',
