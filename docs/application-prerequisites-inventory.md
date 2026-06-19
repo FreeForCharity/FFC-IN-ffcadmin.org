@@ -147,8 +147,10 @@ these generally results in a polite decline rather than a fix-and-retry.
    _Legacy discrepancy: the older `wordpress-service-delivery-stages` page lists
    Gold as an **unqualified** eligibility floor; per the current two-track model
    it is 501(c)(3)-only. The legacy page is the one that needs reconciling._
-4. **Priority criterion:** revenue **under $1M** and **not federally
-   grant-funded**. (Drives prioritization/offer, not an absolute bar.)
+4. **Annual revenue under $1 million — a HARD gate.** Measured **per year** (e.g.
+   the most recent Form 990). Organizations at or above $1M/year are declined.
+5. **Priority criterion:** not federally grant-funded. (Drives prioritization,
+   not an absolute bar.)
 
 ### 1a. The pre-501(c)(3) track
 
@@ -937,8 +939,6 @@ top-of-document disclaimer).
 
 ### B. Genuinely open — need a founder decision
 
-- Is **"under $1M and not federally grant-funded"** a hard gate or only a
-  prioritization signal? (Currently documented as a priority criterion.)
 - Are the **six external / three internal** validation checks still the current
   set, or have any been added/retired (e.g., Instagram, Google for Nonprofits)?
 - Should the **organization Facebook Page and LinkedIn Page** (and the personal
