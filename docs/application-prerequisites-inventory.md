@@ -162,7 +162,7 @@ technical-competence signals.
 1. **Apply through GitHub** with your personal GitHub account (Phase 0, Group D).
 2. **Acknowledge the FFC Acceptable Use Policy (AUP).**
 3. _(501(c)(3) track)_ **Provide Candid/GuideStar profile links** (Public Profile
-   - Full Profile).
+   and Full Profile).
 4. **Provide board contact information** — President/Chair, Secretary, Treasurer
    (optionally Vice and Member-At-Large); on the pre-501(c)(3) track, the
    **planned** board.
