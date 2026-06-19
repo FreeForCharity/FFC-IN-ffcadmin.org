@@ -201,21 +201,23 @@ Under this policy, FFC requires **all three** free providers per person — they
 are **not interchangeable**. A generic TOTP app (including LastPass) can produce
 the 6-digit codes, **but the native Google and Microsoft authenticators add
 provider-specific benefits a generic app can't** — notably **cloud backup/sync of
-your codes** (so a new or lost phone isn't a lockout) and the
-provider's own **phone sign-in approval**. (True **passwordless** sign-in via
+your codes** (so a new or lost phone isn't a lockout), plus, on the Microsoft
+side, **app-based approval ("phone sign-in")**. (True **passwordless** sign-in via
 **passkeys** is a separate method, covered below.) That is why each native app is
 used for its matching ecosystem:
 
 1. **Google Authenticator** — the **native** authenticator for **Google**
-   services (Google Analytics and other Google products); its cloud backup and
-   Google's phone-prompt sign-in are why FFC uses it on the Google side.
+   services (Google Analytics and other Google products); its TOTP codes plus
+   cloud backup are why FFC uses it on the Google side. _(Google's one-tap "Google
+   Prompt" sign-in is delivered by the Google app / your device, not by Google
+   Authenticator.)_
 2. **Microsoft Authenticator** — the **native** authenticator for **Microsoft
-   365** (the charity's email/productivity suite); it adds cloud backup and
-   Microsoft's phone sign-in approval.
+   365** (the charity's email/productivity suite); it adds cloud backup **and**
+   Microsoft's app-based approval / phone sign-in.
 3. **LastPass** — the **password manager**. It can also generate TOTP codes, but
    the **native apps above are used for the Google and Microsoft accounts** so
-   those accounts get their native backup and phone-sign-in features — LastPass
-   is **not** a fourth tool.
+   those accounts get their native backup (and, for Microsoft, approval) features —
+   LastPass is **not** a fourth tool.
 
 Under this policy:
 
