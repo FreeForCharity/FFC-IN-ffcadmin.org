@@ -1094,6 +1094,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'ai-assistant',
+    counterpart: 'ai-assistant-organization',
     title: 'Set up your AI assistant',
     shortTitle: 'AI assistant',
     category: 'Tools',
@@ -1131,7 +1132,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Add Claude for development work',
         body: [
-          'For building and maintaining the charity’s website with an AI agent, you’ll also use **Claude**. See the **Dev Environment Setup** guide (ffcadmin.org/developer-environment-setup) for how FFC uses Claude, Codex, Gemini, or Copilot for code.',
+          'For building and maintaining the charity’s website with an AI agent, you’ll also use **Claude**. See the **Dev Environment Setup** guide (https://ffcadmin.org/developer-environment-setup/) for how FFC uses Claude, Codex, Gemini, or Copilot for code.',
         ],
         tip: 'Stuck on any FFC step? Your assistant is the fastest first answer — paste the step and ask it to explain.',
       },
@@ -2249,6 +2250,80 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
     ],
     related: ['microsoft-clarity', 'google-workspace-organization'],
+  },
+  {
+    slug: 'ai-assistant-organization',
+    track: 'organizational',
+    counterpart: 'ai-assistant',
+    title: 'Set up organizational AI assistants',
+    shortTitle: 'AI assistants (org)',
+    category: 'Tools',
+    icon: '🤖',
+    gradient: 'from-violet-700 to-fuchsia-800',
+    description:
+      'Roll out AI to the team at the organization level: Gemini that comes with Google Workspace, Copilot as a Microsoft 365 add-on, ChatGPT Business/Enterprise (nonprofit pricing via Goodstack), and a Claude Team or Enterprise workspace.',
+    keywords:
+      'organizational AI, Gemini Google Workspace, Microsoft 365 Copilot add-on, ChatGPT Business Enterprise nonprofit, Claude Team Enterprise, OpenAI for Nonprofits Goodstack, Free For Charity AI',
+    audience: 'Charity owners and admins rolling out AI to the team',
+    estMinutes: 25,
+    intro: [
+      'The personal AI guide matches each person to an assistant by their email. At the **organization** level, AI either **comes with the workspace you already run** or is set up as a shared team plan.',
+      'Two ride on accounts you already have: **Gemini is included in Google Workspace**, and **Copilot is an add-on to Microsoft 365**. **ChatGPT** and **Claude** offer their own Team/Enterprise plans, with nonprofit pricing available.',
+    ],
+    principle: {
+      title: 'Org AI rides on your workspace and validators',
+      body: 'Match AI to the stack you already chose: if the charity is on Google Workspace, Gemini is already included; if it’s on Microsoft 365, Copilot is the add-on. ChatGPT and Claude are separate shared plans — and OpenAI offers nonprofit pricing through Goodstack. Don’t buy AI that duplicates what your workspace already gives you.',
+    },
+    steps: [
+      {
+        title: 'Google Gemini — included with Google Workspace',
+        body: [
+          'If the charity runs **Google Workspace** (Business/Enterprise), **Gemini is already included** across Gmail, Docs, Sheets, Slides, Meet, and Drive — no separate purchase. An admin enables it in the **Admin console** (see the Google Workspace organization guide).',
+          'This is the clearest example of org AI as **a function of the Workspace account**: turn it on and the whole team has it.',
+        ],
+      },
+      {
+        title: 'Microsoft Copilot — a Microsoft 365 add-on',
+        body: [
+          'On **Microsoft 365**, Copilot is a per-user **add-on license** assigned in the **Microsoft 365 admin center**. Once assigned, it works across the charity’s Word, Excel, Outlook, and Teams (see the Microsoft 365 organization guide).',
+        ],
+      },
+      {
+        title: 'ChatGPT Business/Enterprise — nonprofit pricing via Goodstack',
+        body: [
+          'For a shared OpenAI workspace, set up **ChatGPT Business** (formerly Team) or **Enterprise**. Through **OpenAI for Nonprofits** you can get steep nonprofit discounts (up to ~75% off), **validated via Goodstack** (see the Goodstack guide).',
+        ],
+      },
+      {
+        title: 'Claude Team or Enterprise',
+        body: [
+          'Create a **Claude Team** workspace for shared projects and collaboration (it scales to a set number of seats); upgrade to **Claude Enterprise** when you need SSO, audit logs, and admin controls. This is the organizational counterpart to using Claude for development work.',
+        ],
+        tip: 'You rarely need all four — pick the one tied to your workspace (Gemini or Copilot) and add ChatGPT or Claude for specific team work.',
+      },
+    ],
+    phaseNote:
+      'Gemini/Copilot ride on your (granted) workspace; OpenAI’s nonprofit discount is validated via Goodstack, which needs 501(c)(3) status.',
+    faqs: [
+      {
+        q: 'Do we need all four organizational AIs?',
+        a: 'No. Match your stack: Gemini if you’re on Google Workspace, Copilot if you’re on Microsoft 365. Add a shared ChatGPT or Claude plan only for specific work that benefits from it.',
+      },
+      {
+        q: 'Is organizational AI free?',
+        a: 'Gemini is included in Google Workspace plans and Copilot is a paid Microsoft 365 add-on. ChatGPT and Claude have paid Team/Enterprise plans — OpenAI offers nonprofit discounts through Goodstack, which can make ChatGPT Business very affordable.',
+      },
+      {
+        q: 'How is this different from the personal AI guide?',
+        a: 'Personally, each volunteer uses the free assistant matched to their email. Organizationally, AI is provisioned for the team — included with the workspace (Gemini), added to the tenant (Copilot), or set up as a shared ChatGPT/Claude plan.',
+      },
+    ],
+    related: [
+      'ai-assistant',
+      'goodstack',
+      'google-workspace-organization',
+      'microsoft-365-organization',
+    ],
   },
 ]
 
