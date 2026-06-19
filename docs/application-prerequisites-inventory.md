@@ -403,24 +403,74 @@ Rules that follow from this:
 
 **Phase 0 — Baseline capabilities (mandatory; the floor under everything)**
 
-If any of these is missing, the applicant **cannot proceed** and should be routed
-to **Contact us for help** (the help path is offered at every step).
+Each item below is **mandatory**. Every item is defined by **what it is**, **why
+it benefits the applicant/charity**, and **why it benefits FFC** — because a
+prerequisite only belongs here if it serves both sides. If any item is missing,
+the applicant **cannot proceed** and should be routed to **Contact us for help**
+(the help path is offered at every step).
 
-- **A smartphone (mandatory).** Not a tablet or a desktop. Two non-negotiable
-  reasons: (1) **multi-factor authentication cannot be done exclusively on a
-  tablet or desktop** — the authenticator apps live on the phone; and (2) the
-  phone is needed to **send and receive text messages with a US-based phone
-  number** (verification codes and FFC contact). The smartphone must be able to
-  install apps from the Apple App Store or Google Play.
-- **A US-based mobile phone number** on that smartphone (ties to the US-based
-  eligibility floor in Section 1).
-- **Reliable internet access.**
-- **A primary email account on the phone** (Android → Google/Gmail; iPhone →
-  iCloud/Apple, or Google if Gmail is the main address). This is the identity and
-  account-recovery address for everything that follows.
-- **Basic web literacy** — open a site, complete a form, scan a QR code.
-- _(Recommended)_ **a computer** — Page creation is easier on a larger screen,
-  though possible on the phone.
+1. **A smartphone you own, able to install apps**
+   - _What:_ A modern iPhone or Android with Apple App Store / Google Play
+     access. A tablet or desktop is **not** a substitute.
+   - _Why it benefits you:_ It runs the authenticator apps that protect every
+     account, so your charity's identity, inbox, money, and donor data are far
+     harder to steal; you can also use Outlook, LinkedIn, and Facebook on the go.
+   - _Why it benefits FFC:_ Phone-based MFA is the only way we can be confident
+     the accounts we help you create aren't trivially compromised — a hijacked
+     charity account becomes our cleanup. It also gives each person one
+     verifiable identity.
+
+2. **A US-based mobile phone number (on that smartphone)**
+   - _What:_ An active US cell number that can send and receive SMS.
+   - _Why it benefits you:_ Receives sign-in and account-recovery codes, and lets
+     FFC reach you quickly by text during setup.
+   - _Why it benefits FFC:_ Confirms the US-based eligibility requirement
+     (Section 1), gives us a direct line for time-sensitive verification, and
+     provides an SMS fallback before an authenticator app is set up.
+
+3. **A desktop or laptop computer you own, with the ability to install software**
+   - _What:_ A Windows or Mac computer on which **you have administrator rights
+     to install applications and browser extensions**.
+   - _Why it benefits you:_ This is where the real work happens — editing your
+     website, designing in Canva, and using the **AI tools** that let you
+     maintain your own content. Install rights let you add the AI-tool
+     connectors and helpers used later in the process.
+   - _Why it benefits FFC:_ Several AI tools and **connectors we use later must
+     be installed on a desktop**; without an install-capable computer the charity
+     cannot self-serve and the work falls back onto our volunteers. It keeps you
+     self-sufficient and our support load low.
+
+4. **Reliable internet access**
+   - _What:_ A stable broadband / Wi-Fi connection for both the computer and the
+     phone.
+   - _Why it benefits you:_ Everything FFC provides is cloud-based — email, site,
+     design, analytics — so you need to reach it dependably.
+   - _Why it benefits FFC:_ Reduces stalled, half-finished onboardings that we
+     would otherwise have to chase.
+
+5. **A primary personal email account (on your phone)**
+   - _What:_ A working personal email you control and monitor (Android →
+     Google/Gmail; iPhone → iCloud/Apple, or Gmail if that's your main address).
+   - _Why it benefits you:_ It is the identity and recovery address behind every
+     account; password resets and security alerts land somewhere you always have.
+   - _Why it benefits FFC:_ Gives each person one stable identity to attach roles
+     and work emails to (the "account is a person" principle) and a reliable
+     channel for verification links.
+
+6. **A modern web browser**
+   - _What:_ A current **Chrome or Edge** on the computer.
+   - _Why it benefits you:_ Runs the web apps and the password-manager extension
+     smoothly, with the fewest surprises.
+   - _Why it benefits FFC:_ Standardizes the environment so the steps in our
+     guides match what you actually see on screen.
+
+7. **Basic digital literacy**
+   - _What:_ Comfort opening websites, completing forms, scanning a QR code, and
+     installing an app or extension.
+   - _Why it benefits you:_ The entire self-service model — and your ongoing
+     independence — depends on it.
+   - _Why it benefits FFC:_ It is the core signal that the charity can operate
+     what we build; this is the heart of the "filter out" philosophy.
 
 **Phase A — Establish the three approved security/credential tools**
 
@@ -494,7 +544,9 @@ If you get stuck on any item, use **Contact us for help**.
 
 - [ ] I have a **smartphone** that can install apps (not just a tablet/desktop).
 - [ ] It has a **US-based mobile phone number** that can send/receive texts.
-- [ ] I have **reliable internet** and a **primary email** on the phone.
+- [ ] I have a **desktop/laptop I can install software on** (admin rights).
+- [ ] I have **reliable internet**, a **modern browser** (Chrome/Edge), and a
+      **primary email** on the phone.
 
 **The three approved tools (all three, per person):**
 
