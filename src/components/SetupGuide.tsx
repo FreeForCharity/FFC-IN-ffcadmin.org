@@ -32,6 +32,9 @@ export default function SetupGuide({ guide }: { guide: SetupGuide }) {
     .map((slug) => getSetupGuide(slug))
     .filter((g): g is SetupGuide => Boolean(g))
 
+  const isOrg = guide.track === 'organizational'
+  const counterpart = guide.counterpart ? getSetupGuide(guide.counterpart) : undefined
+
   return (
     <div className="min-h-screen bg-gray-50">
       {faqJsonLd && (
@@ -58,12 +61,51 @@ export default function SetupGuide({ guide }: { guide: SetupGuide }) {
             <h1 className="text-3xl md:text-4xl font-bold">{guide.title}</h1>
           </div>
           <p className="text-white/90 text-sm">
+            <span className="inline-block rounded-full bg-white/20 px-2 py-0.5 font-semibold uppercase tracking-wide text-xs mr-2">
+              {isOrg ? 'Organizational' : 'Personal'} setup
+            </span>
             {guide.category} · about {guide.estMinutes} min · {guide.audience}
           </p>
         </div>
       </div>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Counterpart track switcher */}
+        {counterpart && (
+          <Link
+            href={`/guides/${counterpart.slug}`}
+            className="group mb-6 flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md hover:border-gray-300 transition-all"
+          >
+            <span className="text-2xl" aria-hidden="true">
+              {counterpart.icon}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-xs uppercase tracking-wide text-gray-400">
+                {isOrg
+                  ? 'Looking for the personal version?'
+                  : 'Setting this up for your organization?'}
+              </span>
+              <span className="block text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+                {counterpart.title}
+              </span>
+            </span>
+            <span
+              className="text-gray-300 group-hover:text-blue-600 transition-colors"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </Link>
+        )}
+
+        {/* Phase note (organizational dependencies) */}
+        {guide.phaseNote && (
+          <p className="mb-6 text-sm bg-violet-50 border border-violet-200 text-violet-900 rounded p-3">
+            <span aria-hidden="true">🗓️ </span>
+            {emphasize(guide.phaseNote, 'phase')}
+          </p>
+        )}
+
         {/* Intro */}
         <div className="space-y-3 mb-8">
           {guide.intro.map((p, i) => (

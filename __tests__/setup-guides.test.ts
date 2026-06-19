@@ -35,10 +35,12 @@ describe('Account & tool setup guides', () => {
 
   it('every guide has a principle callout and at least one FAQ', () => {
     for (const g of SETUP_GUIDES) {
-      expect(g.principle?.title?.length ?? 0).toBeGreaterThan(0)
-      expect(g.principle?.body?.length ?? 0).toBeGreaterThan(0)
-      expect(g.faqs?.length ?? 0).toBeGreaterThan(0)
-      for (const f of g.faqs ?? []) {
+      expect(g.principle).toBeDefined()
+      expect(g.principle.title.length).toBeGreaterThan(0)
+      expect(g.principle.body.length).toBeGreaterThan(0)
+      expect(Array.isArray(g.faqs)).toBe(true)
+      expect(g.faqs.length).toBeGreaterThan(0)
+      for (const f of g.faqs) {
         expect(f.q.length).toBeGreaterThan(0)
         expect(f.a.length).toBeGreaterThan(0)
       }

@@ -42,13 +42,29 @@ export interface SetupGuide {
   keywords: string
   audience: string
   estMinutes: number
+  /**
+   * Which track this guide belongs to. 'personal' (default) is the individual
+   * setup; 'organizational' is the charity/501(c)(3)-level setup of the same tool.
+   */
+  track?: 'personal' | 'organizational'
+  /**
+   * Slug of the counterpart guide on the other track (personal ⇆ organizational),
+   * surfaced as a prominent banner so readers can switch.
+   */
+  counterpart?: string
+  /**
+   * Optional phase note shown on organizational guides, e.g. when a step depends
+   * on IRS 501(c)(3) recognition.
+   */
+  phaseNote?: string
   intro: string[]
-  /** The person-vs-entity (or other key) principle callout. */
-  principle?: { title: string; body: string }
+  /** The person-vs-entity (or other key) principle callout. Required on every guide. */
+  principle: { title: string; body: string }
   steps: SetupStep[]
   /** Optional "what to do when you get a new phone" block. */
   newPhone?: string[]
-  faqs?: SetupFaq[]
+  /** Common questions. Required on every guide (at least one). */
+  faqs: SetupFaq[]
   /** Slugs of related setup guides. */
   related: string[]
 }
@@ -66,6 +82,7 @@ const MFA_STEP_SHARED: SetupStep = {
 export const SETUP_GUIDES: SetupGuide[] = [
   {
     slug: 'github-account',
+    counterpart: 'github-organization',
     title: 'Create your GitHub account',
     shortTitle: 'GitHub account',
     category: 'Identity & Code',
@@ -226,6 +243,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'linkedin',
+    counterpart: 'linkedin-organization',
     title: 'Set up LinkedIn (you + your charity Page)',
     shortTitle: 'LinkedIn',
     category: 'Social Presence',
@@ -289,6 +307,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'facebook',
+    counterpart: 'facebook-organization',
     title: 'Set up Facebook (you + your charity Page)',
     shortTitle: 'Facebook',
     category: 'Social Presence',
@@ -350,6 +369,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'microsoft-365-email',
+    counterpart: 'microsoft-365-organization',
     title: 'Set up your charity email (Microsoft 365)',
     shortTitle: 'Microsoft 365 email',
     category: 'Email & Workspace',
@@ -403,7 +423,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
     faqs: [
       {
         q: 'I never got a temporary password — what do I do?',
-        a: 'Contact your FFC contact (text Clarke Moyer at (520) 222-8104). FFC creates the mailbox and issues the first password; you can’t sign in until that’s provisioned.',
+        a: 'Reach out to your FFC contact using the Support details at the bottom of this guide. FFC creates the mailbox and issues the first password; you can’t sign in until that’s provisioned.',
       },
       {
         q: 'Can I just forward charity email to my personal inbox?',
@@ -419,6 +439,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'google-workspace',
+    counterpart: 'google-workspace-organization',
     title: 'Set up your charity email (Google Workspace)',
     shortTitle: 'Google Workspace',
     category: 'Email & Workspace',
@@ -473,6 +494,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'password-manager',
+    counterpart: 'lastpass-organization',
     title: 'Set up a password manager',
     shortTitle: 'Password manager',
     category: 'Tools',
@@ -558,6 +580,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'canva',
+    counterpart: 'canva-organization',
     title: 'Set up Canva (design)',
     shortTitle: 'Canva',
     category: 'Tools',
@@ -612,6 +635,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'microsoft-teams',
+    counterpart: 'microsoft-teams-organization',
     title: 'Set up Microsoft Teams (your first install)',
     shortTitle: 'Microsoft Teams',
     category: 'Email & Workspace',
@@ -665,13 +689,14 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
       {
         q: 'Teams won’t install on my computer — what now?',
-        a: 'That’s exactly the signal this step is designed to catch. Contact FFC (text Clarke Moyer at (520) 222-8104) — your machine may need an update or a different device before the later AI-tool connectors will work.',
+        a: 'That’s exactly the signal this step is designed to catch. Contact FFC using the Support details at the bottom of this guide — your machine may need an update or a different device before the later AI-tool connectors will work.',
       },
     ],
     related: ['microsoft-365-email', 'multi-factor-authentication'],
   },
   {
     slug: 'cloud-storage-scanning',
+    counterpart: 'cloud-storage-organization',
     title: 'Set up cloud storage & scan your documents',
     shortTitle: 'Cloud storage & scanning',
     category: 'Email & Workspace',
@@ -793,6 +818,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'candid',
+    counterpart: 'candid-organization',
     title: 'Set up a Candid (GuideStar) account',
     shortTitle: 'Candid (GuideStar)',
     category: 'Social Presence',
@@ -846,6 +872,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'idealist',
+    counterpart: 'idealist-organization',
     title: 'Set up Idealist (volunteers & nonprofit jobs)',
     shortTitle: 'Idealist',
     category: 'Social Presence',
@@ -896,6 +923,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
   },
   {
     slug: 'taproot',
+    counterpart: 'taproot-organization',
     title: 'Set up Taproot (skills-based volunteering)',
     shortTitle: 'Taproot',
     category: 'Social Presence',
@@ -1065,8 +1093,721 @@ export const SETUP_GUIDES: SetupGuide[] = [
     ],
     related: ['password-manager', 'multi-factor-authentication', 'passkeys', 'chrome'],
   },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // Organizational track — the charity/501(c)(3)-level setup of the same tools.
+  // Each pairs with a personal guide via `counterpart`.
+  // ────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'github-organization',
+    track: 'organizational',
+    counterpart: 'github-account',
+    title: 'Set up your charity’s GitHub Organization',
+    shortTitle: 'GitHub Organization',
+    category: 'Identity & Code',
+    icon: '🐙',
+    gradient: 'from-gray-800 to-black',
+    description:
+      'Create the charity’s GitHub Organization, add people to teams with the right access, hold the website repository, and apply for the free GitHub for Nonprofits benefits.',
+    keywords:
+      'GitHub Organization nonprofit, create GitHub org, GitHub teams permissions, GitHub for Nonprofits, charity repository, Free For Charity GitHub org',
+    audience: 'Charity owners and admins (after your personal GitHub account exists)',
+    intro: [
+      'Once you have your **personal** GitHub account, the charity needs its own **GitHub Organization** — the shared home for its website repository and the place you grant access to volunteers.',
+      'The Organization is owned and run by **real people’s personal accounts** (yours, plus FFC). It is not a separate login.',
+    ],
+    estMinutes: 20,
+    principle: {
+      title: 'The Organization is shared access, not a shared login',
+      body: 'A GitHub Organization groups repositories and people; every member still signs in with their own personal account (secured with their own MFA). You add people to teams and give each team the access it needs — never a shared password.',
+    },
+    steps: [
+      {
+        title: 'Create the Organization',
+        body: [
+          'From your personal account, go to **GitHub → top-right + → New organization** and choose the **Free** plan. Name it for the charity (e.g. your-charity), using the same kebab-case naming FFC uses.',
+          'Coordinate with FFC first — in most cases FFC creates or co-owns the Organization so the website repository can be transferred in and kept on the standard deployment pipeline.',
+        ],
+      },
+      {
+        title: 'Add people to teams with least-privilege access',
+        body: [
+          'In **Organization → People**, invite volunteers by their GitHub username, and use **Teams** to grant access by role (e.g. a “web” team with write access to the site repo).',
+          'Give each person the **least access** they need. Keep at least two **Owners** so the Organization is never controlled by a single account.',
+        ],
+      },
+      {
+        title: 'Require MFA for everyone',
+        body: [
+          'In **Organization → Settings → Authentication security**, turn on **Require two-factor authentication for everyone in the organization**. Members without MFA are removed until they enable it (see the Multi-Factor Authentication guide).',
+        ],
+        tip: 'This single switch is the biggest security win for the charity’s code — it guarantees every contributor has MFA on.',
+      },
+      {
+        title: 'Apply for GitHub for Nonprofits',
+        body: [
+          'Once the charity is recognized, request the free **GitHub for Nonprofits** benefits (Team plan at no cost) at **github.com/nonprofit**. This adds private repositories and more seats if you ever need them.',
+        ],
+      },
+    ],
+    phaseNote:
+      'The Organization itself can be created right away; the GitHub for Nonprofits discount requires 501(c)(3) recognition.',
+    faqs: [
+      {
+        q: 'Do volunteers need a new account to join the Organization?',
+        a: 'No. They use their existing personal GitHub account — you invite their username into a team. The Organization is access granted to people, not a set of new logins.',
+      },
+      {
+        q: 'Should the Organization own the website repository?',
+        a: 'Yes. The charity’s site repo lives in its Organization (often transferred in by FFC) so access, history, and deployment stay with the charity rather than any one person’s account.',
+      },
+    ],
+    related: ['github-account', 'multi-factor-authentication', 'microsoft-365-organization'],
+  },
+  {
+    slug: 'linkedin-organization',
+    track: 'organizational',
+    counterpart: 'linkedin',
+    title: 'Run your charity’s LinkedIn Page',
+    shortTitle: 'LinkedIn Page (org)',
+    category: 'Social Presence',
+    icon: '💼',
+    gradient: 'from-blue-700 to-indigo-800',
+    description:
+      'Take the LinkedIn Page you created and make it work for the charity: complete the profile, add admins, post on a cadence, and connect LinkedIn’s nonprofit features.',
+    keywords:
+      'LinkedIn Page management nonprofit, LinkedIn company page admins, LinkedIn for Nonprofits, charity LinkedIn strategy, Free For Charity LinkedIn org',
+    audience: 'Charity owners and the volunteer running the charity’s LinkedIn presence',
+    intro: [
+      'Creating the Page (in the personal LinkedIn guide) is step one. This guide is about **running** it: a complete profile, multiple admins, a steady posting rhythm, and LinkedIn’s nonprofit tools.',
+    ],
+    estMinutes: 20,
+    principle: {
+      title: 'A Page is a team effort behind real admins',
+      body: 'The charity’s Page should never depend on one person. Add several admins (each on their own MFA-secured personal profile), and treat the Page as the organization’s public voice — consistent, on-brand, and active.',
+    },
+    steps: [
+      {
+        title: 'Complete the Page profile',
+        body: [
+          'Fill every field: logo, banner, tagline, About, website, industry, location, and company size. A complete Page ranks better and looks credible to funders.',
+          'Use the charity’s **Canva** brand assets (see the Canva guides) for the logo and banner.',
+        ],
+      },
+      {
+        title: 'Add multiple admins',
+        body: [
+          'Open the Page → **Admin tools → Manage admins** and add at least two more people as admins, so coverage never depends on one account.',
+        ],
+      },
+      {
+        title: 'Post on a steady cadence',
+        body: [
+          'Aim for a regular rhythm (e.g. weekly): impact stories, volunteer spotlights, and milestones. Consistency, not volume, builds an audience.',
+        ],
+      },
+      {
+        title: 'Connect LinkedIn for Nonprofits',
+        body: [
+          'Explore **LinkedIn for Nonprofits** for discounted talent and learning tools, and add a volunteer/role call-to-action to the Page so people can find ways to help.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'How is this different from the personal LinkedIn guide?',
+        a: 'The personal guide gets you a profile and creates the Page. This guide is about operating that Page well — completeness, multiple admins, posting cadence, and nonprofit features — once it exists.',
+      },
+      {
+        q: 'How often should the charity post?',
+        a: 'A sustainable, regular rhythm beats sporadic bursts. Weekly is a good target; the key is consistency so the Page always looks active to funders and volunteers.',
+      },
+    ],
+    related: ['linkedin', 'facebook-organization', 'canva-organization'],
+  },
+  {
+    slug: 'facebook-organization',
+    track: 'organizational',
+    counterpart: 'facebook',
+    title: 'Run your charity’s Facebook Page',
+    shortTitle: 'Facebook Page (org)',
+    category: 'Social Presence',
+    icon: '📘',
+    gradient: 'from-blue-700 to-indigo-800',
+    description:
+      'Operate the charity’s Facebook Page with Meta Business Suite: assign roles, turn on nonprofit fundraising tools, and post consistently.',
+    keywords:
+      'Facebook Page management nonprofit, Meta Business Suite, Facebook page roles, Facebook charity fundraising tools, Free For Charity Facebook org',
+    audience: 'Charity owners and the volunteer running the charity’s Facebook presence',
+    intro: [
+      'You created the Page in the personal Facebook guide. Now make it work for the charity using **Meta Business Suite** — roles, scheduling, insights, and nonprofit fundraising tools.',
+    ],
+    estMinutes: 20,
+    principle: {
+      title: 'Manage the Page through Business Suite, not personal posts',
+      body: 'Meta Business Suite is the organization’s control room: it separates the charity’s Page from your personal timeline, lets several people manage it by role, and unlocks scheduling, insights, and donation tools.',
+    },
+    steps: [
+      {
+        title: 'Open Meta Business Suite',
+        body: [
+          'Go to **business.facebook.com** and connect the charity’s Page. This is where you’ll post, schedule, reply to messages, and see insights.',
+        ],
+      },
+      {
+        title: 'Assign Page roles',
+        body: [
+          'In **Settings → Page access**, add at least one more person with full control and others with limited roles as needed, so the Page survives any one account being lost.',
+        ],
+      },
+      {
+        title: 'Turn on nonprofit fundraising tools',
+        body: [
+          'Once the charity is recognized, enroll in **Meta’s charitable/fundraising tools** so supporters can donate directly through the Page and your campaigns.',
+        ],
+      },
+      {
+        title: 'Schedule consistent posts',
+        body: [
+          'Use Business Suite’s **scheduler** to keep a steady stream of on-brand updates (built from your Canva templates), and review **Insights** to see what resonates.',
+        ],
+      },
+    ],
+    phaseNote: 'Facebook’s charitable/fundraising tools require verified 501(c)(3) status.',
+    faqs: [
+      {
+        q: 'Do I manage the Page from my personal Facebook?',
+        a: 'You sign in as yourself, but you manage the charity through Meta Business Suite, which keeps the Page separate from your personal timeline and lets you add co-managers by role.',
+      },
+      {
+        q: 'Can supporters donate through the Page?',
+        a: 'Yes, once the charity is a verified 501(c)(3) you can enable Meta’s fundraising tools so people donate directly via the Page and campaigns.',
+      },
+    ],
+    related: ['facebook', 'linkedin-organization', 'canva-organization'],
+  },
+  {
+    slug: 'canva-organization',
+    track: 'organizational',
+    counterpart: 'canva',
+    title: 'Set up your charity’s Canva team & brand kit',
+    shortTitle: 'Canva team (org)',
+    category: 'Tools',
+    icon: '🎨',
+    gradient: 'from-fuchsia-700 to-purple-800',
+    description:
+      'Create the charity’s Canva team, get Canva Pro free for nonprofits, build the Brand Kit, and invite volunteers so everything stays on-brand.',
+    keywords:
+      'Canva for Nonprofits, Canva team setup, Canva brand kit, Canva nonprofit free, invite Canva team members, Free For Charity Canva org',
+    audience: 'Charity owners and design leads building the charity’s Canva workspace',
+    intro: [
+      'The personal Canva guide gets you an account and into a team. This guide sets up the **charity’s** team: the free nonprofit plan, the Brand Kit, and inviting your designers.',
+    ],
+    estMinutes: 20,
+    principle: {
+      title: 'The brand lives in the team, not in one person’s account',
+      body: 'A charity Canva team holds the Brand Kit (logos, colors, fonts) and shared templates so every volunteer designs from the same source of truth. People come and go; the brand stays in the team.',
+    },
+    steps: [
+      {
+        title: 'Apply for Canva for Nonprofits',
+        body: [
+          'Once recognized, apply at **canva.com/canva-for-nonprofits** to get **Canva Pro free** for the organization, including team features and the Brand Kit.',
+        ],
+      },
+      {
+        title: 'Create the team and Brand Kit',
+        body: [
+          'Create the charity’s **team**, then build the **Brand Kit**: upload the logo, set the brand colors and fonts, and save approved templates for social posts and print.',
+        ],
+      },
+      {
+        title: 'Invite your designers',
+        body: [
+          'Invite volunteers by email into the team with the right role. They’ll design from the shared Brand Kit so everything stays consistent.',
+        ],
+      },
+    ],
+    phaseNote: 'Canva for Nonprofits (free Pro) requires eligibility verification as a 501(c)(3).',
+    faqs: [
+      {
+        q: 'Is the nonprofit plan really free?',
+        a: 'Yes — Canva Pro is free for eligible verified nonprofits, which includes team collaboration and the Brand Kit. You apply once the charity is recognized.',
+      },
+      {
+        q: 'Why use a Brand Kit instead of letting people design freely?',
+        a: 'The Brand Kit keeps every volunteer’s work on-brand automatically — same logo, colors, and fonts — so the charity looks consistent and professional everywhere.',
+      },
+    ],
+    related: ['canva', 'linkedin-organization', 'facebook-organization'],
+  },
+  {
+    slug: 'microsoft-365-organization',
+    track: 'organizational',
+    counterpart: 'microsoft-365-email',
+    title: 'Set up your charity’s Microsoft 365 tenant',
+    shortTitle: 'Microsoft 365 (org)',
+    category: 'Email & Workspace',
+    icon: '🏢',
+    gradient: 'from-cyan-700 to-sky-800',
+    description:
+      'Claim Microsoft 365 Business Premium through Microsoft for Nonprofits, add your domain and users, and run the tenant safely with FFC.',
+    keywords:
+      'Microsoft 365 nonprofit tenant, Microsoft for Nonprofits grant, M365 admin center, add users domain, charity email tenant, Free For Charity Microsoft 365 org',
+    audience: 'Charity owners and admins standing up the organization’s Microsoft 365',
+    intro: [
+      'Your personal mailbox guide covers signing into a mailbox FFC made. This guide is the **organization** side: the tenant those mailboxes live in, claimed through **Microsoft for Nonprofits**.',
+      'FFC does most of this with you — the tenant underpins the whole charity, so changes are made carefully.',
+    ],
+    estMinutes: 25,
+    principle: {
+      title: 'The tenant is the charity’s foundation — change it deliberately',
+      body: 'The Microsoft 365 tenant holds every mailbox, identity, and security setting. It’s powerful and easy to misconfigure, so FFC partners with you on tenant-level changes rather than leaving them to guesswork.',
+    },
+    steps: [
+      {
+        title: 'Get the Microsoft for Nonprofits grant',
+        body: [
+          'Once recognized, register at **Microsoft for Nonprofits** to receive the grant of **Microsoft 365 Business Premium** licenses at no cost (with FFC’s help).',
+        ],
+      },
+      {
+        title: 'Add and verify your domain',
+        body: [
+          'In the **Microsoft 365 admin center**, add the charity’s domain (e.g. yourcharity.org) and verify it via DNS — FFC manages the DNS records so mail routes correctly.',
+        ],
+      },
+      {
+        title: 'Create users and assign licenses',
+        body: [
+          'Create a mailbox for each person (you@yourcharity.org), assign a license, and require MFA. Each person then follows the **personal** Microsoft 365 guide to sign in.',
+        ],
+      },
+      {
+        title: 'Set baseline security with FFC',
+        body: [
+          'Turn on security defaults / conditional access and MFA enforcement. Ask FFC before changing sharing, retention, or admin roles.',
+        ],
+        tip: 'Keep at least two global admins, each with MFA, so the tenant is never locked behind one account.',
+      },
+    ],
+    phaseNote:
+      'Microsoft for Nonprofits grants require validated 501(c)(3) (or equivalent) status.',
+    faqs: [
+      {
+        q: 'What’s the difference between this and the personal email guide?',
+        a: 'The personal guide is one user signing into a mailbox. This guide creates and runs the tenant that all those mailboxes live in — the grant, the domain, the users, and security.',
+      },
+      {
+        q: 'Should I make tenant changes on my own?',
+        a: 'Coordinate tenant-level changes with FFC. The tenant underpins every account, so mistakes are costly; FFC helps you make them safely.',
+      },
+    ],
+    related: ['microsoft-365-email', 'github-organization', 'cloud-storage-organization'],
+  },
+  {
+    slug: 'google-workspace-organization',
+    track: 'organizational',
+    counterpart: 'google-workspace',
+    title: 'Set up your charity’s Google Workspace',
+    shortTitle: 'Google Workspace (org)',
+    category: 'Email & Workspace',
+    icon: '🏢',
+    gradient: 'from-amber-600 to-orange-700',
+    description:
+      'Claim Google Workspace through Google for Nonprofits, verify your domain, and add users — for charities standardized on Google.',
+    keywords:
+      'Google Workspace nonprofit, Google for Nonprofits, Workspace admin console, add users domain, charity Google Workspace, Free For Charity Google Workspace org',
+    audience: 'Charity owners/admins on a Google-based charity (FFC default is Microsoft 365)',
+    intro: [
+      'For charities on Google rather than Microsoft, this is the **organization** side of the personal Google Workspace guide: the domain, the nonprofit grant, and user accounts.',
+    ],
+    estMinutes: 25,
+    principle: {
+      title: 'The Workspace is the charity’s foundation — change it deliberately',
+      body: 'The admin console controls every account, identity, and sharing setting. Treat tenant-level changes carefully and lean on FFC, the same way you would for a Microsoft 365 tenant.',
+    },
+    steps: [
+      {
+        title: 'Register for Google for Nonprofits',
+        body: [
+          'Once recognized, apply at **google.com/nonprofits** to unlock **Google Workspace for Nonprofits** at no cost, validated through Google’s nonprofit partner.',
+        ],
+      },
+      {
+        title: 'Verify your domain',
+        body: [
+          'In the **Google Admin console**, add and verify the charity’s domain via DNS (FFC manages the records) so Gmail routes to your charity address.',
+        ],
+      },
+      {
+        title: 'Add users and require 2-Step Verification',
+        body: [
+          'Create an account for each person (you@yourcharity.org) and enforce **2-Step Verification** org-wide. Each person then follows the personal Google Workspace guide to sign in.',
+        ],
+      },
+    ],
+    phaseNote:
+      'Google for Nonprofits requires validated nonprofit (501(c)(3) or equivalent) status.',
+    faqs: [
+      {
+        q: 'Should our charity use Google or Microsoft?',
+        a: 'FFC’s default is Microsoft 365. Choose Google Workspace only if the charity is already deeply embedded in Google. Don’t run both — pick one home for email and files.',
+      },
+      {
+        q: 'Is Google Workspace free for us?',
+        a: 'Google Workspace for Nonprofits is free for eligible verified organizations once you’re approved through Google for Nonprofits.',
+      },
+    ],
+    related: ['google-workspace', 'microsoft-365-organization', 'cloud-storage-organization'],
+  },
+  {
+    slug: 'microsoft-teams-organization',
+    track: 'organizational',
+    counterpart: 'microsoft-teams',
+    title: 'Set up Microsoft Teams for your charity',
+    shortTitle: 'Microsoft Teams (org)',
+    category: 'Email & Workspace',
+    icon: '💬',
+    gradient: 'from-indigo-700 to-blue-800',
+    description:
+      'Move from a personal Teams sign-in to the charity’s tenant: add your @yourcharity.org identity, create teams and channels, and organize the volunteers’ workspace.',
+    keywords:
+      'Microsoft Teams nonprofit, Teams channels charity, Teams tenant setup, add work account Teams, Free For Charity Teams org',
+    audience: 'Charity owners and admins organizing the team’s collaboration space',
+    intro: [
+      'The personal Teams guide gets the app installed and you into meetings. This guide moves Teams onto the **charity’s Microsoft 365 tenant** and organizes it for the whole team.',
+    ],
+    estMinutes: 15,
+    principle: {
+      title: 'One workspace, organized by team and channel',
+      body: 'Teams works best when conversations live in clear channels (e.g. Website, Fundraising, Board) under the charity’s tenant identity — not scattered across personal chats. Structure now keeps everyone aligned later.',
+    },
+    steps: [
+      {
+        title: 'Add your charity identity to Teams',
+        body: [
+          'Once your @yourcharity.org account exists (see the Microsoft 365 organization guide), add it to the **same Teams app** (profile → Add account) and switch to the charity tenant.',
+        ],
+      },
+      {
+        title: 'Create teams and channels',
+        body: [
+          'Create a team for the charity and add **channels** by topic (Website, Fundraising, Board, General). Invite volunteers by their charity email.',
+        ],
+      },
+      {
+        title: 'Set norms and pin resources',
+        body: [
+          'Pin key files (brand kit links, the document folder) into the right channels, and agree on simple norms — where to ask for help, where decisions are recorded.',
+        ],
+      },
+    ],
+    phaseNote:
+      'The charity tenant comes from the Microsoft for Nonprofits grant (needs 501(c)(3)).',
+    faqs: [
+      {
+        q: 'Do I install Teams again for the charity?',
+        a: 'No — add your charity account to the Teams app you already installed in the personal guide, then switch between your personal and charity identities in the same app.',
+      },
+      {
+        q: 'How should we organize channels?',
+        a: 'Start simple: one team for the charity with a handful of topic channels (Website, Fundraising, Board, General). Add more only when a real need appears.',
+      },
+    ],
+    related: ['microsoft-teams', 'microsoft-365-organization', 'cloud-storage-organization'],
+  },
+  {
+    slug: 'cloud-storage-organization',
+    track: 'organizational',
+    counterpart: 'cloud-storage-scanning',
+    title: 'Set up shared cloud storage for your charity',
+    shortTitle: 'Shared storage (org)',
+    category: 'Email & Workspace',
+    icon: '🗄️',
+    gradient: 'from-sky-700 to-cyan-800',
+    description:
+      'Move the charity’s files from a personal drive to a shared Team/Shared Drive or SharePoint, with a clear folder structure and the right permissions for the whole team.',
+    keywords:
+      'shared drive nonprofit, SharePoint charity, Google Shared Drive, team file permissions, charity recordkeeping, Free For Charity shared storage org',
+    audience: 'Charity owners and admins organizing the team’s files',
+    intro: [
+      'The personal guide scans documents into your own drive. This guide moves them into **shared organizational storage** — a Google **Shared Drive** or Microsoft **SharePoint/OneDrive for Business** — so files belong to the charity, not a person.',
+    ],
+    estMinutes: 20,
+    principle: {
+      title: 'Files belong to the charity, not to a person’s account',
+      body: 'A shared/Team drive means documents survive any one volunteer leaving, and access is granted by role. The charity’s records — formation papers, the IRS letter, finances — must never live only in an individual’s personal storage.',
+    },
+    steps: [
+      {
+        title: 'Create the shared drive',
+        body: [
+          'On Google, create a **Shared Drive**; on Microsoft, use the charity’s **SharePoint** site / Team files (created with the Microsoft 365 organization setup).',
+        ],
+      },
+      {
+        title: 'Build the folder structure',
+        body: [
+          'Mirror the personal guide’s structure at the org level: **Formation & IRS**, **Board**, **Finances**, **Brand/Logos**, **Website**. Move the documents you scanned personally into the shared drive.',
+        ],
+      },
+      {
+        title: 'Set permissions by role',
+        body: [
+          'Give each person access appropriate to their role (e.g. board members see Board and Finances; designers see Brand). Keep sensitive folders limited.',
+        ],
+        tip: 'Share a link from the shared drive rather than emailing copies, so there’s always one current version.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why not just keep everything in my personal Drive?',
+        a: 'Because the charity’s records would then depend on your account. A shared/Team drive keeps documents owned by the organization, accessible by role, and safe when people come and go.',
+      },
+      {
+        q: 'Where do the documents I already scanned go?',
+        a: 'Move them from your personal drive into the matching folders in the shared drive (Formation & IRS, Board, Finances, Brand). From then on, scan straight into the shared drive.',
+      },
+    ],
+    related: [
+      'cloud-storage-scanning',
+      'microsoft-365-organization',
+      'google-workspace-organization',
+    ],
+  },
+  {
+    slug: 'candid-organization',
+    track: 'organizational',
+    counterpart: 'candid',
+    title: 'Claim your charity’s Candid profile & seal',
+    shortTitle: 'Candid profile (org)',
+    category: 'Social Presence',
+    icon: '🏅',
+    gradient: 'from-teal-600 to-emerald-800',
+    description:
+      'Claim your organization’s Candid (GuideStar) profile and earn the transparency seal — Bronze through Platinum — so funders can trust and find you.',
+    keywords:
+      'Candid nonprofit profile, GuideStar seal, transparency seal bronze silver gold platinum, claim nonprofit profile, Free For Charity Candid org',
+    audience: 'Charity owners and admins (after IRS recognition)',
+    intro: [
+      'Your personal Candid guide was for research. This is the **organization** side: claiming your charity’s own profile and earning the **transparency seal** that funders look for.',
+    ],
+    estMinutes: 25,
+    principle: {
+      title: 'Transparency you control becomes trust funders can see',
+      body: 'Candid already lists your organization from public IRS data. Claiming the profile lets you tell your story and complete the fields that unlock the seal — the higher the seal, the more credible you look to grantmakers.',
+    },
+    steps: [
+      {
+        title: 'Claim the organization profile',
+        body: [
+          'Once recognized, go to **candid.org**, find your organization, and request to become its profile manager (Candid verifies you represent the charity).',
+        ],
+      },
+      {
+        title: 'Complete the profile for the seal',
+        body: [
+          'Fill in mission, programs, leadership, finances, and goals. Each section you complete raises your **transparency seal**: Bronze → Silver → Gold → Platinum.',
+          'Aim for **Gold** as a practical target; many funders filter for it.',
+        ],
+      },
+      {
+        title: 'Keep it current',
+        body: [
+          'Update the profile yearly (after each Form 990) so the seal stays valid and the information funders see is accurate.',
+        ],
+      },
+    ],
+    phaseNote:
+      'Claiming the profile and earning higher seals depends on 501(c)(3) recognition and filings (e.g. Form 990).',
+    faqs: [
+      {
+        q: 'Is this the same account as my personal Candid login?',
+        a: 'You sign in with your personal Candid account, then request to manage the organization’s profile. The profile and seal belong to the charity; the login is still you.',
+      },
+      {
+        q: 'Which seal should we aim for?',
+        a: 'Gold is a strong, achievable target that many funders look for. Platinum adds quantified results/metrics — pursue it once you have outcomes to report.',
+      },
+    ],
+    related: ['candid', 'idealist-organization', 'taproot-organization'],
+  },
+  {
+    slug: 'idealist-organization',
+    track: 'organizational',
+    counterpart: 'idealist',
+    title: 'Post your charity’s opportunities on Idealist',
+    shortTitle: 'Idealist listings (org)',
+    category: 'Social Presence',
+    icon: '🧭',
+    gradient: 'from-amber-600 to-orange-700',
+    description:
+      'Register your charity on Idealist and post volunteer opportunities and jobs that attract the right people.',
+    keywords:
+      'Idealist organization account, post nonprofit volunteer opportunities, nonprofit job listings, recruit volunteers, Free For Charity Idealist org',
+    audience: 'Charity owners and admins recruiting volunteers',
+    intro: [
+      'Having browsed Idealist as a volunteer (personal guide), now register the **organization** and post the opportunities you need filled.',
+    ],
+    estMinutes: 15,
+    principle: {
+      title: 'Recruit by being specific',
+      body: 'The listings that work tell people exactly what they’ll do, the skills needed, the time commitment, and the impact. Vague asks get ignored; specific, mission-driven ones attract the right volunteers.',
+    },
+    steps: [
+      {
+        title: 'Register your organization',
+        body: [
+          'On **idealist.org**, create the organization’s profile and verify it represents the charity (you manage it from your personal account).',
+        ],
+      },
+      {
+        title: 'Post a clear opportunity',
+        body: [
+          'Write a listing with a specific role, the skills/time needed, location or remote, and the impact. Reuse the strong examples you saved as a volunteer.',
+        ],
+      },
+      {
+        title: 'Respond promptly',
+        body: [
+          'Reply to interested people quickly and have a simple next step (a short call or form). Responsiveness is what converts interest into committed volunteers.',
+        ],
+      },
+    ],
+    phaseNote:
+      'An organization profile generally expects an established (often recognized) nonprofit.',
+    faqs: [
+      {
+        q: 'How is this different from my personal Idealist account?',
+        a: 'Personally you browse and learn the volunteer’s side. As an organization you register the charity and post opportunities — recruiting rather than searching.',
+      },
+      {
+        q: 'What makes a listing succeed?',
+        a: 'Specificity: a clear role, the skills and time required, and the concrete impact. Then respond quickly to anyone who reaches out.',
+      },
+    ],
+    related: ['idealist', 'taproot-organization', 'candid-organization'],
+  },
+  {
+    slug: 'taproot-organization',
+    track: 'organizational',
+    counterpart: 'taproot',
+    title: 'Request pro-bono help on Taproot',
+    shortTitle: 'Taproot requests (org)',
+    category: 'Social Presence',
+    icon: '🌳',
+    gradient: 'from-lime-600 to-green-800',
+    description:
+      'Once you’re a 501(c)(3), register your charity on Taproot Plus and post well-scoped pro-bono projects to get skilled professionals donating expertise.',
+    keywords:
+      'Taproot Plus organization, request pro bono nonprofit, skills-based volunteering request, scope pro bono project, Free For Charity Taproot org',
+    audience: 'Charity owners and admins (after 501(c)(3) recognition)',
+    intro: [
+      'You saw Taproot from the volunteer side in the personal guide. Now, **once your charity has its 501(c)(3)**, register the organization and **request** the skilled, pro-bono help you need.',
+    ],
+    estMinutes: 15,
+    principle: {
+      title: 'Clear scope attracts skilled volunteers',
+      body: 'Pro-bono professionals choose projects that respect their time. A tightly scoped request — defined deliverable, timeline, and what you’ll provide — gets matched fast; a vague one sits unanswered.',
+    },
+    steps: [
+      {
+        title: 'Register your organization',
+        body: [
+          'Once recognized, create the charity’s account on **taprootplus.org** and confirm your 501(c)(3) status so you can post projects.',
+        ],
+      },
+      {
+        title: 'Scope a pro-bono project',
+        body: [
+          'Define one concrete project: the deliverable (e.g. a logo, a marketing plan), the timeline, the skills needed, and what your team will provide. Model it on the examples you saved as a volunteer.',
+        ],
+      },
+      {
+        title: 'Post and partner',
+        body: [
+          'Post the request, review interested professionals, and agree on clear checkpoints. Treat the volunteer as a partner — good experiences lead to repeat help.',
+        ],
+      },
+    ],
+    phaseNote: 'Requesting pro-bono support on Taproot Plus requires 501(c)(3) recognition.',
+    faqs: [
+      {
+        q: 'When can my charity request pro-bono help?',
+        a: 'Once you have 501(c)(3) recognition you can register the organization on Taproot Plus and post projects. Before that, use the personal guide to learn how scoping works.',
+      },
+      {
+        q: 'Why does scope matter so much?',
+        a: 'Skilled volunteers donate limited time and pick projects that are well-defined. A clear deliverable, timeline, and your own commitments make your request the easy one to say yes to.',
+      },
+    ],
+    related: ['taproot', 'idealist-organization', 'candid-organization'],
+  },
+  {
+    slug: 'lastpass-organization',
+    track: 'organizational',
+    counterpart: 'password-manager',
+    title: 'Share credentials with your team using LastPass',
+    shortTitle: 'LastPass for teams (org)',
+    category: 'Tools',
+    icon: '🔑',
+    gradient: 'from-indigo-700 to-purple-800',
+    description:
+      'At the organizational phase, use LastPass to securely share the charity’s shared logins across the team — without anyone ever seeing or copying the raw passwords.',
+    keywords:
+      'LastPass teams nonprofit, shared credentials charity, password sharing organization, LastPass folders, Free For Charity LastPass org',
+    audience: 'Charity owners and admins managing shared accounts (organizational phase)',
+    intro: [
+      'Personal password managers (the personal guide) secure your own logins. When the charity has **shared accounts** several people must use, LastPass adds **credential sharing** done safely.',
+      'Most people won’t need this at first — it’s the **organizational-phase** tool for teams.',
+    ],
+    estMinutes: 20,
+    principle: {
+      title: 'Share access, not passwords',
+      body: 'LastPass lets you share a login so a teammate can use it without seeing or copying the password — and you can revoke access the moment someone leaves. That’s far safer than emailing passwords or using one weak shared secret.',
+    },
+    steps: [
+      {
+        title: 'Set up the LastPass account & MFA',
+        body: [
+          'Each team member installs the **LastPass** browser extension and phone app and secures it with a strong master password plus an authenticator app (see the MFA guide).',
+        ],
+      },
+      {
+        title: 'Create shared folders',
+        body: [
+          'Make shared **folders** for the charity’s shared logins (e.g. social accounts, vendor portals) and add the credentials there.',
+        ],
+      },
+      {
+        title: 'Share by role and revoke on exit',
+        body: [
+          'Share each folder only with the people who need it, using **hide password** where possible so they can log in without seeing the secret. Remove access immediately when someone leaves.',
+        ],
+        tip: 'Pair this with the holistic personal setup: everyone still keeps their own phone-tied manager and MFA recovery codes.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Do all volunteers need LastPass?',
+        a: 'No. Most people are fine with the holistic personal setup (phone-tied manager plus their browser profile). LastPass is for the organizational phase when several people must share specific logins.',
+      },
+      {
+        q: 'Can I share a login without revealing the password?',
+        a: 'Yes — LastPass can share an item so the recipient can use it to sign in without seeing or copying the password, and you can revoke that access at any time.',
+      },
+    ],
+    related: ['password-manager', 'multi-factor-authentication', 'github-organization'],
+  },
 ]
 
 export function getSetupGuide(slug: string): SetupGuide | undefined {
   return SETUP_GUIDES.find((g) => g.slug === slug)
 }
+
+/** Guides on the individual/personal track (default when `track` is unset). */
+export const PERSONAL_GUIDES = SETUP_GUIDES.filter((g) => g.track !== 'organizational')
+
+/** Guides on the charity/organizational track. */
+export const ORGANIZATIONAL_GUIDES = SETUP_GUIDES.filter((g) => g.track === 'organizational')
