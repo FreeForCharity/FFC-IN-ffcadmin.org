@@ -503,6 +503,263 @@ export const SETUP_GUIDES: SetupGuide[] = [
     ],
     related: ['linkedin', 'facebook', 'multi-factor-authentication'],
   },
+  {
+    slug: 'microsoft-teams',
+    title: 'Set up Microsoft Teams (your first install)',
+    shortTitle: 'Microsoft Teams',
+    category: 'Email & Workspace',
+    icon: '💬',
+    gradient: 'from-indigo-500 to-blue-700',
+    description:
+      'Install Microsoft Teams on your computer and phone — the first app every applicant installs. It’s how you meet with FFC, share your screen, and get live help.',
+    keywords:
+      'Microsoft Teams setup, install Teams desktop, Teams mobile app, screen sharing FFC, charity onboarding meeting, Free For Charity Teams',
+    audience: 'Charity applicants and site owners — the first install',
+    estMinutes: 10,
+    intro: [
+      'Microsoft Teams is how you meet with FFC: screen sharing, live walkthroughs, and real-time help during onboarding and beyond.',
+      'It’s also the **first thing you install** — getting it onto your computer proves your machine can install the software the rest of the process needs.',
+    ],
+    steps: [
+      {
+        title: 'Install the Teams desktop app',
+        body: [
+          'On your computer, download **Microsoft Teams** from **microsoft.com/microsoft-teams/download-app** and install it. Use the full desktop app, not just the browser version — screen sharing works best there.',
+        ],
+        tip: 'If installing it works, that’s the proof your computer can install the AI-tool connectors used later. If it won’t install, that’s exactly when to contact FFC for help.',
+      },
+      {
+        title: 'Install Teams on your phone',
+        body: [
+          'Install the **Microsoft Teams** app from the App Store or Google Play so you can also join meetings from anywhere.',
+        ],
+      },
+      {
+        title: 'Sign in',
+        body: [
+          'For now, sign in with a **free personal Microsoft account** (create one at **signup.live.com** if you don’t have one). Later, once FFC provisions your charity’s Microsoft 365, you’ll add your **@yourcharity.org** identity to Teams.',
+        ],
+      },
+      {
+        title: 'Test a meeting',
+        body: [
+          'Open Teams, start a quick test meeting with yourself, and try the **Share** button so you know how screen sharing works before your first call with FFC.',
+        ],
+      },
+    ],
+    related: ['microsoft-365-email', 'multi-factor-authentication'],
+  },
+  {
+    slug: 'cloud-storage-scanning',
+    title: 'Set up cloud storage & scan your documents',
+    shortTitle: 'Cloud storage & scanning',
+    category: 'Email & Workspace',
+    icon: '🗄️',
+    gradient: 'from-sky-500 to-cyan-700',
+    description:
+      'Set up Google Drive or Microsoft OneDrive to store the charity’s core files, and learn to scan paper documents (like the IRS determination letter) with your phone.',
+    keywords:
+      'Google Drive nonprofit, OneDrive charity files, scan documents phone, store IRS determination letter, charity recordkeeping, Free For Charity cloud storage',
+    audience: 'Charity applicants and site owners',
+    estMinutes: 15,
+    intro: [
+      'Your charity will accumulate documents you reuse constantly — state formation/incorporation papers, the IRS determination letter, board documents. Keep them in **one secure, backed-up place** from day one.',
+      'You’ll use either **Google Drive** or **Microsoft OneDrive** — whichever matches your email ecosystem.',
+    ],
+    steps: [
+      {
+        title: 'Pick Drive or OneDrive',
+        body: [
+          'If your email is **Gmail/Google**, use **Google Drive** (drive.google.com). If it’s **Microsoft/Outlook**, use **OneDrive** (onedrive.com). Either is fine — pick the one that matches the account you already sign in to.',
+        ],
+      },
+      {
+        ...MFA_STEP_SHARED,
+        body: [
+          'Make sure the Google or Microsoft account behind your storage has **multi-factor authentication on** (see the Multi-Factor Authentication guide) — these files matter.',
+          ...MFA_STEP_SHARED.body.slice(1),
+        ],
+      },
+      {
+        title: 'Make a “Charity core files” folder',
+        body: [
+          'Create a top-level folder named for your charity, with sub-folders like **Formation & IRS**, **Board**, **Finances**, and **Brand/Logos**. A little structure now saves hours later.',
+        ],
+      },
+      {
+        title: 'Scan a document with your phone',
+        body: [
+          'Open the **Google Drive** app (**+ → Scan**) or the **OneDrive** app (camera/scan icon), photograph the document, and save it as a PDF straight into the right folder.',
+          'Do this the moment a document arrives — for example, scan the **IRS determination letter** the day it comes in, so it’s never lost.',
+        ],
+        tip: 'Name files clearly, e.g. “IRS-determination-letter-2026.pdf”, so anyone can find them.',
+      },
+      {
+        title: 'Share with FFC when asked',
+        body: [
+          'When FFC needs a document for validation, share the specific file or folder link rather than emailing attachments around.',
+        ],
+      },
+    ],
+    related: ['microsoft-365-email', 'google-workspace', 'password-manager'],
+  },
+  {
+    slug: 'passkeys',
+    title: 'Set up passkeys (phishing-resistant sign-in)',
+    shortTitle: 'Passkeys',
+    category: 'Security',
+    icon: '🔐',
+    gradient: 'from-emerald-600 to-green-700',
+    description:
+      'What passkeys are, how to add one on your phone and computer (including Windows Hello), and why you keep them alongside — not instead of — your authenticator MFA.',
+    keywords:
+      'passkeys setup, FIDO2, WebAuthn, Windows Hello, passwordless sign-in, phishing-resistant login, Free For Charity passkeys',
+    audience: 'Everyone — enable where offered',
+    estMinutes: 10,
+    intro: [
+      'A **passkey** replaces your password with your device’s **fingerprint, face, or PIN**. It can’t be phished or reused, and it’s becoming the default sign-in across Google, Microsoft, Apple, LinkedIn, and Facebook.',
+      'Passkeys are **vendor-aligned** — each one lives in an ecosystem (Google, Apple, Microsoft, or a device like **Windows Hello**).',
+    ],
+    principle: {
+      title: 'Passkeys complement your MFA — they don’t replace it',
+      body: 'Turn passkeys on where a site offers them, but keep your authenticator app and recovery codes too. A passkey lives on one device; your authenticator (with cloud backup) and recovery codes are how you get in from anywhere or recover a lost device.',
+    },
+    steps: [
+      {
+        title: 'Add a passkey on your phone',
+        body: [
+          'When a site (Google, Microsoft, LinkedIn, Facebook) offers to **create a passkey**, accept it and confirm with your phone’s fingerprint/face. The passkey is stored securely in your Google or Apple account.',
+        ],
+      },
+      {
+        title: 'Turn on Windows Hello on your computer',
+        body: [
+          'On Windows, set up **Windows Hello** (Settings → Accounts → Sign-in options) with a PIN or fingerprint/face. Sites can then create a passkey tied to your computer.',
+        ],
+      },
+      {
+        title: 'Keep your authenticator MFA as backup',
+        body: [
+          'Do **not** remove your authenticator app or recovery codes after adding passkeys — they’re your fallback if you lose the device that holds a passkey. See the Multi-Factor Authentication and Password Manager guides.',
+        ],
+      },
+    ],
+    related: ['multi-factor-authentication', 'password-manager'],
+  },
+  {
+    slug: 'candid',
+    title: 'Set up a Candid (GuideStar) account',
+    shortTitle: 'Candid (GuideStar)',
+    category: 'Social Presence',
+    icon: '📊',
+    gradient: 'from-teal-500 to-emerald-700',
+    description:
+      'Create a personal Candid (formerly GuideStar) account to research nonprofits, and use it to find charities doing your mission. Your organization’s own profile and seal come later.',
+    keywords:
+      'Candid account, GuideStar account, nonprofit research, find similar charities, NTEE, transparency seal, Free For Charity Candid',
+    audience: 'Charity applicants and founders',
+    estMinutes: 15,
+    intro: [
+      'Candid (formerly **GuideStar**) is the canonical public registry of US nonprofits. Donors and funders use it to research charities.',
+      'You set up a **personal** account first to see how that research works — your **organization’s** Candid profile and transparency seal come later, once you’re recognized.',
+    ],
+    steps: [
+      {
+        title: 'Create your account',
+        body: ['Go to **candid.org** and create a free account with your real name and email.'],
+      },
+      {
+        ...MFA_STEP_SHARED,
+        body: [
+          'Turn on **two-factor authentication** if Candid offers it in your account settings.',
+          ...MFA_STEP_SHARED.body.slice(1),
+        ],
+      },
+      {
+        title: 'Find charities like yours',
+        body: [
+          'Search by **cause, location, or NTEE code** to see organizations doing the same or a near-identical mission in your area.',
+          'Note **at least three comparable charities** — you’ll be asked for these, and studying them sharpens what makes your organization distinct.',
+        ],
+      },
+    ],
+    related: ['idealist', 'taproot'],
+  },
+  {
+    slug: 'idealist',
+    title: 'Set up Idealist (volunteers & nonprofit jobs)',
+    shortTitle: 'Idealist',
+    category: 'Social Presence',
+    icon: '🧭',
+    gradient: 'from-amber-500 to-orange-600',
+    description:
+      'Create a personal Idealist account to see how volunteers find and connect with charities. Your organization’s listings come later.',
+    keywords:
+      'Idealist account, nonprofit volunteers, volunteer matching, nonprofit jobs, Free For Charity Idealist',
+    audience: 'Charity applicants and founders',
+    estMinutes: 10,
+    intro: [
+      'Idealist is where people find nonprofit volunteer opportunities and jobs. Experiencing it from the **volunteer’s** side first helps you post effective opportunities later.',
+    ],
+    steps: [
+      {
+        title: 'Create your account',
+        body: ['Go to **idealist.org** and sign up with your real name and email.'],
+      },
+      {
+        title: 'Explore charities like yours',
+        body: [
+          'Search opportunities near you and in your cause area to see how charities describe their work and ask for help.',
+        ],
+      },
+      {
+        title: 'Note what good listings look like',
+        body: [
+          'Save a couple of strong examples. When your charity is up and running, you’ll post opportunities the same way — FFC can help you create the organization’s listing later.',
+        ],
+      },
+    ],
+    related: ['candid', 'taproot'],
+  },
+  {
+    slug: 'taproot',
+    title: 'Set up Taproot (skills-based volunteering)',
+    shortTitle: 'Taproot',
+    category: 'Social Presence',
+    icon: '🌳',
+    gradient: 'from-lime-500 to-green-700',
+    description:
+      'Create a personal Taproot account to learn how skills-based (pro-bono) volunteering is sourced. Your organization can request pro-bono help here later.',
+    keywords:
+      'Taproot Foundation, Taproot Plus, skills-based volunteering, pro bono nonprofit, Free For Charity Taproot',
+    audience: 'Charity applicants and founders',
+    estMinutes: 10,
+    intro: [
+      'Taproot (and **Taproot Plus**) is a marketplace for **pro-bono, skills-based** volunteering — designers, marketers, and consultants donating expertise.',
+      'See how it works from the volunteer side now; your organization can post pro-bono requests once you’re running.',
+    ],
+    steps: [
+      {
+        title: 'Create your account',
+        body: [
+          'Go to **taprootfoundation.org** (or **taprootplus.org**) and create a free account with your real name and email.',
+        ],
+      },
+      {
+        title: 'Browse pro-bono projects',
+        body: [
+          'Look through example projects to understand how nonprofits scope and request skilled help.',
+        ],
+      },
+      {
+        title: 'Note how requests are scoped',
+        body: [
+          'Save an example or two. Later your organization can post a pro-bono request the same way, with FFC’s help.',
+        ],
+      },
+    ],
+    related: ['idealist', 'candid'],
+  },
 ]
 
 export function getSetupGuide(slug: string): SetupGuide | undefined {
