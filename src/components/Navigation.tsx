@@ -133,8 +133,11 @@ export default function Navigation() {
           className="absolute left-1/2 -translate-x-1/2 mt-2 w-[40rem] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 grid grid-cols-2 gap-x-6 gap-y-1"
         >
           {menu.sections.map((section) => (
-            <div key={section.heading} role="none">
-              <p className="px-3 pt-2 pb-1 text-xs font-bold uppercase tracking-wider text-gray-400">
+            <div key={section.heading} role="group" aria-label={section.heading}>
+              <p
+                aria-hidden="true"
+                className="px-3 pt-2 pb-1 text-xs font-bold uppercase tracking-wider text-gray-400"
+              >
                 {section.heading}
               </p>
               {section.items.map((item) => (

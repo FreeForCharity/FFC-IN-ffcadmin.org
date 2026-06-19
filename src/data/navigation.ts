@@ -2,7 +2,7 @@
  * Shared navigation data used by the Navigation component.
  *
  * Audience-first mega-menu structure. Top level:
- *   Home · 🌱 Manage My Site (button) · Volunteer ▾ · Operate ▾ · For Charities ↗
+ *   Home · 🌱 Manage My Site (button) · Volunteer ▾ · Operate ▾ · For Charities & Donors ↗
  *
  * The two dropdowns are multi-section mega-menus:
  *   - Volunteer  → "Get involved" + "Training tracks"
