@@ -5,6 +5,17 @@
 > the existing pages and data files in this repository. The FFC founder should
 > verify, add, or remove steps before this is treated as authoritative.
 
+> **Two kinds of content (read this first).** This document now contains both:
+> (1) an **inventory of existing guidance** already in the repo, and (2) **new
+> founder-directed policy decisions** made while drafting it — specifically the
+> **Phase 0 baseline** (Section 8), the **three approved providers** (Section
+> 8a), **Microsoft Teams as the first install**, the **Chrome/Edge-only browser
+> policy**, and **LastPass** as the password manager. The new policies are **not
+> yet implemented in the rendered guides/site** (e.g. `src/data/setup-guides.ts`
+> still says "Google _or_ Microsoft Authenticator" and "LastPass _or_
+> Bitwarden"). New-policy items are tagged inline. **Implementing them is exactly
+> the site update we will make once this flow is accepted.**
+
 > **Source precedence (sources differ by age).** The repo blends two eras. The
 > **current** model is captured by `src/data/setup-guides.ts` and the
 > freeforcharity.org `/501c3`, `/pre501c3`, and tools-for-success pages. The
@@ -105,6 +116,9 @@ these generally results in a polite decline rather than a fix-and-retry.
    Section 4). This is **not** a universal gate — a pre-501(c)(3) organization
    cannot yet hold a Gold seal (no Form 990), and instead works the IRS 1023 /
    state-formation track. Listed here as track-specific, not track-agnostic.
+   _Legacy discrepancy: the older `wordpress-service-delivery-stages` page lists
+   Gold as an **unqualified** eligibility floor; per the current two-track model
+   it is 501(c)(3)-only. The legacy page is the one that needs reconciling._
 4. **Priority criterion:** revenue **under $1M** and **not federally
    grant-funded**. (Drives prioritization/offer, not an absolute bar.)
 
@@ -463,7 +477,8 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
      and work emails to (the "account is a person" principle) and a reliable
      channel for verification links.
 
-6. **An approved web browser — Chrome or Edge only**
+6. **An approved web browser — Chrome or Edge only** _(new FFC support policy —
+   not yet stated in the rendered guides)_
    - _What:_ A current **Google Chrome or Microsoft Edge** on the computer.
      **Firefox, Safari, and any other browser are not approved or supported.**
    - _Why it benefits you:_ Chrome/Edge run the web apps, the password-manager
@@ -473,7 +488,8 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
      screenshots match your screen, and we don't spend support time on
      browser-specific quirks.
 
-7. **Microsoft Teams (desktop application + mobile app) — the first mandatory install**
+7. **Microsoft Teams (desktop application + mobile app) — the first mandatory
+   install** _(new FFC policy — not yet in the rendered setup guides)_
    - _What:_ The **Microsoft Teams desktop application** installed on the
      computer (not just the web version), **and** the Teams app on the
      smartphone. This is the **first install** every applicant completes. For now,
@@ -511,6 +527,60 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
       independence — depends on it.
     - _Why it benefits FFC:_ It is the core signal that the charity can operate
       what we build; this is the heart of the "filter out" philosophy.
+
+11. **A US mailing address you accept will be public**
+    - _What:_ A US mailing address for the organization. A **PO box is fine**, and
+      many people use their **home address** — but you must **understand and
+      accept that this address becomes public** and associated with the
+      nonprofit's activity.
+    - _Why it benefits you:_ Incorporation, the IRS, GuideStar, Microsoft 365
+      nonprofit validation, and domain records all require a real address; having
+      one ready unblocks every legal/validation step.
+    - _Why it benefits FFC:_ Confirms a real US-based entity and provides the
+      public contact point that transparency (GuideStar) and the donor flow
+      depend on.
+
+12. **At least two accountable people**
+    - _What:_ A primary contact **and** at least one other real person who can be
+      a backup administrator (typically a board member).
+    - _Why it benefits you:_ No page, mailbox, or account dies with a single
+      login; if someone leaves or loses access, the charity keeps control.
+    - _Why it benefits FFC:_ Continuity — we never end up with an orphaned
+      page/account behind one unreachable person (a common, costly cleanup).
+
+13. **Up-front acknowledgment of the FFC Acceptable Use Policy**
+    - _What:_ Read and **accept the FFC AUP** and the "credit FFC" expectation
+      before any work begins.
+    - _Why it benefits you:_ You know exactly what is expected (and that the
+      service is free) before investing time.
+    - _Why it benefits FFC:_ Consent and expectations are recorded before
+      volunteer effort is committed.
+
+14. **Cloud file storage (Google Drive or Microsoft OneDrive) + scanning**
+    - _What:_ A **Google Drive or Microsoft OneDrive** account, plus the ability
+      to **scan documents** (a phone scan app counts). Use it to store the
+      charity's **core files** — state formation/incorporation papers, the IRS
+      determination memo, board documents.
+    - _Why it benefits you:_ One secure, backed-up home for documents you'll reuse
+      constantly; scanning the IRS memo the moment it arrives means it is never
+      lost.
+    - _Why it benefits FFC:_ Clean, organized documents make validation fast, and
+      shared storage lets us help without emailing sensitive files around.
+    - _Action:_ **New guide needed** — a walkthrough on using Drive/OneDrive to
+      store the charity's core files (state/incorporation info) and how to scan
+      documents such as the IRS memo into either provider. (Tracked in Open
+      Questions.)
+
+15. **Willingness to use AI tools (start with Google Gemini)**
+    - _What:_ A willingness to use AI assistants, which have become **remarkably
+      good at walking people through complex technical steps — even the free
+      versions.** Recommended path: **both Android and Apple users start with
+      Google Gemini** (Apple now includes Gemini); once comfortable with Gemini,
+      **then** add **Claude**.
+    - _Why it benefits you:_ AI can guide you through almost every step in this
+      flow and the ongoing site maintenance, so you are rarely stuck.
+    - _Why it benefits FFC:_ The self-service maintenance model depends on it;
+      confident AI users need far less hands-on volunteer support.
 
 > **Verification (light-touch):** we do not formally audit each item — **having
 > installed the required apps is the proof.** The **first mandatory install is
@@ -596,6 +666,8 @@ If you get stuck on any item, use **Contact us for help**.
       supported), and a **primary email** on the phone.
 - [ ] **Microsoft Teams** installed on my computer **and** phone (first install).
 - [ ] A working **webcam + microphone** (on the computer or phone).
+- [ ] **Google Drive or Microsoft OneDrive** set up, and I can **scan documents**.
+- [ ] I'm **willing to use AI tools** (start with Google Gemini, then Claude).
 - [ ] I've set aside **dedicated time** to finish the ladder and maintain the site.
 
 **The three approved tools (all three, per person):**
@@ -619,9 +691,12 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] Our **organization LinkedIn Page** (with a backup admin).
 - [ ] Our **organization Facebook Page** (with a backup admin).
 
-**Eligibility & materials:**
+**Governance, eligibility & materials:**
 
 - [ ] US-based, with a **US-citizen point of contact**.
+- [ ] A **US mailing address** I accept will be public (PO box or home is fine).
+- [ ] At least **two accountable people** (primary + backup admin).
+- [ ] I've **acknowledged the FFC AUP** and the "credit FFC" expectation.
 - [ ] Track chosen (**501(c)(3)** or **pre-501(c)(3)**) and its documents gathered
       (see the materials list in Section 2 and the track branches in Section 8d).
 
@@ -660,6 +735,11 @@ validation work in Sections 3–4.
   given they are now hard requirements on both tracks?
 - Should **AUP acknowledgment** and a **conflict-of-interest / data-handling**
   agreement be explicit prerequisite line items?
+- **New guide to create: cloud storage + document scanning.** A walkthrough on
+  using **Google Drive or Microsoft OneDrive** to store the charity's core files
+  (state formation / incorporation papers, board documents) and how to **scan**
+  documents such as the IRS determination memo into either provider. Would be a
+  new entry in `src/data/setup-guides.ts`.
 - **Confirm the three-provider policy, then update `src/data/setup-guides.ts` to
   match.** The current code recommends **one** authenticator app (Google _or_
   Microsoft) and allows **LastPass _or_ Bitwarden**. The founder-directed policy
