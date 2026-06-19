@@ -123,7 +123,12 @@ export default function TrainingHubPage() {
                       <p className="mt-3 flex items-center gap-1.5 text-xs text-gray-500">
                         <span className="font-semibold text-gray-600">Set up first:</span>
                         {prereqs.map((g) => (
-                          <span key={g.slug} title={g.shortTitle} aria-hidden="true">
+                          <span
+                            key={g.slug}
+                            role="img"
+                            aria-label={g.shortTitle}
+                            title={g.shortTitle}
+                          >
                             {g.icon}
                           </span>
                         ))}
