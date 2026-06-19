@@ -192,51 +192,49 @@ account is a person, not an entity.** The applicant signs up as themselves,
 secures the account, then creates the organization's Page _from_ that personal
 account.
 
-### 2a. The three approved free providers (founder-directed policy — pending implementation)
+### 2a. Approved authenticators & password management (founder-directed policy)
 
-> **Policy note.** The three-provider rule below is a **founder-directed policy
-> set while drafting this document** — treat it as the **intended policy, pending
-> implementation**, not as existing repo guidance. It is **not yet reflected in
-> `src/data/setup-guides.ts`** (whose header comment calls it the "single source
-> of truth" for the setup guides, and which currently allows **either** Google or
-> Microsoft Authenticator and **either** LastPass or Bitwarden). Implementing this policy means **updating those rendered
-> guides** (a tracked action in Open Questions); until that change ships, the live
-> guides still show the older options.
+> **Policy note.** This is **founder-directed policy**, now reflected in the
+> setup guides (`src/data/setup-guides.ts`): the MFA guide requires **both**
+> authenticators, the password-manager guide is reframed around the built-in
+> managers, and there are **Chrome** and **Edge** guides. The remaining
+> not-yet-shipped pieces are tracked in Open Questions §A.
 
-Under this policy, FFC requires **all three** free providers per person — they
-are **not interchangeable**. A generic TOTP app (including LastPass) can produce
-the 6-digit codes, **but the native Google and Microsoft authenticators add
-provider-specific benefits a generic app can't** — notably **cloud backup/sync of
-your codes** (so a new or lost phone isn't a lockout), plus, on the Microsoft
-side, **app-based approval ("phone sign-in")**. (True **passwordless** sign-in via
-**passkeys** is a separate method, covered below.) That is why each native app is
-used for its matching ecosystem:
+Every person sets up **both native authenticators** and keeps a **holistic
+approach to password management** (with at least one manager tied to the mobile
+device they carry).
 
-1. **Google Authenticator** — the **native** authenticator for **Google**
-   services (Google Analytics and other Google products); its TOTP codes plus
-   cloud backup are why FFC uses it on the Google side. _(Google's one-tap "Google
-   Prompt" sign-in is delivered by the Google app / your device, not by Google
-   Authenticator.)_
-2. **Microsoft Authenticator** — the **native** authenticator for **Microsoft
-   365** (the charity's email/productivity suite); it adds cloud backup **and**
-   Microsoft's app-based approval / phone sign-in.
-3. **LastPass** — the **password manager**. It can also generate TOTP codes, but
-   the **native apps above are used for the Google and Microsoft accounts** so
-   those accounts get their native backup (and, for Microsoft, approval) features —
-   LastPass is **not** a fourth tool.
+**Authenticators — both required:**
 
-Under this policy:
+1. **Google Authenticator** — native for the **Google** ecosystem (Google
+   Analytics and other Google products). Cloud backup of codes. _(Google's
+   one-tap "Google Prompt" comes from the Google app, not the authenticator.)_
+2. **Microsoft Authenticator** — native for **Microsoft 365**. Cloud backup
+   **and** Microsoft's app-based approval / phone sign-in.
 
-- **Each person sets up all three** — Google Authenticator, Microsoft
-  Authenticator, and LastPass — not just one. They cover different ecosystems the
-  charity depends on, so all three are needed per person.
-- **Every** FFC-related account has **MFA turned on**, using the authenticator
-  for that ecosystem (no SMS where an app is offered).
-- The **password manager is LastPass.** (Google Authenticator and Microsoft
-  Authenticator are authenticators, not password managers — LastPass is the
-  single password manager in the approved set.)
-- No other tool is introduced (no Bitwarden, Authy, 1Password, etc.). Being able
-  to set up these three is also part of the technical-literacy bar.
+A generic TOTP app (including LastPass) can produce the 6-digit codes, but the
+**native** apps unlock these provider features, so the matching native app is
+used for each ecosystem. Use an authenticator app, not SMS, where offered. (True
+**passwordless** sign-in via **passkeys** is separate — see below.)
+
+**Password management — holistic; at least one tied to your mobile device:**
+
+- **Mobile-tied (the one closest to the phone you carry):** **Apple Passwords /
+  iCloud Keychain** on **iPhone / Mac**, or **Google Password Manager** (built
+  into **Android**). Everyone should have the one for their device.
+- **Browser-profile (on the computer):** **Chrome** signed into your **Google**
+  account, or **Edge** signed into your **Microsoft** account — each saves
+  passwords and backs up bookmarks. **Browsers: Chrome or Edge only.** (Guides:
+  <https://ffcadmin.org/guides/chrome/>, <https://ffcadmin.org/guides/edge/>.)
+- **LastPass (advanced / organizational phase):** a third-party, cross-platform
+  manager. Being third-party it has some native-support limitations, but it
+  works **universally** and supports **credential sharing** across a team — most
+  applicants adopt it only once they reach the organizational phase.
+
+**Baseline per person:** both authenticators **+** at least one password manager
+(the one tied to their mobile device, plus the browser-profile manager on their
+computer). **LastPass is added later** for cross-platform use and team credential
+sharing.
 
 > **Dependency chain (why the order matters):** a **LinkedIn organization Page**
 > can only be created from a **personal LinkedIn profile**; a **Facebook

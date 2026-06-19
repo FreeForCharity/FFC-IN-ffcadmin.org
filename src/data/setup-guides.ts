@@ -428,12 +428,12 @@ export const SETUP_GUIDES: SetupGuide[] = [
     description:
       'Why you need a password manager, the built-in option in your Chrome or Edge browser profile, when to add LastPass, and how to store your MFA recovery codes so a lost or new phone never locks you out.',
     keywords:
-      'password manager setup, Chrome password manager, Edge password manager, Google Password Manager, LastPass, store recovery codes, nonprofit password manager, Free For Charity',
+      'password manager setup, Apple Passwords iCloud Keychain, Google Password Manager Android, Chrome password manager, Edge password manager, LastPass, store recovery codes, Free For Charity',
     audience: 'Everyone — the safety net behind every other account',
     estMinutes: 15,
     intro: [
-      'A password manager remembers a unique strong password for every account so you don’t have to — and it’s the safest place to store your **MFA recovery codes**.',
-      'For most people the password manager is **built into your browser profile**: sign **Chrome** into your **Google** account or **Edge** into your **Microsoft** account, and your passwords (and bookmarks) sync and back up automatically. See the Chrome and Edge guides.',
+      'A password manager remembers a unique strong password for every account so you don’t have to — and it’s the safest place to store your **MFA recovery codes**. Take a **holistic** approach: have one **tied to the mobile device you carry**, plus the one in your computer’s browser.',
+      'Tied to your phone: **Apple Passwords / iCloud Keychain** on **iPhone & Mac**, or **Google Password Manager**, which is **built into Android**. On your computer, the **browser-profile** manager — **Chrome** signed into Google, or **Edge** signed into Microsoft — saves passwords and backs up bookmarks (see the Chrome and Edge guides).',
       '**LastPass** is a third-party manager that works **universally across every browser and device**. Being third-party, it has some native-support limitations, and most people won’t need it at first — but it becomes valuable at the **organizational phase** because it supports **credential sharing** across a team. Advanced users adopt it then.',
     ],
     principle: {
@@ -442,9 +442,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
     },
     steps: [
       {
-        title: 'Pick your manager',
+        title: 'Pick your managers (mobile + computer)',
         body: [
-          'Easiest (most people): use the **built-in manager in your browser profile** — Chrome signed into Google, or Edge signed into Microsoft (see those guides).',
+          'On your **phone**, use the one tied to your device: **Apple Passwords / iCloud Keychain** on iPhone, or **Google Password Manager** on Android (both are already built in — just turn on sync).',
+          'On your **computer**, use the **browser-profile** manager — Chrome signed into Google, or Edge signed into Microsoft (see those guides).',
           'Power option (advanced / organizational phase): install **LastPass** (browser extension + phone app) for cross-platform use and team **credential sharing** later. Choose a strong, memorable master password — if you forget it, no one can recover the vault.',
         ],
       },
