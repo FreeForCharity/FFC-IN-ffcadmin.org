@@ -108,6 +108,23 @@ of. This principle is what makes the flow in Section 2 logical and ordered.
 
 ---
 
+## At a glance — the journey, in order
+
+1. **Eligibility floor** (Section 1) — US-based, with a US-citizen contact; an
+   active 501(c)(3) **or** the pre-501(c)(3) track.
+2. **Phase 0 prerequisites** (Section 2) — devices, the three security tools +
+   passkeys, the applicant's personal accounts, and org basics; then create the
+   organization **LinkedIn + Facebook Pages**. Ends with the **self-check** (2c).
+   _Nothing else is provisioned until Phase 0 is complete._
+3. **Submit** (Section 3) — apply through **GitHub**.
+4. **Tracks diverge** (Section 4) — 501(c)(3) vs pre-501(c)(3) legal documentation.
+5. **FFC-side, after submission** — validation checks (Section 5), the
+   GuideStar/Candid seal (Section 6), and FFC-supported org accounts (Section 7).
+6. **Service-delivery lifecycle** (Section 8) — legacy WordPress-era flow, kept
+   for reference.
+
+---
+
 ## 1. Eligibility floor (hard gates)
 
 A charity must clear these before any application is meaningful. Failing one of
@@ -314,6 +331,7 @@ into the categories below.
     2FA so a stolen password alone can't get in.
   - _FFC:_ MFA on every account is how we keep the charity's accounts from being
     trivially compromised.
+  - _Guide:_ `/guides/multi-factor-authentication`
 - **Microsoft Authenticator (MFA app)** _(one of the three required providers —
   see Section 2a)_
   - _What:_ Install from the phone's app store. Required for Microsoft 365
@@ -321,6 +339,7 @@ into the categories below.
   - _You:_ Secures your Microsoft 365 sign-in.
   - _FFC:_ Extends MFA coverage across the Microsoft ecosystem the charity runs
     on.
+  - _Guide:_ `/guides/multi-factor-authentication`
 - **LastPass (password manager)** _(the third required provider — see
   Section 2a)_
   - _What:_ Create an account with a strong **master password**; turn on
@@ -331,6 +350,7 @@ into the categories below.
     phone never locks you out.
   - _FFC:_ Credential hygiene that keeps the charity's accounts both secure and
     recoverable.
+  - _Guide:_ `/guides/password-manager`
 - **Microsoft Teams (desktop application + mobile app) — the first mandatory
   install** _(new FFC policy — not yet in the rendered setup guides)_
   - _What:_ The **Teams desktop application** on the computer (not just the web
@@ -398,6 +418,7 @@ into the categories below.
   - _FFC:_ The application arrives through GitHub and we add your account to the
     charity's repository as a writer; a real, secured personal identity keeps the
     application and contribution history accountable.
+  - _Guide:_ `/guides/github-account`
 - **A personal LinkedIn profile — applicant and every board / planned-board
   member**
   - _What:_ A personal LinkedIn profile (real name, photo, headline, current
@@ -407,16 +428,19 @@ into the categories below.
     organization's LinkedIn Page later.
   - _FFC:_ Confirms real, accountable people behind the charity, and supports the
     board volunteering-linkage governance signal (Section 2b).
+  - _Guide:_ `/guides/linkedin`
 - **A personal Facebook account**
   - _What:_ Your own Facebook account in your real name, MFA on. (Never create a
     fake "charity person" account — Facebook removes those.)
   - _You:_ Required to create and administer the organization's Facebook Page.
   - _FFC:_ Keeps the eventual Page behind a real, secured human admin.
+  - _Guide:_ `/guides/facebook`
 - **A personal Canva account**
   - _What:_ Your own Canva account, MFA on; you later join the charity's Canva
     team.
   - _You:_ Access the charity's brand kit and templates to make on-brand graphics.
   - _FFC:_ Brand-consistent materials without FFC doing the design.
+  - _Guide:_ `/guides/canva`
 - **A personal Idealist account** (idealist.org)
   - _What:_ Your own account on **Idealist**, the nonprofit volunteer/jobs
     platform. You'll create the organization's listing later.
@@ -792,6 +816,7 @@ flow), on both tracks. They are not repeated here.
 501(c)(3)-emphasized and happen during/after validation, not in Phase 0:
 
 - Charity-named **Outlook mailbox** (Microsoft 365 tenant) — _validation check 5_
+  (first-sign-in guide: `/guides/microsoft-365-email`)
 - **Candid (GuideStar) profile at Gold or higher** — _validation check 1_ (the
   applicant already holds a **personal** Candid account from Phase 0; this is the
   **organization** profile and seal)
