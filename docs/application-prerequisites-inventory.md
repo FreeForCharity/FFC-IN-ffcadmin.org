@@ -2,8 +2,10 @@
 
 > **Status: Draft for verification.** This document inventories the application
 > and prerequisite steps that the FFC site currently describes, assembled from
-> the existing pages and data files in this repository. The FFC founder should
-> verify, add, or remove steps before this is treated as authoritative.
+> the existing pages and data files in this repository **and from the
+> freeforcharity.org onboarding pages** (`/501c3`, `/pre501c3`, tools-for-success)
+> referenced throughout. The FFC founder should verify, add, or remove steps
+> before this is treated as authoritative.
 
 > **Two kinds of content (read this first).** This document now contains both:
 > (1) an **inventory of existing guidance** already in the repo, and (2) **new
@@ -96,10 +98,10 @@ of. This principle is what makes the flow in Section 8 logical and ordered.
 | Onboarding prerequisites + accounts      | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx`          |
 | **Step-by-step account setup guides**    | **`src/data/setup-guides.ts`** (GitHub, MFA, LinkedIn, Facebook, M365, password manager, Canva) |
 | What the charity receives in return      | `src/app/what-ffc-delivers/page.tsx`                                                            |
-| Public application entry point           | `https://freeforcharity.org/submit-information/` (linked from What FFC Delivers)                |
-| 501(c)(3) onboarding entry point         | `https://freeforcharity.org/501c3/`                                                             |
-| Pre-501(c)(3) onboarding entry point     | `https://freeforcharity.org/pre501c3/`                                                          |
-| Recommended tools + setup order          | `https://freeforcharity.org/free-for-charitys-tools-for-success/`                               |
+| Public application entry point           | <https://freeforcharity.org/submit-information/> (linked from What FFC Delivers)                |
+| 501(c)(3) onboarding entry point         | <https://freeforcharity.org/501c3/>                                                             |
+| Pre-501(c)(3) onboarding entry point     | <https://freeforcharity.org/pre501c3/>                                                          |
+| Recommended tools + setup order          | <https://freeforcharity.org/free-for-charitys-tools-for-success/>                               |
 
 ---
 
@@ -386,19 +388,23 @@ account.
 > live guides still show the older options. This document records the **intended
 > policy** so the site update can follow it.
 
-Under this policy, FFC **standardizes** on **exactly three** free providers for
-multi-factor authentication and password management. Any TOTP app technically
-works, but **FFC's standard is to set up all three per person** — one for each
-ecosystem the charity actually uses, so the matching app is always already on the
-phone:
+Under this policy, FFC requires **all three** free providers per person — they
+are **not interchangeable**. A generic TOTP app (including LastPass) can produce
+the 6-digit codes, **but the native Google and Microsoft authenticators unlock
+provider-specific features that generic apps cannot** — notably **automatic
+account recovery** and **passwordless sign-in** — when used with their own
+ecosystems. That is why each native app is required for its matching ecosystem:
 
-1. **Google Authenticator** — FFC's standard authenticator for the **Google**
-   side (Google Analytics and other Google products the charity uses).
-2. **Microsoft Authenticator** — FFC's standard authenticator for **Microsoft
-   365** (the charity's email/productivity suite).
-3. **LastPass** — the **password manager**. (LastPass has a built-in authenticator
-   feature, but day-to-day MFA uses the Google or Microsoft app above — LastPass
-   is **not** a fourth tool.)
+1. **Google Authenticator** — the **native** authenticator for **Google**
+   services (Google Analytics and other Google products). Using the native app
+   enables Google's automatic recovery and passwordless sign-in.
+2. **Microsoft Authenticator** — the **native** authenticator for **Microsoft
+   365** (the charity's email/productivity suite). Using the native app enables
+   Microsoft's automatic recovery and phone/passwordless sign-in.
+3. **LastPass** — the **password manager**. It can also generate TOTP codes, but
+   the **native apps above are used for the Google and Microsoft accounts** so
+   those accounts get their native recovery and passwordless features — LastPass
+   is **not** a fourth tool.
 
 Under this policy:
 
@@ -417,7 +423,29 @@ Under this policy:
 > can only be created from a **personal LinkedIn profile**; a **Facebook
 > organization Page** can only be created from a **personal Facebook account**.
 > The person always comes first, and the personal account must be secured with
-> one of the three authenticators before it is used to create anything.
+> the matching native authenticator before it is used to create anything.
+
+#### Passkeys (vendor-aligned; increasingly the default)
+
+Passkeys are a newer, **phishing-resistant** sign-in that replaces the password
+with your device's biometric or PIN (the FIDO2 / WebAuthn standard). Like the
+authenticators above, passkeys are **vendor-aligned** — each one is generally
+tied to an ecosystem:
+
+- **Google** passkeys (Android / Google account)
+- **Apple** passkeys (iCloud Keychain on iPhone / Mac)
+- **Microsoft** passkeys
+- **Device passkeys** such as **Windows Hello** on the computer
+
+Passkeys are becoming the default sign-in across Google, Microsoft, Apple,
+LinkedIn, and Facebook, and they reinforce the same vendor-alignment behind the
+three-provider policy and the "account is a person" principle.
+
+- _FFC stance:_ **enable passkeys where offered** — Windows Hello on the computer
+  and the platform passkey on the phone — **alongside** the authenticator-app MFA
+  above (not instead of it).
+- _You:_ faster, phishing-resistant sign-in that's hard to steal.
+- _FFC:_ stronger account security with less password risk to clean up.
 
 ### 8b. The flow — Phase 0, then the organizational pages
 
@@ -795,7 +823,7 @@ status and documentation**:
 
 |                | **501(c)(3) track**                                                   | **pre-501(c)(3) track**                                                                                          |
 | -------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Landing page   | `https://freeforcharity.org/501c3/`                                   | `https://freeforcharity.org/pre501c3/`                                                                           |
+| Landing page   | <https://freeforcharity.org/501c3/>                                   | <https://freeforcharity.org/pre501c3/>                                                                           |
 | How you apply  | **GitHub-only flow** (see Section 2)                                  | **GitHub-only flow** (see Section 2)                                                                             |
 | Legal status   | Already IRS-recognized; has EIN + **IRS determination letter**        | Not yet recognized; working **IRS Form 1023** + state nonprofit formation + charitable-solicitation registration |
 | Board          | **Seated** legal board (officers)                                     | **Planned** board members                                                                                        |
@@ -811,8 +839,11 @@ validation work in Sections 3–4.
 
 ## Open questions for verification
 
-- Is the **public application** still `https://freeforcharity.org/submit-information/`,
-  or has it moved into a WHMCS-only flow?
+- **Application channel: now GitHub-only** (decided). The freeforcharity.org
+  pages (<https://freeforcharity.org/submit-information/>, `/501c3`, `/pre501c3`)
+  become informational landing pages that point into the GitHub flow; the legacy
+  WHMCS checkout is retired. Remaining work: build/define the actual GitHub
+  application entry point (repo + issue template or form).
 - Is **"under $1M and not federally grant-funded"** a hard gate or only a
   prioritization signal? (Currently documented as priority criterion.)
 - Are the **six external / three internal** checks still the current set, or
