@@ -166,15 +166,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'It’s simple: after you type your password, the site asks for a second proof that it’s really you — a 6-digit code from an app on your phone. Even if someone steals your password, they can’t get in without your phone.',
     ],
     principle: {
-      title: 'One authenticator app for everything',
-      body: 'Use a single authenticator app for all your accounts — ideally the same one you already use for your bank or email. The two most common are Google Authenticator and Microsoft Authenticator; either is fine. Having one app keeps every code in one place and makes moving to a new phone far easier.',
+      title: 'Set up both Google and Microsoft Authenticator',
+      body: 'FFC standardizes on the two native authenticators and you set up both: Google Authenticator for your Google sign-ins, and Microsoft Authenticator for Microsoft 365. Each is the native app for its ecosystem (with its own cloud backup), so the right one is always already on your phone. Use the matching app for each account.',
     },
     steps: [
       {
-        title: 'Install an authenticator app (if you don’t have one)',
+        title: 'Install both authenticator apps',
         body: [
-          'On your phone’s app store, install **Google Authenticator** or **Microsoft Authenticator**. If your bank already had you install one, use that same app.',
+          'On your phone’s app store, install **both Google Authenticator and Microsoft Authenticator**. Use Google’s app for your Google accounts and Microsoft’s for Microsoft 365.',
           'An authenticator app simply shows 6-digit codes that change every 30 seconds. It works offline and is far safer than text-message codes.',
+          'Turn on each app’s built-in **cloud backup** (in its settings) so a new phone restores your codes.',
         ],
       },
       {
@@ -208,6 +209,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'Do this for every account: GitHub, charity email, LinkedIn, Facebook, your bank.',
     ],
     faqs: [
+      {
+        q: 'Why both Google and Microsoft Authenticator?',
+        a: 'Each is the native app for its ecosystem — Google Authenticator for Google services, Microsoft Authenticator for Microsoft 365 — and the native app unlocks features (cloud backup, the provider’s own approval prompts) a generic app can’t. FFC standardizes on having both so the matching one is always ready.',
+      },
       {
         q: 'Is a text-message (SMS) code good enough?',
         a: 'An authenticator app is stronger and works without signal. Use the app whenever the site offers it; SMS is a last resort.',
@@ -421,30 +426,32 @@ export const SETUP_GUIDES: SetupGuide[] = [
     icon: '🔑',
     gradient: 'from-indigo-600 to-purple-700',
     description:
-      'Why you need a password manager, how to install one, and how to store both your passwords and your MFA recovery codes so a lost or new phone never locks you out.',
+      'Why you need a password manager, the built-in option in your Chrome or Edge browser profile, when to add LastPass, and how to store your MFA recovery codes so a lost or new phone never locks you out.',
     keywords:
-      'password manager setup, LastPass, Bitwarden, store recovery codes, nonprofit password manager, Free For Charity LastPass',
+      'password manager setup, Chrome password manager, Edge password manager, Google Password Manager, LastPass, store recovery codes, nonprofit password manager, Free For Charity',
     audience: 'Everyone — the safety net behind every other account',
     estMinutes: 15,
     intro: [
       'A password manager remembers a unique strong password for every account so you don’t have to — and it’s the safest place to store your **MFA recovery codes**.',
-      'FFC commonly uses **LastPass**; **Bitwarden** is an excellent free alternative. Either is fine — pick one and use it for everything.',
+      'For most people the password manager is **built into your browser profile**: sign **Chrome** into your **Google** account or **Edge** into your **Microsoft** account, and your passwords (and bookmarks) sync and back up automatically. See the Chrome and Edge guides.',
+      '**LastPass** is a third-party manager that works **universally across every browser and device**. Being third-party, it has some native-support limitations, and most people won’t need it at first — but it becomes valuable at the **organizational phase** because it supports **credential sharing** across a team. Advanced users adopt it then.',
     ],
     principle: {
-      title: 'One strong master password, everything else generated',
-      body: 'You memorize exactly one password — the manager’s master password. It then generates and stores a different strong password for every site. Make the master password long and memorable, turn on MFA for the manager itself, and never reuse it anywhere.',
+      title: 'One secured vault, a unique password everywhere',
+      body: 'Whether it’s your browser’s built-in manager (unlocked by your Google or Microsoft account) or LastPass (unlocked by one master password), the rules are the same: a different strong password for every site, MFA turned on for the account behind the manager, and your MFA recovery codes stored inside it.',
     },
     steps: [
       {
-        title: 'Create your account',
+        title: 'Pick your manager',
         body: [
-          'Install **LastPass** or **Bitwarden** (browser extension + phone app) and create an account. Choose a strong, memorable **master password** — if you forget it, no one (not even support) can recover your vault.',
+          'Easiest (most people): use the **built-in manager in your browser profile** — Chrome signed into Google, or Edge signed into Microsoft (see those guides).',
+          'Power option (advanced / organizational phase): install **LastPass** (browser extension + phone app) for cross-platform use and team **credential sharing** later. Choose a strong, memorable master password — if you forget it, no one can recover the vault.',
         ],
       },
       {
-        title: 'Turn on MFA for the manager itself',
+        title: 'Secure the manager itself with MFA',
         body: [
-          'Your password manager is the keys to everything, so secure it with an authenticator app too (see the MFA guide).',
+          'The manager holds the keys to everything. Make sure the Google or Microsoft account behind it — or your LastPass account — has an authenticator app turned on (see the MFA guide).',
         ],
       },
       {
@@ -456,12 +463,18 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Store your MFA recovery codes here',
         body: [
-          'Create a secure note in the vault for each account’s **recovery codes** (from the MFA setup). This is what saves you when you lose or replace your phone.',
+          'Save each account’s **recovery codes** (from the MFA setup) in the manager — a secure note in LastPass, or your browser/Google account’s secure notes. This is what saves you when you lose or replace your phone.',
         ],
         tip: 'Passwords + recovery codes in one secured, backed-up vault = you can recover any account from any device.',
       },
     ],
-    related: ['multi-factor-authentication', 'github-account'],
+    faqs: [
+      {
+        q: 'Built-in browser manager or LastPass — which?',
+        a: 'Start with the built-in manager in your Chrome or Edge profile; it’s free and automatic. Add (or move to) LastPass when you need the same logins to work across many browsers/devices, or to share credentials with your team at the organizational phase.',
+      },
+    ],
+    related: ['multi-factor-authentication', 'github-account', 'chrome', 'edge'],
   },
   {
     slug: 'canva',
@@ -622,7 +635,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
     ],
     principle: {
       title: 'Passkeys complement your MFA — they don’t replace it',
-      body: 'Turn passkeys on where a site offers them, but keep your authenticator app and recovery codes too. A passkey lives on one device; your authenticator (with cloud backup) and recovery codes are how you get in from anywhere or recover a lost device.',
+      body: 'Turn passkeys on where a site offers them, but keep your authenticator app and recovery codes too. A passkey lives in a platform keychain (e.g. iCloud Keychain or Google Password Manager) and can sync across that ecosystem’s devices — but it won’t follow you outside that ecosystem, so your authenticator (with cloud backup) and recovery codes are how you get in from anywhere or recover a lost device.',
     },
     steps: [
       {
@@ -759,6 +772,104 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
     ],
     related: ['idealist', 'candid'],
+  },
+  {
+    slug: 'chrome',
+    title: 'Set up Chrome (profile, saved passwords & bookmarks)',
+    shortTitle: 'Chrome browser',
+    category: 'Tools',
+    icon: '🌐',
+    gradient: 'from-blue-500 to-green-500',
+    description:
+      'Install Google Chrome and sign it into a profile tied to your Google account so your saved passwords and bookmarks sync and back up — your built-in password manager on the Google side.',
+    keywords:
+      'Chrome setup, Chrome profile, Google Password Manager, Chrome sync, saved passwords bookmarks, approved browser, Free For Charity Chrome',
+    audience: 'Everyone — Chrome and Edge are the only supported browsers',
+    estMinutes: 10,
+    intro: [
+      'Chrome is one of the **two approved browsers** (Chrome and Edge). FFC doesn’t support Firefox, Safari, or others.',
+      'Signing Chrome into a **profile tied to your Google account** gives you a **built-in password manager** and backs up your **bookmarks** automatically — this is the everyday password manager for Google-ecosystem users.',
+    ],
+    principle: {
+      title: 'The profile is you, the person',
+      body: 'You sign Chrome into your own personal Google account — the same person-not-entity rule as everywhere else. Your passwords and bookmarks live with that account, so they follow you to any computer where you sign in.',
+    },
+    steps: [
+      {
+        title: 'Install Chrome',
+        body: ['Download and install **Google Chrome** from **google.com/chrome**.'],
+      },
+      {
+        title: 'Sign in and turn on Sync',
+        body: [
+          'Click your profile circle (top-right) → **Sign in** with your personal **Google account**, and turn on **Sync**.',
+          'With Sync on, your **saved passwords and bookmarks back up to your Google account** and appear on any device where you sign in.',
+        ],
+      },
+      {
+        title: 'Let Google Password Manager save your passwords',
+        body: [
+          'As you sign in to sites, let Chrome **save** the password; use **Suggest strong password** for new accounts. Review them anytime at **passwords.google.com**.',
+        ],
+      },
+      {
+        title: 'Secure your Google account with MFA',
+        body: [
+          'Because everything syncs to your Google account, protect it with **Google Authenticator** (see the MFA guide) and consider a **passkey** (see the Passkeys guide).',
+        ],
+      },
+    ],
+    related: ['password-manager', 'multi-factor-authentication', 'edge'],
+  },
+  {
+    slug: 'edge',
+    title: 'Set up Edge (profile, saved passwords & bookmarks)',
+    shortTitle: 'Edge browser',
+    category: 'Tools',
+    icon: '🌐',
+    gradient: 'from-cyan-600 to-blue-700',
+    description:
+      'Install Microsoft Edge and sign it into a profile tied to your Microsoft account so your saved passwords and favorites sync and back up — your built-in password manager on the Microsoft side.',
+    keywords:
+      'Edge setup, Edge profile, Microsoft account sync, saved passwords favorites, approved browser, Free For Charity Edge',
+    audience: 'Everyone — Chrome and Edge are the only supported browsers',
+    estMinutes: 10,
+    intro: [
+      'Edge is one of the **two approved browsers** (Chrome and Edge). FFC doesn’t support Firefox, Safari, or others.',
+      'Signing Edge into a **profile tied to your Microsoft account** gives you a **built-in password manager** and backs up your **favorites/bookmarks** automatically — this is the everyday password manager for Microsoft-ecosystem users.',
+    ],
+    principle: {
+      title: 'The profile is you, the person',
+      body: 'You sign Edge into your own personal Microsoft account — the same person-not-entity rule as everywhere else. Your passwords and favorites live with that account, so they follow you to any computer where you sign in.',
+    },
+    steps: [
+      {
+        title: 'Install Edge',
+        body: [
+          'Download and install **Microsoft Edge** from **microsoft.com/edge** (it’s pre-installed on Windows).',
+        ],
+      },
+      {
+        title: 'Sign in and turn on Sync',
+        body: [
+          'Click your profile (top-right) → **Sign in** with your personal **Microsoft account**, and turn on **Sync**.',
+          'With Sync on, your **saved passwords and favorites back up to your Microsoft account** and appear on any device where you sign in.',
+        ],
+      },
+      {
+        title: 'Let Edge save your passwords',
+        body: [
+          'As you sign in to sites, let Edge **save** the password (**Settings → Profiles → Passwords**); use its **suggest strong password** for new accounts.',
+        ],
+      },
+      {
+        title: 'Secure your Microsoft account with MFA',
+        body: [
+          'Because everything syncs to your Microsoft account, protect it with **Microsoft Authenticator** (see the MFA guide) and consider a **passkey** (see the Passkeys guide).',
+        ],
+      },
+    ],
+    related: ['password-manager', 'multi-factor-authentication', 'chrome'],
   },
 ]
 
