@@ -1414,6 +1414,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         title: 'Apply for Canva for Nonprofits',
         body: [
           'Once recognized, apply at **canva.com/canva-for-nonprofits** to get **Canva Pro free** for the organization, including team features and the Brand Kit.',
+          'Canva verifies your nonprofit status through **Goodstack** — if you’re already verified there it’s quick (see the Goodstack guide).',
         ],
       },
       {
@@ -1440,7 +1441,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'The Brand Kit keeps every volunteer’s work on-brand automatically — same logo, colors, and fonts — so the charity looks consistent and professional everywhere.',
       },
     ],
-    related: ['canva', 'linkedin-organization', 'facebook-organization'],
+    related: ['canva', 'goodstack', 'linkedin-organization', 'facebook-organization'],
   },
   {
     slug: 'microsoft-365-organization',
@@ -1469,7 +1470,8 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Get the Microsoft for Nonprofits grant',
         body: [
-          'Once recognized, register at **Microsoft for Nonprofits** to receive the grant of **Microsoft 365 Business Premium** licenses at no cost (with FFC’s help).',
+          'Once recognized, register at **Microsoft for Nonprofits** to receive donated/discounted **Microsoft 365** licenses (with FFC’s help).',
+          'Microsoft’s nonprofit offers are validated through **TechSoup** — being validated there first makes this smoother (see the TechSoup guide).',
         ],
       },
       {
@@ -1504,7 +1506,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'Coordinate tenant-level changes with FFC. The tenant underpins every account, so mistakes are costly; FFC helps you make them safely.',
       },
     ],
-    related: ['microsoft-365-email', 'cloud-storage-organization', 'microsoft-teams-organization'],
+    related: ['microsoft-365-email', 'techsoup', 'cloud-storage-organization'],
   },
   {
     slug: 'google-workspace-organization',
@@ -1532,7 +1534,8 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Register for Google for Nonprofits',
         body: [
-          'Once recognized, apply at **google.com/nonprofits** to unlock **Google Workspace for Nonprofits** at no cost, validated through Google’s nonprofit partner.',
+          'Once recognized, apply at **google.com/nonprofits** to unlock **Google Workspace for Nonprofits** at no cost.',
+          'Google verifies your nonprofit status through **Goodstack** — getting verified there first makes this fast (see the Goodstack guide).',
         ],
       },
       {
@@ -1560,7 +1563,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'Google Workspace for Nonprofits is free for eligible verified organizations once you’re approved through Google for Nonprofits.',
       },
     ],
-    related: ['google-workspace', 'microsoft-365-organization', 'cloud-storage-organization'],
+    related: ['google-workspace', 'goodstack', 'cloud-storage-organization'],
   },
   {
     slug: 'microsoft-teams-organization',
@@ -1965,18 +1968,18 @@ export const SETUP_GUIDES: SetupGuide[] = [
     icon: '🎟️',
     gradient: 'from-orange-600 to-red-700',
     description:
-      'Register and get your charity “Validated” on TechSoup — the one verification that unlocks donated and deeply discounted software, including QuickBooks Online, Microsoft 365, Google Workspace, and Canva.',
+      'Register and get your charity “Validated” on TechSoup — the nonprofit-status validator that unlocks donated and deeply discounted software, most notably Intuit QuickBooks Online, Microsoft 365, and Adobe.',
     keywords:
-      'TechSoup validation, nonprofit software discounts, QuickBooks Online nonprofit, TechSoup register, donated software charity, Free For Charity TechSoup',
+      'TechSoup validation, nonprofit software discounts, QuickBooks Online nonprofit, Microsoft 365 nonprofit, Adobe nonprofit, donated software charity, Free For Charity TechSoup',
     audience: 'Charity owners and admins (after IRS recognition)',
     estMinutes: 25,
     intro: [
-      'TechSoup is the **gateway to the nonprofit software stack**. It verifies your organization’s legal status once, and that **“Validated”** status is what unlocks donated and discounted tools across many vendors.',
-      'A primary benefit is **QuickBooks Online** for your books — and the same validation flows through to **Microsoft 365**, **Google Workspace**, and **Canva** for Nonprofits.',
+      'TechSoup is a **nonprofit-status validator**: it confirms your charity’s 501(c)(3) status once, on your behalf, and many software vendors trust that confirmation to grant you donated or discounted products.',
+      'It’s the validator FFC recommends behind **Intuit QuickBooks Online** (your books), **Microsoft 365**, **Adobe**, and others. (A second validator, **Goodstack**, covers Canva and Google — see the Goodstack guide.)',
     ],
     principle: {
-      title: 'One validation unlocks the whole stack',
-      body: 'Rather than proving your nonprofit status to each vendor separately, you validate once on TechSoup and use that confirmation (often a validation token) to claim each product. Get TechSoup done early — most of the charity’s software grants depend on it.',
+      title: 'Validate once, vendors trust it',
+      body: 'Instead of proving your nonprofit status to every software company separately, you validate once on TechSoup. Vendors that partner with TechSoup (Intuit/QuickBooks, Microsoft, Adobe, Norton, and more) then accept that “Validated” status to confirm you qualify for nonprofit pricing. Get it done early — several of the charity’s tools depend on it.',
     },
     steps: [
       {
@@ -1988,14 +1991,15 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Submit for validation',
         body: [
-          'Provide the charity’s **EIN** and supporting documents — your **IRS determination letter** (scan it from your shared drive; see the cloud-storage guides). TechSoup independently confirms you’re a legitimate 501(c)(3).',
-          'Validation isn’t instant — it can take a few business days. Watch your charity email for the result.',
+          'Provide the charity’s **EIN** and supporting documents — your **IRS determination letter** (scan it from your shared drive; see the cloud-storage guides). TechSoup independently confirms you’re a legitimate 501(c)(3), usually within a couple of business days.',
+          'Note the difference TechSoup makes between **“Validated”** (your organization is legitimate) and **“Eligible”** (you meet a specific vendor’s rules, e.g. budget caps).',
         ],
       },
       {
         title: 'Claim your software',
         body: [
-          'Once “Validated”, use your TechSoup status/token to claim products. Start with **QuickBooks Online** (a core benefit; see the QuickBooks guide), then **Microsoft 365**, **Google Workspace**, and **Canva** for Nonprofits via their org guides.',
+          'Once “Validated”, claim products through TechSoup. The headline offers for FFC charities are **QuickBooks Online** (a core benefit — see the QuickBooks guide) and **Microsoft 365**, plus **Adobe Creative Cloud/Acrobat** and **Norton** security.',
+          'For **Canva** and **Google for Nonprofits**, use the other validator, **Goodstack** (see that guide) — different vendors trust different validators.',
         ],
         tip: 'Keep your TechSoup validation handy — many vendor nonprofit programs ask for it to confirm eligibility.',
       },
@@ -2004,15 +2008,81 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'TechSoup validation requires IRS 501(c)(3) recognition (EIN + determination letter).',
     faqs: [
       {
-        q: 'What does TechSoup actually unlock?',
-        a: 'Donated and discounted software across many vendors. For FFC charities the highlights are QuickBooks Online for accounting, plus Microsoft 365, Google Workspace, and Canva — all of which use TechSoup or the same nonprofit-validation to confirm eligibility.',
+        q: 'What software does TechSoup unlock?',
+        a: 'The most popular offers are Intuit QuickBooks Online (steep nonprofit pricing), Microsoft 365, Adobe Creative Cloud/Acrobat, and Norton security — plus discounted hardware. TechSoup confirms your 501(c)(3) status to these vendors so you get nonprofit rates.',
+      },
+      {
+        q: 'Is TechSoup the only validator I need?',
+        a: 'No. TechSoup covers QuickBooks, Microsoft, and Adobe; a second validator, Goodstack, covers Canva, Google for Nonprofits, and others. FFC charities typically register with both — see the Goodstack guide.',
       },
       {
         q: 'How long does validation take?',
-        a: 'Usually a few business days while TechSoup independently confirms your legal status. Have your EIN and IRS determination letter ready (scanned in your shared drive) to avoid delays.',
+        a: 'Usually a couple of business days while TechSoup independently confirms your legal status. Have your EIN and IRS determination letter ready (scanned in your shared drive) to avoid delays.',
       },
     ],
-    related: ['quickbooks-online', 'microsoft-365-organization', 'canva-organization'],
+    related: ['goodstack', 'quickbooks-online', 'microsoft-365-organization'],
+  },
+  {
+    slug: 'goodstack',
+    track: 'organizational',
+    title: 'Get verified with Goodstack',
+    shortTitle: 'Goodstack',
+    category: 'Tools',
+    icon: '🪪',
+    gradient: 'from-emerald-600 to-teal-700',
+    description:
+      'Register with Goodstack (formerly Percent) — the nonprofit-status validator that Canva, Google for Nonprofits, and many other tools use to confirm your charity qualifies for free or discounted access.',
+    keywords:
+      'Goodstack verification, Percent nonprofit, Canva for Nonprofits validation, Google for Nonprofits Goodstack, nonprofit software discounts, Free For Charity Goodstack',
+    audience: 'Charity owners and admins (after IRS recognition)',
+    estMinutes: 20,
+    intro: [
+      'Goodstack (formerly **Percent**) is the **other major nonprofit-status validator** alongside TechSoup. It checks your organization’s legal and charitable status, and partner vendors trust that check to grant you nonprofit access.',
+      'It’s the validator FFC recommends behind **Canva** and **Google for Nonprofits** — and many others, including Asana, Atlassian, Eventbrite, monday.com, OpenAI (ChatGPT), and Zoom.',
+    ],
+    principle: {
+      title: 'A second validator for a different set of vendors',
+      body: 'Vendors don’t all use the same verifier. TechSoup covers QuickBooks, Microsoft, and Adobe; Goodstack covers Canva, Google, and a long list of SaaS tools. Registering with both means whichever validator a vendor uses, your charity is already verified.',
+    },
+    steps: [
+      {
+        title: 'Start verification with Goodstack',
+        body: [
+          'When you apply to a partner program — e.g. **Canva for Nonprofits** or **Google for Nonprofits** — you’ll be routed to **Goodstack** to verify. You can also begin directly at **goodstack.io**.',
+          'You sign in as a real person representing the charity, the same person-not-entity pattern as everywhere else.',
+        ],
+      },
+      {
+        title: 'Provide your charity’s details',
+        body: [
+          'Supply the charity’s legal name, **EIN**, and supporting documents (your **IRS determination letter** from the shared drive). Goodstack runs due-diligence checks to confirm you’re a legally registered, active nonprofit.',
+        ],
+      },
+      {
+        title: 'Use it to unlock partner tools',
+        body: [
+          'Once verified, claim the offers: **Canva** Pro free for nonprofits (see the Canva organization guide) and **Google for Nonprofits** / Google Workspace (see that guide), plus any other Goodstack partners your charity uses.',
+        ],
+        tip: 'Between TechSoup and Goodstack you’ll cover almost every nonprofit software offer FFC recommends.',
+      },
+    ],
+    phaseNote:
+      'Goodstack verification requires recognized nonprofit (501(c)(3)) status (EIN + determination letter).',
+    faqs: [
+      {
+        q: 'How is Goodstack different from TechSoup?',
+        a: 'They’re both nonprofit-status validators, but different vendors trust different ones. Goodstack verifies for Canva, Google for Nonprofits, Asana, Atlassian, Eventbrite, monday.com, OpenAI, Zoom and more; TechSoup verifies for QuickBooks, Microsoft, and Adobe. FFC charities register with both.',
+      },
+      {
+        q: 'Is this the same as Percent?',
+        a: 'Yes — Percent rebranded to Goodstack. If you see “Percent” referenced by an older vendor page, it’s the same verification service.',
+      },
+      {
+        q: 'Do I have to go to Goodstack first?',
+        a: 'Usually you don’t — when you apply to a partner like Canva or Google for Nonprofits, they route you into Goodstack’s verification automatically. You can also start directly at goodstack.io.',
+      },
+    ],
+    related: ['techsoup', 'canva-organization', 'google-workspace-organization'],
   },
   {
     slug: 'quickbooks-online',
