@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: '%s | Free For Charity Admin',
   },
   description:
-    'Volunteer training hub for Free For Charity. Complete Global Administrator or Canva Designer certification paths, learn our tech stack, and join the contributor ladder to build free websites for nonprofits.',
+    'Volunteer training hub for Free For Charity. Complete Microsoft 365 Administrator or Canva Designer certification paths, learn our tech stack, and join the contributor ladder to build free websites for nonprofits.',
   metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: `${SITE_URL}/`,
@@ -38,13 +38,13 @@ export const metadata: Metadata = {
     siteName: 'Free For Charity Admin',
     title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
     description:
-      'Training hub for Free For Charity volunteers. Explore Global Administrator and Canva Designer certification paths while helping nonprofits.',
+      'Training hub for Free For Charity volunteers. Explore Microsoft 365 Administrator and Canva Designer certification paths while helping nonprofits.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Free For Charity Admin | Volunteer & Admin Training Hub',
     description:
-      'Training hub for Free For Charity volunteers. Explore Global Administrator and Canva Designer certification paths while helping nonprofits.',
+      'Training hub for Free For Charity volunteers. Explore Microsoft 365 Administrator and Canva Designer certification paths while helping nonprofits.',
   },
   icons: {
     icon: assetPath('/Svgs/ffc-logo.svg'),
@@ -83,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               url: 'https://ffcadmin.org',
               logo: `${SITE_URL}${assetPath('/Images/hero-logo.png')}`,
               description:
-                'Free For Charity trains volunteers through Global Administrator and Canva Designer certification paths to build and manage free websites for 501(c)(3) nonprofits.',
+                'Free For Charity trains volunteers through Microsoft 365 Administrator and Canva Designer certification paths to build and manage free websites for 501(c)(3) nonprofits.',
               foundingDate: '2013',
               areaServed: 'US',
               nonprofitStatus: '501c3',

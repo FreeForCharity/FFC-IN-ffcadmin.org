@@ -11,28 +11,20 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/site-owner/accept-invitation/' },
 }
 
+// The repo name is always FFC-EX- + the domain, inside the FreeForCharity org.
+const repoForDomain = (domain: string) => `FreeForCharity/FFC-EX-${domain}`
+
 // A real, live FFC charity site used as the running example so the repo name is
-// recognizable and clickable. The repo name is always FFC-EX- + the domain.
+// recognizable and clickable.
 const EXAMPLE_DOMAIN = 'mitchellnchistory.org'
-const EXAMPLE_REPO = `FreeForCharity/FFC-EX-${EXAMPLE_DOMAIN}`
+const EXAMPLE_REPO = repoForDomain(EXAMPLE_DOMAIN)
 
 // Three deliberately different kinds of charity, to show the same pattern holds.
+// Repos are derived from the domain so they can never drift out of sync.
 const PATTERN_EXAMPLES = [
-  {
-    kind: 'History museum',
-    domain: 'mitchellnchistory.org',
-    repo: 'FreeForCharity/FFC-EX-mitchellnchistory.org',
-  },
-  {
-    kind: 'Veterans post',
-    domain: 'americanlegionpost64.org',
-    repo: 'FreeForCharity/FFC-EX-americanlegionpost64.org',
-  },
-  {
-    kind: 'Environmental nonprofit',
-    domain: 'savewatersaveplanet.org',
-    repo: 'FreeForCharity/FFC-EX-savewatersaveplanet.org',
-  },
+  { kind: 'History museum', domain: EXAMPLE_DOMAIN },
+  { kind: 'Veterans post', domain: 'americanlegionpost64.org' },
+  { kind: 'Environmental nonprofit', domain: 'savewatersaveplanet.org' },
 ]
 
 /** A faithful, illustration-only reproduction of the GitHub invitation email. */
@@ -255,12 +247,12 @@ export default function AcceptInvitationPage() {
                   {ex.domain}
                 </a>
                 <a
-                  href={`https://github.com/${ex.repo}`}
+                  href={`https://github.com/${repoForDomain(ex.domain)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-1 block text-xs font-mono text-indigo-600 hover:underline break-all"
                 >
-                  github.com/{ex.repo}
+                  github.com/{repoForDomain(ex.domain)}
                 </a>
               </div>
             ))}

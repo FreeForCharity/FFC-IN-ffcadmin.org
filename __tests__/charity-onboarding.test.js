@@ -38,9 +38,10 @@ describe('Accept-invitation walkthrough page', () => {
       'savewatersaveplanet.org',
     ]) {
       expect(page).toContain(domain)
-      expect(page).toContain(`FreeForCharity/FFC-EX-${domain}`)
     }
-    expect(page).toContain('FFC-EX-')
+    // Repos are derived from the domain via repoForDomain() to avoid drift.
+    expect(page).toContain('FreeForCharity/FFC-EX-')
+    expect(page).toContain('repoForDomain')
   })
 
   it('warns about being signed in as the right account', () => {
