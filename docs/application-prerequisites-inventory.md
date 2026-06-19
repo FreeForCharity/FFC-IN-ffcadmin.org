@@ -10,7 +10,8 @@
 > founder-directed policy decisions** made while drafting it — specifically the
 > **Phase 0 baseline** (Section 8), the **three approved providers** (Section
 > 8a), **Microsoft Teams as the first install**, the **Chrome/Edge-only browser
-> policy**, and **LastPass** as the password manager. The new policies are **not
+> policy**, **LastPass** as the password manager, and the **GitHub-only
+> application flow** (Section 2). The new policies are **not
 > yet implemented in the rendered guides/site** (e.g. `src/data/setup-guides.ts`
 > still says "Google _or_ Microsoft Authenticator" and "LastPass _or_
 > Bitwarden"). New-policy items are tagged inline. **Implementing them is exactly
@@ -144,16 +145,16 @@ carries its own prerequisite expectations:
 These are the steps the applicant actively performs. They double as the first
 technical-competence signals.
 
-> **Current entry point:** the public application form at
-> `https://freeforcharity.org/submit-information/`, plus the track-specific
-> `/501c3` and `/pre501c3` pages. The **WHMCS portal product checkout**
-> (below, items 1–2) is the **legacy** Online Impacts-era mechanism; it is
-> retained here because parts of the back office still run on it, but new
-> applicants start at the web form.
+> **Application channel — moving to GitHub-only** _(new FFC policy)_. FFC is
+> moving to a **GitHub-only application flow**: the applicant applies through
+> **GitHub** using the **personal GitHub account** created in Phase 0 (Group D).
+> The legacy **WHMCS portal product checkout** is **retired** as an application
+> mechanism, and the freeforcharity.org web forms (`/submit-information`,
+> `/501c3`, `/pre501c3`) are informational landing pages that point into the
+> GitHub flow. This is exactly why a personal GitHub account is a Phase 0
+> requirement.
 
-1. _(Legacy)_ Create a **WHMCS portal account** and select the **"Charity
-   Onboarding & Validation" product** — or, in the current model, submit the
-   **public application form** (no cost).
+1. **Apply through GitHub** with your personal GitHub account (Phase 0, Group D).
 2. **Acknowledge the FFC Acceptable Use Policy (AUP).**
 3. _(501(c)(3) track)_ **Provide Candid/GuideStar profile links** (Public Profile
    - Full Profile).
@@ -163,7 +164,7 @@ technical-competence signals.
 5. **Designate primary + technical contacts**, including timezone and preferred
    contact hours.
 
-**Exit gate:** application submitted, intake form fully completed, AUP
+**Exit gate:** application submitted through GitHub, all fields completed, AUP
 acknowledged.
 
 ### Prerequisite materials the charity must have in hand
@@ -573,10 +574,12 @@ into the categories below.
   - _What:_ Your own GitHub account in your real name (e.g. `@FirstnameLastname`),
     MFA on. You add your charity email to it later — you do **not** create a
     separate "charity" login.
-  - _You:_ It's how you'll review and approve changes to your website; one
-    personal account works across every charity and role you hold.
-  - _FFC:_ We add your account to the charity's repository as a writer; a real,
-    secured personal identity keeps the contribution history accountable.
+  - _You:_ It is **how you apply** (FFC's application flow is GitHub-only — see
+    Section 2) and how you'll later review and approve changes to your website;
+    one personal account works across every charity and role you hold.
+  - _FFC:_ The application arrives through GitHub and we add your account to the
+    charity's repository as a writer; a real, secured personal identity keeps the
+    application and contribution history accountable.
 - **A personal LinkedIn profile — applicant and every board / planned-board
   member**
   - _What:_ A personal LinkedIn profile (real name, photo, headline, current
@@ -591,8 +594,7 @@ into the categories below.
     fake "charity person" account — Facebook removes those.)
   - _You:_ Required to create and administer the organization's Facebook Page.
   - _FFC:_ Keeps the eventual Page behind a real, secured human admin.
-- **A personal Canva account** _(role-based — anyone who will make design
-  materials)_
+- **A personal Canva account**
   - _What:_ Your own Canva account, MFA on; you later join the charity's Canva
     team.
   - _You:_ Access the charity's brand kit and templates to make on-brand graphics.
@@ -759,7 +761,7 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] My **personal LinkedIn** profile.
 - [ ] A **personal LinkedIn** profile for **each board / planned-board member**.
 - [ ] My **personal Facebook** account.
-- [ ] _(If making design materials)_ my **personal Canva** account.
+- [ ] My **personal Canva** account.
 - [ ] Each board / planned-board member has linked the charity under their
       LinkedIn **"Volunteering"** section (accepting the position & liability).
 
@@ -791,13 +793,14 @@ the application (the intake
 steps in Section 2) — and **this is where the two tracks diverge**, on **legal
 status and documentation**:
 
-|                  | **501(c)(3) track**                                                   | **pre-501(c)(3) track**                                                                                          |
-| ---------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Application form | `https://freeforcharity.org/501c3/`                                   | `https://freeforcharity.org/pre501c3/`                                                                           |
-| Legal status     | Already IRS-recognized; has EIN + **IRS determination letter**        | Not yet recognized; working **IRS Form 1023** + state nonprofit formation + charitable-solicitation registration |
-| Board            | **Seated** legal board (officers)                                     | **Planned** board members                                                                                        |
-| Transparency     | **Candid/GuideStar to Gold** (Form 990, financials); see Sections 3–4 | No 990 yet; GuideStar deferred until recognized                                                                  |
-| Extra accounts   | TechSoup, VolunteerMatch, PayPal emphasized                           | Deferred / as-available                                                                                          |
+|                | **501(c)(3) track**                                                   | **pre-501(c)(3) track**                                                                                          |
+| -------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Landing page   | `https://freeforcharity.org/501c3/`                                   | `https://freeforcharity.org/pre501c3/`                                                                           |
+| How you apply  | **GitHub-only flow** (see Section 2)                                  | **GitHub-only flow** (see Section 2)                                                                             |
+| Legal status   | Already IRS-recognized; has EIN + **IRS determination letter**        | Not yet recognized; working **IRS Form 1023** + state nonprofit formation + charitable-solicitation registration |
+| Board          | **Seated** legal board (officers)                                     | **Planned** board members                                                                                        |
+| Transparency   | **Candid/GuideStar to Gold** (Form 990, financials); see Sections 3–4 | No 990 yet; GuideStar deferred until recognized                                                                  |
+| Extra accounts | TechSoup, VolunteerMatch, PayPal emphasized                           | Deferred / as-available                                                                                          |
 
 After acceptance, FFC then provides the **services** (not prerequisites):
 organizational email on Microsoft 365 by default, domain + `info@` routing, and
