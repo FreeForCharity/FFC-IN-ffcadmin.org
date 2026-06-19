@@ -364,7 +364,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'The Page is a separate space your account administers; your personal posts stay private and separate. You can also add co-admins so you’re not the only person who can manage it.',
       },
     ],
-    related: ['linkedin', 'multi-factor-authentication', 'canva'],
+    related: ['instagram', 'linkedin', 'multi-factor-authentication', 'canva'],
   },
   {
     slug: 'microsoft-365-email',
@@ -1092,6 +1092,174 @@ export const SETUP_GUIDES: SetupGuide[] = [
     ],
     related: ['password-manager', 'multi-factor-authentication', 'passkeys', 'chrome'],
   },
+  {
+    slug: 'ai-assistant',
+    title: 'Set up your AI assistant',
+    shortTitle: 'AI assistant',
+    category: 'Tools',
+    icon: '🤖',
+    gradient: 'from-violet-600 to-fuchsia-700',
+    description:
+      'Pick and sign in to the AI assistant that matches your email — Gemini for Gmail/iCloud, Copilot for Outlook — then add Claude for deeper work, so you always have help walking through any step.',
+    keywords:
+      'AI assistant setup, Google Gemini, Microsoft Copilot, Claude, AI for nonprofits, AI help onboarding, Free For Charity AI assistant',
+    audience: 'Everyone — AI assistance is part of how FFC works',
+    estMinutes: 10,
+    intro: [
+      'FFC leans on AI assistants — they’re remarkably good at walking you through any step in plain language, at any hour. Being **willing to use one** is a Phase 0 requirement.',
+      'The required assistant **matches your email ecosystem**, so the one you need is already tied to an account you have.',
+    ],
+    principle: {
+      title: 'Use the assistant that matches your ecosystem',
+      body: 'If your email is Gmail or iCloud, your assistant is Google Gemini. If it’s Outlook.com, your assistant is Microsoft Copilot. For development and deeper writing work you’ll also use Claude. Matching the assistant to your ecosystem means one less account and an assistant that can already see the right context.',
+    },
+    steps: [
+      {
+        title: 'Pick the assistant for your email',
+        body: [
+          '**Gmail or iCloud →** use **Google Gemini** (gemini.google.com), signed in with your Google account.',
+          '**Outlook.com →** use **Microsoft Copilot** (copilot.microsoft.com), signed in with your Microsoft account.',
+          'Either one is free to start and works in your browser and as a phone app.',
+        ],
+      },
+      {
+        title: 'Sign in and secure it',
+        body: [
+          'Sign in with the matching account and make sure that account has **multi-factor authentication** on (see the MFA guide) — the assistant can see a lot, so protect the login behind it.',
+        ],
+      },
+      {
+        title: 'Add Claude for development work',
+        body: [
+          'For building and maintaining the charity’s website with an AI agent, you’ll also use **Claude**. See the **Dev Environment Setup** guide (ffcadmin.org/developer-environment-setup) for how FFC uses Claude, Codex, Gemini, or Copilot for code.',
+        ],
+        tip: 'Stuck on any FFC step? Your assistant is the fastest first answer — paste the step and ask it to explain.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Do I have to pay for an AI assistant?',
+        a: 'No — the matching assistant (Gemini or Copilot) has a capable free tier that’s plenty for onboarding. You can upgrade later if you want, but it isn’t required to apply or get started.',
+      },
+      {
+        q: 'Why does the assistant have to match my email?',
+        a: 'Because it’s already tied to an account you have (Gemini to Google, Copilot to Microsoft), so there’s nothing new to create, and it can work with your email and files in that ecosystem. Claude is added on top for development work.',
+      },
+    ],
+    related: ['microsoft-365-email', 'google-workspace', 'chrome'],
+  },
+  {
+    slug: 'google-voice',
+    title: 'Set up a public phone number (Google Voice)',
+    shortTitle: 'Google Voice',
+    category: 'Tools',
+    icon: '📞',
+    gradient: 'from-green-600 to-emerald-700',
+    description:
+      'Get a free Google Voice number to use as the charity’s public phone line — it rings to your own phone while keeping your personal number private.',
+    keywords:
+      'Google Voice setup, free public phone number, charity phone number, nonprofit phone, keep personal number private, Free For Charity Google Voice',
+    audience: 'Charity applicants who need a public phone number',
+    estMinutes: 15,
+    intro: [
+      'The charity needs a **public phone number**, and a free **Google Voice** number works well — it’s what the FFC founder uses.',
+      'It rings through to the phone you already carry, but keeps your **personal number private** and becomes the charity’s public-facing line.',
+    ],
+    principle: {
+      title: 'A public number that protects your personal one',
+      body: 'A Google Voice number is a free US phone number tied to your Google account. You give it out publicly (website, social profiles) instead of your personal cell, and it forwards calls and texts to your real phone — so you’re reachable without exposing your private number.',
+    },
+    steps: [
+      {
+        title: 'Get your Google Voice number',
+        body: [
+          'On a computer, go to **voice.google.com**, sign in with your Google account, and choose a **free US number** (search by area code). It’s tied to your account, so secure that account with MFA (see the MFA guide).',
+        ],
+      },
+      {
+        title: 'Set where it rings and record a greeting',
+        body: [
+          'Link your real mobile number so calls and texts **forward to your phone**, and record a short, professional voicemail greeting in the charity’s name.',
+          'Install the **Google Voice** app so you can make and answer calls/texts from the public number, keeping your personal number off the conversation.',
+        ],
+      },
+      {
+        title: 'Use it as the charity’s public line',
+        body: [
+          'Put the Google Voice number — not your personal cell — on the website, Google/social profiles, and anywhere the charity is listed publicly.',
+          'When others join the team later, you can share access or move to a Google Workspace Voice line; for now this one free number covers the public-phone requirement.',
+        ],
+        tip: 'Using a separate public number now means you never have to change “the charity’s number” later just because your personal situation changes.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is Google Voice really free?',
+        a: 'Yes — a personal Google Voice number is free in the US for calls and texts to US numbers. It’s available to US-based Google accounts.',
+      },
+      {
+        q: 'Can the team share this number later?',
+        a: 'For a small team you can simply forward or check it together. As the charity grows you can move to Google Workspace Voice (paid) or add the number to shared tools — but the free number meets the public-phone requirement to start.',
+      },
+    ],
+    related: ['microsoft-teams', 'password-manager', 'multi-factor-authentication'],
+  },
+  {
+    slug: 'instagram',
+    counterpart: 'instagram-organization',
+    title: 'Set up Instagram (you + your charity account)',
+    shortTitle: 'Instagram',
+    category: 'Social Presence',
+    icon: '📸',
+    gradient: 'from-pink-600 to-rose-700',
+    description:
+      'Create your personal Instagram account, turn on multi-factor authentication, then set up the charity’s account and link it to your Facebook Page — the same person-owns-the-account pattern as everywhere else.',
+    keywords:
+      'create Instagram account, Instagram nonprofit, Instagram professional account, Instagram 2FA, link Instagram Facebook page, Free For Charity Instagram',
+    audience: 'Volunteers and charity owners building the charity’s visual presence',
+    estMinutes: 20,
+    intro: [
+      'Instagram is part of the **Meta** family with Facebook, so it follows the same rule: **you** have a personal account, and the **charity** has its own account that real people manage.',
+      'Set up your personal account first, then create the charity’s account and connect it to the Facebook Page.',
+    ],
+    principle: {
+      title: 'Person first, then the charity account',
+      body: 'You sign up as yourself and secure it with MFA, then create the charity’s Instagram and switch it to a free **Professional account** linked to the Facebook Page. The accounts are run by real, MFA-secured people — never a shared anonymous login.',
+    },
+    steps: [
+      {
+        title: 'Create your personal account',
+        body: [
+          'Install **Instagram** from the app store and sign up with the email or phone tied to your device, using your real name.',
+        ],
+      },
+      {
+        ...MFA_STEP_SHARED,
+        body: [
+          'Go to **Settings → Accounts Center → Password and security → Two-factor authentication**, pick your account, and choose **Authentication app**.',
+          ...MFA_STEP_SHARED.body.slice(1),
+        ],
+      },
+      {
+        title: 'Create the charity’s account and make it Professional',
+        body: [
+          'Create a separate account for the charity (a clean handle in the charity’s name), then switch it to a **Professional account** (Settings → Account type) and choose a category like **Nonprofit Organization**.',
+          'Link it to the charity’s **Facebook Page** so you can manage both from Meta Business Suite and cross-post. Add the logo and a clear bio with your website.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Do I need a separate account for the charity?',
+        a: 'Yes — keep your personal account and create a separate one for the charity, switched to a free Professional account. They’re linked to the same Facebook Page and managed by real admins, but the charity’s posts stay separate from your personal life.',
+      },
+      {
+        q: 'Why link Instagram to the Facebook Page?',
+        a: 'Linking them lets you manage both in Meta Business Suite, schedule and cross-post, and (once you’re a 501(c)(3)) turn on Meta’s fundraising tools across both.',
+      },
+    ],
+    related: ['facebook', 'instagram-organization', 'canva'],
+  },
 
   // ────────────────────────────────────────────────────────────────────────
   // Organizational track — the charity/501(c)(3)-level setup of the same tools.
@@ -1217,7 +1385,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'Yes, once the charity is a verified 501(c)(3) you can enable Meta’s fundraising tools so people donate directly via the Page and campaigns.',
       },
     ],
-    related: ['facebook', 'linkedin-organization', 'canva-organization'],
+    related: ['facebook', 'instagram-organization', 'linkedin-organization', 'canva-organization'],
   },
   {
     slug: 'canva-organization',
@@ -1732,6 +1900,285 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
     ],
     related: ['password-manager', 'multi-factor-authentication', 'microsoft-365-organization'],
+  },
+  {
+    slug: 'instagram-organization',
+    track: 'organizational',
+    counterpart: 'instagram',
+    title: 'Run your charity’s Instagram',
+    shortTitle: 'Instagram (org)',
+    category: 'Social Presence',
+    icon: '📸',
+    gradient: 'from-pink-700 to-rose-800',
+    description:
+      'Operate the charity’s Instagram through Meta Business Suite alongside the Facebook Page: post on a cadence, read insights, and turn on nonprofit fundraising tools.',
+    keywords:
+      'Instagram nonprofit management, Meta Business Suite Instagram, Instagram insights, Instagram fundraising tools, charity Instagram strategy, Free For Charity Instagram org',
+    audience: 'Charity owners and the volunteer running the charity’s Instagram',
+    estMinutes: 15,
+    intro: [
+      'You created the charity’s Professional Instagram account in the personal guide and linked it to the Facebook Page. This guide is about **running** it well — through the same Meta Business Suite you use for Facebook.',
+    ],
+    principle: {
+      title: 'One Meta workspace for Facebook and Instagram',
+      body: 'Because the accounts are linked, Meta Business Suite manages both the Facebook Page and Instagram together — one place to schedule posts, reply to messages, see insights, and run fundraising. Treat them as one coordinated, on-brand presence.',
+    },
+    steps: [
+      {
+        title: 'Manage Instagram in Meta Business Suite',
+        body: [
+          'Open **business.facebook.com**, confirm the Instagram account is connected to the charity’s Facebook Page, and use Business Suite to post, schedule, and reply across both.',
+        ],
+      },
+      {
+        title: 'Post on a steady cadence from your brand kit',
+        body: [
+          'Use the charity’s **Canva** templates (see the Canva guides) for on-brand posts and stories, and schedule a regular rhythm. Review **Insights** to see what resonates.',
+        ],
+      },
+      {
+        title: 'Turn on nonprofit fundraising tools',
+        body: [
+          'Once the charity is recognized, enable Meta’s **charitable/fundraising tools** so supporters can donate through Instagram and Facebook campaigns.',
+        ],
+      },
+    ],
+    phaseNote: 'Instagram/Meta fundraising tools require verified 501(c)(3) status.',
+    faqs: [
+      {
+        q: 'Do I manage Instagram separately from Facebook?',
+        a: 'No — once linked, both live in Meta Business Suite, so you schedule, reply, and analyze them together rather than juggling two apps.',
+      },
+      {
+        q: 'Can supporters donate through Instagram?',
+        a: 'Yes, once the charity is a verified 501(c)(3) you can enable Meta’s fundraising tools, which work across Instagram and Facebook.',
+      },
+    ],
+    related: ['instagram', 'facebook-organization', 'canva-organization'],
+  },
+  {
+    slug: 'techsoup',
+    track: 'organizational',
+    title: 'Get validated on TechSoup',
+    shortTitle: 'TechSoup',
+    category: 'Tools',
+    icon: '🎟️',
+    gradient: 'from-orange-600 to-red-700',
+    description:
+      'Register and get your charity “Validated” on TechSoup — the one verification that unlocks donated and deeply discounted software, including QuickBooks Online, Microsoft 365, Google Workspace, and Canva.',
+    keywords:
+      'TechSoup validation, nonprofit software discounts, QuickBooks Online nonprofit, TechSoup register, donated software charity, Free For Charity TechSoup',
+    audience: 'Charity owners and admins (after IRS recognition)',
+    estMinutes: 25,
+    intro: [
+      'TechSoup is the **gateway to the nonprofit software stack**. It verifies your organization’s legal status once, and that **“Validated”** status is what unlocks donated and discounted tools across many vendors.',
+      'A primary benefit is **QuickBooks Online** for your books — and the same validation flows through to **Microsoft 365**, **Google Workspace**, and **Canva** for Nonprofits.',
+    ],
+    principle: {
+      title: 'One validation unlocks the whole stack',
+      body: 'Rather than proving your nonprofit status to each vendor separately, you validate once on TechSoup and use that confirmation (often a validation token) to claim each product. Get TechSoup done early — most of the charity’s software grants depend on it.',
+    },
+    steps: [
+      {
+        title: 'Create the organization’s TechSoup account',
+        body: [
+          'Go to **techsoup.org**, register your organization, and start the verification. You sign in as a real person representing the charity, the same person-not-entity pattern as everywhere else.',
+        ],
+      },
+      {
+        title: 'Submit for validation',
+        body: [
+          'Provide the charity’s **EIN** and supporting documents — your **IRS determination letter** (scan it from your shared drive; see the cloud-storage guides). TechSoup independently confirms you’re a legitimate 501(c)(3).',
+          'Validation isn’t instant — it can take a few business days. Watch your charity email for the result.',
+        ],
+      },
+      {
+        title: 'Claim your software',
+        body: [
+          'Once “Validated”, use your TechSoup status/token to claim products. Start with **QuickBooks Online** (a core benefit; see the QuickBooks guide), then **Microsoft 365**, **Google Workspace**, and **Canva** for Nonprofits via their org guides.',
+        ],
+        tip: 'Keep your TechSoup validation handy — many vendor nonprofit programs ask for it to confirm eligibility.',
+      },
+    ],
+    phaseNote:
+      'TechSoup validation requires IRS 501(c)(3) recognition (EIN + determination letter).',
+    faqs: [
+      {
+        q: 'What does TechSoup actually unlock?',
+        a: 'Donated and discounted software across many vendors. For FFC charities the highlights are QuickBooks Online for accounting, plus Microsoft 365, Google Workspace, and Canva — all of which use TechSoup or the same nonprofit-validation to confirm eligibility.',
+      },
+      {
+        q: 'How long does validation take?',
+        a: 'Usually a few business days while TechSoup independently confirms your legal status. Have your EIN and IRS determination letter ready (scanned in your shared drive) to avoid delays.',
+      },
+    ],
+    related: ['quickbooks-online', 'microsoft-365-organization', 'canva-organization'],
+  },
+  {
+    slug: 'quickbooks-online',
+    track: 'organizational',
+    title: 'Set up QuickBooks Online for your charity',
+    shortTitle: 'QuickBooks Online',
+    category: 'Tools',
+    icon: '📒',
+    gradient: 'from-green-700 to-emerald-800',
+    description:
+      'Get QuickBooks Online through TechSoup and set it up for nonprofit bookkeeping — a clean chart of accounts, fund tracking, and a connected bank feed so your books are audit-ready.',
+    keywords:
+      'QuickBooks Online nonprofit, nonprofit bookkeeping, fund accounting, QuickBooks TechSoup, chart of accounts charity, Free For Charity QuickBooks',
+    audience: 'Charity owners and treasurers/admins (after IRS recognition)',
+    estMinutes: 30,
+    intro: [
+      'QuickBooks Online is the charity’s **bookkeeping** home — and a primary benefit you get **through TechSoup** at the nonprofit rate.',
+      'Clean books from day one make your Form 990, board reporting, and Candid profile far easier later.',
+    ],
+    principle: {
+      title: 'Clean books from day one',
+      body: 'Set QuickBooks up for nonprofit accounting from the start — a sensible chart of accounts and fund/class tracking — so income and restricted funds are recorded correctly. Fixing messy books later is far harder than starting clean.',
+    },
+    steps: [
+      {
+        title: 'Claim QuickBooks Online via TechSoup',
+        body: [
+          'Get the nonprofit offer through **TechSoup** (see the TechSoup guide) rather than paying retail. Create the company using the charity’s name and email.',
+        ],
+      },
+      {
+        title: 'Configure it for a nonprofit',
+        body: [
+          'In settings, choose the **Nonprofit** profile so terminology and reports fit (donors, funds, statements). Set up a simple **chart of accounts** and use **classes/projects** to track restricted funds and programs.',
+        ],
+      },
+      {
+        title: 'Connect the bank and secure access',
+        body: [
+          'Connect the charity’s bank/credit accounts for an automatic transaction feed, and protect the QuickBooks login with **MFA** (see the MFA guide). Give each person the least access they need.',
+        ],
+        tip: 'Store statements and receipts in the charity’s shared drive (see the cloud-storage guides) so bookkeeping records are backed up and shareable.',
+      },
+    ],
+    phaseNote:
+      'The nonprofit QuickBooks Online offer comes through TechSoup, which requires 501(c)(3) status.',
+    faqs: [
+      {
+        q: 'How do I get the nonprofit price?',
+        a: 'Through TechSoup — QuickBooks Online is one of its primary benefits. Validate on TechSoup first (see that guide), then claim QuickBooks at the nonprofit rate instead of paying retail.',
+      },
+      {
+        q: 'Why QuickBooks Online instead of the desktop version?',
+        a: 'Online means your books are accessible to your treasurer and FFC from anywhere, backed up automatically, and easy to grant least-privilege access to — no single computer holds the only copy.',
+      },
+    ],
+    related: ['techsoup', 'microsoft-365-organization', 'cloud-storage-organization'],
+  },
+  {
+    slug: 'microsoft-clarity',
+    track: 'organizational',
+    title: 'Set up Microsoft Clarity (free website heatmaps)',
+    shortTitle: 'Microsoft Clarity',
+    category: 'Tools',
+    icon: '🔎',
+    gradient: 'from-sky-600 to-indigo-700',
+    description:
+      'Add Microsoft Clarity — a free, no-limits analytics tool — to the charity’s site to see heatmaps and session recordings of how visitors actually use it. Pairs with Google Analytics.',
+    keywords:
+      'Microsoft Clarity setup, website heatmaps, session recordings, free website analytics, nonprofit website analytics, Free For Charity Clarity',
+    audience: 'Charity owners and the volunteer maintaining the website',
+    estMinutes: 15,
+    intro: [
+      'Microsoft Clarity is **free for everyone** (no nonprofit gate, no traffic limits) and shows **heatmaps** and **session recordings** — where people click, scroll, and get stuck on the charity’s site.',
+      'It answers “**how** are people using the site,” complementing Google Analytics, which answers “**how many** and from where.”',
+    ],
+    principle: {
+      title: 'See what visitors actually do',
+      body: 'Clarity records anonymized sessions and aggregates them into heatmaps, so you can see real behavior — the donate button no one finds, the page everyone abandons — and fix it. It’s free and lightweight, so there’s no reason not to run it.',
+    },
+    steps: [
+      {
+        title: 'Create a Clarity project',
+        body: [
+          'Go to **clarity.microsoft.com**, sign in with the charity’s **Microsoft account**, and create a project for the website (enter the site name and URL).',
+        ],
+      },
+      {
+        title: 'Add the tracking code to the site',
+        body: [
+          'Clarity gives you a small tracking snippet. Add it to the charity’s site — FFC can install it for you, or follow the prompt if your site supports a direct integration.',
+        ],
+      },
+      {
+        title: 'Read heatmaps and recordings',
+        body: [
+          'After traffic comes in, review **heatmaps** and a few **session recordings** to spot friction, then make small improvements and watch the effect.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is Microsoft Clarity really free?',
+        a: 'Yes — Clarity is completely free with no traffic limits, for any organization. There’s no nonprofit application needed.',
+      },
+      {
+        q: 'How is Clarity different from Google Analytics?',
+        a: 'They’re complementary. Clarity shows behavior (heatmaps, recordings — the “how”); Google Analytics shows traffic and sources (the “how many” and “where from”). Run both for the full picture.',
+      },
+    ],
+    related: ['google-analytics', 'microsoft-365-organization'],
+  },
+  {
+    slug: 'google-analytics',
+    track: 'organizational',
+    title: 'Set up Google Analytics (GA4) for your charity site',
+    shortTitle: 'Google Analytics (GA4)',
+    category: 'Tools',
+    icon: '📈',
+    gradient: 'from-amber-600 to-orange-700',
+    description:
+      'Create a free Google Analytics 4 property and connect it to the charity’s website so you can measure visitors, traffic sources, and the actions that matter — the foundation of impact reporting.',
+    keywords:
+      'Google Analytics GA4 setup, nonprofit website analytics, measurement ID, key events, impact reporting, Free For Charity Google Analytics',
+    audience: 'Charity owners and the volunteer maintaining the website',
+    estMinutes: 20,
+    intro: [
+      'Google Analytics 4 (GA4) is the **free** standard for measuring website traffic — how many people visit, where they come from, and what they do.',
+      'It’s the foundation for the **impact reporting** behind FFC’s Data & Analytics work, and pairs with Microsoft Clarity’s behavior view.',
+    ],
+    principle: {
+      title: 'Measure what matters',
+      body: 'Set up GA4 to track the actions that show impact — donations, sign-ups, contact clicks — not just raw page views. Clear, free measurement turns the charity’s website into evidence you can show funders.',
+    },
+    steps: [
+      {
+        title: 'Create a GA4 property',
+        body: [
+          'Go to **analytics.google.com**, sign in with the charity’s **Google account**, and create an **Account** and a **GA4 property** for the website. Copy the **Measurement ID** (starts with G-).',
+        ],
+      },
+      {
+        title: 'Connect it to the site',
+        body: [
+          'Add the Measurement ID to the charity’s website so GA4 starts collecting data — FFC can wire this in for you. Use Google’s **Realtime** report to confirm it’s working.',
+        ],
+      },
+      {
+        title: 'Define key events and read reports',
+        body: [
+          'Mark the actions that matter (e.g. donate, contact, volunteer sign-up) as **key events**, then check the **Reports** for traffic, sources, and those events over time.',
+        ],
+        tip: 'Pair GA4 (how many / where from) with Microsoft Clarity (how they behave) for the full picture of your site.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is Google Analytics free?',
+        a: 'Yes — GA4 is free for the vast majority of nonprofit sites. (Separately, Google for Nonprofits offers the Ad Grant, which does require 501(c)(3) status, but GA4 itself doesn’t.)',
+      },
+      {
+        q: 'GA4 or Microsoft Clarity — which do I need?',
+        a: 'Both. GA4 measures traffic and conversions; Clarity shows on-page behavior via heatmaps and recordings. They answer different questions, so FFC sites typically run both.',
+      },
+    ],
+    related: ['microsoft-clarity', 'google-workspace-organization'],
   },
 ]
 
