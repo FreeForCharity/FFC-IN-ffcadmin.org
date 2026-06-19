@@ -195,9 +195,9 @@ account.
 > **Policy note.** The three-provider rule below is a **founder-directed policy
 > set while drafting this document** — treat it as the **intended policy, pending
 > implementation**, not as existing repo guidance. It is **not yet reflected in
-> `src/data/setup-guides.ts`** (which labels itself the "single source of truth"
-> and currently allows **either** Google or Microsoft Authenticator and **either**
-> LastPass or Bitwarden). Implementing this policy means **updating those rendered
+> `src/data/setup-guides.ts`** (whose header comment calls it the "single source
+> of truth" for the setup guides, and which currently allows **either** Google or
+> Microsoft Authenticator and **either** LastPass or Bitwarden). Implementing this policy means **updating those rendered
 > guides** (a tracked action in Open Questions); until that change ships, the live
 > guides still show the older options.
 
@@ -551,7 +551,8 @@ into the categories below.
     unreachable person.
 - **Up-front acknowledgment of the FFC Acceptable Use Policy**
   - _What:_ Read and **accept the FFC AUP** and the "credit FFC" expectation
-    before any work begins.
+    before any work begins. _(Link **TBD** — there is no AUP page in this repo
+    yet; publishing/linking it is tracked in Open Questions §B.)_
   - _You:_ You know exactly what's expected (and that the service is free) before
     investing time.
   - _FFC:_ Consent and expectations recorded before volunteer effort is committed.
@@ -703,25 +704,37 @@ acknowledged.
 (From the onboarding playbook — "missing prereqs are the single biggest source
 of stuck onboardings.")
 
-- IRS 501(c)(3) determination letter
+**Both tracks:**
+
 - EIN (Employer Identification Number)
 - **Applicant's personal LinkedIn profile** (required for every applicant)
 - Board member names, titles, contact info, **personal LinkedIn profiles**, and
-  bios — for the **pre-501(c)(3) track**, supply the personal LinkedIn profiles
-  of the **planned board members**
+  bios — for the **pre-501(c)(3) track**, supply these for the **planned board
+  members**
 - **Organization Facebook Page and LinkedIn Page** the applicant created
   themselves (see the social-page litmus test in Purpose)
 - Mission statement
-- Most recent Form 990
-- Annual report (if available)
 - Programs and services list
-- Financial statements (past 2 years)
 - Current operating budget
-- Strategic plan (if available)
-- Current website URL
+- Current website URL (if any)
 - Social media links
 - High-resolution logo files
-- Brand guidelines
+- Brand guidelines (if any)
+
+**501(c)(3) track only:**
+
+- IRS 501(c)(3) determination letter
+- Most recent Form 990
+- Annual report (if available)
+- Financial statements (past 2 years)
+- Strategic plan (if available)
+
+**Pre-501(c)(3) track instead:**
+
+- Articles of incorporation / state nonprofit formation documents (if filed)
+- IRS Form 1023 status (filed, in progress, or planned)
+- Charitable-solicitation registration status (if applicable)
+- Planned board roster (names + planned roles)
 
 ---
 
@@ -932,4 +945,5 @@ top-of-document disclaimer).
   LinkedIn profiles) be promoted into the formal Section 5a validation checks,
   given they are now hard requirements on both tracks?
 - Should **AUP acknowledgment** and a **conflict-of-interest / data-handling**
-  agreement be explicit prerequisite line items?
+  agreement be explicit prerequisite line items? **There is no AUP page in this
+  repo yet** — it needs to be written/published and linked from the prerequisite.
