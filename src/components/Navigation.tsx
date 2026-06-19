@@ -4,13 +4,7 @@ import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { assetPath } from '@/lib/assetPath'
-import {
-  volunteerDropdown,
-  trainingDropdown,
-  operateDropdown,
-  resourcesDropdown,
-  type NavDropdown,
-} from '@/data/navigation'
+import { NAV_MENUS, menuItems, type NavMenu } from '@/data/navigation'
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -25,8 +19,7 @@ export default function Navigation() {
     return pathname === href || pathname.startsWith(href + '/')
   }
 
-  const isDropdownActive = (dropdown: NavDropdown) =>
-    dropdown.items.some((item) => isActive(item.href))
+  const isDropdownActive = (menu: NavMenu) => menuItems(menu).some((item) => isActive(item.href))
 
   const linkClass = (href: string) =>
     isActive(href)
@@ -113,75 +106,93 @@ export default function Navigation() {
     </svg>
   )
 
-  const desktopDropdown = (dropdown: NavDropdown) => (
+  const desktopDropdown = (menu: NavMenu) => (
     <div
-      key={dropdown.id}
+      key={menu.id}
       className="relative"
-      onMouseEnter={() => handleDropdownMouseEnter(dropdown.id)}
+      onMouseEnter={() => handleDropdownMouseEnter(menu.id)}
       onMouseLeave={handleDropdownMouseLeave}
     >
       <button
         type="button"
-        id={`${dropdown.id}-dropdown-button`}
-        className={`${isDropdownActive(dropdown) ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
-        aria-expanded={openDropdown === dropdown.id}
+        id={`${menu.id}-dropdown-button`}
+        className={`${isDropdownActive(menu) ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
+        aria-expanded={openDropdown === menu.id}
         aria-haspopup="true"
-        aria-controls={`${dropdown.id}-dropdown-menu`}
-        onClick={() => setOpenDropdown(openDropdown === dropdown.id ? null : dropdown.id)}
+        aria-controls={`${menu.id}-dropdown-menu`}
+        onClick={() => setOpenDropdown(openDropdown === menu.id ? null : menu.id)}
       >
-        {dropdown.label}
-        {chevronSvg(openDropdown === dropdown.id)}
+        {menu.label}
+        {chevronSvg(openDropdown === menu.id)}
       </button>
-      {openDropdown === dropdown.id && (
+      {openDropdown === menu.id && (
         <div
-          id={`${dropdown.id}-dropdown-menu`}
+          id={`${menu.id}-dropdown-menu`}
           role="menu"
-          aria-labelledby={`${dropdown.id}-dropdown-button`}
-          className="absolute left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+          aria-labelledby={`${menu.id}-dropdown-button`}
+          className="absolute left-1/2 -translate-x-1/2 mt-2 w-[40rem] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 grid grid-cols-2 gap-x-6 gap-y-1"
         >
-          {dropdown.items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              role="menuitem"
-              className="block px-4 py-3 hover:bg-blue-50 transition-colors"
-              onClick={() => setOpenDropdown(null)}
-            >
-              <p className="text-sm font-semibold text-gray-900">{item.label}</p>
-              <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>
-            </Link>
+          {menu.sections.map((section) => (
+            <div key={section.heading} role="none">
+              <p className="px-3 pt-2 pb-1 text-xs font-bold uppercase tracking-wider text-gray-400">
+                {section.heading}
+              </p>
+              {section.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  role="menuitem"
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                  className={`block rounded-md px-3 py-2 transition-colors hover:bg-blue-50 ${
+                    isActive(item.href) ? 'bg-blue-50' : ''
+                  }`}
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  <p className="text-sm font-semibold text-gray-900">{item.label}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>
+                </Link>
+              ))}
+            </div>
           ))}
         </div>
       )}
     </div>
   )
 
-  const mobileDropdown = (dropdown: NavDropdown) => (
-    <div key={dropdown.id}>
+  const mobileDropdown = (menu: NavMenu) => (
+    <div key={menu.id}>
       <button
         type="button"
-        className={`${isDropdownActive(dropdown) ? 'text-blue-600 font-bold bg-blue-50' : 'hover:bg-gray-50 hover:text-blue-600'} w-full text-left px-3 py-2 rounded-md transition-colors inline-flex items-center justify-between`}
-        onClick={() => toggleMobileAccordion(dropdown.id)}
-        aria-expanded={mobileAccordions.has(dropdown.id)}
-        aria-controls={`mobile-${dropdown.id}-panel`}
+        className={`${isDropdownActive(menu) ? 'text-blue-600 font-bold bg-blue-50' : 'hover:bg-gray-50 hover:text-blue-600'} w-full text-left px-3 py-2 rounded-md transition-colors inline-flex items-center justify-between`}
+        onClick={() => toggleMobileAccordion(menu.id)}
+        aria-expanded={mobileAccordions.has(menu.id)}
+        aria-controls={`mobile-${menu.id}-panel`}
       >
-        {dropdown.label}
-        {chevronSvg(mobileAccordions.has(dropdown.id))}
+        {menu.label}
+        {chevronSvg(mobileAccordions.has(menu.id))}
       </button>
-      {mobileAccordions.has(dropdown.id) && (
+      {mobileAccordions.has(menu.id) && (
         <div
-          id={`mobile-${dropdown.id}-panel`}
+          id={`mobile-${menu.id}-panel`}
           className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-2"
         >
-          {dropdown.items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block px-3 py-2 rounded-md text-sm hover:bg-gray-50 hover:text-blue-600 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {item.label}
-            </Link>
+          {menu.sections.map((section) => (
+            <div key={section.heading}>
+              <p className="px-3 pt-2 pb-0.5 text-xs font-bold uppercase tracking-wider text-gray-400">
+                {section.heading}
+              </p>
+              {section.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                  className="block px-3 py-2 rounded-md text-sm hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           ))}
         </div>
       )}
@@ -215,8 +226,6 @@ export default function Navigation() {
               Home
             </Link>
 
-            {desktopDropdown(volunteerDropdown)}
-
             <Link
               href="/site-owner"
               aria-current={isActive('/site-owner') ? 'page' : undefined}
@@ -227,12 +236,10 @@ export default function Navigation() {
               <span aria-hidden="true" className="mr-1.5">
                 🌱
               </span>
-              Edit My Site
+              Manage My Site
             </Link>
 
-            {desktopDropdown(trainingDropdown)}
-            {desktopDropdown(operateDropdown)}
-            {desktopDropdown(resourcesDropdown)}
+            {NAV_MENUS.map((menu) => desktopDropdown(menu))}
 
             <a
               href="https://freeforcharity.org/"
@@ -299,20 +306,16 @@ export default function Navigation() {
               Home
             </Link>
 
-            {mobileDropdown(volunteerDropdown)}
-
             <Link
               href="/site-owner"
               aria-current={isActive('/site-owner') ? 'page' : undefined}
               className="block rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 px-3 py-2 my-1 text-center font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              <span aria-hidden="true">🌱 </span>Edit My Site
+              <span aria-hidden="true">🌱 </span>Manage My Site
             </Link>
 
-            {mobileDropdown(trainingDropdown)}
-            {mobileDropdown(operateDropdown)}
-            {mobileDropdown(resourcesDropdown)}
+            {NAV_MENUS.map((menu) => mobileDropdown(menu))}
 
             <a
               href="https://freeforcharity.org/"
