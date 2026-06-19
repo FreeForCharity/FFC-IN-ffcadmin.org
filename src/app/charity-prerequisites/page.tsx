@@ -17,7 +17,7 @@ const VALUE = [
   {
     icon: '🌐',
     title: 'A free domain',
-    body: 'Your own yourcharity.org, registered and managed for you.',
+    body: 'A domain of your own (for example, yourcharity.org), registered and managed for you.',
   },
   {
     icon: '✉️',
