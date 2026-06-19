@@ -55,11 +55,17 @@ export default function Footer() {
                   className="block hover:opacity-80 transition-opacity mb-3"
                   aria-label="View Free For Charity's GuideStar Platinum Transparency Profile"
                 >
+                  {/* External Candid (GuideStar) Transparency Seal — served directly as
+                      an SVG by GuideStar's widget host, so it is intentionally a plain
+                      <img> rather than next/image. The /TransparencySeal/<orgId> endpoint
+                      returns the current seal image; gximage2 returns a script, not an image. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="https://widgets.guidestar.org/gximage2?o=9159614&l=v4"
-                    alt=""
+                    src="https://widgets.guidestar.org/TransparencySeal/9326392"
+                    alt="Candid (GuideStar) Platinum Transparency Seal"
                     width={150}
                     height={150}
+                    loading="lazy"
                     className="h-auto max-w-[150px]"
                   />
                 </a>

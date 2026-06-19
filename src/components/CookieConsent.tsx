@@ -79,7 +79,7 @@ export default function CookieConsent() {
         // Invalid data, show banner again
         if (showBannerIfMissing) setShowBanner(true)
       }
-    } catch (error) {
+    } catch {
       // If localStorage is unavailable or data is corrupted, show banner
       if (showBannerIfMissing) setShowBanner(true)
     }

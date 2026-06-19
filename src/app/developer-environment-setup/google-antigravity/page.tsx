@@ -4,6 +4,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import PromptBox from '@/components/PromptBox'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/developer-environment-setup/google-antigravity/' },
   title: 'Google Antigravity Setup',
   description:
     "Set up Google Antigravity, Google's agent-first IDE, for Free For Charity website development. Install it, sign in with a Google account, connect GitHub, and enable the Playwright and GitHub MCP servers so the AI agent can open issues, make PRs, and merge changes.",

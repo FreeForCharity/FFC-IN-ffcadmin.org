@@ -9,7 +9,7 @@ describe('NonprofitCallout', () => {
 
   test('renders the description text', () => {
     render(<NonprofitCallout />)
-    expect(screen.getByText(/FFC provides free websites and domain management/)).toBeInTheDocument()
+    expect(screen.getByText(/FFC provides a free domain, professional email/)).toBeInTheDocument()
   })
 
   test('has a link to freeforcharity.org', () => {
@@ -18,5 +18,11 @@ describe('NonprofitCallout', () => {
     expect(link).toHaveAttribute('href', 'https://freeforcharity.org')
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+  })
+
+  test('links to the charity prerequisites path', () => {
+    render(<NonprofitCallout />)
+    const link = screen.getByRole('link', { name: /see what to prepare/i })
+    expect(link).toHaveAttribute('href', '/charity-prerequisites')
   })
 })

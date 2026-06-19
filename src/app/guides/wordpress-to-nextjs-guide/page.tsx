@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/guides/wordpress-to-nextjs-guide/' },
   title: 'WordPress to Next.js Conversion Guide',
   description:
     'Step-by-step guide for FFC volunteers to convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages. Covers content audit, export, CI/CD, testing, and DNS cutover.',

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/cookie-policy/' },
   title: 'Cookie Policy',
   description:
     'Cookie Policy for ffcadmin.org. Details on necessary, analytics, and marketing cookies and how to manage your preferences.',

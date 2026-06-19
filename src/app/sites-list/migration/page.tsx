@@ -3,6 +3,7 @@ import { loadSites, dataRefreshedAge } from '../sitesData'
 import { PersonaView } from '../PersonaView'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/sites-list/migration/' },
   title: 'Migration Priority — Sites',
   description: 'Live FFC sites on legacy hosting, ranked for migration to GitHub Pages.',
 }

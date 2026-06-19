@@ -3,6 +3,7 @@ import { loadSites, dataRefreshedAge } from '../sitesData'
 import { PersonaView } from '../PersonaView'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/sites-list/maintenance/' },
   title: 'Maintenance Priority — Sites',
   description: 'Live FFC production sites ranked for ongoing maintenance and monitoring.',
 }

@@ -8,6 +8,7 @@ import SitesExplorer from './SitesExplorer'
 import { loadSites, dataRefreshedAge, dataGeneratedAt, dataIsStale } from './sitesData'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/sites-list/' },
   title: 'Sites Master List',
   description:
     'Volunteer-focused dashboard of FFC-managed domains, grouped by how much effort they need — active development, stalled, needs migration, done, triage, and inactive.',

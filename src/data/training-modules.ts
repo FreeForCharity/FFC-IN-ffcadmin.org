@@ -57,6 +57,12 @@ export type LearningPath = {
   /** Where this role's track page lives. */
   href: string
   certifications?: string[]
+  /**
+   * Slugs of personal setup guides (from src/data/setup-guides.ts) a volunteer
+   * should complete before starting this track. Rendered as a "Before you start"
+   * section that links to the standalone /guides/<slug> pages.
+   */
+  prerequisiteGuides?: string[]
   entries: PathEntry[]
 }
 
@@ -751,6 +757,13 @@ export const LEARNING_PATHS: LearningPath[] = [
     icon: '🌱',
     gradient: 'from-emerald-500 via-teal-500 to-cyan-600',
     href: '/site-owner/training',
+    prerequisiteGuides: [
+      'github-account',
+      'multi-factor-authentication',
+      'password-manager',
+      'ai-assistant',
+      'microsoft-365-email',
+    ],
     entries: [
       { moduleId: 'accounts-access', tier: 'T1' },
       { moduleId: 'building-with-ai', tier: 'T1' },
@@ -772,6 +785,13 @@ export const LEARNING_PATHS: LearningPath[] = [
     icon: '💻',
     gradient: 'from-blue-500 to-indigo-600',
     href: '/training/web-developer',
+    prerequisiteGuides: [
+      'github-account',
+      'multi-factor-authentication',
+      'password-manager',
+      'ai-assistant',
+      'chrome',
+    ],
     entries: [
       { moduleId: 'accounts-access', tier: 'T2' },
       { moduleId: 'building-with-ai', tier: 'T2' },
@@ -794,6 +814,13 @@ export const LEARNING_PATHS: LearningPath[] = [
     gradient: 'from-teal-500 to-emerald-600',
     href: '/training-plan',
     certifications: ['MS-900 (Microsoft 365 Fundamentals)', 'GitHub Foundations'],
+    prerequisiteGuides: [
+      'github-account',
+      'multi-factor-authentication',
+      'password-manager',
+      'ai-assistant',
+      'microsoft-365-email',
+    ],
     entries: [
       { moduleId: 'accounts-access', tier: 'T3' },
       { moduleId: 'email-m365', tier: 'T3' },
@@ -815,6 +842,13 @@ export const LEARNING_PATHS: LearningPath[] = [
     gradient: 'from-amber-500 to-orange-600',
     href: '/training/google-workspace-admin',
     certifications: ['Google Workspace Administrator'],
+    prerequisiteGuides: [
+      'github-account',
+      'multi-factor-authentication',
+      'password-manager',
+      'ai-assistant',
+      'google-workspace',
+    ],
     entries: [
       { moduleId: 'google-workspace', tier: 'T3' },
       { moduleId: 'accounts-access', tier: 'T2' },
@@ -834,6 +868,12 @@ export const LEARNING_PATHS: LearningPath[] = [
     gradient: 'from-violet-500 to-purple-600',
     href: '/training/data-analytics',
     certifications: ['Google Analytics (GA4)'],
+    prerequisiteGuides: [
+      'github-account',
+      'multi-factor-authentication',
+      'password-manager',
+      'ai-assistant',
+    ],
     entries: [
       { moduleId: 'analytics-seo', tier: 'T3' },
       { moduleId: 'data-reporting', tier: 'T3' },
@@ -852,6 +892,13 @@ export const LEARNING_PATHS: LearningPath[] = [
     gradient: 'from-orange-500 to-amber-500',
     href: '/canva-designer-path',
     certifications: ['Canva Design School'],
+    prerequisiteGuides: [
+      'github-account',
+      'multi-factor-authentication',
+      'password-manager',
+      'ai-assistant',
+      'canva',
+    ],
     entries: [
       { moduleId: 'brand-design', tier: 'T3' },
       { moduleId: 'accounts-access', tier: 'T1' },
@@ -867,4 +914,9 @@ export function getModule(id: string): TrainingModule | undefined {
 
 export function getPath(id: string): LearningPath | undefined {
   return LEARNING_PATHS.find((p) => p.id === id)
+}
+
+/** Learning paths that list the given setup-guide slug as a prerequisite. */
+export function getPathsForPrerequisite(slug: string): LearningPath[] {
+  return LEARNING_PATHS.filter((p) => p.prerequisiteGuides?.includes(slug))
 }

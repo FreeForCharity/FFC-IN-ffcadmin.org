@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/developer-environment-setup/' },
   title: 'Developer Environment Setup',
   description:
     'Start developing for Free For Charity with the AI agent of your choice — Claude, OpenAI Codex, Google Gemini, or GitHub Copilot. The easiest path is your AI’s native desktop app; advanced developers move into VS Code or Google Antigravity. New here? We recommend Claude Pro with Claude Desktop and Claude Mobile.',
@@ -217,6 +218,53 @@ export default function DeveloperEnvironmentSetupPage() {
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* Standalone + track framing, and prerequisite accounts */}
+        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8 border-l-4 border-blue-500">
+          <h2 className="text-lg font-bold text-gray-900">
+            A standalone guide that’s also part of a track
+          </h2>
+          <p className="text-sm text-gray-600 mt-1">
+            You can follow this on its own to set up a development environment — for your own work
+            or for a charity. It’s also the environment behind the{' '}
+            <Link
+              href="/training/web-developer"
+              className="text-blue-700 underline hover:text-blue-900"
+            >
+              Web Developer track
+            </Link>
+            , so if you’re training for that role, this is your toolchain step.
+          </p>
+          <p className="text-sm font-semibold text-gray-900 mt-4 mb-2">
+            Set up these personal accounts first:
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { slug: 'github-account', label: '🐙 GitHub account' },
+              { slug: 'multi-factor-authentication', label: '🔐 Multi-factor authentication' },
+              { slug: 'ai-assistant', label: '🤖 AI assistant' },
+            ].map((g) => (
+              <Link
+                key={g.slug}
+                href={`/guides/${g.slug}`}
+                className="inline-flex items-center rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-800 hover:bg-blue-50 transition-colors"
+              >
+                {g.label}
+              </Link>
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-gray-500">
+            Use your <strong>personal</strong> AI assistant here and max it out before the charity
+            pays for organizational AI — see the{' '}
+            <Link
+              href="/guides/ai-assistant-organization"
+              className="text-blue-700 underline hover:text-blue-900"
+            >
+              organizational AI guide
+            </Link>{' '}
+            for when to upgrade.
+          </p>
         </div>
 
         {/* Step 1: Start with your AI */}

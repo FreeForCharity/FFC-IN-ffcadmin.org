@@ -211,6 +211,9 @@ export default function Navigation() {
             href="/"
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
           >
+            {/* Plain <img> with assetPath: required for GitHub Pages basePath builds
+                (next/image does not apply assetPrefix in this static export). */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={assetPath('/Images/hero-logo.png')}
               alt="Free For Charity Logo"

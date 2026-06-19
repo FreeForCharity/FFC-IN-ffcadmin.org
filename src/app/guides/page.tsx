@@ -2,9 +2,10 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { guides as baseGuides } from '@/data/guides'
-import { SETUP_GUIDES } from '@/data/setup-guides'
+import { PERSONAL_GUIDES, ORGANIZATIONAL_GUIDES, type SetupGuide } from '@/data/setup-guides'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/guides/' },
   title: 'Technical Guides',
   description:
     'Step-by-step technical walkthroughs for Free For Charity operations. Data migrations, platform configurations, and operational procedures.',
@@ -83,6 +84,32 @@ const guides = baseGuides.map((guide) => ({
   ...guideDisplayProps[guide.href],
 }))
 
+/** A grid of setup-guide cards (shared by the Personal and Organizational sections). */
+function SetupGuideGrid({ guides }: { guides: SetupGuide[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {guides.map((g) => (
+        <Link
+          key={g.slug}
+          href={`/guides/${g.slug}`}
+          className="group block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg hover:border-gray-300 transition-all"
+        >
+          <div className="flex items-center gap-3 mb-1">
+            <span className="text-2xl" aria-hidden="true">
+              {g.icon}
+            </span>
+            <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-700">
+              {g.shortTitle}
+            </h3>
+          </div>
+          <p className="text-xs uppercase tracking-wide text-gray-400 mb-1">{g.category}</p>
+          <p className="text-sm text-gray-600">{g.description}</p>
+        </Link>
+      ))}
+    </div>
+  )
+}
+
 export default function GuidesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -152,31 +179,68 @@ export default function GuidesPage() {
       <section className="pb-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Account &amp; Tool Setup</h2>
-          <p className="text-gray-600 mb-6 max-w-3xl text-sm">
+          <p className="text-gray-600 mb-8 max-w-3xl text-sm">
             Brand-new? Start here. Plain-language, every-step-spelled-out guides for the accounts
             you need as a volunteer or charity owner — built around one idea: your accounts are{' '}
             <strong>you, the person</strong>, secured with multi-factor authentication, with your
-            work email added on top.
+            work email added on top. Each tool has a <strong>personal</strong> setup and, where it
+            applies, a matching <strong>organizational</strong> setup for the charity.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {SETUP_GUIDES.map((g) => (
-              <Link
-                key={g.slug}
-                href={`/guides/${g.slug}`}
-                className="group block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg hover:border-gray-300 transition-all"
-              >
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-2xl" aria-hidden="true">
-                    {g.icon}
-                  </span>
-                  <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-700">
-                    {g.shortTitle}
-                  </h3>
-                </div>
-                <p className="text-xs uppercase tracking-wide text-gray-400 mb-1">{g.category}</p>
-                <p className="text-sm text-gray-600">{g.description}</p>
-              </Link>
-            ))}
+
+          <h3 className="text-lg font-bold text-gray-900 mb-1">Personal setup</h3>
+          <p className="text-gray-600 mb-4 max-w-3xl text-sm">
+            Set these up as yourself — the individual accounts every volunteer and applicant needs.
+          </p>
+          <SetupGuideGrid guides={PERSONAL_GUIDES} />
+
+          <h3 className="text-lg font-bold text-gray-900 mt-10 mb-1">Organizational setup</h3>
+          <p className="text-gray-600 mb-4 max-w-3xl text-sm">
+            The charity-level setup of the same tools — done once the organization exists (some
+            steps require 501(c)(3) recognition).
+          </p>
+          <SetupGuideGrid guides={ORGANIZATIONAL_GUIDES} />
+
+          {/* Where these lead — cross-links to tracks and the dev environment */}
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/training"
+              className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-5 hover:shadow-lg hover:border-gray-300 transition-all"
+            >
+              <span className="text-2xl" aria-hidden="true">
+                🎓
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-base font-bold text-gray-900 group-hover:text-blue-700">
+                  Ready to volunteer? Pick a training track
+                </span>
+                <span className="block text-sm text-gray-600">
+                  These accounts are the prerequisites for every role — Site Owner, Web Developer,
+                  admins, and designer.
+                </span>
+              </span>
+              <span className="text-gray-300 group-hover:text-blue-600" aria-hidden="true">
+                →
+              </span>
+            </Link>
+            <Link
+              href="/developer-environment-setup"
+              className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-5 hover:shadow-lg hover:border-gray-300 transition-all"
+            >
+              <span className="text-2xl" aria-hidden="true">
+                💻
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-base font-bold text-gray-900 group-hover:text-blue-700">
+                  Building websites? Set up your dev environment
+                </span>
+                <span className="block text-sm text-gray-600">
+                  Develop with the AI agent of your choice — Claude, Codex, Gemini, or Copilot.
+                </span>
+              </span>
+              <span className="text-gray-300 group-hover:text-blue-600" aria-hidden="true">
+                →
+              </span>
+            </Link>
           </div>
         </div>
       </section>

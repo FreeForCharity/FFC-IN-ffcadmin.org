@@ -1,4 +1,6 @@
 import { TRAINING_MODULES, LEARNING_PATHS, getModule, getPath } from '../src/data/training-modules'
+import { getSetupGuide } from '../src/data/setup-guides'
+import { VOLUNTEER_ROLES } from '../src/data/volunteer-roles'
 
 describe('Training modules data model', () => {
   it('has unique module ids', () => {
@@ -31,6 +33,23 @@ describe('Training modules data model', () => {
         expect(mod).toBeDefined()
         expect(mod?.tiers[entry.tier]).toBeDefined()
       }
+    }
+  })
+
+  it('every prerequisiteGuides slug resolves to a real personal-track setup guide', () => {
+    for (const path of LEARNING_PATHS) {
+      for (const slug of path.prerequisiteGuides ?? []) {
+        const guide = getSetupGuide(slug)
+        expect(guide).toBeDefined()
+        // Prerequisites are individual setup, so they must be personal-track.
+        expect(guide?.track === 'organizational').toBe(false)
+      }
+    }
+  })
+
+  it('every volunteer-role pathId resolves to a learning path', () => {
+    for (const role of VOLUNTEER_ROLES) {
+      if (role.pathId) expect(getPath(role.pathId)).toBeDefined()
     }
   })
 

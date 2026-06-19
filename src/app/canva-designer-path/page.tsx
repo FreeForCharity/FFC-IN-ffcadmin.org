@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import TrackPrerequisites from '@/components/TrackPrerequisites'
 import DesignerChecklist from './components/DesignerChecklist'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/canva-designer-path/' },
   title: 'Canva Designer Learning Path',
   description:
     'Volunteer training path for Canva designers. Learn brand kit creation, social media templates, and nonprofit design strategies with Canva Pro.',
@@ -50,6 +52,9 @@ export default function CanvaDesignerPath() {
       <DesignerChecklist />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Before you start — personal account setup */}
+        <TrackPrerequisites pathId="designer" accent="amber" />
+
         {/* Executive Summary */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <div className="border-l-4 border-pink-600 pl-6 mb-6">

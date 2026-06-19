@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/guides/zeffy-member-data-migration/' },
   title: 'Zeffy Member Data Migration Guide',
   description:
     'Step-by-step guide for migrating nonprofit membership data into Zeffy CRM. Covers Zeffy CSV import format, payment history migration, contact deduplication, and data cleanup using Claude AI. 2,094 records migrated successfully.',

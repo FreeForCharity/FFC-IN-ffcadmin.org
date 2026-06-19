@@ -17,6 +17,12 @@ export interface VolunteerRole {
   /** Where the "start" CTA points (a training track or the dev-env hub). */
   startHref: string
   startLabel: string
+  /**
+   * LearningPath id (src/data/training-modules.ts) this role maps to, used to
+   * surface the same "Before you start" account prerequisites as the track.
+   * Omitted for cross-role entries (e.g. military) that span every track.
+   */
+  pathId?: string
   gradient: string
   icon: string
 }
@@ -37,6 +43,7 @@ export const VOLUNTEER_ROLES: VolunteerRole[] = [
       'Help charity owners hand off to self-service editing',
     ],
     startHref: '/training/web-developer',
+    pathId: 'web-developer',
     startLabel: 'Start the Web Developer track',
     gradient: 'from-blue-500 to-indigo-600',
     icon: '💻',
@@ -56,6 +63,7 @@ export const VOLUNTEER_ROLES: VolunteerRole[] = [
       'Earn MS-900 (FFC sponsors the exam)',
     ],
     startHref: '/training-plan',
+    pathId: 'global-admin',
     startLabel: 'Start the Microsoft 365 Administrator track',
     gradient: 'from-teal-500 to-emerald-600',
     icon: '🛡️',
@@ -75,6 +83,7 @@ export const VOLUNTEER_ROLES: VolunteerRole[] = [
       'Coordinate with the analytics and web roles',
     ],
     startHref: '/training/google-workspace-admin',
+    pathId: 'google-workspace-admin',
     startLabel: 'Start the Google Workspace track',
     gradient: 'from-amber-500 to-orange-600',
     icon: '🗂️',
@@ -94,6 +103,7 @@ export const VOLUNTEER_ROLES: VolunteerRole[] = [
       'Partner with web developers during site builds',
     ],
     startHref: '/training/data-analytics',
+    pathId: 'data-analytics',
     startLabel: 'Start the Data & Analytics track',
     gradient: 'from-violet-500 to-purple-600',
     icon: '📈',
@@ -113,6 +123,7 @@ export const VOLUNTEER_ROLES: VolunteerRole[] = [
       'Complete Canva Design School courses',
     ],
     startHref: '/canva-designer-path',
+    pathId: 'designer',
     startLabel: 'Start the Designer path',
     gradient: 'from-orange-500 to-amber-500',
     icon: '🎨',

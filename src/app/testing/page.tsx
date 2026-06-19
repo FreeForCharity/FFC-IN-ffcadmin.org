@@ -5,6 +5,7 @@ import CiStatusBadge from '@/components/CiStatusBadge'
 import { loadCiStatus } from '@/lib/dashboardData'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/testing/' },
   title: 'Test Documentation',
   description:
     'Testing documentation for the FFC admin portal: Jest, Playwright, accessibility, Lighthouse CI, and security scanning across 17 test suites.',

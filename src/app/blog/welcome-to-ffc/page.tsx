@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/blog/welcome-to-ffc/' },
   title: 'Welcome to Free For Charity',
   description:
     'Learn how Free For Charity trains volunteers to build free websites for 501(c)(3) nonprofits — and how you can get involved.',

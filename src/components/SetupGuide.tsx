@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import { getSetupGuide, type SetupGuide } from '@/data/setup-guides'
+import { getPathsForPrerequisite } from '@/data/training-modules'
 
 /** Render inline **bold** segments without dangerouslySetInnerHTML. */
 function emphasize(text: string, keyPrefix: string) {
@@ -32,6 +33,10 @@ export default function SetupGuide({ guide }: { guide: SetupGuide }) {
     .map((slug) => getSetupGuide(slug))
     .filter((g): g is SetupGuide => Boolean(g))
 
+  const isOrg = guide.track === 'organizational'
+  const counterpart = guide.counterpart ? getSetupGuide(guide.counterpart) : undefined
+  const tracks = getPathsForPrerequisite(guide.slug)
+
   return (
     <div className="min-h-screen bg-gray-50">
       {faqJsonLd && (
@@ -58,12 +63,51 @@ export default function SetupGuide({ guide }: { guide: SetupGuide }) {
             <h1 className="text-3xl md:text-4xl font-bold">{guide.title}</h1>
           </div>
           <p className="text-white/90 text-sm">
+            <span className="inline-block rounded-full bg-white/20 px-2 py-0.5 font-semibold uppercase tracking-wide text-xs mr-2">
+              {isOrg ? 'Organizational' : 'Personal'} setup
+            </span>
             {guide.category} · about {guide.estMinutes} min · {guide.audience}
           </p>
         </div>
       </div>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Counterpart track switcher */}
+        {counterpart && (
+          <Link
+            href={`/guides/${counterpart.slug}`}
+            className="group mb-6 flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md hover:border-gray-300 transition-all"
+          >
+            <span className="text-2xl" aria-hidden="true">
+              {counterpart.icon}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-xs uppercase tracking-wide text-gray-400">
+                {isOrg
+                  ? 'Looking for the personal version?'
+                  : 'Setting this up for your organization?'}
+              </span>
+              <span className="block text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+                {counterpart.title}
+              </span>
+            </span>
+            <span
+              className="text-gray-300 group-hover:text-blue-600 transition-colors"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </Link>
+        )}
+
+        {/* Phase note (organizational dependencies) */}
+        {guide.phaseNote && (
+          <p className="mb-6 text-sm bg-violet-50 border border-violet-200 text-violet-900 rounded p-3">
+            <span aria-hidden="true">🗓️ </span>
+            {emphasize(guide.phaseNote, 'phase')}
+          </p>
+        )}
+
         {/* Intro */}
         <div className="space-y-3 mb-8">
           {guide.intro.map((p, i) => (
@@ -155,12 +199,57 @@ export default function SetupGuide({ guide }: { guide: SetupGuide }) {
                 <Link
                   key={g.slug}
                   href={`/guides/${g.slug}`}
-                  className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 hover:shadow-md transition-shadow"
+                  className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 hover:shadow-md hover:border-gray-300 transition-all"
                 >
                   <span className="text-2xl" aria-hidden="true">
                     {g.icon}
                   </span>
-                  <span className="text-sm font-semibold text-gray-900">{g.shortTitle}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+                      {g.shortTitle}
+                    </span>
+                    <span className="block text-xs uppercase tracking-wide text-gray-400">
+                      {g.category}
+                    </span>
+                  </span>
+                  <span
+                    className="text-gray-300 group-hover:text-blue-600 transition-colors"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Where you'll use this — training tracks that require this account */}
+        {tracks.length > 0 && (
+          <section className="mt-10 bg-indigo-50 border border-indigo-200 rounded-xl p-6">
+            <h2 className="text-lg font-bold text-indigo-900 mb-1">Where you’ll use this</h2>
+            <p className="text-sm text-indigo-900/80 mb-4">
+              This account is a starting point for these volunteer training tracks:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {tracks.map((t) => (
+                <Link
+                  key={t.id}
+                  href={t.href}
+                  className="group flex items-center gap-3 rounded-lg border border-indigo-200 bg-white p-3 hover:shadow-md transition-all"
+                >
+                  <span className="text-2xl" aria-hidden="true">
+                    {t.icon}
+                  </span>
+                  <span className="min-w-0 flex-1 text-sm font-semibold text-gray-900 group-hover:text-indigo-700">
+                    {t.title} track
+                  </span>
+                  <span
+                    className="text-indigo-300 group-hover:text-indigo-600 transition-colors"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                 </Link>
               ))}
             </div>

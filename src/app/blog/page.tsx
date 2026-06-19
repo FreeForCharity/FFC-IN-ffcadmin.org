@@ -4,6 +4,7 @@ import { blogPosts } from '@/data/blog'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/blog/' },
   title: 'Blog',
   description:
     'News, volunteer spotlights, and stories from Free For Charity. Learn about our mission to build free websites for nonprofits.',

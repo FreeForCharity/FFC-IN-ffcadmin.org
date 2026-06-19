@@ -4,6 +4,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import PromptBox from '@/components/PromptBox'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/developer-environment-setup/vscode/' },
   title: 'VS Code Setup',
   description:
     'Set up Microsoft VS Code for Free For Charity website development. Install it, sign in with GitHub Copilot agent mode, connect GitHub, and enable the GitHub and Playwright MCP servers so the AI agent can open issues, make PRs, and merge changes.',

@@ -47,6 +47,12 @@ export const volunteerMenu: NavMenu = {
           description: 'Ways to volunteer with FFC and how to start.',
         },
         {
+          label: 'Account & Tool Setup',
+          href: '/guides',
+          description:
+            'Set up the accounts every role needs — GitHub, MFA, AI assistant, and more.',
+        },
+        {
           label: 'Volunteer Roles',
           href: '/volunteer',
           description: 'Web dev, Microsoft 365 / Google Workspace admin, data, design, military.',
@@ -173,6 +179,12 @@ export const operateMenu: NavMenu = {
           label: 'What FFC Delivers',
           href: '/what-ffc-delivers',
           description: 'What’s included when FFC builds a charity’s website.',
+        },
+        {
+          label: 'Charity Prerequisites',
+          href: '/charity-prerequisites',
+          description:
+            'Start here if you run a charity: eligibility, accounts to set up, how to apply.',
         },
       ],
     },

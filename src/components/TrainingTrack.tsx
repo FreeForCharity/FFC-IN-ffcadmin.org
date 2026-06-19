@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getModule, getPath, TIER_LABELS, type Tier } from '@/data/training-modules'
+import TrackPrerequisites from '@/components/TrackPrerequisites'
 
 const ACCENTS = {
   teal: { check: 'text-teal-600', hover: 'hover:bg-teal-50', heading: 'group-hover:text-teal-700' },
@@ -54,6 +55,9 @@ export default function TrainingTrack({
 
   return (
     <>
+      {/* Before you start — personal account setup (links to the standalone guides) */}
+      <TrackPrerequisites pathId={pathId} accent={accent} />
+
       {/* What you're responsible for */}
       <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-10">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">What you&apos;re responsible for</h2>

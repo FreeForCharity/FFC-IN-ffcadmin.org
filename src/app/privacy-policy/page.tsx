@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/privacy-policy/' },
   title: 'Privacy Policy',
   description:
     'Privacy Policy for ffcadmin.org. How we collect, use, and protect your data. GDPR and CCPA/CPRA compliant.',

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/blog/day-in-the-life-global-admin/' },
   title: 'A Day in the Life of an FFC Global Admin',
   description:
     'What does an FFC Global Administrator actually do? Walk through a typical day of managing Microsoft 365, GitHub, and Cloudflare for nonprofits.',

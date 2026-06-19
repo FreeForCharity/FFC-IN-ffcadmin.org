@@ -386,6 +386,33 @@ export default function SiteOwnerPage() {
             with this one repository.
           </div>
 
+          <div className="bg-blue-50 border-l-4 border-blue-500 rounded p-4 mb-6 text-sm text-blue-900">
+            <strong>Want a dedicated, every-step guide for each account?</strong> The{' '}
+            <Link href="/guides" className="underline font-semibold hover:text-blue-700">
+              Account &amp; Tool Setup guides
+            </Link>{' '}
+            walk through{' '}
+            <Link href="/guides/github-account" className="underline hover:text-blue-700">
+              GitHub
+            </Link>
+            ,{' '}
+            <Link
+              href="/guides/multi-factor-authentication"
+              className="underline hover:text-blue-700"
+            >
+              multi-factor authentication
+            </Link>
+            , a{' '}
+            <Link href="/guides/password-manager" className="underline hover:text-blue-700">
+              password manager
+            </Link>
+            , and your{' '}
+            <Link href="/guides/ai-assistant" className="underline hover:text-blue-700">
+              AI assistant
+            </Link>{' '}
+            — the same accounts every FFC volunteer uses.
+          </div>
+
           <ol className="space-y-5">
             <li className="flex items-start">
               <span className="flex-shrink-0 w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold mr-4">

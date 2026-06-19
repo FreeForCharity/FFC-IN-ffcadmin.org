@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { assetPath } from '@/lib/assetPath'
 import NonprofitCallout from '@/components/NonprofitCallout'
+import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
+import { getPath } from '@/data/training-modules'
 
 export default function Home() {
   return (
@@ -72,6 +74,9 @@ export default function Home() {
 
             <div className="flex-1 flex justify-center md:justify-end">
               <div className="relative w-64 h-64 md:w-96 md:h-96 bg-white rounded-full p-6 shadow-2xl animate-fade-in flex items-center justify-center">
+                {/* Plain <img> with assetPath: required for GitHub Pages basePath builds
+                    (next/image does not apply assetPrefix in this static export). */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={assetPath('/Images/figma-hero-img.webp')}
                   alt="Free For Charity Icon"
@@ -143,7 +148,40 @@ export default function Home() {
               Pick the path that fits you — each one leads straight to the right starting point.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Charity applicant */}
+            <Link
+              href="/charity-prerequisites"
+              className="group block rounded-xl border-2 border-indigo-200 bg-indigo-50 p-6 hover:border-indigo-400 hover:shadow-lg transition-all"
+            >
+              <span className="text-3xl" aria-hidden="true">
+                🏛️
+              </span>
+              <h3 className="text-lg font-bold text-indigo-900 mt-3 mb-1">
+                I run a charity and want FFC&apos;s help
+              </h3>
+              <p className="text-sm text-indigo-900/80 mb-3">
+                Free domain, email, and website — see what to prepare and how to apply.
+              </p>
+              <span className="inline-flex items-center text-sm font-semibold text-indigo-700 group-hover:text-indigo-900">
+                See charity prerequisites
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </Link>
+
             {/* Charity site owner */}
             <Link
               href="/site-owner"
@@ -555,46 +593,16 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              {
-                title: 'Microsoft 365 Administrator',
-                blurb:
-                  'Run email, identity, MFA, and security for charities. Earn MS-900 + GitHub Foundations.',
-                href: '/training-plan',
-                icon: '🛡️',
-                cert: 'MS-900 · GitHub Foundations',
-              },
-              {
-                title: 'Google Workspace Administrator',
-                blurb:
-                  'Manage accounts, groups, shared drives, and security for charities that run on Google.',
-                href: '/training/google-workspace-admin',
-                icon: '🗂️',
-                cert: 'Google Workspace Administrator',
-              },
-              {
-                title: 'Web Developer',
-                blurb:
-                  'Build and maintain charity sites with an AI agent — Issue → PR → merge, no heavy setup.',
-                href: '/training/web-developer',
-                icon: '💻',
-                cert: 'Self-paced, project-based',
-              },
-              {
-                title: 'Data & Analytics',
-                blurb:
-                  'Set up GA4, build impact dashboards, and turn charity data into clear reporting.',
-                href: '/training/data-analytics',
-                icon: '📈',
-                cert: 'Google Analytics certification',
-              },
-              {
-                title: 'Canva Designer',
-                blurb:
-                  'Design brand kits, social templates, and marketing materials with Canva Pro.',
-                href: '/canva-designer-path',
-                icon: '🎨',
-                cert: 'Canva Design School',
-              },
+              // Driven from the shared volunteer-role data (single source of truth);
+              // certifications come from the matching training path.
+              ...VOLUNTEER_ROLES.filter((r) => r.pathId).map((r) => ({
+                title: r.title.replace(' Volunteer', ''),
+                blurb: r.tagline,
+                href: r.startHref,
+                icon: r.icon,
+                cert:
+                  getPath(r.pathId!)?.certifications?.join(' · ') ?? 'Self-paced, project-based',
+              })),
               {
                 title: 'See all training tracks',
                 blurb:
