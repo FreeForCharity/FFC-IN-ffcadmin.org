@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/developer-environment-setup/' },
   title: 'Developer Environment Setup',
   description:
     'Start developing for Free For Charity with the AI agent of your choice — Claude, OpenAI Codex, Google Gemini, or GitHub Copilot. The easiest path is your AI’s native desktop app; advanced developers move into VS Code or Google Antigravity. New here? We recommend Claude Pro with Claude Desktop and Claude Mobile.',

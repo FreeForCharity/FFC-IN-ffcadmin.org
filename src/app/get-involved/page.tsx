@@ -4,6 +4,7 @@ import NonprofitCallout from '@/components/NonprofitCallout'
 import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/get-involved/' },
   title: 'Get Involved',
   description:
     'Join Free For Charity as a volunteer. Choose your track: Web Developer, Microsoft 365 Administrator, Google Workspace Admin, Data & Analytics, or Canva Designer — or just edit your own charity’s FFC website. Start building and make an impact.',

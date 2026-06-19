@@ -5,6 +5,7 @@ import { ViewNav } from '../PersonaView'
 import { loadSites, healthBadge, healthCategory, dataGeneratedAt } from '../sitesData'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/sites-list/summary/' },
   title: 'Ops Summary — Sites',
   description:
     'One-page operational summary of FFC-managed sites: tier counts, problem sites, and upcoming domain expirations. Print-friendly.',

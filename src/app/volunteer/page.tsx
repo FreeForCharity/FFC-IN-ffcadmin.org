@@ -4,6 +4,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/volunteer/' },
   title: 'Volunteer with Free For Charity',
   description:
     'Volunteer your web development, IT, or design skills to build free websites for 501(c)(3) nonprofits. No experience required — we provide free training and certifications.',

@@ -95,7 +95,7 @@ function GuideChips({ slugs }: { slugs: string[] }) {
           href={`/guides/${g.slug}`}
           className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 hover:shadow-md hover:border-gray-300 transition-all"
         >
-          <span className="text-2xl" role="img" aria-label={g.shortTitle}>
+          <span className="text-2xl" aria-hidden="true">
             {g.icon}
           </span>
           <span className="min-w-0 flex-1 text-sm font-semibold text-gray-900 group-hover:text-blue-700">

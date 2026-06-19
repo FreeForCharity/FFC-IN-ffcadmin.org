@@ -4,6 +4,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import PromptBox from '@/components/PromptBox'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/developer-environment-setup/claude-desktop/' },
   title: 'Claude Desktop Setup',
   description:
     'The easiest way to start developing for Free For Charity: Claude Desktop (and Claude Mobile) at the Pro level. Connect GitHub via MCP and run the full issue → PR → merge loop with no local build tools required. Our recommended starting point for new developers.',

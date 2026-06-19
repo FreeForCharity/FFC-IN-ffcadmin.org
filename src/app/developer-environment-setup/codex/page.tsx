@@ -4,6 +4,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import PromptBox from '@/components/PromptBox'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/developer-environment-setup/codex/' },
   title: 'OpenAI Codex Setup',
   description:
     'Set up OpenAI Codex for Free For Charity development. Sign in with your ChatGPT Plus or Pro account, connect GitHub, add the GitHub and Playwright MCP servers, and run the issue → PR → merge loop. Best if you already pay for ChatGPT.',

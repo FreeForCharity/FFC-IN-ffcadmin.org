@@ -5,6 +5,7 @@ import { guides as baseGuides } from '@/data/guides'
 import { PERSONAL_GUIDES, ORGANIZATIONAL_GUIDES, type SetupGuide } from '@/data/setup-guides'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/guides/' },
   title: 'Technical Guides',
   description:
     'Step-by-step technical walkthroughs for Free For Charity operations. Data migrations, platform configurations, and operational procedures.',

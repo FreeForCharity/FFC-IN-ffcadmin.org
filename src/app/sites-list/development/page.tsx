@@ -3,6 +3,7 @@ import { loadSites, dataRefreshedAge } from '../sitesData'
 import { PersonaView } from '../PersonaView'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/sites-list/development/' },
   title: 'Development Priority — Sites',
   description: 'New builds and redesigns in progress, ranked for developer volunteers.',
 }

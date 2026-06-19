@@ -3,6 +3,7 @@ import NonprofitCallout from '@/components/NonprofitCallout'
 import DocSearch from './DocSearch'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/documentation/' },
   title: 'Documentation',
   description:
     'Searchable index of FFC documentation and runbooks: onboarding, escalation, deployment, security, code quality, and more. Everything you need to contribute and operate.',

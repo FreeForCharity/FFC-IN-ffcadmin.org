@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/contributor-ladder/' },
   title: 'Contributor Ladder',
   description:
     'Progress from Contributor to Maintainer. Our structured contributor ladder shows you how to grow your skills and impact as a Free For Charity volunteer.',

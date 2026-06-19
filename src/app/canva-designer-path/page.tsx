@@ -4,6 +4,7 @@ import TrackPrerequisites from '@/components/TrackPrerequisites'
 import DesignerChecklist from './components/DesignerChecklist'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://ffcadmin.org/canva-designer-path/' },
   title: 'Canva Designer Learning Path',
   description:
     'Volunteer training path for Canva designers. Learn brand kit creation, social media templates, and nonprofit design strategies with Canva Pro.',

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { assetPath } from '@/lib/assetPath'
 import NonprofitCallout from '@/components/NonprofitCallout'
+import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
+import { getPath } from '@/data/training-modules'
 
 export default function Home() {
   return (
@@ -588,46 +590,16 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              {
-                title: 'Microsoft 365 Administrator',
-                blurb:
-                  'Run email, identity, MFA, and security for charities. Earn MS-900 + GitHub Foundations.',
-                href: '/training-plan',
-                icon: '🛡️',
-                cert: 'MS-900 · GitHub Foundations',
-              },
-              {
-                title: 'Google Workspace Administrator',
-                blurb:
-                  'Manage accounts, groups, shared drives, and security for charities that run on Google.',
-                href: '/training/google-workspace-admin',
-                icon: '🗂️',
-                cert: 'Google Workspace Administrator',
-              },
-              {
-                title: 'Web Developer',
-                blurb:
-                  'Build and maintain charity sites with an AI agent — Issue → PR → merge, no heavy setup.',
-                href: '/training/web-developer',
-                icon: '💻',
-                cert: 'Self-paced, project-based',
-              },
-              {
-                title: 'Data & Analytics',
-                blurb:
-                  'Set up GA4, build impact dashboards, and turn charity data into clear reporting.',
-                href: '/training/data-analytics',
-                icon: '📈',
-                cert: 'Google Analytics certification',
-              },
-              {
-                title: 'Canva Designer',
-                blurb:
-                  'Design brand kits, social templates, and marketing materials with Canva Pro.',
-                href: '/canva-designer-path',
-                icon: '🎨',
-                cert: 'Canva Design School',
-              },
+              // Driven from the shared volunteer-role data (single source of truth);
+              // certifications come from the matching training path.
+              ...VOLUNTEER_ROLES.filter((r) => r.pathId).map((r) => ({
+                title: r.title.replace(' Volunteer', ''),
+                blurb: r.tagline,
+                href: r.startHref,
+                icon: r.icon,
+                cert:
+                  getPath(r.pathId!)?.certifications?.join(' · ') ?? 'Self-paced, project-based',
+              })),
               {
                 title: 'See all training tracks',
                 blurb:
