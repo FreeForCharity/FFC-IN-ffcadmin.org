@@ -277,6 +277,14 @@ sides. If any item is missing, the applicant **cannot proceed** and should be
 routed to **Contact us for help** (offered at every step). The items are grouped
 into the categories below.
 
+> **Mixed status:** Phase 0 combines **existing guidance** (e.g. the GitHub, MFA,
+> LinkedIn, Facebook, password-manager, and Canva setup guides already in
+> `src/data/setup-guides.ts`) with **new founder-directed policy** items that are
+> **pending implementation** (the three-provider rule, Microsoft Teams as the
+> first install, Chrome/Edge-only, passkeys, and the Idealist/Candid/Taproot and
+> cloud-storage requirements). New-policy items are tagged inline; don't read the
+> whole list as already-shipped guidance.
+
 #### Group A — Devices & connectivity (the hardware floor)
 
 - **A smartphone you own — app-capable and on a supported OS**
@@ -770,7 +778,10 @@ All checks must resolve to a **documented pass or documented exception** before
 an offer is made. These run **after the applicant submits** (Section 3), and
 several simply **confirm that Phase 0 prerequisites were completed** — e.g.
 check 4 (verified Facebook page) and check 1 (Candid) verify work the applicant
-already did in the Phase 0 ladder.
+already did in the Phase 0 ladder. **On the pre-501(c)(3) track**, the checks
+that depend on 501(c)(3) status — GuideStar **Gold**, Form 990, and TechSoup —
+are **deferred or recorded as documented exceptions** rather than applied
+uniformly (see Section 4).
 
 > **Note on stage numbering:** the source pages disagree on the exact number.
 > `wordpress-service-delivery-stages` calls validation **Stage 2** of the
