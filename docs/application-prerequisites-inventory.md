@@ -394,8 +394,9 @@ ecosystem the charity will actually use:
    MFA.
 2. **Microsoft Authenticator** — required because the charity runs **Microsoft
    365 Enterprise**, which requires it for MFA.
-3. **LastPass** — required as the **password manager** (and LastPass Authenticator
-   for MFA).
+3. **LastPass** — required as the **password manager**. (LastPass has a built-in
+   authenticator feature, but day-to-day MFA uses the Google or Microsoft app
+   above — LastPass is **not** a fourth tool.)
 
 Under this policy:
 
@@ -575,8 +576,7 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
     - _What:_ A willingness to use AI assistants, which have become **remarkably
       good at walking people through complex technical steps — even the free
       versions.** The **required first assistant depends on your primary email**:
-      - Primary email is **Gmail or iCloud → Google Gemini is required** (Apple
-        now includes Gemini).
+      - Primary email is **Gmail or iCloud → Google Gemini is required**.
       - Primary email is **Outlook.com → Microsoft Copilot is required**.
       - Once you've mastered that first assistant, **Claude** is the recommended
         next tool.
@@ -585,6 +585,61 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
       guide you through almost every step in this flow and ongoing maintenance.
     - _Why it benefits FFC:_ The self-service maintenance model depends on it;
       confident AI users need far less hands-on volunteer support.
+
+16. **A supported, up-to-date mobile operating system**
+    - _What:_ An iPhone or Android still **receiving OS/security updates** (not an
+      abandoned, end-of-life device).
+    - _Why it benefits you:_ The authenticator apps, Teams, and Outlook/LinkedIn
+      apps keep working and stay secure.
+    - _Why it benefits FFC:_ An unsupported phone is a security hole that
+      undermines the MFA we rely on.
+
+17. **A calendar app (Google Calendar or Outlook Calendar)**
+    - _What:_ A working calendar on the phone/computer.
+    - _Why it benefits you:_ You can schedule and keep onboarding and training
+      sessions.
+    - _Why it benefits FFC:_ We can book time with you reliably instead of chasing
+      scheduling by email.
+
+18. **A documents app (Microsoft Word or Google Docs)**
+    - _What:_ The ability to write and share documents.
+    - _Why it benefits you:_ Draft your mission statement, board bios, and page/
+      site content in an editable form.
+    - _Why it benefits FFC:_ Content arrives editable, so we can help refine and
+      publish it quickly.
+
+19. **A secondary recovery email / backup contact**
+    - _What:_ A second email address (or a second trusted person's address) usable
+      for account recovery.
+    - _Why it benefits you:_ A lost device or inaccessible primary email never
+      means permanent lockout.
+    - _Why it benefits FFC:_ A fallback channel if the primary contact goes dark,
+      so accounts don't become orphaned.
+
+20. **A public organization phone number (e.g., free Google Voice)**
+    - _What:_ A phone number for the organization — a free **Google Voice** number
+      works — that can be listed publicly.
+    - _Why it benefits you:_ A professional, listed contact number without exposing
+      anyone's personal cell.
+    - _Why it benefits FFC:_ Satisfies the contact number GuideStar and public
+      listings expect.
+
+21. **A drafted mission statement**
+    - _What:_ A short written mission statement for the organization.
+    - _Why it benefits you:_ It's needed for the LinkedIn/Facebook About sections,
+      GuideStar, and the site — write it once, reuse it everywhere.
+    - _Why it benefits FFC:_ Validation and page setup go faster when the mission
+      is already articulated.
+
+22. **A settled organization name, checked on Cloudflare**
+    - _What:_ Decide the organization's exact name and **check the matching `.org`
+      availability at cloudflare.com**, which offers a domain name-checking
+      service.
+    - _Why it benefits you:_ Consistent naming across your pages, email, and
+      domain, with no rework later.
+    - _Why it benefits FFC:_ FFC uses **Cloudflare for secure provisioning of
+      domain names once we purchase them**, so checking there now matches where the
+      domain will actually live.
 
 > **Verification (light-touch):** we do not formally audit each item — **having
 > installed the required apps is the proof.** The **first mandatory install is
@@ -662,7 +717,8 @@ If you get stuck on any item, use **Contact us for help**.
 
 **Baseline (mandatory floor):**
 
-- [ ] I have a **smartphone** that can install apps (not just a tablet/desktop).
+- [ ] I have a **smartphone** that can install apps (not just a tablet/desktop),
+      on a **supported, up-to-date OS**.
 - [ ] It has a **US-based mobile phone number** that can send/receive texts.
 - [ ] I have a **desktop/laptop I can install software on** (admin rights), still
       getting **OS updates**, with **8 GB+ RAM**.
@@ -671,6 +727,8 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] **Microsoft Teams** installed on my computer **and** phone (first install).
 - [ ] A working **webcam + microphone** (on the computer or phone).
 - [ ] **Google Drive or Microsoft OneDrive** set up, and I can **scan documents**.
+- [ ] A **calendar app** and a **documents app** (Word/Google Docs).
+- [ ] A **secondary recovery email** / backup contact.
 - [ ] I'm **willing to use AI tools** — the required one matches my email
       (Gmail/iCloud → **Gemini**; Outlook.com → **Copilot**), then Claude.
 - [ ] I've set aside **dedicated time** to finish the ladder and maintain the site.
@@ -690,9 +748,14 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] Each board / planned-board member has linked the charity under their
       LinkedIn **"Volunteering"** section (accepting the position & liability).
 
+**Organization basics:**
+
+- [ ] Our **organization name** is settled and the `.org` **checked on Cloudflare**.
+- [ ] A **drafted mission statement**.
+- [ ] A **public org phone number** (e.g., Google Voice).
+
 **Organization pages (the hard gate — required before applying):**
 
-- [ ] Our **organization name** is settled (and the matching `.org` checked).
 - [ ] Our **organization LinkedIn Page** (with a backup admin).
 - [ ] Our **organization Facebook Page** (with a backup admin).
 
@@ -714,7 +777,7 @@ status and documentation**:
 
 |                  | **501(c)(3) track**                                                   | **pre-501(c)(3) track**                                                                                          |
 | ---------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Application form | `freeforcharity.org/501c3`                                            | `freeforcharity.org/pre501c3`                                                                                    |
+| Application form | `https://freeforcharity.org/501c3/`                                   | `https://freeforcharity.org/pre501c3/`                                                                           |
 | Legal status     | Already IRS-recognized; has EIN + **IRS determination letter**        | Not yet recognized; working **IRS Form 1023** + state nonprofit formation + charitable-solicitation registration |
 | Board            | **Seated** legal board (officers)                                     | **Planned** board members                                                                                        |
 | Transparency     | **Candid/GuideStar to Gold** (Form 990, financials); see Sections 3–4 | No 990 yet; GuideStar deferred until recognized                                                                  |
