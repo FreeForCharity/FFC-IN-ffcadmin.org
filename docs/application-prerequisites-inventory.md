@@ -24,6 +24,22 @@ charities demonstrate readiness through the validation steps before
 service-delivery resources commit, protecting volunteer time and ensuring every
 shipped site lands at a charity that can run it.
 
+### The social-page litmus test (technical-readiness gate)
+
+> **Emphasis:** An applicant must be able to **create a Facebook Page and a
+> LinkedIn Page for the organization themselves.** This is deliberate. Creating
+> these pages is a highly structured, well-documented, free task — there is an
+> _extreme_ amount of step-by-step guidance, official tutorials, and walk-through
+> resources publicly available for both platforms. If an applicant cannot
+> complete a task this scaffolded, it is **unlikely they will be successful
+> operating the more advanced digital infrastructure** FFC delivers (a website,
+> Microsoft 365, DNS/email, analytics, etc.).
+>
+> FFC therefore treats self-service creation of these two organization pages as a
+> baseline competency gate, not just a marketing nicety. The same expectation
+> applies to the **pre-501(c)(3) track** — the organization Facebook and LinkedIn
+> pages are required there as well.
+
 ## Where this lives in the codebase
 
 | Topic                                    | Source                                                                                 |
@@ -45,10 +61,26 @@ these generally results in a polite decline rather than a fix-and-retry.
 1. **US-based charity** with a **US-citizen point of contact**. (International
    charities are politely declined — US-only restriction.)
 2. **501(c)(3) status active** — or on the **pre-501(c)(3) track** for
-   organizations not yet recognized.
+   organizations not yet recognized (see Section 1a; this track has its own
+   application form on freeforcharity.org).
 3. **At minimum a Gold Candid (GuideStar) seal** (see Section 4).
 4. **Priority criterion:** revenue **under $1M** and **not federally
    grant-funded**. (Drives prioritization/offer, not an absolute bar.)
+
+### 1a. The pre-501(c)(3) track
+
+Organizations that are not yet IRS-recognized 501(c)(3)s can still apply through
+a **separate pre-501(c)(3) application form on freeforcharity.org**. The track
+carries its own prerequisite expectations:
+
+- The organization **Facebook Page and LinkedIn Page must still be created** (see
+  the social-page litmus test above) — these are not waived for pre-501(c)(3)
+  applicants.
+- Because there is not yet a confirmed board, the applicant supplies the
+  **personal LinkedIn profiles of the planned board members** in place of a
+  seated board roster.
+- The applicant's **own personal LinkedIn profile** is required (this applies to
+  every applicant — see Section 2).
 
 ---
 
@@ -77,7 +109,12 @@ of stuck onboardings.")
 
 - IRS 501(c)(3) determination letter
 - EIN (Employer Identification Number)
-- Board member names, titles, contact info, LinkedIn profiles, and bios
+- **Applicant's personal LinkedIn profile** (required for every applicant)
+- Board member names, titles, contact info, **personal LinkedIn profiles**, and
+  bios — for the **pre-501(c)(3) track**, supply the personal LinkedIn profiles
+  of the **planned board members**
+- **Organization Facebook Page and LinkedIn Page** the applicant created
+  themselves (see the social-page litmus test in Purpose)
 - Mission statement
 - Most recent Form 990
 - Annual report (if available)
@@ -154,7 +191,11 @@ missing.
 - **VolunteerMatch** profile (even if dormant) — _check 3_
 - **TechSoup** validated account — _check 2_
 - **PayPal Nonprofits** account — _check 6_
-- Verified **Nonprofit LinkedIn page** — _onboarding requirement, not a Section 3a check_
+- Verified **Nonprofit LinkedIn page** — _onboarding requirement, not a Section 3a check; required on the pre-501(c)(3) track too_
+
+The Facebook Page and LinkedIn Page must be **created by the applicant
+themselves** — this doubles as the technical-readiness litmus test described in
+Purpose, and applies on the pre-501(c)(3) track as well.
 
 ---
 
@@ -183,7 +224,8 @@ into provisioning. The full lifecycle (for reference) is an eight-stage flow:
   prioritization signal? (Currently documented as priority criterion.)
 - Are the **six external / three internal** checks still the current set, or
   have any been added/retired (e.g., Instagram, Google for Nonprofits)?
-- Does the **pre-501(c)(3) track** have its own prerequisite list distinct from
-  the 501(c)(3) track?
+- Should the **organization Facebook Page and LinkedIn Page** (and the personal
+  LinkedIn profiles) be promoted into the formal Section 3a validation checks,
+  given they are now hard requirements on both tracks?
 - Should **AUP acknowledgment** and a **conflict-of-interest / data-handling**
   agreement be explicit prerequisite line items?
