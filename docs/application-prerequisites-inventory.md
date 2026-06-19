@@ -177,7 +177,7 @@ into provisioning. The full lifecycle (for reference) is an eight-stage flow:
 
 ## Open questions for verification
 
-- Is the **public application** still `freeforcharity.org/submit-information/`,
+- Is the **public application** still `https://freeforcharity.org/submit-information/`,
   or has it moved into a WHMCS-only flow?
 - Is **"under $1M and not federally grant-funded"** a hard gate or only a
   prioritization signal? (Currently documented as priority criterion.)
