@@ -29,6 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${SITE_URL}/charity-prerequisites/`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/volunteer/`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -172,6 +178,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+    ...['development', 'maintenance', 'migration', 'summary'].map((s) => ({
+      url: `${SITE_URL}/sites-list/${s}/`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.5,
+    })),
     { url: `${SITE_URL}/guides/`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     {
       url: `${SITE_URL}${LEGACY_WP_ADMIN_BASE}/`,

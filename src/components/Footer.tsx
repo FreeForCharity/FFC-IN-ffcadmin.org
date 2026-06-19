@@ -55,6 +55,10 @@ export default function Footer() {
                   className="block hover:opacity-80 transition-opacity mb-3"
                   aria-label="View Free For Charity's GuideStar Platinum Transparency Profile"
                 >
+                  {/* External third-party GuideStar badge — served by GuideStar's
+                      widget host, so it is intentionally a plain <img> rather than
+                      next/image (no optimization/remote-host config needed). */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="https://widgets.guidestar.org/gximage2?o=9159614&l=v4"
                     alt=""

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { assetPath } from '@/lib/assetPath'
+import Image from 'next/image'
 import { NAV_MENUS, menuItems, type NavMenu } from '@/data/navigation'
 
 export default function Navigation() {
@@ -211,8 +211,8 @@ export default function Navigation() {
             href="/"
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
           >
-            <img
-              src={assetPath('/Images/hero-logo.png')}
+            <Image
+              src="/Images/hero-logo.png"
               alt="Free For Charity Logo"
               width={40}
               height={40}
