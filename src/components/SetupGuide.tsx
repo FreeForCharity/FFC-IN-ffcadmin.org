@@ -155,12 +155,25 @@ export default function SetupGuide({ guide }: { guide: SetupGuide }) {
                 <Link
                   key={g.slug}
                   href={`/guides/${g.slug}`}
-                  className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 hover:shadow-md transition-shadow"
+                  className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 hover:shadow-md hover:border-gray-300 transition-all"
                 >
                   <span className="text-2xl" aria-hidden="true">
                     {g.icon}
                   </span>
-                  <span className="text-sm font-semibold text-gray-900">{g.shortTitle}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+                      {g.shortTitle}
+                    </span>
+                    <span className="block text-xs uppercase tracking-wide text-gray-400">
+                      {g.category}
+                    </span>
+                  </span>
+                  <span
+                    className="text-gray-300 group-hover:text-blue-600 transition-colors"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                 </Link>
               ))}
             </div>

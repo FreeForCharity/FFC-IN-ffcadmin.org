@@ -222,7 +222,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'You’ll have to go through each site’s account-recovery process, which can be slow or, in some cases, impossible. That’s why saving recovery codes is mandatory.',
       },
     ],
-    related: ['github-account', 'password-manager', 'microsoft-365-email'],
+    related: ['github-account', 'password-manager', 'passkeys', 'microsoft-365-email'],
   },
   {
     slug: 'linkedin',
@@ -273,6 +273,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
           'Open the Page → **Admin tools → Manage admins** and add at least one other person so the Page is never controlled by a single account.',
           'Complete the About section, add the logo and a banner, and publish your first post so the Page looks active.',
         ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I create a charity Page without a personal LinkedIn profile?',
+        a: 'No. LinkedIn only lets a personal profile create and administer an organization Page. The person always comes first — make your profile, secure it with MFA, then create the Page from it.',
+      },
+      {
+        q: 'Should my board members have LinkedIn accounts too?',
+        a: 'Yes. Every legal or planned board member should have a personal LinkedIn profile and list the charity under their profile’s Volunteering section — it publicly signals they’ve accepted the role. Each person makes their own account, just like you did.',
       },
     ],
     related: ['facebook', 'multi-factor-authentication', 'canva'],
@@ -326,6 +336,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
+    faqs: [
+      {
+        q: 'Can’t I just make one Facebook account for the charity?',
+        a: 'No — a “charity” account pretending to be a person violates Facebook’s rules and gets removed, which can take the Page down with it. Create your real personal account, then build the charity Page from it and add other real people as admins.',
+      },
+      {
+        q: 'What if I don’t want to manage the Page from my personal account?',
+        a: 'The Page is a separate space your account administers; your personal posts stay private and separate. You can also add co-admins so you’re not the only person who can manage it.',
+      },
+    ],
     related: ['linkedin', 'multi-factor-authentication', 'canva'],
   },
   {
@@ -345,6 +365,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'FFC runs charity email on **Microsoft 365**. Once FFC creates your mailbox (e.g. you@yourcharity.org), you’ll get a temporary password to set up — usually from your FFC contact.',
       'This email becomes one of your **personas**. Remember the principle from the GitHub guide: it’s an address you *add to your identity*, not a whole separate online life.',
     ],
+    principle: {
+      title: 'Your charity email is a persona, not a new identity',
+      body: 'The mailbox FFC provisions (you@yourcharity.org) is a hat you wear, not a second person. You add it to the accounts where it belongs — like an extra email on your one personal GitHub account — rather than building a parallel online life around it. The human behind it is still you.',
+    },
     steps: [
       {
         title: 'Sign in for the first time',
@@ -356,7 +380,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Turn on multi-factor authentication',
         body: [
-          'Microsoft will prompt you to set up “more information” for security — choose **authenticator app** and scan the QR code with **Microsoft Authenticator** (recommended here since it’s the Microsoft ecosystem) or Google Authenticator.',
+          'Microsoft will prompt you to set up “more information” for security — choose **authenticator app** and scan the QR code with **Microsoft Authenticator** (the matching app for the Microsoft ecosystem — you’ll already have it installed, since FFC has you set up both authenticators).',
           'From then on, sign-ins will send an approval to your authenticator. Save any recovery info offered.',
         ],
         tip: 'See the Multi-Factor Authentication guide for the full QR-scan walkthrough and new-phone precautions.',
@@ -376,7 +400,22 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
-    related: ['multi-factor-authentication', 'github-account', 'google-workspace'],
+    faqs: [
+      {
+        q: 'I never got a temporary password — what do I do?',
+        a: 'Contact your FFC contact (text Clarke Moyer at (520) 222-8104). FFC creates the mailbox and issues the first password; you can’t sign in until that’s provisioned.',
+      },
+      {
+        q: 'Can I just forward charity email to my personal inbox?',
+        a: 'Use Outlook with the charity address directly so your replies come from the charity, not your personal email — and so MFA and records stay on the charity account. Ask FFC before setting up any forwarding or auto-reply rules.',
+      },
+    ],
+    related: [
+      'multi-factor-authentication',
+      'microsoft-teams',
+      'cloud-storage-scanning',
+      'google-workspace',
+    ],
   },
   {
     slug: 'google-workspace',
@@ -394,6 +433,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
     intro: [
       'FFC’s default is Microsoft 365, but charities already deeply embedded in Google can stay on **Google Workspace**. If that’s you, your admin issues you a you@yourcharity.org Google account.',
     ],
+    principle: {
+      title: 'Your charity email is a persona, not a new identity',
+      body: 'The Workspace account (you@yourcharity.org) is a role you wear, not a second person. You add it to the accounts where it belongs rather than building a parallel online life around it — the same person-not-entity rule as everywhere else at FFC.',
+    },
     steps: [
       {
         title: 'Sign in and set your password',
@@ -404,7 +447,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Turn on 2-Step Verification',
         body: [
-          'Go to **Google Account → Security → 2-Step Verification** and turn it on. Choose an **authenticator app** and scan the QR code (Google or Microsoft Authenticator).',
+          'Go to **Google Account → Security → 2-Step Verification** and turn it on. Choose an **authenticator app** and scan the QR code with **Google Authenticator** (the matching app for the Google ecosystem — you’ll already have it installed, since FFC has you set up both authenticators).',
           'Save the backup codes Google offers into your password manager.',
         ],
         tip: 'See the Multi-Factor Authentication guide for the full walkthrough and new-phone precautions.',
@@ -416,7 +459,17 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
-    related: ['multi-factor-authentication', 'microsoft-365-email', 'github-account'],
+    faqs: [
+      {
+        q: 'Should my charity use Google Workspace or Microsoft 365?',
+        a: 'FFC’s default is Microsoft 365. Stay on Google Workspace only if your charity is already deeply embedded in Google (Gmail, Drive, shared docs) and switching would be disruptive. If you’re starting fresh, go with Microsoft 365.',
+      },
+      {
+        q: 'Is Google Workspace free for nonprofits?',
+        a: 'Google offers Workspace for Nonprofits at no cost once your organization is verified through Google for Nonprofits. Your FFC contact can help you confirm eligibility.',
+      },
+    ],
+    related: ['multi-factor-authentication', 'microsoft-365-email', 'cloud-storage-scanning'],
   },
   {
     slug: 'password-manager',
@@ -501,7 +554,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'This is the whole reason FFC insists on a holistic setup with sync turned on. Apple Passwords (iCloud Keychain) and Google Password Manager both sync to your account in the cloud, so signing into iCloud or your Google account on a replacement phone restores every password and passkey — provided sync was on before you lost the device. The real danger is a manager that only kept passwords locally with no backup: if that device is gone, so are those passwords. So (1) keep iCloud Keychain or Google sync enabled, (2) keep a second copy on your computer’s browser profile, and (3) store each account’s MFA recovery codes in the vault, so even if you’re locked out of one factor you can still get back in.',
       },
     ],
-    related: ['multi-factor-authentication', 'github-account', 'chrome', 'edge'],
+    related: ['multi-factor-authentication', 'passkeys', 'chrome', 'edge'],
   },
   {
     slug: 'canva',
@@ -519,6 +572,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
     intro: [
       'Canva is where charity brand kits, social templates, and print materials are made. Like everything else, you sign up as **you**, then join the **charity’s team**.',
     ],
+    principle: {
+      title: 'Your account is you; the brand lives in the team',
+      body: 'You sign up as a person, secure it with MFA, then join the charity’s Canva team — the same person-not-entity pattern as GitHub and LinkedIn. The charity’s logos, colors, and templates live in the shared Brand Kit, so always design from there to stay on-brand.',
+    },
     steps: [
       {
         title: 'Create your account',
@@ -541,6 +598,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
+    faqs: [
+      {
+        q: 'Is Canva free for our charity?',
+        a: 'Yes — Canva offers Canva Pro free to verified nonprofits, which includes the Brand Kit and team features. Your FFC contact handles the nonprofit verification and invites you to the team.',
+      },
+      {
+        q: 'Should I make a separate Canva account for the charity?',
+        a: 'No. Make one personal account as yourself and join the charity’s team. The brand assets live in the shared team, not in a separate charity login.',
+      },
+    ],
     related: ['linkedin', 'facebook', 'multi-factor-authentication'],
   },
   {
@@ -560,6 +627,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'Microsoft Teams is how you meet with FFC: screen sharing, live walkthroughs, and real-time help during onboarding and beyond.',
       'It’s also the **first thing you install** — getting it onto your computer proves your machine can install the software the rest of the process needs.',
     ],
+    principle: {
+      title: 'Your first install is also a readiness test',
+      body: 'Teams is deliberately the first thing you install. If it goes onto your computer cleanly, that’s proof your machine can handle the AI-tool connectors used later. If it won’t install, that’s the earliest, easiest moment to get help — before anything else depends on it.',
+    },
     steps: [
       {
         title: 'Install the Teams desktop app',
@@ -587,6 +658,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
+    faqs: [
+      {
+        q: 'Do I need a paid Teams license to meet with FFC?',
+        a: 'No. A free personal Microsoft account works for onboarding. Later, once FFC provisions your charity’s Microsoft 365, you’ll add your @yourcharity.org identity to the same Teams app.',
+      },
+      {
+        q: 'Teams won’t install on my computer — what now?',
+        a: 'That’s exactly the signal this step is designed to catch. Contact FFC (text Clarke Moyer at (520) 222-8104) — your machine may need an update or a different device before the later AI-tool connectors will work.',
+      },
+    ],
     related: ['microsoft-365-email', 'multi-factor-authentication'],
   },
   {
@@ -606,6 +687,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'Your charity will accumulate documents you reuse constantly — state formation/incorporation papers, the IRS determination letter, board documents. Keep them in **one secure, backed-up place** from day one.',
       'You’ll use either **Google Drive** or **Microsoft OneDrive** — whichever matches your email ecosystem.',
     ],
+    principle: {
+      title: 'One secure, backed-up home for every document',
+      body: 'Every important charity document lives in one cloud folder, secured with MFA and backed up automatically — never only on a single laptop or in an email thread. Scan paper the day it arrives so nothing is ever lost, and share a link rather than passing files around.',
+    },
     steps: [
       {
         title: 'Pick Drive or OneDrive',
@@ -639,6 +724,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
         body: [
           'When FFC needs a document for validation, share the specific file or folder link rather than emailing attachments around.',
         ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Google Drive or OneDrive — does it matter which?',
+        a: 'Pick the one that matches the account you already sign in to: Google Drive if your email is Gmail/Google, OneDrive if it’s Microsoft/Outlook. Both store files securely and scan from your phone; using the one tied to your existing account means one less password and one less app.',
+      },
+      {
+        q: 'Where should the IRS determination letter go?',
+        a: 'In your “Formation & IRS” sub-folder, scanned to PDF the day it arrives. It’s one of the documents you’ll reuse most, so name it clearly (e.g. IRS-determination-letter-2026.pdf) and never keep the only copy on paper.',
       },
     ],
     related: ['microsoft-365-email', 'google-workspace', 'password-manager'],
@@ -684,6 +779,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
+    faqs: [
+      {
+        q: 'Do passkeys replace my authenticator app?',
+        a: 'No — they complement it. Turn passkeys on where offered for faster, phishing-resistant sign-in, but keep your authenticator app and recovery codes as the fallback that works from any device and any ecosystem.',
+      },
+      {
+        q: 'What happens to my passkey if I lose my device?',
+        a: 'A passkey lives in a platform keychain (iCloud Keychain or Google Password Manager) and syncs to that ecosystem’s other devices, so a replacement phone signed into the same account gets it back — if sync was on. If not, you fall back to your authenticator app and recovery codes, which is exactly why FFC has you keep them.',
+      },
+    ],
     related: ['multi-factor-authentication', 'password-manager'],
   },
   {
@@ -703,6 +808,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'Candid (formerly **GuideStar**) is the canonical public registry of US nonprofits. Donors and funders use it to research charities.',
       'You set up a **personal** account first to see how that research works — your **organization’s** Candid profile and transparency seal come later, once you’re recognized.',
     ],
+    principle: {
+      title: 'Personal research account now, organization profile later',
+      body: 'This is your own account for learning the nonprofit landscape — not your charity’s Candid profile. Seeing how donors and funders research organizations here makes your own profile and transparency seal far stronger when you claim them after IRS recognition.',
+    },
     steps: [
       {
         title: 'Create your account',
@@ -723,6 +832,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
+    faqs: [
+      {
+        q: 'Is this the same as my charity’s Candid profile?',
+        a: 'No. This is your personal research account. Your organization’s Candid profile — and the Bronze-through-Platinum transparency seal — come later, once your charity is IRS-recognized and you claim and complete its profile.',
+      },
+      {
+        q: 'Why do I need to find three comparable charities?',
+        a: 'It sharpens what makes your organization distinct, and FFC asks for them during validation. Searching by cause, location, or NTEE code on Candid is the fastest way to find organizations doing your exact or near-exact mission.',
+      },
+    ],
     related: ['idealist', 'taproot'],
   },
   {
@@ -741,6 +860,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
     intro: [
       'Idealist is where people find nonprofit volunteer opportunities and jobs. Experiencing it from the **volunteer’s** side first helps you post effective opportunities later.',
     ],
+    principle: {
+      title: 'Learn it as a volunteer before you post as an organization',
+      body: 'Set up a personal account and browse as someone looking to help. Understanding what makes a volunteer opportunity appealing is exactly what you’ll need when your charity posts its own listings later — with FFC’s help.',
+    },
     steps: [
       {
         title: 'Create your account',
@@ -757,6 +880,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
         body: [
           'Save a couple of strong examples. When your charity is up and running, you’ll post opportunities the same way — FFC can help you create the organization’s listing later.',
         ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Will I post my charity’s volunteer roles here now?',
+        a: 'Not yet. For now you’re learning the volunteer’s side. Once your charity is running, FFC can help you create the organization’s listings so they attract the right people.',
+      },
+      {
+        q: 'How is Idealist different from Taproot?',
+        a: 'Idealist covers general nonprofit volunteering and jobs; Taproot focuses on skills-based, pro-bono projects (design, marketing, consulting). FFC has you try both so you understand each channel.',
       },
     ],
     related: ['candid', 'taproot'],
@@ -778,6 +911,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'Taproot (and **Taproot Plus**) is a marketplace for **pro-bono, skills-based** volunteering — designers, marketers, and consultants donating expertise.',
       'See how it works from the volunteer side now; your organization can post pro-bono requests once you’re running.',
     ],
+    principle: {
+      title: 'Understand pro-bono before you request it',
+      body: 'Set up a personal account and see how skilled professionals donate their expertise. Knowing how a good pro-bono project is scoped is exactly what makes your organization’s future requests succeed — and FFC can help you post them later.',
+    },
     steps: [
       {
         title: 'Create your account',
@@ -796,6 +933,16 @@ export const SETUP_GUIDES: SetupGuide[] = [
         body: [
           'Save an example or two. Later your organization can post a pro-bono request the same way, with FFC’s help.',
         ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'What’s the difference between Taproot and Idealist?',
+        a: 'Taproot is for skills-based, pro-bono projects — professionals donating design, marketing, or consulting work. Idealist is broader: general volunteering and nonprofit jobs. Try both so you know which channel fits a given need.',
+      },
+      {
+        q: 'Can my charity request pro-bono help right now?',
+        a: 'Once your organization is set up you can post pro-bono requests on Taproot Plus. For now, study how existing projects are scoped — clear scope is what attracts skilled volunteers — and FFC can help you post later.',
       },
     ],
     related: ['idealist', 'candid'],
@@ -846,7 +993,17 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
-    related: ['password-manager', 'multi-factor-authentication', 'edge'],
+    faqs: [
+      {
+        q: 'Why can’t I use Firefox or Safari?',
+        a: 'FFC supports only Chrome and Edge so our guides, screenshots, and AI-tool integrations match exactly what you see — no time lost to browser-specific quirks. Pick Chrome if you live in the Google ecosystem, Edge if you live in Microsoft.',
+      },
+      {
+        q: 'Is Chrome’s built-in password manager enough?',
+        a: 'For Google-ecosystem users it’s a solid everyday manager — saved passwords and bookmarks sync to your Google account. Pair it with the holistic approach in the Password Manager guide (a manager tied to your phone, plus your MFA recovery codes stored safely).',
+      },
+    ],
+    related: ['password-manager', 'multi-factor-authentication', 'passkeys', 'edge'],
   },
   {
     slug: 'edge',
@@ -896,7 +1053,17 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
     ],
-    related: ['password-manager', 'multi-factor-authentication', 'chrome'],
+    faqs: [
+      {
+        q: 'Why can’t I use Firefox or Safari?',
+        a: 'FFC supports only Chrome and Edge so our guides, screenshots, and AI-tool integrations match exactly what you see. Choose Edge if you live in the Microsoft ecosystem, Chrome if you live in Google.',
+      },
+      {
+        q: 'Is Edge’s built-in password manager enough?',
+        a: 'For Microsoft-ecosystem users it’s a solid everyday manager — saved passwords and favorites sync to your Microsoft account. (Note Microsoft Authenticator stopped storing passwords in 2025; Edge is now Microsoft’s password manager.) Pair it with the holistic approach in the Password Manager guide.',
+      },
+    ],
+    related: ['password-manager', 'multi-factor-authentication', 'passkeys', 'chrome'],
   },
 ]
 
