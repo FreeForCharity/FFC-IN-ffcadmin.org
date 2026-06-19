@@ -627,6 +627,27 @@ into the categories below.
     team.
   - _You:_ Access the charity's brand kit and templates to make on-brand graphics.
   - _FFC:_ Brand-consistent materials without FFC doing the design.
+- **A personal Idealist account** (idealist.org)
+  - _What:_ Your own account on **Idealist**, the nonprofit volunteer/jobs
+    platform. You'll create the organization's listing later.
+  - _You:_ Learn how volunteers find and connect with charities by experiencing
+    the platform from the volunteer side first.
+  - _FFC:_ You already know the tool when it's time to post the charity's
+    opportunities — one fewer account to teach during delivery.
+- **A personal Candid account** (candid.org)
+  - _What:_ Your own **Candid** (formerly GuideStar) account. The organization's
+    Candid profile and transparency seal come later (Section 4).
+  - _You:_ See how donors and funders research charities on the canonical
+    nonprofit registry before you build your own profile.
+  - _FFC:_ Familiarity with Candid before the org-profile/seal work speeds that
+    step and reduces what we teach later.
+- **A personal Taproot account** (taprootfoundation.org / Taproot Plus)
+  - _What:_ Your own **Taproot** account, the skills-based (pro-bono) volunteering
+    marketplace. Organizational variations come later.
+  - _You:_ Understand how pro-bono and skills-based volunteering is sourced and
+    requested.
+  - _FFC:_ Another standard nonprofit tool learned during prerequisites, not
+    during delivery.
 
 #### Group E — Skills, AI & commitment
 
@@ -790,6 +811,9 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] A **personal LinkedIn** profile for **each board / planned-board member**.
 - [ ] My **personal Facebook** account.
 - [ ] My **personal Canva** account.
+- [ ] My **personal Idealist** account (volunteer/charity search).
+- [ ] My **personal Candid** account (nonprofit registry).
+- [ ] My **personal Taproot** account (skills-based volunteering).
 - [ ] Each board / planned-board member has linked the charity under their
       LinkedIn **"Volunteering"** section (accepting the position & liability).
 
