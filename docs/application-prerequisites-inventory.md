@@ -424,8 +424,8 @@ Under this policy:
 Each item below is **mandatory** and defined by **what it is / why it benefits
 you / why it benefits FFC** — a prerequisite belongs here only if it serves both
 sides. If any item is missing, the applicant **cannot proceed** and should be
-routed to **Contact us for help** (offered at every step). The 22 items are
-grouped into six categories.
+routed to **Contact us for help** (offered at every step). The items are grouped
+into six categories.
 
 #### Group A — Devices & connectivity (the hardware floor)
 
