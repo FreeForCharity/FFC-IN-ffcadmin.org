@@ -117,7 +117,8 @@ these generally results in a polite decline rather than a fix-and-retry.
    charities are politely declined — US-only restriction.)
 2. **501(c)(3) status active** — or on the **pre-501(c)(3) track** for
    organizations not yet recognized (see Section 1a; this track has its own
-   application form on freeforcharity.org).
+   landing page on freeforcharity.org that points into the GitHub-only
+   application flow — see Section 2).
 3. **(501(c)(3) track only)** at minimum a Gold Candid (GuideStar) seal (see
    Section 4). This is **not** a universal gate — a pre-501(c)(3) organization
    cannot yet hold a Gold seal (no Form 990), and instead works the IRS 1023 /
@@ -131,8 +132,9 @@ these generally results in a polite decline rather than a fix-and-retry.
 ### 1a. The pre-501(c)(3) track
 
 Organizations that are not yet IRS-recognized 501(c)(3)s can still apply through
-a **separate pre-501(c)(3) application form on freeforcharity.org**. The track
-carries its own prerequisite expectations:
+the **pre-501(c)(3) track** (its `/pre501c3` landing page points into the
+GitHub-only application flow — Section 2). The track carries its own prerequisite
+expectations:
 
 - The organization **Facebook Page and LinkedIn Page must still be created** (see
   the social-page litmus test above) — these are not waived for pre-501(c)(3)
@@ -202,7 +204,10 @@ of stuck onboardings.")
 ## 3. Validation checks (FFC-run, intake/validation stage)
 
 All checks must resolve to a **documented pass or documented exception** before
-an offer is made.
+an offer is made. These run **after the applicant submits** (Section 2), and
+several simply **confirm that Phase 0 prerequisites were completed** — e.g.
+check 4 (verified Facebook page) and check 1 (Candid) verify work the applicant
+already did in the Phase 0 ladder.
 
 > **Note on stage numbering:** the source pages disagree on the exact number.
 > `wordpress-service-delivery-stages` calls validation **Stage 2** of the
@@ -257,25 +262,26 @@ refresh expected (Q1 convention).
 
 ## 5. External accounts the charity establishes
 
-Most of these map to a validation check in Section 3a; the LinkedIn page is an
-additional onboarding requirement (used for board-bio cross-references) rather
-than one of the six external validation checks. The applicant is expected to
-**create the Facebook and LinkedIn organization pages themselves** (the
-technical-readiness litmus test). For the remaining accounts (M365 tenant,
-Candid profile, TechSoup, PayPal), FFC provides guidance and admin support where
-the charity gets stuck.
+This separates **applicant-created** accounts from **FFC-supported** org accounts
+and de-duplicates with Phase 0.
 
-- Charity-named **Outlook mailbox** (Microsoft 365 nonprofit tenant) — _check 5_
-- **Candid (GuideStar) profile at Gold or higher** — _check 1_
-- Verified **Nonprofit Facebook page** — _check 4_
-- **VolunteerMatch** profile (even if dormant) — _check 3_
-- **TechSoup** validated account — _check 2_
-- **PayPal Nonprofits** account — _check 6_
-- Verified **Nonprofit LinkedIn page** — _onboarding requirement, not a Section 3a check; required on the pre-501(c)(3) track too_
+**Applicant-created (in Phase 0 / Section 8b — the litmus test):** the
+organization **Facebook Page** and **LinkedIn Page** are created by the applicant
+themselves from their personal accounts (see Phase 0 Group D and the Section 8b
+flow), on both tracks. They are not repeated here.
 
-The Facebook Page and LinkedIn Page must be **created by the applicant
-themselves** — this doubles as the technical-readiness litmus test described in
-Purpose, and applies on the pre-501(c)(3) track as well.
+**FFC-supported org accounts** — FFC provides guidance/admin support; several are
+501(c)(3)-emphasized and happen during/after validation, not in Phase 0:
+
+- Charity-named **Outlook mailbox** (Microsoft 365 tenant) — _validation check 5_
+- **Candid (GuideStar) profile at Gold or higher** — _validation check 1_ (the
+  applicant already holds a **personal** Candid account from Phase 0; this is the
+  **organization** profile and seal)
+- **TechSoup** validated account — _validation check 2_ (501(c)(3)-emphasized)
+- **VolunteerMatch** profile, even if dormant — _validation check 3_
+  (501(c)(3)-emphasized)
+- **PayPal Nonprofits** account — _validation check 6_ (501(c)(3)-emphasized; the
+  legacy WHMCS KYC step is retired)
 
 ---
 
@@ -284,7 +290,9 @@ Purpose, and applies on the pre-501(c)(3) track as well.
 Once validation passes and the charity accepts the written offer (historically a
 signed WHMCS quote — **legacy/pending replacement** under the GitHub-only intake),
 the prerequisite/application phase is complete and the engagement moves into
-provisioning. The full lifecycle (for reference) is an eight-stage flow:
+provisioning. The full lifecycle below is the **legacy WordPress/Divi-era**
+eight-stage flow (stages 6–8 in particular reflect the old stack); it is retained
+**for reference** and is being superseded by the current FFC template direction:
 
 1. Initial Contact & Onboarding
 2. **FFC Validation Checks** ← prerequisite gate (Sections 3–4)
@@ -347,20 +355,22 @@ account.
 
 Under this policy, FFC requires **all three** free providers per person — they
 are **not interchangeable**. A generic TOTP app (including LastPass) can produce
-the 6-digit codes, **but the native Google and Microsoft authenticators unlock
-provider-specific features that generic apps cannot** — notably **automatic
-account recovery** and **passwordless sign-in** — when used with their own
-ecosystems. That is why each native app is required for its matching ecosystem:
+the 6-digit codes, **but the native Google and Microsoft authenticators add
+provider-specific benefits a generic app can't** — notably **encrypted cloud
+backup/sync of your codes** (so a new or lost phone isn't a lockout) and the
+provider's own **phone sign-in approval**. (True **passwordless** sign-in via
+**passkeys** is a separate method, covered below.) That is why each native app is
+used for its matching ecosystem:
 
 1. **Google Authenticator** — the **native** authenticator for **Google**
-   services (Google Analytics and other Google products). Using the native app
-   enables Google's automatic recovery and passwordless sign-in.
+   services (Google Analytics and other Google products); its cloud backup and
+   Google's phone-prompt sign-in are why FFC uses it on the Google side.
 2. **Microsoft Authenticator** — the **native** authenticator for **Microsoft
-   365** (the charity's email/productivity suite). Using the native app enables
-   Microsoft's automatic recovery and phone/passwordless sign-in.
+   365** (the charity's email/productivity suite); it adds cloud backup and
+   Microsoft's phone sign-in approval.
 3. **LastPass** — the **password manager**. It can also generate TOTP codes, but
    the **native apps above are used for the Google and Microsoft accounts** so
-   those accounts get their native recovery and passwordless features — LastPass
+   those accounts get their native backup and phone-sign-in features — LastPass
    is **not** a fourth tool.
 
 Under this policy:
