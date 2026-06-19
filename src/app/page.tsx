@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { assetPath } from '@/lib/assetPath'
 import NonprofitCallout from '@/components/NonprofitCallout'
 import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 import { getPath } from '@/data/training-modules'
@@ -74,12 +74,14 @@ export default function Home() {
 
             <div className="flex-1 flex justify-center md:justify-end">
               <div className="relative w-64 h-64 md:w-96 md:h-96 bg-white rounded-full p-6 shadow-2xl animate-fade-in flex items-center justify-center">
-                <Image
-                  src="/Images/figma-hero-img.webp"
+                {/* Plain <img> with assetPath: required for GitHub Pages basePath builds
+                    (next/image does not apply assetPrefix in this static export). */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={assetPath('/Images/figma-hero-img.webp')}
                   alt="Free For Charity Icon"
                   width={384}
                   height={384}
-                  priority
                   className="w-full h-full object-contain"
                 />
               </div>

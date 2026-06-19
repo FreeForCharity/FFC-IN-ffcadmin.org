@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import Image from 'next/image'
+import { assetPath } from '@/lib/assetPath'
 import { NAV_MENUS, menuItems, type NavMenu } from '@/data/navigation'
 
 export default function Navigation() {
@@ -211,8 +211,11 @@ export default function Navigation() {
             href="/"
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
           >
-            <Image
-              src="/Images/hero-logo.png"
+            {/* Plain <img> with assetPath: required for GitHub Pages basePath builds
+                (next/image does not apply assetPrefix in this static export). */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={assetPath('/Images/hero-logo.png')}
               alt="Free For Charity Logo"
               width={40}
               height={40}
