@@ -73,8 +73,8 @@ shipped site lands at a charity that can run it.
 >
 > FFC therefore treats self-service creation of these two organization pages as a
 > baseline competency gate, not just a marketing nicety. The same expectation
-> applies to the **pre-501(c)(3) track** — the organization Facebook and LinkedIn
-> pages are required there as well.
+> applies to the **pre-501(c)(3) track** — the organization's Facebook and
+> LinkedIn pages are required there as well.
 >
 > **In-repo source:** the actual walkthroughs live in `src/data/setup-guides.ts`
 > (the `linkedin` and `facebook` guides), which explicitly describe creating each
@@ -183,8 +183,8 @@ account.
 Under this policy, FFC requires **all three** free providers per person — they
 are **not interchangeable**. A generic TOTP app (including LastPass) can produce
 the 6-digit codes, **but the native Google and Microsoft authenticators add
-provider-specific benefits a generic app can't** — notably **encrypted cloud
-backup/sync of your codes** (so a new or lost phone isn't a lockout) and the
+provider-specific benefits a generic app can't** — notably **cloud backup/sync of
+your codes** (so a new or lost phone isn't a lockout) and the
 provider's own **phone sign-in approval**. (True **passwordless** sign-in via
 **passkeys** is a separate method, covered below.) That is why each native app is
 used for its matching ecosystem:
@@ -457,9 +457,11 @@ into the categories below.
     - **Gmail or iCloud → Google Gemini is required.**
     - **Outlook.com → Microsoft Copilot is required.**
     - Once you've mastered it, **Claude** is the recommended next tool.
-  - _You:_ The assistant matching your ecosystem is already built into your
-    phone/accounts, so it's easiest to adopt and can guide you through nearly
-    every step.
+  - _You:_ Standardizing on the assistant that matches your everyday ecosystem
+    keeps it close at hand and consistent with the accounts you already use, so
+    it's the easiest to adopt and can guide you through nearly every step.
+    _(This pairing is an FFC standardization choice, not a platform restriction —
+    the assistants are separate apps/sites, not literally "built into" the email.)_
   - _FFC:_ The self-service maintenance model depends on it; confident AI users
     need far less hands-on support.
 - **A dedicated time commitment**
