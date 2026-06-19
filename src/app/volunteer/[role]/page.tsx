@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import TrackPrerequisites from '@/components/TrackPrerequisites'
 import { VOLUNTEER_ROLES, getVolunteerRole } from '@/data/volunteer-roles'
 
 export function generateStaticParams() {
@@ -80,6 +81,9 @@ export default async function VolunteerRolePage({ params }: { params: Promise<{ 
             </a>
           </div>
         </section>
+
+        {/* Before you start — account prerequisites (shared with the matching track) */}
+        {role.pathId && <TrackPrerequisites pathId={role.pathId} accent="blue" />}
 
         {/* Other roles */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8">

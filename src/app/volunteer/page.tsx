@@ -485,6 +485,15 @@ export default function VolunteerPage() {
               </Link>
             ))}
           </div>
+          <div className="mt-6 bg-white rounded-xl border border-gray-200 border-l-4 border-l-blue-500 p-5 text-sm text-gray-700">
+            <strong className="text-gray-900">New here? Set up your accounts first.</strong> Every
+            role starts from the same personal accounts — GitHub, multi-factor authentication, a
+            password manager, and your AI assistant. Set them up once with the{' '}
+            <Link href="/guides" className="text-blue-700 underline hover:text-blue-900">
+              Account &amp; Tool Setup guides
+            </Link>
+            , then pick a role above.
+          </div>
         </div>
       </section>
 
