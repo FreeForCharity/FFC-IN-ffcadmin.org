@@ -143,15 +143,18 @@ refresh expected (Q1 convention).
 
 ## 5. External accounts the charity establishes
 
-Each maps to a validation check above. FFC helps create any that are missing.
+Most of these map to a validation check in Section 3a; the LinkedIn page is an
+additional onboarding requirement (used for board-bio cross-references) rather
+than one of the six external validation checks. FFC helps create any that are
+missing.
 
-- Charity-named **Outlook mailbox** (Microsoft 365 nonprofit tenant)
-- **Candid (GuideStar) profile at Gold or higher**
-- Verified **Nonprofit Facebook page**
-- Verified **Nonprofit LinkedIn page**
-- **VolunteerMatch** profile (even if dormant)
-- **TechSoup** validated account
-- **PayPal Nonprofits** account
+- Charity-named **Outlook mailbox** (Microsoft 365 nonprofit tenant) — _check 5_
+- **Candid (GuideStar) profile at Gold or higher** — _check 1_
+- Verified **Nonprofit Facebook page** — _check 4_
+- **VolunteerMatch** profile (even if dormant) — _check 3_
+- **TechSoup** validated account — _check 2_
+- **PayPal Nonprofits** account — _check 6_
+- Verified **Nonprofit LinkedIn page** — _onboarding requirement, not a Section 3a check_
 
 ---
 
