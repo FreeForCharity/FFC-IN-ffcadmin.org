@@ -314,17 +314,17 @@ here — only what both must do.
 
 ### 7b. Core organizational profiles & accounts (common to both tracks)
 
-| Account / profile                                      | Track-agnostic? | Notes                                                                                                                                                                                                                                                                                                                            |
-| ------------------------------------------------------ | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Password manager** (LastPass)                        | Recommended     | A password manager is "the safety net behind every other account." Per the **founder-directed policy in Section 8a (pending implementation)** FFC standardizes on **LastPass**. The rendered `setup-guides.ts` still presents LastPass _or_ Bitwarden; updating it to LastPass-only is a tracked action.                         |
-| **Organizational Microsoft 365 / Outlook email**       | Yes             | FFC-recommended productivity + email suite. The tenant's initial address is the `<charity>.onmicrosoft.com` domain; charity-domain mailboxes (`info@yourcharity.org`) are added after the domain is validated. _(The main-site `/501c3` page says `@outlook.com`, but that's consumer Outlook — inaccurate for an M365 tenant.)_ |
-| **Organization Facebook Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                                                                                                                 |
-| **Organization LinkedIn Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                                                                                                                 |
-| **Domain** (`yourcharityname.org`)                     | Yes             | Registered/transferred via FFC.                                                                                                                                                                                                                                                                                                  |
-| **WordPress website**                                  | Yes             | The delivered site (legacy track) / FFC template.                                                                                                                                                                                                                                                                                |
-| **Charity email routing** (`info@yourcharityname.org`) | Yes             | Professional addressing under the charity domain.                                                                                                                                                                                                                                                                                |
-| **Board structure** (mandatory officers)               | Yes             | Seated board for 501(c)(3); planned/elected board for pre-501(c)(3).                                                                                                                                                                                                                                                             |
-| **Mission statement**                                  | Yes             | Required by both.                                                                                                                                                                                                                                                                                                                |
+| Account / profile                                      | Track-agnostic? | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ------------------------------------------------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Password manager** (LastPass)                        | Recommended     | A password manager is "the safety net behind every other account." Per the **founder-directed policy in Section 8a (pending implementation)** FFC standardizes on **LastPass**. The rendered `setup-guides.ts` still presents LastPass _or_ Bitwarden; updating it to LastPass-only is a tracked action.                                                                                                                                                                                                                                |
+| **Organizational Microsoft 365 / Outlook email**       | Yes             | FFC-recommended productivity + email suite. The M365 **tenant's** initial address is the `<charity>.onmicrosoft.com` domain; charity-domain mailboxes (`info@yourcharity.org`) are added after the domain is validated. In practice charities often **apply** using a free personal `charityname@outlook.com` account — frequently a **shared** account that worked for years until **MFA made a single shared personal email impractical**. That is exactly the anti-pattern the "account is a person, not an entity" principle fixes. |
+| **Organization Facebook Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Organization LinkedIn Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Domain** (`yourcharityname.org`)                     | Yes             | Registered/transferred via FFC.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **WordPress website**                                  | Yes             | The delivered site (legacy track) / FFC template.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Charity email routing** (`info@yourcharityname.org`) | Yes             | Professional addressing under the charity domain.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Board structure** (mandatory officers)               | Yes             | Seated board for 501(c)(3); planned/elected board for pre-501(c)(3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Mission statement**                                  | Yes             | Required by both.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 > **Track-specific (not part of the common minimum):** GuideStar/Candid **Gold**
 > seal, Form 990, audited financials, IRS determination letter (501(c)(3) only);
@@ -486,6 +486,31 @@ grouped into six categories.
     AI-tool integrations exactly the way the guides expect.
   - _FFC:_ A single supported browser pair means our guides and screenshots match
     your screen, with no time lost to browser-specific quirks.
+- **Google Authenticator (MFA app)** _(one of the three required providers — see
+  Section 8a)_
+  - _What:_ Install from the phone's app store. You scan QR codes into it to turn
+    on app-based two-factor authentication.
+  - _You:_ Secures your Google-ecosystem accounts (e.g. Google Analytics) with
+    2FA so a stolen password alone can't get in.
+  - _FFC:_ MFA on every account is how we keep the charity's accounts from being
+    trivially compromised.
+- **Microsoft Authenticator (MFA app)** _(one of the three required providers —
+  see Section 8a)_
+  - _What:_ Install from the phone's app store. Required for Microsoft 365
+    two-factor authentication.
+  - _You:_ Secures your Microsoft 365 sign-in.
+  - _FFC:_ Extends MFA coverage across the Microsoft ecosystem the charity runs
+    on.
+- **LastPass (password manager)** _(the third required provider — see Section
+  8a)_
+  - _What:_ Create an account with a strong **master password**; turn on
+    LastPass's own MFA; use it to generate/store a unique password for every
+    account and to store your **MFA recovery codes**. (Not a fourth tool — it is
+    the password manager of the three.)
+  - _You:_ One vault for every credential and recovery code, so a new or lost
+    phone never locks you out.
+  - _FFC:_ Credential hygiene that keeps the charity's accounts both secure and
+    recoverable.
 - **Microsoft Teams (desktop application + mobile app) — the first mandatory
   install** _(new FFC policy — not yet in the rendered setup guides)_
   - _What:_ The **Teams desktop application** on the computer (not just the web
@@ -617,15 +642,16 @@ grouped into six categories.
 > software-install capability (Group A) and readiness for screen-sharing and
 > meetings. Later AI-tool connectors are treated the same way.
 
-**Phase A — Establish the three approved security/credential tools**
+**Phase A — Set up the three approved security/credential tools** (installed in
+Phase 0, Group B)
 
-1. Install **Google Authenticator** from the phone's app store.
-2. Install **Microsoft Authenticator** from the phone's app store.
-3. Create a **LastPass** account (the password manager). Choose a strong,
-   memorable **master password**, and **turn on MFA for LastPass itself** using
-   your authenticator app. Use LastPass to **generate and store** a unique
-   strong password for every account from here on, and to **store MFA recovery
-   codes**.
+1. Open **Google Authenticator** (installed in Phase 0) — ready to scan QR codes
+   as you turn on MFA on each account below.
+2. Open **Microsoft Authenticator** (installed in Phase 0) — same role for the
+   Microsoft-ecosystem accounts.
+3. Finish your **LastPass** setup: confirm the strong **master password**, **turn
+   on MFA for LastPass itself**, and use it to **generate/store** a unique
+   password for every account from here on and to **store MFA recovery codes**.
 
 **Phase B — Personal LinkedIn profile (first social rung)**
 
