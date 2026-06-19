@@ -11,45 +11,33 @@ test.describe('Smoke Tests', () => {
     await page.goto('/')
     const nav = page.locator('nav')
     await expect(nav.locator('a[href="/"]').first()).toBeVisible()
+    // Prominent charity-owner CTA button
     await expect(nav.locator('a[href*="/site-owner"]').first()).toBeVisible()
+    // Audience-first mega-menus: Volunteer + Operate (Training folds into
+    // Volunteer, Resources folds into Operate)
     await expect(nav.locator('button:has-text("Volunteer")')).toBeVisible()
-    await expect(nav.locator('button:has-text("Training")')).toBeVisible()
     await expect(nav.locator('button:has-text("Operate")')).toBeVisible()
-    await expect(nav.locator('button:has-text("Resources")')).toBeVisible()
   })
 
-  test('volunteer dropdown links are accessible', async ({ page }) => {
+  test('volunteer mega-menu links are accessible (incl. nested training)', async ({ page }) => {
     await page.goto('/')
-    await page.locator('nav button:has-text("Volunteer")').hover()
+    await page.locator('nav button:has-text("Volunteer")').first().hover()
     await expect(page.locator('nav a[href*="/get-involved"]').first()).toBeVisible()
-    await expect(page.locator('nav a[href*="/recognition"]').first()).toBeVisible()
-    await expect(page.locator('nav a[href*="/continuing-education"]').first()).toBeVisible()
     await expect(page.locator('nav a[href*="/contributor-ladder"]').first()).toBeVisible()
-  })
-
-  test('training dropdown links are accessible', async ({ page }) => {
-    await page.goto('/')
-    await page.locator('nav button:has-text("Training")').hover()
-    await expect(page.locator('nav a[href*="/training-plan"]').first()).toBeVisible()
-    await expect(page.locator('nav a[href*="/canva-designer-path"]').first()).toBeVisible()
+    await expect(page.locator('nav a[href*="/continuing-education"]').first()).toBeVisible()
+    // Training tracks now live under Volunteer
     await expect(page.locator('nav a[href*="/training/web-developer"]').first()).toBeVisible()
+    await expect(page.locator('nav a[href*="/canva-designer-path"]').first()).toBeVisible()
   })
 
-  test('operate dropdown links are accessible', async ({ page }) => {
+  test('operate mega-menu links are accessible (incl. nested resources)', async ({ page }) => {
     await page.goto('/')
-    await page.locator('nav button:has-text("Operate")').hover()
+    await page.locator('nav button:has-text("Operate")').first().hover()
     await expect(page.locator('nav a[href*="/sites-list"]').first()).toBeVisible()
-    await expect(page.locator('nav a[href*="/tech-stack"]').first()).toBeVisible()
     await expect(page.locator('nav a[href*="/documentation"]').first()).toBeVisible()
     await expect(page.locator('nav a[href*="/testing"]').first()).toBeVisible()
-  })
-
-  test('resources dropdown links are accessible', async ({ page }) => {
-    await page.goto('/')
-    await page.locator('nav button:has-text("Resources")').hover()
+    // Resources now live under Operate
     await expect(page.locator('nav a[href*="/guides"]').first()).toBeVisible()
-    await expect(page.locator('nav a[href*="/developer-environment-setup"]').first()).toBeVisible()
-    await expect(page.locator('nav a[href*="/blog"]').first()).toBeVisible()
     await expect(page.locator('nav a[href*="/what-ffc-delivers"]').first()).toBeVisible()
   })
 
