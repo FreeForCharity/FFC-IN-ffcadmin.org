@@ -571,14 +571,18 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
       documents such as the IRS memo into either provider. (Tracked in Open
       Questions.)
 
-15. **Willingness to use AI tools (start with Google Gemini)**
+15. **Willingness to use AI tools — required assistant matches your email ecosystem**
     - _What:_ A willingness to use AI assistants, which have become **remarkably
       good at walking people through complex technical steps — even the free
-      versions.** Recommended path: **both Android and Apple users start with
-      Google Gemini** (Apple now includes Gemini); once comfortable with Gemini,
-      **then** add **Claude**.
-    - _Why it benefits you:_ AI can guide you through almost every step in this
-      flow and the ongoing site maintenance, so you are rarely stuck.
+      versions.** The **required first assistant depends on your primary email**:
+      - Primary email is **Gmail or iCloud → Google Gemini is required** (Apple
+        now includes Gemini).
+      - Primary email is **Outlook.com → Microsoft Copilot is required**.
+      - Once you've mastered that first assistant, **Claude** is the recommended
+        next tool.
+    - _Why it benefits you:_ The assistant that matches your ecosystem is the one
+      already built into your phone/accounts, so it's the easiest to adopt and can
+      guide you through almost every step in this flow and ongoing maintenance.
     - _Why it benefits FFC:_ The self-service maintenance model depends on it;
       confident AI users need far less hands-on volunteer support.
 
@@ -667,7 +671,8 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] **Microsoft Teams** installed on my computer **and** phone (first install).
 - [ ] A working **webcam + microphone** (on the computer or phone).
 - [ ] **Google Drive or Microsoft OneDrive** set up, and I can **scan documents**.
-- [ ] I'm **willing to use AI tools** (start with Google Gemini, then Claude).
+- [ ] I'm **willing to use AI tools** — the required one matches my email
+      (Gmail/iCloud → **Gemini**; Outlook.com → **Copilot**), then Claude.
 - [ ] I've set aside **dedicated time** to finish the ladder and maintain the site.
 
 **The three approved tools (all three, per person):**
