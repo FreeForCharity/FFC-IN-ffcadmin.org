@@ -300,17 +300,17 @@ here — only what both must do.
 
 ### 7b. Core organizational profiles & accounts (common to both tracks)
 
-| Account / profile                                      | Track-agnostic? | Notes                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Password manager** (LastPass)                        | Recommended     | A password manager is "the safety net behind every other account." Per the **founder-directed policy in Section 8a** it must be one of the three approved providers — FFC uses **LastPass**. (This supersedes `setup-guides.ts`, which still lists Bitwarden; the guide is pending update.) |
-| **Organizational Microsoft 365 / Outlook email**       | Yes             | FFC-recommended productivity + email suite; `<charityname>@outlook.com` to start, then charity-domain mailboxes.                                                                                                                                                                            |
-| **Organization Facebook Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                                                                            |
-| **Organization LinkedIn Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                                                                            |
-| **Domain** (`yourcharityname.org`)                     | Yes             | Registered/transferred via FFC.                                                                                                                                                                                                                                                             |
-| **WordPress website**                                  | Yes             | The delivered site (legacy track) / FFC template.                                                                                                                                                                                                                                           |
-| **Charity email routing** (`info@yourcharityname.org`) | Yes             | Professional addressing under the charity domain.                                                                                                                                                                                                                                           |
-| **Board structure** (mandatory officers)               | Yes             | Seated board for 501(c)(3); planned/elected board for pre-501(c)(3).                                                                                                                                                                                                                        |
-| **Mission statement**                                  | Yes             | Required by both.                                                                                                                                                                                                                                                                           |
+| Account / profile                                      | Track-agnostic? | Notes                                                                                                                                                                                                                                                                                                    |
+| ------------------------------------------------------ | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Password manager** (LastPass)                        | Recommended     | A password manager is "the safety net behind every other account." Per the **founder-directed policy in Section 8a (pending implementation)** FFC standardizes on **LastPass**. The rendered `setup-guides.ts` still presents LastPass _or_ Bitwarden; updating it to LastPass-only is a tracked action. |
+| **Organizational Microsoft 365 / Outlook email**       | Yes             | FFC-recommended productivity + email suite; `<charityname>@outlook.com` to start, then charity-domain mailboxes.                                                                                                                                                                                         |
+| **Organization Facebook Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                                                                                         |
+| **Organization LinkedIn Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                                                                                         |
+| **Domain** (`yourcharityname.org`)                     | Yes             | Registered/transferred via FFC.                                                                                                                                                                                                                                                                          |
+| **WordPress website**                                  | Yes             | The delivered site (legacy track) / FFC template.                                                                                                                                                                                                                                                        |
+| **Charity email routing** (`info@yourcharityname.org`) | Yes             | Professional addressing under the charity domain.                                                                                                                                                                                                                                                        |
+| **Board structure** (mandatory officers)               | Yes             | Seated board for 501(c)(3); planned/elected board for pre-501(c)(3).                                                                                                                                                                                                                                     |
+| **Mission statement**                                  | Yes             | Required by both.                                                                                                                                                                                                                                                                                        |
 
 > **Track-specific (not part of the common minimum):** GuideStar/Candid **Gold**
 > seal, Form 990, audited financials, IRS determination letter (501(c)(3) only);
@@ -359,19 +359,21 @@ account is a person, not an entity.** The applicant signs up as themselves,
 secures the account, then creates the organization's Page _from_ that personal
 account.
 
-### 8a. The three approved free providers (founder-directed policy)
+### 8a. The three approved free providers (founder-directed policy — pending implementation)
 
-> **Policy note — supersedes the current code.** The three-provider rule below is
-> **current founder-directed policy** (set in review of this document). It
-> **supersedes** `src/data/setup-guides.ts`, which still reads "Google _or_
-> Microsoft Authenticator" and "LastPass _or_ Bitwarden." Those guides are
-> **pending an update** to match this policy (tracked in Open Questions). Where
-> the document and the older guide differ, **this policy governs.**
+> **Policy note.** The three-provider rule below is **founder-directed policy,
+> confirmed in review of this document.** It is **not yet reflected in
+> `src/data/setup-guides.ts`**, which currently labels itself the "single source
+> of truth" and still reads "Google _or_ Microsoft Authenticator" and "LastPass
+> _or_ Bitwarden." Implementing this policy means **updating those rendered
+> guides** (a tracked action in Open Questions); until that change ships, the
+> live guides still show the older options. This document records the **intended
+> policy** so the site update can follow it.
 
-FFC standardizes on **exactly three** free providers for multi-factor
-authentication and password management. **All three are required for every
-person** — they are not interchangeable options, because each one is the
-authenticator for an ecosystem the charity will actually use:
+Under this policy, FFC standardizes on **exactly three** free providers for
+multi-factor authentication and password management. **All three are required for
+every person** — they are not interchangeable options, because each covers an
+ecosystem the charity will actually use:
 
 1. **Google Authenticator** — required because the charity sets up **Google
    services** (e.g. Google Analytics and other Google products), which use it for
@@ -381,17 +383,18 @@ authenticator for an ecosystem the charity will actually use:
 3. **LastPass** — required as the **password manager** (and LastPass Authenticator
    for MFA).
 
-Rules that follow from this:
+Under this policy:
 
 - **Each person sets up all three** — Google Authenticator, Microsoft
   Authenticator, and LastPass — not just one. They cover different ecosystems the
   charity depends on, so all three are needed per person.
 - **Every** FFC-related account has **MFA turned on**, using the authenticator
   for that ecosystem (no SMS where an app is offered).
-- The **password manager must be from one of these three providers** — FFC uses
-  **LastPass**.
-- Do **not** introduce any other tool (no Bitwarden, Authy, 1Password, etc.).
-  Being able to set up these three is also part of the technical-literacy bar.
+- The **password manager is LastPass.** (Google Authenticator and Microsoft
+  Authenticator are authenticators, not password managers — LastPass is the
+  single password manager in the approved set.)
+- No other tool is introduced (no Bitwarden, Authy, 1Password, etc.). Being able
+  to set up these three is also part of the technical-literacy bar.
 
 > **Dependency chain (why the order matters):** a **LinkedIn organization Page**
 > can only be created from a **personal LinkedIn profile**; a **Facebook
@@ -457,20 +460,58 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
      and work emails to (the "account is a person" principle) and a reliable
      channel for verification links.
 
-6. **A modern web browser**
-   - _What:_ A current **Chrome or Edge** on the computer.
-   - _Why it benefits you:_ Runs the web apps and the password-manager extension
-     smoothly, with the fewest surprises.
-   - _Why it benefits FFC:_ Standardizes the environment so the steps in our
-     guides match what you actually see on screen.
+6. **An approved web browser — Chrome or Edge only**
+   - _What:_ A current **Google Chrome or Microsoft Edge** on the computer.
+     **Firefox, Safari, and any other browser are not approved or supported.**
+   - _Why it benefits you:_ Chrome/Edge run the web apps, the password-manager
+     extension, and the AI-tool integrations exactly the way the guides expect —
+     the fewest surprises and the most help available.
+   - _Why it benefits FFC:_ A single supported browser pair means our guides and
+     screenshots match your screen, and we don't spend support time on
+     browser-specific quirks.
 
-7. **Basic digital literacy**
-   - _What:_ Comfort opening websites, completing forms, scanning a QR code, and
-     installing an app or extension.
-   - _Why it benefits you:_ The entire self-service model — and your ongoing
-     independence — depends on it.
-   - _Why it benefits FFC:_ It is the core signal that the charity can operate
-     what we build; this is the heart of the "filter out" philosophy.
+7. **Microsoft Teams (desktop application + mobile app) — the first mandatory install**
+   - _What:_ The **Microsoft Teams desktop application** installed on the
+     computer (not just the web version), **and** the Teams app on the
+     smartphone. This is the **first install** every applicant completes.
+   - _Why it benefits you:_ Teams is how you meet with FFC — screen sharing,
+     live walkthroughs, and real-time help during onboarding and beyond; having
+     it on your phone means you can join from anywhere.
+   - _Why it benefits FFC:_ Teams is our standard meeting and screen-share
+     channel, so we can guide you live and see your screen to unblock you.
+     Installing it also **proves your computer can install software** — it is the
+     first connector test, which is why we treat it as the verification for
+     item 3.
+
+8. **A webcam and microphone**
+   - _What:_ A working camera and microphone — on the computer **or** the
+     smartphone (with Teams installed on whichever device you join from).
+   - _Why it benefits you:_ Lets you take part in live onboarding and training
+     calls and get face-to-face help.
+   - _Why it benefits FFC:_ Lets us run efficient guided sessions, confirm who we
+     are working with, and resolve issues far faster than email alone.
+
+9. **A dedicated time commitment**
+   - _What:_ A realistic block of focused time to work through the prerequisite
+     ladder, plus ongoing time to maintain the site afterward.
+   - _Why it benefits you:_ Setting the time aside up front means you finish the
+     ladder instead of stalling halfway with half-secured accounts.
+   - _Why it benefits FFC:_ Reduces abandoned, half-finished onboardings that
+     consume volunteer attention without producing a working charity.
+
+10. **Basic digital literacy**
+    - _What:_ Comfort opening websites, completing forms, scanning a QR code, and
+      installing an app or extension.
+    - _Why it benefits you:_ The entire self-service model — and your ongoing
+      independence — depends on it.
+    - _Why it benefits FFC:_ It is the core signal that the charity can operate
+      what we build; this is the heart of the "filter out" philosophy.
+
+> **Verification (light-touch):** we do not formally audit each item — **having
+> installed the required apps is the proof.** The **first mandatory install is
+> Microsoft Teams (desktop)**; completing it demonstrates the computer's
+> software-install capability (item 3) and readiness for screen-sharing and
+> meetings. Later AI-tool connectors are treated the same way.
 
 **Phase A — Establish the three approved security/credential tools**
 
@@ -545,8 +586,11 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] I have a **smartphone** that can install apps (not just a tablet/desktop).
 - [ ] It has a **US-based mobile phone number** that can send/receive texts.
 - [ ] I have a **desktop/laptop I can install software on** (admin rights).
-- [ ] I have **reliable internet**, a **modern browser** (Chrome/Edge), and a
-      **primary email** on the phone.
+- [ ] I have **reliable internet**, **Chrome or Edge** (Firefox/Safari not
+      supported), and a **primary email** on the phone.
+- [ ] **Microsoft Teams** installed on my computer **and** phone (first install).
+- [ ] A working **webcam + microphone** (on the computer or phone).
+- [ ] I've set aside **dedicated time** to finish the ladder and maintain the site.
 
 **The three approved tools (all three, per person):**
 
