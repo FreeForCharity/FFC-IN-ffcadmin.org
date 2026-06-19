@@ -786,7 +786,7 @@ export const LEARNING_PATHS: LearningPath[] = [
   },
   {
     id: 'global-admin',
-    title: 'Global Administrator',
+    title: 'Microsoft 365 Administrator',
     persona: 'You manage Microsoft 365, GitHub, and infrastructure for all FFC charities.',
     intro:
       'The administrator path: full depth across every module, backed by the MS-900 and GitHub Foundations certifications. This is the complete "Operation Digital Sovereignty" program.',

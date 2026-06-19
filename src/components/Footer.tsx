@@ -262,11 +262,40 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/training" className="text-gray-400 hover:text-white transition-colors">
+                  All Training Tracks
+                </Link>
+              </li>
+              <li>
                 <Link
                   href="/training-plan"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Global Administrator
+                  Microsoft 365 Administrator
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/training/google-workspace-admin"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Google Workspace Administrator
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/training/web-developer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Web Developer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/training/data-analytics"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Data &amp; Analytics
                 </Link>
               </li>
               <li>

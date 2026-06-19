@@ -426,7 +426,7 @@ export default function ContributorLadder() {
               href="/training-plan"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl"
             >
-              Global Admin Track
+              Microsoft 365 Administrator Track
               <svg
                 className="ml-2 w-5 h-5"
                 fill="none"

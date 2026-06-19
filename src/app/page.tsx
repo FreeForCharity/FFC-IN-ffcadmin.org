@@ -540,239 +540,110 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Learning Paths Section */}
+      {/* Volunteer training tracks — all roles */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Specialized Training Paths
+              Volunteer Training Tracks
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              We train volunteers in two distinct tracks, each with comprehensive certification
-              programs and hands-on project work
+              We split volunteering into focused roles, each with its own self-paced curriculum and
+              certification. Pick the one that fits you — or browse them all.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Global Admin Path */}
-            <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-all">
-              <div className="flex items-start mb-6">
-                <div className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4 bg-ffc-gradient-teal">
-                  <svg
-                    className="w-8 h-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Global Administrator Track
-                  </h3>
-                  <p className="font-semibold" style={{ color: 'var(--color-ffc-teal-dark)' }}>
-                    Technical Infrastructure & Security
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-700 mb-6">
-                Comprehensive training in Microsoft 365, GitHub, and modern development practices.
-                Gain dual-hatted authority over nonprofit technology infrastructure with MS-900 and
-                GitHub Foundations certifications.
-              </p>
-              <ul className="space-y-2 mb-6">
-                <li className="flex items-start">
-                  <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-700">Microsoft 365 administration & security</span>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-700">
-                    GitHub repository management & AI-assisted development
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-700">CI/CD pipelines & automated deployments</span>
-                </li>
-              </ul>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: 'Microsoft 365 Administrator',
+                blurb:
+                  'Run email, identity, MFA, and security for charities. Earn MS-900 + GitHub Foundations.',
+                href: '/training-plan',
+                icon: '🛡️',
+                cert: 'MS-900 · GitHub Foundations',
+              },
+              {
+                title: 'Google Workspace Administrator',
+                blurb:
+                  'Manage accounts, groups, shared drives, and security for charities that run on Google.',
+                href: '/training/google-workspace-admin',
+                icon: '🗂️',
+                cert: 'Google Workspace Administrator',
+              },
+              {
+                title: 'Web Developer',
+                blurb:
+                  'Build and maintain charity sites with an AI agent — Issue → PR → merge, no heavy setup.',
+                href: '/training/web-developer',
+                icon: '💻',
+                cert: 'Self-paced, project-based',
+              },
+              {
+                title: 'Data & Analytics',
+                blurb:
+                  'Set up GA4, build impact dashboards, and turn charity data into clear reporting.',
+                href: '/training/data-analytics',
+                icon: '📈',
+                cert: 'Google Analytics certification',
+              },
+              {
+                title: 'Canva Designer',
+                blurb:
+                  'Design brand kits, social templates, and marketing materials with Canva Pro.',
+                href: '/canva-designer-path',
+                icon: '🎨',
+                cert: 'Canva Design School',
+              },
+              {
+                title: 'See all training tracks',
+                blurb:
+                  'Compare every role by depth (Operator → Practitioner → Administrator) in one place.',
+                href: '/training',
+                icon: '🧭',
+                cert: 'Overview of all roles',
+              },
+            ].map((track) => (
               <Link
-                href="/training-plan"
-                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg bg-ffc-gradient-teal"
+                key={track.href}
+                href={track.href}
+                className="group block bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1"
               >
-                View Training Plan
-                <svg
-                  className="ml-2 w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
+                <span className="text-3xl" aria-hidden="true">
+                  {track.icon}
+                </span>
+                <h3 className="text-lg font-bold text-gray-900 mt-3 mb-1 group-hover:text-blue-700">
+                  {track.title}
+                </h3>
+                <p className="text-sm text-gray-600 mb-3">{track.blurb}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+                  {track.cert}
+                </p>
               </Link>
-            </div>
+            ))}
+          </div>
 
-            {/* Canva Designer Path */}
-            <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-all">
-              <div className="flex items-start mb-6">
-                <div className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 mr-4 bg-ffc-gradient-orange">
-                  <svg
-                    className="w-8 h-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Canva Designer Track</h3>
-                  <p className="font-semibold" style={{ color: 'var(--color-ffc-orange-dark)' }}>
-                    Professional Visual Design
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-700 mb-6">
-                Master Canva Pro to create professional brand identities and marketing materials.
-                Complete official Canva Design School courses and build comprehensive template
-                libraries for nonprofits.
-              </p>
-              <ul className="space-y-2 mb-6">
-                <li className="flex items-start">
-                  <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-700">
-                    Complete brand kit development & style guides
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-700">
-                    Social media templates for all major platforms
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-700">Email marketing & print stationery designs</span>
-                </li>
-              </ul>
-              <Link
-                href="/canva-designer-path"
-                className="inline-flex items-center justify-center w-full px-6 py-3 text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg bg-ffc-gradient-orange"
+          <div className="text-center mt-10">
+            <Link
+              href="/get-involved"
+              className="inline-flex items-center justify-center px-6 py-3 bg-ffc-gradient-teal text-white rounded-lg font-semibold hover:opacity-90 transition-opacity shadow-lg"
+            >
+              Compare roles &amp; get involved
+              <svg
+                className="ml-2 w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
               >
-                View Designer Path
-                <svg
-                  className="ml-2 w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </Link>
-            </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>

@@ -56,7 +56,7 @@ export const VOLUNTEER_ROLES: VolunteerRole[] = [
       'Earn MS-900 (FFC sponsors the exam)',
     ],
     startHref: '/training-plan',
-    startLabel: 'Start the Global Admin track',
+    startLabel: 'Start the Microsoft 365 Administrator track',
     gradient: 'from-teal-500 to-emerald-600',
     icon: '🛡️',
   },

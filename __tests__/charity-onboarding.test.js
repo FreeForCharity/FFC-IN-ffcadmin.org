@@ -31,6 +31,19 @@ describe('Accept-invitation walkthrough page', () => {
     expect(page).toContain('/invitations')
   })
 
+  it('shows real, clickable charity examples of the FFC-EX- repo pattern', () => {
+    for (const domain of [
+      'mitchellnchistory.org',
+      'americanlegionpost64.org',
+      'savewatersaveplanet.org',
+    ]) {
+      expect(page).toContain(domain)
+    }
+    // Repos are derived from the domain via repoForDomain() to avoid drift.
+    expect(page).toContain('FreeForCharity/FFC-EX-')
+    expect(page).toContain('repoForDomain')
+  })
+
   it('warns about being signed in as the right account', () => {
     expect(page.toLowerCase()).toContain('right')
     expect(page.toLowerCase()).toContain('account')
