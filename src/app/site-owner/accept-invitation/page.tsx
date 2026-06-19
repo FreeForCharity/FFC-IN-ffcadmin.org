@@ -180,27 +180,28 @@ export default function AcceptInvitationPage() {
             The one thing to understand first
           </h2>
           <p className="text-sm text-blue-900/90 mb-2">
-            Your invitation shows up in <strong>two places at the same time</strong>, and you only
-            need to use <em>one</em> of them:
+            The same invitation shows up in more than one place, and you only need to use{' '}
+            <em>one</em> of them to accept:
           </p>
-          <ol className="text-sm text-blue-900/90 list-decimal pl-5 space-y-1">
+          <ul className="text-sm text-blue-900/90 list-disc pl-5 space-y-1">
             <li>An email from GitHub, and</li>
-            <li>A green banner on your repository&apos;s page when you&apos;re logged in.</li>
-          </ol>
+            <li>
+              Your GitHub notifications at{' '}
+              <a
+                href="https://github.com/notifications"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                github.com/notifications
+              </a>{' '}
+              when you&apos;re signed in.
+            </li>
+          </ul>
           <p className="text-sm text-blue-900/90 mt-2">
-            <strong>Important:</strong> a repository invitation usually does <strong>not</strong>{' '}
-            appear at{' '}
-            <a
-              href="https://github.com/notifications"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-            >
-              github.com/notifications
-            </a>
-            . That bell is for other things. If you went there and it was empty, you weren&apos;t
-            doing anything wrong — you were just looking in the one spot it doesn&apos;t show. Use
-            Route&nbsp;A or Route&nbsp;B below instead.
+            There&apos;s also a direct accept link for your repository (Route&nbsp;C) that always
+            works. If a place looks empty, it&apos;s almost always because you&apos;re signed in as
+            the wrong account — check that first, below.
           </p>
         </section>
 
@@ -211,10 +212,11 @@ export default function AcceptInvitationPage() {
             person?
           </h2>
           <p className="text-sm text-amber-900/90 mb-3">
-            The #1 reason an invitation seems &ldquo;missing&rdquo; is being logged into a{' '}
-            <strong>different GitHub account</strong> than the username you gave FFC (for example,
-            an old personal account, or a second account on a shared computer). The invite was sent
-            to one specific username — you must be signed in as that exact person to see it.
+            The #1 reason an invitation seems &ldquo;missing&rdquo; — even in your notifications —
+            is being logged into a <strong>different GitHub account</strong> than the username you
+            gave FFC (for example, an old personal account, or a second account on a shared
+            computer). The invite was sent to one specific username, so you must be signed in as
+            that exact person to see it.
           </p>
           <p className="text-sm text-amber-900/90">
             Check it: open{' '}
@@ -277,55 +279,71 @@ export default function AcceptInvitationPage() {
 
         <Route
           letter="B"
-          title="Accept from your repository page"
-          subtitle="The most reliable way — works even if the email never arrives"
+          title="Accept from your GitHub notifications"
+          subtitle="Works even if you can’t find the email"
         >
           <p className="text-sm text-gray-700 mb-2">
-            FFC will give you your repository&apos;s web address. It looks like this (yours will
-            have your charity&apos;s name):
-          </p>
-          <p className="text-sm font-mono bg-gray-100 rounded p-2 mb-3 break-all">
-            https://github.com/{EXAMPLE_REPO}
-          </p>
-          <p className="text-sm text-gray-700 mb-1">
-            Make sure you&apos;re signed in (see the warning above), then open that address. At the
-            top of the page you&apos;ll see a banner inviting you to collaborate. Click the green{' '}
+            Signed in as the right account, open{' '}
+            <a
+              href="https://github.com/notifications"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-teal-700 underline hover:text-teal-900"
+            >
+              github.com/notifications
+            </a>{' '}
+            (or click the <strong>bell icon</strong> in the top-right of GitHub). Your repository
+            invitation appears in the list — open it and click the green{' '}
             <strong>Accept invitation</strong> button.
           </p>
-          <BannerMock />
           <p className="text-sm text-gray-700">
-            If the banner doesn&apos;t appear, add <strong>/invitations</strong> to the end of the
-            address and open{' '}
-            <span className="font-mono break-all">
-              https://github.com/{EXAMPLE_REPO}/invitations
-            </span>{' '}
-            — the accept button lives there too.
+            If the list looks empty: double-check the account (the warning above), and make sure the
+            filter at the top is on <strong>Inbox</strong> / <strong>All</strong> rather than a
+            narrower view.
           </p>
         </Route>
 
         <Route
           letter="C"
-          title="Let FFC walk you through it live"
-          subtitle="When you just want a human on the line"
+          title="Accept from the direct repository link"
+          subtitle="The surest way — a link that goes straight to the accept button"
         >
-          <p className="text-sm text-gray-700">
-            No shame in this — it takes two minutes together. Text <strong>Clarke Moyer</strong> at{' '}
-            <a href="sms:520-222-8104" className="text-teal-700 underline hover:text-teal-900">
-              (520)&nbsp;222-8104
-            </a>{' '}
-            and say you&apos;re ready to accept your repository invitation. He can re-send it and
-            stay on the phone while you click <strong>Accept</strong>.
+          <p className="text-sm text-gray-700 mb-2">
+            FFC will give you your repository&apos;s web address. Signed in, open it with{' '}
+            <strong>/invitations</strong> on the end — this goes straight to the accept button
+            (yours will have your charity&apos;s name):
           </p>
+          <p className="text-sm font-mono bg-gray-100 rounded p-2 mb-3 break-all">
+            https://github.com/{EXAMPLE_REPO}/invitations
+          </p>
+          <p className="text-sm text-gray-700">
+            Some repositories also show a green banner at the top of the main repo page (
+            <span className="font-mono">{`github.com/${EXAMPLE_REPO}`}</span>) — if you see it, its{' '}
+            <strong>Accept invitation</strong> button does the same thing. It doesn&apos;t always
+            appear, which is why the <strong>/invitations</strong> link above is the reliable one.
+          </p>
+          <BannerMock />
         </Route>
+
+        {/* Live help fallback */}
+        <div className="bg-teal-50 border border-teal-200 rounded-xl p-5 text-sm text-teal-900">
+          <strong>Still stuck? Do it live with FFC.</strong> No shame in this — it takes two minutes
+          together. Text <strong>Clarke Moyer</strong> at{' '}
+          <a href="sms:520-222-8104" className="text-teal-700 underline hover:text-teal-900">
+            (520)&nbsp;222-8104
+          </a>{' '}
+          and say you&apos;re ready to accept your repository invitation. He can re-send it and stay
+          on the phone while you click <strong>Accept</strong>.
+        </div>
 
         {/* What success looks like */}
         <section className="bg-green-50 border border-green-200 rounded-xl p-6">
           <h2 className="text-lg font-bold text-green-900 mb-2">How you know it worked</h2>
           <p className="text-sm text-green-900/90">
-            After you click <strong>Accept invitation</strong>, the banner disappears and you land
-            on your repository&apos;s normal page — a list of files and folders. That&apos;s it:
-            you&apos;re now a <strong>collaborator</strong> and you (and your AI assistant) can make
-            changes. You never have to accept again.
+            After you click <strong>Accept invitation</strong>, you land on your repository&apos;s
+            normal page — a list of files and folders, with no invitation prompt left. That&apos;s
+            it: you&apos;re now a <strong>collaborator</strong> and you (and your AI assistant) can
+            make changes. You never have to accept again.
           </p>
         </section>
 

@@ -20,15 +20,14 @@ describe('Accept-invitation walkthrough page', () => {
     expect(page).toContain('invited you to collaborate')
   })
 
-  it('corrects the notifications-page misconception (the 2-hour problem)', () => {
+  it('documents github.com/notifications as a place to accept', () => {
     expect(page).toContain('github.com/notifications')
-    expect(page.toLowerCase()).toContain('does')
-    expect(page.toLowerCase()).toContain('not')
+    expect(page).toContain('Accept from your GitHub notifications')
   })
 
   it('documents all three acceptance routes', () => {
     expect(page).toContain('Accept from the email')
-    expect(page).toContain('Accept from your repository page')
+    expect(page).toContain('Accept from your GitHub notifications')
     expect(page).toContain('/invitations')
   })
 
