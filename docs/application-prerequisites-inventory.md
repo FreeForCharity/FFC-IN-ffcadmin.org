@@ -638,7 +638,9 @@ into the categories below.
   - _What:_ Your own **Candid** (formerly GuideStar) account. The organization's
     Candid profile and transparency seal come later (Section 4).
   - _You:_ See how donors and funders research charities on the canonical
-    nonprofit registry before you build your own profile.
+    nonprofit registry before you build your own profile — and use it to **find
+    other charities in your area of the same type and mission** (feeds the
+    comparable-charities prerequisite in Group F).
   - _FFC:_ Familiarity with Candid before the org-profile/seal work speeds that
     step and reduces what we teach later.
 - **A personal Taproot account** (taprootfoundation.org / Taproot Plus)
@@ -691,6 +693,14 @@ into the categories below.
   - _You:_ Needed for the LinkedIn/Facebook About sections, GuideStar, and the
     site — write it once, reuse everywhere.
   - _FFC:_ Validation and page setup go faster when the mission is articulated.
+- **Three comparable charities identified (exact or near-exact mission)**
+  - _What:_ Find and note **at least three other charities** — ideally in your
+    area — doing the **exact or near-exact mission**, using your personal Candid
+    account (Group D) plus Idealist.
+  - _You:_ You learn the landscape and your peers, sharpen what makes your
+    organization distinct, and see proven examples to model.
+  - _FFC:_ Confirms a real, well-understood need (not duplicative), gives the
+    mission a clear frame, and provides comparables for design and benchmarking.
 - **A public organization phone number**
   - _What:_ A phone number for the organization that can be listed publicly. A
     free **Google Voice** number works well — it's what the FFC founder uses
@@ -821,6 +831,7 @@ If you get stuck on any item, use **Contact us for help**.
 
 - [ ] Our **organization name** is settled and the `.org` **checked on Cloudflare**.
 - [ ] A **drafted mission statement**.
+- [ ] **Three comparable charities** (exact/near-exact mission) identified.
 - [ ] A **public org phone number** (e.g., Google Voice).
 
 **Organization pages (the hard gate — required before applying):**
