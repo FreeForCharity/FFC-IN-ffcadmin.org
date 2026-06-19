@@ -3,8 +3,8 @@
 > **Status: Draft for verification.** This document inventories the application
 > and prerequisite steps that the FFC site currently describes, assembled from
 > the existing pages and data files in this repository **and from the
-> freeforcharity.org onboarding pages** (`/501c3`, `/pre501c3`,
-> `/free-for-charitys-tools-for-success`)
+> freeforcharity.org onboarding pages** (<https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>,
+> <https://freeforcharity.org/free-for-charitys-tools-for-success/>)
 > referenced throughout. The FFC founder should verify, add, or remove steps
 > before this is treated as authoritative.
 
@@ -23,8 +23,8 @@
 
 > **Source precedence (sources differ by age).** The repo blends two eras. The
 > **current** model is captured by `src/data/setup-guides.ts` and the
-> freeforcharity.org `/501c3`, `/pre501c3`, and
-> `/free-for-charitys-tools-for-success` pages. The
+> freeforcharity.org <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>, and
+> <https://freeforcharity.org/free-for-charitys-tools-for-success/> pages. The
 > **legacy** WordPress / Online Impacts era is captured by the
 > `legacy-wordpress-administration/*` pages (WHMCS product checkout, InterServer
 > hosting, GuideStar-as-universal-gate, the eight-stage WordPress lifecycle).
@@ -149,7 +149,7 @@ these generally results in a polite decline rather than a fix-and-retry.
 ### 1a. The pre-501(c)(3) track
 
 Organizations that are not yet IRS-recognized 501(c)(3)s can still apply through
-the **pre-501(c)(3) track** (its `/pre501c3` landing page points into the
+the **pre-501(c)(3) track** (its <https://freeforcharity.org/pre501c3/> landing page points into the
 GitHub-only application flow — Section 3). The track carries its own prerequisite
 expectations:
 
@@ -333,7 +333,7 @@ into the categories below.
     2FA so a stolen password alone can't get in.
   - _FFC:_ MFA on every account is how we keep the charity's accounts from being
     trivially compromised.
-  - _Guide:_ `/guides/multi-factor-authentication`
+  - _Guide:_ <https://ffcadmin.org/guides/multi-factor-authentication/>
 - **Microsoft Authenticator (MFA app)** _(one of the three required providers —
   see Section 2a)_
   - _What:_ Install from the phone's app store. Required for Microsoft 365
@@ -341,7 +341,7 @@ into the categories below.
   - _You:_ Secures your Microsoft 365 sign-in.
   - _FFC:_ Extends MFA coverage across the Microsoft ecosystem the charity runs
     on.
-  - _Guide:_ `/guides/multi-factor-authentication`
+  - _Guide:_ <https://ffcadmin.org/guides/multi-factor-authentication/>
 - **LastPass (password manager)** _(the third required provider — see
   Section 2a)_
   - _What:_ Create an account with a strong **master password**; turn on
@@ -352,7 +352,7 @@ into the categories below.
     phone never locks you out.
   - _FFC:_ Credential hygiene that keeps the charity's accounts both secure and
     recoverable.
-  - _Guide:_ `/guides/password-manager`
+  - _Guide:_ <https://ffcadmin.org/guides/password-manager/>
 - **Microsoft Teams (desktop application + mobile app) — the first mandatory
   install** _(new FFC policy — not yet in the rendered setup guides)_
   - _What:_ The **Teams desktop application** on the computer (not just the web
@@ -420,7 +420,7 @@ into the categories below.
   - _FFC:_ The application arrives through GitHub and we add your account to the
     charity's repository as a writer; a real, secured personal identity keeps the
     application and contribution history accountable.
-  - _Guide:_ `/guides/github-account`
+  - _Guide:_ <https://ffcadmin.org/guides/github-account/>
 - **A personal LinkedIn profile — applicant and every board / planned-board
   member**
   - _What:_ A personal LinkedIn profile (real name, photo, headline, current
@@ -430,19 +430,19 @@ into the categories below.
     organization's LinkedIn Page later.
   - _FFC:_ Confirms real, accountable people behind the charity, and supports the
     board volunteering-linkage governance signal (Section 2b).
-  - _Guide:_ `/guides/linkedin`
+  - _Guide:_ <https://ffcadmin.org/guides/linkedin/>
 - **A personal Facebook account**
   - _What:_ Your own Facebook account in your real name, MFA on. (Never create a
     fake "charity person" account — Facebook removes those.)
   - _You:_ Required to create and administer the organization's Facebook Page.
   - _FFC:_ Keeps the eventual Page behind a real, secured human admin.
-  - _Guide:_ `/guides/facebook`
+  - _Guide:_ <https://ffcadmin.org/guides/facebook/>
 - **A personal Canva account**
   - _What:_ Your own Canva account, MFA on; you later join the charity's Canva
     team.
   - _You:_ Access the charity's brand kit and templates to make on-brand graphics.
   - _FFC:_ Brand-consistent materials without FFC doing the design.
-  - _Guide:_ `/guides/canva`
+  - _Guide:_ <https://ffcadmin.org/guides/canva/>
 - **A personal Idealist account** (idealist.org)
   - _What:_ Your own account on **Idealist**, the nonprofit volunteer/jobs
     platform. You'll create the organization's listing later.
@@ -676,8 +676,8 @@ technical-competence signals.
 > moving to a **GitHub-only application flow**: the applicant applies through
 > **GitHub** using the **personal GitHub account** created in Phase 0 (Group D).
 > The legacy **WHMCS portal product checkout** is **retired** as an application
-> mechanism, and the freeforcharity.org web forms (`/submit-information`,
-> `/501c3`, `/pre501c3`) are informational landing pages that point into the
+> mechanism, and the freeforcharity.org web forms (<https://freeforcharity.org/submit-information/>,
+> <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>) are informational landing pages that point into the
 > GitHub flow. This is exactly why a personal GitHub account is a Phase 0
 > requirement.
 
@@ -818,7 +818,7 @@ flow), on both tracks. They are not repeated here.
 501(c)(3)-emphasized and happen during/after validation, not in Phase 0:
 
 - Charity-named **Outlook mailbox** (Microsoft 365 tenant) — _validation check 5_
-  (first-sign-in guide: `/guides/microsoft-365-email`)
+  (first-sign-in guide: <https://ffcadmin.org/guides/microsoft-365-email/>)
 - **Candid (GuideStar) profile at Gold or higher** — _validation check 1_ (the
   applicant already holds a **personal** Candid account from Phase 0; this is the
   **organization** profile and seal)
@@ -860,7 +860,7 @@ top-of-document disclaimer).
 
 - **GitHub-only application channel** — build/define the actual GitHub entry
   point (repo + issue template or form); the freeforcharity.org pages
-  (<https://freeforcharity.org/submit-information/>, `/501c3`, `/pre501c3`) become
+  (<https://freeforcharity.org/submit-information/>, <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>) become
   landing pages that point into it, and the legacy WHMCS checkout is retired.
 - **Three-provider policy → update `src/data/setup-guides.ts`** — the live code
   still recommends **one** authenticator app (Google _or_ Microsoft) and allows
