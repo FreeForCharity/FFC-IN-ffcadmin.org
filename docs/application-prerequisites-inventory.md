@@ -11,10 +11,10 @@
 > **Two kinds of content (read this first).** This document now contains both:
 > (1) an **inventory of existing guidance** already in the repo, and (2) **new
 > founder-directed policy decisions** made while drafting it — specifically the
-> **Phase 0 baseline** (Section 8), the **three approved providers** (Section
-> 8a), **Microsoft Teams as the first install**, the **Chrome/Edge-only browser
+> **Phase 0 baseline** (Section 2), the **three approved providers**
+> (Section 2a), **Microsoft Teams as the first install**, the **Chrome/Edge-only browser
 > policy**, **LastPass** as the password manager, and the **GitHub-only
-> application flow** (Section 2). The new policies are **not
+> application flow** (Section 3). The new policies are **not
 > yet implemented in the rendered guides/site** (e.g. `src/data/setup-guides.ts`
 > still allows **either** Google or Microsoft Authenticator, and **either**
 > LastPass or Bitwarden). New-policy items are tagged inline. **Implementing them
@@ -29,7 +29,7 @@
 > `legacy-wordpress-administration/*` pages (WHMCS product checkout, InterServer
 > hosting, GuideStar-as-universal-gate, the eight-stage WordPress lifecycle).
 > Where they conflict, **the current model governs the individual-applicant flow
-> in Section 8**; legacy details are retained for the operations history but are
+> in Section 2**; legacy details are retained for the operations history but are
 > flagged as legacy.
 
 ## Purpose
@@ -52,10 +52,10 @@ service-delivery resources commit, protecting volunteer time and ensuring every
 shipped site lands at a charity that can run it.
 
 > **Prerequisite-first framing & acceptance expectation.** This guide is
-> organized around the **prerequisite steps** and a **self-check** (Section 8c)
+> organized around the **prerequisite steps** and a **self-check** (Section 2c)
 > so an applicant can see, up front, **everything they will need to do**. The
 > expectation is explicit: a charity completes the prerequisite ladder
-> (Section 8) **before FFC provides any other service**. Completing it is what
+> (Section 2) **before FFC provides any other service**. Completing it is what
 > moves the organization from "interested" to **accepted** — no domain, email,
 > website, or other service is provisioned until the prerequisites are met. The
 > only thing always available before then is the **Contact us for help** path.
@@ -79,7 +79,7 @@ shipped site lands at a charity that can run it.
 > **In-repo source:** the actual walkthroughs live in `src/data/setup-guides.ts`
 > (the `linkedin` and `facebook` guides), which explicitly describe creating each
 > organization Page **from the applicant's own personal account**. See the full
-> applicant flow in Section 8.
+> applicant flow in Section 2.
 
 ### The organizing principle: an account is a person, not an entity
 
@@ -89,7 +89,7 @@ authentication, and then **add your work persona** (e.g. an `@yourcharity.org`
 email) to that one personal account. The login is always the **person**, never
 the organization. Every organizational asset — a GitHub org, a LinkedIn Page, a
 Facebook Page — is something a real person's secured account is given control
-of. This principle is what makes the flow in Section 8 logical and ordered.
+of. This principle is what makes the flow in Section 2 logical and ordered.
 
 ## Where this lives in the codebase
 
@@ -118,9 +118,9 @@ these generally results in a polite decline rather than a fix-and-retry.
 2. **501(c)(3) status active** — or on the **pre-501(c)(3) track** for
    organizations not yet recognized (see Section 1a; this track has its own
    landing page on freeforcharity.org that points into the GitHub-only
-   application flow — see Section 2).
+   application flow — see Section 3).
 3. **(501(c)(3) track only)** at minimum a Gold Candid (GuideStar) seal (see
-   Section 4). This is **not** a universal gate — a pre-501(c)(3) organization
+   Section 6). This is **not** a universal gate — a pre-501(c)(3) organization
    cannot yet hold a Gold seal (no Form 990), and instead works the IRS 1023 /
    state-formation track. Listed here as track-specific, not track-agnostic.
    _Legacy discrepancy: the older `wordpress-service-delivery-stages` page lists
@@ -133,7 +133,7 @@ these generally results in a polite decline rather than a fix-and-retry.
 
 Organizations that are not yet IRS-recognized 501(c)(3)s can still apply through
 the **pre-501(c)(3) track** (its `/pre501c3` landing page points into the
-GitHub-only application flow — Section 2). The track carries its own prerequisite
+GitHub-only application flow — Section 3). The track carries its own prerequisite
 expectations:
 
 - The organization **Facebook Page and LinkedIn Page must still be created** (see
@@ -143,184 +143,11 @@ expectations:
   **personal LinkedIn profiles of the planned board members** in place of a
   seated board roster.
 - The applicant's **own personal LinkedIn profile** is required (this applies to
-  every applicant — see Section 2).
+  every applicant — see Section 3).
 
 ---
 
-## 2. Application intake steps (charity-driven)
-
-These are the steps the applicant actively performs. They double as the first
-technical-competence signals.
-
-> **Application channel — moving to GitHub-only** _(new FFC policy)_. FFC is
-> moving to a **GitHub-only application flow**: the applicant applies through
-> **GitHub** using the **personal GitHub account** created in Phase 0 (Group D).
-> The legacy **WHMCS portal product checkout** is **retired** as an application
-> mechanism, and the freeforcharity.org web forms (`/submit-information`,
-> `/501c3`, `/pre501c3`) are informational landing pages that point into the
-> GitHub flow. This is exactly why a personal GitHub account is a Phase 0
-> requirement.
-
-1. **Apply through GitHub** with your personal GitHub account (Phase 0, Group D).
-2. **Acknowledge the FFC Acceptable Use Policy (AUP).**
-3. _(501(c)(3) track)_ **Provide Candid/GuideStar profile links** (Public Profile
-   and Full Profile).
-4. **Provide board contact information** — President/Chair, Secretary, Treasurer
-   (optionally Vice and Member-At-Large); on the pre-501(c)(3) track, the
-   **planned** board.
-5. **Designate primary + technical contacts**, including timezone and preferred
-   contact hours.
-
-**Exit gate:** application submitted through GitHub, all fields completed, AUP
-acknowledged.
-
-### Prerequisite materials the charity must have in hand
-
-(From the onboarding playbook — "missing prereqs are the single biggest source
-of stuck onboardings.")
-
-- IRS 501(c)(3) determination letter
-- EIN (Employer Identification Number)
-- **Applicant's personal LinkedIn profile** (required for every applicant)
-- Board member names, titles, contact info, **personal LinkedIn profiles**, and
-  bios — for the **pre-501(c)(3) track**, supply the personal LinkedIn profiles
-  of the **planned board members**
-- **Organization Facebook Page and LinkedIn Page** the applicant created
-  themselves (see the social-page litmus test in Purpose)
-- Mission statement
-- Most recent Form 990
-- Annual report (if available)
-- Programs and services list
-- Financial statements (past 2 years)
-- Current operating budget
-- Strategic plan (if available)
-- Current website URL
-- Social media links
-- High-resolution logo files
-- Brand guidelines
-
----
-
-## 3. Validation checks (FFC-run, intake/validation stage)
-
-All checks must resolve to a **documented pass or documented exception** before
-an offer is made. These run **after the applicant submits** (Section 2), and
-several simply **confirm that Phase 0 prerequisites were completed** — e.g.
-check 4 (verified Facebook page) and check 1 (Candid) verify work the applicant
-already did in the Phase 0 ladder.
-
-> **Note on stage numbering:** the source pages disagree on the exact number.
-> `wordpress-service-delivery-stages` calls validation **Stage 2** of the
-> eight-stage lifecycle, while `wordpress-charity-validation` says validation
-> runs during **"Stage 1 — Intake."** They describe the same phase; the
-> discrepancy is in the source material and is flagged for the founder to
-> reconcile.
-
-### 3a. External validation checks (six third-party signals)
-
-| #   | Check                                                                                                                        | Demonstrates                                                     |
-| --- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                               | Legitimacy; mission-alignment scoring                            |
-| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                          | Independent vetting; unlocks discounted-software pipeline        |
-| 3   | **VolunteerMatch engagement check**                                                                                          | Charity can receive and act on volunteer work                    |
-| 4   | **Verified Facebook page** (cross-checked vs. intake form)                                                                   | Identity/branding consistency                                    |
-| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                 | Technical readiness; enables SPF/DKIM/DMARC under charity domain |
-| 6   | **WHMCS account + PayPal donor flow** _(WHMCS is **legacy** — retired with the GitHub-only intake; PayPal donor flow stays)_ | KYC step; donor funding path                                     |
-
-### 3b. Internal validation checks (three FFC reviews)
-
-| #   | Check                                                                    | Purpose                                                  |
-| --- | ------------------------------------------------------------------------ | -------------------------------------------------------- |
-| 1   | **Cost-and-funding analysis** (size via Form 990: micro/small/mid/large) | Scopes engagement; drives template selection             |
-| 2   | **Existing website + intake-form content review**                        | Mission/leadership consistency across all public sources |
-| 3   | **Target-demographic assessment**                                        | Foundation for copy, imagery, accessibility              |
-
-> The site refers to "**all nine validation checks**" (six external + three
-> internal) resolving before exit.
-
----
-
-## 4. Candid / GuideStar seal progression
-
-FFC requires **at minimum the Gold seal**, plus a **board roster + IRS
-determination letter** uploaded on top of the Candid baseline. Below Gold, the
-charity is routed back to "complete your GuideStar Gold seal first" instead of
-to scheduling.
-
-| Seal         | FFC stance              | Charity must supply                                                                                                                                         |
-| ------------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Bronze**   | Starting                | Mission statement; address/contact; EIN; leadership names & titles                                                                                          |
-| **Silver**   | Starting                | Program names & descriptions; geographic service areas; goals & beneficiary populations                                                                     |
-| **Gold**     | **Minimum requirement** | Most recent Form 990; audited financials (when available); fiscal-year financial data; DEI data; **+ board roster + IRS determination letter (FFC add-on)** |
-| **Platinum** | Preferred               | Quantitative impact metrics; strategic planning documents / board reports                                                                                   |
-
-Charity also supplies three artifacts after publishing: **Full Profile link**,
-**Public Profile link**, and **Seal Code** (embed snippet). Annual ~30-minute
-refresh expected (Q1 convention).
-
----
-
-## 5. External accounts the charity establishes
-
-This separates **applicant-created** accounts from **FFC-supported** org accounts
-and de-duplicates with Phase 0.
-
-**Applicant-created (in Phase 0 / Section 8b — the litmus test):** the
-organization **Facebook Page** and **LinkedIn Page** are created by the applicant
-themselves from their personal accounts (see Phase 0 Group D and the Section 8b
-flow), on both tracks. They are not repeated here.
-
-**FFC-supported org accounts** — FFC provides guidance/admin support; several are
-501(c)(3)-emphasized and happen during/after validation, not in Phase 0:
-
-- Charity-named **Outlook mailbox** (Microsoft 365 tenant) — _validation check 5_
-- **Candid (GuideStar) profile at Gold or higher** — _validation check 1_ (the
-  applicant already holds a **personal** Candid account from Phase 0; this is the
-  **organization** profile and seal)
-- **TechSoup** validated account — _validation check 2_ (501(c)(3)-emphasized)
-- **VolunteerMatch** profile, even if dormant — _validation check 3_
-  (501(c)(3)-emphasized)
-- **PayPal Nonprofits** account — _validation check 6_ (501(c)(3)-emphasized; the
-  legacy WHMCS KYC step is retired)
-
----
-
-## 6. Where the application hands off to service delivery
-
-Once validation passes and the charity accepts the written offer (historically a
-signed WHMCS quote — **legacy/pending replacement** under the GitHub-only intake),
-the prerequisite/application phase is complete and the engagement moves into
-provisioning. The full lifecycle below is the **legacy WordPress/Divi-era**
-eight-stage flow (stages 6–8 in particular reflect the old stack); it is retained
-**for reference** and is being superseded by the current FFC template direction:
-
-1. Initial Contact & Onboarding
-2. **FFC Validation Checks** ← prerequisite gate (Sections 3–4)
-3. FFC Offers Services
-4. Basic Services Package (domain + Microsoft 365)
-5. Charity System & Website Setup (branches by 501(c)(3) status)
-6. Technical Stack Assignment
-7. Plugin & Theme Deployment
-8. Initial Site Launch & Configuration
-
----
-
-## 7. Track-agnostic minimum prerequisites (both tracks)
-
-The authoritative, track-agnostic prerequisite list is **Phase 0 (Section 8)** —
-every item there applies identically to both the 501(c)(3) and pre-501(c)(3)
-tracks, up to and including the organizational LinkedIn and Facebook Pages. See
-Section 8 for the grouped items and the applicant self-check.
-
-**Track-specific items (not part of the common minimum)** are detailed in
-Section 8d: the GuideStar/Candid **Gold** seal, Form 990, audited financials, and
-the IRS determination letter (501(c)(3) only); IRS Form 1023, state nonprofit
-formation, and charitable-solicitation registration (pre-501(c)(3) only); with
-TechSoup, VolunteerMatch, and PayPal emphasized on the 501(c)(3) path.
-
----
-
-## 8. The individual-applicant flow (up to and including the social Pages)
+## 2. The applicant flow — Phase 0 through the organizational pages
 
 This is the **single, logical, end-to-end sequence** an individual applicant
 follows — from the baseline devices and accounts in Phase 0, to having the
@@ -334,7 +161,7 @@ steps already completed**.
 > prerequisite **work** below (Phase 0 plus the organization-page steps) is **the
 > same for both**. The two
 > tracks **diverge only after this common flow**, at the legal-documentation &
-> validation stage (Section 8d). Everything up to and including the organization
+> validation stage (Section 4). Everything up to and including the organization
 > Facebook Page is common ground.
 
 The whole flow rests on the principle from Section "organizing principle": **an
@@ -342,7 +169,7 @@ account is a person, not an entity.** The applicant signs up as themselves,
 secures the account, then creates the organization's Page _from_ that personal
 account.
 
-### 8a. The three approved free providers (founder-directed policy — pending implementation)
+### 2a. The three approved free providers (founder-directed policy — pending implementation)
 
 > **Policy note.** The three-provider rule below is a **founder-directed policy
 > set while drafting this document** — treat it as the **intended policy, pending
@@ -415,7 +242,7 @@ three-provider policy and the "account is a person" principle.
 - _You:_ faster, phishing-resistant sign-in that's hard to steal.
 - _FFC:_ stronger account security with less password risk to clean up.
 
-### 8b. The flow — Phase 0, then the organizational pages
+### 2b. The flow — Phase 0, then the organizational pages
 
 **Phase 0 — Baseline capabilities (mandatory; the floor under everything)**
 
@@ -480,7 +307,7 @@ into the categories below.
   - _FFC:_ A single supported browser pair means our guides and screenshots match
     your screen, with no time lost to browser-specific quirks.
 - **Google Authenticator (MFA app)** _(one of the three required providers — see
-  Section 8a)_
+  Section 2a)_
   - _What:_ Install from the phone's app store. You scan QR codes into it to turn
     on app-based two-factor authentication.
   - _You:_ Secures your Google-ecosystem accounts (e.g. Google Analytics) with
@@ -488,14 +315,14 @@ into the categories below.
   - _FFC:_ MFA on every account is how we keep the charity's accounts from being
     trivially compromised.
 - **Microsoft Authenticator (MFA app)** _(one of the three required providers —
-  see Section 8a)_
+  see Section 2a)_
   - _What:_ Install from the phone's app store. Required for Microsoft 365
     two-factor authentication.
   - _You:_ Secures your Microsoft 365 sign-in.
   - _FFC:_ Extends MFA coverage across the Microsoft ecosystem the charity runs
     on.
-- **LastPass (password manager)** _(the third required provider — see Section
-  8a)_
+- **LastPass (password manager)** _(the third required provider — see
+  Section 2a)_
   - _What:_ Create an account with a strong **master password**; turn on
     LastPass's own MFA; use it to generate/store a unique password for every
     account and to store your **MFA recovery codes**. (Not a fourth tool — it is
@@ -558,7 +385,7 @@ into the categories below.
 
 > Each is a **personal** account in your own name (the "account is a person, not
 > an entity" principle). The **organizational** pages built on top of them are
-> created later (Section 8b). Turn on **MFA where the platform offers it**, using
+> created later (Section 2b). Turn on **MFA where the platform offers it**, using
 > the Phase 0 authenticators.
 
 - **A personal GitHub account**
@@ -566,7 +393,7 @@ into the categories below.
     MFA on. You add your charity email to it later — you do **not** create a
     separate "charity" login.
   - _You:_ It is **how you apply** (FFC's application flow is GitHub-only — see
-    Section 2) and how you'll later review and approve changes to your website;
+    Section 3) and how you'll later review and approve changes to your website;
     one personal account works across every charity and role you hold.
   - _FFC:_ The application arrives through GitHub and we add your account to the
     charity's repository as a writer; a real, secured personal identity keeps the
@@ -579,7 +406,7 @@ into the categories below.
   - _You:_ Your professional identity, and the only way to create the
     organization's LinkedIn Page later.
   - _FFC:_ Confirms real, accountable people behind the charity, and supports the
-    board volunteering-linkage governance signal (Section 8b).
+    board volunteering-linkage governance signal (Section 2b).
 - **A personal Facebook account**
   - _What:_ Your own Facebook account in your real name, MFA on. (Never create a
     fake "charity person" account — Facebook removes those.)
@@ -599,7 +426,7 @@ into the categories below.
     opportunities — one fewer account to teach during delivery.
 - **A personal Candid account** (candid.org)
   - _What:_ Your own **Candid** (formerly GuideStar) account. The organization's
-    Candid profile and transparency seal come later (Section 4).
+    Candid profile and transparency seal come later (Section 6).
   - _You:_ See how donors and funders research charities on the canonical
     nonprofit registry before you build your own profile — and use it to **find
     other charities in your area of the same type and mission** (feeds the
@@ -745,7 +572,7 @@ each. An applicant who completes this unaided has demonstrated the technical
 literacy to operate the infrastructure FFC delivers next; one who cannot is
 exactly the case the "filter out" philosophy catches early.
 
-### 8c. Applicant self-check (everything you must complete to be accepted)
+### 2c. Applicant self-check (everything you must complete to be accepted)
 
 Show this checklist at the **start** of the application so applicants know the
 full commitment before investing time, and so the **acceptance expectation** is
@@ -810,29 +637,187 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] At least **two accountable people** (primary + backup admin).
 - [ ] I've **acknowledged the FFC AUP** and the "credit FFC" expectation.
 - [ ] Track chosen (**501(c)(3)** or **pre-501(c)(3)**) and its documents gathered
-      (see the materials list in Section 2 and the track branches in Section 8d).
+      (see the materials list in Section 3 and the track branches in Section 4).
 
-### 8d. Where the tracks diverge (after the common flow)
+## 3. Application intake steps (charity-driven)
+
+These are the steps the applicant actively performs. They double as the first
+technical-competence signals.
+
+> **Application channel — moving to GitHub-only** _(new FFC policy)_. FFC is
+> moving to a **GitHub-only application flow**: the applicant applies through
+> **GitHub** using the **personal GitHub account** created in Phase 0 (Group D).
+> The legacy **WHMCS portal product checkout** is **retired** as an application
+> mechanism, and the freeforcharity.org web forms (`/submit-information`,
+> `/501c3`, `/pre501c3`) are informational landing pages that point into the
+> GitHub flow. This is exactly why a personal GitHub account is a Phase 0
+> requirement.
+
+1. **Apply through GitHub** with your personal GitHub account (Phase 0, Group D).
+2. **Acknowledge the FFC Acceptable Use Policy (AUP).**
+3. _(501(c)(3) track)_ **Provide Candid/GuideStar profile links** (Public Profile
+   and Full Profile).
+4. **Provide board contact information** — President/Chair, Secretary, Treasurer
+   (optionally Vice and Member-At-Large); on the pre-501(c)(3) track, the
+   **planned** board.
+5. **Designate primary + technical contacts**, including timezone and preferred
+   contact hours.
+
+**Exit gate:** application submitted through GitHub, all fields completed, AUP
+acknowledged.
+
+### Prerequisite materials the charity must have in hand
+
+(From the onboarding playbook — "missing prereqs are the single biggest source
+of stuck onboardings.")
+
+- IRS 501(c)(3) determination letter
+- EIN (Employer Identification Number)
+- **Applicant's personal LinkedIn profile** (required for every applicant)
+- Board member names, titles, contact info, **personal LinkedIn profiles**, and
+  bios — for the **pre-501(c)(3) track**, supply the personal LinkedIn profiles
+  of the **planned board members**
+- **Organization Facebook Page and LinkedIn Page** the applicant created
+  themselves (see the social-page litmus test in Purpose)
+- Mission statement
+- Most recent Form 990
+- Annual report (if available)
+- Programs and services list
+- Financial statements (past 2 years)
+- Current operating budget
+- Strategic plan (if available)
+- Current website URL
+- Social media links
+- High-resolution logo files
+- Brand guidelines
+
+---
+
+## 4. Where the tracks diverge (after the common flow)
 
 Phase 0 and the organizational-page steps above are identical for both tracks.
 Once the social Pages exist and the self-check is complete, the applicant submits
 the application (the intake
-steps in Section 2) — and **this is where the two tracks diverge**, on **legal
+steps in Section 3) — and **this is where the two tracks diverge**, on **legal
 status and documentation**:
 
 |                | **501(c)(3) track**                                                   | **pre-501(c)(3) track**                                                                                          |
 | -------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Landing page   | <https://freeforcharity.org/501c3/>                                   | <https://freeforcharity.org/pre501c3/>                                                                           |
-| How you apply  | **GitHub-only flow** (see Section 2)                                  | **GitHub-only flow** (see Section 2)                                                                             |
+| How you apply  | **GitHub-only flow** (see Section 3)                                  | **GitHub-only flow** (see Section 3)                                                                             |
 | Legal status   | Already IRS-recognized; has EIN + **IRS determination letter**        | Not yet recognized; working **IRS Form 1023** + state nonprofit formation + charitable-solicitation registration |
 | Board          | **Seated** legal board (officers)                                     | **Planned** board members                                                                                        |
-| Transparency   | **Candid/GuideStar to Gold** (Form 990, financials); see Sections 3–4 | No 990 yet; GuideStar deferred until recognized                                                                  |
+| Transparency   | **Candid/GuideStar to Gold** (Form 990, financials); see Sections 5–6 | No 990 yet; GuideStar deferred until recognized                                                                  |
 | Extra accounts | TechSoup, VolunteerMatch, PayPal emphasized                           | Deferred / as-available                                                                                          |
 
 After acceptance, FFC then provides the **services** (not prerequisites):
 organizational email on Microsoft 365 by default, domain + `info@` routing, and
 the website/template, plus — on the 501(c)(3) track — the validation work in
-Sections 3–4.
+Sections 5–6.
+
+---
+
+## 5. Validation checks (FFC-run, after submission)
+
+All checks must resolve to a **documented pass or documented exception** before
+an offer is made. These run **after the applicant submits** (Section 3), and
+several simply **confirm that Phase 0 prerequisites were completed** — e.g.
+check 4 (verified Facebook page) and check 1 (Candid) verify work the applicant
+already did in the Phase 0 ladder.
+
+> **Note on stage numbering:** the source pages disagree on the exact number.
+> `wordpress-service-delivery-stages` calls validation **Stage 2** of the
+> eight-stage lifecycle, while `wordpress-charity-validation` says validation
+> runs during **"Stage 1 — Intake."** They describe the same phase; the
+> discrepancy is in the source material and is flagged for the founder to
+> reconcile.
+
+### 5a. External validation checks (six third-party signals)
+
+| #   | Check                                                                                                                        | Demonstrates                                                     |
+| --- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                               | Legitimacy; mission-alignment scoring                            |
+| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                          | Independent vetting; unlocks discounted-software pipeline        |
+| 3   | **VolunteerMatch engagement check**                                                                                          | Charity can receive and act on volunteer work                    |
+| 4   | **Verified Facebook page** (cross-checked vs. intake form)                                                                   | Identity/branding consistency                                    |
+| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                 | Technical readiness; enables SPF/DKIM/DMARC under charity domain |
+| 6   | **WHMCS account + PayPal donor flow** _(WHMCS is **legacy** — retired with the GitHub-only intake; PayPal donor flow stays)_ | KYC step; donor funding path                                     |
+
+### 5b. Internal validation checks (three FFC reviews)
+
+| #   | Check                                                                    | Purpose                                                  |
+| --- | ------------------------------------------------------------------------ | -------------------------------------------------------- |
+| 1   | **Cost-and-funding analysis** (size via Form 990: micro/small/mid/large) | Scopes engagement; drives template selection             |
+| 2   | **Existing website + intake-form content review**                        | Mission/leadership consistency across all public sources |
+| 3   | **Target-demographic assessment**                                        | Foundation for copy, imagery, accessibility              |
+
+> The site refers to "**all nine validation checks**" (six external + three
+> internal) resolving before exit.
+
+---
+
+## 6. Candid / GuideStar seal progression
+
+FFC requires **at minimum the Gold seal**, plus a **board roster + IRS
+determination letter** uploaded on top of the Candid baseline. Below Gold, the
+charity is routed back to "complete your GuideStar Gold seal first" instead of
+to scheduling.
+
+| Seal         | FFC stance              | Charity must supply                                                                                                                                         |
+| ------------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Bronze**   | Starting                | Mission statement; address/contact; EIN; leadership names & titles                                                                                          |
+| **Silver**   | Starting                | Program names & descriptions; geographic service areas; goals & beneficiary populations                                                                     |
+| **Gold**     | **Minimum requirement** | Most recent Form 990; audited financials (when available); fiscal-year financial data; DEI data; **+ board roster + IRS determination letter (FFC add-on)** |
+| **Platinum** | Preferred               | Quantitative impact metrics; strategic planning documents / board reports                                                                                   |
+
+Charity also supplies three artifacts after publishing: **Full Profile link**,
+**Public Profile link**, and **Seal Code** (embed snippet). Annual ~30-minute
+refresh expected (Q1 convention).
+
+---
+
+## 7. External accounts the charity establishes
+
+This separates **applicant-created** accounts from **FFC-supported** org accounts
+and de-duplicates with Phase 0.
+
+**Applicant-created (in Phase 0 / Section 2b — the litmus test):** the
+organization **Facebook Page** and **LinkedIn Page** are created by the applicant
+themselves from their personal accounts (see Phase 0 Group D and the Section 2b
+flow), on both tracks. They are not repeated here.
+
+**FFC-supported org accounts** — FFC provides guidance/admin support; several are
+501(c)(3)-emphasized and happen during/after validation, not in Phase 0:
+
+- Charity-named **Outlook mailbox** (Microsoft 365 tenant) — _validation check 5_
+- **Candid (GuideStar) profile at Gold or higher** — _validation check 1_ (the
+  applicant already holds a **personal** Candid account from Phase 0; this is the
+  **organization** profile and seal)
+- **TechSoup** validated account — _validation check 2_ (501(c)(3)-emphasized)
+- **VolunteerMatch** profile, even if dormant — _validation check 3_
+  (501(c)(3)-emphasized)
+- **PayPal Nonprofits** account — _validation check 6_ (501(c)(3)-emphasized; the
+  legacy WHMCS KYC step is retired)
+
+---
+
+## 8. Service-delivery lifecycle (legacy — for reference)
+
+Once validation passes and the charity accepts the written offer (historically a
+signed WHMCS quote — **legacy/pending replacement** under the GitHub-only intake),
+the prerequisite/application phase is complete and the engagement moves into
+provisioning. The full lifecycle below is the **legacy WordPress/Divi-era**
+eight-stage flow (stages 6–8 in particular reflect the old stack); it is retained
+**for reference** and is being superseded by the current FFC template direction:
+
+1. Initial Contact & Onboarding
+2. **FFC Validation Checks** ← prerequisite gate (Sections 5–6)
+3. FFC Offers Services
+4. Basic Services Package (domain + Microsoft 365)
+5. Charity System & Website Setup (branches by 501(c)(3) status)
+6. Technical Stack Assignment
+7. Plugin & Theme Deployment
+8. Initial Site Launch & Configuration
 
 ---
 
@@ -850,7 +835,7 @@ Sections 3–4.
 - Are the **six external / three internal** checks still the current set, or
   have any been added/retired (e.g., Instagram, Google for Nonprofits)?
 - Should the **organization Facebook Page and LinkedIn Page** (and the personal
-  LinkedIn profiles) be promoted into the formal Section 3a validation checks,
+  LinkedIn profiles) be promoted into the formal Section 5a validation checks,
   given they are now hard requirements on both tracks?
 - Should **AUP acknowledgment** and a **conflict-of-interest / data-handling**
   agreement be explicit prerequisite line items?
@@ -862,7 +847,7 @@ Sections 3–4.
 - **Confirm the three-provider policy, then update `src/data/setup-guides.ts` to
   match.** The current code recommends **one** authenticator app (Google _or_
   Microsoft) and allows **LastPass _or_ Bitwarden**. The founder-directed policy
-  in Section 8a is stricter: **all three** of Google Authenticator, Microsoft
+  in Section 2a is stricter: **all three** of Google Authenticator, Microsoft
   Authenticator, and LastPass, per person, with no other tools. This document
   records that policy as authoritative; the **live setup guide has not yet been
   updated** to remove Bitwarden / require all three. Confirm the policy and I'll
