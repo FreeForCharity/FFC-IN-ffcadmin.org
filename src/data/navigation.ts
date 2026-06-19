@@ -175,6 +175,12 @@ export const operateMenu: NavMenu = {
           href: '/what-ffc-delivers',
           description: 'What’s included when FFC builds a charity’s website.',
         },
+        {
+          label: 'Charity Prerequisites',
+          href: '/charity-prerequisites',
+          description:
+            'Start here if you run a charity: eligibility, accounts to set up, how to apply.',
+        },
       ],
     },
   ],

@@ -143,7 +143,40 @@ export default function Home() {
               Pick the path that fits you — each one leads straight to the right starting point.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Charity applicant */}
+            <Link
+              href="/charity-prerequisites"
+              className="group block rounded-xl border-2 border-indigo-200 bg-indigo-50 p-6 hover:border-indigo-400 hover:shadow-lg transition-all"
+            >
+              <span className="text-3xl" aria-hidden="true">
+                🏛️
+              </span>
+              <h3 className="text-lg font-bold text-indigo-900 mt-3 mb-1">
+                I run a charity and want FFC&apos;s help
+              </h3>
+              <p className="text-sm text-indigo-900/80 mb-3">
+                Free domain, email, and website — see what to prepare and how to apply.
+              </p>
+              <span className="inline-flex items-center text-sm font-semibold text-indigo-700 group-hover:text-indigo-900">
+                See charity prerequisites
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </Link>
+
             {/* Charity site owner */}
             <Link
               href="/site-owner"
