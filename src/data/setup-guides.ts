@@ -82,7 +82,6 @@ const MFA_STEP_SHARED: SetupStep = {
 export const SETUP_GUIDES: SetupGuide[] = [
   {
     slug: 'github-account',
-    counterpart: 'github-organization',
     title: 'Create your GitHub account',
     shortTitle: 'GitHub account',
     category: 'Identity & Code',
@@ -1099,72 +1098,6 @@ export const SETUP_GUIDES: SetupGuide[] = [
   // Each pairs with a personal guide via `counterpart`.
   // ────────────────────────────────────────────────────────────────────────
   {
-    slug: 'github-organization',
-    track: 'organizational',
-    counterpart: 'github-account',
-    title: 'Set up your charity’s GitHub Organization',
-    shortTitle: 'GitHub Organization',
-    category: 'Identity & Code',
-    icon: '🐙',
-    gradient: 'from-gray-800 to-black',
-    description:
-      'Create the charity’s GitHub Organization, add people to teams with the right access, hold the website repository, and apply for the free GitHub for Nonprofits benefits.',
-    keywords:
-      'GitHub Organization nonprofit, create GitHub org, GitHub teams permissions, GitHub for Nonprofits, charity repository, Free For Charity GitHub org',
-    audience: 'Charity owners and admins (after your personal GitHub account exists)',
-    intro: [
-      'Once you have your **personal** GitHub account, the charity needs its own **GitHub Organization** — the shared home for its website repository and the place you grant access to volunteers.',
-      'The Organization is owned and run by **real people’s personal accounts** (yours, plus FFC). It is not a separate login.',
-    ],
-    estMinutes: 20,
-    principle: {
-      title: 'The Organization is shared access, not a shared login',
-      body: 'A GitHub Organization groups repositories and people; every member still signs in with their own personal account (secured with their own MFA). You add people to teams and give each team the access it needs — never a shared password.',
-    },
-    steps: [
-      {
-        title: 'Create the Organization',
-        body: [
-          'From your personal account, go to **GitHub → top-right + → New organization** and choose the **Free** plan. Name it for the charity (e.g. your-charity), using the same kebab-case naming FFC uses.',
-          'Coordinate with FFC first — in most cases FFC creates or co-owns the Organization so the website repository can be transferred in and kept on the standard deployment pipeline.',
-        ],
-      },
-      {
-        title: 'Add people to teams with least-privilege access',
-        body: [
-          'In **Organization → People**, invite volunteers by their GitHub username, and use **Teams** to grant access by role (e.g. a “web” team with write access to the site repo).',
-          'Give each person the **least access** they need. Keep at least two **Owners** so the Organization is never controlled by a single account.',
-        ],
-      },
-      {
-        title: 'Require MFA for everyone',
-        body: [
-          'In **Organization → Settings → Authentication security**, turn on **Require two-factor authentication for everyone in the organization**. Members without MFA are removed until they enable it (see the Multi-Factor Authentication guide).',
-        ],
-        tip: 'This single switch is the biggest security win for the charity’s code — it guarantees every contributor has MFA on.',
-      },
-      {
-        title: 'Apply for GitHub for Nonprofits',
-        body: [
-          'Once the charity is recognized, request the free **GitHub for Nonprofits** benefits (Team plan at no cost) at **github.com/nonprofit**. This adds private repositories and more seats if you ever need them.',
-        ],
-      },
-    ],
-    phaseNote:
-      'The Organization itself can be created right away; the GitHub for Nonprofits discount requires 501(c)(3) recognition.',
-    faqs: [
-      {
-        q: 'Do volunteers need a new account to join the Organization?',
-        a: 'No. They use their existing personal GitHub account — you invite their username into a team. The Organization is access granted to people, not a set of new logins.',
-      },
-      {
-        q: 'Should the Organization own the website repository?',
-        a: 'Yes. The charity’s site repo lives in its Organization (often transferred in by FFC) so access, history, and deployment stay with the charity rather than any one person’s account.',
-      },
-    ],
-    related: ['github-account', 'multi-factor-authentication', 'microsoft-365-organization'],
-  },
-  {
     slug: 'linkedin-organization',
     track: 'organizational',
     counterpart: 'linkedin',
@@ -1403,7 +1336,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'Coordinate tenant-level changes with FFC. The tenant underpins every account, so mistakes are costly; FFC helps you make them safely.',
       },
     ],
-    related: ['microsoft-365-email', 'github-organization', 'cloud-storage-organization'],
+    related: ['microsoft-365-email', 'cloud-storage-organization', 'microsoft-teams-organization'],
   },
   {
     slug: 'google-workspace-organization',
@@ -1798,7 +1731,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'Yes — LastPass can share an item so the recipient can use it to sign in without seeing or copying the password, and you can revoke that access at any time.',
       },
     ],
-    related: ['password-manager', 'multi-factor-authentication', 'github-organization'],
+    related: ['password-manager', 'multi-factor-authentication', 'microsoft-365-organization'],
   },
 ]
 
