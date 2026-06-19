@@ -449,10 +449,10 @@ export default function SiteOwnerPage() {
                 <p className="text-sm text-gray-700">
                   Once FFC adds you, you become a <strong>collaborator</strong> on your
                   charity&apos;s repository — just your one repo, nothing else. The invitation
-                  arrives as an email from GitHub <em>and</em> as a green banner on your repository
-                  page. This is the step people get stuck on, so we wrote a separate, every-click
-                  walkthrough — what the email looks like, who it&apos;s from, where to find it if
-                  it&apos;s not in your inbox, and two other ways to accept.
+                  arrives as an email from GitHub <em>and</em> in your GitHub notifications. This is
+                  the step people get stuck on, so we wrote a separate, every-click walkthrough —
+                  what the email looks like, who it&apos;s from, where to find it if it&apos;s not
+                  in your inbox, and the direct link to accept.
                 </p>
                 <Link
                   href="/site-owner/accept-invitation"
