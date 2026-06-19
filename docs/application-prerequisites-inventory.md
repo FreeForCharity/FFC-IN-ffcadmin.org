@@ -385,19 +385,19 @@ account.
 > live guides still show the older options. This document records the **intended
 > policy** so the site update can follow it.
 
-Under this policy, FFC standardizes on **exactly three** free providers for
-multi-factor authentication and password management. **All three are required for
-every person** — they are not interchangeable options, because each covers an
-ecosystem the charity will actually use:
+Under this policy, FFC **standardizes** on **exactly three** free providers for
+multi-factor authentication and password management. Any TOTP app technically
+works, but **FFC's standard is to set up all three per person** — one for each
+ecosystem the charity actually uses, so the matching app is always already on the
+phone:
 
-1. **Google Authenticator** — required because the charity sets up **Google
-   services** (e.g. Google Analytics and other Google products), which use it for
-   MFA.
-2. **Microsoft Authenticator** — required because the charity runs **Microsoft
-   365 Enterprise**, which requires it for MFA.
-3. **LastPass** — required as the **password manager**. (LastPass has a built-in
-   authenticator feature, but day-to-day MFA uses the Google or Microsoft app
-   above — LastPass is **not** a fourth tool.)
+1. **Google Authenticator** — FFC's standard authenticator for the **Google**
+   side (Google Analytics and other Google products the charity uses).
+2. **Microsoft Authenticator** — FFC's standard authenticator for **Microsoft
+   365** (the charity's email/productivity suite).
+3. **LastPass** — the **password manager**. (LastPass has a built-in authenticator
+   feature, but day-to-day MFA uses the Google or Microsoft app above — LastPass
+   is **not** a fourth tool.)
 
 Under this policy:
 
@@ -426,7 +426,7 @@ Each item below is **mandatory** and defined by **what it is / why it benefits
 you / why it benefits FFC** — a prerequisite belongs here only if it serves both
 sides. If any item is missing, the applicant **cannot proceed** and should be
 routed to **Contact us for help** (offered at every step). The items are grouped
-into six categories.
+into the categories below.
 
 #### Group A — Devices & connectivity (the hardware floor)
 
