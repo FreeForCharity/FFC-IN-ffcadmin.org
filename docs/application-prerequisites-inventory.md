@@ -879,9 +879,11 @@ validation work in Sections 3–4.
 
 ## Open questions for verification
 
-- **Application channel: now GitHub-only** (decided). The freeforcharity.org
-  pages (<https://freeforcharity.org/submit-information/>, `/501c3`, `/pre501c3`)
-  become informational landing pages that point into the GitHub flow; the legacy
+- **Application channel: GitHub-only** — founder-directed policy, **pending
+  implementation** (same status as the other new policies; see the disclaimer at
+  the top). The freeforcharity.org pages
+  (<https://freeforcharity.org/submit-information/>, `/501c3`, `/pre501c3`) become
+  informational landing pages that point into the GitHub flow, and the legacy
   WHMCS checkout is retired. Remaining work: build/define the actual GitHub
   application entry point (repo + issue template or form).
 - Is **"under $1M and not federally grant-funded"** a hard gate or only a
