@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import TrackPrerequisites from '@/components/TrackPrerequisites'
 import { getPath, getModule, TIER_LABELS, TIER_BLURB, type Tier } from '@/data/training-modules'
 
 export const metadata: Metadata = {
@@ -90,6 +91,9 @@ export default function SiteOwnerTrainingPage() {
           (Practitioner and Administrator levels with certifications); you can too if you ever want
           to.
         </div>
+
+        {/* Before you start — personal account setup */}
+        <TrackPrerequisites pathId="site-owner" accent="teal" />
 
         {/* What you're responsible for — quick list */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-10">

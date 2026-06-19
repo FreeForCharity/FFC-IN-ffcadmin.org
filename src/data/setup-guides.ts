@@ -1143,11 +1143,15 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'No — the matching assistant (Gemini or Copilot) has a capable free tier that’s plenty for onboarding. You can upgrade later if you want, but it isn’t required to apply or get started.',
       },
       {
+        q: 'Should the charity buy AI accounts for the team instead?',
+        a: 'Not yet. Everyone — volunteers and founders alike — should use and fully max out their own personal AI account first. It’s free or cheap, already tied to your email, and very capable, and the charity saves money by waiting. Organizational AI only makes sense once individual accounts can’t keep up and the charity is much larger (see the organizational AI assistants guide).',
+      },
+      {
         q: 'Why does the assistant have to match my email?',
         a: 'Because it’s already tied to an account you have (Gemini to Google, Copilot to Microsoft), so there’s nothing new to create, and it can work with your email and files in that ecosystem. Claude is added on top for development work.',
       },
     ],
-    related: ['microsoft-365-email', 'google-workspace', 'chrome'],
+    related: ['ai-assistant-organization', 'microsoft-365-email', 'google-workspace', 'chrome'],
   },
   {
     slug: 'google-voice',
@@ -2267,14 +2271,23 @@ export const SETUP_GUIDES: SetupGuide[] = [
     audience: 'Charity owners and admins rolling out AI to the team',
     estMinutes: 25,
     intro: [
-      'The personal AI guide matches each person to an assistant by their email. At the **organization** level, AI either **comes with the workspace you already run** or is set up as a shared team plan.',
+      '**Read this first: max out personal AI before you set up organizational AI.** Every contributor — volunteers and the charity’s own founders included — should use, consume, and fully exhaust their **individual** AI accounts (see the personal AI assistant guide) before the charity pays for anything at the organization level.',
+      'The personal AI guide matches each person to an assistant by their email. Only once individual accounts are genuinely maxed out — and the charity is large enough to justify the cost — do you move here, where AI either **comes with the workspace you already run** or is set up as a shared team plan.',
       'Two ride on accounts you already have: **Gemini is included in Google Workspace**, and **Copilot is an add-on to Microsoft 365**. **ChatGPT** and **Claude** offer their own Team/Enterprise plans, with nonprofit pricing available.',
     ],
     principle: {
-      title: 'Org AI rides on your workspace and validators',
-      body: 'Match AI to the stack you already chose: if the charity is on Google Workspace, Gemini is already included; if it’s on Microsoft 365, Copilot is the add-on. ChatGPT and Claude are separate shared plans — and OpenAI offers nonprofit pricing through Goodstack. Don’t buy AI that duplicates what your workspace already gives you.',
+      title: 'Max out personal AI before organizational AI',
+      body: 'Individual contributors — including the charity’s founders — are almost always better off on their own personal AI accounts, and the charity saves real money by waiting. Personal plans are free or cheap, already tied to each person’s email, and more than capable for the work; organizational AI adds per-seat cost and admin overhead that only pays off once the charity is much larger. So the rule is: everyone maxes out their individual account first, and you only move to org AI when individual accounts can no longer keep up and the organization is big enough to justify it. When you do, match AI to the stack you already run rather than duplicating it.',
     },
     steps: [
+      {
+        title: 'First: confirm everyone has maxed out personal AI',
+        body: [
+          'Before spending a cent at the org level, make sure each person is **actively using their individual AI account** (Gemini, Copilot, ChatGPT, or Claude — see the personal AI assistant guide) and genuinely hitting its limits. Founders included: stay on your personal account as long as it serves you.',
+          'Only proceed when individual accounts can no longer keep up **and** the charity is large enough that per-seat org pricing is worth it. Until then, this guide is something to plan for, not act on.',
+        ],
+        tip: 'Waiting is the money-saving default. Most small charities never need organizational AI — personal accounts carry them a long way.',
+      },
       {
         title: 'Google Gemini — included with Google Workspace',
         body: [
@@ -2303,8 +2316,12 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
     ],
     phaseNote:
-      'Gemini/Copilot ride on your (granted) workspace; OpenAI’s nonprofit discount is validated via Goodstack, which needs 501(c)(3) status.',
+      'Only after personal AI is maxed out and the charity is large enough to justify it. Gemini/Copilot ride on your (granted) workspace; OpenAI’s nonprofit discount is validated via Goodstack, which needs 501(c)(3) status.',
     faqs: [
+      {
+        q: 'When should we move from personal to organizational AI?',
+        a: 'Only when individual accounts genuinely can’t keep up with the work AND the charity is large enough that per-seat cost is worth it. Personal AI is free or cheap and very capable, so volunteers and founders should max out their own accounts first — the charity saves money every month it waits. For most small charities, that day never comes.',
+      },
       {
         q: 'Do we need all four organizational AIs?',
         a: 'No. Match your stack: Gemini if you’re on Google Workspace, Copilot if you’re on Microsoft 365. Add a shared ChatGPT or Claude plan only for specific work that benefits from it.',

@@ -521,6 +521,16 @@ into the categories below.
     the assistants are separate apps/sites, not literally "built into" the email.)_
   - _FFC:_ The self-service maintenance model depends on it; confident AI users
     need far less hands-on support.
+  - _Personal AI before organizational AI (hard rule):_ Every contributor —
+    volunteers **and the charity's own founders** — must use, consume, and
+    **max out their individual/personal AI account** before the charity pays for
+    AI at the organizational level. Personal plans are free or cheap, already
+    tied to each person's email, and very capable; organizational AI (Gemini in
+    Google Workspace, Copilot in Microsoft 365, ChatGPT/Claude Team) adds
+    per-seat cost and admin overhead that only pays off once the charity is
+    **much larger**. The charity saves money every month it waits, so the move to
+    organizational AI happens only when individual accounts genuinely can't keep
+    up. (See the AI assistant and organizational AI assistant setup guides.)
 - **A dedicated time commitment**
   - _What:_ A realistic block of focused time to work through the ladder, plus
     ongoing time to maintain the site.

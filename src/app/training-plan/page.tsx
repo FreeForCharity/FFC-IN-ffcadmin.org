@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import TrackPrerequisites from '@/components/TrackPrerequisites'
 import { TRAINING_CURRICULUM } from '@/data/training-plan-data'
 import { getPath, getModule, TIER_LABELS } from '@/data/training-modules'
 import { useTrainingProgress } from './hooks/useTrainingProgress'
@@ -72,6 +73,9 @@ export default function TrainingPlan() {
       {isLoaded && <ProgressBar percentage={progressPercentage} onReset={resetProgress} />}
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Before you start — personal account setup */}
+        <TrackPrerequisites pathId="global-admin" accent="blue" />
+
         {/* Executive Summary */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <div className="border-l-4 border-blue-600 pl-6 mb-6">
