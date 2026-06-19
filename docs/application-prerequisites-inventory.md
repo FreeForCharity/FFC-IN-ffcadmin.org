@@ -421,230 +421,200 @@ Under this policy:
 
 **Phase 0 — Baseline capabilities (mandatory; the floor under everything)**
 
-Each item below is **mandatory**. Every item is defined by **what it is**, **why
-it benefits the applicant/charity**, and **why it benefits FFC** — because a
-prerequisite only belongs here if it serves both sides. If any item is missing,
-the applicant **cannot proceed** and should be routed to **Contact us for help**
-(the help path is offered at every step).
+Each item below is **mandatory** and defined by **what it is / why it benefits
+you / why it benefits FFC** — a prerequisite belongs here only if it serves both
+sides. If any item is missing, the applicant **cannot proceed** and should be
+routed to **Contact us for help** (offered at every step). The 22 items are
+grouped into six categories.
 
-1. **A smartphone you own, able to install apps**
-   - _What:_ A modern iPhone or Android with Apple App Store / Google Play
-     access. A tablet or desktop is **not** a substitute.
-   - _Why it benefits you:_ It runs the authenticator apps that protect every
-     account, so your charity's identity, inbox, money, and donor data are far
-     harder to steal; you can also use Outlook, LinkedIn, and Facebook on the go.
-   - _Why it benefits FFC:_ Phone-based MFA is the only way we can be confident
-     the accounts we help you create aren't trivially compromised — a hijacked
-     charity account becomes our cleanup. It also gives each person one
-     verifiable identity.
+#### Group A — Devices & connectivity (the hardware floor)
 
-2. **A US-based mobile phone number (on that smartphone)**
-   - _What:_ An active US cell number that can send and receive SMS.
-   - _Why it benefits you:_ Receives sign-in and account-recovery codes, and lets
-     FFC reach you quickly by text during setup.
-   - _Why it benefits FFC:_ Confirms the US-based eligibility requirement
-     (Section 1), gives us a direct line for time-sensitive verification, and
-     provides an SMS fallback before an authenticator app is set up.
+- **A smartphone you own, able to install apps**
+  - _What:_ A modern iPhone or Android with Apple App Store / Google Play access.
+    A tablet or desktop is **not** a substitute.
+  - _You:_ It runs the authenticator apps that protect every account, so your
+    charity's identity, inbox, money, and donor data are far harder to steal; you
+    can also use Outlook, LinkedIn, and Facebook on the go.
+  - _FFC:_ Phone-based MFA is the only way we can be confident the accounts we
+    help you create aren't trivially compromised — a hijacked charity account
+    becomes our cleanup. It also gives each person one verifiable identity.
+- **A supported, up-to-date mobile operating system**
+  - _What:_ An iPhone or Android still **receiving OS/security updates** (not an
+    abandoned, end-of-life device).
+  - _You:_ The authenticator apps, Teams, and Outlook/LinkedIn apps keep working
+    and stay secure.
+  - _FFC:_ An unsupported phone is a security hole that undermines the MFA we rely
+    on.
+- **A US-based mobile phone number (on that smartphone)**
+  - _What:_ An active US cell number that can send and receive SMS.
+  - _You:_ Receives sign-in and account-recovery codes, and lets FFC reach you
+    quickly by text during setup.
+  - _FFC:_ Confirms the US-based eligibility requirement (Section 1), gives us a
+    direct line for time-sensitive verification, and provides an SMS fallback
+    before an authenticator app is set up.
+- **A desktop or laptop computer you own — install-capable and still supported**
+  - _What:_ A Windows or Mac computer on which **you have administrator rights to
+    install applications and browser extensions**, **still receiving OS updates**
+    (e.g. Windows 11, or a macOS version Apple still supports) with **at least
+    8 GB of RAM**. This OS/spec floor is part of the requirement.
+  - _You:_ This is where the real work happens — editing your website, designing
+    in Canva, and using the **AI tools** that maintain your content. A supported,
+    install-capable machine means those tools and connectors actually run.
+  - _FFC:_ Several AI tools and **connectors we use later must be installed on a
+    desktop**; an unsupported or underpowered machine can't run them, and the
+    work falls back onto our volunteers.
+- **Reliable internet access**
+  - _What:_ A stable broadband / Wi-Fi connection for both the computer and phone.
+  - _You:_ Everything FFC provides is cloud-based — email, site, design,
+    analytics.
+  - _FFC:_ Reduces stalled, half-finished onboardings we'd have to chase.
+- **A webcam and microphone**
+  - _What:_ A working camera and microphone — on the computer **or** the
+    smartphone (with Teams installed on whichever you join from).
+  - _You:_ Lets you take part in live onboarding/training calls and get
+    face-to-face help.
+  - _FFC:_ Lets us run efficient guided sessions, confirm who we're working with,
+    and resolve issues faster than email.
 
-3. **A desktop or laptop computer you own — install-capable and still supported**
-   - _What:_ A Windows or Mac computer on which **you have administrator rights
-     to install applications and browser extensions**, that is **still receiving
-     operating-system updates** (e.g. Windows 11, or a macOS version Apple still
-     supports) with **at least 8 GB of RAM**. This OS/spec floor is part of the
-     requirement, not a nice-to-have.
-   - _Why it benefits you:_ This is where the real work happens — editing your
-     website, designing in Canva, and using the **AI tools** that let you
-     maintain your own content. A supported, install-capable machine means those
-     tools and connectors actually run instead of failing to install.
-   - _Why it benefits FFC:_ Several AI tools and **connectors we use later must
-     be installed on a desktop**; an unsupported or underpowered machine can't
-     run them, and without self-serve the work falls back onto our volunteers. It
-     keeps you self-sufficient and our support load low.
+#### Group B — Required software on your devices
 
-4. **Reliable internet access**
-   - _What:_ A stable broadband / Wi-Fi connection for both the computer and the
-     phone.
-   - _Why it benefits you:_ Everything FFC provides is cloud-based — email, site,
-     design, analytics — so you need to reach it dependably.
-   - _Why it benefits FFC:_ Reduces stalled, half-finished onboardings that we
-     would otherwise have to chase.
+- **An approved web browser — Chrome or Edge only** _(new FFC support policy —
+  not yet in the rendered guides)_
+  - _What:_ A current **Google Chrome or Microsoft Edge** on the computer.
+    **Firefox, Safari, and any other browser are not approved or supported.**
+  - _You:_ Chrome/Edge run the web apps, the password-manager extension, and the
+    AI-tool integrations exactly the way the guides expect.
+  - _FFC:_ A single supported browser pair means our guides and screenshots match
+    your screen, with no time lost to browser-specific quirks.
+- **Microsoft Teams (desktop application + mobile app) — the first mandatory
+  install** _(new FFC policy — not yet in the rendered setup guides)_
+  - _What:_ The **Teams desktop application** on the computer (not just the web
+    version) **and** the Teams app on the phone. The **first install** every
+    applicant completes. For now, sign in with a **free/personal Microsoft
+    account**; the charity `@org` identity is added later, once FFC provisions
+    Microsoft 365.
+  - _You:_ Teams is how you meet with FFC — screen sharing, live walkthroughs, and
+    real-time help; on your phone you can join from anywhere.
+  - _FFC:_ Our standard meeting/screen-share channel, so we can guide you live.
+    Installing it also **proves your computer can install software** — the first
+    connector test, and the verification for the computer requirement above.
+- **A calendar app (Google Calendar or Outlook Calendar)**
+  - _What:_ A working calendar on the phone/computer.
+  - _You:_ Schedule and keep onboarding and training sessions.
+  - _FFC:_ We can book time with you reliably instead of chasing scheduling.
+- **A documents app (Microsoft Word or Google Docs)**
+  - _What:_ The ability to write and share documents.
+  - _You:_ Draft your mission, board bios, and page/site content in editable form.
+  - _FFC:_ Content arrives editable, so we can help refine and publish it quickly.
+- **Cloud file storage (Google Drive or Microsoft OneDrive) + scanning**
+  - _What:_ A **Google Drive or Microsoft OneDrive** account, plus the ability to
+    **scan documents** (a phone scan app counts), to store the charity's **core
+    files** — state formation/incorporation papers, the IRS determination memo,
+    board documents.
+  - _You:_ One secure, backed-up home for documents you reuse constantly; scanning
+    the IRS memo the moment it arrives means it's never lost.
+  - _FFC:_ Clean, organized documents make validation fast, and shared storage
+    lets us help without emailing sensitive files around.
+  - _Action:_ **New guide needed** — using Drive/OneDrive to store core charity
+    files and how to scan documents such as the IRS memo. (Tracked in Open
+    Questions.)
 
-5. **A primary personal email account (on your phone)**
-   - _What:_ A working personal email you control and monitor (Android →
-     Google/Gmail; iPhone → iCloud/Apple, or Gmail if that's your main address).
-   - _Why it benefits you:_ It is the identity and recovery address behind every
-     account; password resets and security alerts land somewhere you always have.
-   - _Why it benefits FFC:_ Gives each person one stable identity to attach roles
-     and work emails to (the "account is a person" principle) and a reliable
-     channel for verification links.
+#### Group C — Personal identity, email & recovery
 
-6. **An approved web browser — Chrome or Edge only** _(new FFC support policy —
-   not yet stated in the rendered guides)_
-   - _What:_ A current **Google Chrome or Microsoft Edge** on the computer.
-     **Firefox, Safari, and any other browser are not approved or supported.**
-   - _Why it benefits you:_ Chrome/Edge run the web apps, the password-manager
-     extension, and the AI-tool integrations exactly the way the guides expect —
-     the fewest surprises and the most help available.
-   - _Why it benefits FFC:_ A single supported browser pair means our guides and
-     screenshots match your screen, and we don't spend support time on
-     browser-specific quirks.
+- **A primary personal email account (on your phone)**
+  - _What:_ A working personal email you control and monitor (Android →
+    Google/Gmail; iPhone → iCloud/Apple, or Gmail if that's your main address).
+  - _You:_ The identity and recovery address behind every account; resets and
+    security alerts land somewhere you always have.
+  - _FFC:_ One stable identity per person to attach roles and work emails to (the
+    "account is a person" principle) and a reliable verification channel.
+- **A secondary recovery email / backup contact**
+  - _What:_ A second email (or a second trusted person's address) usable for
+    account recovery.
+  - _You:_ A lost device or inaccessible primary email never means permanent
+    lockout.
+  - _FFC:_ A fallback channel if the primary contact goes dark, so accounts don't
+    become orphaned.
 
-7. **Microsoft Teams (desktop application + mobile app) — the first mandatory
-   install** _(new FFC policy — not yet in the rendered setup guides)_
-   - _What:_ The **Microsoft Teams desktop application** installed on the
-     computer (not just the web version), **and** the Teams app on the
-     smartphone. This is the **first install** every applicant completes. For now,
-     sign in with a **free/personal Microsoft account**; the charity `@org`
-     identity is added to Teams later, once FFC provisions Microsoft 365.
-   - _Why it benefits you:_ Teams is how you meet with FFC — screen sharing,
-     live walkthroughs, and real-time help during onboarding and beyond; having
-     it on your phone means you can join from anywhere.
-   - _Why it benefits FFC:_ Teams is our standard meeting and screen-share
-     channel, so we can guide you live and see your screen to unblock you.
-     Installing it also **proves your computer can install software** — it is the
-     first connector test, which is why we treat it as the verification for
-     item 3.
+#### Group D — Skills, AI & commitment
 
-8. **A webcam and microphone**
-   - _What:_ A working camera and microphone — on the computer **or** the
-     smartphone (with Teams installed on whichever device you join from).
-   - _Why it benefits you:_ Lets you take part in live onboarding and training
-     calls and get face-to-face help.
-   - _Why it benefits FFC:_ Lets us run efficient guided sessions, confirm who we
-     are working with, and resolve issues far faster than email alone.
+- **Basic digital literacy**
+  - _What:_ Comfort opening websites, completing forms, scanning a QR code, and
+    installing an app or extension.
+  - _You:_ The self-service model — and your ongoing independence — depends on it.
+  - _FFC:_ The core signal that the charity can operate what we build (the heart
+    of the "filter out" philosophy).
+- **Willingness to use AI tools — required assistant matches your email
+  ecosystem**
+  - _What:_ A willingness to use AI assistants, now **remarkably good at walking
+    people through complex technical steps — even the free versions.** The
+    required first assistant depends on your primary email:
+    - **Gmail or iCloud → Google Gemini is required.**
+    - **Outlook.com → Microsoft Copilot is required.**
+    - Once you've mastered it, **Claude** is the recommended next tool.
+  - _You:_ The assistant matching your ecosystem is already built into your
+    phone/accounts, so it's easiest to adopt and can guide you through nearly
+    every step.
+  - _FFC:_ The self-service maintenance model depends on it; confident AI users
+    need far less hands-on support.
+- **A dedicated time commitment**
+  - _What:_ A realistic block of focused time to work through the ladder, plus
+    ongoing time to maintain the site.
+  - _You:_ Setting time aside up front means you finish instead of stalling with
+    half-secured accounts.
+  - _FFC:_ Reduces abandoned, half-finished onboardings.
 
-9. **A dedicated time commitment**
-   - _What:_ A realistic block of focused time to work through the prerequisite
-     ladder, plus ongoing time to maintain the site afterward.
-   - _Why it benefits you:_ Setting the time aside up front means you finish the
-     ladder instead of stalling halfway with half-secured accounts.
-   - _Why it benefits FFC:_ Reduces abandoned, half-finished onboardings that
-     consume volunteer attention without producing a working charity.
+#### Group E — Organization basics the charity brings
 
-10. **Basic digital literacy**
-    - _What:_ Comfort opening websites, completing forms, scanning a QR code, and
-      installing an app or extension.
-    - _Why it benefits you:_ The entire self-service model — and your ongoing
-      independence — depends on it.
-    - _Why it benefits FFC:_ It is the core signal that the charity can operate
-      what we build; this is the heart of the "filter out" philosophy.
+- **A settled organization name, checked on Cloudflare**
+  - _What:_ Decide the organization's exact name and **check the matching `.org`
+    availability at cloudflare.com**, which offers a domain name-checking service.
+  - _You:_ Consistent naming across pages, email, and domain, with no rework
+    later.
+  - _FFC:_ FFC uses **Cloudflare for secure provisioning of domain names once we
+    purchase them**, so checking there now matches where the domain will live.
+- **A drafted mission statement**
+  - _What:_ A short written mission statement for the organization.
+  - _You:_ Needed for the LinkedIn/Facebook About sections, GuideStar, and the
+    site — write it once, reuse everywhere.
+  - _FFC:_ Validation and page setup go faster when the mission is articulated.
+- **A public organization phone number**
+  - _What:_ A phone number for the organization that can be listed publicly. A
+    free **Google Voice** number works well — it's what the FFC founder uses
+    personally and publicly for the charity. Many people use their **direct cell
+    number** instead, which is also fine — but as a **public charity** it means
+    you must be comfortable being **publicly found and contacted in support of
+    your mission**.
+  - _You:_ A listed contact number for donors, partners, and the people you serve.
+  - _FFC:_ Satisfies the contact number GuideStar and public listings expect.
+- **A US mailing address you accept will be public**
+  - _What:_ A US mailing address for the organization. A **PO box is fine**, and
+    many use their **home address** — but you must **understand and accept that it
+    becomes public** and associated with the nonprofit's activity.
+  - _You:_ Incorporation, the IRS, GuideStar, Microsoft 365 nonprofit validation,
+    and domain records all require a real address.
+  - _FFC:_ Confirms a real US-based entity and the public contact point that
+    transparency and the donor flow depend on.
 
-11. **A US mailing address you accept will be public**
-    - _What:_ A US mailing address for the organization. A **PO box is fine**, and
-      many people use their **home address** — but you must **understand and
-      accept that this address becomes public** and associated with the
-      nonprofit's activity.
-    - _Why it benefits you:_ Incorporation, the IRS, GuideStar, Microsoft 365
-      nonprofit validation, and domain records all require a real address; having
-      one ready unblocks every legal/validation step.
-    - _Why it benefits FFC:_ Confirms a real US-based entity and provides the
-      public contact point that transparency (GuideStar) and the donor flow
-      depend on.
+#### Group F — Governance & agreement
 
-12. **At least two accountable people**
-    - _What:_ A primary contact **and** at least one other real person who can be
-      a backup administrator (typically a board member).
-    - _Why it benefits you:_ No page, mailbox, or account dies with a single
-      login; if someone leaves or loses access, the charity keeps control.
-    - _Why it benefits FFC:_ Continuity — we never end up with an orphaned
-      page/account behind one unreachable person (a common, costly cleanup).
-
-13. **Up-front acknowledgment of the FFC Acceptable Use Policy**
-    - _What:_ Read and **accept the FFC AUP** and the "credit FFC" expectation
-      before any work begins.
-    - _Why it benefits you:_ You know exactly what is expected (and that the
-      service is free) before investing time.
-    - _Why it benefits FFC:_ Consent and expectations are recorded before
-      volunteer effort is committed.
-
-14. **Cloud file storage (Google Drive or Microsoft OneDrive) + scanning**
-    - _What:_ A **Google Drive or Microsoft OneDrive** account, plus the ability
-      to **scan documents** (a phone scan app counts). Use it to store the
-      charity's **core files** — state formation/incorporation papers, the IRS
-      determination memo, board documents.
-    - _Why it benefits you:_ One secure, backed-up home for documents you'll reuse
-      constantly; scanning the IRS memo the moment it arrives means it is never
-      lost.
-    - _Why it benefits FFC:_ Clean, organized documents make validation fast, and
-      shared storage lets us help without emailing sensitive files around.
-    - _Action:_ **New guide needed** — a walkthrough on using Drive/OneDrive to
-      store the charity's core files (state/incorporation info) and how to scan
-      documents such as the IRS memo into either provider. (Tracked in Open
-      Questions.)
-
-15. **Willingness to use AI tools — required assistant matches your email ecosystem**
-    - _What:_ A willingness to use AI assistants, which have become **remarkably
-      good at walking people through complex technical steps — even the free
-      versions.** The **required first assistant depends on your primary email**:
-      - Primary email is **Gmail or iCloud → Google Gemini is required**.
-      - Primary email is **Outlook.com → Microsoft Copilot is required**.
-      - Once you've mastered that first assistant, **Claude** is the recommended
-        next tool.
-    - _Why it benefits you:_ The assistant that matches your ecosystem is the one
-      already built into your phone/accounts, so it's the easiest to adopt and can
-      guide you through almost every step in this flow and ongoing maintenance.
-    - _Why it benefits FFC:_ The self-service maintenance model depends on it;
-      confident AI users need far less hands-on volunteer support.
-
-16. **A supported, up-to-date mobile operating system**
-    - _What:_ An iPhone or Android still **receiving OS/security updates** (not an
-      abandoned, end-of-life device).
-    - _Why it benefits you:_ The authenticator apps, Teams, and Outlook/LinkedIn
-      apps keep working and stay secure.
-    - _Why it benefits FFC:_ An unsupported phone is a security hole that
-      undermines the MFA we rely on.
-
-17. **A calendar app (Google Calendar or Outlook Calendar)**
-    - _What:_ A working calendar on the phone/computer.
-    - _Why it benefits you:_ You can schedule and keep onboarding and training
-      sessions.
-    - _Why it benefits FFC:_ We can book time with you reliably instead of chasing
-      scheduling by email.
-
-18. **A documents app (Microsoft Word or Google Docs)**
-    - _What:_ The ability to write and share documents.
-    - _Why it benefits you:_ Draft your mission statement, board bios, and page/
-      site content in an editable form.
-    - _Why it benefits FFC:_ Content arrives editable, so we can help refine and
-      publish it quickly.
-
-19. **A secondary recovery email / backup contact**
-    - _What:_ A second email address (or a second trusted person's address) usable
-      for account recovery.
-    - _Why it benefits you:_ A lost device or inaccessible primary email never
-      means permanent lockout.
-    - _Why it benefits FFC:_ A fallback channel if the primary contact goes dark,
-      so accounts don't become orphaned.
-
-20. **A public organization phone number (e.g., free Google Voice)**
-    - _What:_ A phone number for the organization — a free **Google Voice** number
-      works — that can be listed publicly.
-    - _Why it benefits you:_ A professional, listed contact number without exposing
-      anyone's personal cell.
-    - _Why it benefits FFC:_ Satisfies the contact number GuideStar and public
-      listings expect.
-
-21. **A drafted mission statement**
-    - _What:_ A short written mission statement for the organization.
-    - _Why it benefits you:_ It's needed for the LinkedIn/Facebook About sections,
-      GuideStar, and the site — write it once, reuse it everywhere.
-    - _Why it benefits FFC:_ Validation and page setup go faster when the mission
-      is already articulated.
-
-22. **A settled organization name, checked on Cloudflare**
-    - _What:_ Decide the organization's exact name and **check the matching `.org`
-      availability at cloudflare.com**, which offers a domain name-checking
-      service.
-    - _Why it benefits you:_ Consistent naming across your pages, email, and
-      domain, with no rework later.
-    - _Why it benefits FFC:_ FFC uses **Cloudflare for secure provisioning of
-      domain names once we purchase them**, so checking there now matches where the
-      domain will actually live.
+- **At least two accountable people**
+  - _What:_ A primary contact **and** at least one other real person who can be a
+    backup administrator (typically a board member).
+  - _You:_ No page, mailbox, or account dies with a single login.
+  - _FFC:_ Continuity — we never end up with an orphaned page/account behind one
+    unreachable person.
+- **Up-front acknowledgment of the FFC Acceptable Use Policy**
+  - _What:_ Read and **accept the FFC AUP** and the "credit FFC" expectation
+    before any work begins.
+  - _You:_ You know exactly what's expected (and that the service is free) before
+    investing time.
+  - _FFC:_ Consent and expectations recorded before volunteer effort is committed.
 
 > **Verification (light-touch):** we do not formally audit each item — **having
 > installed the required apps is the proof.** The **first mandatory install is
 > Microsoft Teams (desktop)**; completing it demonstrates the computer's
-> software-install capability (item 3) and readiness for screen-sharing and
+> software-install capability (Group A) and readiness for screen-sharing and
 > meetings. Later AI-tool connectors are treated the same way.
 
 **Phase A — Establish the three approved security/credential tools**
@@ -653,7 +623,7 @@ the applicant **cannot proceed** and should be routed to **Contact us for help**
 2. Install **Microsoft Authenticator** from the phone's app store.
 3. Create a **LastPass** account (the password manager). Choose a strong,
    memorable **master password**, and **turn on MFA for LastPass itself** using
-   one of the authenticators. Use LastPass to **generate and store** a unique
+   your authenticator app. Use LastPass to **generate and store** a unique
    strong password for every account from here on, and to **store MFA recovery
    codes**.
 
