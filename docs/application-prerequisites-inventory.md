@@ -238,6 +238,14 @@ used for each ecosystem. Use an authenticator app, not SMS, where offered. (True
 computer). **LastPass is added later** for cross-platform use and team credential
 sharing.
 
+> **Password hygiene (non-negotiable):** a **unique password for every service —
+> never reused**. Reuse turns one site's breach into a break-in everywhere
+> (credential stuffing). The strictest care goes to the accounts that anchor
+> everything else: **email** (the ultimate recovery channel — "forgot password"
+> and MFA resets land there) and **banking/financial** logins (real money). Those
+> get their own strong, unique passwords and MFA, never shared with any other
+> site. The password manager exists precisely so unique-per-site is effortless.
+
 > **Dependency chain (why the order matters):** a **LinkedIn organization Page**
 > can only be created from a **personal LinkedIn profile**; a **Facebook
 > organization Page** can only be created from a **personal Facebook account**.

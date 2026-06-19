@@ -462,6 +462,15 @@ export const SETUP_GUIDES: SetupGuide[] = [
         ],
       },
       {
+        title: 'Never reuse the same password across services',
+        body: [
+          'Use a **different password for every account** — never the same one twice. When passwords are reused, a breach at one weak site hands attackers the key to all your other accounts (this is called *credential stuffing*). A password manager exists precisely so you never have to remember or repeat one.',
+          'Be most careful with your **email** and **bank** accounts. Your email is usually the **ultimate recovery method** — “forgot password” links and many MFA resets land there — so whoever controls your email can take over almost everything else. Banking and financial logins protect real money. These must have **unique, strong passwords of their own** (and MFA turned on), never shared with any other site.',
+          'If you’ve been reusing a password, change it on the important accounts first (email, then bank, then anything financial), letting the manager generate a fresh unique one for each.',
+        ],
+        tip: 'Rule of thumb: if the same password would unlock both a random shopping site and your email or bank, that password is already too risky — give email and bank their own.',
+      },
+      {
         title: 'Know how to actually see a saved password (not just autofill)',
         body: [
           'Every one of these managers lets you **reveal** a stored password after you re-confirm it’s you (Face ID / fingerprint / device PIN / your account password) — you’re not stuck with autofill-only. You’ll need this when signing in on a device the manager can’t autofill into, or when adding a teammate to a shared account.',
@@ -479,6 +488,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
     ],
     faqs: [
+      {
+        q: 'Why does it matter if I reuse one strong password everywhere?',
+        a: 'Because you don’t control how every site stores it. When one site is breached — and breaches happen constantly — attackers take the leaked email + password and try it automatically on hundreds of other services (credential stuffing). One reused password turns a single breach into a break-in everywhere. It’s especially dangerous for your email and bank: email is the recovery channel for most of your other accounts, and bank logins guard real money. A manager makes a unique password per site effortless, so there’s no reason to reuse.',
+      },
       {
         q: 'Built-in browser manager or LastPass — which?',
         a: 'Start with the built-in manager in your Chrome or Edge profile; it’s free and automatic. Add (or move to) LastPass when you need the same logins to work across many browsers/devices, or to share credentials with your team at the organizational phase.',
