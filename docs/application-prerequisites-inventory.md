@@ -5,6 +5,16 @@
 > the existing pages and data files in this repository. The FFC founder should
 > verify, add, or remove steps before this is treated as authoritative.
 
+> **Source precedence (sources differ by age).** The repo blends two eras. The
+> **current** model is captured by `src/data/setup-guides.ts` and the
+> freeforcharity.org `/501c3`, `/pre501c3`, and tools-for-success pages. The
+> **legacy** WordPress / Online Impacts era is captured by the
+> `legacy-wordpress-administration/*` pages (WHMCS product checkout, InterServer
+> hosting, GuideStar-as-universal-gate, the eight-stage WordPress lifecycle).
+> Where they conflict, **the current model governs the individual-applicant flow
+> in Section 8**; legacy details are retained for the operations history but are
+> flagged as legacy.
+
 ## Purpose
 
 Supporting a charity's **application** is one of the core functions of the FFC
@@ -39,20 +49,36 @@ shipped site lands at a charity that can run it.
 > baseline competency gate, not just a marketing nicety. The same expectation
 > applies to the **pre-501(c)(3) track** — the organization Facebook and LinkedIn
 > pages are required there as well.
+>
+> **In-repo source:** the actual walkthroughs live in `src/data/setup-guides.ts`
+> (the `linkedin` and `facebook` guides), which explicitly describe creating each
+> organization Page **from the applicant's own personal account**. See the full
+> applicant flow in Section 8.
+
+### The organizing principle: an account is a person, not an entity
+
+The `src/data/setup-guides.ts` guides are built on one repeated rule: **you sign
+up as yourself** (the identity on your phone), turn on multi-factor
+authentication, and then **add your work persona** (e.g. an `@yourcharity.org`
+email) to that one personal account. The login is always the **person**, never
+the organization. Every organizational asset — a GitHub org, a LinkedIn Page, a
+Facebook Page — is something a real person's secured account is given control
+of. This principle is what makes the flow in Section 8 logical and ordered.
 
 ## Where this lives in the codebase
 
-| Topic                                    | Source                                                                                 |
-| ---------------------------------------- | -------------------------------------------------------------------------------------- |
-| End-to-end lifecycle + eligibility floor | `src/app/legacy-wordpress-administration/wordpress-service-delivery-stages/page.tsx`   |
-| External + internal validation checks    | `src/app/legacy-wordpress-administration/wordpress-charity-validation/page.tsx`        |
-| Candid/GuideStar seal progression        | `src/app/legacy-wordpress-administration/wordpress-guidestar-guide/page.tsx`           |
-| Onboarding prerequisites + accounts      | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx` |
-| What the charity receives in return      | `src/app/what-ffc-delivers/page.tsx`                                                   |
-| Public application entry point           | `https://freeforcharity.org/submit-information/` (linked from What FFC Delivers)       |
-| 501(c)(3) onboarding entry point         | `https://freeforcharity.org/501c3/`                                                    |
-| Pre-501(c)(3) onboarding entry point     | `https://freeforcharity.org/pre501c3/`                                                 |
-| Recommended tools + setup order          | `https://freeforcharity.org/free-for-charitys-tools-for-success/`                      |
+| Topic                                    | Source                                                                                          |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| End-to-end lifecycle + eligibility floor | `src/app/legacy-wordpress-administration/wordpress-service-delivery-stages/page.tsx`            |
+| External + internal validation checks    | `src/app/legacy-wordpress-administration/wordpress-charity-validation/page.tsx`                 |
+| Candid/GuideStar seal progression        | `src/app/legacy-wordpress-administration/wordpress-guidestar-guide/page.tsx`                    |
+| Onboarding prerequisites + accounts      | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx`          |
+| **Step-by-step account setup guides**    | **`src/data/setup-guides.ts`** (GitHub, MFA, LinkedIn, Facebook, M365, password manager, Canva) |
+| What the charity receives in return      | `src/app/what-ffc-delivers/page.tsx`                                                            |
+| Public application entry point           | `https://freeforcharity.org/submit-information/` (linked from What FFC Delivers)                |
+| 501(c)(3) onboarding entry point         | `https://freeforcharity.org/501c3/`                                                             |
+| Pre-501(c)(3) onboarding entry point     | `https://freeforcharity.org/pre501c3/`                                                          |
+| Recommended tools + setup order          | `https://freeforcharity.org/free-for-charitys-tools-for-success/`                               |
 
 ---
 
@@ -66,7 +92,10 @@ these generally results in a polite decline rather than a fix-and-retry.
 2. **501(c)(3) status active** — or on the **pre-501(c)(3) track** for
    organizations not yet recognized (see Section 1a; this track has its own
    application form on freeforcharity.org).
-3. **At minimum a Gold Candid (GuideStar) seal** (see Section 4).
+3. **(501(c)(3) track only)** at minimum a Gold Candid (GuideStar) seal (see
+   Section 4). This is **not** a universal gate — a pre-501(c)(3) organization
+   cannot yet hold a Gold seal (no Form 990), and instead works the IRS 1023 /
+   state-formation track. Listed here as track-specific, not track-agnostic.
 4. **Priority criterion:** revenue **under $1M** and **not federally
    grant-funded**. (Drives prioritization/offer, not an absolute bar.)
 
@@ -92,18 +121,27 @@ carries its own prerequisite expectations:
 These are the steps the applicant actively performs. They double as the first
 technical-competence signals.
 
-1. **Create a WHMCS portal account** at the FFC Hub.
-2. **Select the "Charity Onboarding & Validation" product** and submit the
-   **intake form** (no cost).
-3. **Acknowledge the FFC Acceptable Use Policy (AUP).**
-4. **Provide Candid/GuideStar profile links** (Public Profile + Full Profile).
-5. **Provide board contact information** — President/Chair, Secretary,
-   Treasurer (optionally Vice and Member-At-Large).
-6. **Designate primary + technical contacts**, including timezone and preferred
+> **Current entry point:** the public application form at
+> `https://freeforcharity.org/submit-information/`, plus the track-specific
+> `/501c3` and `/pre501c3` pages. The **WHMCS portal product checkout**
+> (below, items 1–2) is the **legacy** Online Impacts-era mechanism; it is
+> retained here because parts of the back office still run on it, but new
+> applicants start at the web form.
+
+1. _(Legacy)_ Create a **WHMCS portal account** and select the **"Charity
+   Onboarding & Validation" product** — or, in the current model, submit the
+   **public application form** (no cost).
+2. **Acknowledge the FFC Acceptable Use Policy (AUP).**
+3. _(501(c)(3) track)_ **Provide Candid/GuideStar profile links** (Public Profile
+   - Full Profile).
+4. **Provide board contact information** — President/Chair, Secretary, Treasurer
+   (optionally Vice and Member-At-Large); on the pre-501(c)(3) track, the
+   **planned** board.
+5. **Designate primary + technical contacts**, including timezone and preferred
    contact hours.
 
-**Exit gate (Stage 1):** WHMCS account exists, intake form is fully completed,
-AUP acknowledged.
+**Exit gate:** application submitted, intake form fully completed, AUP
+acknowledged.
 
 ### Prerequisite materials the charity must have in hand
 
@@ -253,17 +291,17 @@ here — only what both must do.
 
 ### 7b. Core organizational profiles & accounts (common to both tracks)
 
-| Account / profile                                      | Track-agnostic? | Notes                                                                                                            |
-| ------------------------------------------------------ | --------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Password manager** (LastPass)                        | Yes             | Tools-for-success says set this up **first**, before any other account, so the rest are created securely.        |
-| **Organizational Microsoft 365 / Outlook email**       | Yes             | FFC-recommended productivity + email suite; `<charityname>@outlook.com` to start, then charity-domain mailboxes. |
-| **Organization Facebook Page**                         | Yes             | Applicant creates it themselves.                                                                                 |
-| **Organization LinkedIn Page**                         | Yes             | Applicant creates it themselves.                                                                                 |
-| **Domain** (`yourcharityname.org`)                     | Yes             | Registered/transferred via FFC.                                                                                  |
-| **WordPress website**                                  | Yes             | The delivered site (legacy track) / FFC template.                                                                |
-| **Charity email routing** (`info@yourcharityname.org`) | Yes             | Professional addressing under the charity domain.                                                                |
-| **Board structure** (mandatory officers)               | Yes             | Seated board for 501(c)(3); planned/elected board for pre-501(c)(3).                                             |
-| **Mission statement**                                  | Yes             | Required by both.                                                                                                |
+| Account / profile                                      | Track-agnostic? | Notes                                                                                                                                                                                                                                     |
+| ------------------------------------------------------ | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Password manager** (LastPass)                        | Recommended     | A password manager is "the safety net behind every other account." It **must be from one of the three approved providers** (see Section 8a) — FFC standardizes on **LastPass**. Not stated as a hard requirement or a fixed ordinal step. |
+| **Organizational Microsoft 365 / Outlook email**       | Yes             | FFC-recommended productivity + email suite; `<charityname>@outlook.com` to start, then charity-domain mailboxes.                                                                                                                          |
+| **Organization Facebook Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                          |
+| **Organization LinkedIn Page**                         | Yes             | Applicant creates it themselves.                                                                                                                                                                                                          |
+| **Domain** (`yourcharityname.org`)                     | Yes             | Registered/transferred via FFC.                                                                                                                                                                                                           |
+| **WordPress website**                                  | Yes             | The delivered site (legacy track) / FFC template.                                                                                                                                                                                         |
+| **Charity email routing** (`info@yourcharityname.org`) | Yes             | Professional addressing under the charity domain.                                                                                                                                                                                         |
+| **Board structure** (mandatory officers)               | Yes             | Seated board for 501(c)(3); planned/elected board for pre-501(c)(3).                                                                                                                                                                      |
+| **Mission statement**                                  | Yes             | Required by both.                                                                                                                                                                                                                         |
 
 > **Track-specific (not part of the common minimum):** GuideStar/Candid **Gold**
 > seal, Form 990, audited financials, IRS determination letter (501(c)(3) only);
@@ -271,69 +309,143 @@ here — only what both must do.
 > registration (pre-501(c)(3) only); TechSoup, VolunteerMatch, and PayPal are
 > emphasized on the 501(c)(3) path.
 
-### 7c. Common onboarding steps
+### 7c. Common onboarding steps (suggested order)
 
-1. Establish the **password manager** first (LastPass).
-2. Stand up **organizational email** (Microsoft 365 / Outlook).
-3. Create the **organization LinkedIn Page** and **Facebook Page** (applicant-run).
-4. Register/transfer the **domain** through FFC and set up `info@` routing.
-5. Provide **board + primary/technical contact** information, including the
-   personal LinkedIn profiles described in 7a.
-6. Receive and configure the **WordPress website / FFC template**.
+This order is **assembled across multiple guides**, not a single stated policy
+sequence — treat it as a sensible default, not a mandated checklist:
+
+- Set up a **password manager** (recommended early so later credentials are
+  captured securely).
+- Stand up **organizational email** (Microsoft 365 by default, or Google
+  Workspace).
+- Create the **organization LinkedIn Page** and **Facebook Page** (applicant-run).
+- Register/transfer the **domain** through FFC and set up `info@` routing.
+- Provide **board + primary/technical contact** information, including the
+  personal LinkedIn profiles described in 7a.
+- Receive and configure the **website / FFC template**.
+
+For the precise, step-by-step **individual-applicant** sequence up to and
+including the social Pages, see **Section 8**.
 
 ---
 
-## 8. Proposed additions — the personal-to-organizational technical-literacy ladder
+## 8. The individual-applicant flow (up to and including the social Pages)
 
-> **Status: Proposal for the founder.** The items below are **not** yet stated
-> as formal prerequisites. They are recommended because every organizational
-> account FFC requires is technically **built on top of a personal account**,
-> and making that dependency explicit closes the most common "the applicant got
-> stuck" gaps. The guiding principle: _before_ an applicant can create
-> organizational infrastructure, they must prove they can establish and secure
-> **their own** accounts. **LinkedIn is the first rung** — you cannot create a
-> LinkedIn organization Page without a qualifying personal LinkedIn profile.
+This is the **single, logical, end-to-end sequence** an individual applicant
+follows — from owning nothing but a smartphone, to having the organization's
+**LinkedIn Page and Facebook Page** live. It encapsulates every step the person
+must take and is ordered so that **each step depends only on steps already
+completed**. It reconciles the older and newer sources in favor of the current
+model (`src/data/setup-guides.ts`).
 
-### 8a. The dependency chain (why this matters)
+The whole flow rests on the principle from Section "organizing principle": **an
+account is a person, not an entity.** The applicant signs up as themselves,
+secures the account, then creates the organization's Page _from_ that personal
+account.
 
-| Organizational account FFC requires         | Personal prerequisite it depends on                                                                                                                                                                                                   |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **LinkedIn organization Page**              | A **personal LinkedIn profile** that meets LinkedIn's Page-creation bar (real name, profile photo, an established set of connections, and the person listed in a current position). Without it, the Page literally cannot be created. |
-| **Facebook organization Page**              | A **personal Facebook account** to create and administer the Page.                                                                                                                                                                    |
-| **Microsoft 365 / Google Workspace tenant** | A **personal Microsoft/Google account** + a monitored email and a phone number to receive verification.                                                                                                                               |
-| **Every account above**                     | A **password manager** and **MFA/authenticator** habit to store credentials and pass 2-factor challenges.                                                                                                                             |
+### 8a. The three approved free providers (and nothing else)
 
-### 8b. Recommended applicant-level checklist (the literacy ladder)
+FFC standardizes on **exactly three** free providers for multi-factor
+authentication and password management. **All three are required for every
+person** — they are not interchangeable options, because each one is the
+authenticator for an ecosystem the charity will actually use:
 
-Proposed order — each rung proves a competency the next one needs:
+1. **Google Authenticator** — required because the charity sets up **Google
+   services** (e.g. Google Analytics and other Google products), which use it for
+   MFA.
+2. **Microsoft Authenticator** — required because the charity runs **Microsoft
+   365 Enterprise**, which requires it for MFA.
+3. **LastPass** — required as the **password manager** (and LastPass Authenticator
+   for MFA).
 
-1. **Personal password manager** set up first (LastPass/Bitwarden) — credential
-   hygiene before anything else. _(Already the stated #1 in tools-for-success;
-   recommend promoting it into the formal prerequisites.)_
-2. **A monitored personal email** the applicant controls (for verification
-   links).
-3. **A phone number** for SMS/authenticator-app 2-factor verification.
-4. **MFA / authenticator app** enabled on their personal accounts — basic
-   security literacy.
-5. **Personal LinkedIn profile** (applicant + each board / planned board
-   member), meeting the LinkedIn Page-creation criteria. **← first social rung.**
-6. **Personal Facebook account** capable of creating/administering a Page.
+Rules that follow from this:
 
-Only after these does the applicant attempt the **organizational** accounts in
-Section 7b. An applicant who completes rungs 1–6 unaided has demonstrated the
-technical literacy to operate the infrastructure FFC delivers; one who cannot is
-the case the "filter out" philosophy is designed to catch early.
+- **Each person sets up all three** — Google Authenticator, Microsoft
+  Authenticator, and LastPass — not just one. They cover different ecosystems the
+  charity depends on, so all three are needed per person.
+- **Every** FFC-related account has **MFA turned on**, using the authenticator
+  for that ecosystem (no SMS where an app is offered).
+- The **password manager must be from one of these three providers** — FFC uses
+  **LastPass**.
+- Do **not** introduce any other tool (no Bitwarden, Authy, 1Password, etc.).
+  Being able to set up these three is also part of the technical-literacy bar.
 
-### 8c. Suggested formal-prerequisite changes for the founder to weigh
+> **Dependency chain (why the order matters):** a **LinkedIn organization Page**
+> can only be created from a **personal LinkedIn profile**; a **Facebook
+> organization Page** can only be created from a **personal Facebook account**.
+> The person always comes first, and the personal account must be secured with
+> one of the three authenticators before it is used to create anything.
 
-- **Promote LinkedIn to the first explicit prerequisite**, stated as
-  _personal-profile-then-Company-Page_, so applicants don't hit the
-  can't-create-a-Page wall.
-- **Add the password manager (LastPass)** as a named prerequisite, not just a
-  tools-for-success recommendation.
-- **Add an MFA/2-factor requirement** as a literacy checkpoint.
-- Consider an explicit **"can you do this yourself?" self-check gate** at the top
-  of the application that lists rungs 1–6.
+### 8b. The flow, step by step
+
+**Phase A — Device & identity foundation**
+
+1. Have a **smartphone with its primary email** set up (the identity on the
+   phone): Android → the Google/Gmail account; iPhone → the iCloud/Apple email
+   (or Google if Gmail is the main address). This email is how account recovery
+   reaches the applicant.
+
+**Phase B — Establish the three approved security/credential tools**
+
+2. Install **Google Authenticator** from the phone's app store.
+3. Install **Microsoft Authenticator** from the phone's app store.
+4. Create a **LastPass** account (the password manager). Choose a strong,
+   memorable **master password**, and **turn on MFA for LastPass itself** using
+   one of the authenticators. Use LastPass to **generate and store** a unique
+   strong password for every account from here on, and to **store MFA recovery
+   codes**.
+
+**Phase C — Personal LinkedIn profile (first social rung)**
+
+5. Create the applicant's **personal LinkedIn profile** at linkedin.com using the
+   phone's email and the applicant's **real name**; add a photo, headline, and
+   current role at the organization.
+6. Turn on LinkedIn **two-step verification** (Me → Settings & Privacy → Sign in
+   & security) with an authenticator app; save the recovery codes in LastPass.
+7. Repeat steps 5–6 for **each board member** — or, on the pre-501(c)(3) track,
+   each **planned board member** — whose personal LinkedIn profile is required.
+
+**Phase D — Create the organization LinkedIn Page (first organizational account)**
+
+8. From the personal profile: **For Business → Create a Company Page**, choose
+   **Company / Nonprofit**, enter the organization name, website, and logo, and
+   confirm authorization to act on its behalf.
+9. **Add at least one other admin** (Admin tools → Manage admins), complete the
+   About section, add logo + banner, and publish a first post so the Page looks
+   active.
+
+**Phase E — Personal Facebook account**
+
+10. Create the applicant's **personal Facebook account** at facebook.com using
+    the device email/phone and the applicant's **real name**. (Never create a
+    fake "charity person" account — Facebook removes those.)
+11. Turn on Facebook **two-factor authentication** (Settings → Accounts Center →
+    Password and security → Two-factor authentication → Authentication app);
+    save recovery codes in LastPass.
+
+**Phase F — Create the organization Facebook Page (final step of this flow)**
+
+12. From the personal account: **Create → Page**, enter the organization name,
+    choose category **Nonprofit Organization**, add a short description, set the
+    logo as the profile picture and a banner as the cover.
+13. **Add at least one more admin** (Settings → Page access) so the Page survives
+    any single account being lost, and publish a welcome post.
+
+**End state:** the applicant has, unaided — a secured personal identity with all
+three approved tools, a qualifying personal LinkedIn, a personal Facebook, and
+the organization's **LinkedIn Page and Facebook Page** live with a backup admin
+on each. An applicant who completes this unaided has demonstrated the technical
+literacy to operate the infrastructure FFC delivers next (email, domain,
+website); one who cannot is exactly the case the "filter out" philosophy catches
+early.
+
+### 8c. What comes after this flow
+
+Once the social Pages exist, the applicant proceeds to the organizational
+accounts in Section 7b (organizational email on Microsoft 365 by default, domain
+
+- `info@` routing, then the website/template) and — on the 501(c)(3) track — the
+  GuideStar/validation work in Sections 3–4.
 
 ---
 
@@ -350,3 +462,10 @@ the case the "filter out" philosophy is designed to catch early.
   given they are now hard requirements on both tracks?
 - Should **AUP acknowledgment** and a **conflict-of-interest / data-handling**
   agreement be explicit prerequisite line items?
+- **`src/data/setup-guides.ts` needs reconciling with the three-provider rule
+  (Section 8a):** the `password-manager` guide currently names **Bitwarden** as
+  an alternative, and the MFA guide frames "**one** authenticator app." Per
+  current guidance, the approved set is exactly **Google Authenticator,
+  Microsoft Authenticator, and LastPass** (establish all three; no others).
+  Should the live setup guide be updated to match? _(I can make that change on
+  request.)_
