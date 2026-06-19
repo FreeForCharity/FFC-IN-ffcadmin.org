@@ -129,10 +129,17 @@ of stuck onboardings.")
 
 ---
 
-## 3. Validation checks (FFC-run, Stage 2)
+## 3. Validation checks (FFC-run, intake/validation stage)
 
 All checks must resolve to a **documented pass or documented exception** before
 an offer is made.
+
+> **Note on stage numbering:** the source pages disagree on the exact number.
+> `wordpress-service-delivery-stages` calls validation **Stage 2** of the
+> eight-stage lifecycle, while `wordpress-charity-validation` says validation
+> runs during **"Stage 1 — Intake."** They describe the same phase; the
+> discrepancy is in the source material and is flagged for the founder to
+> reconcile.
 
 ### 3a. External validation checks (six third-party signals)
 
@@ -182,8 +189,11 @@ refresh expected (Q1 convention).
 
 Most of these map to a validation check in Section 3a; the LinkedIn page is an
 additional onboarding requirement (used for board-bio cross-references) rather
-than one of the six external validation checks. FFC helps create any that are
-missing.
+than one of the six external validation checks. The applicant is expected to
+**create the Facebook and LinkedIn organization pages themselves** (the
+technical-readiness litmus test). For the remaining accounts (M365 tenant,
+Candid profile, TechSoup, PayPal), FFC provides guidance and admin support where
+the charity gets stuck.
 
 - Charity-named **Outlook mailbox** (Microsoft 365 nonprofit tenant) — _check 5_
 - **Candid (GuideStar) profile at Gold or higher** — _check 1_
