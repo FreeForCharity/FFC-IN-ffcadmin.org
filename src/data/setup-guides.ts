@@ -126,8 +126,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Tell FFC your username',
         body: [
-          'Send your **GitHub username** to FFC (text Clarke Moyer at (520) 222-8104) so you can be added to your charity’s repository as a writer. You’ll get an email invitation — open it and click **Accept invitation**.',
+          'Send your **GitHub username** to FFC (text Clarke Moyer at (520) 222-8104) so you can be added to your charity’s repository as a writer. You’ll then get an invitation to accept.',
+          'Accepting that invitation is the step most people get stuck on, so we wrote an every-click walkthrough: **ffcadmin.org/site-owner/accept-invitation** — what the email looks like, who it’s from, and three ways to accept it.',
         ],
+        tip: 'The invitation does NOT appear at github.com/notifications — look for the email from GitHub, or the green banner on your repository page. The walkthrough above shows both.',
       },
     ],
     faqs: [

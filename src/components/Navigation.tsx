@@ -217,7 +217,13 @@ export default function Navigation() {
 
             {desktopDropdown(volunteerDropdown)}
 
-            <Link href="/site-owner" className={`${linkClass('/site-owner')} whitespace-nowrap`}>
+            <Link
+              href="/site-owner"
+              className="inline-flex items-center whitespace-nowrap rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition-opacity"
+            >
+              <span aria-hidden="true" className="mr-1.5">
+                🌱
+              </span>
               Edit My Site
             </Link>
 
@@ -294,10 +300,10 @@ export default function Navigation() {
 
             <Link
               href="/site-owner"
-              className={mobileLinkClass('/site-owner')}
+              className="block rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 px-3 py-2 my-1 text-center font-semibold text-white"
               onClick={() => setIsMenuOpen(false)}
             >
-              Edit My Site
+              🌱 Edit My Site
             </Link>
 
             {mobileDropdown(trainingDropdown)}
