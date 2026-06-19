@@ -363,7 +363,8 @@ completed**.
 > **This flow is identical for both the 501(c)(3) and the pre-501(c)(3)
 > tracks.** The track is _chosen_ early (Section 1 / Phase 0) because it
 > determines which documents and which application form come later — but the
-> prerequisite **work** below (Phases 0–E) is **the same for both**. The two
+> prerequisite **work** below (Phase 0 plus the organization-page steps) is **the
+> same for both**. The two
 > tracks **diverge only after this common flow**, at the legal-documentation &
 > validation stage (Section 8d). Everything up to and including the organization
 > Facebook Page is common ground.
@@ -417,7 +418,7 @@ Under this policy:
 > The person always comes first, and the personal account must be secured with
 > one of the three authenticators before it is used to create anything.
 
-### 8b. The flow, step by step
+### 8b. The flow — Phase 0, then the organizational pages
 
 **Phase 0 — Baseline capabilities (mandatory; the floor under everything)**
 
@@ -561,7 +562,43 @@ into six categories.
   - _FFC:_ A fallback channel if the primary contact goes dark, so accounts don't
     become orphaned.
 
-#### Group D — Skills, AI & commitment
+#### Group D — Personal accounts (you, the human — created and MFA-secured)
+
+> Each is a **personal** account in your own name (the "account is a person, not
+> an entity" principle). The **organizational** pages built on top of them are
+> created later (Section 8b). Turn on **MFA** for each, using the Phase 0
+> authenticators.
+
+- **A personal GitHub account**
+  - _What:_ Your own GitHub account in your real name (e.g. `@FirstnameLastname`),
+    MFA on. You add your charity email to it later — you do **not** create a
+    separate "charity" login.
+  - _You:_ It's how you'll review and approve changes to your website; one
+    personal account works across every charity and role you hold.
+  - _FFC:_ We add your account to the charity's repository as a writer; a real,
+    secured personal identity keeps the contribution history accountable.
+- **A personal LinkedIn profile — applicant and every board / planned-board
+  member**
+  - _What:_ A personal LinkedIn profile (real name, photo, headline, current
+    role), MFA on, for the applicant **and each legal or planned board member**.
+    Detail level is up to the individual; the account itself is the requirement.
+  - _You:_ Your professional identity, and the only way to create the
+    organization's LinkedIn Page later.
+  - _FFC:_ Confirms real, accountable people behind the charity, and supports the
+    board volunteering-linkage governance signal (Section 8b).
+- **A personal Facebook account**
+  - _What:_ Your own Facebook account in your real name, MFA on. (Never create a
+    fake "charity person" account — Facebook removes those.)
+  - _You:_ Required to create and administer the organization's Facebook Page.
+  - _FFC:_ Keeps the eventual Page behind a real, secured human admin.
+- **A personal Canva account** _(role-based — anyone who will make design
+  materials)_
+  - _What:_ Your own Canva account, MFA on; you later join the charity's Canva
+    team.
+  - _You:_ Access the charity's brand kit and templates to make on-brand graphics.
+  - _FFC:_ Brand-consistent materials without FFC doing the design.
+
+#### Group E — Skills, AI & commitment
 
 - **Basic digital literacy**
   - _What:_ Comfort opening websites, completing forms, scanning a QR code, and
@@ -589,7 +626,7 @@ into six categories.
     half-secured accounts.
   - _FFC:_ Reduces abandoned, half-finished onboardings.
 
-#### Group E — Organization basics the charity brings
+#### Group F — Organization basics the charity brings
 
 - **A settled organization name, checked on Cloudflare**
   - _What:_ Decide the organization's exact name and **check the matching `.org`
@@ -621,7 +658,7 @@ into six categories.
   - _FFC:_ Confirms a real US-based entity and the public contact point that
     transparency and the donor flow depend on.
 
-#### Group F — Governance & agreement
+#### Group G — Governance & agreement
 
 - **At least two accountable people**
   - _What:_ A primary contact **and** at least one other real person who can be a
@@ -642,67 +679,47 @@ into six categories.
 > software-install capability (Group A) and readiness for screen-sharing and
 > meetings. Later AI-tool connectors are treated the same way.
 
-**Phase A — Set up the three approved security/credential tools** (installed in
-Phase 0, Group B)
+**After Phase 0 — the organizational pages (applicant-run)**
 
-1. Open **Google Authenticator** (installed in Phase 0) — ready to scan QR codes
-   as you turn on MFA on each account below.
-2. Open **Microsoft Authenticator** (installed in Phase 0) — same role for the
-   Microsoft-ecosystem accounts.
-3. Finish your **LastPass** setup: confirm the strong **master password**, **turn
-   on MFA for LastPass itself**, and use it to **generate/store** a unique
-   password for every account from here on and to **store MFA recovery codes**.
+Everything **personal** — devices, the three security tools, email, and the
+applicant's own GitHub / LinkedIn / Facebook accounts (all MFA-secured) — is
+completed in **Phase 0**. What remains before applying is creating the
+**organizational pages** from those personal accounts. This is the hard gate, and
+it is identical for both tracks.
 
-**Phase B — Personal LinkedIn profile (first social rung)**
+**Organization LinkedIn Page**
 
-4. Create the applicant's **personal LinkedIn profile** at linkedin.com using the
-   phone's email and the applicant's **real name**; add a photo, headline, and
-   current role at the organization.
-5. Turn on LinkedIn **two-step verification** (Me → Settings & Privacy → Sign in
-   & security) with an authenticator app; save the recovery codes in LastPass.
-6. **Every person who is a legal board member — or planned to be one on the
-   pre-501(c)(3) track — must have a personal LinkedIn account.** Repeat steps
-   4–5 for each of them. How much detail they put on the profile is **up to the
-   individual**; the account itself is the requirement.
-
-**Phase C — Create the organization LinkedIn Page (first organizational account)**
-
-7. From the applicant's personal profile: **For Business → Create a Company
-   Page**, choose **Company / Nonprofit**, enter the organization name, website,
-   and logo, and confirm authorization to act on its behalf.
-8. **Add at least one other admin** (Admin tools → Manage admins) — typically the
+1. From the applicant's **personal LinkedIn profile** (Phase 0, Group D): **For
+   Business → Create a Company Page**, choose **Company / Nonprofit**, enter the
+   organization name, website, and logo, and confirm authorization to act on its
+   behalf.
+2. **Add at least one other admin** (Admin tools → Manage admins) — typically the
    other officers — complete the About section, add logo + banner, and publish a
    first post so the Page looks active.
-9. **Each legal/planned board member links the charity under their personal
-   LinkedIn "Volunteering" section, pointing to the organization's Page.** This
-   is a governance signal: it shows the member has **accepted the position and
-   therefore the liability** for the nonprofit's actions. (Requires the Page from
-   step 7 to exist first.)
+3. **Each legal/planned board member links the charity under their personal
+   LinkedIn "Volunteering" section, pointing to the Page.** This is a governance
+   signal: it shows the member has **accepted the position and therefore the
+   liability** for the nonprofit's actions.
 
-**Phase D — Personal Facebook account**
+**Organization Facebook Page**
 
-10. Create the applicant's **personal Facebook account** at facebook.com using
-    the device email/phone and the applicant's **real name**. (Never create a
-    fake "charity person" account — Facebook removes those.)
-11. Turn on Facebook **two-factor authentication** (Settings → Accounts Center →
-    Password and security → Two-factor authentication → Authentication app); save
-    recovery codes in LastPass.
+4. From the applicant's **personal Facebook account** (Phase 0, Group D): **Create
+   → Page**, enter the organization name, choose category **Nonprofit
+   Organization**, add a short description, set the logo as the profile picture
+   and a banner as the cover.
+5. **Add at least one more admin** (Settings → Page access) so the Page survives
+   any single account being lost, and publish a welcome post.
 
-**Phase E — Create the organization Facebook Page (final step of the common flow)**
+> The **organizational** GitHub (the charity's repo/org), **Microsoft 365** email,
+> the **domain**, and the **website** are provisioned by **FFC after acceptance** —
+> they are services, not applicant prerequisites.
 
-12. From the personal account: **Create → Page**, enter the organization name,
-    choose category **Nonprofit Organization**, add a short description, set the
-    logo as the profile picture and a banner as the cover.
-13. **Add at least one more admin** (Settings → Page access) so the Page survives
-    any single account being lost, and publish a welcome post.
-
-**End state:** the applicant has, unaided — a secured personal identity with all
-three approved tools, a qualifying personal LinkedIn, a personal Facebook, and
-the organization's **LinkedIn Page and Facebook Page** live with a backup admin
-on each. An applicant who completes this unaided has demonstrated the technical
-literacy to operate the infrastructure FFC delivers next (email, domain,
-website); one who cannot is exactly the case the "filter out" philosophy catches
-early.
+**End state:** the applicant has, unaided — a secured personal identity (devices,
+the three tools, and personal GitHub / LinkedIn / Facebook), and the
+organization's **LinkedIn Page and Facebook Page** live with a backup admin on
+each. An applicant who completes this unaided has demonstrated the technical
+literacy to operate the infrastructure FFC delivers next; one who cannot is
+exactly the case the "filter out" philosophy catches early.
 
 ### 8c. Applicant self-check (everything you must complete to be accepted)
 
@@ -736,11 +753,13 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] **LastPass** set up, with its own MFA on, storing my passwords + recovery
       codes.
 
-**Personal accounts (secured with MFA):**
+**Personal accounts (mine, in my real name, secured with MFA):**
 
+- [ ] My **personal GitHub** account.
 - [ ] My **personal LinkedIn** profile.
 - [ ] A **personal LinkedIn** profile for **each board / planned-board member**.
 - [ ] My **personal Facebook** account.
+- [ ] _(If making design materials)_ my **personal Canva** account.
 - [ ] Each board / planned-board member has linked the charity under their
       LinkedIn **"Volunteering"** section (accepting the position & liability).
 
@@ -766,8 +785,9 @@ If you get stuck on any item, use **Contact us for help**.
 
 ### 8d. Where the tracks diverge (after the common flow)
 
-Phases 0–E above are identical for both tracks. Once the social Pages exist and
-the self-check is complete, the applicant submits the application (the intake
+Phase 0 and the organizational-page steps above are identical for both tracks.
+Once the social Pages exist and the self-check is complete, the applicant submits
+the application (the intake
 steps in Section 2) — and **this is where the two tracks diverge**, on **legal
 status and documentation**:
 
