@@ -26,14 +26,14 @@ shipped site lands at a charity that can run it.
 
 ## Where this lives in the codebase
 
-| Topic | Source |
-| --- | --- |
-| End-to-end lifecycle + eligibility floor | `src/app/legacy-wordpress-administration/wordpress-service-delivery-stages/page.tsx` |
-| External + internal validation checks | `src/app/legacy-wordpress-administration/wordpress-charity-validation/page.tsx` |
-| Candid/GuideStar seal progression | `src/app/legacy-wordpress-administration/wordpress-guidestar-guide/page.tsx` |
-| Onboarding prerequisites + accounts | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx` |
-| What the charity receives in return | `src/app/what-ffc-delivers/page.tsx` |
-| Public application entry point | `https://freeforcharity.org/submit-information/` (linked from What FFC Delivers) |
+| Topic                                    | Source                                                                                 |
+| ---------------------------------------- | -------------------------------------------------------------------------------------- |
+| End-to-end lifecycle + eligibility floor | `src/app/legacy-wordpress-administration/wordpress-service-delivery-stages/page.tsx`   |
+| External + internal validation checks    | `src/app/legacy-wordpress-administration/wordpress-charity-validation/page.tsx`        |
+| Candid/GuideStar seal progression        | `src/app/legacy-wordpress-administration/wordpress-guidestar-guide/page.tsx`           |
+| Onboarding prerequisites + accounts      | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx` |
+| What the charity receives in return      | `src/app/what-ffc-delivers/page.tsx`                                                   |
+| Public application entry point           | `https://freeforcharity.org/submit-information/` (linked from What FFC Delivers)       |
 
 ---
 
@@ -99,22 +99,22 @@ an offer is made.
 
 ### 3a. External validation checks (six third-party signals)
 
-| # | Check | Demonstrates |
-| --- | --- | --- |
-| 1 | **501(c)(3) status via Candid / GuideStar** (record NTEE code) | Legitimacy; mission-alignment scoring |
-| 2 | **TechSoup legal-entity confirmation** ("Validated", not "Pending") | Independent vetting; unlocks discounted-software pipeline |
-| 3 | **VolunteerMatch engagement check** | Charity can receive and act on volunteer work |
-| 4 | **Verified Facebook page** (cross-checked vs. intake form) | Identity/branding consistency |
-| 5 | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo) | Technical readiness; enables SPF/DKIM/DMARC under charity domain |
-| 6 | **WHMCS account + PayPal donor flow** | KYC step; donor funding path |
+| #   | Check                                                                        | Demonstrates                                                     |
+| --- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)               | Legitimacy; mission-alignment scoring                            |
+| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")          | Independent vetting; unlocks discounted-software pipeline        |
+| 3   | **VolunteerMatch engagement check**                                          | Charity can receive and act on volunteer work                    |
+| 4   | **Verified Facebook page** (cross-checked vs. intake form)                   | Identity/branding consistency                                    |
+| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo) | Technical readiness; enables SPF/DKIM/DMARC under charity domain |
+| 6   | **WHMCS account + PayPal donor flow**                                        | KYC step; donor funding path                                     |
 
 ### 3b. Internal validation checks (three FFC reviews)
 
-| # | Check | Purpose |
-| --- | --- | --- |
-| 1 | **Cost-and-funding analysis** (size via Form 990: micro/small/mid/large) | Scopes engagement; drives template selection |
-| 2 | **Existing website + intake-form content review** | Mission/leadership consistency across all public sources |
-| 3 | **Target-demographic assessment** | Foundation for copy, imagery, accessibility |
+| #   | Check                                                                    | Purpose                                                  |
+| --- | ------------------------------------------------------------------------ | -------------------------------------------------------- |
+| 1   | **Cost-and-funding analysis** (size via Form 990: micro/small/mid/large) | Scopes engagement; drives template selection             |
+| 2   | **Existing website + intake-form content review**                        | Mission/leadership consistency across all public sources |
+| 3   | **Target-demographic assessment**                                        | Foundation for copy, imagery, accessibility              |
 
 > The site refers to "**all nine validation checks**" (six external + three
 > internal) resolving before exit.
@@ -128,12 +128,12 @@ determination letter** uploaded on top of the Candid baseline. Below Gold, the
 charity is routed back to "complete your GuideStar Gold seal first" instead of
 to scheduling.
 
-| Seal | FFC stance | Charity must supply |
-| --- | --- | --- |
-| **Bronze** | Starting | Mission statement; address/contact; EIN; leadership names & titles |
-| **Silver** | Starting | Program names & descriptions; geographic service areas; goals & beneficiary populations |
-| **Gold** | **Minimum requirement** | Most recent Form 990; audited financials (when available); fiscal-year financial data; DEI data; **+ board roster + IRS determination letter (FFC add-on)** |
-| **Platinum** | Preferred | Quantitative impact metrics; strategic planning documents / board reports |
+| Seal         | FFC stance              | Charity must supply                                                                                                                                         |
+| ------------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Bronze**   | Starting                | Mission statement; address/contact; EIN; leadership names & titles                                                                                          |
+| **Silver**   | Starting                | Program names & descriptions; geographic service areas; goals & beneficiary populations                                                                     |
+| **Gold**     | **Minimum requirement** | Most recent Form 990; audited financials (when available); fiscal-year financial data; DEI data; **+ board roster + IRS determination letter (FFC add-on)** |
+| **Platinum** | Preferred               | Quantitative impact metrics; strategic planning documents / board reports                                                                                   |
 
 Charity also supplies three artifacts after publishing: **Full Profile link**,
 **Public Profile link**, and **Seal Code** (embed snippet). Annual ~30-minute
