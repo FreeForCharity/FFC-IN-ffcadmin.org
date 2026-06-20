@@ -61,7 +61,7 @@ export default function DonationPolicy() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 3. Types of Acceptable Donations
               </h2>
-              <ul className="space-y-3">
+              <ul className="list-disc pl-6 space-y-3">
                 <li>
                   <strong>Cash Donations:</strong> Cash donations, including checks and electronic
                   transfers, are accepted and encouraged.
