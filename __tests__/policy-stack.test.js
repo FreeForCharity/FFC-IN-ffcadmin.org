@@ -70,6 +70,30 @@ describe('Policy stack integrity', () => {
     })
   })
 
+  describe('Cross-page deep-link targets exist', () => {
+    // Other pages deep-link into specific Terms of Service sections; guard the targets.
+    const tos = read(POLICY_PAGES['/terms-of-service'])
+
+    test('Terms of Service has the section ids other pages deep-link to', () => {
+      // privacy-policy -> /terms-of-service#section-3 (eligibility / age)
+      expect(tos).toContain('id="section-3"')
+      // charity-prerequisites -> /terms-of-service#section-18 (supported charities)
+      expect(tos).toContain('id="section-18"')
+    })
+
+    test('pages that deep-link to ToS sections target ids that exist', () => {
+      const sources = {
+        'app/privacy-policy/page.tsx': read('app/privacy-policy/page.tsx'),
+        'app/charity-prerequisites/page.tsx': read('app/charity-prerequisites/page.tsx'),
+      }
+      Object.values(sources).forEach((src) => {
+        for (const m of src.matchAll(/\/terms-of-service#section-(\d+)/g)) {
+          expect(tos).toContain(`id="section-${m[1]}"`)
+        }
+      })
+    })
+  })
+
   describe('PolicyCrossLinks component lists exactly the six pages, each described', () => {
     test('POLICY_PAGES hrefs and blurbs are complete', () => {
       const src = read('components/PolicyCrossLinks.tsx')
