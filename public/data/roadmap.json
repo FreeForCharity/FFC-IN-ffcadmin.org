@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-06-20T00:00:00.000Z",
+  "source": "seed",
+  "entries": [
+    {
+      "issueNumber": 0,
+      "charityName": "Free For Charity (example listing)",
+      "missionExcerpt": "Sample card showing how a mature, fully-prepared 501(c)(3) appears on the roadmap.",
+      "status": "active-build",
+      "charityStage": "501c3",
+      "missionCategory": "general",
+      "serviceTier": "Tier 3 — Site build",
+      "readinessScore": 280,
+      "readinessTier": "Mature",
+      "submittedAt": "2026-05-01T00:00:00.000Z",
+      "updatedAt": "2026-06-15T00:00:00.000Z",
+      "sponsor": {
+        "handle": "clarkemoyer",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/0?v=4",
+        "profileUrl": "https://github.com/clarkemoyer"
+      },
+      "plusOne": 4,
+      "issueUrl": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues"
+    },
+    {
+      "issueNumber": 0,
+      "charityName": "Sample Essential-Mission Charity",
+      "missionExcerpt": "Emergency response and disaster relief — illustrates an essential-mission card awaiting a sponsoring admin.",
+      "status": "needs-admin",
+      "charityStage": "501c3",
+      "missionCategory": "essential",
+      "serviceTier": "Tier 2 — Domain + Microsoft 365",
+      "readinessScore": 205,
+      "readinessTier": "Established",
+      "submittedAt": "2026-05-20T00:00:00.000Z",
+      "updatedAt": "2026-06-10T00:00:00.000Z",
+      "sponsor": null,
+      "plusOne": 7,
+      "issueUrl": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues"
+    },
+    {
+      "issueNumber": 0,
+      "charityName": "Sample Pre-501(c)(3) Project",
+      "missionExcerpt": "Youth education project mid-way through its Form 1023-EZ application.",
+      "status": "needs-admin",
+      "charityStage": "pre-501c3",
+      "missionCategory": "general",
+      "serviceTier": "Tier 1 — Application & verification",
+      "readinessScore": 95,
+      "readinessTier": "Developing",
+      "submittedAt": "2026-06-01T00:00:00.000Z",
+      "updatedAt": "2026-06-05T00:00:00.000Z",
+      "sponsor": null,
+      "plusOne": 2,
+      "issueUrl": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues"
+    },
+    {
+      "issueNumber": 0,
+      "charityName": "Sample New Applicant",
+      "missionExcerpt": "Recently submitted via Zeffy; awaiting structured intake and mission-fit review.",
+      "status": "needs-info",
+      "charityStage": "pre-501c3",
+      "missionCategory": "general",
+      "serviceTier": "Tier 1 — Application & verification",
+      "readinessScore": 12,
+      "readinessTier": "Foundational",
+      "submittedAt": "2026-06-18T00:00:00.000Z",
+      "updatedAt": "2026-06-18T00:00:00.000Z",
+      "sponsor": null,
+      "plusOne": 0,
+      "issueUrl": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues"
+    }
+  ]
+}
