@@ -247,6 +247,10 @@ export default function Navigation() {
 
             {NAV_MENUS.map((menu) => desktopDropdown(menu))}
 
+            <Link href="/roadmap" className={linkClass('/roadmap')}>
+              Roadmap
+            </Link>
+
             <a
               href="https://freeforcharity.org/"
               target="_blank"
@@ -322,6 +326,14 @@ export default function Navigation() {
             </Link>
 
             {NAV_MENUS.map((menu) => mobileDropdown(menu))}
+
+            <Link
+              href="/roadmap"
+              className={mobileLinkClass('/roadmap')}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Roadmap
+            </Link>
 
             <a
               href="https://freeforcharity.org/"

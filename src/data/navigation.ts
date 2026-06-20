@@ -186,6 +186,12 @@ export const operateMenu: NavMenu = {
           description:
             'Start here if you run a charity: eligibility, accounts to set up, how to apply.',
         },
+        {
+          label: 'Intake Help',
+          href: '/intake-help',
+          description:
+            'Help for charities completing intake: board, contact info, mailing address, and more.',
+        },
       ],
     },
   ],
