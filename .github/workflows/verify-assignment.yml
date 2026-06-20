@@ -1,0 +1,62 @@
+name: Verify Assignment
+
+# When an intake issue is assigned, confirm the assignee is a member of the
+# `sponsoring-admins` GitHub team (the verification artifact, program plan §8).
+# Verified -> applies `verified-assignment`. Unverified -> removes the
+# assignment and explains how to become a sponsoring admin.
+#
+# GUARDED: requires a PAT with read:org (secrets.GH_PAT). Until that secret
+# exists the workflow skips cleanly, so CI stays green before setup is complete.
+
+on:
+  issues:
+    types: [assigned]
+
+permissions:
+  issues: write
+
+env:
+  ORG: FreeForCharity
+  TEAM: sponsoring-admins
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'kind:intake')
+    steps:
+      - name: Guard on PAT availability
+        id: guard
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -n "$GH_PAT" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::secrets.GH_PAT not set; skipping assignment verification until setup is complete."
+          fi
+
+      - name: Check team membership and label
+        if: steps.guard.outputs.enabled == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ASSIGNEE: ${{ github.event.assignee.login }}
+          ISSUE: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          # gh api returns the membership object (state: active) for members,
+          # or a 404 for non-members.
+          if gh api "orgs/${ORG}/teams/${TEAM}/memberships/${ASSIGNEE}" >/dev/null 2>&1; then
+            echo "${ASSIGNEE} is a verified sponsoring admin."
+            gh issue edit "$ISSUE" --repo "$REPO" \
+              --add-label "verified-assignment,status:sponsored" \
+              --remove-label "verified-admin-action-needed" || true
+          else
+            echo "${ASSIGNEE} is NOT a sponsoring admin; reverting assignment."
+            gh issue edit "$ISSUE" --repo "$REPO" \
+              --remove-assignee "$ASSIGNEE" \
+              --add-label "verified-admin-action-needed" || true
+            gh issue comment "$ISSUE" --repo "$REPO" --body \
+              "Thanks for your interest! Assignment is reserved for verified **sponsoring admins**. Please complete verification first — see https://ffcadmin.org/roadmap/sponsor — and we'll get you assigned."
+          fi
