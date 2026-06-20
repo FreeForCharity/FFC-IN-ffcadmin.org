@@ -310,7 +310,7 @@ body:
     id: candid-profile
     attributes:
       label: Candid / GuideStar profile URL
-      description: 'For 501(c)(3) charities. Gold Seal is FFC''s minimum — see /intake-help/guidestar-candid.'
+      description: "For 501(c)(3) charities. Gold Seal is FFC's minimum — see /intake-help/guidestar-candid."
     validations:
       required: false
   - type: input

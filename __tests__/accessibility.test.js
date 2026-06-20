@@ -12,6 +12,12 @@ import Documentation from '@/app/documentation/page'
 import CookiePolicy from '@/app/cookie-policy/page'
 import PrivacyPolicy from '@/app/privacy-policy/page'
 import TrainingPlan from '@/app/training-plan/page'
+import Roadmap from '@/app/roadmap/page'
+import RoadmapSubmit from '@/app/roadmap/submit/page'
+import RoadmapSponsor from '@/app/roadmap/sponsor/page'
+import RoadmapMethodology from '@/app/roadmap/methodology/page'
+import IntakeHelpHub from '@/app/intake-help/page'
+import BoardRequirements from '@/app/intake-help/board-requirements/page'
 
 describe('Accessibility Tests', () => {
   describe('Home Page Accessibility', () => {
@@ -59,6 +65,33 @@ describe('Accessibility Tests', () => {
       const { container } = render(<TrainingPlan />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
+    })
+  })
+
+  describe('Roadmap & Intake-Help Accessibility', () => {
+    it('roadmap page has no violations', async () => {
+      const { container } = render(<Roadmap />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+    it('roadmap submit page has no violations', async () => {
+      const { container } = render(<RoadmapSubmit />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+    it('roadmap sponsor page has no violations', async () => {
+      const { container } = render(<RoadmapSponsor />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+    it('roadmap methodology page has no violations', async () => {
+      const { container } = render(<RoadmapMethodology />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+    it('intake-help hub has no violations', async () => {
+      const { container } = render(<IntakeHelpHub />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+    it('intake-help board-requirements has no violations', async () => {
+      const { container } = render(<BoardRequirements />)
+      expect(await axe(container)).toHaveNoViolations()
     })
   })
 })
