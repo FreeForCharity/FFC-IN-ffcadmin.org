@@ -242,9 +242,14 @@ export default function PrivacyPolicy() {
             <section id="section-9" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Children's Privacy</h2>
               <p>
-                Our Site is not intended for children under 16 years of age. We do not knowingly
-                collect personal information from children under 16. If you believe we have
-                collected information from a child under 16, please contact us immediately.
+                Our Services are intended for adults: you must be at least 18 years old to use them
+                (see{' '}
+                <Link href="/terms-of-service#section-3" className="text-blue-600 hover:underline">
+                  Terms of Service, Section 3
+                </Link>
+                ). Our Site is not directed to children, and we do not knowingly collect personal
+                information from anyone under 18. If you believe we have collected information from
+                a minor, please contact us immediately and we will delete it.
               </p>
             </section>
 

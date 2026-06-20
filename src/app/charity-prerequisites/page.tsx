@@ -221,7 +221,7 @@ export default function CharityPrerequisitesPage() {
               <strong>freeforcharity.org</strong> website. Start there — the team will guide you
               into the rest of onboarding. By applying, you agree to the{' '}
               <Link
-                href="/terms-of-service"
+                href="/terms-of-service#section-18"
                 className="text-blue-700 underline hover:text-blue-900"
               >
                 Terms of Service
