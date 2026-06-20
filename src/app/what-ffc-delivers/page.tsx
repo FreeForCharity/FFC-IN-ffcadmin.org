@@ -6,7 +6,7 @@ import ExpectationsCallout from '@/components/ExpectationsCallout'
 export const metadata: Metadata = {
   title: 'What FFC Delivers',
   description:
-    'What Free For Charity provides to partner 501(c)(3) nonprofits — a free website, domain, Microsoft 365 / Google Workspace, and analytics setup — what is included, what is out of scope, and the simple expectation in return. (Draft for review.)',
+    'What Free For Charity provides to supported 501(c)(3) nonprofits — a free website, domain, Microsoft 365 / Google Workspace, and analytics setup — what is included, what is out of scope, and the simple expectation in return.',
   keywords:
     'Free For Charity delivery, what FFC provides, free nonprofit website, free charity domain, Microsoft 365 nonprofit, sponsorship, FFC inclusions',
   alternates: {
@@ -62,12 +62,6 @@ export default function WhatFfcDeliversPage() {
       </div>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded mb-8 text-sm text-amber-900">
-          <strong>Draft for review.</strong> This page describes FFC&apos;s delivery model as it
-          operates today. The FFC founder should confirm the exact inclusions and any sponsorship
-          tiers before this is treated as a formal commitment.
-        </div>
-
         {/* Included */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">What&apos;s included</h2>

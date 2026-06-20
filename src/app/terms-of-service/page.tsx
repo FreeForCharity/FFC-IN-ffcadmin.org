@@ -516,8 +516,8 @@ export default function TermsOfService() {
               </h3>
               <p className="mb-4">
                 Service is granted only after the organization meets the eligibility floor and
-                completes the prerequisite steps (including the smaller-charity revenue gate,
-                account setup, and validation checks). See{' '}
+                completes the prerequisite steps (including the smaller-charity revenue gate —
+                currently under US$1M in annual revenue — account setup, and validation checks). See{' '}
                 <Link href="/charity-prerequisites" className="text-blue-600 hover:underline">
                   Charity Prerequisites
                 </Link>

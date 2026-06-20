@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: '%s | FFC Admin',
   },
   description:
-    'Operations and SOP reference for FFC volunteers, admins, and partner charities still running their own WordPress.',
+    'Operations and SOP reference for FFC volunteers, admins, and supported charities still running their own WordPress.',
   alternates: {
     canonical: `${SITE_URL}/legacy-wordpress-administration/`,
   },

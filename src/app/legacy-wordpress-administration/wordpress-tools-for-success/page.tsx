@@ -97,7 +97,7 @@ const categories: ToolCategory[] = [
   {
     id: 'nonprofit-specific',
     label: 'Nonprofit-specific tools',
-    blurb: 'Tools FFC routes partner charities to as part of standard onboarding.',
+    blurb: 'Tools FFC routes supported charities to as part of standard onboarding.',
     tools: [
       {
         id: 'guidestar',
