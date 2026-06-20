@@ -62,21 +62,32 @@ async function ghJson<T>(path: string): Promise<T> {
   return res.json() as Promise<T>
 }
 
-/** Map the `status:*` label (and a couple of fallbacks) to a lifecycle status. */
+// Lifecycle order, least to most advanced. If an issue carries more than one
+// `status:*` label, the most-advanced one wins (rather than whichever happens
+// to be listed first) so a sponsored/live issue is never misclassified.
+const STATUS_ORDER: RoadmapStatus[] = [
+  'intake',
+  'needs-info',
+  'needs-admin',
+  'on-hold',
+  'sponsored',
+  'active-build',
+  'live',
+  'graduated',
+]
+
+/** Map the `status:*` label(s) (and a couple of fallbacks) to a lifecycle status. */
 function statusFor(issue: GhIssue): RoadmapStatus {
   const names = issue.labels.map((l) => l.name)
-  const statusLabel = names.find((n) => n.startsWith('status:'))?.slice('status:'.length)
-  const valid: RoadmapStatus[] = [
-    'intake',
-    'needs-info',
-    'needs-admin',
-    'active-build',
-    'sponsored',
-    'live',
-    'on-hold',
-    'graduated',
-  ]
-  if (statusLabel && (valid as string[]).includes(statusLabel)) return statusLabel as RoadmapStatus
+  const found = names
+    .filter((n) => n.startsWith('status:'))
+    .map((n) => n.slice('status:'.length))
+    .filter((s): s is RoadmapStatus => (STATUS_ORDER as string[]).includes(s))
+  if (found.length > 0) {
+    return found.reduce((best, s) =>
+      STATUS_ORDER.indexOf(s) > STATUS_ORDER.indexOf(best) ? s : best
+    )
+  }
   if (names.includes('needs-info')) return 'needs-info'
   if (issue.state === 'closed') return 'live'
   return 'intake'

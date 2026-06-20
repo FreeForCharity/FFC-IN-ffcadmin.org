@@ -49,9 +49,11 @@ jobs:
           # or a 404 for non-members.
           if gh api "orgs/${ORG}/teams/${TEAM}/memberships/${ASSIGNEE}" >/dev/null 2>&1; then
             echo "${ASSIGNEE} is a verified sponsoring admin."
+            # Remove the prior lifecycle status so only one status:* label
+            # remains (the roadmap generator classifies by the status:* label).
             gh issue edit "$ISSUE" --repo "$REPO" \
               --add-label "verified-assignment,status:sponsored" \
-              --remove-label "verified-admin-action-needed" || true
+              --remove-label "verified-admin-action-needed,status:needs-admin,status:needs-info,status:intake" || true
           else
             echo "${ASSIGNEE} is NOT a sponsoring admin; reverting assignment."
             gh issue edit "$ISSUE" --repo "$REPO" \

@@ -1,7 +1,7 @@
 name: Charity intake
 description: Structured intake for a charity seeking Free For Charity service. Captures the data that drives the public roadmap and readiness scoring.
 title: '[Intake] <charity name>'
-labels: ['kind:intake', 'status:intake', 'needs-info']
+labels: ['kind:intake', 'status:needs-info']
 body:
   - type: markdown
     attributes:
