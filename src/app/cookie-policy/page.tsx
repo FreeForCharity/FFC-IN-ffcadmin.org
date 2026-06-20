@@ -288,8 +288,9 @@ export default function CookiePolicy() {
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">4.3 Opt-Out Links</h3>
               <p className="mb-4">
-                Declining analytics in the consent banner already stops these from loading. You can
-                also opt out of the analytics tools we use directly:
+                Declining analytics in the consent banner already stops both Google Analytics and
+                Microsoft Clarity from loading. For Google Analytics, you can also opt out
+                browser-wide:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
@@ -305,8 +306,9 @@ export default function CookiePolicy() {
                 </li>
               </ul>
               <p className="mb-4 text-sm text-gray-600">
-                We do not use advertising or social-media trackers, so there are no marketing
-                opt-out links to provide. If that changes, we will list them here.
+                Microsoft Clarity does not offer a separate opt-out add-on; declining analytics in
+                the consent banner is how you opt out of it. We do not use advertising or
+                social-media trackers, so there are no marketing opt-out links to provide.
               </p>
             </section>
 
