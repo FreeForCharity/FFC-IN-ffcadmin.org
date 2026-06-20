@@ -1014,11 +1014,10 @@ This repository is now production-ready and can serve as a template for future n
 ### Internal Documentation
 
 - [README.md](README.md) - Main overview
-- [QUICK_START.md](QUICK_START.md) - 5-minute setup
 - [CODE_QUALITY.md](CODE_QUALITY.md) - Standards and tools
 - [DEPLOYMENT.md](DEPLOYMENT.md) - GitHub Pages guide
 - [ISSUE_RESOLUTION.md](ISSUE_RESOLUTION.md) - Troubleshooting
-- [IMPLEMENTATION_ISSUES.md](IMPLEMENTATION_ISSUES.md) - Enhancement tracking
+- [IMPLEMENTATION_ISSUES.md](docs/archived/IMPLEMENTATION_ISSUES.md) - Enhancement tracking (archived)
 
 ### External References
 

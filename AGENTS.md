@@ -43,12 +43,13 @@ All changes follow this process:
 1. **Issue** -- Work starts from a GitHub Issue
 2. **Branch** -- Create a feature branch from `main`
 3. **Develop** -- Make changes, commit frequently
-4. **Pre-commit checklist** (run in this order -- build before tests, the same ordering CI uses; CI additionally runs `type-check` and uses `format:check`):
+4. **Pre-commit checklist** (run in this order -- build before tests, the same ordering CI uses; CI additionally uses `format:check`):
    1. `pnpm run format` -- Auto-fix formatting
    2. `pnpm run lint` -- Catch code quality issues
-   3. `pnpm run build` -- Verify the static export succeeds
-   4. `pnpm test` -- Run unit tests (some tests check the build output, so build first)
-   5. `pnpm run test:e2e` -- Run end-to-end tests
+   3. `pnpm run type-check` -- Verify TypeScript types (CI runs this)
+   4. `pnpm run build` -- Verify the static export succeeds
+   5. `pnpm test` -- Run unit tests (some tests check the build output, so build first)
+   6. `pnpm run test:e2e` -- Run end-to-end tests
 5. **PR** -- Open a Pull Request, link to the issue with `Fixes #NNN` or `Refs #NNN`
 6. **Merge** -- Merge via merge queue (no direct commits to `main`)
 

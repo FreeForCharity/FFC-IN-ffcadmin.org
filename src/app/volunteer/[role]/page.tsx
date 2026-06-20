@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import ExpectationsCallout from '@/components/ExpectationsCallout'
 import TrackPrerequisites from '@/components/TrackPrerequisites'
 import { VOLUNTEER_ROLES, getVolunteerRole } from '@/data/volunteer-roles'
 
@@ -84,6 +85,9 @@ export default async function VolunteerRolePage({ params }: { params: Promise<{ 
 
         {/* Before you start — account prerequisites (shared with the matching track) */}
         {role.pathId && <TrackPrerequisites pathId={role.pathId} accent="blue" />}
+
+        {/* What we ask of volunteers */}
+        <ExpectationsCallout audience="volunteer" className="mb-8" />
 
         {/* Other roles */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8">

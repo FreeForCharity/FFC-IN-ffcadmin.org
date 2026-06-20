@@ -140,7 +140,7 @@ const modules: Module[] = [
     duration: '6-8 hours',
     purpose: 'Baseline proficiency in Word, Excel, and PowerPoint web applications.',
     keyConcept:
-      'These apps are the universal standard for creating and sharing professional documents with partner charities.',
+      'These apps are the universal standard for creating and sharing professional documents with supported charities.',
     proficiencyTask:
       'Explain how to share a document from any Microsoft 365 web app (Share button → permissions → link options).',
     resources: ['Microsoft 365 Quick Starts official hub'],
@@ -160,7 +160,7 @@ export default function Page() {
     <LeafPageShell page={page}>
       <p>
         FFC volunteers complete seven proving-ground modules before getting admin access to
-        partner-charity systems. The program is{' '}
+        supported-charity systems. The program is{' '}
         <strong>
           {totalHoursLow}-{totalHoursHigh} hours total
         </strong>{' '}
@@ -178,7 +178,7 @@ export default function Page() {
       <h2>Why the proving ground exists</h2>
       <p>
         Rigorous training ensures only the most dedicated and capable individuals get access to FFC
-        internal systems and partner-charity data. Completing all seven modules demonstrates
+        internal systems and supported-charity data. Completing all seven modules demonstrates
         commitment and prepares a volunteer for real-world impact.
       </p>
 

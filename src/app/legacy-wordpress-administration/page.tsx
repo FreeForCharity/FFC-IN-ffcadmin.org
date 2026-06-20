@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   // suffix instead of inheriting the root layout's longer brand string.
   title: { absolute: 'Legacy WordPress Administration | FFC Admin' },
   description:
-    'Operations and SOP reference for FFC volunteers, admins, and partner charities still running their own WordPress — hosting, domains, charity onboarding, and volunteer programs.',
+    'Operations and SOP reference for FFC volunteers, admins, and supported charities still running their own WordPress — hosting, domains, charity onboarding, and volunteer programs.',
   alternates: {
     canonical: `${SITE_URL}/legacy-wordpress-administration/`,
   },
@@ -29,11 +29,11 @@ export default function LegacyWordPressAdministrationHubPage() {
       <header className="bg-gradient-to-r from-slate-700 to-slate-900 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <p className="text-xs uppercase tracking-wider text-slate-300 mb-3">
-            For volunteers, admins, and partner charities
+            For volunteers, admins, and supported charities
           </p>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">Legacy WordPress Administration</h1>
           <p className="text-slate-200 text-lg max-w-3xl">
-            Operations and SOP reference for FFC volunteers, admins, and partner charities still
+            Operations and SOP reference for FFC volunteers, admins, and supported charities still
             running their own WordPress. The public, charity-facing versions of these pages live on{' '}
             <a
               href="https://freeforcharity.org/"
@@ -98,7 +98,7 @@ export default function LegacyWordPressAdministrationHubPage() {
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Why &ldquo;Legacy&rdquo;?</h2>
           <p className="text-gray-700 mb-3">
-            Many partner charities still run on WordPress while they evaluate or wait for a
+            Many supported charities still run on WordPress while they evaluate or wait for a
             migration to the FFC static-site stack. We keep these procedures published so their
             staff can use them without joining the FFC GitHub org.
           </p>

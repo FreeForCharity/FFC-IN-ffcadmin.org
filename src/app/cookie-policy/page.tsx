@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import PolicyCrossLinks from '@/components/PolicyCrossLinks'
+import PolicyTOC from '@/components/PolicyTOC'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/cookie-policy/' },
@@ -9,7 +11,19 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'June 6, 2026'
+const LAST_UPDATED = 'June 20, 2026'
+
+// Table of contents — keep in sync with the section ids below.
+const TOC = [
+  { n: 1, label: 'What Are Cookies?' },
+  { n: 2, label: 'How We Use Cookies' },
+  { n: 3, label: 'Types of Cookies We Use' },
+  { n: 4, label: 'How to Manage Cookies' },
+  { n: 5, label: 'Do Not Track Signals' },
+  { n: 6, label: 'Updates to This Cookie Policy' },
+  { n: 7, label: 'Contact Us' },
+  { n: 8, label: 'More Information' },
+]
 
 export default function CookiePolicy() {
   return (
@@ -41,7 +55,9 @@ export default function CookiePolicy() {
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
           <div className="space-y-8 text-gray-700">
-            <section>
+            <PolicyTOC items={TOC} />
+
+            <section id="section-1" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">1. What Are Cookies?</h2>
               <p className="mb-4">
                 Cookies are small text files that are placed on your device when you visit a
@@ -52,7 +68,7 @@ export default function CookiePolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-2" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">2. How We Use Cookies</h2>
               <p className="mb-4">When you visit our website, we use cookies to:</p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
@@ -63,7 +79,7 @@ export default function CookiePolicy() {
               </ul>
             </section>
 
-            <section>
+            <section id="section-3" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Types of Cookies We Use</h2>
 
               <div className="space-y-6">
@@ -231,7 +247,7 @@ export default function CookiePolicy() {
               </div>
             </section>
 
-            <section>
+            <section id="section-4" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">4. How to Manage Cookies</h2>
               <p className="mb-4">You have several options for managing cookies:</p>
 
@@ -271,7 +287,11 @@ export default function CookiePolicy() {
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">4.3 Opt-Out Links</h3>
-              <p className="mb-4">You can opt out of specific third-party cookies:</p>
+              <p className="mb-4">
+                Declining analytics in the consent banner already stops both Google Analytics and
+                Microsoft Clarity from loading. For Google Analytics, you can also opt out
+                browser-wide:
+              </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
                   <strong>Google Analytics:</strong>{' '}
@@ -284,21 +304,15 @@ export default function CookiePolicy() {
                     Google Analytics Opt-out Browser Add-on
                   </a>
                 </li>
-                <li>
-                  <strong>Meta (Facebook):</strong>{' '}
-                  <a
-                    href="https://www.facebook.com/settings/?tab=ads"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
-                  >
-                    Facebook Ad Settings
-                  </a>
-                </li>
               </ul>
+              <p className="mb-4 text-sm text-gray-600">
+                Microsoft Clarity does not offer a separate opt-out add-on; declining analytics in
+                the consent banner is how you opt out of it. We do not use advertising or
+                social-media trackers, so there are no marketing opt-out links to provide.
+              </p>
             </section>
 
-            <section>
+            <section id="section-5" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Do Not Track Signals</h2>
               <p>
                 Some browsers have a "Do Not Track" feature that lets you tell websites that you do
@@ -308,7 +322,7 @@ export default function CookiePolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-6" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 6. Updates to This Cookie Policy
               </h2>
@@ -319,7 +333,7 @@ export default function CookiePolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-7" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Contact Us</h2>
               <p className="mb-4">
                 If you have questions about our use of cookies, please contact us:
@@ -347,7 +361,7 @@ export default function CookiePolicy() {
               </div>
             </section>
 
-            <section>
+            <section id="section-8" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">8. More Information</h2>
               <p className="mb-4">
                 For more information about how we handle your personal data, please see our{' '}
@@ -357,6 +371,8 @@ export default function CookiePolicy() {
                 .
               </p>
             </section>
+
+            <PolicyCrossLinks current="/cookie-policy" />
           </div>
         </div>
       </div>

@@ -190,9 +190,9 @@ export default function Page() {
   return (
     <LeafPageShell page={page}>
       <p>
-        FFC validates every prospective partner charity against a fixed set of external and internal
-        checks before any service-delivery work starts. The checks exist for two reasons at once:
-        they protect FFC&apos;s mission integrity, and they hand the charity a richer public
+        FFC validates every prospective supported charity against a fixed set of external and
+        internal checks before any service-delivery work starts. The checks exist for two reasons at
+        once: they protect FFC&apos;s mission integrity, and they hand the charity a richer public
         footprint than they walked in with.
       </p>
 

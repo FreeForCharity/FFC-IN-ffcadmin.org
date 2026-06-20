@@ -71,7 +71,7 @@ export default function Page() {
       <p>
         FFC&apos;s legacy training catalog defined three volunteer tracks — Researchers, Business
         Analysts, and Web Developers — built around a &ldquo;win-win-win&rdquo; model: volunteers
-        gain portfolio-grade skills, partner charities receive needed work at no cost, and FFC
+        gain portfolio-grade skills, supported charities receive needed work at no cost, and FFC
         builds sector capacity.
       </p>
 

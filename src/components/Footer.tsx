@@ -199,34 +199,36 @@ export default function Footer() {
                 </button>
               </li>
               <li>
-                <a
-                  href="https://freeforcharity.org/terms-of-service"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/terms-of-service"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://freeforcharity.org/vulnerability-disclosure-policy"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/donation-policy"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Donation Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/vulnerability-disclosure-policy"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Vulnerability Disclosure Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://freeforcharity.org/security-acknowledgement"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/security-acknowledgements"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Security Acknowledgement
-                </a>
+                  Security Acknowledgements
+                </Link>
               </li>
             </ul>
           </div>

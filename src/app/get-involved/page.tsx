@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import NonprofitCallout from '@/components/NonprofitCallout'
+import ExpectationsCallout from '@/components/ExpectationsCallout'
 import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 
 export const metadata: Metadata = {
@@ -223,6 +224,13 @@ export default function GetInvolved() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* What we ask of volunteers */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <ExpectationsCallout audience="volunteer" />
         </div>
       </section>
 

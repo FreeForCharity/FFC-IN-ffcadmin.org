@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import PolicyCrossLinks from '@/components/PolicyCrossLinks'
+import PolicyTOC from '@/components/PolicyTOC'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/privacy-policy/' },
@@ -9,7 +11,23 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'November 16, 2025'
+const LAST_UPDATED = 'June 20, 2026'
+
+// Table of contents — keep in sync with the section ids below.
+const TOC = [
+  { n: 1, label: 'Introduction' },
+  { n: 2, label: 'Information We Collect' },
+  { n: 3, label: 'How We Use Your Information' },
+  { n: 4, label: 'Cookies and Tracking Technologies' },
+  { n: 5, label: 'Third-Party Services' },
+  { n: 6, label: 'Data Retention' },
+  { n: 7, label: 'Your Privacy Rights' },
+  { n: 8, label: 'Data Security' },
+  { n: 9, label: "Children's Privacy" },
+  { n: 10, label: 'International Data Transfers' },
+  { n: 11, label: 'Changes to This Privacy Policy' },
+  { n: 12, label: 'Contact Us' },
+]
 
 export default function PrivacyPolicy() {
   return (
@@ -41,7 +59,9 @@ export default function PrivacyPolicy() {
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
           <div className="space-y-8 text-gray-700">
-            <section>
+            <PolicyTOC items={TOC} />
+
+            <section id="section-1" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Introduction</h2>
               <p className="mb-4">
                 Free For Charity ("we", "our", or "us") is committed to protecting your privacy.
@@ -57,7 +77,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-2" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Information We Collect</h2>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -90,7 +110,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-3" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 3. How We Use Your Information
               </h2>
@@ -105,7 +125,7 @@ export default function PrivacyPolicy() {
               </ul>
             </section>
 
-            <section>
+            <section id="section-4" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 4. Cookies and Tracking Technologies
               </h2>
@@ -139,7 +159,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-5" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Third-Party Services</h2>
               <p className="mb-4">
                 We may use third-party services that collect, monitor, and analyze data:
@@ -158,7 +178,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-6" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Data Retention</h2>
               <p>
                 We retain collected information for as long as necessary to fulfill the purposes
@@ -167,7 +187,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-7" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Your Privacy Rights</h2>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -209,7 +229,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-8" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Data Security</h2>
               <p>
                 We implement appropriate technical and organizational security measures to protect
@@ -219,16 +239,21 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-9" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Children's Privacy</h2>
               <p>
-                Our Site is not intended for children under 16 years of age. We do not knowingly
-                collect personal information from children under 16. If you believe we have
-                collected information from a child under 16, please contact us immediately.
+                Our Services are intended for adults: you must be at least 18 years old to use them
+                (see{' '}
+                <Link href="/terms-of-service#section-3" className="text-blue-600 hover:underline">
+                  Terms of Service, Section 3
+                </Link>
+                ). Our Site is not directed to children, and we do not knowingly collect personal
+                information from anyone under 18. If you believe we have collected information from
+                a minor, please contact us immediately and we will delete it.
               </p>
             </section>
 
-            <section>
+            <section id="section-10" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 10. International Data Transfers
               </h2>
@@ -240,7 +265,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-11" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 11. Changes to This Privacy Policy
               </h2>
@@ -252,7 +277,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section>
+            <section id="section-12" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">12. Contact Us</h2>
               <p className="mb-4">
                 If you have questions about this Privacy Policy or wish to exercise your privacy
@@ -280,6 +305,8 @@ export default function PrivacyPolicy() {
                 </p>
               </div>
             </section>
+
+            <PolicyCrossLinks current="/privacy-policy" />
           </div>
         </div>
       </div>
