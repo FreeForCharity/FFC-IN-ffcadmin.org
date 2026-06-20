@@ -39,8 +39,17 @@ export const POLICY_PAGES = [
   },
 ] as const
 
+/** The href of any page in the policy stack (e.g. '/privacy-policy'). */
+export type PolicyHref = (typeof POLICY_PAGES)[number]['href']
+
+/** Strip a single trailing slash so '/privacy-policy/' matches '/privacy-policy'. */
+function normalize(href: string): string {
+  return href !== '/' && href.endsWith('/') ? href.slice(0, -1) : href
+}
+
 /** Cross-link block for the legal/policy/security pages. */
-export default function PolicyCrossLinks({ current }: { current?: string }) {
+export default function PolicyCrossLinks({ current }: { current?: PolicyHref }) {
+  const currentHref = current ? normalize(current) : undefined
   return (
     <nav aria-label="Policies and security" className="mt-10 border-t border-gray-200 pt-6 text-sm">
       <h2 className="text-base font-bold text-gray-900 mb-2">Policies &amp; security</h2>
@@ -49,7 +58,7 @@ export default function PolicyCrossLinks({ current }: { current?: string }) {
       </p>
       <ul className="grid gap-3 sm:grid-cols-2">
         {POLICY_PAGES.map((p) =>
-          p.href === current ? (
+          p.href === currentHref ? (
             <li
               key={p.href}
               aria-current="page"
