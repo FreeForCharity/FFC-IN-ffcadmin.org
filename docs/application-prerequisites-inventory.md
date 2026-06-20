@@ -583,14 +583,14 @@ into the categories below.
   - _You:_ No page, mailbox, or account dies with a single login.
   - _FFC:_ Continuity — we never end up with an orphaned page/account behind one
     unreachable person.
-- **Up-front acknowledgment of the FFC Acceptable Use Policy**
-  - _What:_ Read and **accept the FFC AUP** before any work begins — including the
-    **full-stack commitment** (adopt and use the complete FFC stack, not
-    pick-and-choose), the **conflict-of-interest & data-handling** terms, and the
-    "credit FFC" expectation. See
-    [docs/acceptable-use-policy.md](./acceptable-use-policy.md). _(That document is
-    currently a **working version for founder/legal review** — not yet binding;
-    publishing it as a rendered site page is a Maintenance task at the end.)_
+- **Up-front acknowledgment of the FFC Terms of Service (Supported Charities)**
+  - _What:_ Read and **accept the FFC Terms of Service** before any work begins —
+    including the **full-stack commitment** (adopt and use the complete FFC stack,
+    not pick-and-choose), the **conflict-of-interest & data-handling** terms, and
+    the "credit FFC" expectation. See the
+    [Terms of Service](https://ffcadmin.org/terms-of-service/) (Section 18 —
+    Supported Charities) and the plain-language
+    [onboarding acknowledgment](./charity-onboarding-acknowledgment.md).
   - _You:_ You know exactly what's expected (and that the service is free) before
     investing time.
   - _FFC:_ Consent and expectations recorded before volunteer effort is committed.
@@ -711,11 +711,12 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] US-based, with a **US-citizen point of contact**.
 - [ ] A **US mailing address** I accept will be public (PO box or home is fine).
 - [ ] At least **two accountable people** (primary + backup admin).
-- [ ] I've **acknowledged the FFC Acceptable Use Policy (AUP)** — including the
+- [ ] I've **acknowledged the FFC Terms of Service** — including the
       **full-stack commitment** to adopt and use the **complete Free For Charity
       stack** (not pick-and-choose individual tools) — and the **"credit FFC"**
-      expectation. (See [docs/acceptable-use-policy.md](./acceptable-use-policy.md).)
-- [ ] I've agreed to the **conflict-of-interest & data-handling** terms in the AUP.
+      expectation. (See the [Terms of Service](https://ffcadmin.org/terms-of-service/),
+      Section 18, and the [onboarding acknowledgment](./charity-onboarding-acknowledgment.md).)
+- [ ] I've agreed to the **conflict-of-interest & data-handling** terms in the Terms of Service.
 - [ ] Track chosen (**501(c)(3)** or **pre-501(c)(3)**) and its documents gathered
       (see the materials list in Section 3 and the track branches in Section 4).
 
@@ -734,7 +735,7 @@ technical-competence signals.
 > requirement.
 
 1. **Apply through GitHub** with your personal GitHub account (Phase 0, Group D).
-2. **Acknowledge the FFC Acceptable Use Policy (AUP).**
+2. **Acknowledge the FFC Terms of Service** (Section 18 — Supported Charities).
 3. _(501(c)(3) track)_ **Provide Candid/GuideStar profile links** (Public Profile
    and Full Profile).
 4. **Provide board contact information** — President/Chair, Secretary, Treasurer
@@ -743,8 +744,8 @@ technical-competence signals.
 5. **Designate primary + technical contacts**, including timezone and preferred
    contact hours.
 
-**Exit gate:** application submitted through GitHub, all fields completed, AUP
-acknowledged.
+**Exit gate:** application submitted through GitHub, all fields completed, Terms of
+Service acknowledged.
 
 ### Prerequisite materials the charity must have in hand
 
@@ -753,11 +754,12 @@ of stuck onboardings.")
 
 **Both tracks:**
 
-- **Signed AUP acknowledgment** — the applicant accepts the
-  [Acceptable Use Policy](./acceptable-use-policy.md), including the **full-stack
-  commitment** (adopt and use the complete FFC stack, not pick-and-choose) and the
-  **conflict-of-interest & data-handling** terms. Acknowledgment is captured via
-  the FFC application issue-template form.
+- **Terms of Service acknowledgment** — the applicant accepts the
+  [Terms of Service](https://ffcadmin.org/terms-of-service/) (Section 18 — Supported
+  Charities), including the **full-stack commitment** (adopt and use the complete
+  FFC stack, not pick-and-choose) and the **conflict-of-interest & data-handling**
+  terms. Acknowledgment is captured via the FFC application issue-template form (see
+  the plain-language [onboarding acknowledgment](./charity-onboarding-acknowledgment.md)).
 - EIN (Employer Identification Number)
 - **Applicant's personal LinkedIn profile** (required for every applicant)
 - Board member names, titles, contact info, **personal LinkedIn profiles**, and
@@ -966,8 +968,11 @@ non-technical).
   codes (here: LastPass).
 - **Organization Page** — a charity's LinkedIn or Facebook Page, created and
   administered from a real person's **personal** account.
-- **AUP** — Acceptable Use Policy; includes the full-stack commitment and
-  conflict-of-interest/data-handling terms ([docs/acceptable-use-policy.md](./acceptable-use-policy.md)).
+- **Full-stack commitment** — the charity's agreement (in the
+  [Terms of Service](https://ffcadmin.org/terms-of-service/), Section 18) to adopt
+  and use the **complete** FFC stack, not pick-and-choose individual tools.
+- **Terms of Service** — the binding agreement for all users; Section 18 (Supported
+  Charities) carries the charity-specific terms a charity acknowledges to apply.
 - **Cloudflare** — the service FFC uses to register/secure charity domains; also
   offers the domain name-availability check used in Phase 0.
 - **WHMCS** — the legacy client/billing portal once used for intake; **retired**
@@ -991,19 +996,22 @@ All policy questions for this document are **resolved** (founder-approved,
   Page**, organization **LinkedIn Page**, and the **personal LinkedIn profiles**
   of the applicant and board members are now both Phase 0 prerequisites **and**
   formal validation checks (Section 5a, checks 4, 7, 8).
-- **AUP & conflict-of-interest — firm prerequisites.** Acknowledging the
-  Acceptable Use Policy is **mandatory**, and the acknowledgment includes a
+- **Terms of Service & conflict-of-interest — firm prerequisites.** Acknowledging
+  the **Terms of Service** is **mandatory**, and the acknowledgment includes a
   **full-stack commitment** — the charity agrees to adopt and use the **complete
   Free For Charity stack**, not pick-and-choose individual tools — plus
-  **conflict-of-interest & data-handling** terms. See
-  [docs/acceptable-use-policy.md](./acceptable-use-policy.md).
+  **conflict-of-interest & data-handling** terms. The charity-specific terms live
+  in the live [Terms of Service](https://ffcadmin.org/terms-of-service/) (Section
+  18 — Supported Charities); the plain-language version is the
+  [onboarding acknowledgment](./charity-onboarding-acknowledgment.md). _(Decision:
+  folded into the Terms of Service rather than a standalone AUP, to avoid
+  duplicating the legal layer.)_
 
 **Maintenance / follow-up tasks** (engineering, not policy):
 
-- **Publish the AUP as a site page.** `docs/acceptable-use-policy.md` is the
-  working policy text; render it as a page and wire it into the application
-  issue-template acknowledgment (an acknowledgment issue-template form already
-  exists in an FFC repository — extend it to capture the full-stack commitment).
+- **Wire the acknowledgment into the application form.** The Terms of Service is
+  live at `/terms-of-service/`; extend the FFC application issue-template form to
+  capture the Terms of Service / full-stack-commitment acknowledgment.
 - **GitHub-only application channel.** Build the GitHub entry point (repo + issue
   template/form) that the freeforcharity.org pages
   (<https://freeforcharity.org/submit-information/>,

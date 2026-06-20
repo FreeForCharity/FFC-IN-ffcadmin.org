@@ -219,7 +219,14 @@ export default function CharityPrerequisitesPage() {
             <p className="text-gray-700 text-sm mb-5 max-w-3xl">
               Most charities find and apply to Free For Charity on the main{' '}
               <strong>freeforcharity.org</strong> website. Start there — the team will guide you
-              into the rest of onboarding.
+              into the rest of onboarding. By applying, you agree to the{' '}
+              <Link
+                href="/terms-of-service"
+                className="text-blue-700 underline hover:text-blue-900"
+              >
+                Terms of Service
+              </Link>{' '}
+              (Section 18 covers supported charities, including the full-stack commitment).
             </p>
             <div className="flex flex-wrap gap-3">
               <a

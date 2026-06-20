@@ -199,14 +199,12 @@ export default function Footer() {
                 </button>
               </li>
               <li>
-                <a
-                  href="https://freeforcharity.org/terms-of-service"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/terms-of-service"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
                 <a
