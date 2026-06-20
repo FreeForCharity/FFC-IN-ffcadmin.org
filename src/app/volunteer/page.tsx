@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import ExpectationsCallout from '@/components/ExpectationsCallout'
 import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 
 export const metadata: Metadata = {
@@ -649,6 +650,13 @@ export default function VolunteerPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* What we ask of volunteers */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <ExpectationsCallout audience="volunteer" />
         </div>
       </section>
 

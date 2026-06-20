@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import ExpectationsCallout from '@/components/ExpectationsCallout'
 
 export const metadata: Metadata = {
   title: 'What FFC Delivers',
@@ -94,13 +95,11 @@ export default function WhatFfcDeliversPage() {
         </section>
 
         {/* In return */}
-        <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">What we ask in return</h2>
-          <p className="text-gray-700 text-sm">
-            FFC is donor- and volunteer-funded. In return for free technology, partner charities are
-            asked to <strong>credit Free For Charity</strong> (a small footer acknowledgment and,
-            where appropriate, a link back) and to help spread the word so other nonprofits can
-            benefit. There is no fee.
+        <section className="mb-8">
+          <ExpectationsCallout audience="charity" />
+          <p className="text-gray-600 text-sm mt-3">
+            FFC is donor- and volunteer-funded, so there is no fee — we simply ask that you help
+            spread the word so other nonprofits can benefit too.
           </p>
         </section>
 

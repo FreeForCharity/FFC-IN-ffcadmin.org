@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import ExpectationsCallout from '@/components/ExpectationsCallout'
 import { getSetupGuide } from '@/data/setup-guides'
 
 export const metadata: Metadata = {
@@ -213,6 +214,11 @@ export default function CharityPrerequisitesPage() {
         </section>
 
         {/* Step 4: Apply */}
+        {/* What we ask in return */}
+        <section className="mb-12">
+          <ExpectationsCallout audience="charity" />
+        </section>
+
         <section className="mb-12">
           <div className="bg-white rounded-xl shadow-lg border border-gray-200 border-l-4 border-l-emerald-500 p-6 md:p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">4. Apply</h2>

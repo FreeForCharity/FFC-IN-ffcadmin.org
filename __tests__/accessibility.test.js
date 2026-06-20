@@ -16,11 +16,25 @@ import DonationPolicy from '@/app/donation-policy/page'
 import VulnerabilityDisclosurePolicy from '@/app/vulnerability-disclosure-policy/page'
 import SecurityAcknowledgements from '@/app/security-acknowledgements/page'
 import TrainingPlan from '@/app/training-plan/page'
+import ExpectationsCallout from '@/components/ExpectationsCallout'
 
 describe('Accessibility Tests', () => {
   describe('Home Page Accessibility', () => {
     it('should not have accessibility violations on home page', async () => {
       const { container } = render(<Home />)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+    })
+  })
+
+  describe('ExpectationsCallout Accessibility', () => {
+    it('should not have accessibility violations (volunteer)', async () => {
+      const { container } = render(<ExpectationsCallout audience="volunteer" />)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+    })
+    it('should not have accessibility violations (charity)', async () => {
+      const { container } = render(<ExpectationsCallout audience="charity" />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
     })
