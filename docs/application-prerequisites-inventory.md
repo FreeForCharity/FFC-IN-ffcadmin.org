@@ -588,8 +588,9 @@ into the categories below.
     **full-stack commitment** (adopt and use the complete FFC stack, not
     pick-and-choose), the **conflict-of-interest & data-handling** terms, and the
     "credit FFC" expectation. See
-    [docs/acceptable-use-policy.md](./acceptable-use-policy.md). _(Publishing it as
-    a rendered site page is a Maintenance task at the end.)_
+    [docs/acceptable-use-policy.md](./acceptable-use-policy.md). _(That document is
+    currently a **working version for founder/legal review** — not yet binding;
+    publishing it as a rendered site page is a Maintenance task at the end.)_
   - _You:_ You know exactly what's expected (and that the service is free) before
     investing time.
   - _FFC:_ Consent and expectations recorded before volunteer effort is committed.
@@ -833,16 +834,16 @@ uniformly (see Section 4).
 
 ### 5a. External validation checks (third-party signals)
 
-| #   | Check                                                                                                                                  | Demonstrates                                                          |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                                         | Legitimacy; mission-alignment scoring                                 |
-| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                                    | Independent vetting; unlocks discounted-software pipeline             |
-| 3   | **VolunteerMatch engagement check**                                                                                                    | Charity can receive and act on volunteer work                         |
-| 4   | **Verified organization Facebook Page** (cross-checked vs. intake form)                                                                | Identity/branding consistency; applicant-run litmus test              |
-| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                           | Technical readiness; enables SPF/DKIM/DMARC under charity domain      |
-| 6   | **WHMCS account + PayPal donor flow** _(WHMCS is **legacy** — retired with the GitHub-only intake; PayPal donor flow stays)_           | KYC step; donor funding path                                          |
-| 7   | **Verified organization LinkedIn Page** (cross-checked vs. intake form)                                                                | Professional identity; applicant-run litmus test                      |
-| 8   | **Personal LinkedIn profiles** — applicant **and every legal/planned board member**, each with the charity linked under "Volunteering" | Real people stand behind the org; accepted board position & liability |
+| #   | Check                                                                                                                                           | Demonstrates                                                          |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                                                  | Legitimacy; mission-alignment scoring                                 |
+| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                                             | Independent vetting; unlocks discounted-software pipeline             |
+| 3   | **VolunteerMatch engagement check**                                                                                                             | Charity can receive and act on volunteer work                         |
+| 4   | **Verified organization Facebook Page** (cross-checked vs. intake form)                                                                         | Identity/branding consistency; applicant-run litmus test              |
+| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                                    | Technical readiness; enables SPF/DKIM/DMARC under charity domain      |
+| 6   | **PayPal Nonprofits account + donor flow** _(the legacy WHMCS checkout that once paired with this is **retired** under the GitHub-only intake)_ | KYC step; donor funding path                                          |
+| 7   | **Verified organization LinkedIn Page** (cross-checked vs. intake form)                                                                         | Professional identity; applicant-run litmus test                      |
+| 8   | **Personal LinkedIn profiles** — applicant **and every legal/planned board member**, each with the charity linked under "Volunteering"          | Real people stand behind the org; accepted board position & liability |
 
 > **Promoted from Phase 0 (founder decision):** the organization **Facebook Page**
 > (4), organization **LinkedIn Page** (7), and the **personal LinkedIn profiles**
