@@ -37,13 +37,12 @@ This repository contains the administrative portal for Free For Charity, built w
 **For New Contributors:**
 
 - 📚 [Documentation Center](https://ffcadmin.org/documentation) - Browse all guides and READMEs
-- 🚀 [Quick Start Guide](QUICK_START.md) - Set up GPG signing in 5 minutes
 - 💻 [Code Quality Standards](CODE_QUALITY.md) - Development guidelines
+- 🤝 [Contributing Guide](CONTRIBUTING.md) - How to contribute
 
 **For Administrators:**
 
 - 🌐 [Deployment Guide](DEPLOYMENT.md) - GitHub Pages deployment instructions
-- 🔒 [GPG Signing Setup](SETUP_AUTO_SIGNING.md) - Configure automatic commit signing
 - 🔧 [Issue Resolution](ISSUE_RESOLUTION.md) - Troubleshooting common problems
 - 📋 [Sites List](https://ffcadmin.org/sites-list) - Master list with health checks and categorization
 
@@ -319,7 +318,7 @@ This indicates the CSS file is not loading. Check these items in order:
 
 ### Testing Results
 
-For detailed responsive design testing results, see [RESPONSIVE_TESTING_RESULTS.md](./RESPONSIVE_TESTING_RESULTS.md)
+For detailed responsive design testing results, see [RESPONSIVE_TESTING_RESULTS.md](./docs/archived/RESPONSIVE_TESTING_RESULTS.md)
 
 ## Analytics
 
@@ -421,10 +420,13 @@ pnpm run format
 # 3. Check linting (code quality)
 pnpm run lint
 
-# 4. Build the project (TypeScript compilation)
+# 4. Type-check (verify TypeScript)
+pnpm run type-check
+
+# 5. Build the project (static export)
 pnpm run build
 
-# 5. Run tests (validate everything works)
+# 6. Run tests (validate everything works)
 pnpm test
 ```
 
@@ -434,8 +436,9 @@ The CI/CD pipeline runs these steps in the same order:
 
 1. **Format First** - Prettier ensures consistent code style
 2. **Lint Second** - ESLint checks code quality after formatting
-3. **Build Third** - Catches TypeScript errors and build issues
-4. **Test Last** - Validates the final build output
+3. **Type-check Third** - `tsc` catches TypeScript errors
+4. **Build Fourth** - Produces the static export
+5. **Test Last** - Validates the final build output
 
 **Important:** Always run `format` before `lint` to avoid conflicts between Prettier and ESLint style rules.
 
@@ -447,7 +450,8 @@ pnpm run dev              # Start dev server (localhost:3000)
 pnpm run format           # Auto-format all files
 pnpm run format:check     # Check if files are formatted (CI uses this)
 pnpm run lint             # Run ESLint
-pnpm run build            # Production build
+pnpm run type-check       # Verify TypeScript types
+pnpm run build            # Production build (static export)
 pnpm test                 # Run test suite
 pnpm test:watch           # Run tests in watch mode
 pnpm test:coverage        # Generate coverage report
@@ -458,7 +462,7 @@ pnpm test:coverage        # Generate coverage report
 Run all checks to ensure CI will pass:
 
 ```bash
-pnpm run format && pnpm run lint && pnpm run build && pnpm test
+pnpm run format && pnpm run lint && pnpm run type-check && pnpm run build && pnpm test
 ```
 
 If all checks pass locally, they should pass in CI.
@@ -515,7 +519,7 @@ This repository contains comprehensive documentation organized by topic. For a c
 **Getting Started**
 
 - [README.md](README.md) - This file, the main repository overview
-- [QUICK_START.md](QUICK_START.md) - 5-minute GPG signing setup
+- [CONTRIBUTING.md](CONTRIBUTING.md) - How to contribute
 
 **Deployment & Operations**
 
@@ -527,22 +531,20 @@ This repository contains comprehensive documentation organized by topic. For a c
 - [CODE_QUALITY.md](CODE_QUALITY.md) - Code standards and tooling
 - [TEST_CASES.md](TEST_CASES.md) - Testing strategy and test documentation
 
-**Security & Authentication**
+**Security & Authentication** (archived — GPG auto-signing was attempted and abandoned; see [FAILED_FEATURES.md](FAILED_FEATURES.md))
 
-- [GPG_SIGNING.md](GPG_SIGNING.md) - GPG technical documentation
-- [SETUP_AUTO_SIGNING.md](SETUP_AUTO_SIGNING.md) - Detailed GPG setup
-- [gpg-keys/README.md](gpg-keys/README.md) - GPG key information
-- [AUTO_SIGN_TEST.md](AUTO_SIGN_TEST.md) - Testing GPG signatures
+- [GPG_SIGNING.md](docs/archived/GPG_SIGNING.md) - GPG technical documentation (archived)
+- [AUTO_SIGN_TEST.md](docs/archived/AUTO_SIGN_TEST.md) - Testing GPG signatures (archived)
 
 **Design & User Experience**
 
 - [RESPONSIVE_DESIGN.md](RESPONSIVE_DESIGN.md) - Responsive design guide
-- [RESPONSIVE_TESTING_RESULTS.md](RESPONSIVE_TESTING_RESULTS.md) - Test results
+- [RESPONSIVE_TESTING_RESULTS.md](docs/archived/RESPONSIVE_TESTING_RESULTS.md) - Test results (archived)
 
 **Troubleshooting**
 
 - [ISSUE_RESOLUTION.md](ISSUE_RESOLUTION.md) - Issue analysis and solutions
-- [IMPLEMENTATION_ISSUES.md](IMPLEMENTATION_ISSUES.md) - Implementation challenges
+- [IMPLEMENTATION_ISSUES.md](docs/archived/IMPLEMENTATION_ISSUES.md) - Implementation challenges (archived)
 
 ### For New Developers
 
@@ -560,10 +562,9 @@ If you're new to this project:
 If you're managing this infrastructure:
 
 1. **Deployment:** See [DEPLOYMENT.md](DEPLOYMENT.md) for deployment procedures
-2. **GPG Signing:** Follow [QUICK_START.md](QUICK_START.md) to enable automatic commit signing
-3. **Monitoring:** Check [.github/workflows/README.md](.github/workflows/README.md) for CI/CD status
-4. **Troubleshooting:** Refer to [ISSUE_RESOLUTION.md](ISSUE_RESOLUTION.md) for common problems
-5. **Support Escalation:** Contact Clarke Moyer at (520) 222-8104 for emergencies (after 48 hours)
+2. **Monitoring:** Check [.github/workflows/README.md](.github/workflows/README.md) for CI/CD status
+3. **Troubleshooting:** Refer to [ISSUE_RESOLUTION.md](ISSUE_RESOLUTION.md) for common problems
+4. **Support Escalation:** Contact Clarke Moyer at (520) 222-8104 for emergencies (after 48 hours)
 
 ## Support
 
