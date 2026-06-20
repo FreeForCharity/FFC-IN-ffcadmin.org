@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'June 6, 2026'
+const LAST_UPDATED = 'June 20, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
