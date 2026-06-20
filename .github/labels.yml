@@ -1,0 +1,83 @@
+# Roadmap / intake labels (program plan §14). Synced by labels-sync.yml.
+# Format compatible with crazy-max/ghaction-github-labeler.
+
+# Kind
+- name: 'kind:intake'
+  color: '0e8a16'
+  description: Charity intake issue (drives the public roadmap)
+- name: 'kind:escalation'
+  color: 'b60205'
+  description: Escalation to FFC central
+
+# Lifecycle status
+- name: 'status:intake'
+  color: 'c5def5'
+  description: Newly submitted; awaiting structured intake
+- name: 'status:needs-info'
+  color: 'fbca04'
+  description: Structured intake incomplete
+- name: 'status:needs-admin'
+  color: '1d76db'
+  description: Approved; waiting for a sponsoring admin
+- name: 'status:active-build'
+  color: '0052cc'
+  description: Sponsored and being built
+- name: 'status:sponsored'
+  color: '5319e7'
+  description: Has a committed sponsoring admin
+- name: 'status:live'
+  color: '0e8a16'
+  description: Charity site is live
+- name: 'status:on-hold'
+  color: 'd93f0b'
+  description: Paused (e.g. below Gold seal, eligibility gap)
+- name: 'status:graduated'
+  color: '006b75'
+  description: Graduated to financial self-sustainability
+
+# Mission tier
+- name: 'mission:essential'
+  color: 'e99695'
+  description: Essential mission (food, shelter, emergency, veterans, DV, etc.)
+- name: 'mission:general'
+  color: 'd4c5f9'
+  description: General-mission 501(c)(3)
+- name: 'mission:niche'
+  color: 'bfd4f2'
+  description: Niche mission
+
+# Affiliation
+- name: 'affiliation:franchise'
+  color: 'fef2c0'
+  description: Franchise / local affiliate of a national parent
+- name: 'affiliation:fiscal-sponsored'
+  color: 'fef2c0'
+  description: Operating under a fiscal sponsor
+- name: 'affiliation:ffc-sponsored'
+  color: 'c2e0c6'
+  description: Sponsored by an FFC charity recipient
+
+# Verification
+- name: 'verified-assignment'
+  color: '0e8a16'
+  description: Assignee confirmed as a sponsoring-admins team member
+- name: 'verified-admin-action-needed'
+  color: 'd93f0b'
+  description: Assignment requires sponsoring-admins verification
+- name: 'needs-info'
+  color: 'fbca04'
+  description: More information needed from the charity
+
+# Severity (escalations)
+- name: 'severity:critical'
+  color: 'b60205'
+  description: Security/abuse — response within hours
+- name: 'severity:urgent'
+  color: 'd93f0b'
+  description: Charity-impacting — same-day goal
+- name: 'severity:normal'
+  color: 'fbca04'
+  description: Within 3 business days
+- name: 'severity:low'
+  color: 'c5def5'
+  description: Informational — 1-2 weeks

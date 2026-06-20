@@ -1,0 +1,70 @@
+name: Escalation
+description: Raise an issue to FFC central — for sponsoring admins, charities, or community members. NOT for security or sensitive details.
+title: '[Escalation] <short summary>'
+labels: ['kind:escalation']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Stop and read before submitting.** This issue will be **public**. Do not paste
+        > credentials, beneficiary information, security vulnerability details, charity bank or
+        > financial account details, or anything else that could harm a charity if disclosed.
+        >
+        > For **security or sensitive** escalations, use the private coordination repo (verified
+        > admins only) or text Clarke at **520-222-8104** directly. See
+        > [SECURITY.md](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/SECURITY.md).
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type of escalation
+      options:
+        - Security or abuse — STOP, use the private channel instead
+        - DNS or infrastructure
+        - Scope or policy
+        - Admin handoff
+        - Charity dispute
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Critical (security, abuse) — expected response within hours
+        - Urgent (charity-impacting) — same-day response goal
+        - Normal — within 3 business days
+        - Low (informational) — within 1-2 weeks
+    validations:
+      required: true
+  - type: input
+    id: site
+    attributes:
+      label: Which site / domain
+      placeholder: example.org
+    validations:
+      required: false
+  - type: textarea
+    id: tried
+    attributes:
+      label: What you already tried
+      description: For sponsoring admins — what have you attempted so far?
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the issue. Remember — this is public. Link to or summarize sensitive details rather than pasting them.
+    validations:
+      required: true
+  - type: dropdown
+    id: charity-consent
+    attributes:
+      label: Is the charity aware of / consenting to this escalation?
+      options:
+        - 'Yes'
+        - 'No'
+        - Not applicable
+    validations:
+      required: true

@@ -1,0 +1,380 @@
+name: Charity intake
+description: Structured intake for a charity seeking Free For Charity service. Captures the data that drives the public roadmap and readiness scoring.
+title: '[Intake] <charity name>'
+labels: ['kind:intake', 'status:intake', 'needs-info']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for applying to Free For Charity! This form captures the information that powers your
+        listing on the [public roadmap](https://ffcadmin.org/roadmap) and your readiness score.
+
+        Fill in what you can — a half-complete form still scores, and your score rises as you add
+        more. Not comfortable with GitHub? Text **520-222-8104** and an FFC admin will complete it
+        for you. See the [intake-help guides](https://ffcadmin.org/intake-help) for any field you're
+        unsure about. **Never paste bank details, donor data, or anything sensitive in this public
+        issue.**
+
+  # ---- Basics --------------------------------------------------------------
+  - type: input
+    id: charity-name
+    attributes:
+      label: Charity name
+      placeholder: Helping Hands Shelter
+    validations:
+      required: true
+  - type: textarea
+    id: brief-mission
+    attributes:
+      label: Brief mission
+      description: One or two plain sentences — who you help and the change you create.
+      placeholder: We provide emergency shelter and meals to families experiencing homelessness in our county.
+    validations:
+      required: true
+  - type: input
+    id: ein
+    attributes:
+      label: EIN
+      description: Your IRS Employer Identification Number (public for 501(c)(3) charities). Leave blank if you don't have one yet.
+      placeholder: 12-3456789
+    validations:
+      required: false
+  - type: dropdown
+    id: service
+    attributes:
+      label: Which FFC service are you seeking?
+      options:
+        - Tier 1 — Application & verification
+        - Tier 2 — Domain + Microsoft 365
+        - Tier 3 — Site build
+        - Not sure yet
+    validations:
+      required: true
+
+  # ---- Eligibility & categorization ---------------------------------------
+  - type: dropdown
+    id: charity-status
+    attributes:
+      label: Charity status
+      options:
+        - Approved 501(c)(3)
+        - Pre-501(c)(3) (actively pursuing)
+        - Ongoing nonprofit-nature project (not pursuing 501(c)(3))
+    validations:
+      required: true
+  - type: dropdown
+    id: mission-category
+    attributes:
+      label: Mission category
+      description: 'Essential = food, water, shelter, emergency response, disaster relief, mental-health crisis, veterans, domestic violence. See /intake-help/mission-statement.'
+      options:
+        - Essential
+        - General
+        - Niche
+    validations:
+      required: true
+  - type: dropdown
+    id: affiliation
+    attributes:
+      label: Affiliation
+      description: See /intake-help/fiscal-sponsorship for what each option means.
+      options:
+        - Independent
+        - Sponsored by an FFC charity recipient
+        - Sponsored by an FFC charity recipient and pursuing our own 501(c)(3)
+        - Franchise / local affiliate of a national parent
+        - Sponsored by a non-FFC operating 501(c)(3)
+        - Sponsored by a corporate fiscal sponsor
+    validations:
+      required: true
+  - type: dropdown
+    id: revenue
+    attributes:
+      label: Revenue and form filed
+      options:
+        - Pre-revenue / in formation
+        - 990-N filer (under $50K)
+        - 990-EZ filer ($50K–$200K)
+        - 990 filer ($200K–$500K)
+        - 990 filer ($500K–$1M)
+        - 990 filer ($1M–$5M)
+        - 990 filer (over $5M)
+    validations:
+      required: true
+  - type: dropdown
+    id: trajectory
+    attributes:
+      label: 5-year trajectory
+      options:
+        - Plans to remain small
+        - Modest growth within current form size
+        - Substantial growth (toward full 990)
+        - Major-grant pursuit (over $100K)
+        - No clear trajectory
+    validations:
+      required: true
+  - type: dropdown
+    id: funding
+    attributes:
+      label: Primary funding model
+      options:
+        - Self-funded (dues, fees, founder contributions)
+        - Donations only
+        - Donations + small grants (under $25K)
+        - Significant grants ($25K–$100K)
+        - Major grant-dependent ($100K+)
+        - Government contract primary
+    validations:
+      required: true
+
+  # ---- Contacts & board ----------------------------------------------------
+  - type: markdown
+    attributes:
+      value: |
+        ### Contacts & board
+        Provide your org main contact and your three required officers (President, Secretary,
+        Treasurer); Vice President and Member at Large are optional. Phone/email types are scored —
+        see /intake-help/public-contact-info and /intake-help/board-requirements.
+  - type: input
+    id: org-main-name
+    attributes:
+      label: Org main contact — name
+    validations:
+      required: true
+  - type: dropdown
+    id: org-main-phone
+    attributes:
+      label: Org main contact — phone type
+      options: ['No phone', 'Landline', 'Personal cell phone', 'Org-specific number']
+    validations:
+      required: true
+  - type: dropdown
+    id: org-main-email
+    attributes:
+      label: Org main contact — email type
+      options:
+        - No email
+        - Personal free provider (Gmail, Yahoo, etc.)
+        - orgname@gmail.com placeholder
+        - Org-domain email
+    validations:
+      required: true
+  - type: input
+    id: president-name
+    attributes:
+      label: President — name
+    validations:
+      required: false
+  - type: input
+    id: president-linkedin
+    attributes:
+      label: President — linkedin url
+    validations:
+      required: false
+  - type: dropdown
+    id: president-phone
+    attributes:
+      label: President — phone type
+      options: ['No phone', 'Landline', 'Personal cell phone', 'Org-specific number']
+    validations:
+      required: false
+  - type: dropdown
+    id: president-email
+    attributes:
+      label: President — email type
+      options:
+        - No email
+        - Personal free provider (Gmail, Yahoo, etc.)
+        - orgname@gmail.com placeholder
+        - Org-domain email
+    validations:
+      required: false
+  - type: input
+    id: secretary-name
+    attributes:
+      label: Secretary — name
+    validations:
+      required: false
+  - type: input
+    id: secretary-linkedin
+    attributes:
+      label: Secretary — linkedin url
+    validations:
+      required: false
+  - type: dropdown
+    id: secretary-phone
+    attributes:
+      label: Secretary — phone type
+      options: ['No phone', 'Landline', 'Personal cell phone', 'Org-specific number']
+    validations:
+      required: false
+  - type: dropdown
+    id: secretary-email
+    attributes:
+      label: Secretary — email type
+      options:
+        - No email
+        - Personal free provider (Gmail, Yahoo, etc.)
+        - orgname@gmail.com placeholder
+        - Org-domain email
+    validations:
+      required: false
+  - type: input
+    id: treasurer-name
+    attributes:
+      label: Treasurer — name
+    validations:
+      required: false
+  - type: input
+    id: treasurer-linkedin
+    attributes:
+      label: Treasurer — linkedin url
+    validations:
+      required: false
+  - type: dropdown
+    id: treasurer-phone
+    attributes:
+      label: Treasurer — phone type
+      options: ['No phone', 'Landline', 'Personal cell phone', 'Org-specific number']
+    validations:
+      required: false
+  - type: dropdown
+    id: treasurer-email
+    attributes:
+      label: Treasurer — email type
+      options:
+        - No email
+        - Personal free provider (Gmail, Yahoo, etc.)
+        - orgname@gmail.com placeholder
+        - Org-domain email
+    validations:
+      required: false
+  - type: input
+    id: vp-name
+    attributes:
+      label: Vice President — name
+    validations:
+      required: false
+  - type: input
+    id: vp-linkedin
+    attributes:
+      label: Vice President — linkedin url
+    validations:
+      required: false
+  - type: input
+    id: mal-name
+    attributes:
+      label: Member at Large — name
+    validations:
+      required: false
+  - type: input
+    id: mal-linkedin
+    attributes:
+      label: Member at Large — linkedin url
+    validations:
+      required: false
+
+  # ---- Address -------------------------------------------------------------
+  - type: dropdown
+    id: address-type
+    attributes:
+      label: Mailing address type
+      description: See /intake-help/mailing-address.
+      options:
+        - No address
+        - Personal residence
+        - PO box (USPS)
+        - Commercial mailbox (UPS Store, etc.)
+        - Real office address
+        - Registered agent service
+    validations:
+      required: true
+  - type: input
+    id: additional-ra-states
+    attributes:
+      label: Additional registered-agent states
+      description: How many ADDITIONAL states (beyond your primary) have a registered agent? Enter a number.
+      placeholder: '0'
+    validations:
+      required: false
+  - type: checkboxes
+    id: office-plus-ra
+    attributes:
+      label: Office plus registered agent
+      options:
+        - label: We have BOTH a real office and a registered agent
+          required: false
+
+  # ---- Transparency (501(c)(3)) -------------------------------------------
+  - type: input
+    id: candid-profile
+    attributes:
+      label: Candid / GuideStar profile URL
+      description: 'For 501(c)(3) charities. Gold Seal is FFC''s minimum — see /intake-help/guidestar-candid.'
+    validations:
+      required: false
+  - type: input
+    id: candid-direct
+    attributes:
+      label: Candid direct profile link
+    validations:
+      required: false
+  - type: dropdown
+    id: candid-seal
+    attributes:
+      label: Candid seal
+      options:
+        - Not on Candid / no seal
+        - Gold Seal of Transparency
+        - Platinum Seal of Transparency
+    validations:
+      required: false
+
+  # ---- Presence ------------------------------------------------------------
+  - type: checkboxes
+    id: integrations
+    attributes:
+      label: External integrations
+      description: Platforms your charity is set up on.
+      options:
+        - label: Zeffy
+        - label: Idealist
+        - label: Taproot
+        - label: VolunteerMatch
+        - label: Charity Navigator
+        - label: Benevity
+        - label: Network for Good
+  - type: checkboxes
+    id: policy-pages
+    attributes:
+      label: Policy pages published
+      description: See /intake-help/policy-pages.
+      options:
+        - label: Donation Policy
+        - label: Privacy Policy
+        - label: Terms of Service
+        - label: Vulnerability Disclosure Policy
+        - label: Security Acknowledgement
+  - type: dropdown
+    id: existing-website
+    attributes:
+      label: Existing website
+      options:
+        - No existing website
+        - Placeholder / landing page only
+        - Functional site with content
+    validations:
+      required: true
+
+  # ---- Acknowledgements ----------------------------------------------------
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Acknowledgements
+      options:
+        - label: I confirm we are NOT fiscally sponsored by a corporate fiscal sponsor, OR I have selected that affiliation above.
+          required: true
+        - label: We are a US-based organization and have read FFC's prioritization policy.
+          required: true
+        - label: I understand this charity will appear on FFC's public roadmap.
+          required: true
