@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import PolicyCrossLinks from '@/components/PolicyCrossLinks'
 
 export const metadata: Metadata = {
@@ -12,6 +13,42 @@ export const metadata: Metadata = {
 // Update this date when the terms change.
 const LAST_UPDATED = 'June 20, 2026'
 const ORIGINAL_EFFECTIVE = 'November 20, 2024'
+
+// Table of contents — keep in sync with the section ids below.
+const TOC = [
+  { n: 1, label: 'Introduction' },
+  { n: 2, label: 'Who these Terms apply to' },
+  { n: 3, label: 'Eligibility' },
+  { n: 4, label: 'Use of Services' },
+  { n: 5, label: 'Donations' },
+  { n: 6, label: 'Payments' },
+  { n: 7, label: 'Intellectual Property' },
+  { n: 8, label: 'Privacy' },
+  { n: 9, label: 'Third-Party Links' },
+  { n: 10, label: 'Disclaimer of Warranties' },
+  { n: 11, label: 'Limitation of Liability' },
+  { n: 12, label: 'Indemnification' },
+  { n: 13, label: 'Governing Law' },
+  { n: 14, label: 'Changes to Terms' },
+  { n: 15, label: 'Termination' },
+  { n: 16, label: 'General Visitors', audience: true },
+  { n: 17, label: 'Volunteers', audience: true },
+  { n: 18, label: 'Supported Charities', audience: true },
+  { n: 19, label: 'Contact Us' },
+]
+
+/**
+ * Inline cross-reference to another section, rendered as a jump link. The
+ * display text (children) can name a sub-section (e.g. "Section 4.2") while the
+ * link targets the parent top-level section.
+ */
+function Ref({ n, children }: { n: number; children: ReactNode }) {
+  return (
+    <a href={`#section-${n}`} className="text-blue-600 hover:underline">
+      {children}
+    </a>
+  )
+}
 
 export default function TermsOfService() {
   return (
@@ -46,24 +83,42 @@ export default function TermsOfService() {
             <p className="text-sm text-gray-600">
               These Terms have two parts. The <strong>General Terms</strong> (Sections 1–15 and 19,
               originally effective {ORIGINAL_EFFECTIVE}) apply to <strong>everyone</strong> who uses
-              Free For Charity&apos;s services. The <strong>audience-specific terms</strong>
-              (Sections 16–18) add terms for the role that describes you — a{' '}
-              <a href="#visitors" className="text-blue-600 hover:underline">
+              Free For Charity&apos;s services. The <strong>audience-specific terms</strong>{' '}
+              (Sections 16–18) add terms for each role that describes you — a{' '}
+              <a href="#section-16" className="text-blue-600 hover:underline">
                 general visitor
               </a>
               , a{' '}
-              <a href="#volunteers" className="text-blue-600 hover:underline">
+              <a href="#section-17" className="text-blue-600 hover:underline">
                 volunteer
               </a>
               , or a{' '}
-              <a href="#charities" className="text-blue-600 hover:underline">
+              <a href="#section-18" className="text-blue-600 hover:underline">
                 supported charity
               </a>
-              .
+              . If more than one role applies to you (for example, you volunteer for a charity FFC
+              supports), the terms for <strong>each role you act in</strong> apply.
             </p>
 
+            {/* ---- Table of contents ---- */}
+            <nav aria-label="Table of contents" className="rounded-lg border border-gray-200 p-5">
+              <h2 className="text-base font-bold text-gray-900 mb-3">Contents</h2>
+              <ol className="grid gap-x-6 gap-y-1 sm:grid-cols-2 text-sm">
+                {TOC.map((item) => (
+                  <li key={item.n}>
+                    <a href={`#section-${item.n}`} className="text-blue-600 hover:underline">
+                      {item.n}. {item.label}
+                    </a>
+                    {item.audience && (
+                      <span className="ml-1 text-xs text-gray-500">(audience-specific)</span>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </nav>
+
             {/* ---- General Terms ---- */}
-            <section>
+            <section id="section-1" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Introduction</h2>
               <p>
                 Welcome to Free For Charity! These Terms of Service (&quot;Terms&quot;) govern your
@@ -74,27 +129,29 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-2" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Who these Terms apply to</h2>
               <p className="mb-4">
                 The General Terms (Sections 1–15, plus Section 19 — Contact Us) apply to everyone.
-                In addition, exactly one audience section is likely to apply to you:
+                In addition, one or more of these audience sections applies to you, depending on how
+                you use the Services. If more than one applies, the terms for each role apply
+                together:
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <a href="#visitors" className="text-blue-600 hover:underline">
+                  <a href="#section-16" className="text-blue-600 hover:underline">
                     <strong>General visitors</strong>
                   </a>{' '}
                   (Section 16) — anyone browsing our sites, reading content, or donating.
                 </li>
                 <li>
-                  <a href="#volunteers" className="text-blue-600 hover:underline">
+                  <a href="#section-17" className="text-blue-600 hover:underline">
                     <strong>Volunteers</strong>
                   </a>{' '}
                   (Section 17) — people who contribute their skills to FFC or to charity projects.
                 </li>
                 <li>
-                  <a href="#charities" className="text-blue-600 hover:underline">
+                  <a href="#section-18" className="text-blue-600 hover:underline">
                     <strong>Supported charities</strong>
                   </a>{' '}
                   (Section 18) — nonprofits that apply for or receive the FFC technology stack, and
@@ -103,7 +160,7 @@ export default function TermsOfService() {
               </ul>
             </section>
 
-            <section>
+            <section id="section-3" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Eligibility</h2>
               <p>
                 Our Services are available only to individuals who are at least 18 years old. By
@@ -111,7 +168,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-4" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Use of Services</h2>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">4.1 Account Registration</h3>
               <p className="mb-4">
@@ -141,7 +198,7 @@ export default function TermsOfService() {
               </ul>
             </section>
 
-            <section>
+            <section id="section-5" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Donations</h2>
               <p>
                 All donations made to Free For Charity are voluntary and non-refundable. By making a
@@ -153,7 +210,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-6" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Payments</h2>
               <p>
                 All payments made to Free For Charity are voluntary and non-refundable. No refunds
@@ -161,7 +218,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-7" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Intellectual Property</h2>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">7.1 Ownership</h3>
               <p className="mb-4">
@@ -175,12 +232,13 @@ export default function TermsOfService() {
                 By submitting content to our Services, you grant us a non-exclusive, worldwide,
                 royalty-free, and transferable license to use, reproduce, distribute, prepare
                 derivative works of, and display such content in connection with our Services.
-                (Supported charities retain ownership of their own content — see Section 18.6 — and
-                volunteer contributions are addressed in Section 17.6.)
+                (Supported charities retain ownership of their own content — see{' '}
+                <Ref n={18}>Section 18.6</Ref> — and volunteer contributions are addressed in{' '}
+                <Ref n={17}>Section 17.6</Ref>.)
               </p>
             </section>
 
-            <section>
+            <section id="section-8" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Privacy</h2>
               <p>
                 Your privacy is important to us. Please review our{' '}
@@ -191,7 +249,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-9" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Third-Party Links</h2>
               <p>
                 Our Services may contain links to third-party websites or services that are not
@@ -203,7 +261,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-10" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 10. Disclaimer of Warranties
               </h2>
@@ -217,7 +275,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-11" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">11. Limitation of Liability</h2>
               <p className="mb-4">
                 To the fullest extent permitted by law, Free For Charity shall not be liable for any
@@ -239,7 +297,7 @@ export default function TermsOfService() {
               </ul>
             </section>
 
-            <section>
+            <section id="section-12" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">12. Indemnification</h2>
               <p>
                 You agree to indemnify, defend, and hold harmless Free For Charity, its officers,
@@ -250,7 +308,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-13" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">13. Governing Law</h2>
               <p>
                 These Terms shall be governed by and construed in accordance with the laws of the
@@ -259,7 +317,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-14" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">14. Changes to Terms</h2>
               <p>
                 We reserve the right to modify these Terms at any time. If we make changes, we will
@@ -269,7 +327,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-15" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">15. Termination</h2>
               <p>
                 We may terminate or suspend your access to our Services, without prior notice or
@@ -279,7 +337,7 @@ export default function TermsOfService() {
             </section>
 
             {/* ---- Audience: General Visitors ---- */}
-            <section id="visitors" className="scroll-mt-20">
+            <section id="section-16" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">16. General Visitors</h2>
               <p className="mb-4">
                 <em>
@@ -287,6 +345,11 @@ export default function TermsOfService() {
                   without being a volunteer or a supported charity.
                 </em>
               </p>
+              <div className="mb-4 rounded-lg bg-blue-50 border border-blue-100 p-4 text-sm">
+                <strong className="text-gray-900">In short:</strong> browse and donate freely — no
+                account needed. Be respectful and lawful, our content stays ours, and donations are
+                voluntary and non-refundable.
+              </div>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
                   The{' '}
@@ -297,11 +360,11 @@ export default function TermsOfService() {
                 </li>
                 <li>
                   You may read and share our public content for informational purposes; our content
-                  and marks remain ours (Section 7.1).
+                  and marks remain ours (<Ref n={7}>Section 7.1</Ref>).
                 </li>
                 <li>
-                  Please use the sites respectfully and lawfully (Section 4.2). Donations are
-                  voluntary and non-refundable (Sections 5–6).
+                  Please use the sites respectfully and lawfully (<Ref n={4}>Section 4.2</Ref>).
+                  Donations are voluntary and non-refundable (<Ref n={5}>Sections 5–6</Ref>).
                 </li>
                 <li>
                   How we handle visitor data, cookies, and analytics is described in our{' '}
@@ -314,7 +377,7 @@ export default function TermsOfService() {
             </section>
 
             {/* ---- Audience: Volunteers ---- */}
-            <section id="volunteers" className="scroll-mt-20">
+            <section id="section-17" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">17. Volunteers</h2>
               <p className="mb-4">
                 <em>
@@ -324,6 +387,12 @@ export default function TermsOfService() {
                   volunteers).
                 </em>
               </p>
+              <div className="mb-4 rounded-lg bg-blue-50 border border-blue-100 p-4 text-sm">
+                <strong className="text-gray-900">In short:</strong> volunteering is unpaid and not
+                employment. Use your own MFA-secured account, keep what you access confidential, use
+                AI responsibly, and your contributions are donated under the project&apos;s
+                open-source license. You can stop anytime; FFC can end access anytime.
+              </div>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 17.1 Volunteer relationship
@@ -360,7 +429,7 @@ export default function TermsOfService() {
                 Act lawfully, professionally, and respectfully toward other volunteers, charities,
                 and the communities they serve. Follow each project&apos;s conventions and the
                 standard contribution workflow; do not harass others, introduce malicious code, or
-                disrupt the Services (Section 4.2 applies in full).
+                disrupt the Services (<Ref n={4}>Section 4.2</Ref> applies in full).
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -369,8 +438,9 @@ export default function TermsOfService() {
               <p className="mb-4">
                 In the course of volunteering you may be given access to FFC or charity data. Use it
                 only as needed for your volunteer work, keep it confidential, do not copy, export,
-                or misuse it, and follow the data-handling expectations in Section 18.7. Report any
-                suspected security issue promptly (see the{' '}
+                or misuse it, and follow the data-handling expectations in{' '}
+                <Ref n={18}>Section 18.7</Ref>. Report any suspected security issue promptly (see
+                the{' '}
                 <Link
                   href="/vulnerability-disclosure-policy"
                   className="text-blue-600 hover:underline"
@@ -393,9 +463,9 @@ export default function TermsOfService() {
               <p className="mb-4">
                 Your contributions are donated. You grant Free For Charity and the relevant charity
                 a license to use, reproduce, modify, and distribute your contributions in connection
-                with the Services and the project&apos;s open-source license (consistent with
-                Section 7.2). You represent that you have the right to contribute what you submit
-                and that it does not infringe anyone else&apos;s rights.
+                with the Services and the project&apos;s open-source license (consistent with{' '}
+                <Ref n={7}>Section 7.2</Ref>). You represent that you have the right to contribute
+                what you submit and that it does not infringe anyone else&apos;s rights.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -410,7 +480,7 @@ export default function TermsOfService() {
             </section>
 
             {/* ---- Audience: Supported Charities ---- */}
-            <section id="charities" className="scroll-mt-20">
+            <section id="section-18" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">18. Supported Charities</h2>
               <p className="mb-4">
                 <em>
@@ -419,6 +489,13 @@ export default function TermsOfService() {
                   (applicant, board members, staff, and volunteers).
                 </em>
               </p>
+              <div className="mb-4 rounded-lg bg-blue-50 border border-blue-100 p-4 text-sm">
+                <strong className="text-gray-900">In short:</strong> FFC gives eligible nonprofits a
+                complete technology stack for free. In return, you adopt the{' '}
+                <strong>whole stack</strong> (not pieces), keep accounts MFA-secured, handle your
+                data lawfully, keep the small &ldquo;built by FFC&rdquo; credit, and stay eligible
+                with a ~30-minute annual refresh. You keep ownership of your own content and data.
+              </div>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 18.1 What FFC provides (and that it is free)
@@ -428,7 +505,8 @@ export default function TermsOfService() {
                 nonprofits — typically a domain, professional email, a website you maintain
                 yourself, design assets, analytics, access to donated software, and trained
                 volunteer support. FFC is a volunteer- and donor-funded 501(c)(3); services are
-                provided <strong>as-is</strong> (Sections 10 and 11 apply).
+                provided <strong>as-is</strong> (<Ref n={10}>Sections 10</Ref> and{' '}
+                <Ref n={11}>11</Ref> apply).
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -489,12 +567,12 @@ export default function TermsOfService() {
               </h3>
               <p className="mb-4">
                 FFC accounts, domains, sites, and tools may be used only for the organization&apos;s
-                lawful, charitable, on-mission purpose. In addition to the prohibited activities in
-                Section 4.2, the organization agrees not to publish content that is hateful,
-                harassing, deceptive, or otherwise unlawful, and not to transfer FFC-provided access
-                or assets to unrelated third parties. The organization is responsible for all
-                content it publishes on its FFC-built site and is expected to keep that content
-                accurate, lawful, and <strong>accessible</strong>.
+                lawful, charitable, on-mission purpose. In addition to the prohibited activities in{' '}
+                <Ref n={4}>Section 4.2</Ref>, the organization agrees not to publish content that is
+                hateful, harassing, deceptive, or otherwise unlawful, and not to transfer
+                FFC-provided access or assets to unrelated third parties. The organization is
+                responsible for all content it publishes on its FFC-built site and is expected to
+                keep that content accurate, lawful, and <strong>accessible</strong>.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -504,11 +582,11 @@ export default function TermsOfService() {
                 The organization{' '}
                 <strong>retains ownership of its own content, data, and brand</strong>. FFC claims
                 no ownership of the charity&apos;s content (FFC&apos;s own software, templates, and
-                trademarks remain FFC&apos;s, per Section 7). If the organization leaves, FFC will
-                support a reasonable handover of the domain and the content/data the charity owns,
-                and will make a reasonable effort to delete the organization&apos;s data from
-                FFC-managed systems on request after offboarding, subject to backups and legal
-                retention.
+                trademarks remain FFC&apos;s, per <Ref n={7}>Section 7</Ref>). If the organization
+                leaves, FFC will support a reasonable handover of the domain and the content/data
+                the charity owns, and will make a reasonable effort to delete the
+                organization&apos;s data from FFC-managed systems on request after offboarding,
+                subject to backups and legal retention.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -602,7 +680,7 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section>
+            <section id="section-19" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">19. Contact Us</h2>
               <p className="mb-4">
                 If you have any questions about these Terms, please contact us:
