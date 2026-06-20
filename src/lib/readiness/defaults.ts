@@ -1,6 +1,11 @@
 /**
  * Factory for a baseline `IntakeData` so callers (tests, the roadmap generator)
- * can construct a record by overriding only the fields they care about.
+ * can construct a record by overriding the fields they care about.
+ *
+ * NOTE: `overrides` are merged **shallowly**. Top-level scalar fields can be
+ * overridden individually, but nested objects (`contacts`, `board`, `address`,
+ * `candid`, `documents`, etc.) are replaced wholesale — to change one nested
+ * value you must supply the complete nested object (spread the base if needed).
  *
  * The baseline is a "nothing supplied yet" charity: no contacts, no board,
  * no address — i.e. the worst-case inputs. Scoring it yields a strongly

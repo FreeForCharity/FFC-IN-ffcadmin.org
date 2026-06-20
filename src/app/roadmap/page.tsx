@@ -94,9 +94,9 @@ export default function RoadmapPage() {
         <section className="rounded-xl border border-gray-200 bg-white p-6">
           <h2 className="text-xl font-bold text-gray-900">Graduated alumni</h2>
           <p className="mt-1 text-gray-600">
-            <span className="text-2xl font-bold text-teal-700">{graduated}</span> charit
-            {graduated === 1 ? 'y has' : 'ies have'} graduated to financial self-sustainability. A
-            full alumni showcase is coming soon.
+            <span className="text-2xl font-bold text-teal-700">{graduated}</span>{' '}
+            {graduated === 1 ? 'charity has' : 'charities have'} graduated to financial
+            self-sustainability. A full alumni showcase is coming soon.
           </p>
         </section>
 

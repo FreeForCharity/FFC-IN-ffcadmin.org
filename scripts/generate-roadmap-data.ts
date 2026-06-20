@@ -89,14 +89,20 @@ function statusFor(issue: GhIssue): RoadmapStatus {
     )
   }
   if (names.includes('needs-info')) return 'needs-info'
-  if (issue.state === 'closed') return 'live'
+  // Closing an issue doesn't reliably mean the site launched (could be
+  // rejected/duplicate/abandoned), so we rely on explicit status:* labels only.
   return 'intake'
 }
 
+/**
+ * Extract the live site URL only when explicitly marked (e.g. "Live site: …"),
+ * so unrelated links in the body (GuideStar, LinkedIn, etc.) are never mistaken
+ * for the charity's site.
+ */
 function liveUrlFrom(body: string | null): string | undefined {
   if (!body) return undefined
-  const match = body.match(/https?:\/\/[^\s)]+/)
-  return match ? match[0] : undefined
+  const match = body.match(/^[ \t>*-]*live\s*(?:site|url)\s*[:：]\s*(https?:\/\/\S+)/im)
+  return match ? match[1] : undefined
 }
 
 function toEntry(issue: GhIssue): RoadmapEntry {
@@ -144,7 +150,11 @@ async function main() {
     if (batch.length < 100) break
   }
 
-  const entries = issues.map(toEntry)
+  const entries = issues
+    // A closed issue only belongs on the roadmap if it reached a terminal,
+    // explicitly-labelled status. Closed-as-rejected/duplicate/abandoned drops off.
+    .filter((i) => i.state !== 'closed' || ['live', 'graduated'].includes(statusFor(i)))
+    .map(toEntry)
   const data: RoadmapData = {
     generatedAt: new Date().toISOString(),
     source: `github:${repo}`,
