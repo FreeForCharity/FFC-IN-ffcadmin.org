@@ -1,27 +1,24 @@
 # Application & Prerequisites — Reference Inventory
 
-> **Status: Draft for verification.** This document inventories the application
-> and prerequisite steps that the FFC site currently describes, assembled from
-> the existing pages and data files in this repository **and from the
+> **Status: Finalized — founder-approved (2026-06-20).** This is the
+> **authoritative** inventory of FFC's application and prerequisite steps,
+> assembled from the repository's pages and data files **and from the
 > freeforcharity.org onboarding pages** (<https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>,
-> <https://freeforcharity.org/free-for-charitys-tools-for-success/>)
-> referenced throughout. The FFC founder should verify, add, or remove steps
-> before this is treated as authoritative.
+> <https://freeforcharity.org/free-for-charitys-tools-for-success/>) and confirmed
+> with the FFC founder. Keep it in step with `src/data/setup-guides.ts` and the
+> freeforcharity.org pages as the program evolves.
 
-> **Two kinds of content (read this first).** This document now contains both:
-> (1) an **inventory of existing guidance** already in the repo, and (2) **new
-> founder-directed policy decisions** made while drafting it — specifically the
-> **Phase 0 baseline** (Section 2), the **approved authenticator & password
-> providers** (Section 2a), **Microsoft Teams as the first install**, the **Chrome/Edge-only browser
-> policy**, **holistic password management** (mobile-tied + browser-built-in, with
-> LastPass at the organizational phase), and the **GitHub-only
-> application flow** (Section 3). Many of these are **now implemented in the
-> rendered guides** (`src/data/setup-guides.ts`): the Multi-Factor Authentication
-> guide requires **both** Google and Microsoft Authenticator, the password-manager
-> guide describes the holistic approach, and dedicated **Chrome** and **Edge**
-> guides now exist. Items still pending in the rendered site are tagged inline.
-> **Closing the remaining gaps is exactly
-> the site update we will make once this flow is accepted.**
+> **What this contains.** Two things: (1) an **inventory of the guidance** in the
+> repo and on freeforcharity.org, and (2) the **founder-directed policy decisions**
+> that now govern onboarding — the **Phase 0 baseline** (Section 2), the **approved
+> authenticators & holistic password management** (Section 2a), **Microsoft Teams
+> as the first install**, the **Chrome/Edge-only browser policy**, the **full-stack
+> commitment & AUP** (Section 2c / 3), and the **application flow** (Section 3).
+> These are **implemented in the rendered guides** (`src/data/setup-guides.ts`):
+> Multi-Factor Authentication requires **both** Google and Microsoft Authenticator,
+> the password-manager guide is **holistic**, and dedicated **Chrome** and **Edge**
+> guides exist. This document and those guides are kept in step; any remaining
+> implementation tasks are tracked under **Maintenance notes** at the end.
 
 > **Source precedence (sources differ by age).** The repo blends two eras. The
 > **current** model is captured by `src/data/setup-guides.ts` and the
@@ -199,8 +196,8 @@ account.
 > **Policy note.** This is **founder-directed policy**, now reflected in the
 > setup guides (`src/data/setup-guides.ts`): the MFA guide requires **both**
 > authenticators, the password-manager guide is reframed around the built-in
-> managers, and there are **Chrome** and **Edge** guides. The remaining
-> not-yet-shipped pieces are tracked in Open Questions §A.
+> managers, and there are **Chrome** and **Edge** guides. Any remaining
+> implementation tasks are tracked under **Maintenance notes** at the end.
 
 Every person sets up **both native authenticators** and keeps a **holistic
 approach to password management** (with at least one manager tied to the mobile
@@ -587,9 +584,12 @@ into the categories below.
   - _FFC:_ Continuity — we never end up with an orphaned page/account behind one
     unreachable person.
 - **Up-front acknowledgment of the FFC Acceptable Use Policy**
-  - _What:_ Read and **accept the FFC AUP** and the "credit FFC" expectation
-    before any work begins. _(Link **TBD** — there is no AUP page in this repo
-    yet; publishing/linking it is tracked in Open Questions §B.)_
+  - _What:_ Read and **accept the FFC AUP** before any work begins — including the
+    **full-stack commitment** (adopt and use the complete FFC stack, not
+    pick-and-choose), the **conflict-of-interest & data-handling** terms, and the
+    "credit FFC" expectation. See
+    [docs/acceptable-use-policy.md](./acceptable-use-policy.md). _(Publishing it as
+    a rendered site page is a Maintenance task at the end.)_
   - _You:_ You know exactly what's expected (and that the service is free) before
     investing time.
   - _FFC:_ Consent and expectations recorded before volunteer effort is committed.
@@ -710,7 +710,11 @@ If you get stuck on any item, use **Contact us for help**.
 - [ ] US-based, with a **US-citizen point of contact**.
 - [ ] A **US mailing address** I accept will be public (PO box or home is fine).
 - [ ] At least **two accountable people** (primary + backup admin).
-- [ ] I've **acknowledged the FFC AUP** and the "credit FFC" expectation.
+- [ ] I've **acknowledged the FFC Acceptable Use Policy (AUP)** — including the
+      **full-stack commitment** to adopt and use the **complete Free For Charity
+      stack** (not pick-and-choose individual tools) — and the **"credit FFC"**
+      expectation. (See [docs/acceptable-use-policy.md](./acceptable-use-policy.md).)
+- [ ] I've agreed to the **conflict-of-interest & data-handling** terms in the AUP.
 - [ ] Track chosen (**501(c)(3)** or **pre-501(c)(3)**) and its documents gathered
       (see the materials list in Section 3 and the track branches in Section 4).
 
@@ -748,6 +752,11 @@ of stuck onboardings.")
 
 **Both tracks:**
 
+- **Signed AUP acknowledgment** — the applicant accepts the
+  [Acceptable Use Policy](./acceptable-use-policy.md), including the **full-stack
+  commitment** (adopt and use the complete FFC stack, not pick-and-choose) and the
+  **conflict-of-interest & data-handling** terms. Acknowledgment is captured via
+  the FFC application issue-template form.
 - EIN (Employer Identification Number)
 - **Applicant's personal LinkedIn profile** (required for every applicant)
 - Board member names, titles, contact info, **personal LinkedIn profiles**, and
@@ -822,16 +831,25 @@ uniformly (see Section 4).
 > discrepancy is in the source material and is flagged for the founder to
 > reconcile.
 
-### 5a. External validation checks (six third-party signals)
+### 5a. External validation checks (third-party signals)
 
-| #   | Check                                                                                                                        | Demonstrates                                                     |
-| --- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                               | Legitimacy; mission-alignment scoring                            |
-| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                          | Independent vetting; unlocks discounted-software pipeline        |
-| 3   | **VolunteerMatch engagement check**                                                                                          | Charity can receive and act on volunteer work                    |
-| 4   | **Verified Facebook page** (cross-checked vs. intake form)                                                                   | Identity/branding consistency                                    |
-| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                 | Technical readiness; enables SPF/DKIM/DMARC under charity domain |
-| 6   | **WHMCS account + PayPal donor flow** _(WHMCS is **legacy** — retired with the GitHub-only intake; PayPal donor flow stays)_ | KYC step; donor funding path                                     |
+| #   | Check                                                                                                                                  | Demonstrates                                                          |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                                         | Legitimacy; mission-alignment scoring                                 |
+| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                                    | Independent vetting; unlocks discounted-software pipeline             |
+| 3   | **VolunteerMatch engagement check**                                                                                                    | Charity can receive and act on volunteer work                         |
+| 4   | **Verified organization Facebook Page** (cross-checked vs. intake form)                                                                | Identity/branding consistency; applicant-run litmus test              |
+| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                           | Technical readiness; enables SPF/DKIM/DMARC under charity domain      |
+| 6   | **WHMCS account + PayPal donor flow** _(WHMCS is **legacy** — retired with the GitHub-only intake; PayPal donor flow stays)_           | KYC step; donor funding path                                          |
+| 7   | **Verified organization LinkedIn Page** (cross-checked vs. intake form)                                                                | Professional identity; applicant-run litmus test                      |
+| 8   | **Personal LinkedIn profiles** — applicant **and every legal/planned board member**, each with the charity linked under "Volunteering" | Real people stand behind the org; accepted board position & liability |
+
+> **Promoted from Phase 0 (founder decision):** the organization **Facebook Page**
+> (4), organization **LinkedIn Page** (7), and the **personal LinkedIn profiles**
+> of the applicant and board members (8) are hard Phase 0 prerequisites **and** are
+> now confirmed here as formal validation checks. (Instagram and Google for
+> Nonprofits remain optional tools with their own setup guides — they are **not**
+> validation checks.)
 
 ### 5b. Internal validation checks (three FFC reviews)
 
@@ -841,8 +859,10 @@ uniformly (see Section 4).
 | 2   | **Existing website + intake-form content review**                        | Mission/leadership consistency across all public sources |
 | 3   | **Target-demographic assessment**                                        | Foundation for copy, imagery, accessibility              |
 
-> The site refers to "**all nine validation checks**" (six external + three
-> internal) resolving before exit.
+> **Every** external and internal check must resolve to a documented pass or
+> documented exception before exit. (The legacy site referred to "nine checks";
+> with the social-page promotion above the external set is now larger — the rule
+> is that the full set resolves, not a fixed count.)
 
 ---
 
@@ -874,7 +894,8 @@ and de-duplicates with Phase 0.
 **Applicant-created (in Phase 0 / Section 2b — the litmus test):** the
 organization **Facebook Page** and **LinkedIn Page** are created by the applicant
 themselves from their personal accounts (see Phase 0 Group D and the Section 2b
-flow), on both tracks. They are not repeated here.
+flow), on both tracks. These (plus the personal LinkedIn profiles) are also
+**formal validation checks** — see Section 5a (checks 4, 7, 8).
 
 **FFC-supported org accounts** — FFC provides guidance/admin support; several are
 501(c)(3)-emphasized and happen during/after validation, not in Phase 0:
@@ -944,7 +965,8 @@ non-technical).
   codes (here: LastPass).
 - **Organization Page** — a charity's LinkedIn or Facebook Page, created and
   administered from a real person's **personal** account.
-- **AUP** — Acceptable Use Policy.
+- **AUP** — Acceptable Use Policy; includes the full-stack commitment and
+  conflict-of-interest/data-handling terms ([docs/acceptable-use-policy.md](./acceptable-use-policy.md)).
 - **Cloudflare** — the service FFC uses to register/secure charity domains; also
   offers the domain name-availability check used in Phase 0.
 - **WHMCS** — the legacy client/billing portal once used for intake; **retired**
@@ -955,42 +977,36 @@ non-technical).
 
 ---
 
-## Open questions for verification
+## Decisions & maintenance notes
 
-### A. Decided — pending site implementation
+All policy questions for this document are **resolved** (founder-approved,
+2026-06-20). Recorded decisions:
 
-These are founder-directed decisions captured in this document; the work is to
-implement them in the rendered site/code (the site update referenced in the
-top-of-document disclaimer).
+- **Validation-check set — unchanged.** The formal set stays the existing
+  external + internal third-party/internal signals. **Instagram** and **Google
+  for Nonprofits** remain **optional tools** (each with a setup guide), **not**
+  validation checks.
+- **Social pages — promoted to validation checks.** The organization **Facebook
+  Page**, organization **LinkedIn Page**, and the **personal LinkedIn profiles**
+  of the applicant and board members are now both Phase 0 prerequisites **and**
+  formal validation checks (Section 5a, checks 4, 7, 8).
+- **AUP & conflict-of-interest — firm prerequisites.** Acknowledging the
+  Acceptable Use Policy is **mandatory**, and the acknowledgment includes a
+  **full-stack commitment** — the charity agrees to adopt and use the **complete
+  Free For Charity stack**, not pick-and-choose individual tools — plus
+  **conflict-of-interest & data-handling** terms. See
+  [docs/acceptable-use-policy.md](./acceptable-use-policy.md).
 
-- **Done — new setup guides added** to `src/data/setup-guides.ts`: **Microsoft
-  Teams**, **cloud storage + document scanning**, **passkeys**, **Candid**,
-  **Idealist**, and **Taproot** (live at `https://ffcadmin.org/guides/<slug>/`).
-  Every Phase 0 account/tool type now has a guide.
-- **Still pending — GitHub-only application channel:** build/define the actual
-  GitHub entry point (repo + issue template or form); the freeforcharity.org
-  pages (<https://freeforcharity.org/submit-information/>,
+**Maintenance / follow-up tasks** (engineering, not policy):
+
+- **Publish the AUP as a site page.** `docs/acceptable-use-policy.md` is the
+  working policy text; render it as a page and wire it into the application
+  issue-template acknowledgment (an acknowledgment issue-template form already
+  exists in an FFC repository — extend it to capture the full-stack commitment).
+- **GitHub-only application channel.** Build the GitHub entry point (repo + issue
+  template/form) that the freeforcharity.org pages
+  (<https://freeforcharity.org/submit-information/>,
   <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>)
-  become landing pages that point into it, and the legacy WHMCS checkout is
-  retired.
-- **Done — authenticator & password-manager guides updated:** the live
-  `multi-factor-authentication` guide now requires **both** Google Authenticator
-  and Microsoft Authenticator, and the `password-manager` guide describes the
-  **holistic** approach (a mobile-tied manager — Apple Passwords / iCloud Keychain
-  or Google Password Manager — plus the browser-profile manager, with LastPass as
-  the advanced/organizational-phase option for credential sharing). It also covers
-  how to **reveal a saved password** in each manager and what to do if you **lose
-  your phone**.
-- **Done — Chrome/Edge-only browser policy** now has dedicated **Chrome** and
-  **Edge** guides and is stated as the support policy in Phase 0 Group B.
-
-### B. Genuinely open — need a founder decision
-
-- Are the **six external / three internal** validation checks still the current
-  set, or have any been added/retired (e.g., Instagram, Google for Nonprofits)?
-- Should the **organization Facebook Page and LinkedIn Page** (and the personal
-  LinkedIn profiles) be promoted into the formal Section 5a validation checks,
-  given they are now hard requirements on both tracks?
-- Should **AUP acknowledgment** and a **conflict-of-interest / data-handling**
-  agreement be explicit prerequisite line items? **There is no AUP page in this
-  repo yet** — it needs to be written/published and linked from the prerequisite.
+  point into; the legacy WHMCS checkout is retired.
+- **Keep in sync.** Update this document and `src/data/setup-guides.ts` together
+  whenever the program changes.
