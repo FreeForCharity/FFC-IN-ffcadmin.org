@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import PolicyCrossLinks from '@/components/PolicyCrossLinks'
+import PolicyTOC from '@/components/PolicyTOC'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/terms-of-service/' },
@@ -31,9 +32,9 @@ const TOC = [
   { n: 13, label: 'Governing Law' },
   { n: 14, label: 'Changes to Terms' },
   { n: 15, label: 'Termination' },
-  { n: 16, label: 'General Visitors', audience: true },
-  { n: 17, label: 'Volunteers', audience: true },
-  { n: 18, label: 'Supported Charities', audience: true },
+  { n: 16, label: 'General Visitors', note: 'audience-specific' },
+  { n: 17, label: 'Volunteers', note: 'audience-specific' },
+  { n: 18, label: 'Supported Charities', note: 'audience-specific' },
   { n: 19, label: 'Contact Us' },
 ]
 
@@ -101,21 +102,7 @@ export default function TermsOfService() {
             </p>
 
             {/* ---- Table of contents ---- */}
-            <nav aria-label="Table of contents" className="rounded-lg border border-gray-200 p-5">
-              <h2 className="text-base font-bold text-gray-900 mb-3">Contents</h2>
-              <ol className="grid gap-x-6 gap-y-1 sm:grid-cols-2 text-sm">
-                {TOC.map((item) => (
-                  <li key={item.n}>
-                    <a href={`#section-${item.n}`} className="text-blue-600 hover:underline">
-                      {item.n}. {item.label}
-                    </a>
-                    {item.audience && (
-                      <span className="ml-1 text-xs text-gray-500">(audience-specific)</span>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </nav>
+            <PolicyTOC items={TOC} />
 
             {/* ---- General Terms ---- */}
             <section id="section-1" className="scroll-mt-20">
