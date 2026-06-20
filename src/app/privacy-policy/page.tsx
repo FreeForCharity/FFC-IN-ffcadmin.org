@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import PolicyCrossLinks from '@/components/PolicyCrossLinks'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/privacy-policy/' },
@@ -280,6 +281,8 @@ export default function PrivacyPolicy() {
                 </p>
               </div>
             </section>
+
+            <PolicyCrossLinks current="/privacy-policy" />
           </div>
         </div>
       </div>

@@ -29,6 +29,10 @@ describe('Navigation Coverage', () => {
     { path: '/volunteer', name: 'Volunteer' },
     { path: '/privacy-policy', name: 'Privacy Policy' },
     { path: '/cookie-policy', name: 'Cookie Policy' },
+    { path: '/terms-of-service', name: 'Terms of Service' },
+    { path: '/donation-policy', name: 'Donation Policy' },
+    { path: '/vulnerability-disclosure-policy', name: 'Vulnerability Disclosure Policy' },
+    { path: '/security-acknowledgements', name: 'Security Acknowledgements' },
   ]
 
   let navigationComponent

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import PolicyCrossLinks from '@/components/PolicyCrossLinks'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/terms-of-service/' },
@@ -43,7 +44,7 @@ export default function TermsOfService() {
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
           <div className="space-y-8 text-gray-700">
             <p className="text-sm text-gray-600">
-              These Terms have two parts. The <strong>General Terms</strong> (Sections 1–15,
+              These Terms have two parts. The <strong>General Terms</strong> (Sections 1–15 and 19,
               originally effective {ORIGINAL_EFFECTIVE}) apply to <strong>everyone</strong> who uses
               Free For Charity&apos;s services. The <strong>audience-specific terms</strong>
               (Sections 16–18) add terms for the role that describes you — a{' '}
@@ -76,8 +77,8 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Who these Terms apply to</h2>
               <p className="mb-4">
-                The General Terms (Sections 1–15) apply to everyone. In addition, exactly one
-                audience section is likely to apply to you:
+                The General Terms (Sections 1–15, plus Section 19 — Contact Us) apply to everyone.
+                In addition, exactly one audience section is likely to apply to you:
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
@@ -145,14 +146,9 @@ export default function TermsOfService() {
               <p>
                 All donations made to Free For Charity are voluntary and non-refundable. By making a
                 donation, you agree to our{' '}
-                <a
-                  href="https://freeforcharity.org/free-for-charity-donation-policy/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
-                >
+                <Link href="/donation-policy" className="text-blue-600 hover:underline">
                   Donation Policy
-                </a>
+                </Link>
                 , which is incorporated by reference into these Terms.
               </p>
             </section>
@@ -375,14 +371,12 @@ export default function TermsOfService() {
                 only as needed for your volunteer work, keep it confidential, do not copy, export,
                 or misuse it, and follow the data-handling expectations in Section 18.7. Report any
                 suspected security issue promptly (see the{' '}
-                <a
-                  href="https://freeforcharity.org/vulnerability-disclosure-policy/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/vulnerability-disclosure-policy"
                   className="text-blue-600 hover:underline"
                 >
                   Vulnerability Disclosure Policy
-                </a>
+                </Link>
                 ).
               </p>
 
@@ -480,14 +474,12 @@ export default function TermsOfService() {
                 <li>
                   Promptly report suspected account compromise, and report security vulnerabilities
                   through the{' '}
-                  <a
-                    href="https://freeforcharity.org/vulnerability-disclosure-policy/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/vulnerability-disclosure-policy"
                     className="text-blue-600 hover:underline"
                   >
                     Vulnerability Disclosure Policy
-                  </a>
+                  </Link>
                   .
                 </li>
               </ul>
@@ -640,6 +632,8 @@ export default function TermsOfService() {
                 Service.
               </p>
             </section>
+
+            <PolicyCrossLinks current="/terms-of-service" />
           </div>
         </div>
       </div>
