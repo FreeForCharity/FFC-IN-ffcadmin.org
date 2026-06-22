@@ -211,7 +211,10 @@ export function parseIntakeIssue(body: string): ParsedIntake {
     },
     address: {
       type: mapEnum(map.get('mailing address type') ?? '', ADDRESS, 'none'),
-      additionalRaStates: Number(map.get('additional registered-agent states') ?? '0') || 0,
+      additionalRaStates: Math.max(
+        0,
+        Number(map.get('additional registered-agent states') ?? '0') || 0
+      ),
       hasOfficeAndRa: /^\s*-\s*\[x\]/im.test(map.get('office plus registered agent') ?? ''),
     },
     candid: {
@@ -222,7 +225,10 @@ export function parseIntakeIssue(body: string): ParsedIntake {
     documents: {
       articlesOfIncorporation: docs.includes('Articles of incorporation'),
       bylaws: docs.includes('Bylaws'),
-      solicitationRegistrations: Number(map.get('state solicitation registrations') ?? '0') || 0,
+      solicitationRegistrations: Math.max(
+        0,
+        Number(map.get('state solicitation registrations') ?? '0') || 0
+      ),
       brandAssets: docs.includes('Brand assets (logo, brand guide)'),
     },
     applicationProgress: {

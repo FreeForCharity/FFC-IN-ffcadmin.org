@@ -32,8 +32,12 @@ export default function RoadmapSection({
         </p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {entries.map((entry, i) => (
-            <RoadmapCard key={`${entry.issueNumber}-${i}`} entry={entry} section={id} />
+          {entries.map((entry) => (
+            <RoadmapCard
+              key={entry.issueNumber || entry.liveUrl || entry.charityName}
+              entry={entry}
+              section={id}
+            />
           ))}
         </div>
       )}

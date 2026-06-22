@@ -108,9 +108,10 @@ function scorePhonesAndEmails(intake: IntakeData): ScoreCategory[] {
 
 function scoreBoardSeat(seat: BoardSeat, required: boolean): number {
   const table = required ? BOARD_REQUIRED : BOARD_OPTIONAL
-  if (!seat.present) return table.missing
+  // A seat only counts as filled once a name is supplied; "present" without a
+  // name is treated as missing so inconsistent data can't inflate the score.
+  if (!seat.present || !seat.named) return table.missing
   if (seat.linkedin) return table.linkedin
-  if (seat.named) return table.named
   return table.named
 }
 
