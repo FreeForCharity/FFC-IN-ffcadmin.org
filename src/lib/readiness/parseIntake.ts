@@ -17,9 +17,11 @@ import type {
   CharityStage,
   EmailType,
   ExistingWebsite,
+  Form1023Status,
   FundingModel,
   IntakeData,
   MissionCategory,
+  PartnershipDueDiligence,
   PhoneType,
   RevenueForm,
   Trajectory,
@@ -127,6 +129,22 @@ const EMAIL: Record<string, EmailType> = {
   'orgname@gmail.com placeholder': 'org-gmail',
   'Org-domain email': 'org-domain',
 }
+const FORM_1023: Record<string, Form1023Status> = {
+  'Not started': 'none',
+  'Form 1023-EZ drafted': '1023ez-drafted',
+  'Form 1023-EZ submitted': '1023ez-submitted',
+  'Form 1023 (long) drafted': '1023-drafted',
+  'Form 1023 (long) submitted — voluntary': '1023-submitted-voluntary',
+  'Form 1023 (long) submitted — required': '1023-submitted-required',
+}
+const PARTNERSHIP: Record<string, PartnershipDueDiligence> = {
+  'No documented outreach to existing organizations': 'none',
+  'Vague — we looked around': 'vague',
+  'Named at least one organization considered': 'named-one',
+  'Documented outreach to 2+ organizations': 'outreach-2plus',
+  'Documented outreach to 3+ with reasons partnership was not viable': 'outreach-3plus',
+  'An existing org declined or referred us to start independently': 'declined-referred',
+}
 
 function contact(map: Map<string, string>, role: string, defaultPresent: boolean) {
   // parseIssueForm lowercases every heading, so look up with a lowercased key.
@@ -165,6 +183,10 @@ export function parseIntakeIssue(body: string): ParsedIntake {
     (POLICY_PAGES as readonly string[]).includes(p)
   )
 
+  const docs = checked(map.get('documents on file') ?? '')
+  const appProgress = checked(map.get('application progress (pre-501(c)(3))') ?? '')
+  const ops = checked(map.get('operations evidence (not pursuing 501(c)(3))') ?? '')
+
   const intake = emptyIntake({
     missionCategory: mapEnum(map.get('mission category') ?? '', MISSION, 'general'),
     charityStage: mapEnum(map.get('charity status') ?? '', STAGE, 'non-pursuing'),
@@ -197,6 +219,32 @@ export function parseIntakeIssue(body: string): ParsedIntake {
       directLink: (map.get('candid direct profile link') ?? '').length > 0,
       seal: mapEnum(map.get('candid seal') ?? '', SEAL, 'none'),
     },
+    documents: {
+      articlesOfIncorporation: docs.includes('Articles of incorporation'),
+      bylaws: docs.includes('Bylaws'),
+      solicitationRegistrations: Number(map.get('state solicitation registrations') ?? '0') || 0,
+      brandAssets: docs.includes('Brand assets (logo, brand guide)'),
+    },
+    applicationProgress: {
+      incorporationFiled: appProgress.includes('State incorporation filed'),
+      incorporationApproved: appProgress.includes('State incorporation approved'),
+      einObtained: appProgress.includes('EIN obtained from the IRS'),
+      bylawsDrafted: appProgress.includes('Bylaws drafted'),
+      bylawsAdopted: appProgress.includes('Bylaws adopted by the board'),
+      form: mapEnum(map.get('form 1023 status') ?? '', FORM_1023, 'none'),
+    },
+    operationsEvidence: {
+      documentedActivities6mo: ops.includes('Documented activities in the last 6 months'),
+      recurringActivities: ops.includes('Recurring activities (monthly meetings, regular events)'),
+      sponsoringInstitution: ops.includes('Sponsoring institution (school, church, troop, etc.)'),
+      attestationLetter: ops.includes('Letter/attestation from a sponsoring institution'),
+      activeCommunity: ops.includes('Active community of 10+ named participants'),
+    },
+    partnershipDueDiligence: mapEnum(
+      map.get('partnership due diligence') ?? '',
+      PARTNERSHIP,
+      'vague'
+    ),
     integrations,
     policyPages,
     existingWebsite: mapEnum(map.get('existing website') ?? '', WEBSITE, 'none'),

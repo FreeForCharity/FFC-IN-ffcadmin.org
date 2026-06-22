@@ -97,4 +97,51 @@ describe('parseIntakeIssue', () => {
     expect(charityName).toBe('Unnamed charity')
     expect(intake.charityStage).toBe('non-pursuing')
   })
+
+  it('parses documents, application progress, partnership, and operations fields', () => {
+    const body = `### Charity status
+
+Pre-501(c)(3) (actively pursuing)
+
+### Documents on file
+
+- [x] Articles of incorporation
+- [ ] Bylaws
+- [x] Brand assets (logo, brand guide)
+
+### State solicitation registrations
+
+3
+
+### Application progress (pre-501(c)(3))
+
+- [x] State incorporation filed
+- [x] EIN obtained from the IRS
+- [ ] Bylaws adopted by the board
+
+### Form 1023 status
+
+Form 1023 (long) submitted — voluntary
+
+### Partnership due diligence
+
+Documented outreach to 3+ with reasons partnership was not viable
+
+### Operations evidence (not pursuing 501(c)(3))
+
+- [x] Recurring activities (monthly meetings, regular events)
+`
+    const { intake } = parseIntakeIssue(body)
+    expect(intake.documents.articlesOfIncorporation).toBe(true)
+    expect(intake.documents.bylaws).toBe(false)
+    expect(intake.documents.brandAssets).toBe(true)
+    expect(intake.documents.solicitationRegistrations).toBe(3)
+    expect(intake.applicationProgress.incorporationFiled).toBe(true)
+    expect(intake.applicationProgress.einObtained).toBe(true)
+    expect(intake.applicationProgress.bylawsAdopted).toBe(false)
+    expect(intake.applicationProgress.form).toBe('1023-submitted-voluntary')
+    expect(intake.partnershipDueDiligence).toBe('outreach-3plus')
+    expect(intake.operationsEvidence.recurringActivities).toBe(true)
+    expect(intake.operationsEvidence.activeCommunity).toBe(false)
+  })
 })

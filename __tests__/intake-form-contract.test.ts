@@ -46,6 +46,8 @@ const SINGLE_SELECTS: { label: string; read: (i: IntakeData) => unknown }[] = [
   { label: 'Mailing address type', read: (i) => i.address.type },
   { label: 'Candid seal', read: (i) => i.candid.seal },
   { label: 'Existing website', read: (i) => i.existingWebsite },
+  { label: 'Form 1023 status', read: (i) => i.applicationProgress.form },
+  { label: 'Partnership due diligence', read: (i) => i.partnershipDueDiligence },
   { label: 'Org main contact — phone type', read: (i) => i.contacts.orgMain.phoneType },
   { label: 'Org main contact — email type', read: (i) => i.contacts.orgMain.emailType },
 ]

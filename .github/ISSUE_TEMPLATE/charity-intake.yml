@@ -366,6 +366,79 @@ body:
     validations:
       required: true
 
+  # ---- Documents -----------------------------------------------------------
+  - type: checkboxes
+    id: documents
+    attributes:
+      label: Documents on file
+      description: Attach or link these in a comment. See /intake-help/supporting-documents.
+      options:
+        - label: Articles of incorporation
+        - label: Bylaws
+        - label: Brand assets (logo, brand guide)
+  - type: input
+    id: solicitation-registrations
+    attributes:
+      label: State solicitation registrations
+      description: How many states have you registered with for charitable solicitation? Enter a number.
+      placeholder: '0'
+    validations:
+      required: false
+
+  # ---- Pre-501(c)(3) progress (skip if already approved) -------------------
+  - type: checkboxes
+    id: application-progress
+    attributes:
+      label: Application progress (pre-501(c)(3))
+      description: Only for charities still pursuing 501(c)(3). See /intake-help/getting-501c3.
+      options:
+        - label: State incorporation filed
+        - label: State incorporation approved
+        - label: EIN obtained from the IRS
+        - label: Bylaws drafted
+        - label: Bylaws adopted by the board
+  - type: dropdown
+    id: form-1023-status
+    attributes:
+      label: Form 1023 status
+      description: See /intake-help/501c3-application.
+      options:
+        - Not started
+        - Form 1023-EZ drafted
+        - Form 1023-EZ submitted
+        - Form 1023 (long) drafted
+        - Form 1023 (long) submitted — voluntary
+        - Form 1023 (long) submitted — required
+    validations:
+      required: false
+  - type: dropdown
+    id: partnership-due-diligence
+    attributes:
+      label: Partnership due diligence
+      description: For pre-501(c)(3) and ongoing projects — did you look for an existing org first?
+      options:
+        - No documented outreach to existing organizations
+        - Vague — we looked around
+        - Named at least one organization considered
+        - Documented outreach to 2+ organizations
+        - Documented outreach to 3+ with reasons partnership was not viable
+        - An existing org declined or referred us to start independently
+    validations:
+      required: false
+
+  # ---- Ongoing project evidence (not pursuing 501(c)(3)) -------------------
+  - type: checkboxes
+    id: operations-evidence
+    attributes:
+      label: Operations evidence (not pursuing 501(c)(3))
+      description: Only for ongoing nonprofit-nature projects not pursuing 501(c)(3).
+      options:
+        - label: Documented activities in the last 6 months
+        - label: Recurring activities (monthly meetings, regular events)
+        - label: Sponsoring institution (school, church, troop, etc.)
+        - label: Letter/attestation from a sponsoring institution
+        - label: Active community of 10+ named participants
+
   # ---- Acknowledgements ----------------------------------------------------
   - type: checkboxes
     id: acknowledgements
