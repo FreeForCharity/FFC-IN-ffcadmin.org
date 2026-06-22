@@ -67,29 +67,30 @@ export default function MailingAddressPage() {
       </p>
 
       <h3>Setting it up for your charity</h3>
+      <p>
+        FFC keeps charities under a <strong>central FFC-managed Northwest account</strong>, so we
+        can administer registered-agent coverage, renewals, and mail routing consistently. You cover
+        the annual registered-agent fee (about $125/year per state); FFC handles the setup.
+      </p>
       <ol>
+        <li>Tell FFC (in your intake issue, or text 520-222-8104) your state of incorporation.</li>
         <li>
-          Create an account at <code>northwestregisteredagent.com</code> using an{' '}
-          <strong>organization</strong> email you control (not a personal address).
+          FFC adds your charity under the FFC-managed Northwest account and gives you the compliant
+          street address to use on state filings and as your public mailing address.
         </li>
         <li>
-          Add <strong>Registered Agent Service</strong> in your state of incorporation. Northwest
-          gives you a compliant street address you can use as your charity’s public/registered
-          address.
+          You’re billed the annual registered-agent fee; FFC keeps mail-scan notifications routed to
+          your team so state and legal mail reaches you promptly.
         </li>
         <li>
-          Use that Northwest address on your state filings and as your public mailing address. Keep
-          mail-scan notifications on so state and legal mail reaches your team promptly.
-        </li>
-        <li>
-          Add their service in each additional state where you register to solicit donations (see
-          below).
+          Ask FFC to add coverage in each additional state where you register to solicit donations
+          (see below).
         </li>
       </ol>
       <div className="not-prose rounded-lg border border-teal-300 bg-teal-50 p-3 text-sm text-teal-900">
-        <strong>Working with FFC?</strong> If FFC helps administer your registered agent, we’ll
-        confirm whether the account is set up under your charity’s own login or coordinated through
-        FFC, and which states to cover — just ask in your intake issue or text 520-222-8104.
+        <strong>Prefer to hold your own account?</strong> That’s fine too — you can run a Northwest
+        account directly and just share the registered-agent address with FFC. Ask in your intake
+        issue or text 520-222-8104.
       </div>
 
       <h2>Multi-state registration</h2>
