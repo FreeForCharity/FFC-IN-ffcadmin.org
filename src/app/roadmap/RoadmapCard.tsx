@@ -61,7 +61,11 @@ export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
       <div className="mb-2 flex flex-wrap gap-1.5">
         <Badge className={stage.className}>{stage.label}</Badge>
         <Badge className={mission.className}>{mission.label}</Badge>
-        <Badge className={TIER_BADGE[entry.readinessTier]}>{entry.readinessTier}</Badge>
+        {entry.readinessTier ? (
+          <Badge className={TIER_BADGE[entry.readinessTier]}>{entry.readinessTier}</Badge>
+        ) : (
+          <Badge className="bg-gray-100 text-gray-500">Readiness pending</Badge>
+        )}
       </div>
 
       <h3 className="text-lg font-semibold text-gray-900">{entry.charityName}</h3>

@@ -39,8 +39,9 @@ export interface RoadmapEntry {
   missionCategory: MissionCategory
   /** Zeffy product / service tier the charity is seeking (display string). */
   serviceTier: string
-  readinessScore: number
-  readinessTier: TierLabel
+  /** Null for live-portfolio entries whose full intake hasn't been scored yet. */
+  readinessScore: number | null
+  readinessTier: TierLabel | null
   submittedAt: string
   updatedAt: string
   sponsor: RoadmapSponsor | null
@@ -64,12 +65,10 @@ export const ROADMAP_SECTIONS = [
   },
   { id: 'needs-admin', heading: 'Needs a sponsoring admin', statuses: ['needs-admin'] },
   { id: 'active', heading: 'Active builds', statuses: ['active-build', 'sponsored'] },
-  { id: 'launched', heading: 'Recently launched', statuses: ['live'] },
+  { id: 'launched', heading: 'Launched charities', statuses: ['live'] },
 ] as const
 
 export type RoadmapSectionId = (typeof ROADMAP_SECTIONS)[number]['id']
-
-const RECENTLY_LAUNCHED_DAYS = 90
 
 function byStatus(entries: RoadmapEntry[], statuses: readonly RoadmapStatus[]): RoadmapEntry[] {
   const set = new Set(statuses)
@@ -89,31 +88,36 @@ function newestUpdatedFirst(a: RoadmapEntry, b: RoadmapEntry): number {
  *   1. mission bonus (essential first)  2. readiness score  3. +1 votes  4. oldest first
  */
 export function sortNeedsAdmin(entries: RoadmapEntry[]): RoadmapEntry[] {
+  const score = (e: RoadmapEntry) => e.readinessScore ?? -Infinity
   return [...entries].sort((a, b) => {
     const missionDelta = MISSION_POINTS[b.missionCategory] - MISSION_POINTS[a.missionCategory]
     if (missionDelta !== 0) return missionDelta
-    if (b.readinessScore !== a.readinessScore) return b.readinessScore - a.readinessScore
+    if (score(b) !== score(a)) return score(b) - score(a)
     if (b.plusOne !== a.plusOne) return b.plusOne - a.plusOne
     return olderFirst(a, b)
   })
+}
+
+/** Launched portfolio order: scored charities first (by score), then the rest by name. */
+function launchedOrder(a: RoadmapEntry, b: RoadmapEntry): number {
+  const sa = a.readinessScore
+  const sb = b.readinessScore
+  if (sa !== null && sb !== null && sa !== sb) return sb - sa
+  if (sa !== null && sb === null) return -1
+  if (sa === null && sb !== null) return 1
+  return a.charityName.localeCompare(b.charityName)
 }
 
 /** Return the entries for a section, already sorted per §9. */
 export function sectionEntries(data: RoadmapData, id: RoadmapSectionId): RoadmapEntry[] {
   const section = ROADMAP_SECTIONS.find((s) => s.id === id)
   if (!section) return []
-  let entries = byStatus(data.entries, section.statuses)
-
-  if (id === 'launched') {
-    const cutoff = Date.now() - RECENTLY_LAUNCHED_DAYS * 24 * 60 * 60 * 1000
-    entries = entries.filter((e) => {
-      const t = Date.parse(e.updatedAt)
-      return Number.isNaN(t) ? true : t >= cutoff
-    })
-  }
+  const entries = byStatus(data.entries, section.statuses)
 
   if (id === 'needs-admin') return sortNeedsAdmin(entries)
   if (id === 'review') return [...entries].sort(olderFirst)
+  // Launched = the full live portfolio (real FFC sites), ranked by readiness then name.
+  if (id === 'launched') return [...entries].sort(launchedOrder)
   return [...entries].sort(newestUpdatedFirst)
 }
 

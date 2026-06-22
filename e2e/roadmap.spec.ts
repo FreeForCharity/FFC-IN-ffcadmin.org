@@ -8,13 +8,15 @@ test.describe('Public Roadmap', () => {
     await expect(page.getByRole('link', { name: 'Become a sponsoring admin' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Needs a sponsoring admin' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Active builds' })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'Recently launched' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Launched charities' })).toBeVisible()
   })
 
-  test('seeded cards render with badges and a sponsor CTA', async ({ page }) => {
+  test('real portfolio renders: FFC scored, others readiness pending', async ({ page }) => {
     await page.goto('/roadmap/')
-    await expect(page.getByText('Sample Essential-Mission Charity')).toBeVisible()
-    await expect(page.getByRole('link', { name: 'Sponsor this site' }).first()).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Free For Charity', exact: true })).toBeVisible()
+    // FFC is scored Mature; portfolio sites show a "Readiness pending" badge.
+    await expect(page.getByText('Mature').first()).toBeVisible()
+    await expect(page.getByText('Readiness pending').first()).toBeVisible()
   })
 
   test('top-level Roadmap nav link works', async ({ page }) => {

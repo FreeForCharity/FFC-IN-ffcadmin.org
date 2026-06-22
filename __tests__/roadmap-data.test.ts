@@ -96,14 +96,45 @@ describe('sectionEntries', () => {
     expect(graduatedCount(data)).toBe(1)
   })
 
-  it('hides launched charities older than 90 days', () => {
-    const stale: RoadmapData = {
+  it('shows the full live portfolio regardless of date, scored entries first then by name', () => {
+    const portfolio: RoadmapData = {
       generatedAt: '',
       source: 'test',
       entries: [
-        entry({ charityName: 'Old launch', status: 'live', updatedAt: '2020-01-01T00:00:00.000Z' }),
+        entry({
+          charityName: 'zebra.org',
+          status: 'live',
+          readinessScore: null,
+          readinessTier: null,
+        }),
+        entry({
+          charityName: 'alpha.org',
+          status: 'live',
+          readinessScore: null,
+          readinessTier: null,
+        }),
+        entry({
+          charityName: 'Scored Charity',
+          status: 'live',
+          readinessScore: 200,
+          readinessTier: 'Established',
+        }),
+        entry({
+          charityName: 'Old launch',
+          status: 'live',
+          updatedAt: '2020-01-01T00:00:00.000Z',
+          readinessScore: 50,
+          readinessTier: 'Foundational',
+        }),
       ],
     }
-    expect(sectionEntries(stale, 'launched')).toHaveLength(0)
+    const launched = sectionEntries(portfolio, 'launched')
+    // Scored entries first (by score desc), then unscored alphabetically.
+    expect(launched.map((e) => e.charityName)).toEqual([
+      'Scored Charity',
+      'Old launch',
+      'alpha.org',
+      'zebra.org',
+    ])
   })
 })

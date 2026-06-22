@@ -84,10 +84,10 @@ export default function RoadmapPage() {
 
         <RoadmapSection
           id="launched"
-          heading="Recently launched"
-          description="Charity sites that went live in the last 90 days. 🎉"
+          heading="Launched charities"
+          description="Live FFC charity sites. 🎉 Readiness shows once a charity completes structured intake; until then it’s marked “pending.”"
           entries={launched}
-          emptyMessage="No launches in the last 90 days — yours could be next."
+          emptyMessage="No live charity sites recorded yet."
         />
 
         {/* Graduated alumni tile (Phase 2 page; placeholder in Phase 1A) */}
