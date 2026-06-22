@@ -280,19 +280,19 @@ export function computeReadiness(intake: IntakeData): ReadinessResult {
     single(
       'revenue',
       'Revenue and form filed',
-      intake.revenueForm,
+      revenueLabel(intake.revenueForm),
       REVENUE_FORM_POINTS[intake.revenueForm]
     ),
     single(
       'trajectory',
       'Trajectory (5-year)',
-      intake.trajectory,
+      trajectoryLabel(intake.trajectory),
       TRAJECTORY_POINTS[intake.trajectory]
     ),
     single(
       'funding',
       'Funding model',
-      intake.fundingModel,
+      fundingLabel(intake.fundingModel),
       FUNDING_MODEL_POINTS[intake.fundingModel]
     ),
     ...scorePhonesAndEmails(intake),
@@ -308,7 +308,7 @@ export function computeReadiness(intake: IntakeData): ReadinessResult {
     single(
       'website',
       'Existing website',
-      intake.existingWebsite,
+      websiteLabel(intake.existingWebsite),
       EXISTING_WEBSITE_POINTS[intake.existingWebsite]
     ),
   ].filter((c): c is ScoreCategory => c !== null)
@@ -450,4 +450,49 @@ function formLabel(form: IntakeData['applicationProgress']['form']): string {
     '1023-submitted-required': 'Form 1023 (long) submitted — required',
   }
   return map[form]
+}
+
+function revenueLabel(r: IntakeData['revenueForm']): string {
+  const map: Record<IntakeData['revenueForm'], string> = {
+    'pre-revenue': 'Pre-revenue / in formation',
+    '990-n': '990-N filer (≤ $50K)',
+    '990-ez': '990-EZ filer ($50K–$200K)',
+    '990-200k-500k': '990 filer ($200K–$500K)',
+    '990-500k-1m': '990 filer ($500K–$1M)',
+    '990-1m-5m': '990 filer ($1M–$5M)',
+    '990-over-5m': '990 filer (over $5M)',
+  }
+  return map[r]
+}
+
+function trajectoryLabel(t: IntakeData['trajectory']): string {
+  const map: Record<IntakeData['trajectory'], string> = {
+    'remain-small': 'Plans to remain small',
+    'modest-growth': 'Modest growth within current form size',
+    'substantial-growth': 'Substantial growth (toward full 990)',
+    'major-grant': 'Major-grant pursuit (over $100K)',
+    unclear: 'No clear trajectory',
+  }
+  return map[t]
+}
+
+function fundingLabel(f: IntakeData['fundingModel']): string {
+  const map: Record<IntakeData['fundingModel'], string> = {
+    'self-funded': 'Self-funded (dues, fees, founder contributions)',
+    'donations-only': 'Donations only',
+    'donations-small-grants': 'Donations + small grants (under $25K)',
+    'significant-grants': 'Significant grants ($25K–$100K)',
+    'major-grant-dependent': 'Major grant-dependent ($100K+)',
+    'government-contract': 'Government contract primary',
+  }
+  return map[f]
+}
+
+function websiteLabel(w: IntakeData['existingWebsite']): string {
+  const map: Record<IntakeData['existingWebsite'], string> = {
+    none: 'No existing website',
+    placeholder: 'Placeholder / landing page only',
+    functional: 'Functional site with content',
+  }
+  return map[w]
 }

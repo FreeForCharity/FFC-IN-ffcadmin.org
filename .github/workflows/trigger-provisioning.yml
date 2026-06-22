@@ -22,7 +22,12 @@ env:
 jobs:
   dispatch:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'verified-assignment'
+    # Only intake issues with an actual assignee; avoids null-assignee edge
+    # cases and accidental dispatches from a manual label add on other issues.
+    if: >-
+      github.event.label.name == 'verified-assignment' &&
+      contains(github.event.issue.labels.*.name, 'kind:intake') &&
+      github.event.issue.assignee != null
     steps:
       - name: Guard on PAT availability
         id: guard

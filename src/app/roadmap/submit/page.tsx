@@ -81,11 +81,10 @@ export default function SubmitPage() {
               <p className="mt-2 flex-grow text-sm text-gray-600">{card.body}</p>
               <a
                 href={card.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...(card.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="mt-4 inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 px-4 py-2 font-semibold text-white hover:opacity-90"
               >
-                {card.cta} ↗
+                {card.cta} {card.external ? '↗' : ''}
               </a>
             </div>
           ))}
