@@ -2,21 +2,27 @@
 /**
  * Pre-stub intake from Zeffy (program plan §5 step 3, §12).
  *
- * Polls Zeffy's read-only Contacts API and, for each new contact with no
- * matching GitHub issue, opens a stub `kind:intake` issue with the structured
- * template for the charity to complete. This is why a charity appears on the
- * public roadmap as soon as it submits to Zeffy.
+ * PRODUCT-GATED: Zeffy contacts include everyone in the CRM (donors, members,
+ * newsletter signups) — most are NOT charity applicants. We therefore only
+ * create intake stubs for contacts who submitted a configured application
+ * product/campaign (the "FFC Charity Application & Verification" form). The
+ * gate is ZEFFY_INTAKE_CAMPAIGN_IDS (comma-separated Zeffy campaign ids). With
+ * no campaign ids configured the script does nothing — it never stubs every
+ * contact.
+ *
+ * For each new applicant with no matching GitHub issue, it opens a stub
+ * `kind:intake` issue with the structured template to complete, so the charity
+ * appears on the public roadmap as soon as it applies.
  *
  * PII: dedup uses a one-way fingerprint (Zeffy contact id when present, else a
  * keyed HMAC-SHA256 of the email using a secret salt) — never the raw email,
  * and not a bare hash that could be brute-forced. The stub issue body contains
  * no email, only the org name and a non-PII fingerprint marker for idempotency.
- * Sync state lives OUTSIDE the web-served `public/` folder so it is never
- * published by the static site.
+ * Sync state lives OUTSIDE the web-served `public/` folder.
  *
- * GUARDED: requires ZEFFY_API_KEY. With no key (the default today, since Zeffy
- * access is a Clarke prerequisite) it logs and exits 0 — the workflow stays
- * green and activates automatically once the secret is added.
+ * GUARDED: requires ZEFFY_API_KEY and ZEFFY_INTAKE_CAMPAIGN_IDS. Missing either
+ * → logs and exits 0, so the once-a-day scheduled run stays green and activates
+ * automatically once both are set.
  *
  * The Zeffy API is read-only Beta; endpoint/shape may need adjustment when the
  * key is provisioned. Anything unexpected degrades to a no-op.
@@ -35,6 +41,13 @@ const repo = process.env.GITHUB_REPOSITORY || 'FreeForCharity/FFC-IN-ffcadmin.or
 const ghToken = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
 const zeffyKey = process.env.ZEFFY_API_KEY
 const zeffyBase = process.env.ZEFFY_API_BASE || 'https://api.zeffy.com'
+// Product gate: only these campaign/product ids count as charity applications.
+const intakeCampaignIds = new Set(
+  (process.env.ZEFFY_INTAKE_CAMPAIGN_IDS || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+)
 
 function loadState() {
   if (!existsSync(STATE_FILE)) return { lastSyncedAt: null, seenFingerprints: [] }
@@ -52,7 +65,6 @@ function loadState() {
 // (also a secret, always present when this script runs) if no dedicated salt.
 const fingerprintSalt = process.env.ZEFFY_FINGERPRINT_SALT || zeffyKey || ''
 
-/** Non-PII, stable id for a contact: Zeffy id if available, else a keyed HMAC of the email. */
 function fingerprintFor(contact) {
   if (contact.id) return `id:${contact.id}`
   const email = (contact.email || '').trim().toLowerCase()
@@ -60,14 +72,40 @@ function fingerprintFor(contact) {
   return `hmac:${createHmac('sha256', fingerprintSalt).update(email).digest('hex')}`
 }
 
-async function zeffyContacts() {
-  const res = await fetch(`${zeffyBase}/v1/contacts`, {
+async function zeffyJson(path) {
+  const res = await fetch(`${zeffyBase}${path}`, {
     headers: { Authorization: `Bearer ${zeffyKey}`, Accept: 'application/json' },
   })
-  if (!res.ok) throw new Error(`Zeffy API contacts -> ${res.status}`)
+  if (!res.ok) throw new Error(`Zeffy API ${path} -> ${res.status}`)
   const data = await res.json()
-  // Be tolerant of shape: accept {data:[...]} or a bare array.
+  // Tolerate {data:[...]} or a bare array.
   return Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : []
+}
+
+/**
+ * Fetch payments/submissions tied to the configured application campaigns.
+ * Payments are the reliable link between a contact and the product/campaign
+ * they came through, so this is where the product gate is applied.
+ */
+async function applicantPayments() {
+  const payments = await zeffyJson('/v1/payments')
+  return payments.filter((p) => {
+    const campaignId = String(p.campaignId ?? p.campaign?.id ?? p.campaign?.campaignId ?? '')
+    return campaignId && intakeCampaignIds.has(campaignId)
+  })
+}
+
+/** Extract a contact from a payment, tolerant of shape. */
+function contactOf(payment) {
+  const c = payment.contact || payment.donor || {}
+  return {
+    id: c.id ?? payment.contactId,
+    email: c.email ?? payment.email ?? '',
+    organizationName: c.organizationName ?? c.companyName ?? payment.organizationName ?? '',
+    fullName:
+      c.fullName ??
+      [c.firstName ?? payment.firstName, c.lastName ?? payment.lastName].filter(Boolean).join(' '),
+  }
 }
 
 async function gh(path, init = {}) {
@@ -96,7 +134,7 @@ async function issueExistsForFingerprint(fingerprint) {
 function stubBody(contact, fingerprint) {
   const name = contact.organizationName || contact.fullName || 'your charity'
   return [
-    `_Auto-created from a Zeffy submission for **${name}**._`,
+    `_Auto-created from an FFC application submitted via Zeffy for **${name}**._`,
     '',
     'Welcome to Free For Charity! Please complete your structured intake by editing this issue',
     'with the [charity intake form](https://github.com/' +
@@ -124,6 +162,12 @@ async function main() {
     console.warn('No ZEFFY_API_KEY; Zeffy sync skipped (prerequisite not yet provisioned).')
     return
   }
+  if (intakeCampaignIds.size === 0) {
+    console.warn(
+      'No ZEFFY_INTAKE_CAMPAIGN_IDS configured; skipping. (Product gate: we only stub charity-application submissions, never every contact.)'
+    )
+    return
+  }
   if (!ghToken) {
     console.warn('No GITHUB_TOKEN; cannot create issues. Skipping.')
     return
@@ -131,9 +175,9 @@ async function main() {
 
   const state = loadState()
   const seen = new Set(state.seenFingerprints || [])
-  let contacts = []
+  let payments = []
   try {
-    contacts = await zeffyContacts()
+    payments = await applicantPayments()
   } catch (err) {
     console.warn(`Zeffy fetch failed: ${err.message}. Leaving state unchanged.`)
     return
@@ -141,7 +185,8 @@ async function main() {
 
   let created = 0
   let changed = false
-  for (const contact of contacts) {
+  for (const payment of payments) {
+    const contact = contactOf(payment)
     const fingerprint = fingerprintFor(contact)
     if (!fingerprint || seen.has(fingerprint)) continue
     try {
@@ -162,17 +207,17 @@ async function main() {
       changed = true
       created++
     } catch (err) {
-      console.warn(`Skipping a contact: ${err.message}`)
+      console.warn(`Skipping an applicant: ${err.message}`)
     }
   }
 
   // Only persist (and therefore open a PR) when something materially changed,
-  // so scheduled runs with no new contacts produce no PR churn.
+  // so the daily run with no new applicants produces no PR churn.
   if (changed) {
     writeState(seen)
     console.log(`Zeffy sync: ${created} stub issue(s) created; state updated.`)
   } else {
-    console.log('Zeffy sync: no new contacts; state unchanged.')
+    console.log('Zeffy sync: no new applicants; state unchanged.')
   }
 }
 
