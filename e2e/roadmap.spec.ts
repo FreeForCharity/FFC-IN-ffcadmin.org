@@ -29,10 +29,10 @@ test.describe('Public Roadmap', () => {
     await expect(page.getByText('520-222-8104')).toBeVisible()
   })
 
-  test('sponsor page shows the draft commitment notice', async ({ page }) => {
+  test('sponsor page shows the commitment section', async ({ page }) => {
     await page.goto('/roadmap/sponsor/')
-    await expect(page.getByText(/Draft — pending FFC leadership approval/)).toBeVisible()
     await expect(page.getByRole('heading', { name: 'The commitment' })).toBeVisible()
+    await expect(page.getByText(/no more than 3 concurrent active sponsorships/)).toBeVisible()
   })
 
   test('methodology page renders scoring tables and tier labels', async ({ page }) => {

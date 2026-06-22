@@ -55,9 +55,41 @@ export default function MailingAddressPage() {
         registered-agent service equally. You are free to use a different provider and score
         identically.
       </p>
-      <div className="not-prose rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-        FFC’s specific Northwest setup walkthrough (account, mail-forwarding, and multi-state steps)
-        will be added here with FFC’s exact configuration details.
+      <h3>How Northwest’s registered-agent service works</h3>
+      <p>
+        Northwest acts as your registered agent in whatever state(s) you choose. They receive any
+        service of process (lawsuits, subpoenas) and official state mail on your behalf, then scan
+        it the same business day to your online account and notify you — so nothing important gets
+        lost, and a board member’s home address stays off the public record. Registered-agent
+        service is free the first year, then a flat annual fee per state (around $125/year as of
+        2026). Free same-day mail scanning is included; optional premium forwarding adds unlimited
+        physical mail.
+      </p>
+
+      <h3>Setting it up for your charity</h3>
+      <ol>
+        <li>
+          Create an account at <code>northwestregisteredagent.com</code> using an{' '}
+          <strong>organization</strong> email you control (not a personal address).
+        </li>
+        <li>
+          Add <strong>Registered Agent Service</strong> in your state of incorporation. Northwest
+          gives you a compliant street address you can use as your charity’s public/registered
+          address.
+        </li>
+        <li>
+          Use that Northwest address on your state filings and as your public mailing address. Keep
+          mail-scan notifications on so state and legal mail reaches your team promptly.
+        </li>
+        <li>
+          Add their service in each additional state where you register to solicit donations (see
+          below).
+        </li>
+      </ol>
+      <div className="not-prose rounded-lg border border-teal-300 bg-teal-50 p-3 text-sm text-teal-900">
+        <strong>Working with FFC?</strong> If FFC helps administer your registered agent, we’ll
+        confirm whether the account is set up under your charity’s own login or coordinated through
+        FFC, and which states to cover — just ask in your intake issue or text 520-222-8104.
       </div>
 
       <h2>Multi-state registration</h2>

@@ -98,12 +98,7 @@ export default function SponsorPage() {
         </section>
 
         <section>
-          <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-            <strong>Draft — pending FFC leadership approval.</strong> The commitment wording below
-            is proposed and not yet ratified. It will be finalized before sponsoring-admin
-            onboarding opens publicly.
-          </div>
-          <h2 className="mt-4 text-2xl font-bold text-gray-900">The commitment</h2>
+          <h2 className="text-2xl font-bold text-gray-900">The commitment</h2>
           <p className="mt-2 text-gray-700">
             By accepting assignment as a sponsoring admin for an FFC charity site, I commit to:
           </p>
