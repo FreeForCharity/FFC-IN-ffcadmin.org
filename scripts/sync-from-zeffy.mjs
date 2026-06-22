@@ -8,8 +8,9 @@
  * public roadmap as soon as it submits to Zeffy.
  *
  * PII: dedup uses a one-way fingerprint (Zeffy contact id when present, else a
- * SHA-256 of the email) — never the raw email. The stub issue body contains no
- * email, only the org name and a non-PII fingerprint marker for idempotency.
+ * keyed HMAC-SHA256 of the email using a secret salt) — never the raw email,
+ * and not a bare hash that could be brute-forced. The stub issue body contains
+ * no email, only the org name and a non-PII fingerprint marker for idempotency.
  * Sync state lives OUTSIDE the web-served `public/` folder so it is never
  * published by the static site.
  *
@@ -23,7 +24,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-import { createHash } from 'crypto'
+import { createHmac } from 'crypto'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 // Back-office state — deliberately NOT under public/ (would be web-served).
@@ -44,12 +45,19 @@ function loadState() {
   }
 }
 
-/** Non-PII, stable id for a contact: Zeffy id if available, else hashed email. */
+// Secret salt for email fingerprints. A bare SHA-256 of an email is
+// brute-forceable (email keyspace is small), so we use a keyed HMAC instead.
+// The salt never leaves CI; without it the committed fingerprints can't be
+// reversed or matched against a guessed email. Falls back to the Zeffy API key
+// (also a secret, always present when this script runs) if no dedicated salt.
+const fingerprintSalt = process.env.ZEFFY_FINGERPRINT_SALT || zeffyKey || ''
+
+/** Non-PII, stable id for a contact: Zeffy id if available, else a keyed HMAC of the email. */
 function fingerprintFor(contact) {
   if (contact.id) return `id:${contact.id}`
   const email = (contact.email || '').trim().toLowerCase()
   if (!email) return ''
-  return `sha256:${createHash('sha256').update(email).digest('hex')}`
+  return `hmac:${createHmac('sha256', fingerprintSalt).update(email).digest('hex')}`
 }
 
 async function zeffyContacts() {

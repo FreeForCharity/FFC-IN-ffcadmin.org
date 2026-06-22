@@ -16,6 +16,11 @@ import {
   CANDID_PROFILE_URL,
   CANDID_DIRECT_LINK,
   CANDID_SEAL_POINTS,
+  APPLICATION_POINTS,
+  FORM_1023_POINTS,
+  OPERATIONS_POINTS,
+  PARTNERSHIP_POINTS,
+  DOCUMENT_POINTS,
   EXISTING_WEBSITE_POINTS,
   INTEGRATION_PLATFORMS,
   POLICY_PAGES,
@@ -273,6 +278,72 @@ export default function MethodologyPage() {
               { label: 'None', points: EXISTING_WEBSITE_POINTS.none },
               { label: 'Placeholder / landing only', points: EXISTING_WEBSITE_POINTS.placeholder },
               { label: 'Functional with content', points: EXISTING_WEBSITE_POINTS.functional },
+            ]}
+          />
+          <Category
+            title="Application progress (pre-501(c)(3))"
+            improve="Each milestone you complete adds points; submitting Form 1023 (long form) earns the most. See /intake-help/501c3-application."
+            rows={[
+              { label: 'State incorporation filed', points: APPLICATION_POINTS.incorporationFiled },
+              {
+                label: 'Incorporation approved',
+                points: APPLICATION_POINTS.incorporationApproved,
+              },
+              { label: 'EIN obtained', points: APPLICATION_POINTS.einObtained },
+              { label: 'Bylaws drafted', points: APPLICATION_POINTS.bylawsDrafted },
+              { label: 'Bylaws adopted', points: APPLICATION_POINTS.bylawsAdopted },
+              { label: 'Form 1023-EZ submitted', points: FORM_1023_POINTS['1023ez-submitted'] },
+              {
+                label: 'Form 1023 long submitted (voluntary)',
+                points: FORM_1023_POINTS['1023-submitted-voluntary'],
+              },
+            ]}
+          />
+          <Category
+            title="Operations evidence (non-pursuing)"
+            improve="For ongoing nonprofit-nature projects not pursuing 501(c)(3): document real, recurring activity."
+            rows={[
+              {
+                label: 'Documented activity (6 mo)',
+                points: OPERATIONS_POINTS.documentedActivities6mo,
+              },
+              { label: 'Recurring activities', points: OPERATIONS_POINTS.recurringActivities },
+              { label: 'Sponsoring institution', points: OPERATIONS_POINTS.sponsoringInstitution },
+              { label: 'Attestation letter', points: OPERATIONS_POINTS.attestationLetter },
+              { label: 'Active community (>10)', points: OPERATIONS_POINTS.activeCommunity },
+            ]}
+          />
+          <Category
+            title="Partnership due diligence (non-501(c)(3) paths)"
+            improve="Show you looked for existing organizations before starting your own."
+            rows={[
+              { label: 'No documented outreach', points: PARTNERSHIP_POINTS.none },
+              { label: 'Named one org considered', points: PARTNERSHIP_POINTS['named-one'] },
+              { label: 'Outreach to 2+ orgs', points: PARTNERSHIP_POINTS['outreach-2plus'] },
+              {
+                label: 'Outreach to 3+ with reasons',
+                points: PARTNERSHIP_POINTS['outreach-3plus'],
+              },
+              {
+                label: 'Org declined / referred you',
+                points: PARTNERSHIP_POINTS['declined-referred'],
+              },
+            ]}
+          />
+          <Category
+            title="Documents"
+            improve="Attach or link your founding documents. See /intake-help/supporting-documents."
+            rows={[
+              {
+                label: 'Articles of incorporation',
+                points: DOCUMENT_POINTS.articlesOfIncorporation,
+              },
+              { label: 'Bylaws', points: DOCUMENT_POINTS.bylaws },
+              {
+                label: 'State solicitation registration (each)',
+                points: DOCUMENT_POINTS.solicitationRegistrationEach,
+              },
+              { label: 'Brand assets', points: DOCUMENT_POINTS.brandAssets },
             ]}
           />
         </div>
