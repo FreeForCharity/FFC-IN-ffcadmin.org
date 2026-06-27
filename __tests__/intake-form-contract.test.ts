@@ -50,6 +50,18 @@ const SINGLE_SELECTS: { label: string; read: (i: IntakeData) => unknown }[] = [
   { label: 'Partnership due diligence', read: (i) => i.partnershipDueDiligence },
   { label: 'Org main contact — phone type', read: (i) => i.contacts.orgMain.phoneType },
   { label: 'Org main contact — email type', read: (i) => i.contacts.orgMain.emailType },
+  // Optional officers also drive the parser via exact option strings; drift here
+  // would silently fall back to `none`, so the contract covers them too.
+  { label: 'President — phone type', read: (i) => i.contacts.president.phoneType },
+  { label: 'President — email type', read: (i) => i.contacts.president.emailType },
+  { label: 'Secretary — phone type', read: (i) => i.contacts.secretary.phoneType },
+  { label: 'Secretary — email type', read: (i) => i.contacts.secretary.emailType },
+  { label: 'Treasurer — phone type', read: (i) => i.contacts.treasurer.phoneType },
+  { label: 'Treasurer — email type', read: (i) => i.contacts.treasurer.emailType },
+  { label: 'Vice President — phone type', read: (i) => i.contacts.vicePresident.phoneType },
+  { label: 'Vice President — email type', read: (i) => i.contacts.vicePresident.emailType },
+  { label: 'Member at Large — phone type', read: (i) => i.contacts.memberAtLarge.phoneType },
+  { label: 'Member at Large — email type', read: (i) => i.contacts.memberAtLarge.emailType },
 ]
 
 describe('charity-intake.yml ↔ parseIntake contract', () => {

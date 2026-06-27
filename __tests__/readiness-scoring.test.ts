@@ -105,6 +105,14 @@ describe('time-in-status decay (§15 #17)', () => {
     expect(decayed.score).toBe(result.score - 6)
   })
 
+  it('keeps the category breakdown summing to the decayed score', () => {
+    const result = computeReadiness(emptyIntake({ missionCategory: 'essential' }))
+    const decayed = applyTimeInStatusDecay(result, 3, 100)
+    const sum = decayed.categories.reduce((total, c) => total + c.points, 0)
+    expect(sum).toBe(decayed.score)
+    expect(decayed.categories.at(-1)).toMatchObject({ key: 'decay', points: -6 })
+  })
+
   it('never decays more than the recoverable points', () => {
     const result = computeReadiness(emptyIntake({ missionCategory: 'essential' }))
     const decayed = applyTimeInStatusDecay(result, 12, 5)

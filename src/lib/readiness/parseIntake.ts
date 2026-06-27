@@ -34,8 +34,14 @@ const NO_RESPONSE = /^_no response_$/i
 export function parseIssueForm(body: string): Map<string, string> {
   const map = new Map<string, string>()
   if (!body) return map
-  const normalized = body.replace(/\r\n/g, '\n').replace(/^###\s+/, '')
-  for (const part of normalized.split(/\n###\s+/)) {
+  const normalized = body.replace(/\r\n/g, '\n')
+  const startsWithHeading = /^###\s+/.test(normalized)
+  // Split into "### Label\n\nvalue" blocks. If the body opens with preamble text
+  // (no leading heading), that first segment isn't a field — drop it so intro
+  // markdown can't masquerade as a label.
+  const segments = normalized.replace(/^###\s+/, '').split(/\n###\s+/)
+  const fields = startsWithHeading ? segments : segments.slice(1)
+  for (const part of fields) {
     const nl = part.indexOf('\n')
     if (nl === -1) continue
     const label = part.slice(0, nl).trim().toLowerCase()

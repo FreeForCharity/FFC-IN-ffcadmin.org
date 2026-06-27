@@ -261,6 +261,24 @@ body:
       label: Vice President — linkedin url
     validations:
       required: false
+  - type: dropdown
+    id: vp-phone
+    attributes:
+      label: Vice President — phone type
+      options: ['No phone', 'Landline', 'Personal cell phone', 'Org-specific number']
+    validations:
+      required: false
+  - type: dropdown
+    id: vp-email
+    attributes:
+      label: Vice President — email type
+      options:
+        - No email
+        - Personal free provider (Gmail, Yahoo, etc.)
+        - orgname@gmail.com placeholder
+        - Org-domain email
+    validations:
+      required: false
   - type: input
     id: mal-name
     attributes:
@@ -271,6 +289,24 @@ body:
     id: mal-linkedin
     attributes:
       label: Member at Large — linkedin url
+    validations:
+      required: false
+  - type: dropdown
+    id: mal-phone
+    attributes:
+      label: Member at Large — phone type
+      options: ['No phone', 'Landline', 'Personal cell phone', 'Org-specific number']
+    validations:
+      required: false
+  - type: dropdown
+    id: mal-email
+    attributes:
+      label: Member at Large — email type
+      options:
+        - No email
+        - Personal free provider (Gmail, Yahoo, etc.)
+        - orgname@gmail.com placeholder
+        - Org-domain email
     validations:
       required: false
 

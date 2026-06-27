@@ -340,7 +340,21 @@ export function applyTimeInStatusDecay(
   if (monthsStalled <= 0 || recoverablePoints <= 0) return result
   const decay = Math.min(monthsStalled * 2, recoverablePoints)
   const score = result.score - decay
-  return { ...result, score, tier: tierLabelFor(score) }
+  // Record the decay as its own negative category so the per-category
+  // breakdown still sums to the returned score (auto-comments / future UI).
+  const monthLabel = monthsStalled === 1 ? '1 month stalled' : `${monthsStalled} months stalled`
+  const decayCategory: ScoreCategory = {
+    key: 'decay',
+    label: 'Time-in-status decay',
+    points: -decay,
+    lines: [{ label: monthLabel, points: -decay }],
+  }
+  return {
+    ...result,
+    score,
+    tier: tierLabelFor(score),
+    categories: [...result.categories, decayCategory],
+  }
 }
 
 // --- suggestions ------------------------------------------------------------
