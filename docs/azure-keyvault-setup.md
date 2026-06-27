@@ -92,7 +92,7 @@ steps:
       subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       vault-name: ${{ vars.AZURE_KEY_VAULT_NAME }}
       secrets: |
-        WHMCS_API_SECRET=whmcs-api-secret
+        WHMCS_API_SECRET=read-all-ffc-whmcs-api-secret
   - run: node scripts/whmcs-applications.mjs # WHMCS_API_SECRET now in env
 ```
 
