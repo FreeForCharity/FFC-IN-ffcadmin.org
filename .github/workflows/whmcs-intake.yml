@@ -11,6 +11,12 @@ name: WHMCS Intake (local)
 
 on:
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print the applicant records to the log without creating issues'
+        required: false
+        type: boolean
+        default: false
   schedule:
     - cron: '0 8 * * *' # Once a day at 08:00 UTC (avoid over-polling WHMCS)
 
@@ -59,11 +65,12 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           vault-name: ${{ vars.AZURE_KEY_VAULT_NAME }}
-          # Secret names default to the documented convention; override via vars.
+          # Defaults are the FFC vault's real secret names; override via vars.
+          # (WHMCS here authenticates with identifier + secret — there is no
+          # separate access-key secret.)
           secrets: |
-            WHMCS_API_IDENTIFIER=${{ vars.KV_SECRET_WHMCS_IDENTIFIER || 'whmcs-api-identifier' }}
-            WHMCS_API_SECRET=${{ vars.KV_SECRET_WHMCS_SECRET || 'whmcs-api-secret' }}
-            WHMCS_API_ACCESS_KEY=${{ vars.KV_SECRET_WHMCS_ACCESS_KEY || 'whmcs-api-access-key' }}
+            WHMCS_API_IDENTIFIER=${{ vars.KV_SECRET_WHMCS_IDENTIFIER || 'read-all-ffc-whmcs-api-identifier' }}
+            WHMCS_API_SECRET=${{ vars.KV_SECRET_WHMCS_SECRET || 'read-all-ffc-whmcs-api-secret' }}
 
       - name: Run WHMCS intake
         if: steps.guard.outputs.enabled == 'true'
@@ -72,7 +79,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           WHMCS_API_URL: ${{ vars.WHMCS_API_URL || 'https://freeforcharity.org/hub/includes/api.php' }}
-          # WHMCS_API_IDENTIFIER / _SECRET / _ACCESS_KEY come from Key Vault above.
+          # WHMCS_API_IDENTIFIER / _SECRET come from Key Vault above.
+          WHMCS_DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
 
       - name: Create Pull Request (state file)
         if: steps.guard.outputs.enabled == 'true'

@@ -186,12 +186,19 @@ async function main() {
     console.warn('WHMCS credentials not set (expected from Azure Key Vault). Skipping.')
     return
   }
+  const applications = await collect()
+  console.log(`WHMCS intake: ${applications.length} applicant(s) found.`)
+  // Dry run: print the PII-safe records and stop — no GitHub issues created.
+  // Used for validating the WHMCS path before relying on it (and exposed as a
+  // workflow_dispatch input).
+  if (process.env.WHMCS_DRY_RUN) {
+    console.log(JSON.stringify(applications, null, 2))
+    return
+  }
   if (!token) {
     console.warn('No GITHUB_TOKEN; cannot create issues. Skipping.')
     return
   }
-  const applications = await collect()
-  console.log(`WHMCS intake: ${applications.length} applicant(s) found.`)
   await syncIntakeIssues({ applications, repo, token, stateFile: STATE_FILE, source: 'WHMCS' })
 }
 

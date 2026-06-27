@@ -17,6 +17,15 @@ before setup. A `secrets.GH_PAT` still works as a fallback for the latter two.
 
 ## What you configure (one time)
 
+> **Validated against the live `kv-ffc-admin-prod-cbm` vault** (2026-06-27). The
+> default secret names below are the real ones in that vault; a
+> `read-all-ffc-azure-kv-reader-client-id` reader identity already exists — use
+> its client ID for `AZURE_CLIENT_ID`. The WHMCS secret slots currently hold
+> `PLACEHOLDER-SET-VIA-AZURE-PORTAL`; populate them with the real values before
+> running. **Also note:** the WHMCS API IP-restricts — the runner's egress IP
+> must be on the WHMCS API allow-list, or calls fail with `Invalid IP` (verify
+> GitHub-hosted runner ranges are allowed, or use a self-hosted runner).
+
 ### 1. An Entra identity with a federated credential
 
 Create an Entra **app registration** (or user-assigned managed identity) and add
@@ -38,31 +47,30 @@ get/list **access policy** if the vault uses the legacy access-policy model.
 
 ### 3. Store the secrets in the vault
 
-| Default secret name    | Holds                                           |
-| ---------------------- | ----------------------------------------------- |
-| `whmcs-api-identifier` | WHMCS API identifier                            |
-| `whmcs-api-secret`     | WHMCS API secret                                |
-| `whmcs-api-access-key` | WHMCS API access key (optional)                 |
-| `ffc-gh-pat`           | Cross-repo PAT (`repo`, `workflow`, `read:org`) |
+| Default secret name                 | Holds                                           |
+| ----------------------------------- | ----------------------------------------------- |
+| `read-all-ffc-whmcs-api-identifier` | WHMCS API identifier                            |
+| `read-all-ffc-whmcs-api-secret`     | WHMCS API secret                                |
+| `read-all-cbm-github-pat`           | Cross-repo PAT (`repo`, `workflow`, `read:org`) |
 
+WHMCS authenticates with identifier + secret only (no separate access key).
 Names are overridable — see the `KV_SECRET_*` variables below.
 
 ### 4. Set GitHub Actions **variables** (repo → Settings → Variables)
 
 These are non-secret identifiers, so they are **variables**, not secrets:
 
-| Variable                     | Required | Example / default                  |
-| ---------------------------- | -------- | ---------------------------------- |
-| `AZURE_CLIENT_ID`            | yes      | Entra app/identity client ID       |
-| `AZURE_TENANT_ID`            | yes      | Entra tenant ID                    |
-| `AZURE_SUBSCRIPTION_ID`      | yes      | Azure subscription ID              |
-| `AZURE_KEY_VAULT_NAME`       | yes      | Vault name, e.g. `ffc-kv`          |
-| `WHMCS_API_URL`              | no       | defaults to the FFC WHMCS endpoint |
-| `WHMCS_ONBOARDING_PIDS`      | no       | defaults to `16,33`                |
-| `KV_SECRET_WHMCS_IDENTIFIER` | no       | defaults to `whmcs-api-identifier` |
-| `KV_SECRET_WHMCS_SECRET`     | no       | defaults to `whmcs-api-secret`     |
-| `KV_SECRET_WHMCS_ACCESS_KEY` | no       | defaults to `whmcs-api-access-key` |
-| `KV_SECRET_GH_PAT`           | no       | defaults to `ffc-gh-pat`           |
+| Variable                     | Required | Example / default                               |
+| ---------------------------- | -------- | ----------------------------------------------- |
+| `AZURE_CLIENT_ID`            | yes      | Entra app/identity client ID                    |
+| `AZURE_TENANT_ID`            | yes      | Entra tenant ID                                 |
+| `AZURE_SUBSCRIPTION_ID`      | yes      | Azure subscription ID                           |
+| `AZURE_KEY_VAULT_NAME`       | yes      | Vault name, e.g. `ffc-kv`                       |
+| `WHMCS_API_URL`              | no       | defaults to the FFC WHMCS endpoint              |
+| `WHMCS_ONBOARDING_PIDS`      | no       | defaults to `16,33`                             |
+| `KV_SECRET_WHMCS_IDENTIFIER` | no       | defaults to `read-all-ffc-whmcs-api-identifier` |
+| `KV_SECRET_WHMCS_SECRET`     | no       | defaults to `read-all-ffc-whmcs-api-secret`     |
+| `KV_SECRET_GH_PAT`           | no       | defaults to `read-all-cbm-github-pat`           |
 
 Setting `AZURE_CLIENT_ID` + `AZURE_KEY_VAULT_NAME` is what flips the guards from
 "skip" to "run".
@@ -84,7 +92,7 @@ steps:
       subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       vault-name: ${{ vars.AZURE_KEY_VAULT_NAME }}
       secrets: |
-        WHMCS_API_SECRET=whmcs-api-secret
+        WHMCS_API_SECRET=read-all-ffc-whmcs-api-secret
   - run: node scripts/whmcs-applications.mjs # WHMCS_API_SECRET now in env
 ```
 
