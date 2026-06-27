@@ -39,6 +39,14 @@ body:
       placeholder: 12-3456789
     validations:
       required: false
+  - type: input
+    id: desired-domain
+    attributes:
+      label: Desired domain name
+      description: If you already have — or want — a specific apex domain, enter it here (e.g. example.org). Leave blank if you're unsure; an FFC admin will help you choose one. Used to provision your site once a sponsoring admin is assigned.
+      placeholder: example.org
+    validations:
+      required: false
   - type: dropdown
     id: service
     attributes:
