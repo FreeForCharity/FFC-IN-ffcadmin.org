@@ -256,7 +256,9 @@ export function parseIntakeIssue(body: string): ParsedIntake {
     existingWebsite: mapEnum(map.get('existing website') ?? '', WEBSITE, 'none'),
   })
 
-  const charityName = map.get('charity name') ?? 'Unnamed charity'
+  // Empty (not a placeholder) when absent, so callers can fall back to the
+  // issue title for stub issues rather than showing "Unnamed charity".
+  const charityName = map.get('charity name') ?? ''
   const missionStatement = map.get('brief mission') ?? map.get('mission statement') ?? ''
   const missionExcerpt =
     missionStatement.length > 180 ? `${missionStatement.slice(0, 177)}…` : missionStatement

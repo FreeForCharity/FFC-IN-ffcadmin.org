@@ -94,7 +94,7 @@ describe('parseIntakeIssue', () => {
 
   it('falls back to baseline on an empty body without throwing', () => {
     const { intake, charityName } = parseIntakeIssue('')
-    expect(charityName).toBe('Unnamed charity')
+    expect(charityName).toBe('')
     expect(intake.charityStage).toBe('non-pursuing')
   })
 

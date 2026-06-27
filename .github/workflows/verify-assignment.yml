@@ -45,20 +45,28 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           set -uo pipefail
-          # gh api returns the membership object (state: active) for members,
-          # or a 404 for non-members.
-          if gh api "orgs/${ORG}/teams/${TEAM}/memberships/${ASSIGNEE}" >/dev/null 2>&1; then
+          # Check team membership by explicit HTTP status: 200/204 = member,
+          # 404 = not a member. Any other code (rate limit, outage, perms) must
+          # NOT revert a valid assignment — we warn and leave the issue untouched.
+          code=$(curl -sS -o /dev/null -w '%{http_code}' \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/orgs/${ORG}/teams/${TEAM}/memberships/${ASSIGNEE}" || echo "000")
+          if [ "$code" = "200" ] || [ "$code" = "204" ]; then
             echo "${ASSIGNEE} is a verified sponsoring admin."
             # Remove the prior lifecycle status so only one status:* label
             # remains (the roadmap generator classifies by the status:* label).
             gh issue edit "$ISSUE" --repo "$REPO" \
               --add-label "verified-assignment,status:sponsored" \
               --remove-label "verified-admin-action-needed,status:intake,status:needs-info,status:needs-admin,status:on-hold,status:active-build,status:live,status:graduated" || true
-          else
+          elif [ "$code" = "404" ]; then
             echo "${ASSIGNEE} is NOT a sponsoring admin; reverting assignment."
             gh issue edit "$ISSUE" --repo "$REPO" \
               --remove-assignee "$ASSIGNEE" \
               --add-label "verified-admin-action-needed" || true
             gh issue comment "$ISSUE" --repo "$REPO" --body \
               "Thanks for your interest! Assignment is reserved for verified **sponsoring admins**. Please complete verification first — see https://ffcadmin.org/roadmap/sponsor — and we'll get you assigned."
+          else
+            echo "::warning::Team-membership check returned HTTP ${code} for ${ASSIGNEE}; leaving the assignment unchanged."
           fi
