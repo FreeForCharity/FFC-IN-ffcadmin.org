@@ -64,7 +64,7 @@ jobs:
           vault-name: ${{ vars.AZURE_KEY_VAULT_NAME }}
           # Export directly as GH_TOKEN so the dispatch step reads $GH_TOKEN at runtime.
           secrets: |
-            GH_TOKEN=${{ vars.KV_SECRET_GH_PAT || 'ffc-gh-pat' }}
+            GH_TOKEN=${{ vars.KV_SECRET_GH_PAT || 'read-all-cbm-github-pat' }}
 
       - name: Use GH PAT secret (fallback)
         if: steps.guard.outputs.enabled == 'true' && steps.guard.outputs.use_kv != 'true'
