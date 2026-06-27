@@ -20,6 +20,9 @@ verification:
   - `charity_title` — issue title (`[Intake] <charity name>`)
   - `issue_url` — link back to the FFCadmin issue
   - `sponsor` — assigned sponsoring admin's GitHub login
+  - `domain` — the applicant's desired apex domain from the intake form (may be
+    empty if left blank; the provision workflow should fall back to its `domain`
+    input / an admin prompt when empty)
 
 ## 2. Add the trigger to `15-website-provision.yml` (Cloudflare repo)
 
