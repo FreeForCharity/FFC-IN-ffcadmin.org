@@ -57,13 +57,22 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           vault-name: ${{ vars.AZURE_KEY_VAULT_NAME }}
+          # Export directly as GH_TOKEN so the check step reads $GH_TOKEN at runtime.
           secrets: |
-            GH_PAT=${{ vars.KV_SECRET_GH_PAT || 'ffc-gh-pat' }}
+            GH_TOKEN=${{ vars.KV_SECRET_GH_PAT || 'ffc-gh-pat' }}
+
+      - name: Use GH PAT secret (fallback)
+        if: steps.guard.outputs.enabled == 'true' && steps.guard.outputs.use_kv != 'true'
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: echo "GH_TOKEN=${GH_PAT}" >> "$GITHUB_ENV"
 
       - name: Check team membership and label
         if: steps.guard.outputs.enabled == 'true'
+        # GH_TOKEN comes from the job environment ($GITHUB_ENV): the Key Vault
+        # step or the secret-fallback step set it. No expression here, so the
+        # runtime value is always used.
         env:
-          GH_TOKEN: ${{ env.GH_PAT || secrets.GH_PAT }}
           ASSIGNEE: ${{ github.event.assignee.login }}
           ISSUE: ${{ github.event.issue.number }}
           REPO: ${{ github.repository }}

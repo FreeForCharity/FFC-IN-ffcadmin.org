@@ -17,7 +17,7 @@
  *
  * Run: node scripts/whmcs-applications.mjs
  */
-import { fileURLToPath } from 'url'
+import { fileURLToPath, pathToFileURL } from 'url'
 import { dirname, join } from 'path'
 import { syncIntakeIssues, errMsg } from './lib/intake-issues.mjs'
 
@@ -195,8 +195,10 @@ async function main() {
   await syncIntakeIssues({ applications, repo, token, stateFile: STATE_FILE, source: 'WHMCS' })
 }
 
-// Only run when invoked directly (not when imported by tests).
-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
+// Only run when invoked directly (not when imported by tests). pathToFileURL
+// normalizes the (possibly relative) argv path to a file:// URL, so this is
+// robust to `node scripts/whmcs-applications.mjs` as well as an absolute path.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err) => {
     console.warn(`WHMCS intake skipped: ${errMsg(err)}`)
   })

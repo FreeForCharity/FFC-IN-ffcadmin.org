@@ -52,9 +52,13 @@ runs:
           if [ -z "$env_name" ] || [ -z "$kv_name" ]; then
             echo "::error::Invalid mapping '$line' (expected ENV_VAR=secret-name)"; exit 1
           fi
-          value="$(az keyvault secret show --vault-name "$VAULT_NAME" --name "$kv_name" --query value -o tsv)"
+          # Handle the CLI exit status explicitly (the `if !` keeps `set -e` from
+          # aborting first) so a missing secret / no access yields a clear error.
+          if ! value="$(az keyvault secret show --vault-name "$VAULT_NAME" --name "$kv_name" --query value -o tsv 2>/dev/null)"; then
+            echo "::error::Could not read Key Vault secret '$kv_name' from '$VAULT_NAME' (missing, or the identity lacks 'Key Vault Secrets User')."; exit 1
+          fi
           if [ -z "$value" ]; then
-            echo "::error::Key Vault secret '$kv_name' is empty or not found in '$VAULT_NAME'."; exit 1
+            echo "::error::Key Vault secret '$kv_name' is empty in '$VAULT_NAME'."; exit 1
           fi
           # Mask before anything can echo it, then export via a heredoc so values
           # with special characters survive intact.
