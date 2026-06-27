@@ -83,7 +83,9 @@ async function gh(path, init = {}) {
 
 /** Idempotency across state resets: look for the application-id marker in a body. */
 async function issueExistsForId(id) {
-  const q = encodeURIComponent(`repo:${repo} is:issue label:kind:intake in:body "${ID_MARKER}: ${id}"`)
+  const q = encodeURIComponent(
+    `repo:${repo} is:issue label:kind:intake in:body "${ID_MARKER}: ${id}"`
+  )
   const result = await gh(`/search/issues?q=${q}`)
   return (result.total_count ?? 0) > 0
 }
