@@ -15,10 +15,10 @@ See `docs/program-plan.md` for the full program context.
 - [ ] **Grant the team access** to the private repo (write).
 - [ ] **Add Clarke + current verified admins** to the team.
 - [ ] **Create/append `FreeForCharity/.github/SECURITY.md`** (org-level fallback).
-- [ ] **Generate a Zeffy API key** from the Zeffy dashboard (free, read-only Beta).
-- [ ] **Note the Zeffy campaign id(s)** of the FFC charity-application form(s) for
-      `ZEFFY_INTAKE_CAMPAIGN_IDS` — this product-gates the sync so only applicants
-      (not donors/members) become intake stubs.
+- [ ] **Publish an applications feed from `FFC-Cloudflare-Automation`** — the repo
+      that owns the WHMCS/Zeffy flows extracts genuine applicants (product-gated,
+      PII-safe) and publishes `applications.json`. FFCadmin consumes it; it holds
+      no WHMCS/Zeffy credentials itself. See the contract in `docs/migration-plan.md`.
 - [ ] **Create/confirm a PAT** with scopes `repo`, `workflow`, `read:org`
       (`read:org` is required for the team-membership check).
 - [ ] **Define the `cloudflare-automation` Actions environment** in FFCadmin repo
@@ -32,16 +32,16 @@ Add these in the FFCadmin repo (Settings → Secrets and variables → Actions).
 program plan groups them under one `cloudflare-automation` environment (§15 #4);
 repo-level secrets also work.
 
-| Secret                      | Used by                                             | Scope / source                                                                                                                                                |
-| --------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GH_PAT`                    | `verify-assignment.yml`, `trigger-provisioning.yml` | PAT with `repo`, `workflow`, `read:org`                                                                                                                       |
-| `ZEFFY_API_KEY`             | `sync-from-zeffy.yml`                               | Zeffy dashboard → API key (read-only Beta)                                                                                                                    |
-| `ZEFFY_INTAKE_CAMPAIGN_IDS` | `sync-from-zeffy.yml`                               | Comma-separated Zeffy campaign id(s) for the FFC application form(s) — the **product gate**. Without it the sync does nothing (it never stubs every contact). |
-| `ZEFFY_FINGERPRINT_SALT`    | `sync-from-zeffy.yml`                               | Optional. Any random secret string; salts email dedup fingerprints. Falls back to `ZEFFY_API_KEY` if unset.                                                   |
+| Secret   | Used by                                             | Scope / source                          |
+| -------- | --------------------------------------------------- | --------------------------------------- |
+| `GH_PAT` | `verify-assignment.yml`, `trigger-provisioning.yml` | PAT with `repo`, `workflow`, `read:org` |
 
-`build-roadmap-data.yml` and the Zeffy state PR use the **built-in
-`GITHUB_TOKEN`** — no extra secret. Until `GH_PAT` / `ZEFFY_API_KEY` are set,
-those workflows emit a `::warning::` and exit successfully.
+FFCadmin holds **no WHMCS/Zeffy credentials**. The intake source is the
+applications feed published by `FFC-Cloudflare-Automation` (the repo with those
+flows); `sync-applications.yml` reads that public file and `build-roadmap-data.yml`
+both run on the **built-in `GITHUB_TOKEN`** — no extra secret. Until `GH_PAT` is
+set, `verify-assignment.yml` / `trigger-provisioning.yml` emit a `::warning::`
+and exit successfully.
 
 > **Security:** never paste a real token into a file, commit, or comment. Add
 > tokens only through GitHub's secrets UI. See `.claude/rules/01-security.md`.

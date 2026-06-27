@@ -65,8 +65,50 @@ email) are unchanged; only the trigger and input-resolution are added.
 See `docs/proposed-cloudflare-labels.yml` for label additions to PR into the
 Cloudflare repo so cross-repo automation can apply consistent labels.
 
-## 5. WHMCS note
+## 5. Applications feed (the roadmap intake source)
 
-None of the above depends on WHMCS. Provisioning uses Cloudflare's domain APIs
-directly. The existing `update-sites-data.yml` continues exporting legacy data
-until WHMCS is fully retired (program plan §13).
+FFCadmin holds no WHMCS/Zeffy credentials. The repo that owns those flows
+(`FFC-Cloudflare-Automation`) extracts genuine applicants and **publishes a
+PII-safe `applications.json`**, the same way it already publishes `sites-list`.
+FFCadmin's `sync-applications.yml` reads that public file daily and opens a
+`kind:intake` issue per new applicant; `build-roadmap-data.yml` then scores and
+renders them on the roadmap.
+
+**Where to publish:** a public raw path in the Cloudflare repo, e.g.
+`applications/applications.json` (override via the `APPLICATIONS_SRC_URL` repo
+variable on FFCadmin if you choose a different path).
+
+**Producer responsibilities (in the Cloudflare repo, where the access lives):**
+
+- **Product-gate upstream** — include only real charity applicants (the right
+  WHMCS product / Zeffy application form), never donors/members.
+- **Strip PII** — no raw emails or personal data. Provide a stable, non-PII
+  `id` (e.g. a hashed WHMCS client id) for dedup.
+
+**Schema:**
+
+```json
+{
+  "generatedAt": "2026-06-01T00:00:00Z",
+  "source": "whmcs",
+  "applications": [
+    {
+      "id": "whmcs-7f3a…", // stable, non-PII id (required)
+      "charityName": "Example Org", // required
+      "serviceTier": "Tier 2 — Domain + Microsoft 365", // optional
+      "status": "intake", // optional; one of the status:* values, default intake
+      "submittedAt": "2026-05-20" // optional
+    }
+  ]
+}
+```
+
+FFCadmin dedups on `id` (tracked in `automation/applications-sync-state.json`
+and via an `ffc-application-id` marker in each stub issue), so re-publishing the
+full list is safe and idempotent.
+
+## 6. WHMCS note
+
+Provisioning uses Cloudflare's domain APIs directly. The existing
+`update-sites-data.yml` continues exporting legacy data until WHMCS is fully
+retired (program plan §13).
