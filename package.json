@@ -62,13 +62,14 @@
     "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.18.1"
   },
   "packageManager": "pnpm@9.0.0",
   "pnpm": {
     "overrides": {
       "postcss@<8.5.10": ">=8.5.10",
-      "eslint-plugin-react-hooks": "7.0.1"
+      "eslint-plugin-react-hooks": "7.0.1",
+      "undici@>=7.0.0 <7.28.0": ">=7.28.0 <8.0.0"
     }
   },
   "lint-staged": {
