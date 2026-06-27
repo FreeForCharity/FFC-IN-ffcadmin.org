@@ -5,14 +5,17 @@ name: Trigger Provisioning
 # existing 15-website-provision.yml workflow can provision the site
 # (program plan §12). See docs/migration-plan.md for the Cloudflare-side snippet.
 #
-# GUARDED: requires a cross-repo PAT with repo + workflow scope (secrets.GH_PAT).
-# Skips cleanly until that secret exists.
+# GUARDED: needs a cross-repo PAT with repo + workflow scope. It is preferentially
+# pulled from Azure Key Vault via OIDC (set the AZURE_* variables); a
+# secrets.GH_PAT still works as a fallback. Skips cleanly until one exists. See
+# docs/azure-keyvault-setup.md.
 
 on:
   issues:
     types: [labeled]
 
 permissions:
+  id-token: write # Azure OIDC (when sourcing the PAT from Key Vault)
   issues: write
 
 env:
@@ -29,22 +32,52 @@ jobs:
       contains(github.event.issue.labels.*.name, 'kind:intake') &&
       github.event.issue.assignee != null
     steps:
-      - name: Guard on PAT availability
+      - name: Guard on credential availability
         id: guard
         env:
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          AZURE_KEY_VAULT_NAME: ${{ vars.AZURE_KEY_VAULT_NAME }}
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          if [ -n "$GH_PAT" ]; then
+          if [ -n "$AZURE_CLIENT_ID" ] && [ -n "$AZURE_KEY_VAULT_NAME" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "use_kv=true" >> "$GITHUB_OUTPUT"
+          elif [ -n "$GH_PAT" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "use_kv=false" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::secrets.GH_PAT not set; skipping provisioning dispatch until setup is complete."
+            echo "::warning::No GH PAT available (Key Vault or secret); skipping provisioning dispatch until setup is complete."
           fi
+
+      - name: Checkout repository
+        if: steps.guard.outputs.use_kv == 'true'
+        uses: actions/checkout@v6
+
+      - name: Load GH PAT from Key Vault
+        if: steps.guard.outputs.use_kv == 'true'
+        uses: ./.github/actions/azure-kv-secrets
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          vault-name: ${{ vars.AZURE_KEY_VAULT_NAME }}
+          # Export directly as GH_TOKEN so the dispatch step reads $GH_TOKEN at runtime.
+          secrets: |
+            GH_TOKEN=${{ vars.KV_SECRET_GH_PAT || 'ffc-gh-pat' }}
+
+      - name: Use GH PAT secret (fallback)
+        if: steps.guard.outputs.enabled == 'true' && steps.guard.outputs.use_kv != 'true'
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: echo "GH_TOKEN=${GH_PAT}" >> "$GITHUB_ENV"
 
       - name: Dispatch to Cloudflare automation
         if: steps.guard.outputs.enabled == 'true'
+        # GH_TOKEN comes from the job environment ($GITHUB_ENV): the Key Vault
+        # step or the secret-fallback step set it. No expression here, so the
+        # runtime value is always used.
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
           ISSUE: ${{ github.event.issue.number }}
           TITLE: ${{ github.event.issue.title }}
           ISSUE_URL: ${{ github.event.issue.html_url }}
