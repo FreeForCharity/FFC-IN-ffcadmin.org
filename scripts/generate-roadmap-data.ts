@@ -124,6 +124,10 @@ function toEntry(issue: GhIssue): RoadmapEntry {
       }
     : null
   const status = statusFor(issue)
+  // Attach a live URL whenever the body explicitly marks one (not only once
+  // labelled status:live), so the portfolio dedup below can suppress the
+  // matching domain even before the issue is flipped to live.
+  const liveUrl = liveUrlFrom(issue.body)
   return {
     issueNumber: issue.number,
     charityName: parsed.charityName || issue.title,
@@ -139,7 +143,7 @@ function toEntry(issue: GhIssue): RoadmapEntry {
     sponsor,
     plusOne: issue.reactions?.['+1'] ?? 0,
     issueUrl: issue.html_url,
-    ...(status === 'live' ? { liveUrl: liveUrlFrom(issue.body) } : {}),
+    ...(liveUrl ? { liveUrl } : {}),
   }
 }
 

@@ -238,14 +238,16 @@ function scoreDocuments(intake: IntakeData): ScoreCategory {
 
 function scoreIntegrations(intake: IntakeData): ScoreCategory {
   const creditable = new Set(INTEGRATIONS_BY_STAGE[intake.charityStage])
-  const counted = intake.integrations.filter((i) => creditable.has(i))
+  // Dedupe so a repeated entry can't inflate the score.
+  const counted = [...new Set(intake.integrations)].filter((i) => creditable.has(i))
   const lines = counted.map((i) => ({ label: i, points: INTEGRATION_POINTS_EACH }))
   return { key: 'integrations', label: 'External integrations', points: sum(lines), lines }
 }
 
 function scorePolicyPages(intake: IntakeData): ScoreCategory {
   const valid = new Set<string>(POLICY_PAGES)
-  const counted = intake.policyPages.filter((p) => valid.has(p))
+  // Dedupe so a repeated entry can't inflate the score.
+  const counted = [...new Set(intake.policyPages)].filter((p) => valid.has(p))
   const lines = counted.map((p) => ({ label: p, points: POLICY_POINTS_EACH }))
   return { key: 'policies', label: 'Policy pages', points: sum(lines), lines }
 }

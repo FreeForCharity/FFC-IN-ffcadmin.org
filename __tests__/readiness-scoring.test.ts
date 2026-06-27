@@ -47,6 +47,24 @@ describe('computeReadiness — floors and gates', () => {
     const essential = computeReadiness(emptyIntake({ missionCategory: 'essential' }))
     expect(essential.score - general.score).toBe(50)
   })
+
+  it('does not double-count duplicate integrations or policy pages', () => {
+    const once = computeReadiness(
+      emptyIntake({
+        charityStage: '501c3',
+        integrations: ['Zeffy'],
+        policyPages: ['Privacy Policy'],
+      })
+    )
+    const twice = computeReadiness(
+      emptyIntake({
+        charityStage: '501c3',
+        integrations: ['Zeffy', 'Zeffy'],
+        policyPages: ['Privacy Policy', 'Privacy Policy'],
+      })
+    )
+    expect(twice.score).toBe(once.score)
+  })
 })
 
 describe('per-person phone/email caps (§15 #14)', () => {
