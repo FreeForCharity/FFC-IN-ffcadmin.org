@@ -42,7 +42,14 @@ function fmt(points: number): string {
   return points > 0 ? `+${points}` : `${points}`
 }
 
-function PointTable({ rows }: { rows: { label: string; points: number }[] }) {
+function PointTable({
+  rows,
+  signed = true,
+}: {
+  rows: { label: string; points: number }[]
+  // Point deltas show a leading +/−; plain thresholds (e.g. tier lower bounds) don't.
+  signed?: boolean
+}) {
   return (
     <table className="mt-3 w-full border-collapse text-sm">
       <tbody>
@@ -50,7 +57,7 @@ function PointTable({ rows }: { rows: { label: string; points: number }[] }) {
           <tr key={row.label} className="border-b border-gray-100">
             <td className="py-1.5 pr-4 text-gray-700">{row.label}</td>
             <td className="py-1.5 text-right font-mono font-medium text-gray-900">
-              {fmt(row.points)}
+              {signed ? fmt(row.points) : row.points}
             </td>
           </tr>
         ))}
@@ -125,6 +132,7 @@ export default function MethodologyPage() {
         <section className="rounded-xl border border-gray-200 bg-white p-5">
           <h2 className="text-xl font-bold text-gray-900">Tier labels</h2>
           <PointTable
+            signed={false}
             rows={[...TIER_BOUNDARIES]
               .filter((t) => t.min !== -Infinity)
               .map((t) => ({ label: t.label, points: t.min }))}
