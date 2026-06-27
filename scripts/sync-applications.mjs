@@ -30,6 +30,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const STATE_FILE = join(__dirname, '..', 'automation', 'applications-sync-state.json')
 const ID_MARKER = 'ffc-application-id'
 
+/** Normalize a thrown value to a string — `err` isn't guaranteed to be an Error. */
+const errMsg = (err) => (err instanceof Error ? err.message : String(err))
+
 const repo = process.env.GITHUB_REPOSITORY || 'FreeForCharity/FFC-IN-ffcadmin.org'
 const ghToken = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
 const feedUrl =
@@ -130,7 +133,7 @@ async function main() {
   try {
     applications = await fetchApplications()
   } catch (err) {
-    console.warn(`Applications fetch failed: ${err.message}. Leaving state unchanged.`)
+    console.warn(`Applications fetch failed: ${errMsg(err)}. Leaving state unchanged.`)
     return
   }
 
@@ -157,7 +160,7 @@ async function main() {
       changed = true
       created++
     } catch (err) {
-      console.warn(`Skipping application ${id}: ${err.message}`)
+      console.warn(`Skipping application ${id}: ${errMsg(err)}`)
     }
   }
 
@@ -170,5 +173,5 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.warn(`Applications sync skipped: ${err instanceof Error ? err.message : String(err)}`)
+  console.warn(`Applications sync skipped: ${errMsg(err)}`)
 })
