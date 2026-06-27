@@ -367,10 +367,14 @@ export default function MethodologyPage() {
         <section className="rounded-xl border border-gray-200 bg-white p-5">
           <h2 className="text-xl font-bold text-gray-900">Time-in-status decay</h2>
           <p className="mt-2 text-sm text-gray-700">
-            Charities that submit and then stall gradually lose points (−2 per month past the
-            expected window for a milestone, capped at the points originally earned). Keeping your
-            issue updated as you progress avoids decay entirely. This rewards momentum without ever
-            removing a charity from the queue.
+            The model also has a decay rule for charities that submit and then stall: −2 points per
+            month past the expected window for a milestone, capped at the points originally earned.
+            Keeping your issue updated as you progress avoids decay entirely. It rewards momentum
+            without ever removing a charity from the queue.
+          </p>
+          <p className="mt-2 text-sm text-gray-500">
+            Decay is part of the scoring model and applies to intake issues as milestone tracking
+            comes online; it is not applied to the current live-site listings.
           </p>
         </section>
 

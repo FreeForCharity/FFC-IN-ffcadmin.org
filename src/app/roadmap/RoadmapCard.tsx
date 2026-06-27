@@ -59,12 +59,19 @@ export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
   return (
     <article className={`flex flex-col rounded-xl border ${accent} bg-white p-5 shadow-sm`}>
       <div className="mb-2 flex flex-wrap gap-1.5">
-        <Badge className={stage.className}>{stage.label}</Badge>
-        <Badge className={mission.className}>{mission.label}</Badge>
         {entry.readinessTier ? (
-          <Badge className={TIER_BADGE[entry.readinessTier]}>{entry.readinessTier}</Badge>
+          <>
+            <Badge className={stage.className}>{stage.label}</Badge>
+            <Badge className={mission.className}>{mission.label}</Badge>
+            <Badge className={TIER_BADGE[entry.readinessTier]}>{entry.readinessTier}</Badge>
+          </>
         ) : (
-          <Badge className="bg-gray-100 text-gray-500">Readiness pending</Badge>
+          // Portfolio entry: stage/mission are placeholders until intake, so we
+          // show only what we actually know rather than asserting them.
+          <>
+            <Badge className="bg-emerald-100 text-emerald-800">Live site</Badge>
+            <Badge className="bg-gray-100 text-gray-500">Readiness pending</Badge>
+          </>
         )}
       </div>
 
@@ -134,14 +141,18 @@ export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
               Sponsor this site
             </a>
           ) : (
-            <a
-              href={entry.issueUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-blue-700 hover:text-blue-900"
-            >
-              {section === 'active' ? 'Follow progress' : 'View on GitHub'} ↗
-            </a>
+            // Only link to GitHub for entries backed by a real issue; portfolio
+            // entries have no issue (issueUrl is the site), so "Visit site" suffices.
+            entry.issueNumber > 0 && (
+              <a
+                href={entry.issueUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-700 hover:text-blue-900"
+              >
+                {section === 'active' ? 'Follow progress' : 'View on GitHub'} ↗
+              </a>
+            )
           )}
         </div>
       </div>
