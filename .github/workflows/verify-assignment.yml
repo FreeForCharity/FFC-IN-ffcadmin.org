@@ -5,14 +5,17 @@ name: Verify Assignment
 # Verified -> applies `verified-assignment`. Unverified -> removes the
 # assignment and explains how to become a sponsoring admin.
 #
-# GUARDED: requires a PAT with read:org (secrets.GH_PAT). Until that secret
-# exists the workflow skips cleanly, so CI stays green before setup is complete.
+# GUARDED: needs a PAT with read:org. It is preferentially pulled from Azure Key
+# Vault via OIDC (set the AZURE_* variables); a secrets.GH_PAT still works as a
+# fallback. Until one exists the workflow skips cleanly, so CI stays green before
+# setup is complete. See docs/azure-keyvault-setup.md.
 
 on:
   issues:
     types: [assigned]
 
 permissions:
+  id-token: write # Azure OIDC (when sourcing the PAT from Key Vault)
   issues: write
 
 env:
@@ -24,22 +27,43 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.issue.labels.*.name, 'kind:intake')
     steps:
-      - name: Guard on PAT availability
+      - name: Guard on credential availability
         id: guard
         env:
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          AZURE_KEY_VAULT_NAME: ${{ vars.AZURE_KEY_VAULT_NAME }}
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          if [ -n "$GH_PAT" ]; then
+          if [ -n "$AZURE_CLIENT_ID" ] && [ -n "$AZURE_KEY_VAULT_NAME" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "use_kv=true" >> "$GITHUB_OUTPUT"
+          elif [ -n "$GH_PAT" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "use_kv=false" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::secrets.GH_PAT not set; skipping assignment verification until setup is complete."
+            echo "::warning::No GH PAT available (Key Vault or secret); skipping assignment verification until setup is complete."
           fi
+
+      - name: Checkout repository
+        if: steps.guard.outputs.use_kv == 'true'
+        uses: actions/checkout@v6
+
+      - name: Load GH PAT from Key Vault
+        if: steps.guard.outputs.use_kv == 'true'
+        uses: ./.github/actions/azure-kv-secrets
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          vault-name: ${{ vars.AZURE_KEY_VAULT_NAME }}
+          secrets: |
+            GH_PAT=${{ vars.KV_SECRET_GH_PAT || 'ffc-gh-pat' }}
 
       - name: Check team membership and label
         if: steps.guard.outputs.enabled == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ env.GH_PAT || secrets.GH_PAT }}
           ASSIGNEE: ${{ github.event.assignee.login }}
           ISSUE: ${{ github.event.issue.number }}
           REPO: ${{ github.repository }}

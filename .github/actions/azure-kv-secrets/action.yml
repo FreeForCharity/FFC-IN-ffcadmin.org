@@ -1,0 +1,68 @@
+name: 'Azure Key Vault secrets'
+description: >-
+  Log in to Azure with GitHub OIDC (no stored credential) and load named Key
+  Vault secrets into masked environment variables for later steps in the job.
+
+inputs:
+  client-id:
+    description: 'Entra application (client) ID of the federated identity.'
+    required: true
+  tenant-id:
+    description: 'Entra tenant ID.'
+    required: true
+  subscription-id:
+    description: 'Azure subscription ID.'
+    required: true
+  vault-name:
+    description: 'Key Vault name (not the full URL).'
+    required: true
+  secrets:
+    description: >-
+      Newline-separated `ENV_VAR=key-vault-secret-name` mappings. Each named
+      secret is fetched and exported as the given (masked) environment variable.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Azure login (OIDC)
+      uses: azure/login@v2
+      with:
+        client-id: ${{ inputs.client-id }}
+        tenant-id: ${{ inputs.tenant-id }}
+        subscription-id: ${{ inputs.subscription-id }}
+
+    - name: Load secrets from Key Vault
+      shell: bash
+      env:
+        VAULT_NAME: ${{ inputs.vault-name }}
+        SECRET_MAP: ${{ inputs.secrets }}
+      run: |
+        set -euo pipefail
+        while IFS= read -r line; do
+          # Trim surrounding whitespace; skip blank lines.
+          line="$(printf '%s' "$line" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"
+          [ -z "$line" ] && continue
+          case "$line" in
+            *=*) : ;;
+            *) echo "::error::Invalid mapping '$line' (expected ENV_VAR=secret-name)"; exit 1 ;;
+          esac
+          env_name="${line%%=*}"
+          kv_name="${line#*=}"
+          if [ -z "$env_name" ] || [ -z "$kv_name" ]; then
+            echo "::error::Invalid mapping '$line' (expected ENV_VAR=secret-name)"; exit 1
+          fi
+          value="$(az keyvault secret show --vault-name "$VAULT_NAME" --name "$kv_name" --query value -o tsv)"
+          if [ -z "$value" ]; then
+            echo "::error::Key Vault secret '$kv_name' is empty or not found in '$VAULT_NAME'."; exit 1
+          fi
+          # Mask before anything can echo it, then export via a heredoc so values
+          # with special characters survive intact.
+          echo "::add-mask::$value"
+          {
+            printf '%s<<__KV_SECRET_EOF__\n' "$env_name"
+            printf '%s\n' "$value"
+            printf '__KV_SECRET_EOF__\n'
+          } >> "$GITHUB_ENV"
+          echo "Loaded '$kv_name' -> \$$env_name (masked)."
+        done <<< "$SECRET_MAP"
