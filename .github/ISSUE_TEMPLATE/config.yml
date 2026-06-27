@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Apply via Zeffy (front door)
+    url: https://ffcadmin.org/roadmap/submit
+    about: New charities start here — apply for FFC service and pick a service product.
+  - name: Security or sensitive report
+    url: https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/SECURITY.md
+    about: Never file security or sensitive details in a public issue. Use this private channel.
+  - name: Talk to a human
+    url: https://ffcadmin.org/roadmap/submit
+    about: Not comfortable with GitHub? Text 520-222-8104 and an FFC admin will help.

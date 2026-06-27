@@ -348,4 +348,47 @@ describe('Route Generation Tests', () => {
       }
     })
   })
+
+  describe('Roadmap & Intake-Help Route Generation', () => {
+    const roadmapRoutes = ['roadmap', 'roadmap/submit', 'roadmap/sponsor', 'roadmap/methodology']
+    const intakeHelpSlugs = [
+      'mission-statement',
+      'getting-501c3',
+      'board-requirements',
+      'public-contact-info',
+      'mailing-address',
+      'social-media',
+      'guidestar-candid',
+      '501c3-application',
+      'fiscal-sponsorship',
+      'policy-pages',
+      'supporting-documents',
+    ]
+
+    it('generates index.html for the roadmap pages with self-canonicals', () => {
+      for (const route of roadmapRoutes) {
+        const p = path.join(outDir, route, 'index.html')
+        expect(fs.existsSync(p)).toBe(true)
+        if (fs.existsSync(p)) {
+          const content = fs.readFileSync(p, 'utf-8')
+          expect(content).toContain(`<link rel="canonical" href="https://ffcadmin.org/${route}/"/>`)
+        }
+      }
+    })
+
+    it('generates the intake-help hub and every leaf with self-canonicals', () => {
+      const hub = path.join(outDir, 'intake-help', 'index.html')
+      expect(fs.existsSync(hub)).toBe(true)
+      for (const slug of intakeHelpSlugs) {
+        const p = path.join(outDir, 'intake-help', slug, 'index.html')
+        expect(fs.existsSync(p)).toBe(true)
+        if (fs.existsSync(p)) {
+          const content = fs.readFileSync(p, 'utf-8')
+          expect(content).toContain(
+            `<link rel="canonical" href="https://ffcadmin.org/intake-help/${slug}/"/>`
+          )
+        }
+      }
+    })
+  })
 })

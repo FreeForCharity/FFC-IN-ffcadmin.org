@@ -132,6 +132,27 @@ We use the following criteria to assess vulnerability severity:
 - **Medium**: Security issues with limited scope or requiring user interaction
 - **Low**: Minor security concerns with minimal impact
 
+## Charity Intake & Escalation Disclosure
+
+FFC runs a public roadmap and structured charity intake (see
+[`docs/program-plan.md`](docs/program-plan.md)). Two rules protect charities and
+their people:
+
+- **Public issues are public.** The charity intake and escalation issue forms
+  live in `.github/ISSUE_TEMPLATE/`. **Never** include in a public issue:
+  credentials or API tokens, donor or beneficiary personal data, charity bank or
+  financial account details, or security vulnerability specifics. The escalation
+  form carries an inline warning to this effect.
+- **Sensitive matters use a private channel.** Security, abuse, charity disputes,
+  and anything that could harm a charity if disclosed go to the private
+  coordination repo (`FFC-IN-ffcadmin-private`, verified admins only) or directly
+  to FFC central by text at **520-222-8104** — not to a public issue. See
+  [`docs/private-repo-setup.md`](docs/private-repo-setup.md).
+
+Sponsoring admins who hit something exceeding their scope should escalate via the
+escalation template (non-sensitive) or the private channel (sensitive), per the
+[sponsor commitment](https://ffcadmin.org/roadmap/sponsor).
+
 ## Security Update Policy
 
 ### Dependency Updates

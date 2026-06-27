@@ -1,0 +1,18 @@
+# Proposed label additions for FreeForCharity/FFC-Cloudflare-Automation.
+#
+# NOT applied from this repo. Clarke (or a Cloudflare-repo maintainer) reviews
+# and PRs these into that repo so cross-repo automation can apply consistent
+# labels when provisioning is triggered from FFCadmin (program plan §12, §17).
+
+- name: 'source:ffcadmin'
+  color: '0e8a16'
+  description: Created/triggered by FFCadmin cross-repo automation
+- name: 'provision:requested'
+  color: '1d76db'
+  description: Provisioning requested via ffcadmin-website-provision dispatch
+- name: 'provision:in-progress'
+  color: 'fbca04'
+  description: Site provisioning underway
+- name: 'provision:done'
+  color: '0e8a16'
+  description: Provisioning complete; reported back to FFCadmin

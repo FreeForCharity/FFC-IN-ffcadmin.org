@@ -82,7 +82,7 @@ describe('Configuration Validation Tests', () => {
     it('should include correct file patterns for JS/TS files', () => {
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
       const lintStaged = packageJson['lint-staged']
-      expect(lintStaged['*.{js,jsx,ts,tsx}']).toBeDefined()
+      expect(lintStaged['*.{js,mjs,jsx,ts,tsx}']).toBeDefined()
     })
 
     it('should include correct file patterns for JSON/MD/CSS files', () => {
@@ -93,7 +93,7 @@ describe('Configuration Validation Tests', () => {
 
     it('should run prettier before eslint for JS/TS files', () => {
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
-      const commands = packageJson['lint-staged']['*.{js,jsx,ts,tsx}']
+      const commands = packageJson['lint-staged']['*.{js,mjs,jsx,ts,tsx}']
       expect(commands).toBeInstanceOf(Array)
       expect(commands.length).toBeGreaterThanOrEqual(2)
       // Prettier should come before ESLint (format before lint)

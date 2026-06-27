@@ -15,6 +15,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "check-links": "linkinator ./out --config .linkinatorrc.json",
+    "data:roadmap": "tsx scripts/generate-roadmap-data.ts",
     "analyze": "ANALYZE=true pnpm build",
     "test:e2e": "playwright test",
     "prepare": "husky"
@@ -37,6 +38,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^25.9.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
@@ -56,6 +58,7 @@
     "prettier": "^3.8.3",
     "serve": "^14.2.6",
     "tailwindcss": "^4.3.0",
+    "tsx": "^4.22.4",
     "typescript": "^5.9.3"
   },
   "engines": {
@@ -69,7 +72,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*.{js,mjs,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --fix"
     ],
