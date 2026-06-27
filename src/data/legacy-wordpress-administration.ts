@@ -210,7 +210,7 @@ export const LEGACY_WP_ADMIN_PAGES: LegacyWpAdminPage[] = [
     title: "Free For Charity's Tools for Success",
     shortLabel: 'Tools for Success',
     summary:
-      'The full toolset (productivity, design, communication, finance) FFC issues to partner charities and volunteers — also a core part of charity onboarding.',
+      'The full toolset (productivity, design, communication, finance) FFC issues to supported charities and volunteers — also a core part of charity onboarding.',
     category: 'reference',
     publicSourceUrl: 'https://freeforcharity.org/free-for-charitys-tools-for-success/',
   },

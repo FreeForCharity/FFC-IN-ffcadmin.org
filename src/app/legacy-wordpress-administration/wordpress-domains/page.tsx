@@ -96,7 +96,7 @@ export default function Page() {
         }))}
       />
       <p>
-        FFC issues free .org domains to validated partner charities through its eNom Platinum
+        FFC issues free .org domains to validated supported charities through its eNom Platinum
         reseller account. This page covers <strong>two scenarios in equal depth</strong>:
         <strong> registering a new .org</strong> (the dominant flow) and{' '}
         <strong>transferring an existing domain</strong> from another registrar (the gotcha-heavy

@@ -35,7 +35,7 @@ const stages: Stage[] = [
     description:
       'Charity discovers FFC and completes account setup through the WHMCS portal by selecting the "Charity Onboarding & Validation" product. Intake form is submitted at no cost.',
     exitGate:
-      'WHMCS account exists, intake form is fully completed, charity has acknowledged the FFC AUP.',
+      'WHMCS account exists, intake form is fully completed, charity has acknowledged the FFC Terms of Service.',
     blockerHandling:
       'Missing fields → reply with the specific gaps. International charities → polite decline, US-only restriction.',
     ownerRole: 'Intake Volunteer',

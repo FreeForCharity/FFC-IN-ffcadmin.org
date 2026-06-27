@@ -153,7 +153,7 @@ export const operateMenu: NavMenu = {
         {
           label: 'Legacy WP Admin',
           href: '/legacy-wordpress-administration',
-          description: 'WordPress-era operations, SOPs, and procedures for partner charities.',
+          description: 'WordPress-era operations, SOPs, and procedures for supported charities.',
         },
       ],
     },

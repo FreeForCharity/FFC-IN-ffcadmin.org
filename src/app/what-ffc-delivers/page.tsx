@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import ExpectationsCallout from '@/components/ExpectationsCallout'
 
 export const metadata: Metadata = {
   title: 'What FFC Delivers',
   description:
-    'What Free For Charity provides to partner 501(c)(3) nonprofits — a free website, domain, Microsoft 365 / Google Workspace, and analytics setup — what is included, what is out of scope, and the simple expectation in return. (Draft for review.)',
+    'What Free For Charity provides to supported 501(c)(3) nonprofits — a free website, domain, Microsoft 365 / Google Workspace, and analytics setup — what is included, what is out of scope, and the simple expectation in return.',
   keywords:
     'Free For Charity delivery, what FFC provides, free nonprofit website, free charity domain, Microsoft 365 nonprofit, sponsorship, FFC inclusions',
   alternates: {
@@ -61,12 +62,6 @@ export default function WhatFfcDeliversPage() {
       </div>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded mb-8 text-sm text-amber-900">
-          <strong>Draft for review.</strong> This page describes FFC&apos;s delivery model as it
-          operates today. The FFC founder should confirm the exact inclusions and any sponsorship
-          tiers before this is treated as a formal commitment.
-        </div>
-
         {/* Included */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">What&apos;s included</h2>
@@ -94,13 +89,11 @@ export default function WhatFfcDeliversPage() {
         </section>
 
         {/* In return */}
-        <section className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">What we ask in return</h2>
-          <p className="text-gray-700 text-sm">
-            FFC is donor- and volunteer-funded. In return for free technology, partner charities are
-            asked to <strong>credit Free For Charity</strong> (a small footer acknowledgment and,
-            where appropriate, a link back) and to help spread the word so other nonprofits can
-            benefit. There is no fee.
+        <section className="mb-8">
+          <ExpectationsCallout audience="charity" />
+          <p className="text-gray-600 text-sm mt-3">
+            FFC is donor- and volunteer-funded, so there is no fee — we simply ask that you help
+            spread the word so other nonprofits can benefit too.
           </p>
         </section>
 

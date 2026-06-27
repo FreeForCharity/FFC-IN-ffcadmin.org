@@ -82,7 +82,7 @@ export default function Page() {
     <LeafPageShell page={page}>
       <p>
         Candid (formerly GuideStar) is the canonical public registry for US nonprofits. Every FFC
-        partner charity maintains an active Candid profile, and FFC volunteer admins help them
+        supported charity maintains an active Candid profile, and FFC volunteer admins help them
         progress through the four transparency seals — Bronze, Silver, Gold, Platinum. This page is
         the operations-team runbook for that process.
       </p>

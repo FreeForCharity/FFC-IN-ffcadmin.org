@@ -113,7 +113,7 @@ const layers: Layer[] = [
     vendor: 'Microsoft 365 (Tenant: freeforcharity.onmicrosoft.com)',
     metaphor: 'The post office.',
     responsibility:
-      'Mailbox, calendar, and Teams services for FFC staff and partner-charity contacts. Separate trust boundary from the WordPress install — the WP server does not relay mail.',
+      'Mailbox, calendar, and Teams services for FFC staff and supported-charity contacts. Separate trust boundary from the WordPress install — the WP server does not relay mail.',
     escalationOrder: [
       'Microsoft 365 admin centre for tenant issues.',
       'FFC Global Admin for licence assignments and tenant-level requests.',

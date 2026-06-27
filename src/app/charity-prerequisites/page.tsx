@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import ExpectationsCallout from '@/components/ExpectationsCallout'
 import { getSetupGuide } from '@/data/setup-guides'
 
 export const metadata: Metadata = {
@@ -213,13 +214,25 @@ export default function CharityPrerequisitesPage() {
         </section>
 
         {/* Step 4: Apply */}
+        {/* What we ask in return */}
+        <section className="mb-12">
+          <ExpectationsCallout audience="charity" />
+        </section>
+
         <section className="mb-12">
           <div className="bg-white rounded-xl shadow-lg border border-gray-200 border-l-4 border-l-emerald-500 p-6 md:p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">4. Apply</h2>
             <p className="text-gray-700 text-sm mb-5 max-w-3xl">
               Most charities find and apply to Free For Charity on the main{' '}
               <strong>freeforcharity.org</strong> website. Start there — the team will guide you
-              into the rest of onboarding.
+              into the rest of onboarding. By applying, you agree to the{' '}
+              <Link
+                href="/terms-of-service#section-18"
+                className="text-blue-700 underline hover:text-blue-900"
+              >
+                Terms of Service
+              </Link>{' '}
+              (Section 18 covers supported charities, including the full-stack commitment).
             </p>
             <div className="flex flex-wrap gap-3">
               <a

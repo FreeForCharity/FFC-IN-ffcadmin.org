@@ -37,11 +37,12 @@ You have full terminal access via the Bash tool. Use it for all CLI operations.
 Run these in order before committing:
 
 ```bash
-pnpm run format    # Fix formatting
-pnpm run lint      # Check for lint errors
-pnpm run build     # Verify static export
-pnpm test          # Run unit tests (build first; some tests check build output)
-pnpm run test:e2e  # Run E2E tests
+pnpm run format      # Fix formatting
+pnpm run lint        # Check for lint errors
+pnpm run type-check  # Verify TypeScript types (CI runs this)
+pnpm run build       # Verify static export
+pnpm test            # Run unit tests (build first; some tests check build output)
+pnpm run test:e2e    # Run E2E tests
 ```
 
 If any step fails, fix the issue and re-run from that step forward.

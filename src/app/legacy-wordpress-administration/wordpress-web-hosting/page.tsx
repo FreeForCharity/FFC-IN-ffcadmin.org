@@ -119,7 +119,7 @@ export default function Page() {
   return (
     <LeafPageShell page={page}>
       <p>
-        FFC operates WordPress hosting for partner charities across two active hosts (Hostinger,
+        FFC operates WordPress hosting for supported charities across two active hosts (Hostinger,
         InterServer) and two legacy hosts (HostPapa, older InterServer RS1 boxes). This page is the
         operations-team reference for provisioning, monitoring, migrating, and eventually retiring
         those accounts.
