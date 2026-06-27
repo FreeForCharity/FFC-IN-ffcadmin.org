@@ -55,13 +55,15 @@ jobs:
           set -uo pipefail
           # Extract the optional "Desired domain name" the applicant supplied, so
           # the Cloudflare provision workflow can read client_payload.domain.
-          # Issue-form bodies are "### Label\n\nvalue" blocks; pull the value
-          # under that heading, dropping the "_No response_" placeholder.
-          DOMAIN=$(printf '%s\n' "$BODY" \
-            | sed -n '/^### Desired domain name[[:space:]]*$/,/^### /p' \
-            | sed '1d;/^### /d' \
-            | grep -v '^[[:space:]]*$' | head -1 \
-            | tr -d '[:space:]')
+          # Issue-form bodies are "### Label\n\nvalue" blocks; an awk state
+          # machine starts capturing AFTER the heading and stops at the next one,
+          # printing the first non-empty value line.
+          DOMAIN=$(printf '%s\n' "$BODY" | awk '
+            /^### Desired domain name[[:space:]]*$/ { capture = 1; next }
+            /^### / { capture = 0 }
+            capture && NF { print; exit }
+          ' | tr -d '[:space:]')
+          # Drop the "_No response_" placeholder GitHub inserts for blank fields.
           if printf '%s' "$DOMAIN" | grep -qiE '^_no.?response_$'; then DOMAIN=""; fi
           gh api "repos/${TARGET_REPO}/dispatches" \
             -f "event_type=${EVENT_TYPE}" \
