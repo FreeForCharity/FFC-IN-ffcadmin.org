@@ -115,20 +115,27 @@ function decodeEntities(s) {
   // abort the run — leave it untouched if fromCodePoint can't handle it.
   const codePoint = (m, n, radix) => {
     try {
-      return String.fromCodePoint(parseInt(n, radix))
+      const cp = parseInt(n, radix)
+      // Never decode to raw angle brackets — this text is interpolated into
+      // GitHub issue titles/bodies, so keep < / > entity-encoded to avoid
+      // HTML/markdown injection from applicant-controlled input.
+      if (cp === 0x3c || cp === 0x3e) return m
+      return String.fromCodePoint(cp)
     } catch {
       return m
     }
   }
-  return String(s)
-    .replace(/&#(\d+);/g, (m, n) => codePoint(m, n, 10))
-    .replace(/&#x([0-9a-fA-F]+);/g, (m, n) => codePoint(m, n, 16))
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&apos;/g, "'")
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
+  return (
+    String(s)
+      .replace(/&#(\d+);/g, (m, n) => codePoint(m, n, 10))
+      .replace(/&#x([0-9a-fA-F]+);/g, (m, n) => codePoint(m, n, 16))
+      // Intentionally do NOT decode &lt; / &gt; — keep angle brackets encoded
+      // (see codePoint note above) so untrusted text can't inject markup.
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;/g, "'")
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+  )
 }
 
 function isoDate(raw) {

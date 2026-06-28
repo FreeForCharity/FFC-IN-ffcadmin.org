@@ -75,6 +75,23 @@ describe('buildApplicationRecords', () => {
     expect(app.missionExcerpt).toBe('Health & hope for "all"')
   })
 
+  it('keeps angle brackets entity-encoded (no markup injection)', () => {
+    const byClient = new Map([
+      [
+        '8',
+        {
+          clientId: '8',
+          pid: '16',
+          company: 'Safe Org',
+          mission: '&lt;script&gt;x&lt;/script&gt; &#60;b&#62; &#x3c;i&#x3e;',
+        },
+      ],
+    ])
+    const [app] = buildApplicationRecords(byClient)
+    expect(app.missionExcerpt).not.toMatch(/[<>]/)
+    expect(app.missionExcerpt).toContain('&lt;')
+  })
+
   it('prefers the 501c3 tier label and truncates a long mission', () => {
     const longMission = 'A'.repeat(500)
     const byClient = new Map([
