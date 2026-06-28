@@ -11,8 +11,12 @@ inputs:
     description: 'Entra tenant ID.'
     required: true
   subscription-id:
-    description: 'Azure subscription ID.'
-    required: true
+    description: >-
+      Azure subscription ID (optional). The KV-reader identity often has only
+      data-plane access to the vault and no subscription RBAC, so login uses
+      allow-no-subscriptions and does not require this.
+    required: false
+    default: ''
   vault-name:
     description: 'Key Vault name (not the full URL).'
     required: true
@@ -25,12 +29,26 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Azure login (OIDC)
-      uses: azure/login@v2
+    # Two conditional logins so an empty subscription-id is genuinely omitted
+    # rather than passed as "" (which azure/login could treat as a real value).
+    # allow-no-subscriptions lets a KV-reader identity with only vault data-plane
+    # access (no subscription RBAC) log in successfully.
+    - name: Azure login (OIDC, with subscription)
+      if: inputs.subscription-id != ''
+      uses: azure/login@v3
       with:
         client-id: ${{ inputs.client-id }}
         tenant-id: ${{ inputs.tenant-id }}
         subscription-id: ${{ inputs.subscription-id }}
+        allow-no-subscriptions: true
+
+    - name: Azure login (OIDC, no subscription)
+      if: inputs.subscription-id == ''
+      uses: azure/login@v3
+      with:
+        client-id: ${{ inputs.client-id }}
+        tenant-id: ${{ inputs.tenant-id }}
+        allow-no-subscriptions: true
 
     - name: Load secrets from Key Vault
       shell: bash
