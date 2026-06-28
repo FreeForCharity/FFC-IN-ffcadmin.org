@@ -22,9 +22,13 @@ before setup. A `secrets.GH_PAT` still works as a fallback for the latter two.
 > `read-all-ffc-azure-kv-reader-client-id` reader identity already exists — use
 > its client ID for `AZURE_CLIENT_ID`. The WHMCS secret slots currently hold
 > `PLACEHOLDER-SET-VIA-AZURE-PORTAL`; populate them with the real values before
-> running. **Also note:** the WHMCS API IP-restricts — the runner's egress IP
-> must be on the WHMCS API allow-list, or calls fail with `Invalid IP` (verify
-> GitHub-hosted runner ranges are allowed, or use a self-hosted runner).
+> running. **WHMCS IP restriction:** GitHub runner IPs are dynamic and rejected
+> with `Invalid IP`, so `whmcs-intake.yml` routes WHMCS calls through the FFC
+> **APIM gateway** (`https://apim-ffc-gateway-prod.azure-api.net/whmcs/api.php`,
+> static egress IP `20.231.116.111` — the one IP WHMCS allow-lists). This mirrors
+> `FFC-Cloudflare-Automation`'s `docs/whmcs-apim-routing.md`; no per-repo IP work
+> is needed (it also requires WHMCS **Proxy IP Header = `CF-Connecting-IP`**,
+> configured once on the WHMCS side).
 
 ### 1. An Entra identity with a federated credential
 
@@ -60,17 +64,17 @@ Names are overridable — see the `KV_SECRET_*` variables below.
 
 These are non-secret identifiers, so they are **variables**, not secrets:
 
-| Variable                     | Required | Example / default                               |
-| ---------------------------- | -------- | ----------------------------------------------- |
-| `AZURE_CLIENT_ID`            | yes      | Entra app/identity client ID                    |
-| `AZURE_TENANT_ID`            | yes      | Entra tenant ID                                 |
-| `AZURE_SUBSCRIPTION_ID`      | yes      | Azure subscription ID                           |
-| `AZURE_KEY_VAULT_NAME`       | yes      | Vault name, e.g. `ffc-kv`                       |
-| `WHMCS_API_URL`              | no       | defaults to the FFC WHMCS endpoint              |
-| `WHMCS_ONBOARDING_PIDS`      | no       | defaults to `16,33`                             |
-| `KV_SECRET_WHMCS_IDENTIFIER` | no       | defaults to `read-all-ffc-whmcs-api-identifier` |
-| `KV_SECRET_WHMCS_SECRET`     | no       | defaults to `read-all-ffc-whmcs-api-secret`     |
-| `KV_SECRET_GH_PAT`           | no       | defaults to `read-all-cbm-github-pat`           |
+| Variable                     | Required | Example / default                                    |
+| ---------------------------- | -------- | ---------------------------------------------------- |
+| `AZURE_CLIENT_ID`            | yes      | Entra app/identity client ID                         |
+| `AZURE_TENANT_ID`            | yes      | Entra tenant ID                                      |
+| `AZURE_SUBSCRIPTION_ID`      | yes      | Azure subscription ID                                |
+| `AZURE_KEY_VAULT_NAME`       | yes      | Vault name, e.g. `ffc-kv`                            |
+| `WHMCS_API_URL`              | no       | defaults to the FFC APIM gateway (`…/whmcs/api.php`) |
+| `WHMCS_ONBOARDING_PIDS`      | no       | defaults to `16,33`                                  |
+| `KV_SECRET_WHMCS_IDENTIFIER` | no       | defaults to `read-all-ffc-whmcs-api-identifier`      |
+| `KV_SECRET_WHMCS_SECRET`     | no       | defaults to `read-all-ffc-whmcs-api-secret`          |
+| `KV_SECRET_GH_PAT`           | no       | defaults to `read-all-cbm-github-pat`                |
 
 Setting `AZURE_CLIENT_ID` + `AZURE_KEY_VAULT_NAME` is what flips the guards from
 "skip" to "run".

@@ -78,7 +78,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          WHMCS_API_URL: ${{ vars.WHMCS_API_URL || 'https://freeforcharity.org/hub/includes/api.php' }}
+          # Route through the FFC APIM gateway (static egress IP 20.231.116.111,
+          # the only IP WHMCS allow-lists). GitHub runner IPs are dynamic and
+          # would be rejected with "Invalid IP". See docs/whmcs-apim-routing.md in
+          # FFC-Cloudflare-Automation. Override via vars.WHMCS_API_URL if needed.
+          WHMCS_API_URL: ${{ vars.WHMCS_API_URL || 'https://apim-ffc-gateway-prod.azure-api.net/whmcs/api.php' }}
           # WHMCS_API_IDENTIFIER / _SECRET come from Key Vault above.
           WHMCS_DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
 
