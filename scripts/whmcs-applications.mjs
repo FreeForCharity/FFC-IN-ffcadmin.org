@@ -42,6 +42,16 @@ const PRODUCT_IDS = (process.env.WHMCS_ONBOARDING_PIDS || '16,33')
   .map((s) => s.trim())
   .filter(Boolean)
 
+// Only surface applications NOT yet accepted — WHMCS service status "Pending".
+// Active = already onboarded; Cancelled/Fraud/Completed must never be published.
+// Override via WHMCS_INTAKE_STATUSES (comma-separated, case-insensitive).
+const INTAKE_STATUSES = new Set(
+  (process.env.WHMCS_INTAKE_STATUSES || 'Pending')
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean)
+)
+
 export const MISSION_MAX_LENGTH = 180
 export const TIER_BY_PID = {
   16: 'Tier 1 — Application & verification (pre-501(c)(3))',
@@ -173,8 +183,13 @@ async function collect() {
       continue
     }
     const products = [].concat(resp?.products?.product || [])
-    console.log(`pid ${pid} -> ${products.length} client product(s)`)
-    for (const p of products) {
+    const eligible = products.filter((p) =>
+      INTAKE_STATUSES.has(String(p?.status || '').toLowerCase())
+    )
+    console.log(
+      `pid ${pid} -> ${products.length} client product(s); ${eligible.length} in intake status [${[...INTAKE_STATUSES].join(', ')}]`
+    )
+    for (const p of eligible) {
       const clientId = String(p?.clientid || '').trim()
       if (!clientId) continue
       const regIso = isoDate(p?.regdate)
