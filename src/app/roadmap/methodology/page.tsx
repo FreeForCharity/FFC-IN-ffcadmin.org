@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import {
   MISSION_POINTS,
+  MISSION_LABELS,
   CHARITY_STAGE_POINTS,
   AFFILIATION_POINTS,
   REVENUE_FORM_POINTS,
@@ -149,12 +150,9 @@ export default function MethodologyPage() {
             title="Mission category"
             improve="Basic-needs missions (food, water, shelter) carry the largest bonus; veterans/military are favored next. All other missions are welcome at the neutral baseline — the tier only affects sort order, never eligibility."
             rows={[
-              {
-                label: 'Basic needs (food, water, shelter)',
-                points: MISSION_POINTS['basic-needs'],
-              },
-              { label: 'Veterans / military', points: MISSION_POINTS.veterans },
-              { label: 'General', points: MISSION_POINTS.general },
+              { label: MISSION_LABELS['basic-needs'], points: MISSION_POINTS['basic-needs'] },
+              { label: MISSION_LABELS.veterans, points: MISSION_POINTS.veterans },
+              { label: MISSION_LABELS.general, points: MISSION_POINTS.general },
             ]}
           />
           <Category

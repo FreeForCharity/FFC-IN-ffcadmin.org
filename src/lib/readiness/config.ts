@@ -88,8 +88,14 @@ export const VETERANS_KEYWORDS = [
  */
 export function classifyMission(text: string | undefined | null): MissionCategory {
   const t = (text ?? '').toLowerCase()
+  // Escape regex metacharacters before building the pattern (a future keyword
+  // could contain `+`, `(`, `.`, etc.), then allow flexible whitespace.
   const matches = (words: readonly string[]) =>
-    words.some((w) => new RegExp(`\\b${w.replace(/\s+/g, '\\s+')}\\b`).test(t))
+    words.some((w) =>
+      new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+')}\\b`).test(
+        t
+      )
+    )
   if (matches(BASIC_NEEDS_KEYWORDS)) return 'basic-needs'
   if (matches(VETERANS_KEYWORDS)) return 'veterans'
   return 'general'

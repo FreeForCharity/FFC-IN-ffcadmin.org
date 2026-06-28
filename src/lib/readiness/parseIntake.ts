@@ -199,9 +199,11 @@ export function parseIntakeIssue(body: string): ParsedIntake {
     // Prefer the explicit dropdown; otherwise infer the tier from the free-text
     // mission so WHMCS-sourced stubs (which carry no category field) still favor
     // basic-needs / veterans charities instead of defaulting to general.
+    // `||` (not `??`) so an empty Brief mission ("" from _No response_) falls
+    // through to a populated Mission statement instead of classifying on "".
     missionCategory:
       MISSION[(map.get('mission category') ?? '').trim()] ??
-      classifyMission(map.get('brief mission') ?? map.get('mission statement')),
+      classifyMission(map.get('brief mission') || map.get('mission statement')),
     charityStage: mapEnum(map.get('charity status') ?? '', STAGE, 'non-pursuing'),
     affiliation: mapEnum(map.get('affiliation') ?? '', AFFILIATION, 'independent'),
     revenueForm: mapEnum(map.get('revenue and form filed') ?? '', REVENUE, 'pre-revenue'),
