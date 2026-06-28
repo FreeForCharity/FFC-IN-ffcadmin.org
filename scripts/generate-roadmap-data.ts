@@ -24,7 +24,7 @@ import { dirname, join } from 'path'
 import { parse as parseCsv } from 'csv-parse/sync'
 import { computeReadiness } from '../src/lib/readiness/scoring'
 import { emptyIntake } from '../src/lib/readiness/defaults'
-import { parseIntakeIssue } from '../src/lib/readiness/parseIntake'
+import { parseIntakeIssue, parseIssueForm } from '../src/lib/readiness/parseIntake'
 import type {
   RoadmapData,
   RoadmapEntry,
@@ -113,6 +113,31 @@ function liveUrlFrom(body: string | null): string | undefined {
   return match ? match[1] : undefined
 }
 
+/** Public Candid/GuideStar profile URL only (HTML-unwrapped, placeholders dropped). */
+function cleanCandidUrl(raw?: string): string | undefined {
+  if (!raw) return undefined
+  const href = /href=["']([^"']+)["']/i.exec(raw)
+  const candidate = (href ? href[1] : raw).trim()
+  try {
+    const u = new URL(candidate)
+    if (
+      (u.protocol === 'https:' || u.protocol === 'http:') &&
+      /(^|\.)(candid\.org|guidestar\.org)$/i.test(u.hostname)
+    ) {
+      return u.toString()
+    }
+  } catch {
+    /* not a URL */
+  }
+  return undefined
+}
+
+/** Validate a US EIN (NN-NNNNNNN); public for registered charities. */
+function cleanEin(raw?: string): string | undefined {
+  const m = /\b(\d{2})-?(\d{7})\b/.exec(raw ?? '')
+  return m ? `${m[1]}-${m[2]}` : undefined
+}
+
 function toEntry(issue: GhIssue): RoadmapEntry {
   const parsed = parseIntakeIssue(issue.body ?? '')
   const readiness = computeReadiness(parsed.intake)
@@ -128,6 +153,9 @@ function toEntry(issue: GhIssue): RoadmapEntry {
   // labelled status:live), so the portfolio dedup below can suppress the
   // matching domain even before the issue is flipped to live.
   const liveUrl = liveUrlFrom(issue.body)
+  const form = parseIssueForm(issue.body ?? '')
+  const candidUrl = cleanCandidUrl(form.get('candid / guidestar profile url'))
+  const ein = cleanEin(form.get('ein'))
   return {
     issueNumber: issue.number,
     charityName: parsed.charityName || issue.title,
@@ -144,6 +172,8 @@ function toEntry(issue: GhIssue): RoadmapEntry {
     plusOne: issue.reactions?.['+1'] ?? 0,
     issueUrl: issue.html_url,
     ...(liveUrl ? { liveUrl } : {}),
+    ...(candidUrl ? { candidUrl } : {}),
+    ...(ein ? { ein } : {}),
   }
 }
 

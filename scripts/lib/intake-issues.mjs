@@ -71,24 +71,50 @@ export function makeGh(token) {
   }
 }
 
-function stubBody(app, repo, source) {
+/**
+ * Build the stub issue body. The leading block is a human-facing welcome plus
+ * the dedup marker; the issue-form parser drops that preamble (it has no `###`
+ * heading) and reads the structured fields below. Pre-filling the fields we know
+ * from the application makes the readiness engine + roadmap card show an
+ * accurate charity status, mission, and tier instead of empty defaults.
+ */
+export function stubBody(app, repo) {
   const name = app.charityName || 'your charity'
   const tier = app.serviceTier ? `\n\n**Service requested:** ${app.serviceTier}` : ''
-  const origin = source
-    ? `_Auto-created from an FFC ${source} application for **${name}**._${tier}`
-    : `_Auto-created from an FFC application for **${name}**._${tier}`
-  return [
-    origin,
+  const lines = [
+    `_Auto-created from an FFC application for **${name}**._${tier}`,
     '',
-    'Welcome to Free For Charity! Please complete your structured intake by editing this issue',
-    `with the [charity intake form](https://github.com/${repo}/issues/new?template=charity-intake.yml),`,
+    'Welcome to Free For Charity! Complete or correct your structured intake with the',
+    `[charity intake form](https://github.com/${repo}/issues/new?template=charity-intake.yml),`,
     'or reply here and an FFC admin will help. Your charity already appears on the',
     '[public roadmap](https://ffcadmin.org/roadmap) — completing intake raises your readiness score.',
     '',
     'Not comfortable with GitHub? Text **520-222-8104**.',
     '',
     `<!-- ${ID_MARKER}: ${app.id} -->`,
-  ].join('\n')
+    '',
+  ]
+  const field = (label, value) => {
+    const v = String(value ?? '').trim()
+    if (v) lines.push(`### ${label}`, '', v, '')
+  }
+  field('Charity name', app.charityName)
+  field('Charity status', app.charityStatusOption)
+  field('Brief mission', app.missionExcerpt)
+  field('EIN', app.ein)
+  field('Candid / GuideStar profile URL', app.candidUrl)
+  return `${lines.join('\n').trimEnd()}\n`
+}
+
+/** A bot-created stub we may safely refresh (vs. an issue a human has edited). */
+function isRefreshableStub(issue) {
+  const login = issue?.user?.login || ''
+  return (
+    (login === 'github-actions' || login === 'github-actions[bot]') &&
+    typeof issue.body === 'string' &&
+    issue.body.includes(ID_MARKER) &&
+    issue.body.includes('Auto-created from an FFC')
+  )
 }
 
 /**
@@ -108,46 +134,53 @@ export async function syncIntakeIssues({ applications, repo, token, stateFile, s
   const state = loadState(stateFile)
   const seen = new Set(state.seenApplicationIds || [])
 
-  const issueExistsForId = async (id) => {
+  const findIssueForId = async (id) => {
     const q = encodeURIComponent(
       `repo:${repo} is:issue label:kind:intake in:body "${ID_MARKER}: ${id}"`
     )
     const result = await gh(`/search/issues?q=${q}`)
-    return (result.total_count ?? 0) > 0
+    return result.items?.[0] ?? null
   }
 
   let created = 0
-  let changed = false
+  let updated = 0
   for (const app of applications) {
     const id = String(app.id ?? '').trim()
-    if (!id || seen.has(id)) continue
+    if (!id) continue
     try {
-      if (await issueExistsForId(id)) {
+      const title = `[Intake] ${app.charityName || id}`
+      const body = stubBody(app, repo)
+      const existing = await findIssueForId(id)
+      if (existing) {
+        // Refresh the body when our application data has changed, but never
+        // clobber an issue a human (or the applicant) has edited.
+        if (isRefreshableStub(existing) && (existing.body !== body || existing.title !== title)) {
+          await gh(`/repos/${repo}/issues/${existing.number}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ title, body }),
+          })
+          updated++
+        }
         seen.add(id)
-        changed = true
         continue
       }
       await gh(`/repos/${repo}/issues`, {
         method: 'POST',
-        body: JSON.stringify({
-          title: `[Intake] ${app.charityName || id}`,
-          body: stubBody(app, repo, source),
-          labels: labelsFor(app),
-        }),
+        body: JSON.stringify({ title, body, labels: labelsFor(app) }),
       })
       seen.add(id)
-      changed = true
       created++
     } catch (err) {
       console.warn(`Skipping application ${id}: ${errMsg(err)}`)
     }
   }
 
+  const changed = created > 0 || updated > 0
   if (changed) {
     writeState(stateFile, seen)
-    console.log(`Intake sync: ${created} stub issue(s) created; state updated.`)
+    console.log(`Intake sync: ${created} created, ${updated} updated; state updated.`)
   } else {
-    console.log('Intake sync: no new applications; state unchanged.')
+    console.log('Intake sync: no changes.')
   }
-  return { created, changed }
+  return { created, updated, changed }
 }

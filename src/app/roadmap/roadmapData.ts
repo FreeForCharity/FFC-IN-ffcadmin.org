@@ -48,6 +48,10 @@ export interface RoadmapEntry {
   plusOne: number
   issueUrl: string
   liveUrl?: string
+  /** Public Candid/GuideStar profile URL (donor transparency), when supplied. */
+  candidUrl?: string
+  /** EIN (public for registered charities), when supplied. */
+  ein?: string
 }
 
 export interface RoadmapData {
