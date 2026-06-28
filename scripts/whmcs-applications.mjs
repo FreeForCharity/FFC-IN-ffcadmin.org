@@ -9,8 +9,10 @@
  * pre-501c3 = pid 16, 501c3 = pid 33 (override via WHMCS_ONBOARDING_PIDS).
  * Donors hold no such product, so gating on these pids excludes them by
  * construction. Only non-PII fields are derived (an allowlist): an opaque id,
- * the public org name, the service tier, an optional truncated mission, and a
- * date. Emails/phones/addresses/board/EIN are never read into the record.
+ * the public org name, charity status, service tier, an optional truncated
+ * mission, a Candid/GuideStar profile link, EIN (public for registered
+ * charities), and a date. Personal contact info — emails, phones, addresses,
+ * board members — is never matched or read into the record.
  *
  * Read-only against WHMCS (GetClientsProducts + GetClientsDetails). Graceful:
  * missing creds or a WHMCS error is a no-op, leaving state unchanged.
