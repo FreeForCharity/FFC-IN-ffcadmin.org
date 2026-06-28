@@ -26,7 +26,7 @@ import type {
   RevenueForm,
   Trajectory,
 } from './types'
-import { INTEGRATION_PLATFORMS, POLICY_PAGES } from './config'
+import { INTEGRATION_PLATFORMS, POLICY_PAGES, MISSION_LABELS, classifyMission } from './config'
 
 const NO_RESPONSE = /^_no response_$/i
 
@@ -68,10 +68,12 @@ const STAGE: Record<string, CharityStage> = {
   'Pre-501(c)(3) (actively pursuing)': 'pre-501c3',
   'Ongoing nonprofit-nature project (not pursuing 501(c)(3))': 'non-pursuing',
 }
+// Built from the canonical labels so the dropdown option strings, the parser,
+// and the methodology page can never drift apart.
 const MISSION: Record<string, MissionCategory> = {
-  Essential: 'essential',
-  General: 'general',
-  Niche: 'niche',
+  [MISSION_LABELS['basic-needs']]: 'basic-needs',
+  [MISSION_LABELS.veterans]: 'veterans',
+  [MISSION_LABELS.general]: 'general',
 }
 const AFFILIATION: Record<string, Affiliation> = {
   Independent: 'independent',
@@ -194,7 +196,12 @@ export function parseIntakeIssue(body: string): ParsedIntake {
   const ops = checked(map.get('operations evidence (not pursuing 501(c)(3))') ?? '')
 
   const intake = emptyIntake({
-    missionCategory: mapEnum(map.get('mission category') ?? '', MISSION, 'general'),
+    // Prefer the explicit dropdown; otherwise infer the tier from the free-text
+    // mission so WHMCS-sourced stubs (which carry no category field) still favor
+    // basic-needs / veterans charities instead of defaulting to general.
+    missionCategory:
+      MISSION[(map.get('mission category') ?? '').trim()] ??
+      classifyMission(map.get('brief mission') ?? map.get('mission statement')),
     charityStage: mapEnum(map.get('charity status') ?? '', STAGE, 'non-pursuing'),
     affiliation: mapEnum(map.get('affiliation') ?? '', AFFILIATION, 'independent'),
     revenueForm: mapEnum(map.get('revenue and form filed') ?? '', REVENUE, 'pre-revenue'),

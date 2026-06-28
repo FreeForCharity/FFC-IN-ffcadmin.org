@@ -26,9 +26,10 @@ export default function MissionStatementPage() {
         wellness.”
       </p>
       <p>
-        Your mission also drives your readiness sort order: FFC categorizes missions as essential,
-        general, or niche. A clear statement helps us categorize accurately. Fuller guidance,
-        examples, and a worksheet are forthcoming.
+        Your mission also drives your readiness sort order: FFC favors basic-needs causes (food,
+        water, shelter) first, then veterans/military, then all other missions at a neutral
+        baseline. A clear statement helps us categorize accurately — and the tier only affects sort
+        order, never eligibility. Fuller guidance, examples, and a worksheet are forthcoming.
       </p>
     </IntakeHelpShell>
   )
