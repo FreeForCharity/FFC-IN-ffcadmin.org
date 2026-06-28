@@ -132,7 +132,8 @@ export async function syncIntakeIssues({ applications, repo, token, stateFile, s
   }
   const gh = makeGh(token)
   const state = loadState(stateFile)
-  const seen = new Set(state.seenApplicationIds || [])
+  const knownIds = new Set(state.seenApplicationIds || [])
+  const seen = new Set(knownIds)
 
   const findIssueForId = async (id) => {
     const q = encodeURIComponent(
@@ -175,10 +176,19 @@ export async function syncIntakeIssues({ applications, repo, token, stateFile, s
     }
   }
 
+  // Persist when issues changed OR when the dedup state drifted from reality —
+  // e.g. the state file was reset/lost but the matching issues already exist, so
+  // `seen` grew without a create/update. Without this the recovered ids would be
+  // re-searched on every run and never written back.
+  const stateDrifted = seen.size !== knownIds.size || [...seen].some((id) => !knownIds.has(id))
   const changed = created > 0 || updated > 0
-  if (changed) {
+  if (changed || stateDrifted) {
     writeState(stateFile, seen)
-    console.log(`Intake sync: ${created} created, ${updated} updated; state updated.`)
+    console.log(
+      `Intake sync: ${created} created, ${updated} updated; state ${
+        changed ? 'updated' : 'reconciled'
+      }.`
+    )
   } else {
     console.log('Intake sync: no changes.')
   }

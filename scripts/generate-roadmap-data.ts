@@ -113,11 +113,28 @@ function liveUrlFrom(body: string | null): string | undefined {
   return match ? match[1] : undefined
 }
 
+/**
+ * Decode the HTML entities WHMCS/GitHub commonly store in a URL so the parsed
+ * value matches `whmcs-applications.mjs`. `&amp;` query separators (and the
+ * double-encoded `&amp;amp;`) would otherwise survive into `new URL()` and the
+ * link would point at a mangled query string. Angle brackets are intentionally
+ * left encoded (anti-injection); a URL never legitimately contains a raw `<`/`>`.
+ */
+function decodeUrlEntities(s: string): string {
+  let out = s
+  for (let i = 0; i < 3 && out.includes('&'); i++) {
+    const next = out.replace(/&amp;/gi, '&').replace(/&#0*38;/g, '&')
+    if (next === out) break
+    out = next
+  }
+  return out
+}
+
 /** Public Candid/GuideStar profile URL only (HTML-unwrapped, placeholders dropped). */
 function cleanCandidUrl(raw?: string): string | undefined {
   if (!raw) return undefined
   const href = /href=["']([^"']+)["']/i.exec(raw)
-  const candidate = (href ? href[1] : raw).trim()
+  const candidate = decodeUrlEntities((href ? href[1] : raw).trim())
   try {
     const u = new URL(candidate)
     if (
