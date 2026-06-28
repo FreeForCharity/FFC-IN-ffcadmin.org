@@ -37,14 +37,19 @@ jobs:
       - name: Guard on Azure configuration
         id: guard
         env:
-          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-          AZURE_KEY_VAULT_NAME: ${{ vars.AZURE_KEY_VAULT_NAME }}
+          # Non-secret Azure identifiers, committed as defaults so the workflow
+          # is self-activating (the FFCadmin session cannot set repo Variables;
+          # these IDs are not secrets — the federated credential + KV RBAC are
+          # the security boundary, same as the WHMCS API identifier the
+          # Cloudflare repo commits in plaintext). Override with repo Variables.
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID || 'db736be6-6776-4cbd-9f16-10f76de3a3c1' }}
+          AZURE_KEY_VAULT_NAME: ${{ vars.AZURE_KEY_VAULT_NAME || 'kv-ffc-admin-prod-cbm' }}
         run: |
           if [ -n "$AZURE_CLIENT_ID" ] && [ -n "$AZURE_KEY_VAULT_NAME" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Azure variables not set; skipping WHMCS intake until setup is complete (see docs/azure-keyvault-setup.md)."
+            echo "::notice::Azure config missing; skipping WHMCS intake (see docs/azure-keyvault-setup.md)."
           fi
 
       - name: Checkout repository
@@ -61,10 +66,10 @@ jobs:
         if: steps.guard.outputs.enabled == 'true'
         uses: ./.github/actions/azure-kv-secrets
         with:
-          client-id: ${{ vars.AZURE_CLIENT_ID }}
-          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          client-id: ${{ vars.AZURE_CLIENT_ID || 'db736be6-6776-4cbd-9f16-10f76de3a3c1' }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID || '80c64bf2-fa5b-425c-9a5a-1fcf282d3274' }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-          vault-name: ${{ vars.AZURE_KEY_VAULT_NAME }}
+          vault-name: ${{ vars.AZURE_KEY_VAULT_NAME || 'kv-ffc-admin-prod-cbm' }}
           # Defaults are the FFC vault's real secret names; override via vars.
           # (WHMCS here authenticates with identifier + secret — there is no
           # separate access-key secret.)
