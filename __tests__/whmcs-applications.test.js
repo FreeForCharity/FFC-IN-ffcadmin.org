@@ -58,6 +58,40 @@ describe('buildApplicationRecords', () => {
     expect(pantry).not.toHaveProperty('submittedAt')
   })
 
+  it('decodes HTML entities WHMCS stores in name and mission', () => {
+    const byClient = new Map([
+      [
+        '5',
+        {
+          clientId: '5',
+          pid: '16',
+          company: 'Sierra Vista Woman&#039;s Club',
+          mission: 'Health &amp; hope for &quot;all&quot;',
+        },
+      ],
+    ])
+    const [app] = buildApplicationRecords(byClient)
+    expect(app.charityName).toBe("Sierra Vista Woman's Club")
+    expect(app.missionExcerpt).toBe('Health & hope for "all"')
+  })
+
+  it('keeps angle brackets entity-encoded (no markup injection)', () => {
+    const byClient = new Map([
+      [
+        '8',
+        {
+          clientId: '8',
+          pid: '16',
+          company: 'Safe Org',
+          mission: '&lt;script&gt;x&lt;/script&gt; &#60;b&#62; &#x3c;i&#x3e;',
+        },
+      ],
+    ])
+    const [app] = buildApplicationRecords(byClient)
+    expect(app.missionExcerpt).not.toMatch(/[<>]/)
+    expect(app.missionExcerpt).toContain('&lt;')
+  })
+
   it('prefers the 501c3 tier label and truncates a long mission', () => {
     const longMission = 'A'.repeat(500)
     const byClient = new Map([

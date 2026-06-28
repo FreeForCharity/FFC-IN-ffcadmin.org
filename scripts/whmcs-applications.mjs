@@ -33,12 +33,24 @@ const PLACEHOLDER = 'PLACEHOLDER-SET-VIA-AZURE-PORTAL'
 const identifier = process.env.WHMCS_API_IDENTIFIER
 const secret = process.env.WHMCS_API_SECRET
 const accessKey = process.env.WHMCS_API_ACCESS_KEY
+// APIM subscription key — the gateway requires it (sent as Ocp-Apim-Subscription-Key).
+const apimSubscriptionKey = process.env.WHMCS_APIM_SUBSCRIPTION_KEY || ''
 const repo = process.env.GITHUB_REPOSITORY || 'FreeForCharity/FFC-IN-ffcadmin.org'
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
 const PRODUCT_IDS = (process.env.WHMCS_ONBOARDING_PIDS || '16,33')
   .split(',')
   .map((s) => s.trim())
   .filter(Boolean)
+
+// Only surface applications NOT yet accepted — WHMCS service status "Pending".
+// Active = already onboarded; Cancelled/Fraud/Completed must never be published.
+// Override via WHMCS_INTAKE_STATUSES (comma-separated, case-insensitive).
+const INTAKE_STATUSES = new Set(
+  (process.env.WHMCS_INTAKE_STATUSES || 'Pending')
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean)
+)
 
 export const MISSION_MAX_LENGTH = 180
 export const TIER_BY_PID = {
@@ -64,6 +76,7 @@ async function whmcs(action, params = {}, attempt = 1) {
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
         'User-Agent': 'FFC-intake (+https://ffcadmin.org)',
+        ...(apimSubscriptionKey ? { 'Ocp-Apim-Subscription-Key': apimSubscriptionKey } : {}),
       },
       body,
     })
@@ -96,6 +109,35 @@ async function whmcs(action, params = {}, attempt = 1) {
   return data
 }
 
+/** Decode the HTML entities WHMCS stores in free-text fields (names, missions). */
+function decodeEntities(s) {
+  // External data: a malformed/out-of-range numeric entity must not throw and
+  // abort the run — leave it untouched if fromCodePoint can't handle it.
+  const codePoint = (m, n, radix) => {
+    try {
+      const cp = parseInt(n, radix)
+      // Never decode to raw angle brackets — this text is interpolated into
+      // GitHub issue titles/bodies, so keep < / > entity-encoded to avoid
+      // HTML/markdown injection from applicant-controlled input.
+      if (cp === 0x3c || cp === 0x3e) return m
+      return String.fromCodePoint(cp)
+    } catch {
+      return m
+    }
+  }
+  return (
+    String(s)
+      .replace(/&#(\d+);/g, (m, n) => codePoint(m, n, 10))
+      .replace(/&#x([0-9a-fA-F]+);/g, (m, n) => codePoint(m, n, 16))
+      // Intentionally do NOT decode &lt; / &gt; — keep angle brackets encoded
+      // (see codePoint note above) so untrusted text can't inject markup.
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;/g, "'")
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+  )
+}
+
 function isoDate(raw) {
   if (!raw || /^0000/.test(String(raw))) return undefined
   const t = Date.parse(String(raw).replace(' ', 'T'))
@@ -121,11 +163,11 @@ function missionFromProduct(product) {
 export function buildApplicationRecords(byClient) {
   const apps = []
   for (const rec of byClient.values()) {
-    const company = String(rec.company || '').trim()
+    const company = decodeEntities(String(rec.company || '').trim()).trim()
     if (!company) continue // a published record needs a public org name
     let mission
     if (rec.mission) {
-      let m = String(rec.mission).replace(/\s+/g, ' ').trim()
+      let m = decodeEntities(String(rec.mission)).replace(/\s+/g, ' ').trim()
       if (m.length > MISSION_MAX_LENGTH) m = `${m.slice(0, MISSION_MAX_LENGTH - 1).trimEnd()}…`
       mission = m
     }
@@ -157,8 +199,13 @@ async function collect() {
       continue
     }
     const products = [].concat(resp?.products?.product || [])
-    console.log(`pid ${pid} -> ${products.length} client product(s)`)
-    for (const p of products) {
+    const eligible = products.filter((p) =>
+      INTAKE_STATUSES.has(String(p?.status || '').toLowerCase())
+    )
+    console.log(
+      `pid ${pid} -> ${products.length} client product(s); ${eligible.length} in intake status [${[...INTAKE_STATUSES].join(', ')}]`
+    )
+    for (const p of eligible) {
       const clientId = String(p?.clientid || '').trim()
       if (!clientId) continue
       const regIso = isoDate(p?.regdate)
@@ -195,6 +242,15 @@ async function main() {
     console.warn(
       'WHMCS Key Vault secrets still hold the scaffolding placeholder; set the real ' +
         'identifier/secret in the vault before running. Skipping.'
+    )
+    return
+  }
+  // The APIM gateway requires a subscription key; calling it without one fails
+  // every request with a generic auth error. Fail fast with a clear message.
+  if (/azure-api\.net/i.test(apiUrl) && !apimSubscriptionKey) {
+    console.warn(
+      'WHMCS_API_URL targets the APIM gateway but WHMCS_APIM_SUBSCRIPTION_KEY is not set ' +
+        '(the gateway requires Ocp-Apim-Subscription-Key). Skipping.'
     )
     return
   }
