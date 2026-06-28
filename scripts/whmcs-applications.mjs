@@ -111,9 +111,18 @@ async function whmcs(action, params = {}, attempt = 1) {
 
 /** Decode the HTML entities WHMCS stores in free-text fields (names, missions). */
 function decodeEntities(s) {
+  // External data: a malformed/out-of-range numeric entity must not throw and
+  // abort the run — leave it untouched if fromCodePoint can't handle it.
+  const codePoint = (m, n, radix) => {
+    try {
+      return String.fromCodePoint(parseInt(n, radix))
+    } catch {
+      return m
+    }
+  }
   return String(s)
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&#(\d+);/g, (m, n) => codePoint(m, n, 10))
+    .replace(/&#x([0-9a-fA-F]+);/g, (m, n) => codePoint(m, n, 16))
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
@@ -226,6 +235,15 @@ async function main() {
     console.warn(
       'WHMCS Key Vault secrets still hold the scaffolding placeholder; set the real ' +
         'identifier/secret in the vault before running. Skipping.'
+    )
+    return
+  }
+  // The APIM gateway requires a subscription key; calling it without one fails
+  // every request with a generic auth error. Fail fast with a clear message.
+  if (/azure-api\.net/i.test(apiUrl) && !apimSubscriptionKey) {
+    console.warn(
+      'WHMCS_API_URL targets the APIM gateway but WHMCS_APIM_SUBSCRIPTION_KEY is not set ' +
+        '(the gateway requires Ocp-Apim-Subscription-Key). Skipping.'
     )
     return
   }
