@@ -7,16 +7,28 @@
  * 501c3 tier mapping, mission truncation, and the sort order.
  */
 
-let buildApplicationRecords, TIER_BY_PID, MISSION_MAX_LENGTH
+let buildApplicationRecords, TIER_BY_PID, MISSION_MAX_LENGTH, sanitizeCandidUrl, sanitizeEin
 
 beforeAll(async () => {
   const mod = await import('../scripts/whmcs-applications.mjs')
   buildApplicationRecords = mod.buildApplicationRecords
   TIER_BY_PID = mod.TIER_BY_PID
   MISSION_MAX_LENGTH = mod.MISSION_MAX_LENGTH
+  sanitizeCandidUrl = mod.sanitizeCandidUrl
+  sanitizeEin = mod.sanitizeEin
 })
 
-const ALLOWED_KEYS = ['id', 'charityName', 'serviceTier', 'missionExcerpt', 'submittedAt']
+const ALLOWED_KEYS = [
+  'id',
+  'charityName',
+  'charityStage',
+  'charityStatusOption',
+  'serviceTier',
+  'missionExcerpt',
+  'candidUrl',
+  'ein',
+  'submittedAt',
+]
 
 describe('buildApplicationRecords', () => {
   it('emits only the PII-safe allowlist and gates on a public org name', () => {
@@ -75,6 +87,25 @@ describe('buildApplicationRecords', () => {
     expect(app.missionExcerpt).toBe('Health & hope for "all"')
   })
 
+  it('sanitizes Candid/GuideStar URLs (unwrap HTML, reject placeholders)', () => {
+    expect(sanitizeCandidUrl('<a href="https://app.candid.org/profile/123/x">x</a>')).toBe(
+      'https://app.candid.org/profile/123/x'
+    )
+    expect(sanitizeCandidUrl('https://www.guidestar.org/profile/12-3456789')).toBe(
+      'https://www.guidestar.org/profile/12-3456789'
+    )
+    expect(sanitizeCandidUrl('https://none.org')).toBe('')
+    expect(sanitizeCandidUrl('not a url')).toBe('')
+    expect(sanitizeCandidUrl('')).toBe('')
+  })
+
+  it('validates EIN format', () => {
+    expect(sanitizeEin('41-3950250')).toBe('41-3950250')
+    expect(sanitizeEin('413950250')).toBe('41-3950250')
+    expect(sanitizeEin('none')).toBe('')
+    expect(sanitizeEin('')).toBe('')
+  })
+
   it('keeps angle brackets entity-encoded (no markup injection)', () => {
     const byClient = new Map([
       [
@@ -100,6 +131,34 @@ describe('buildApplicationRecords', () => {
     const [app] = buildApplicationRecords(byClient)
     expect(app.missionExcerpt.length).toBeLessThanOrEqual(MISSION_MAX_LENGTH)
     expect(app.missionExcerpt.endsWith('…')).toBe(true)
+  })
+
+  it('carries accurate stage/status and validated Candid URL + EIN', () => {
+    const byClient = new Map([
+      [
+        '90',
+        {
+          clientId: '90',
+          pid: '33',
+          company: 'Wenatchee Valley Islamic Center',
+          candidUrl: 'https://app.candid.org/profile/16302238/x',
+          ein: '12-3456789',
+        },
+      ],
+      ['91', { clientId: '91', pid: '16', company: 'Pre Org' }],
+    ])
+    const apps = buildApplicationRecords(byClient)
+    const c501 = apps.find((a) => a.id === 'ffc-90')
+    expect(c501).toMatchObject({
+      charityStage: '501c3',
+      charityStatusOption: 'Approved 501(c)(3)',
+      candidUrl: 'https://app.candid.org/profile/16302238/x',
+      ein: '12-3456789',
+    })
+    const pre = apps.find((a) => a.id === 'ffc-91')
+    expect(pre.charityStage).toBe('pre-501c3')
+    expect(pre).not.toHaveProperty('candidUrl')
+    expect(pre).not.toHaveProperty('ein')
   })
 
   it('sorts by submission date then name', () => {

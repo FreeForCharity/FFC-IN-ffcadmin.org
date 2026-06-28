@@ -9,8 +9,10 @@
  * pre-501c3 = pid 16, 501c3 = pid 33 (override via WHMCS_ONBOARDING_PIDS).
  * Donors hold no such product, so gating on these pids excludes them by
  * construction. Only non-PII fields are derived (an allowlist): an opaque id,
- * the public org name, the service tier, an optional truncated mission, and a
- * date. Emails/phones/addresses/board/EIN are never read into the record.
+ * the public org name, charity status, service tier, an optional truncated
+ * mission, a Candid/GuideStar profile link, EIN (public for registered
+ * charities), and a date. Personal contact info — emails, phones, addresses,
+ * board members — is never matched or read into the record.
  *
  * Read-only against WHMCS (GetClientsProducts + GetClientsDetails). Graceful:
  * missing creds or a WHMCS error is a no-op, leaving state unchanged.
@@ -56,6 +58,51 @@ export const MISSION_MAX_LENGTH = 180
 export const TIER_BY_PID = {
   16: 'Tier 1 — Application & verification (pre-501(c)(3))',
   33: 'Tier 1 — Application & verification (501(c)(3))',
+}
+// pid -> the "Charity status" intake-form option string (so the stub issue parses
+// to the right charityStage and scores accurately). pid is authoritative.
+export const STATUS_OPTION_BY_PID = {
+  16: 'Pre-501(c)(3) (actively pursuing)',
+  33: 'Approved 501(c)(3)',
+}
+
+/** First populated custom-field value whose NAME matches `re` (decoded, trimmed). */
+function fieldValue(product, re) {
+  const nodes = product?.customfields?.customfield
+  if (!nodes) return ''
+  for (const f of [].concat(nodes)) {
+    if (re.test(String(f?.name || ''))) {
+      const v = decodeEntities(String(f?.value || '')).trim()
+      if (v) return v
+    }
+  }
+  return ''
+}
+
+/**
+ * Pull a clean Candid/GuideStar profile URL: WHMCS stores it HTML-wrapped
+ * (`<a href="URL">…</a>`) and many are placeholders ("none.org"). Return a real
+ * candid.org / guidestar.org URL only, else ''.
+ */
+export function sanitizeCandidUrl(raw) {
+  if (!raw) return ''
+  const href = /href=["']([^"']+)["']/i.exec(raw)
+  const candidate = decodeEntities(href ? href[1] : raw).trim()
+  let u
+  try {
+    u = new URL(candidate)
+  } catch {
+    return ''
+  }
+  if (u.protocol !== 'https:' && u.protocol !== 'http:') return ''
+  if (!/(^|\.)(candid\.org|guidestar\.org)$/i.test(u.hostname)) return ''
+  return u.toString()
+}
+
+/** Validate a US EIN (NN-NNNNNNN). EINs are public for registered charities. */
+export function sanitizeEin(raw) {
+  const m = /\b(\d{2})-?(\d{7})\b/.exec(String(raw || ''))
+  return m ? `${m[1]}-${m[2]}` : ''
 }
 
 // The WHMCS host's Imunify360 bot-protection intermittently challenges GitHub
@@ -174,8 +221,13 @@ export function buildApplicationRecords(byClient) {
     apps.push({
       id: `ffc-${rec.clientId}`,
       charityName: company,
+      // pid -> stage/status so the stub parses to an accurate charityStage.
+      charityStage: rec.pid === '33' ? '501c3' : 'pre-501c3',
+      charityStatusOption: STATUS_OPTION_BY_PID[rec.pid] || STATUS_OPTION_BY_PID[16],
       serviceTier: TIER_BY_PID[rec.pid] || 'Tier 1 — Application & verification',
       ...(mission ? { missionExcerpt: mission } : {}),
+      ...(rec.candidUrl ? { candidUrl: rec.candidUrl } : {}),
+      ...(rec.ein ? { ein: rec.ein } : {}),
       ...(rec.regIso ? { submittedAt: rec.regIso } : {}),
     })
   }
@@ -210,13 +262,27 @@ async function collect() {
       if (!clientId) continue
       const regIso = isoDate(p?.regdate)
       const mission = missionFromProduct(p)
+      // Non-PII transparency fields (allowlisted by field name; board/contact
+      // fields are never matched). Candid link + EIN help donors evaluate.
+      const candidUrl = sanitizeCandidUrl(fieldValue(p, /guidestar|candid/i))
+      const ein = sanitizeEin(fieldValue(p, /\bEIN\b|tax id/i))
       const existing = byClient.get(clientId)
       if (existing) {
         if (pid === '33') existing.pid = pid
         if (!existing.mission && mission) existing.mission = mission
         if (!existing.regIso && regIso) existing.regIso = regIso
+        if (!existing.candidUrl && candidUrl) existing.candidUrl = candidUrl
+        if (!existing.ein && ein) existing.ein = ein
       } else {
-        byClient.set(clientId, { clientId, pid, mission, regIso, company: undefined })
+        byClient.set(clientId, {
+          clientId,
+          pid,
+          mission,
+          regIso,
+          candidUrl,
+          ein,
+          company: undefined,
+        })
       }
     }
   }

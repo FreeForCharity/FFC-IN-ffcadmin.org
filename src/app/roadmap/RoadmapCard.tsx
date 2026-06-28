@@ -85,6 +85,27 @@ export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
           <dt className="font-medium text-gray-600">Seeking:</dt>
           <dd>{entry.serviceTier}</dd>
         </div>
+        {entry.ein && (
+          <div className="flex gap-1">
+            <dt className="font-medium text-gray-600">EIN:</dt>
+            <dd>{entry.ein}</dd>
+          </div>
+        )}
+        {entry.candidUrl && (
+          <div className="flex gap-1">
+            <dt className="font-medium text-gray-600">Transparency:</dt>
+            <dd>
+              <a
+                href={entry.candidUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-700 hover:text-blue-900"
+              >
+                Candid / GuideStar profile ↗
+              </a>
+            </dd>
+          </div>
+        )}
         {section === 'review' && entry.submittedAt && (
           <div className="flex gap-1">
             <dt className="font-medium text-gray-600">Submitted:</dt>
