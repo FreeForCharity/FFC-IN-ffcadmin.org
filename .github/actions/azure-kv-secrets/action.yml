@@ -29,14 +29,25 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Azure login (OIDC)
+    # Two conditional logins so an empty subscription-id is genuinely omitted
+    # rather than passed as "" (which azure/login could treat as a real value).
+    # allow-no-subscriptions lets a KV-reader identity with only vault data-plane
+    # access (no subscription RBAC) log in successfully.
+    - name: Azure login (OIDC, with subscription)
+      if: inputs.subscription-id != ''
       uses: azure/login@v3
       with:
         client-id: ${{ inputs.client-id }}
         tenant-id: ${{ inputs.tenant-id }}
         subscription-id: ${{ inputs.subscription-id }}
-        # The KV-reader identity may lack subscription RBAC (data-plane access to
-        # the vault is enough), so don't fail login on no accessible subscription.
+        allow-no-subscriptions: true
+
+    - name: Azure login (OIDC, no subscription)
+      if: inputs.subscription-id == ''
+      uses: azure/login@v3
+      with:
+        client-id: ${{ inputs.client-id }}
+        tenant-id: ${{ inputs.tenant-id }}
         allow-no-subscriptions: true
 
     - name: Load secrets from Key Vault
