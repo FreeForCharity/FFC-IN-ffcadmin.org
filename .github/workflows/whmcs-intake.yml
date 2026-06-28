@@ -58,6 +58,7 @@ jobs:
           secrets: |
             WHMCS_API_IDENTIFIER=${{ vars.KV_SECRET_WHMCS_IDENTIFIER || 'read-all-ffc-whmcs-api-identifier' }}
             WHMCS_API_SECRET=${{ vars.KV_SECRET_WHMCS_SECRET || 'read-all-ffc-whmcs-api-secret' }}
+            WHMCS_APIM_SUBSCRIPTION_KEY=${{ vars.KV_SECRET_APIM_WHMCS_KEY || 'read-all-ffc-apim-whmcs-subscription-key' }}
 
       - name: Run WHMCS intake
         run: node scripts/whmcs-applications.mjs

@@ -33,6 +33,8 @@ const PLACEHOLDER = 'PLACEHOLDER-SET-VIA-AZURE-PORTAL'
 const identifier = process.env.WHMCS_API_IDENTIFIER
 const secret = process.env.WHMCS_API_SECRET
 const accessKey = process.env.WHMCS_API_ACCESS_KEY
+// APIM subscription key — the gateway requires it (sent as Ocp-Apim-Subscription-Key).
+const apimSubscriptionKey = process.env.WHMCS_APIM_SUBSCRIPTION_KEY || ''
 const repo = process.env.GITHUB_REPOSITORY || 'FreeForCharity/FFC-IN-ffcadmin.org'
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
 const PRODUCT_IDS = (process.env.WHMCS_ONBOARDING_PIDS || '16,33')
@@ -64,6 +66,7 @@ async function whmcs(action, params = {}, attempt = 1) {
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
         'User-Agent': 'FFC-intake (+https://ffcadmin.org)',
+        ...(apimSubscriptionKey ? { 'Ocp-Apim-Subscription-Key': apimSubscriptionKey } : {}),
       },
       body,
     })
@@ -96,6 +99,19 @@ async function whmcs(action, params = {}, attempt = 1) {
   return data
 }
 
+/** Decode the HTML entities WHMCS stores in free-text fields (names, missions). */
+function decodeEntities(s) {
+  return String(s)
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+}
+
 function isoDate(raw) {
   if (!raw || /^0000/.test(String(raw))) return undefined
   const t = Date.parse(String(raw).replace(' ', 'T'))
@@ -121,11 +137,11 @@ function missionFromProduct(product) {
 export function buildApplicationRecords(byClient) {
   const apps = []
   for (const rec of byClient.values()) {
-    const company = String(rec.company || '').trim()
+    const company = decodeEntities(String(rec.company || '').trim()).trim()
     if (!company) continue // a published record needs a public org name
     let mission
     if (rec.mission) {
-      let m = String(rec.mission).replace(/\s+/g, ' ').trim()
+      let m = decodeEntities(String(rec.mission)).replace(/\s+/g, ' ').trim()
       if (m.length > MISSION_MAX_LENGTH) m = `${m.slice(0, MISSION_MAX_LENGTH - 1).trimEnd()}…`
       mission = m
     }
