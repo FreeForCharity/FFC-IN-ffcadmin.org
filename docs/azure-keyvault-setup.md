@@ -64,17 +64,17 @@ Names are overridable — see the `KV_SECRET_*` variables below.
 
 These are non-secret identifiers, so they are **variables**, not secrets:
 
-| Variable                     | Required | Example / default                               |
-| ---------------------------- | -------- | ----------------------------------------------- |
-| `AZURE_CLIENT_ID`            | yes      | Entra app/identity client ID                    |
-| `AZURE_TENANT_ID`            | yes      | Entra tenant ID                                 |
-| `AZURE_SUBSCRIPTION_ID`      | yes      | Azure subscription ID                           |
-| `AZURE_KEY_VAULT_NAME`       | yes      | Vault name, e.g. `ffc-kv`                       |
-| `WHMCS_API_URL`              | no       | defaults to the FFC WHMCS endpoint              |
-| `WHMCS_ONBOARDING_PIDS`      | no       | defaults to `16,33`                             |
-| `KV_SECRET_WHMCS_IDENTIFIER` | no       | defaults to `read-all-ffc-whmcs-api-identifier` |
-| `KV_SECRET_WHMCS_SECRET`     | no       | defaults to `read-all-ffc-whmcs-api-secret`     |
-| `KV_SECRET_GH_PAT`           | no       | defaults to `read-all-cbm-github-pat`           |
+| Variable                     | Required | Example / default                                    |
+| ---------------------------- | -------- | ---------------------------------------------------- |
+| `AZURE_CLIENT_ID`            | yes      | Entra app/identity client ID                         |
+| `AZURE_TENANT_ID`            | yes      | Entra tenant ID                                      |
+| `AZURE_SUBSCRIPTION_ID`      | yes      | Azure subscription ID                                |
+| `AZURE_KEY_VAULT_NAME`       | yes      | Vault name, e.g. `ffc-kv`                            |
+| `WHMCS_API_URL`              | no       | defaults to the FFC APIM gateway (`…/whmcs/api.php`) |
+| `WHMCS_ONBOARDING_PIDS`      | no       | defaults to `16,33`                                  |
+| `KV_SECRET_WHMCS_IDENTIFIER` | no       | defaults to `read-all-ffc-whmcs-api-identifier`      |
+| `KV_SECRET_WHMCS_SECRET`     | no       | defaults to `read-all-ffc-whmcs-api-secret`          |
+| `KV_SECRET_GH_PAT`           | no       | defaults to `read-all-cbm-github-pat`                |
 
 Setting `AZURE_CLIENT_ID` + `AZURE_KEY_VAULT_NAME` is what flips the guards from
 "skip" to "run".
