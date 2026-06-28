@@ -24,7 +24,12 @@ import { syncIntakeIssues, errMsg } from './lib/intake-issues.mjs'
 const moduleDir = dirname(fileURLToPath(import.meta.url))
 const STATE_FILE = join(moduleDir, '..', 'automation', 'applications-sync-state.json')
 
-const apiUrl = process.env.WHMCS_API_URL || 'https://freeforcharity.org/hub/includes/api.php'
+// Default to the FFC APIM gateway (static egress IP that WHMCS allow-lists);
+// GitHub runner IPs are dynamic and get rejected with "Invalid IP". See
+// docs/whmcs-apim-routing.md in FFC-Cloudflare-Automation.
+const apiUrl =
+  process.env.WHMCS_API_URL || 'https://apim-ffc-gateway-prod.azure-api.net/whmcs/api.php'
+const PLACEHOLDER = 'PLACEHOLDER-SET-VIA-AZURE-PORTAL'
 const identifier = process.env.WHMCS_API_IDENTIFIER
 const secret = process.env.WHMCS_API_SECRET
 const accessKey = process.env.WHMCS_API_ACCESS_KEY
@@ -184,6 +189,13 @@ async function collect() {
 async function main() {
   if (!identifier || !secret) {
     console.warn('WHMCS credentials not set (expected from Azure Key Vault). Skipping.')
+    return
+  }
+  if (identifier === PLACEHOLDER || secret === PLACEHOLDER) {
+    console.warn(
+      'WHMCS Key Vault secrets still hold the scaffolding placeholder; set the real ' +
+        'identifier/secret in the vault before running. Skipping.'
+    )
     return
   }
   const applications = await collect()
