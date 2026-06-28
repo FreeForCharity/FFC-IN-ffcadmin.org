@@ -34,36 +34,18 @@ jobs:
   intake:
     runs-on: ubuntu-latest
     steps:
-      - name: Guard on Azure configuration
-        id: guard
-        env:
-          # Non-secret Azure identifiers, committed as defaults so the workflow
-          # is self-activating (the FFCadmin session cannot set repo Variables;
-          # these IDs are not secrets — the federated credential + KV RBAC are
-          # the security boundary, same as the WHMCS API identifier the
-          # Cloudflare repo commits in plaintext). Override with repo Variables.
-          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID || 'db736be6-6776-4cbd-9f16-10f76de3a3c1' }}
-          AZURE_KEY_VAULT_NAME: ${{ vars.AZURE_KEY_VAULT_NAME || 'kv-ffc-admin-prod-cbm' }}
-        run: |
-          if [ -n "$AZURE_CLIENT_ID" ] && [ -n "$AZURE_KEY_VAULT_NAME" ]; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Azure config missing; skipping WHMCS intake (see docs/azure-keyvault-setup.md)."
-          fi
-
+      # The client-id / tenant-id / vault-name below are non-secret identifiers,
+      # committed as defaults and overridable via repo Variables. The federated
+      # credential and Key Vault RBAC are the security boundary, not these IDs.
       - name: Checkout repository
-        if: steps.guard.outputs.enabled == 'true'
         uses: actions/checkout@v6
 
       - name: Setup Node.js
-        if: steps.guard.outputs.enabled == 'true'
         uses: actions/setup-node@v6
         with:
           node-version: '20'
 
       - name: Load WHMCS credentials from Key Vault
-        if: steps.guard.outputs.enabled == 'true'
         uses: ./.github/actions/azure-kv-secrets
         with:
           client-id: ${{ vars.AZURE_CLIENT_ID || 'db736be6-6776-4cbd-9f16-10f76de3a3c1' }}
@@ -78,7 +60,6 @@ jobs:
             WHMCS_API_SECRET=${{ vars.KV_SECRET_WHMCS_SECRET || 'read-all-ffc-whmcs-api-secret' }}
 
       - name: Run WHMCS intake
-        if: steps.guard.outputs.enabled == 'true'
         run: node scripts/whmcs-applications.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -92,7 +73,6 @@ jobs:
           WHMCS_DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
 
       - name: Create Pull Request (state file)
-        if: steps.guard.outputs.enabled == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
           commit-message: 'chore(data): update applications sync state (WHMCS)'
