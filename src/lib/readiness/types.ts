@@ -13,7 +13,12 @@
  * logic — there are no duplicated point tables anywhere else.
  */
 
-export type MissionCategory = 'essential' | 'general' | 'niche'
+/**
+ * Mission favoring tiers (program decision): FFC's capacity is finite, so the
+ * roadmap favors the causes the board prioritizes. Basic-needs (food/water/
+ * shelter) sort first, veterans next, everything else at the neutral baseline.
+ */
+export type MissionCategory = 'basic-needs' | 'veterans' | 'general'
 
 export type CharityStage = '501c3' | 'pre-501c3' | 'non-pursuing'
 

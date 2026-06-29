@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import {
   MISSION_POINTS,
+  MISSION_LABELS,
   CHARITY_STAGE_POINTS,
   AFFILIATION_POINTS,
   REVENUE_FORM_POINTS,
@@ -110,8 +111,9 @@ export default function MethodologyPage() {
           <h2 className="text-xl font-bold text-gray-900">How the queue is sorted</h2>
           <ol className="mt-2 list-decimal space-y-1 pl-5 text-gray-700">
             <li>
-              <strong>Mission tier</strong> — essential-mission charities carry a large bonus and
-              sort first.
+              <strong>Mission tier</strong> — FFC favors basic-needs charities (food, water,
+              shelter) first, then veterans/military; both carry a bonus and sort ahead of general
+              missions.
             </li>
             <li>
               <strong>Readiness score</strong> — higher scores sort higher within a mission tier.
@@ -146,11 +148,11 @@ export default function MethodologyPage() {
         <div className="grid gap-5 md:grid-cols-2">
           <Category
             title="Mission category"
-            improve="Essential missions (food, water, shelter, emergency response, disaster relief, mental-health crisis, veterans, domestic violence) carry the largest bonus."
+            improve="Basic-needs missions (food, water, shelter) carry the largest bonus; veterans/military are favored next. All other missions are welcome at the neutral baseline — the tier only affects sort order, never eligibility."
             rows={[
-              { label: 'Essential', points: MISSION_POINTS.essential },
-              { label: 'General', points: MISSION_POINTS.general },
-              { label: 'Niche', points: MISSION_POINTS.niche },
+              { label: MISSION_LABELS['basic-needs'], points: MISSION_POINTS['basic-needs'] },
+              { label: MISSION_LABELS.veterans, points: MISSION_POINTS.veterans },
+              { label: MISSION_LABELS.general, points: MISSION_POINTS.general },
             ]}
           />
           <Category

@@ -42,10 +42,13 @@ describe('computeReadiness — floors and gates', () => {
     expect(independent.score - corporate.score).toBe(40)
   })
 
-  it('gives the essential mission a +50 bonus over general (§15 #13)', () => {
+  it('favors basic-needs (+50) and veterans (+30) over a general mission', () => {
     const general = computeReadiness(emptyIntake({ missionCategory: 'general' }))
-    const essential = computeReadiness(emptyIntake({ missionCategory: 'essential' }))
-    expect(essential.score - general.score).toBe(50)
+    const basicNeeds = computeReadiness(emptyIntake({ missionCategory: 'basic-needs' }))
+    const veterans = computeReadiness(emptyIntake({ missionCategory: 'veterans' }))
+    expect(basicNeeds.score - general.score).toBe(50)
+    expect(veterans.score - general.score).toBe(30)
+    expect(basicNeeds.score).toBeGreaterThan(veterans.score)
   })
 
   it('does not double-count duplicate integrations or policy pages', () => {
@@ -100,13 +103,13 @@ describe('per-person phone/email caps (§15 #14)', () => {
 
 describe('time-in-status decay (§15 #17)', () => {
   it('subtracts 2 points per stalled month, capped at recoverable points', () => {
-    const result = computeReadiness(emptyIntake({ missionCategory: 'essential' }))
+    const result = computeReadiness(emptyIntake({ missionCategory: 'basic-needs' }))
     const decayed = applyTimeInStatusDecay(result, 3, 100)
     expect(decayed.score).toBe(result.score - 6)
   })
 
   it('keeps the category breakdown summing to the decayed score', () => {
-    const result = computeReadiness(emptyIntake({ missionCategory: 'essential' }))
+    const result = computeReadiness(emptyIntake({ missionCategory: 'basic-needs' }))
     const decayed = applyTimeInStatusDecay(result, 3, 100)
     const sum = decayed.categories.reduce((total, c) => total + c.points, 0)
     expect(sum).toBe(decayed.score)
@@ -114,7 +117,7 @@ describe('time-in-status decay (§15 #17)', () => {
   })
 
   it('never decays more than the recoverable points', () => {
-    const result = computeReadiness(emptyIntake({ missionCategory: 'essential' }))
+    const result = computeReadiness(emptyIntake({ missionCategory: 'basic-needs' }))
     const decayed = applyTimeInStatusDecay(result, 12, 5)
     expect(decayed.score).toBe(result.score - 5)
   })
@@ -125,8 +128,8 @@ describe('time-in-status decay (§15 #17)', () => {
   })
 })
 
-/** A maximally-prepared, essential-mission 501(c)(3). Program plan: "~375". */
-function maximalEssential501c3(): IntakeData {
+/** A maximally-prepared, basic-needs-mission 501(c)(3). Program plan: "~375". */
+function maximalBasicNeeds501c3(): IntakeData {
   const orgSpecific = {
     present: true,
     phoneType: 'org-specific' as const,
@@ -134,7 +137,7 @@ function maximalEssential501c3(): IntakeData {
   }
   const linkedinSeat = { present: true, named: true, linkedin: true }
   return emptyIntake({
-    missionCategory: 'essential',
+    missionCategory: 'basic-needs',
     charityStage: '501c3',
     affiliation: 'independent',
     revenueForm: '990-n',
@@ -170,8 +173,8 @@ function maximalEssential501c3(): IntakeData {
 }
 
 describe('reference fixtures', () => {
-  it('scores a maximal essential 501(c)(3) in the Mature band (~375)', () => {
-    const result = computeReadiness(maximalEssential501c3())
+  it('scores a maximal basic-needs 501(c)(3) in the Mature band (~375)', () => {
+    const result = computeReadiness(maximalBasicNeeds501c3())
     expect(result.tier).toBe('Mature')
     expect(result.score).toBeGreaterThanOrEqual(360)
     expect(result.score).toBeLessThanOrEqual(410)

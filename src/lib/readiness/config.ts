@@ -26,24 +26,80 @@ import type {
   Trajectory,
 } from './types'
 
-/** Mission category bonus — §15 #13 (bonus, not a hard sort tier). */
+/**
+ * Mission favoring bonus. FFC's board prioritizes basic-needs causes (food,
+ * water, shelter) first, then veterans, then everything else at the neutral
+ * baseline. The bonus drives both the readiness score and the queue sort tier.
+ */
 export const MISSION_POINTS: Record<MissionCategory, number> = {
-  essential: 50,
+  'basic-needs': 50,
+  veterans: 30,
   general: 0,
-  niche: -10,
 }
 
-/** §15 #39 — the essential-mission category list (editorial copy). */
-export const ESSENTIAL_MISSIONS = [
-  'Food',
-  'Water',
-  'Shelter',
-  'Emergency response',
-  'Disaster relief',
-  'Mental health crisis services',
-  'Veterans services',
-  'Domestic violence services',
+/**
+ * Display copy + dropdown option string for each tier, in favoring order.
+ * `MISSION_LABELS` is the single source the methodology page, the card badge,
+ * and the intake-form dropdown all read so they can never drift.
+ */
+export const MISSION_LABELS: Record<MissionCategory, string> = {
+  'basic-needs': 'Basic needs (food, water, shelter)',
+  veterans: 'Veterans / military',
+  general: 'General',
+}
+
+/**
+ * Keywords that auto-classify a mission tier from the charity's free-text
+ * mission (used when no explicit category is supplied — e.g. WHMCS-sourced
+ * stubs). Basic-needs is checked first so a "food for veterans" charity lands
+ * in the higher tier. Word-boundary matched, case-insensitive.
+ */
+export const BASIC_NEEDS_KEYWORDS = [
+  'food',
+  'hunger',
+  'hungry',
+  'meal',
+  'meals',
+  'nutrition',
+  'pantry',
+  'famine',
+  'water',
+  'sanitation',
+  'shelter',
+  'homeless',
+  'homelessness',
+  'unhoused',
+  'housing',
 ] as const
+
+export const VETERANS_KEYWORDS = [
+  'veteran',
+  'veterans',
+  'military',
+  'servicemember',
+  'troops',
+  'armed forces',
+  'wounded warrior',
+] as const
+
+/**
+ * Infer the mission tier from free-text mission copy. Pure; returns 'general'
+ * when nothing matches. Basic-needs wins over veterans on overlap.
+ */
+export function classifyMission(text: string | undefined | null): MissionCategory {
+  const t = (text ?? '').toLowerCase()
+  // Escape regex metacharacters before building the pattern (a future keyword
+  // could contain `+`, `(`, `.`, etc.), then allow flexible whitespace.
+  const matches = (words: readonly string[]) =>
+    words.some((w) =>
+      new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+')}\\b`).test(
+        t
+      )
+    )
+  if (matches(BASIC_NEEDS_KEYWORDS)) return 'basic-needs'
+  if (matches(VETERANS_KEYWORDS)) return 'veterans'
+  return 'general'
+}
 
 export const CHARITY_STAGE_POINTS: Record<CharityStage, number> = {
   '501c3': 20,
