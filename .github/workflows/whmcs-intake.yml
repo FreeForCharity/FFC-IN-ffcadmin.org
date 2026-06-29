@@ -38,7 +38,7 @@ jobs:
       # committed as defaults and overridable via repo Variables. The federated
       # credential and Key Vault RBAC are the security boundary, not these IDs.
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
