@@ -19,6 +19,22 @@ test.describe('Public Roadmap', () => {
     await expect(page.getByText('Readiness pending').first()).toBeVisible()
   })
 
+  test('explorer search narrows to a no-match state and clears', async ({ page }) => {
+    await page.goto('/roadmap/')
+    await page.getByPlaceholder('Search by charity name or mission').fill('zzzznotacharity')
+    await expect(page.getByText('No charities match your filters.')).toBeVisible()
+    await page.getByRole('button', { name: 'Clear filters' }).first().click()
+    await expect(page.getByRole('heading', { name: 'Launched charities' })).toBeVisible()
+  })
+
+  test('explorer mission-tier chip toggles pressed state', async ({ page }) => {
+    await page.goto('/roadmap/')
+    const chip = page.getByRole('button', { name: 'Basic needs' })
+    await expect(chip).toHaveAttribute('aria-pressed', 'false')
+    await chip.click()
+    await expect(chip).toHaveAttribute('aria-pressed', 'true')
+  })
+
   test('top-level Roadmap nav link works', async ({ page }) => {
     await page.goto('/')
     await page.locator('nav a[href*="/roadmap"]').first().click()

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import RoadmapSection from './RoadmapSection'
+import RoadmapExplorer, { type ExplorerSection } from './RoadmapExplorer'
 import { loadRoadmap, sectionEntries, graduatedCount } from './roadmapData'
 
 export const metadata: Metadata = {
@@ -15,11 +15,42 @@ export const metadata: Metadata = {
 
 export default function RoadmapPage() {
   const data = loadRoadmap()
-  const review = sectionEntries(data, 'review')
-  const needsAdmin = sectionEntries(data, 'needs-admin')
-  const active = sectionEntries(data, 'active')
-  const launched = sectionEntries(data, 'launched')
   const graduated = graduatedCount(data)
+
+  const sections: ExplorerSection[] = [
+    {
+      id: 'review',
+      heading: 'In application & verification review',
+      description:
+        'FFC has received these applications and is reviewing mission fit and basic eligibility before offering products.',
+      emptyMessage: 'No applications are awaiting review right now.',
+      entries: sectionEntries(data, 'review'),
+    },
+    {
+      id: 'needs-admin',
+      heading: 'Needs a sponsoring admin',
+      description:
+        'Approved charities waiting for a verified volunteer to steward their build. Basic-needs and veterans missions, then higher readiness, sort first; community votes (👍) break ties.',
+      emptyMessage: 'Every approved charity currently has a sponsor — check back soon.',
+      entries: sectionEntries(data, 'needs-admin'),
+    },
+    {
+      id: 'active',
+      heading: 'Active builds',
+      description:
+        'Charities with a committed sponsoring admin, currently being built and configured.',
+      emptyMessage: 'No active builds at the moment.',
+      entries: sectionEntries(data, 'active'),
+    },
+    {
+      id: 'launched',
+      heading: 'Launched charities',
+      description:
+        'Live FFC charity sites. 🎉 Readiness shows once a charity completes structured intake; until then it’s marked “pending.”',
+      emptyMessage: 'No live charity sites recorded yet.',
+      entries: sectionEntries(data, 'launched'),
+    },
+  ]
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -58,37 +89,7 @@ export default function RoadmapPage() {
       </div>
 
       <main className="mx-auto max-w-7xl space-y-14 px-4 py-12 sm:px-6 lg:px-8">
-        <RoadmapSection
-          id="review"
-          heading="In application & verification review"
-          description="FFC has received these applications and is reviewing mission fit and basic eligibility before offering products."
-          entries={review}
-          emptyMessage="No applications are awaiting review right now."
-        />
-
-        <RoadmapSection
-          id="needs-admin"
-          heading="Needs a sponsoring admin"
-          description="Approved charities waiting for a verified volunteer to steward their build. Essential-mission and higher-readiness charities sort first; community votes (👍) break ties."
-          entries={needsAdmin}
-          emptyMessage="Every approved charity currently has a sponsor — check back soon."
-        />
-
-        <RoadmapSection
-          id="active"
-          heading="Active builds"
-          description="Charities with a committed sponsoring admin, currently being built and configured."
-          entries={active}
-          emptyMessage="No active builds at the moment."
-        />
-
-        <RoadmapSection
-          id="launched"
-          heading="Launched charities"
-          description="Live FFC charity sites. 🎉 Readiness shows once a charity completes structured intake; until then it’s marked “pending.”"
-          entries={launched}
-          emptyMessage="No live charity sites recorded yet."
-        />
+        <RoadmapExplorer sections={sections} />
 
         {/* Graduated alumni tile (Phase 2 page; placeholder in Phase 1A) */}
         <section className="rounded-xl border border-gray-200 bg-white p-6">

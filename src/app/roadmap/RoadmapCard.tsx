@@ -119,6 +119,7 @@ export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
           href={entry.sponsor.profileUrl}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`Sponsored by @${entry.sponsor.handle} (opens GitHub profile)`}
           className="mt-3 inline-flex items-center gap-2 text-sm text-gray-700 hover:text-blue-600"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -129,7 +130,7 @@ export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
             height={24}
             className="h-6 w-6 rounded-full"
           />
-          <span>
+          <span aria-hidden="true">
             Sponsored by <span className="font-medium">@{entry.sponsor.handle}</span>
           </span>
         </a>
@@ -138,7 +139,11 @@ export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
       <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
         <div className="text-sm text-gray-500">
           {section === 'needs-admin' && (
-            <span aria-label={`${entry.plusOne} community votes`}>👍 {entry.plusOne}</span>
+            <span
+              aria-label={`${entry.plusOne} community ${entry.plusOne === 1 ? 'vote' : 'votes'} on GitHub`}
+            >
+              <span aria-hidden="true">👍</span> {entry.plusOne}
+            </span>
           )}
         </div>
         <div className="flex items-center gap-3 text-sm">
