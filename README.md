@@ -39,6 +39,7 @@ This repository contains the administrative portal for Free For Charity, built w
 - 📚 [Documentation Center](https://ffcadmin.org/documentation) - Browse all guides and READMEs
 - 💻 [Code Quality Standards](CODE_QUALITY.md) - Development guidelines
 - 🤝 [Contributing Guide](CONTRIBUTING.md) - How to contribute
+- 🤖 [Agent Issue-to-PR Workflow](docs/agent-issue-pr-workflow.md) - Coordination rules for agent-created changes
 
 **For Administrators:**
 
