@@ -74,11 +74,11 @@ body:
     id: mission-category
     attributes:
       label: Mission category
-      description: 'Essential = food, water, shelter, emergency response, disaster relief, mental-health crisis, veterans, domestic violence. See /intake-help/mission-statement.'
+      description: 'FFC favors basic-needs causes (food, water, shelter) first, then veterans/military, then all other missions. See /intake-help/mission-statement.'
       options:
-        - Essential
+        - Basic needs (food, water, shelter)
+        - Veterans / military
         - General
-        - Niche
     validations:
       required: true
   - type: dropdown

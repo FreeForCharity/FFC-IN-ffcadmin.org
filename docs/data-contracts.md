@@ -37,9 +37,7 @@ via the `volunteer-hours` Issue Form; code work is auto-evidenced from GitHub.
     "approvedCount": 12,
     "byChannel": { "education": 20, "teaching": 8, "work": 14 },
   },
-  "entries": [
-    /* HoursEntry[] — see src/data/hours-model.ts */
-  ],
+  "entries": [/* HoursEntry[] — see src/data/hours-model.ts */],
 }
 ```
 

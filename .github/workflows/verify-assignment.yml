@@ -47,7 +47,7 @@ jobs:
 
       - name: Checkout repository
         if: steps.guard.outputs.use_kv == 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Load GH PAT from Key Vault
         if: steps.guard.outputs.use_kv == 'true'

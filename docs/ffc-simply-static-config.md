@@ -85,25 +85,27 @@ Create a fine-grained PAT per-repo for Simply Static:
 Only include plugins that produce frontend-visible output. Remove all admin-only, analytics, and security plugins — they contain embedded tokens that trigger GitHub's push protection.
 
 **Keep:**
-| Plugin | Reason |
-|--------|--------|
-| Simply Static | Required for export process |
-| Simply Static Pro | Required for export process |
+
+| Plugin              | Reason                                  |
+| ------------------- | --------------------------------------- |
+| Simply Static       | Required for export process             |
+| Simply Static Pro   | Required for export process             |
 | Strong Testimonials | Frontend CSS/JS for testimonial display |
 
 **Remove (admin-only or token-bearing):**
-| Plugin | Reason to exclude |
-|--------|-------------------|
-| Broken Link Checker | Admin tool, no frontend assets |
-| Divi Dash | WPMUDEV admin dashboard |
-| Hustle Pro | Popup/opt-in — embeds tracking tokens |
-| Microsoft Clarity | Analytics — **embeds project ID tokens** |
-| Shipper Pro | Migration tool, no frontend output |
-| Snapshot Pro | Backup tool, no frontend output |
-| Tawk.to Live Chat | Chat widget — **embeds API tokens (primary push protection trigger)** |
-| Branda Pro | Admin branding only |
-| Defender Pro | Security — **ships webauthn/JWT JS with token patterns** |
-| WPMU DEV Dashboard | Admin-only hub plugin |
+
+| Plugin              | Reason to exclude                                                     |
+| ------------------- | --------------------------------------------------------------------- |
+| Broken Link Checker | Admin tool, no frontend assets                                        |
+| Divi Dash           | WPMUDEV admin dashboard                                               |
+| Hustle Pro          | Popup/opt-in — embeds tracking tokens                                 |
+| Microsoft Clarity   | Analytics — **embeds project ID tokens**                              |
+| Shipper Pro         | Migration tool, no frontend output                                    |
+| Snapshot Pro        | Backup tool, no frontend output                                       |
+| Tawk.to Live Chat   | Chat widget — **embeds API tokens (primary push protection trigger)** |
+| Branda Pro          | Admin branding only                                                   |
+| Defender Pro        | Security — **ships webauthn/JWT JS with token patterns**              |
+| WPMU DEV Dashboard  | Admin-only hub plugin                                                 |
 
 ### URLs to Exclude
 

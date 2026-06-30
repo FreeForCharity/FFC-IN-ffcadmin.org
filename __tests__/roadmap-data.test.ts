@@ -30,10 +30,10 @@ function entry(overrides: Partial<RoadmapEntry>): RoadmapEntry {
 }
 
 describe('sortNeedsAdmin (§9)', () => {
-  it('ranks essential mission ahead of a higher-scoring general charity', () => {
-    const essential = entry({
-      charityName: 'Essential',
-      missionCategory: 'essential',
+  it('ranks basic-needs ahead of a higher-scoring general charity', () => {
+    const basicNeeds = entry({
+      charityName: 'BasicNeeds',
+      missionCategory: 'basic-needs',
       readinessScore: 50,
     })
     const general = entry({
@@ -41,8 +41,17 @@ describe('sortNeedsAdmin (§9)', () => {
       missionCategory: 'general',
       readinessScore: 250,
     })
-    const sorted = sortNeedsAdmin([general, essential])
-    expect(sorted[0].charityName).toBe('Essential')
+    const sorted = sortNeedsAdmin([general, basicNeeds])
+    expect(sorted[0].charityName).toBe('BasicNeeds')
+  })
+
+  it('ranks basic-needs ahead of veterans ahead of general', () => {
+    const sorted = sortNeedsAdmin([
+      entry({ charityName: 'Gen', missionCategory: 'general', readinessScore: 300 }),
+      entry({ charityName: 'Vet', missionCategory: 'veterans', readinessScore: 10 }),
+      entry({ charityName: 'Basic', missionCategory: 'basic-needs', readinessScore: 0 }),
+    ])
+    expect(sorted.map((e) => e.charityName)).toEqual(['Basic', 'Vet', 'Gen'])
   })
 
   it('breaks mission ties by readiness score, then +1 votes, then oldest first', () => {
