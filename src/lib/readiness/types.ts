@@ -31,20 +31,10 @@ export type Affiliation =
   | 'corporate-fiscal-sponsor'
 
 export type RevenueForm =
-  | 'pre-revenue'
-  | '990-n'
-  | '990-ez'
-  | '990-200k-500k'
-  | '990-500k-1m'
-  | '990-1m-5m'
-  | '990-over-5m'
+  'pre-revenue' | '990-n' | '990-ez' | '990-200k-500k' | '990-500k-1m' | '990-1m-5m' | '990-over-5m'
 
 export type Trajectory =
-  | 'remain-small'
-  | 'modest-growth'
-  | 'substantial-growth'
-  | 'major-grant'
-  | 'unclear'
+  'remain-small' | 'modest-growth' | 'substantial-growth' | 'major-grant' | 'unclear'
 
 export type FundingModel =
   | 'self-funded'
@@ -59,12 +49,7 @@ export type PhoneType = 'none' | 'landline' | 'personal-cell' | 'org-specific'
 export type EmailType = 'none' | 'personal-free' | 'org-gmail' | 'org-domain'
 
 export type AddressType =
-  | 'none'
-  | 'personal'
-  | 'po-box'
-  | 'commercial'
-  | 'office'
-  | 'registered-agent'
+  'none' | 'personal' | 'po-box' | 'commercial' | 'office' | 'registered-agent'
 
 export type CandidSeal = 'none' | 'gold' | 'platinum'
 
@@ -77,12 +62,7 @@ export type Form1023Status =
   | '1023-submitted-required'
 
 export type PartnershipDueDiligence =
-  | 'none'
-  | 'vague'
-  | 'named-one'
-  | 'outreach-2plus'
-  | 'outreach-3plus'
-  | 'declined-referred'
+  'none' | 'vague' | 'named-one' | 'outreach-2plus' | 'outreach-3plus' | 'declined-referred'
 
 export type ExistingWebsite = 'none' | 'placeholder' | 'functional'
 
@@ -189,11 +169,7 @@ export interface ScoreCategory {
 }
 
 export type TierLabel =
-  | 'Just getting started'
-  | 'Foundational'
-  | 'Developing'
-  | 'Established'
-  | 'Mature'
+  'Just getting started' | 'Foundational' | 'Developing' | 'Established' | 'Mature'
 
 export interface ReadinessResult {
   score: number
