@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import RoadmapCard from './RoadmapCard'
 import type { RoadmapEntry, RoadmapSectionId } from './roadmapData'
 
@@ -7,6 +10,8 @@ interface RoadmapSectionProps {
   description: string
   entries: RoadmapEntry[]
   emptyMessage: string
+  /** Cards rendered before a "Show all" control appears. Defaults to all. */
+  initialLimit?: number
 }
 
 /** One labelled section of the public roadmap with its grid of cards. */
@@ -16,7 +21,13 @@ export default function RoadmapSection({
   description,
   entries,
   emptyMessage,
+  initialLimit,
 }: RoadmapSectionProps) {
+  const [expanded, setExpanded] = useState(false)
+  const limit = initialLimit ?? entries.length
+  const shown = expanded ? entries : entries.slice(0, limit)
+  const hidden = entries.length - shown.length
+
   return (
     <section id={id} className="scroll-mt-20">
       <div className="mb-4">
@@ -31,15 +42,28 @@ export default function RoadmapSection({
           {emptyMessage}
         </p>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {entries.map((entry) => (
-            <RoadmapCard
-              key={entry.issueNumber || entry.liveUrl || entry.charityName}
-              entry={entry}
-              section={id}
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {shown.map((entry) => (
+              <RoadmapCard
+                key={entry.issueNumber || entry.liveUrl || entry.charityName}
+                entry={entry}
+                section={id}
+              />
+            ))}
+          </div>
+          {hidden > 0 && (
+            <div className="mt-4 text-center">
+              <button
+                type="button"
+                onClick={() => setExpanded(true)}
+                className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Show all {entries.length}
+              </button>
+            </div>
+          )}
+        </>
       )}
     </section>
   )
