@@ -8,7 +8,7 @@
  */
 
 let buildApplicationRecords, TIER_BY_PID, MISSION_MAX_LENGTH, sanitizeCandidUrl, sanitizeEin
-let missionCategoryOption, MISSION_OPTION
+let missionCategoryOption, missionTierFromProduct, MISSION_OPTION
 
 beforeAll(async () => {
   const mod = await import('../scripts/whmcs-applications.mjs')
@@ -18,6 +18,7 @@ beforeAll(async () => {
   sanitizeCandidUrl = mod.sanitizeCandidUrl
   sanitizeEin = mod.sanitizeEin
   missionCategoryOption = mod.missionCategoryOption
+  missionTierFromProduct = mod.missionTierFromProduct
   MISSION_OPTION = mod.MISSION_OPTION
 })
 
@@ -110,17 +111,39 @@ describe('buildApplicationRecords', () => {
     expect(sanitizeEin('')).toBe('')
   })
 
-  it('maps the self-attested mission tier to its canonical option (3 choices only)', () => {
-    expect(missionCategoryOption('Food, water, or shelter')).toBe(MISSION_OPTION.basicNeeds)
-    expect(missionCategoryOption('Shelter & housing')).toBe(MISSION_OPTION.basicNeeds)
-    expect(missionCategoryOption('Veterans')).toBe(MISSION_OPTION.veterans)
-    expect(missionCategoryOption('Military / veterans services')).toBe(MISSION_OPTION.veterans)
-    // Anything else self-attests to the neutral baseline; never invents a 4th tier.
-    expect(missionCategoryOption('All other missions')).toBe(MISSION_OPTION.general)
-    expect(missionCategoryOption('Education')).toBe(MISSION_OPTION.general)
+  it('maps the live WHMCS onboarding options to the three tiers', () => {
+    // The exact option strings from the FFC onboarding dropdown.
+    expect(missionCategoryOption('501(c)(3) Food, Water, or Shelter Organization')).toBe(
+      MISSION_OPTION.basicNeeds
+    )
+    expect(missionCategoryOption('501(c)(19) Veterans Organization')).toBe(MISSION_OPTION.veterans)
+    expect(missionCategoryOption('Other Veterans Organization')).toBe(MISSION_OPTION.veterans)
+    // "Other 501(c)(3) Organization" carries no tier keyword -> neutral baseline.
+    expect(missionCategoryOption('Other 501(c)(3) Organization')).toBe(MISSION_OPTION.general)
     // Absent field -> omitted (caller falls back to text classification).
     expect(missionCategoryOption('')).toBe('')
     expect(missionCategoryOption(undefined)).toBe('')
+  })
+
+  it('resolves the tier from the org-type dropdown by value shape, not the mission prose', () => {
+    // Dropdown found even though its field name is "Organization Type", and the
+    // free-text mission (which mentions veterans + food) must NOT win.
+    const product = {
+      customfields: {
+        customfield: [
+          { name: 'Organization Type', value: '501(c)(3) Food, Water, or Shelter Organization' },
+          { name: 'Mission Statement', value: 'We help homeless veterans access food.' },
+        ],
+      },
+    }
+    expect(missionTierFromProduct(product)).toBe(MISSION_OPTION.basicNeeds)
+
+    // No org-type field -> '' so the caller falls back to text classification,
+    // even when the mission prose mentions a tier keyword.
+    const noDropdown = {
+      customfields: { customfield: [{ name: 'Mission Statement', value: 'We support veterans.' }] },
+    }
+    expect(missionTierFromProduct(noDropdown)).toBe('')
   })
 
   it('carries the self-attested mission tier onto the published record', () => {
