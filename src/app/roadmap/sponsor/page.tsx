@@ -90,8 +90,9 @@ export default function SponsorPage() {
         <section>
           <h2 className="text-2xl font-bold text-gray-900">Capacity & stepping back</h2>
           <p className="mt-2 text-gray-700">
-            We recommend a maximum of <strong>3 concurrent active sponsorships</strong> (one in
-            active build, others in maintenance). You can step back any time by commenting on your
+            You may hold a maximum of <strong>3 concurrent active sponsorships</strong> (one in
+            active build, others in maintenance). This is a hard cap — taking on a fourth requires
+            explicit approval from FFC leadership. You can step back any time by commenting on your
             assigned issue and requesting reassignment — the site returns to the pool. This is
             normal; admins should never feel locked in.
           </p>
