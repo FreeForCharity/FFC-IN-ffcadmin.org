@@ -137,7 +137,7 @@ git push origin feature/your-feature-name
 
 **Pre-commit Hooks:** The project now uses Husky and lint-staged to automatically format and lint your code before each commit. This happens automatically when you run `git commit` and helps catch issues before they reach CI.
 
-**Note:** All commits to `main` must be GPG-signed. For feature branches, signing is optional but recommended. The CI/CD pipeline will automatically sign commits when merging to `main`.
+**Note:** GPG commit signing was previously required on `main` but has been **removed** (see [FAILED_FEATURES.md](FAILED_FEATURES.md)). Commits are not signed automatically; merges to `main` are gated by branch protection and required status checks instead.
 
 ## Order of Operations
 
@@ -288,7 +288,6 @@ Once approved and all checks pass:
 
 1. **Squash and Merge** (preferred) or **Rebase and Merge**
 2. GitHub Actions will automatically:
-   - GPG-sign the merge commit
    - Run final validation
    - Deploy to GitHub Pages (for `main` branch)
 

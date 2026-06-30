@@ -35,14 +35,12 @@ Dependabot is configured to monitor and automatically update dependencies:
 
 ### Code Quality and Security Controls
 
-**GPG Commit Signing**
+**Commit Signing**
 
-All commits to the `main` branch must be GPG-signed:
-
-- Ensures commit authenticity and integrity
-- Automated signing configured via GitHub Actions
-- See [GPG_SIGNING.md](GPG_SIGNING.md) for technical details
-- See [QUICK_START.md](QUICK_START.md) for setup instructions
+GPG commit signing was previously required on `main` but has been **removed** due
+to automation/compatibility challenges. See [FAILED_FEATURES.md](FAILED_FEATURES.md)
+for historical context (archived setup notes live under `docs/archived/`). Commit
+integrity now relies on branch protection and required status checks (below).
 
 **CI/CD Security Gates**
 

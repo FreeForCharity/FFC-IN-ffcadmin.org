@@ -68,14 +68,20 @@ email) are unchanged; only the trigger and input-resolution are added.
 See `docs/proposed-cloudflare-labels.yml` for label additions to PR into the
 Cloudflare repo so cross-repo automation can apply consistent labels.
 
-## 5. Applications feed (the roadmap intake source)
+## 5. Applications feed (optional fallback intake source)
 
-FFCadmin holds no WHMCS/Zeffy credentials. The repo that owns those flows
-(`FFC-Cloudflare-Automation`) extracts genuine applicants and **publishes a
+The **primary** intake path is local: FFCadmin's `whmcs-intake.yml` queries WHMCS
+directly using credentials fetched at runtime from Azure Key Vault (see
+`docs/azure-keyvault-setup.md`), and opens a `kind:intake` issue per new applicant.
+No long-lived WHMCS/Zeffy secrets are stored in GitHub.
+
+As an **optional fallback**, the repo that owns those upstream flows
+(`FFC-Cloudflare-Automation`) can extract genuine applicants and **publish a
 PII-safe `applications.json`**, the same way it already publishes `sites-list`.
 FFCadmin's `sync-applications.yml` reads that public file daily and opens a
 `kind:intake` issue per new applicant; `build-roadmap-data.yml` then scores and
-renders them on the roadmap.
+renders them on the roadmap. The schema and producer responsibilities below
+describe that fallback feed.
 
 **Where to publish:** a public raw path in the Cloudflare repo, e.g.
 `applications/applications.json` (override via the `APPLICATIONS_SRC_URL` repo
