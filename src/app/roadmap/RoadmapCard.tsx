@@ -152,9 +152,10 @@ export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
               href={entry.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Visit ${entry.charityName}’s website to support them`}
               className="font-medium text-emerald-700 hover:text-emerald-900"
             >
-              Visit site ↗
+              Visit &amp; support ↗
             </a>
           )}
           {section === 'needs-admin' ? (

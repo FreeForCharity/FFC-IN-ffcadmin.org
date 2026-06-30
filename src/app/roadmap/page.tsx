@@ -11,6 +11,19 @@ export const metadata: Metadata = {
   keywords:
     'Free For Charity roadmap, nonprofit intake, charity sponsorship, FFC queue, volunteer admin, charity website pipeline',
   alternates: { canonical: 'https://ffcadmin.org/roadmap/' },
+  openGraph: {
+    type: 'website',
+    title: 'The FFC Public Roadmap — charities we’re helping',
+    description:
+      'Browse every charity Free For Charity is helping — search and filter by mission and status, see readiness and transparency details, and visit a charity’s site to support it.',
+    url: 'https://ffcadmin.org/roadmap/',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The FFC Public Roadmap — charities we’re helping',
+    description:
+      'Search and filter the charities Free For Charity is helping; see readiness and how to support them.',
+  },
 }
 
 export default function RoadmapPage() {
@@ -79,10 +92,10 @@ export default function RoadmapPage() {
               Become a sponsoring admin
             </Link>
             <a
-              href="#needs-admin"
+              href="#launched"
               className="rounded-lg border border-white/70 px-5 py-2.5 font-semibold text-white hover:bg-white/10"
             >
-              Browse the backlog
+              Support a charity
             </a>
           </div>
         </div>

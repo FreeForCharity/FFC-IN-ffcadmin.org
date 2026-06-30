@@ -148,7 +148,7 @@ export default function Home() {
               Pick the path that fits you — each one leads straight to the right starting point.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {/* Charity applicant */}
             <Link
               href="/charity-prerequisites"
@@ -265,6 +265,40 @@ export default function Home() {
               </p>
               <span className="inline-flex items-center text-sm font-semibold text-teal-700 group-hover:text-teal-900">
                 See the volunteer tracks
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </Link>
+
+            {/* Donor / supporter */}
+            <Link
+              href="/roadmap"
+              className="group block rounded-xl border-2 border-amber-200 bg-amber-50 p-6 hover:border-amber-400 hover:shadow-lg transition-all"
+            >
+              <span className="text-3xl" aria-hidden="true">
+                ❤️
+              </span>
+              <h3 className="text-lg font-bold text-amber-900 mt-3 mb-1">
+                I want to support a charity
+              </h3>
+              <p className="text-sm text-amber-900/80 mb-3">
+                Browse the charities FFC is helping — see each one&apos;s mission and status, then
+                visit its site to give.
+              </p>
+              <span className="inline-flex items-center text-sm font-semibold text-amber-700 group-hover:text-amber-900">
+                Explore the roadmap
                 <svg
                   className="w-4 h-4 ml-1"
                   fill="none"
