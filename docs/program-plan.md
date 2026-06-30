@@ -262,7 +262,7 @@ FFC staff reviews new intake within 5 business days:
 
 - Confirms mission fit and prioritization policy alignment
 - Removes `needs-info` label if structured data is sufficient
-- Adds mission tier label (`mission:essential` / `mission:general` / `mission:niche`)
+- Adds mission tier label (`mission:basic-needs` / `mission:veterans` / `mission:general`)
 - Adds affiliation labels if applicable (`affiliation:franchise`, `affiliation:fiscal-sponsored`, etc.)
 - Confirms sponsorship eligibility decisions
 - Changes status to `status:needs-admin` if approved, or `status:on-hold` with explanation if not yet eligible
@@ -399,7 +399,7 @@ Public-facing labels mapped from the numeric score. Charities see their own tier
 | 180 – 269   | Established          |
 | 270+        | Mature               |
 
-A maximally-prepared 501(c)(3) charity with essential mission scores around +375. FFC's own self-score is approximately +280 (Mature, with room to grow on multi-state RA coverage and full social platform presence).
+A maximally-prepared 501(c)(3) charity with a basic-needs mission scores around +375. FFC's own self-score is approximately +280 (Mature, with room to grow on multi-state RA coverage and full social platform presence).
 
 ### What the score affects
 
@@ -411,7 +411,7 @@ A maximally-prepared 501(c)(3) charity with essential mission scores around +375
 ### What the score does NOT affect
 
 - **Eligibility for service.** A charity at "Just getting started" is not excluded; they're just lower in the queue. The only hard exclusions are those coded explicitly (e.g., fiscal sponsorship policy, US-only requirement, 501(c)(3) status mismatched with service type).
-- **Mission tier ranking primacy.** Mission category contributes a substantial bonus (+50 for essential), making essential-mission charities sort higher even when their other scoring is moderate. But mission isn't a hard tier gate; an exceptional general-mission charity can sort above a stalled essential-mission charity.
+- **Mission tier ranking primacy.** Mission category contributes a substantial bonus (+50 for basic-needs, +30 for veterans), making favored-mission charities sort higher even when their other scoring is moderate. But mission isn't a hard tier gate; an exceptional general-mission charity can sort above a stalled basic-needs-mission charity.
 
 ### Time-in-status decay
 
@@ -468,7 +468,7 @@ This prevents accidental assignments from triggering provisioning.
 
 ### Capacity expectations
 
-Each verified admin has a recommended maximum of 3 concurrent active sponsorships (one in active-build, others in support/maintenance). This is a soft cap surfaced on the sponsor page. Phase 2's volunteer tracking system enforces this more rigorously.
+Each verified admin has a maximum of 3 concurrent active sponsorships (one in active-build, others in support/maintenance). This is a hard cap surfaced on the sponsor page — taking on a fourth requires explicit FFC leadership approval. Phase 2's volunteer tracking system enforces this more rigorously.
 
 ### Stepping back
 
@@ -525,14 +525,14 @@ This section communicates: FFC has received your application; we're reviewing mi
 
 Issues with `status:needs-admin`, no assignee. Sorted by:
 
-1. Mission tier bonus (essential first via the score)
+1. Mission tier bonus (basic-needs, then veterans, first via the score)
 2. Readiness score (higher first)
 3. `+1` reaction count (community signal)
 4. Created date (oldest first)
 
 Each card prominently displays:
 
-- Charity name and mission tier badge (essential cards visually accented)
+- Charity name and mission tier badge (basic-needs cards visually accented)
 - Tier label badge (readiness)
 - Service tier they're seeking (Tier 2, Tier 3, etc.)
 - Sponsoring admin CTA: "Sponsor this site"
@@ -897,7 +897,7 @@ These need confirmation from Clarke. Each has a proposed default that will be ap
 
 | #   | Question                                              | Default                                                                                                                                     |
 | --- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 13  | Mission category as point bonus vs. sort tier         | **Bonus** (+50 essential, 0 general, -10 niche) — single combined sort key                                                                  |
+| 13  | Mission category as point bonus vs. sort tier         | **Bonus** (+50 basic-needs, +30 veterans, 0 general) — single combined sort key; no niche penalty tier                                      |
 | 14  | Phone/email per-person caps                           | **Cap penalties to required roles only** (org main + 3 required board) — optional roles missing is 0, not negative                          |
 | 15  | Northwest specifically vs. registered-agent generally | **Treat all registered-agent services equally at +20**; Northwest preference is editorial in `/intake-help/mailing-address`, not in scoring |
 | 16  | Form 1023 vs. 1023-EZ small bonus                     | **+12 voluntary long form, +10 either form when used as required**                                                                          |
@@ -939,11 +939,11 @@ These need confirmation from Clarke. Each has a proposed default that will be ap
 
 ### 15.7 Lists
 
-| #   | Question                                                                                                      | Default                                                                                                                                                  |
-| --- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 37  | Policy pages list (5 confirmed): Donation, Privacy, Terms, Vulnerability Disclosure, Security Acknowledgement | **Confirmed** — drop Code of Conduct and Conflict of Interest from scoring                                                                               |
-| 38  | External integrations list                                                                                    | **Zeffy, Idealist, Taproot, VolunteerMatch, Charity Navigator, Benevity, Network for Good** (7 platforms × +3 = max +21) — drop AmazonSmile and GiveWell |
-| 39  | Mission essential category                                                                                    | **Food, water, shelter, emergency response, disaster relief, mental health crisis services, veterans services, domestic violence services**              |
+| #   | Question                                                                                                      | Default                                                                                                                                                                                              |
+| --- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 37  | Policy pages list (5 confirmed): Donation, Privacy, Terms, Vulnerability Disclosure, Security Acknowledgement | **Confirmed** — drop Code of Conduct and Conflict of Interest from scoring                                                                                                                           |
+| 38  | External integrations list                                                                                    | **Zeffy, Idealist, Taproot, VolunteerMatch, Charity Navigator, Benevity, Network for Good** (7 platforms × +3 = max +21) — drop AmazonSmile and GiveWell                                             |
+| 39  | Mission tiers (self-attested, 3 only)                                                                         | **Basic needs (food, water, shelter) +50; Veterans / military +30; all other missions 0** — self-attested via the WHMCS onboarding org-type dropdown, with keyword auto-classification as a fallback |
 
 ### 15.8 Operational
 
@@ -961,11 +961,11 @@ These need confirmation from Clarke. Each has a proposed default that will be ap
 
 ### Mission category (single, applied)
 
-| Category                                                                                                                                       | Points |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| Essential (food, water, shelter, emergency response, disaster relief, mental health crisis, veterans services, domestic violence)              | +50    |
-| General (most 501(c)(3) charities — education, health non-emergency, animal welfare, arts, environment, community development, youth services) | 0      |
-| Niche (hobby clubs, narrow historical societies, fan organizations, etc.)                                                                      | -10    |
+| Category                                                | Points |
+| ------------------------------------------------------- | ------ |
+| Basic needs (food, water, shelter)                      | +50    |
+| Veterans / military                                     | +30    |
+| General (all other missions — most 501(c)(3) charities) | 0      |
 
 ### Charity stage (single, applied)
 
@@ -1207,16 +1207,16 @@ The 5 FFC-recognized policies: **Donation Policy, Privacy Policy, Terms of Servi
 
 ### Theoretical maximums by stage
 
-- **Approved 501(c)(3), essential mission, all infrastructure ideal**: ~375 points
+- **Approved 501(c)(3), basic-needs mission, all infrastructure ideal**: ~375 points
 - **Approved 501(c)(3), general mission, all infrastructure ideal**: ~325 points
-- **Pre-501(c)(3), essential mission, fully prepared, application submitted**: ~330 points
-- **Non-pursuing nonprofit-nature, essential mission, fully realized**: ~265 points
+- **Pre-501(c)(3), basic-needs mission, fully prepared, application submitted**: ~330 points
+- **Non-pursuing nonprofit-nature, basic-needs mission, fully realized**: ~265 points
 
 ### FFC self-score estimate
 
 Approximately **+280** based on FFC's actual current state:
 
-- General mission category (FFC supports charities; not directly essential): 0
+- General mission category (FFC supports charities; not directly basic-needs or veterans): 0
 - Independent: 0
 - Approved 501(c)(3): +20
 - 990-N filer: +20

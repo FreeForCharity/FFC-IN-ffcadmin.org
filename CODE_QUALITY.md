@@ -701,17 +701,17 @@ Create `lighthouserc.json`:
 
 ### Current State vs. Best Practices
 
-| Standard           | Current                      | Industry Best Practice              | Status                |
-| ------------------ | ---------------------------- | ----------------------------------- | --------------------- |
-| Linting            | ESLint + Prettier            | ESLint + Prettier                   | ✅ Implemented        |
-| Type Checking      | TypeScript strict mode       | TypeScript strict + explicit checks | ⚠️ Add explicit check |
-| Testing            | Jest + RTL (62 tests)        | Jest + RTL + Coverage thresholds    | ⚠️ Add thresholds     |
-| Security           | CodeQL scanning              | CodeQL + Dependency scanning        | ✅ Good               |
-| CI/CD              | Format + Lint + Build + Test | Format + Lint + Build + Test        | ✅ Implemented        |
-| Git Hooks          | Husky + lint-staged          | Pre-commit hooks                    | ✅ Implemented        |
-| Commit Style       | GPG-signed commits           | GPG + Conventional Commits          | ⚠️ Add conventional   |
-| Dependency Updates | Manual                       | Automated (Dependabot)              | ❌ Missing            |
-| Documentation      | Excellent                    | Good documentation                  | ✅ Excellent          |
+| Standard           | Current                           | Industry Best Practice              | Status                |
+| ------------------ | --------------------------------- | ----------------------------------- | --------------------- |
+| Linting            | ESLint + Prettier                 | ESLint + Prettier                   | ✅ Implemented        |
+| Type Checking      | TypeScript strict mode            | TypeScript strict + explicit checks | ⚠️ Add explicit check |
+| Testing            | Jest + RTL (62 tests)             | Jest + RTL + Coverage thresholds    | ⚠️ Add thresholds     |
+| Security           | CodeQL scanning                   | CodeQL + Dependency scanning        | ✅ Good               |
+| CI/CD              | Format + Lint + Build + Test      | Format + Lint + Build + Test        | ✅ Implemented        |
+| Git Hooks          | Husky + lint-staged               | Pre-commit hooks                    | ✅ Implemented        |
+| Commit Style       | Conventional Commits (commitlint) | Conventional Commits                | ✅ Implemented        |
+| Dependency Updates | Manual                            | Automated (Dependabot)              | ❌ Missing            |
+| Documentation      | Excellent                         | Good documentation                  | ✅ Excellent          |
 
 **Overall Grade: A (93/100)**
 
