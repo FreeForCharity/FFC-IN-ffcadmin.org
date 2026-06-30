@@ -9,10 +9,10 @@
  * pre-501c3 = pid 16, 501c3 = pid 33 (override via WHMCS_ONBOARDING_PIDS).
  * Donors hold no such product, so gating on these pids excludes them by
  * construction. Only non-PII fields are derived (an allowlist): an opaque id,
- * the public org name, charity status, service tier, an optional truncated
- * mission, a Candid/GuideStar profile link, EIN (public for registered
- * charities), and a date. Personal contact info — emails, phones, addresses,
- * board members — is never matched or read into the record.
+ * the public org name, charity status, service tier, the self-attested mission
+ * tier, an optional truncated mission, a Candid/GuideStar profile link, EIN
+ * (public for registered charities), and a date. Personal contact info — emails,
+ * phones, addresses, board members — is never matched or read into the record.
  *
  * Read-only against WHMCS (GetClientsProducts + GetClientsDetails). Graceful:
  * missing creds or a WHMCS error is a no-op, leaving state unchanged.
@@ -64,6 +64,40 @@ export const TIER_BY_PID = {
 export const STATUS_OPTION_BY_PID = {
   16: 'Pre-501(c)(3) (actively pursuing)',
   33: 'Approved 501(c)(3)',
+}
+
+// The three self-attested mission tiers. The applicant picks ONE in the WHMCS
+// onboarding dropdown; these are the only options offered. The strings here are
+// the canonical intake-form option labels (must match `MISSION_LABELS` in
+// src/lib/readiness/config.ts and the charity-intake.yml dropdown) so the stub
+// issue parses straight to the right tier instead of being guessed from text.
+export const MISSION_OPTION = {
+  basicNeeds: 'Basic needs (food, water, shelter)',
+  veterans: 'Veterans / military',
+  general: 'General',
+}
+
+// Custom-field NAME that holds the self-attested mission tier (vs. the free-text
+// mission statement). Kept specific so the dropdown isn't mistaken for the
+// mission prose and vice-versa.
+const MISSION_CATEGORY_RE = /mission\s*(category|tier|type|group|focus)|cause\s*area/i
+
+/**
+ * Map a self-attested WHMCS mission-tier value to its canonical intake-form
+ * option string. The dropdown offers exactly three choices; we match by keyword
+ * so minor wording differences in the WHMCS option labels still resolve. Returns
+ * '' when no value is supplied (caller omits the field and the roadmap generator
+ * falls back to classifying from the mission text). Exported for unit testing.
+ */
+export function missionCategoryOption(raw) {
+  const v = String(raw || '')
+    .trim()
+    .toLowerCase()
+  if (!v) return ''
+  if (/food|water|shelter|basic\s*need|hunger|homeless|housing/.test(v))
+    return MISSION_OPTION.basicNeeds
+  if (/veteran|military|armed\s*forces|servicemember/.test(v)) return MISSION_OPTION.veterans
+  return MISSION_OPTION.general
 }
 
 /** First populated custom-field value whose NAME matches `re` (decoded, trimmed). */
@@ -195,7 +229,9 @@ function missionFromProduct(product) {
   const nodes = product?.customfields?.customfield
   if (!nodes) return undefined
   for (const f of [].concat(nodes)) {
-    if (/mission/i.test(String(f?.name || ''))) {
+    const name = String(f?.name || '')
+    // The free-text mission statement, not the mission-tier dropdown.
+    if (/mission/i.test(name) && !MISSION_CATEGORY_RE.test(name)) {
       const v = String(f?.value || '').trim()
       if (v) return v
     }
@@ -225,6 +261,9 @@ export function buildApplicationRecords(byClient) {
       charityStage: rec.pid === '33' ? '501c3' : 'pre-501c3',
       charityStatusOption: STATUS_OPTION_BY_PID[rec.pid] || STATUS_OPTION_BY_PID[16],
       serviceTier: TIER_BY_PID[rec.pid] || 'Tier 1 — Application & verification',
+      // Self-attested mission tier (the WHMCS dropdown). Omitted when the
+      // applicant predates the field; the roadmap then classifies from the text.
+      ...(rec.missionOption ? { missionCategoryOption: rec.missionOption } : {}),
       ...(mission ? { missionExcerpt: mission } : {}),
       ...(rec.candidUrl ? { candidUrl: rec.candidUrl } : {}),
       ...(rec.ein ? { ein: rec.ein } : {}),
@@ -262,6 +301,7 @@ async function collect() {
       if (!clientId) continue
       const regIso = isoDate(p?.regdate)
       const mission = missionFromProduct(p)
+      const missionOption = missionCategoryOption(fieldValue(p, MISSION_CATEGORY_RE))
       // Non-PII transparency fields (allowlisted by field name; board/contact
       // fields are never matched). Candid link + EIN help donors evaluate.
       const candidUrl = sanitizeCandidUrl(fieldValue(p, /guidestar|candid/i))
@@ -270,6 +310,7 @@ async function collect() {
       if (existing) {
         if (pid === '33') existing.pid = pid
         if (!existing.mission && mission) existing.mission = mission
+        if (!existing.missionOption && missionOption) existing.missionOption = missionOption
         if (!existing.regIso && regIso) existing.regIso = regIso
         if (!existing.candidUrl && candidUrl) existing.candidUrl = candidUrl
         if (!existing.ein && ein) existing.ein = ein
@@ -278,6 +319,7 @@ async function collect() {
           clientId,
           pid,
           mission,
+          missionOption,
           regIso,
           candidUrl,
           ein,

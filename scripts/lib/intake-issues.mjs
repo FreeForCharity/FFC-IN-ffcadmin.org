@@ -100,6 +100,9 @@ export function stubBody(app, repo) {
   }
   field('Charity name', app.charityName)
   field('Charity status', app.charityStatusOption)
+  // Self-attested mission tier (WHMCS dropdown). Written as the canonical intake
+  // option so parseIntakeIssue uses it directly instead of guessing from text.
+  field('Mission category', app.missionCategoryOption)
   field('Brief mission', app.missionExcerpt)
   field('EIN', app.ein)
   field('Candid / GuideStar profile URL', app.candidUrl)
