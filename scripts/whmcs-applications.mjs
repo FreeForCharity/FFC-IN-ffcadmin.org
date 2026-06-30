@@ -77,17 +77,28 @@ export const MISSION_OPTION = {
   general: 'General',
 }
 
-// Custom-field NAME that holds the self-attested mission tier (vs. the free-text
-// mission statement). Kept specific so the dropdown isn't mistaken for the
-// mission prose and vice-versa.
-const MISSION_CATEGORY_RE = /mission\s*(category|tier|type|group|focus)|cause\s*area/i
+// Custom-field NAME that holds the self-attested mission tier. The live FFC
+// onboarding form labels this as an organization-type selector, so we match
+// those names too — not just literal "mission category".
+const MISSION_CATEGORY_RE =
+  /mission\s*(category|tier|type|group|focus)|cause\s*area|organi[sz]ation\s*type|type\s*of\s*organi[sz]ation|charity\s*type/i
+
+// VALUE shape of the live onboarding dropdown options, e.g.
+//   "501(c)(3) Food, Water, or Shelter Organization"
+//   "501(c)(19) Veterans Organization"
+//   "Other Veterans Organization"
+//   "Other 501(c)(3) Organization"
+// Anchored (starts with a 501(c)(N)/Other classifier, ends with "Organization")
+// so it identifies the dropdown by value even when we don't know the field's
+// exact label, without ever matching free-text mission prose.
+const ORG_TYPE_VALUE_RE = /^(?:501\(c\)\(\d+\)|other\b).*\borganization\s*$/i
 
 /**
  * Map a self-attested WHMCS mission-tier value to its canonical intake-form
- * option string. The dropdown offers exactly three choices; we match by keyword
- * so minor wording differences in the WHMCS option labels still resolve. Returns
- * '' when no value is supplied (caller omits the field and the roadmap generator
- * falls back to classifying from the mission text). Exported for unit testing.
+ * option string. There are exactly three tiers; we match by keyword so the live
+ * option labels (which fold tax status + cause into one string, e.g. "501(c)(3)
+ * Food, Water, or Shelter Organization") resolve, and so does any minor future
+ * rewording. Returns '' when no value is supplied. Exported for unit testing.
  */
 export function missionCategoryOption(raw) {
   const v = String(raw || '')
@@ -98,6 +109,29 @@ export function missionCategoryOption(raw) {
     return MISSION_OPTION.basicNeeds
   if (/veteran|military|armed\s*forces|servicemember/.test(v)) return MISSION_OPTION.veterans
   return MISSION_OPTION.general
+}
+
+/**
+ * Resolve the self-attested mission tier from a product's custom fields. Finds
+ * the onboarding org-type dropdown either by field name (MISSION_CATEGORY_RE) or
+ * by the distinctive option value shape (ORG_TYPE_VALUE_RE), then maps it. The
+ * value-shape match means we don't depend on the exact field label. Returns ''
+ * when no such field is present (caller falls back to text classification).
+ * Exported for unit testing.
+ */
+export function missionTierFromProduct(product) {
+  const nodes = product?.customfields?.customfield
+  if (!nodes) return ''
+  for (const f of [].concat(nodes)) {
+    const name = String(f?.name || '')
+    const value = decodeEntities(String(f?.value || '')).trim()
+    if (!value) continue
+    if (MISSION_CATEGORY_RE.test(name) || ORG_TYPE_VALUE_RE.test(value)) {
+      const opt = missionCategoryOption(value)
+      if (opt) return opt
+    }
+  }
+  return ''
 }
 
 /** First populated custom-field value whose NAME matches `re` (decoded, trimmed). */
@@ -230,9 +264,10 @@ function missionFromProduct(product) {
   if (!nodes) return undefined
   for (const f of [].concat(nodes)) {
     const name = String(f?.name || '')
-    // The free-text mission statement, not the mission-tier dropdown.
-    if (/mission/i.test(name) && !MISSION_CATEGORY_RE.test(name)) {
-      const v = String(f?.value || '').trim()
+    const v = String(f?.value || '').trim()
+    // The free-text mission statement — not the org-type/mission-tier dropdown
+    // (excluded by field name and by the dropdown's distinctive value shape).
+    if (/mission/i.test(name) && !MISSION_CATEGORY_RE.test(name) && !ORG_TYPE_VALUE_RE.test(v)) {
       if (v) return v
     }
   }
@@ -301,7 +336,7 @@ async function collect() {
       if (!clientId) continue
       const regIso = isoDate(p?.regdate)
       const mission = missionFromProduct(p)
-      const missionOption = missionCategoryOption(fieldValue(p, MISSION_CATEGORY_RE))
+      const missionOption = missionTierFromProduct(p)
       // Non-PII transparency fields (allowlisted by field name; board/contact
       // fields are never matched). Candid link + EIN help donors evaluate.
       const candidUrl = sanitizeCandidUrl(fieldValue(p, /guidestar|candid/i))
