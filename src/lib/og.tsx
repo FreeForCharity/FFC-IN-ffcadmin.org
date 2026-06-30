@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 import { LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
 
@@ -12,6 +14,21 @@ import { LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordpress-administration'
  */
 export const OG_SIZE = { width: 1200, height: 630 } as const
 export const OG_CONTENT_TYPE = 'image/png'
+
+/**
+ * The canonical FFC circle mark (`public/Svgs/ffc-logo.svg`) as a base64 data
+ * URI, read once at build time. Satori rasterizes embedded SVG `<img>`s via
+ * resvg, so the gradients render faithfully. Cached so repeated OG routes in a
+ * single build don't re-read the file.
+ */
+let ffcLogoDataUri: string | null = null
+function ffcCircleLogo(): string {
+  if (ffcLogoDataUri === null) {
+    const svg = readFileSync(join(process.cwd(), 'public/Svgs/ffc-logo.svg'), 'utf8')
+    ffcLogoDataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`
+  }
+  return ffcLogoDataUri
+}
 
 export function renderOgImage({
   title,
@@ -60,6 +77,85 @@ export function renderOgImage({
         <span style={{ display: 'flex', fontWeight: 700 }}>Free For Charity</span>
         <span style={{ display: 'flex', color: '#94a3b8' }}>ffcadmin.org</span>
       </div>
+    </div>,
+    { ...OG_SIZE }
+  )
+}
+
+/**
+ * Roadmap share image — the FFC circle mark as the hero element beside the
+ * title. Used by the `/roadmap` opengraph-image + twitter-image routes so
+ * social shares of the public roadmap are branded with the FFC logo.
+ */
+export function renderRoadmapOg({
+  eyebrow = 'Free For Charity',
+  title = 'The Public Roadmap',
+  subtitle = 'Every charity we’re helping — from intake to launch.',
+}: {
+  eyebrow?: string
+  title?: string
+  subtitle?: string
+} = {}): ImageResponse {
+  return new ImageResponse(
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        background: 'linear-gradient(135deg, #0f172a 0%, #134e4a 100%)',
+        color: 'white',
+        padding: '80px',
+        fontFamily: 'sans-serif',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          height: '100%',
+          width: '700px',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 32,
+            letterSpacing: 2,
+            textTransform: 'uppercase',
+            color: '#2dd4bf',
+            fontWeight: 700,
+          }}
+        >
+          {eyebrow}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', fontSize: 76, fontWeight: 800, lineHeight: 1.05 }}>
+            {title}
+          </div>
+          <div style={{ display: 'flex', marginTop: 24, fontSize: 34, color: '#cbd5e1' }}>
+            {subtitle}
+          </div>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+            fontSize: 30,
+          }}
+        >
+          <span style={{ display: 'flex', fontWeight: 700, color: '#cbd5e1' }}>
+            Free websites for 501(c)(3) nonprofits
+          </span>
+          <span style={{ display: 'flex', color: '#94a3b8' }}>ffcadmin.org</span>
+        </div>
+      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={ffcCircleLogo()} width={380} height={380} alt="" />
     </div>,
     { ...OG_SIZE }
   )
