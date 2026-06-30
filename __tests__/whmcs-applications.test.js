@@ -8,6 +8,7 @@
  */
 
 let buildApplicationRecords, TIER_BY_PID, MISSION_MAX_LENGTH, sanitizeCandidUrl, sanitizeEin
+let missionCategoryOption, MISSION_OPTION
 
 beforeAll(async () => {
   const mod = await import('../scripts/whmcs-applications.mjs')
@@ -16,6 +17,8 @@ beforeAll(async () => {
   MISSION_MAX_LENGTH = mod.MISSION_MAX_LENGTH
   sanitizeCandidUrl = mod.sanitizeCandidUrl
   sanitizeEin = mod.sanitizeEin
+  missionCategoryOption = mod.missionCategoryOption
+  MISSION_OPTION = mod.MISSION_OPTION
 })
 
 const ALLOWED_KEYS = [
@@ -23,6 +26,7 @@ const ALLOWED_KEYS = [
   'charityName',
   'charityStage',
   'charityStatusOption',
+  'missionCategoryOption',
   'serviceTier',
   'missionExcerpt',
   'candidUrl',
@@ -104,6 +108,40 @@ describe('buildApplicationRecords', () => {
     expect(sanitizeEin('413950250')).toBe('41-3950250')
     expect(sanitizeEin('none')).toBe('')
     expect(sanitizeEin('')).toBe('')
+  })
+
+  it('maps the self-attested mission tier to its canonical option (3 choices only)', () => {
+    expect(missionCategoryOption('Food, water, or shelter')).toBe(MISSION_OPTION.basicNeeds)
+    expect(missionCategoryOption('Shelter & housing')).toBe(MISSION_OPTION.basicNeeds)
+    expect(missionCategoryOption('Veterans')).toBe(MISSION_OPTION.veterans)
+    expect(missionCategoryOption('Military / veterans services')).toBe(MISSION_OPTION.veterans)
+    // Anything else self-attests to the neutral baseline; never invents a 4th tier.
+    expect(missionCategoryOption('All other missions')).toBe(MISSION_OPTION.general)
+    expect(missionCategoryOption('Education')).toBe(MISSION_OPTION.general)
+    // Absent field -> omitted (caller falls back to text classification).
+    expect(missionCategoryOption('')).toBe('')
+    expect(missionCategoryOption(undefined)).toBe('')
+  })
+
+  it('carries the self-attested mission tier onto the published record', () => {
+    const byClient = new Map([
+      [
+        '20',
+        {
+          clientId: '20',
+          pid: '16',
+          company: 'Hope Pantry',
+          missionOption: MISSION_OPTION.basicNeeds,
+        },
+      ],
+      ['21', { clientId: '21', pid: '16', company: 'No Tier Org' }],
+    ])
+    const apps = buildApplicationRecords(byClient)
+    expect(apps.find((a) => a.id === 'ffc-20').missionCategoryOption).toBe(
+      MISSION_OPTION.basicNeeds
+    )
+    // No self-attestation -> field omitted (roadmap classifies from mission text).
+    expect(apps.find((a) => a.id === 'ffc-21')).not.toHaveProperty('missionCategoryOption')
   })
 
   it('keeps angle brackets entity-encoded (no markup injection)', () => {
