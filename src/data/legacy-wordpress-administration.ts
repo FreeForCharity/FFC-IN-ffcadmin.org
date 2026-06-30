@@ -29,10 +29,7 @@ export const FFC_FOUNDER_CONTACT = {
 } as const
 
 export type LegacyWpAdminCategoryId =
-  | 'wordpress-operations'
-  | 'charity-onboarding'
-  | 'volunteer-programs'
-  | 'reference'
+  'wordpress-operations' | 'charity-onboarding' | 'volunteer-programs' | 'reference'
 
 export interface LegacyWpAdminCategory {
   id: LegacyWpAdminCategoryId

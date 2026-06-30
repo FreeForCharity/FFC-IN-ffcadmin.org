@@ -19,7 +19,7 @@ Approved 501(c)(3)
 
 ### Mission category
 
-Essential
+Basic needs (food, water, shelter)
 
 ### Affiliation
 
@@ -76,7 +76,7 @@ describe('parseIntakeIssue', () => {
     expect(charityName).toBe('Helping Hands Shelter')
     expect(missionExcerpt).toContain('emergency shelter')
     expect(intake.charityStage).toBe('501c3')
-    expect(intake.missionCategory).toBe('essential')
+    expect(intake.missionCategory).toBe('basic-needs')
     expect(intake.candid.seal).toBe('gold')
     expect(intake.candid.profileUrl).toBe(true)
     expect(intake.existingWebsite).toBe('functional')
@@ -88,7 +88,7 @@ describe('parseIntakeIssue', () => {
   it('produces a positive, scoreable result for the sample charity', () => {
     const { intake } = parseIntakeIssue(SAMPLE)
     const result = computeReadiness(intake)
-    // Essential mission (+50) + 501(c)(3) (+20) + Gold seal cluster alone clears Foundational.
+    // Basic-needs mission (+50) + 501(c)(3) (+20) + Gold seal cluster alone clears Foundational.
     expect(result.score).toBeGreaterThan(0)
   })
 
@@ -96,6 +96,30 @@ describe('parseIntakeIssue', () => {
     const { intake, charityName } = parseIntakeIssue('')
     expect(charityName).toBe('')
     expect(intake.charityStage).toBe('non-pursuing')
+  })
+
+  it('auto-classifies the mission tier from text when no category dropdown is set', () => {
+    // WHMCS-sourced stubs carry a Brief mission but no Mission category field.
+    const basicNeeds = parseIntakeIssue(
+      '### Brief mission\n\nWe run a food pantry for hungry families.\n'
+    ).intake
+    expect(basicNeeds.missionCategory).toBe('basic-needs')
+
+    const vets = parseIntakeIssue(
+      '### Brief mission\n\nPeer support for military veterans returning home.\n'
+    ).intake
+    expect(vets.missionCategory).toBe('veterans')
+
+    const general = parseIntakeIssue(
+      '### Brief mission\n\nAfter-school robotics club for local students.\n'
+    ).intake
+    expect(general.missionCategory).toBe('general')
+
+    // An explicit dropdown always overrides the text classifier.
+    const explicit = parseIntakeIssue(
+      '### Brief mission\n\nWe run a food pantry.\n\n### Mission category\n\nGeneral\n'
+    ).intake
+    expect(explicit.missionCategory).toBe('general')
   })
 
   it('parses documents, application progress, partnership, and operations fields', () => {

@@ -36,15 +36,15 @@
   description: Graduated to financial self-sustainability
 
 # Mission tier
-- name: 'mission:essential'
+- name: 'mission:basic-needs'
   color: 'e99695'
-  description: Essential mission (food, shelter, emergency, veterans, DV, etc.)
+  description: Basic-needs mission (food, water, shelter) — favored first
+- name: 'mission:veterans'
+  color: 'c5def5'
+  description: Veterans / military mission — favored second
 - name: 'mission:general'
   color: 'd4c5f9'
-  description: General-mission 501(c)(3)
-- name: 'mission:niche'
-  color: 'bfd4f2'
-  description: Niche mission
+  description: General mission — neutral baseline
 
 # Affiliation
 - name: 'affiliation:franchise'

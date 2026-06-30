@@ -10,9 +10,9 @@ const TIER_BADGE: Record<TierLabel, string> = {
 }
 
 const MISSION_BADGE: Record<MissionCategory, { label: string; className: string }> = {
-  essential: { label: 'Essential mission', className: 'bg-orange-100 text-orange-800' },
+  'basic-needs': { label: 'Basic needs', className: 'bg-orange-100 text-orange-800' },
+  veterans: { label: 'Veterans / military', className: 'bg-indigo-100 text-indigo-800' },
   general: { label: 'General mission', className: 'bg-gray-100 text-gray-700' },
-  niche: { label: 'Niche mission', className: 'bg-slate-100 text-slate-700' },
 }
 
 const STAGE_BADGE: Record<CharityStage, { label: string; className: string }> = {
@@ -54,7 +54,7 @@ interface RoadmapCardProps {
 export default function RoadmapCard({ entry, section }: RoadmapCardProps) {
   const mission = MISSION_BADGE[entry.missionCategory]
   const stage = STAGE_BADGE[entry.charityStage]
-  const accent = entry.missionCategory === 'essential' ? 'border-orange-300' : 'border-gray-200'
+  const accent = entry.missionCategory === 'basic-needs' ? 'border-orange-300' : 'border-gray-200'
 
   return (
     <article className={`flex flex-col rounded-xl border ${accent} bg-white p-5 shadow-sm`}>

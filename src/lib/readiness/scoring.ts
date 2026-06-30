@@ -12,6 +12,7 @@
 
 import {
   MISSION_POINTS,
+  MISSION_LABELS,
   CHARITY_STAGE_POINTS,
   AFFILIATION_POINTS,
   REVENUE_FORM_POINTS,
@@ -265,7 +266,7 @@ export function computeReadiness(intake: IntakeData): ReadinessResult {
     single(
       'mission',
       'Mission category',
-      titleCase(intake.missionCategory),
+      MISSION_LABELS[intake.missionCategory],
       MISSION_POINTS[intake.missionCategory]
     ),
     single(
