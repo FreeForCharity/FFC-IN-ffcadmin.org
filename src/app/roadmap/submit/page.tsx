@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/roadmap/submit/' },
 }
 
-const ZEFFY_APPLICATION_URL = 'https://www.zeffy.com/'
+const FFC_APPLICATION_URL = 'https://freeforcharity.org/submit-information/'
 const INTAKE_ISSUE_URL =
   'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/new?template=charity-intake.yml'
 const ESCALATION_ISSUE_URL =
@@ -28,9 +28,9 @@ interface PathCard {
 const cards: PathCard[] = [
   {
     title: 'Apply for FFC service',
-    body: 'New to FFC? Start with the Zeffy application and verification form. We assess mission fit first, then offer the service products you are ready for.',
-    href: ZEFFY_APPLICATION_URL,
-    cta: 'Start the Zeffy application',
+    body: 'New to FFC? Applications and mission-fit verification start on freeforcharity.org — our front door for new charities. We assess mission fit first, then offer the service products you are ready for.',
+    href: FFC_APPLICATION_URL,
+    cta: 'Apply at freeforcharity.org',
     external: true,
   },
   {
@@ -64,8 +64,8 @@ export default function SubmitPage() {
         <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold md:text-4xl">Submit a request</h1>
           <p className="mt-3 max-w-2xl text-lg text-teal-50">
-            Pick the path that fits. Zeffy is FFC’s front door for applications and service
-            products; structured intake and coordination continue on GitHub.
+            Pick the path that fits. New applications start on freeforcharity.org, FFC’s front door
+            for charities and donors; structured intake and coordination continue here on GitHub.
           </p>
         </div>
       </div>
@@ -111,8 +111,8 @@ export default function SubmitPage() {
             </li>
           </ul>
           <p className="mt-4 rounded-lg bg-teal-50 p-4 text-sm text-teal-900">
-            Not comfortable with GitHub? Text <strong>520-222-8104</strong> and an FFC admin will
-            complete the intake on your behalf.
+            Hitting a technical snag submitting? Text <strong>520-222-8104</strong> and an FFC admin
+            will help you get unstuck so you can finish the submission yourself.
           </p>
         </div>
       </main>
