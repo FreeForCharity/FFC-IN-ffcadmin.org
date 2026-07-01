@@ -169,6 +169,18 @@ export default function GlobalSearch() {
           </ul>
         )}
 
+        {query && results.length > 0 && (
+          <div className="border-t border-gray-100 px-4 py-2.5">
+            <button
+              type="button"
+              onClick={() => go(`/search?q=${encodeURIComponent(query)}`)}
+              className="text-sm font-medium text-blue-700 hover:text-blue-900"
+            >
+              See all results for “{query}” →
+            </button>
+          </div>
+        )}
+
         {!query && (
           <p className="px-4 py-6 text-center text-sm text-gray-400">
             Start typing to search every page on the site.

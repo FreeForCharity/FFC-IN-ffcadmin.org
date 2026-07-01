@@ -110,6 +110,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }),
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Free For Charity Admin',
+              url: 'https://ffcadmin.org',
+              // Lets Google offer a sitelinks search box that deep-links into
+              // the on-site /search results page (#543).
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://ffcadmin.org/search?q={search_term_string}',
+                },
+                'query-input': 'required name=search_term_string',
+              },
+            }),
+          }}
+        />
       </head>
       <body className="min-h-screen flex flex-col">
         <noscript>

@@ -186,6 +186,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     })),
     { url: `${SITE_URL}/guides/`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    // NOTE: /search is deliberately absent — it's noindexed (a results page
+    // for arbitrary queries), and noindexed URLs don't belong in a sitemap.
     // Public roadmap & intake program
     { url: `${SITE_URL}/roadmap/`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
     {
