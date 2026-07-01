@@ -146,6 +146,11 @@ export const operateMenu: NavMenu = {
           description: 'Technologies and tools used across FFC projects.',
         },
         {
+          label: 'Automation',
+          href: '/automation',
+          description: 'The workflow catalog: how FFC automates its infrastructure.',
+        },
+        {
           label: 'Testing',
           href: '/testing',
           description: 'Testing strategy, live CI status, and best practices.',
