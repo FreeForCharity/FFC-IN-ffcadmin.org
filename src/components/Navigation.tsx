@@ -5,6 +5,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { assetPath } from '@/lib/assetPath'
 import { NAV_MENUS, menuItems, type NavMenu } from '@/data/navigation'
+import GlobalSearch, { openGlobalSearch } from './GlobalSearch'
+
+const searchIconPath = 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -273,37 +276,81 @@ export default function Navigation() {
                 />
               </svg>
             </a>
+
+            <button
+              type="button"
+              onClick={openGlobalSearch}
+              aria-label="Search the site"
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-500 hover:border-gray-300 hover:text-gray-700 transition-colors"
+            >
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d={searchIconPath}
+                />
+              </svg>
+              <span>Search</span>
+              <kbd className="rounded border border-gray-200 bg-gray-50 px-1 text-xs">⌘K</kbd>
+            </button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => {
-              const willClose = isMenuOpen
-              setIsMenuOpen(!isMenuOpen)
-              if (willClose) setMobileAccordions(new Set())
-            }}
-            className="xl:hidden p-2 rounded-md hover:bg-gray-100 text-gray-600 transition-colors"
-            aria-label="Toggle menu"
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
+          {/* Mobile controls: search + menu toggle */}
+          <div className="flex items-center gap-1 xl:hidden">
+            <button
+              type="button"
+              onClick={openGlobalSearch}
+              className="p-2 rounded-md hover:bg-gray-100 text-gray-600 transition-colors"
+              aria-label="Search the site"
             >
-              {isMenuOpen ? (
-                <path d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d={searchIconPath} />
+              </svg>
+            </button>
+
+            <button
+              onClick={() => {
+                const willClose = isMenuOpen
+                setIsMenuOpen(!isMenuOpen)
+                if (willClose) setMobileAccordions(new Set())
+              }}
+              className="p-2 rounded-md hover:bg-gray-100 text-gray-600 transition-colors"
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                {isMenuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}
@@ -347,6 +394,8 @@ export default function Navigation() {
           </div>
         )}
       </div>
+
+      <GlobalSearch />
     </nav>
   )
 }
