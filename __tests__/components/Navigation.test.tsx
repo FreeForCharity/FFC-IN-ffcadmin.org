@@ -11,6 +11,14 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import Navigation from '@/components/Navigation'
 import { volunteerMenu, menuItems } from '@/data/navigation'
 
+// Navigation renders <GlobalSearch>, which calls useRouter(); that throws
+// without an app-router context, so provide a mock. usePathname mirrors the
+// unmocked default ('' → Home treated as active) to keep existing assertions.
+jest.mock('next/navigation', () => ({
+  usePathname: () => '',
+  useRouter: () => ({ push: jest.fn(), replace: jest.fn(), prefetch: jest.fn() }),
+}))
+
 // Helper to render and flush the queueMicrotask from the pathname effect
 async function renderNavigation() {
   render(<Navigation />)
