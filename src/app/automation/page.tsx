@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import catalog from '@/data/workflow-catalog.json'
+import { assetPath } from '@/lib/assetPath'
 
 export const metadata: Metadata = {
   title: 'Automation & Workflows',
@@ -24,6 +25,10 @@ type Workflow = {
   category: string
   categoryCode: string
 }
+
+// Hoisted so the lint rule's Literal-in-JSX-href selector doesn't match (same
+// pattern as sites-list/summary's ALERTS_FEED_HREF).
+const CATALOG_JSON_HREF = assetPath('/data/workflow-catalog.json')
 
 const CATEGORY_STYLES: Record<string, { badge: string; bar: string }> = {
   '1': { badge: 'bg-orange-100 text-orange-800', bar: 'bg-orange-500' },
@@ -295,15 +300,25 @@ export default function Automation() {
         <section className="bg-indigo-50 border border-indigo-100 rounded-xl p-6 md:p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">For AI agents & new admins</h2>
           <p className="text-gray-700 text-sm mb-3">
-            A machine-readable version of this catalog lives at{' '}
+            A machine-readable version of this catalog is published at{' '}
+            <a href={CATALOG_JSON_HREF} className="text-blue-600 hover:underline font-mono text-xs">
+              https://ffcadmin.org/data/workflow-catalog.json
+            </a>{' '}
+            (stable URL; source of truth:{' '}
             <code className="bg-white px-1 rounded border border-indigo-100">
               docs/workflow-catalog.json
             </code>{' '}
-            in the automation repository and is regenerated on every workflow change (CI fails if it
-            drifts). To pick a workflow: match the first digit to the system you need to act on,
-            prefer <em>Reads</em> before <em>Writes</em>, and always run write workflows with the
-            default <code className="bg-white px-1 rounded border border-indigo-100">dry_run</code>{' '}
-            preview first.
+            in the automation repository, regenerated on every workflow change — CI fails if it
+            drifts). Schema:{' '}
+            <code className="bg-white px-1 rounded border border-indigo-100">workflows[]</code> with{' '}
+            <em>
+              number, title, apis, file, triggers, environments, safetyLevel, approvalEnv, guard,
+              category
+            </em>
+            . To pick a workflow: match the first digit to the system you need to act on, prefer{' '}
+            <em>Reads</em> before <em>Writes</em>, and always run write workflows with the default{' '}
+            <code className="bg-white px-1 rounded border border-indigo-100">dry_run</code> preview
+            first.
           </p>
           <p className="text-gray-700 text-sm">
             Related:{' '}
