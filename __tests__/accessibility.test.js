@@ -22,6 +22,9 @@ import RoadmapSponsor from '@/app/roadmap/sponsor/page'
 import RoadmapMethodology from '@/app/roadmap/methodology/page'
 import IntakeHelpHub from '@/app/intake-help/page'
 import BoardRequirements from '@/app/intake-help/board-requirements/page'
+import AgenticOs from '@/app/agentic-os/page'
+import SessionInventory from '@/app/agentic-os/session-inventory/page'
+import AgenticOsArchitecture from '@/app/agentic-os/architecture/page'
 import ExpectationsCallout from '@/components/ExpectationsCallout'
 
 describe('Accessibility Tests', () => {
@@ -141,6 +144,21 @@ describe('Accessibility Tests', () => {
     })
     it('intake-help board-requirements has no violations', async () => {
       const { container } = render(<BoardRequirements />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+  })
+
+  describe('Agentic OS Accessibility', () => {
+    it('agentic-os overview page has no violations', async () => {
+      const { container } = render(<AgenticOs />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+    it('session-inventory dashboard has no violations', async () => {
+      const { container } = render(<SessionInventory />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+    it('architecture page has no violations', async () => {
+      const { container } = render(<AgenticOsArchitecture />)
       expect(await axe(container)).toHaveNoViolations()
     })
   })

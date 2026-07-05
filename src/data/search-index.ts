@@ -135,6 +135,22 @@ const STANDALONE_PAGES: SearchDoc[] = [
     keywords: 'vscode visual studio code copilot ai setup environment',
   },
   {
+    title: 'Agent Session Inventory',
+    description:
+      'Org-wide inventory of AI agent PR sessions across all FreeForCharity public repositories.',
+    href: '/agentic-os/session-inventory',
+    category: 'Operations',
+    keywords: 'agent sessions claude copilot inventory dashboard ai transparency',
+  },
+  {
+    title: 'Agentic OS Architecture',
+    description:
+      'Six capability layers across five repository planes, gaps, and the phased roadmap.',
+    href: '/agentic-os/architecture',
+    category: 'Operations',
+    keywords: 'agentic os architecture layers planes roadmap governance mcp',
+  },
+  {
     title: 'Sites in development',
     description: 'FFC-managed charity sites currently being built.',
     href: '/sites-list/development',

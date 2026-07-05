@@ -23,6 +23,7 @@ describe('Navigation Coverage', () => {
     { path: '/training-plan', name: 'Training Plan' },
     { path: '/canva-designer-path', name: 'Canva Designer Path' },
     { path: '/sites-list', name: 'Sites List' },
+    { path: '/agentic-os', name: 'Agentic OS' },
     { path: '/guides', name: 'Guides' },
     { path: '/blog', name: 'Blog' },
     { path: '/legacy-wordpress-administration', name: 'Legacy WordPress Administration' },
