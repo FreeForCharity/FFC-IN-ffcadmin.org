@@ -10,6 +10,9 @@ build state, and it must not become a live scanner or workflow runner for them.
 - [Footer-template parity matrix](./footer-template-parity-matrix.md) — WS-A
   footer-only parity state: the completed first wave, the merged
   manifest/Lighthouse tail, and the next planned template contract.
+- [Agentic OS blueprint](../agentic-os/README.md) — lives in `docs/agentic-os/`
+  but follows this directory's freshness convention: snapshot docs of the
+  org-wide agent-session inventory, architecture, and governance.
 
 ## Freshness convention (read this before trusting any file here)
 

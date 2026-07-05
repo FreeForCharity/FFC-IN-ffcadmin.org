@@ -170,3 +170,64 @@ left-FFC domains excluded) with expired / ≤ 60-day domain expirations from
 
 A human-readable, print-friendly rendering of the same picture lives at
 `/sites-list/summary`.
+
+## `public/data/agent-session-inventory.json`
+
+The org-wide inventory of AI-agent PR sessions across all public
+FreeForCharity repos, rendered on **`/agentic-os/session-inventory`** and
+documented in [docs/agentic-os/02-session-inventory.md](./agentic-os/02-session-inventory.md).
+
+**Unlike the feeds above, this file is NOT produced by a scheduled workflow.**
+ffcadmin is a snapshot-only plane (see [docs/standards/README.md](./standards/README.md));
+the file is refreshed manually via the `/session-inventory-refresh` skill and
+validated by `__tests__/agentic-os-data.test.ts`. Do not add an
+`update-agent-sessions.yml` workflow — if a cadence is ever needed, the scanner
+belongs in FFC-Cloudflare-Automation or FFC-IN-AI-Management, publishing a feed
+this repo syncs.
+
+```jsonc
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-05T00:00:00Z", // authoritative "as of" marker
+  "method": "public-web-pr-search", // provenance
+  "window": { "from": "2026-02-01", "to": "2026-07-05" }, // analysis frame
+  "orgTotals": {
+    "repos": 56,
+    "reposWithSessions": 32,
+    "claudePrs": 464,
+    "copilotPrs": 415,
+    "totalSessions": 879, // claudePrs + copilotPrs (test-enforced)
+  },
+  "categories": [{ "id": "feature", "label": "Feature build" }],
+  "repos": [
+    {
+      "name": "FFC-IN-ffcadmin.org",
+      "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org",
+      "kind": "internal", // internal|charity-site|template|tooling
+      "agents": {
+        "claude": {
+          "total": 99,
+          "open": 0,
+          "closed": 99,
+          "firstSeen": "2026-05-25",
+          "lastSeen": "2026-07-01",
+        },
+        "copilot": {
+          "total": 57,
+          "open": 0,
+          "closed": 57,
+          "firstSeen": "2025-11-15",
+          "lastSeen": "2026-01-08",
+        },
+      },
+      "exampleTitles": ["feat(nav): global site search (⌘K command palette)"], // ≤ 5
+      "categoryCounts": { "content": 3 }, // sampled page-1 tags, not exhaustive
+      "surveyStatus": "ok", // ok|partial|unreachable — failed fetches surface here, never invented counts
+      "notes": "",
+    },
+  ],
+}
+```
+
+Loader: `src/lib/agenticOsData.ts` (null on missing/malformed file; the
+dashboard shows a stale warning when `generatedAt` is older than 90 days).
