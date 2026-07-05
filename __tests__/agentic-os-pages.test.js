@@ -53,6 +53,7 @@ describe('Session inventory dashboard', () => {
 
   it('lists every repo from the snapshot', () => {
     const inventory = loadAgentSessionInventory()
+    expect(inventory).not.toBeNull()
     render(<SessionInventory />)
     for (const repo of inventory.repos) {
       expect(screen.getByRole('link', { name: repo.name })).toHaveAttribute('href', repo.url)

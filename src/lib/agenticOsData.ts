@@ -74,7 +74,16 @@ export function loadAgentSessionInventory(): AgentSessionInventory | null {
     !data ||
     !Array.isArray(data.repos) ||
     !Array.isArray(data.categories) ||
-    typeof data.orgTotals !== 'object'
+    typeof data.generatedAt !== 'string' ||
+    !data.window ||
+    typeof data.window.from !== 'string' ||
+    typeof data.window.to !== 'string' ||
+    !data.orgTotals ||
+    typeof data.orgTotals.repos !== 'number' ||
+    typeof data.orgTotals.reposWithSessions !== 'number' ||
+    typeof data.orgTotals.claudePrs !== 'number' ||
+    typeof data.orgTotals.copilotPrs !== 'number' ||
+    typeof data.orgTotals.totalSessions !== 'number'
   ) {
     return null
   }

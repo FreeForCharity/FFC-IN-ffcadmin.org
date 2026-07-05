@@ -14,7 +14,8 @@ changes; safe to run any time.
 
 Read `public/data/agent-session-inventory.json`. Report `generatedAt`, the
 survey `window`, `orgTotals`, and whether the snapshot is stale (older than
-90 days), mirroring the `isStale` logic in `src/lib/agenticOsData.ts`. List
+90 days), mirroring the `isStale` logic in `src/lib/dashboardData.ts` (the
+helper the dashboard imports). List
 any repos with `surveyStatus` other than `"ok"`.
 
 ### 2. Doc freshness
