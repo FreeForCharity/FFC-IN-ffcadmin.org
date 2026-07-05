@@ -1,0 +1,1707 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-05T20:02:09.469Z",
+  "method": "public-web-pr-search",
+  "window": {
+    "from": "2026-02-01",
+    "to": "2026-07-05"
+  },
+  "orgTotals": {
+    "repos": 56,
+    "reposWithSessions": 32,
+    "claudePrs": 464,
+    "copilotPrs": 415,
+    "totalSessions": 879
+  },
+  "categories": [
+    {
+      "id": "content",
+      "label": "Content & copy"
+    },
+    {
+      "id": "infra",
+      "label": "Infrastructure & CI"
+    },
+    {
+      "id": "data-refresh",
+      "label": "Automated data refresh"
+    },
+    {
+      "id": "feature",
+      "label": "Feature build"
+    },
+    {
+      "id": "fix",
+      "label": "Bug fix"
+    },
+    {
+      "id": "config",
+      "label": "AI/agent config"
+    },
+    {
+      "id": "docs",
+      "label": "Documentation"
+    },
+    {
+      "id": "migration",
+      "label": "Site migration / conversion"
+    },
+    {
+      "id": "unknown",
+      "label": "Uncategorized"
+    }
+  ],
+  "repos": [
+    {
+      "name": ".github",
+      "url": "https://github.com/FreeForCharity/.github",
+      "kind": "internal",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-Cloudflare-Automation",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation",
+      "kind": "tooling",
+      "agents": {
+        "claude": {
+          "total": 72,
+          "open": 4,
+          "closed": 68,
+          "firstSeen": "2026-06-07",
+          "lastSeen": "2026-07-02"
+        },
+        "copilot": {
+          "total": 24,
+          "open": 1,
+          "closed": 23,
+          "firstSeen": "2025-11-21",
+          "lastSeen": "2026-06-20"
+        }
+      },
+      "exampleTitles": [
+        "Establish Candid (GuideStar) workflows + Candid MCP registration",
+        "feat(provision+archive): stop masking live sites as failures; add guarded repo-archive workflow",
+        "feat: workflow 220 — served-per-year metrics (span evidence)",
+        "feat: Phase 1 survey workflows (216–218) + product-alignment plan item",
+        "docs: WHMCS data quality assessment & full-duration metrics plan"
+      ],
+      "categoryCounts": {
+        "config": 1,
+        "infra": 3,
+        "docs": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-3dmc2.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-3dmc2.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-AllTypeTowing.com",
+      "url": "https://github.com/FreeForCharity/FFC-EX-AllTypeTowing.com",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 5,
+          "open": 0,
+          "closed": 5,
+          "firstSeen": "2026-01-23",
+          "lastSeen": "2026-01-27"
+        }
+      },
+      "exampleTitles": [
+        "Add responsive image carousel beneath Gallery header",
+        "Add GitHub social icon linking to repository issues",
+        "Replace gallery images with truck-based JPG images"
+      ],
+      "categoryCounts": {
+        "content": 2,
+        "unknown": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; exampleTitles are copilot"
+    },
+    {
+      "name": "FFC-EX-PAGboosters.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-PAGboosters.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 31,
+          "open": 2,
+          "closed": 29,
+          "firstSeen": "2025-12-23",
+          "lastSeen": "2026-01-18"
+        }
+      },
+      "exampleTitles": [
+        "Update 2025-2026 meet schedule with correct locations and website links from PDF",
+        "Document code quality infrastructure from FFC Template integration",
+        "Add jump navigation to season schedule page"
+      ],
+      "categoryCounts": {
+        "unknown": 2,
+        "content": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "Zero claude PRs; example titles are copilot PRs."
+    },
+    {
+      "name": "FFC-EX-SRRN-Static-site-conversion",
+      "url": "https://github.com/FreeForCharity/FFC-EX-SRRN-Static-site-conversion",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": "archived"
+    },
+    {
+      "name": "FFC-EX-SRRN.net",
+      "url": "https://github.com/FreeForCharity/FFC-EX-SRRN.net",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 126,
+          "open": 0,
+          "closed": 126,
+          "firstSeen": "2025-12-21",
+          "lastSeen": "2026-03-30"
+        }
+      },
+      "exampleTitles": [
+        "Update training calendar static content to March 2026",
+        "Replace cropped Michigan Health Endowment Fund logo in Foundation Sponsors section",
+        "Move Serenity Bay Health logo into Row 11 and lay out as 5-column flex row"
+      ],
+      "categoryCounts": {
+        "content": 1,
+        "unknown": 2
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; exampleTitles are copilot"
+    },
+    {
+      "name": "FFC-EX-aariasblueelephant.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-aariasblueelephant.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 2,
+          "open": 0,
+          "closed": 2,
+          "firstSeen": "2026-02-08",
+          "lastSeen": "2026-02-23"
+        }
+      },
+      "exampleTitles": [
+        "Align footer with template: add policy pages and comprehensive navigation",
+        "Configure site for aariasblueelephant.org apex domain"
+      ],
+      "categoryCounts": {
+        "content": 1,
+        "unknown": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "No claude PRs; copilot titles sampled"
+    },
+    {
+      "name": "FFC-EX-amargraves.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-amargraves.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-americanlegionpost64.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-americanlegionpost64.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-aprilhansen.com",
+      "url": "https://github.com/FreeForCharity/FFC-EX-aprilhansen.com",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-armstrongacesbaseball.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-armstrongacesbaseball.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-bearupinternationalministries.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-bearupinternationalministries.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 4,
+          "open": 1,
+          "closed": 3,
+          "firstSeen": "2026-06-05",
+          "lastSeen": "2026-06-08"
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [
+        "feat: add PayPal/Venmo hosted donation button to Give section",
+        "feat: add Orphanage Outreach section",
+        "feat: add pastor and church building photos to About section",
+        "chore: consolidate Dependabot dependency and GitHub Actions updates"
+      ],
+      "categoryCounts": {
+        "feature": 2,
+        "content": 1,
+        "infra": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-bintobetter.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-bintobetter.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 9,
+          "open": 0,
+          "closed": 9,
+          "firstSeen": "2025-12-30",
+          "lastSeen": "2026-01-21"
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [
+        "Fix header logo to use correct BinToBetter branding",
+        "Fix GitHub Pages deployment: Remove auto-created root CNAME and add comprehensive troubleshooting",
+        "Configure site for custom domain-only deployment at bintobetter.org",
+        "Remove root CNAME file causing GitHub Pages to serve README instead of HTML site",
+        "Fix GitHub Pages deployment - remove root CNAME causing README to be served"
+      ],
+      "categoryCounts": {
+        "fix": 3,
+        "docs": 1,
+        "unknown": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "claude activity pre-dates the Feb 2026 window"
+    },
+    {
+      "name": "FFC-EX-browncanyonranch.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-browncanyonranch.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-bucktownbullsbaseball.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-bucktownbullsbaseball.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-bulldogztowing.com",
+      "url": "https://github.com/FreeForCharity/FFC-EX-bulldogztowing.com",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-cactuswrenpreschool.com",
+      "url": "https://github.com/FreeForCharity/FFC-EX-cactuswrenpreschool.com",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 5,
+          "open": 1,
+          "closed": 4,
+          "firstSeen": "2026-06-03",
+          "lastSeen": "2026-06-06"
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [
+        "feat: prepare custom-domain cutover to www.cactuswrenpreschool.com",
+        "docs: replace template placeholders in README",
+        "ci: remove redundant advanced CodeQL workflow",
+        "feat: rotating hero carousel and fuller photo gallery",
+        "feat: migrate Cactus Wren Preschool site from Wix into the FFC template"
+      ],
+      "categoryCounts": {
+        "feature": 1,
+        "docs": 1,
+        "infra": 1,
+        "content": 1,
+        "migration": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-canadatokeywestcoastalrun.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-canadatokeywestcoastalrun.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-clarasbridge.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-clarasbridge.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 1,
+          "open": 1,
+          "closed": 0,
+          "firstSeen": "2026-05-04",
+          "lastSeen": "2026-05-04"
+        }
+      },
+      "exampleTitles": [
+        "feat: home page redesign — color, tagline, action card links"
+      ],
+      "categoryCounts": {
+        "content": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "No claude PRs; copilot title sampled"
+    },
+    {
+      "name": "FFC-EX-compassionstl.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-compassionstl.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 15,
+          "open": 0,
+          "closed": 15,
+          "firstSeen": "2026-06-11",
+          "lastSeen": "2026-06-26"
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [
+        "feat: add national safety hotlines (DV, Poison Control, Crisis Text Line) to Emergency card",
+        "test: expand coverage for directory components and interior pages",
+        "feat: add WebSite + BreadcrumbList JSON-LD and alternateName/areaServed (SEO)",
+        "refactor: quality fixes from coverage review (links, a11y, dedup, separators)",
+        "feat: add 'More St. Louis Resource Guides' + compassionstl.com disambiguation card"
+      ],
+      "categoryCounts": {
+        "feature": 2,
+        "infra": 2,
+        "content": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-coronadonationalforestheritagesociety.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-coronadonationalforestheritagesociety.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-falloutshelterecovillage.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-falloutshelterecovillage.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-foxtrotenterprises.com",
+      "url": "https://github.com/FreeForCharity/FFC-EX-foxtrotenterprises.com",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-freedomrisingusa.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-freedomrisingusa.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 22,
+          "open": 2,
+          "closed": 20,
+          "firstSeen": "2026-06-25",
+          "lastSeen": "2026-07-05"
+        },
+        "copilot": {
+          "total": 18,
+          "open": 1,
+          "closed": 17,
+          "firstSeen": "2025-12-19",
+          "lastSeen": "2026-04-06"
+        }
+      },
+      "exampleTitles": [
+        "feat: add In the News media coverage page",
+        "fix(a11y): heading order, label-in-name, and tap-target fixes",
+        "feat: add a Fundraising page listing all of the year's fundraisers",
+        "feat: add 2026 date, countdown, and donate CTA to the parade",
+        "feat: feature the July 4th parade as the homepage highlight"
+      ],
+      "categoryCounts": {
+        "content": 3,
+        "fix": 1,
+        "feature": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-friendsof362.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-friendsof362.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-garrisonareacaregivers.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-garrisonareacaregivers.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-hclwellness.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-hclwellness.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 31,
+          "open": 4,
+          "closed": 27,
+          "firstSeen": "2026-05-30",
+          "lastSeen": "2026-06-17"
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [
+        "feat: add GitHub issues link to footer for change/feature requests",
+        "feat: programs-forward home hero — headline + single CTA",
+        "feat: render charity documents as real HTML content pages",
+        "feat: use real HCL logo in header",
+        "feat: add Documents Library and restore inline PDF readers"
+      ],
+      "categoryCounts": {
+        "content": 3,
+        "feature": 2
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-instituteofforgiveness.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-instituteofforgiveness.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-jwvpost619.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-jwvpost619.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 3,
+          "open": 1,
+          "closed": 2,
+          "firstSeen": "2026-04-07",
+          "lastSeen": "2026-04-22"
+        }
+      },
+      "exampleTitles": [
+        "fix: drop NEXT_PUBLIC_BASE_PATH for apex domain jwvpost619.org",
+        "[WIP] Copilot Request",
+        "Migrate site content from jwvpost619.org WordPress to static Next.js"
+      ],
+      "categoryCounts": {
+        "fix": 1,
+        "config": 1,
+        "migration": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; sample titles from copilot"
+    },
+    {
+      "name": "FFC-EX-legioninthewoods.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-legioninthewoods.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 4,
+          "open": 2,
+          "closed": 2,
+          "firstSeen": "2026-01-07",
+          "lastSeen": "2026-04-06"
+        }
+      },
+      "exampleTitles": [
+        "feat: replace Fish Fry ticket button with BBQ ticket sales button",
+        "Close issue - GitHub icon already implemented in footer",
+        "fix: remove placeholder links and repair broken external references"
+      ],
+      "categoryCounts": {
+        "feature": 1,
+        "content": 1,
+        "fix": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; sample titles from copilot"
+    },
+    {
+      "name": "FFC-EX-mitchellnchistory.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-mitchellnchistory.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 4,
+          "open": 1,
+          "closed": 3,
+          "firstSeen": "2026-05-12",
+          "lastSeen": "2026-07-05"
+        },
+        "copilot": {
+          "total": 5,
+          "open": 0,
+          "closed": 5,
+          "firstSeen": "2026-03-29",
+          "lastSeen": "2026-03-31"
+        }
+      },
+      "exampleTitles": [
+        "feat: implement site improvement backlog (13 issues: cleanup, perf, a11y, SEO, RSS, print, CI, image recovery, docs)",
+        "feat(cutover): self-host WP assets, harden URLs, verify content fidelity",
+        "chore(deps): force postcss>=8.5.10 to clear remaining audit alerts",
+        "docs: expand CLAUDE.md with architecture and single-test commands"
+      ],
+      "categoryCounts": {
+        "content": 2,
+        "infra": 1,
+        "config": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-nittanypost245.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-nittanypost245.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 3,
+          "open": 0,
+          "closed": 3,
+          "firstSeen": "2026-05-29",
+          "lastSeen": "2026-06-24"
+        },
+        "copilot": {
+          "total": 17,
+          "open": 5,
+          "closed": 12,
+          "firstSeen": "2026-02-01",
+          "lastSeen": "2026-05-01"
+        }
+      },
+      "exampleTitles": [
+        "feat: add June 2026 Post meeting minutes page, PDF, and tests",
+        "fix: correct Auxiliary meeting time to 1900 on home page Events",
+        "feat: add May 2026 Post meeting minutes page, PDF, and tests"
+      ],
+      "categoryCounts": {
+        "feature": 2,
+        "fix": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-nj4israel.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-nj4israel.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": "22 total PRs but none from claude/ or copilot/ branches"
+    },
+    {
+      "name": "FFC-EX-rebirthsdc.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-rebirthsdc.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 13,
+          "open": 0,
+          "closed": 13,
+          "firstSeen": "2026-05-29",
+          "lastSeen": "2026-06-04"
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [
+        "feat: Bearup International Ministries site at /bearup-international-ministries",
+        "docs: add PROJECT_BOARD.md kanban project tracker",
+        "docs: correct repo references and integration docs for Project Rebirth",
+        "docs: dedupe Privacy Policy link + fix stale route/domain examples",
+        "docs: retire FFC template artifacts and fix references"
+      ],
+      "categoryCounts": {
+        "feature": 1,
+        "docs": 4
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-savewatersaveplanet.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-savewatersaveplanet.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-slopestohope.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-slopestohope.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 5,
+          "open": 2,
+          "closed": 3,
+          "firstSeen": "2026-01-23",
+          "lastSeen": "2026-01-28"
+        }
+      },
+      "exampleTitles": [
+        "Add InterServer hosting attribution to footer",
+        "Replace all Font Awesome icons with inline SVGs",
+        "Add manual sponsor management documentation"
+      ],
+      "categoryCounts": {
+        "content": 1,
+        "unknown": 1,
+        "docs": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; exampleTitles are copilot"
+    },
+    {
+      "name": "FFC-EX-soulcap.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-soulcap.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 7,
+          "open": 0,
+          "closed": 7,
+          "firstSeen": "2026-05-31",
+          "lastSeen": "2026-06-01"
+        },
+        "copilot": {
+          "total": 1,
+          "open": 1,
+          "closed": 0,
+          "firstSeen": "2026-04-19",
+          "lastSeen": "2026-04-19"
+        }
+      },
+      "exampleTitles": [
+        "feat: finalize social links (LinkedIn Foundation + GitHub)",
+        "fix(consent): correct functional-cookie copy (Square is off-site)",
+        "refactor: drop HubSpot, use email/mailto for contact",
+        "fix(ci): make next.config.ts authoritative so trailingSlash applies on Pages",
+        "fix: enable trailingSlash so routes match the source site URLs"
+      ],
+      "categoryCounts": {
+        "feature": 1,
+        "fix": 3,
+        "unknown": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-southamptonfriends.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-southamptonfriends.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-sporting2Impact.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-sporting2Impact.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 1,
+          "open": 1,
+          "closed": 0,
+          "firstSeen": "2026-04-26",
+          "lastSeen": "2026-04-26"
+        }
+      },
+      "exampleTitles": [
+        "fix: collapse header nav into hamburger menu on mobile to prevent overflow"
+      ],
+      "categoryCounts": {
+        "fix": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; sample titles from copilot"
+    },
+    {
+      "name": "FFC-EX-technomonasteries.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-technomonasteries.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 1,
+          "open": 0,
+          "closed": 1,
+          "firstSeen": "2026-07-02",
+          "lastSeen": "2026-07-02"
+        },
+        "copilot": {
+          "total": 6,
+          "open": 0,
+          "closed": 6,
+          "firstSeen": "2026-03-20",
+          "lastSeen": "2026-07-02"
+        }
+      },
+      "exampleTitles": [
+        "chore: merge main into feature/rough-draft-refresh (conflict resolution for #97)"
+      ],
+      "categoryCounts": {
+        "infra": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-theafghanistanaffairs.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-theafghanistanaffairs.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 6,
+          "open": 1,
+          "closed": 5,
+          "firstSeen": "2026-06-26",
+          "lastSeen": "2026-06-30"
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [
+        "feat: add GitHub issues link to footer",
+        "feat: about/trust page, filterable archive, and data-rich homepage",
+        "feat: use real public-domain photography on the homepage",
+        "feat: add Pashto/Dari RTL article support and homepage visual polish (Phase C)",
+        "feat: port full English article bodies into post pages (Phase B)"
+      ],
+      "categoryCounts": {
+        "content": 5
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-thecrookedhouse.net",
+      "url": "https://github.com/FreeForCharity/FFC-EX-thecrookedhouse.net",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 4,
+          "open": 0,
+          "closed": 4,
+          "firstSeen": "2026-05-19",
+          "lastSeen": "2026-05-20"
+        },
+        "copilot": {
+          "total": 11,
+          "open": 0,
+          "closed": 11,
+          "firstSeen": "2026-02-08",
+          "lastSeen": "2026-05-12"
+        }
+      },
+      "exampleTitles": [
+        "Mobile hamburger nav on all pages + footer nav + footer donation CTA",
+        "Wire lychee link-check CI + fix two real dead links",
+        "Embed Zeffy Friends-of-the-Crooked-House form on /become-a-friend/",
+        "Repoint all Donate buttons to live Zeffy form"
+      ],
+      "categoryCounts": {
+        "content": 1,
+        "fix": 1,
+        "unknown": 2
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-EX-thewayofyeshuaministries.org",
+      "url": "https://github.com/FreeForCharity/FFC-EX-thewayofyeshuaministries.org",
+      "kind": "charity-site",
+      "agents": {
+        "claude": {
+          "total": 11,
+          "open": 1,
+          "closed": 10,
+          "firstSeen": "2026-06-06",
+          "lastSeen": "2026-07-05"
+        },
+        "copilot": {
+          "total": 1,
+          "open": 0,
+          "closed": 1,
+          "firstSeen": "2026-05-20",
+          "lastSeen": "2026-05-20"
+        }
+      },
+      "exampleTitles": [
+        "fix: serve route data network-first in service worker so weekly posts appear immediately",
+        "feat: add install-app prompt to mobile navigation menu",
+        "feat: add PWA support — installable on iOS and Android",
+        "feat: blog category filtering and donation impact tiers",
+        "feat: add weekly portion sermons through end of 2026 (Ki Teitzei through Vayechi)"
+      ],
+      "categoryCounts": {
+        "fix": 1,
+        "feature": 4
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-IN-AI-Management",
+      "url": "https://github.com/FreeForCharity/FFC-IN-AI-Management",
+      "kind": "tooling",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": "config hub; its PRs sync AI config from human branches"
+    },
+    {
+      "name": "FFC-IN-Antigravity-Static-site-agent",
+      "url": "https://github.com/FreeForCharity/FFC-IN-Antigravity-Static-site-agent",
+      "kind": "tooling",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-IN-FFC_Single_Page_Template",
+      "url": "https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template",
+      "kind": "template",
+      "agents": {
+        "claude": {
+          "total": 53,
+          "open": 5,
+          "closed": 48,
+          "firstSeen": "2026-05-24",
+          "lastSeen": "2026-07-05"
+        },
+        "copilot": {
+          "total": 57,
+          "open": 2,
+          "closed": 55,
+          "firstSeen": "2025-12-03",
+          "lastSeen": "2026-03-30"
+        }
+      },
+      "exampleTitles": [
+        "perf: port freeforcharity.org SEO, speed, video, and JS-robustness enhancements",
+        "perf: add resource hints and Organization parentOrganization",
+        "perf: iframe loading skeletons + lazy Zeffy (and stabilize GTM e2e)",
+        "test: cover Testimonials, Events, error/not-found, data modules",
+        "ci: add bundle-size budget check"
+      ],
+      "categoryCounts": {
+        "content": 1,
+        "unknown": 2,
+        "infra": 2
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-IN-Footer_Only_Template",
+      "url": "https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template",
+      "kind": "template",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-IN-Single_Page_Template_HTML",
+      "url": "https://github.com/FreeForCharity/FFC-IN-Single_Page_Template_HTML",
+      "kind": "template",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 22,
+          "open": 1,
+          "closed": 21,
+          "firstSeen": "2025-12-24",
+          "lastSeen": "2025-12-30"
+        }
+      },
+      "exampleTitles": [
+        "Fix deployment verification and optimize test suite for speed (85% faster)",
+        "Clarify @types/node dependency requirement for test infrastructure",
+        "Fix CICD workflow sequence with comprehensive testing - visual regression, accessibility, performance, and link validation"
+      ],
+      "categoryCounts": {
+        "fix": 2,
+        "unknown": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "archived; no claude PRs; exampleTitles are copilot"
+    },
+    {
+      "name": "FFC-IN-Single_Page_Template_Jekell",
+      "url": "https://github.com/FreeForCharity/FFC-IN-Single_Page_Template_Jekell",
+      "kind": "template",
+      "agents": {
+        "claude": {
+          "total": 1,
+          "open": 0,
+          "closed": 1,
+          "firstSeen": "2026-06-15",
+          "lastSeen": "2026-06-15"
+        },
+        "copilot": {
+          "total": 1,
+          "open": 0,
+          "closed": 1,
+          "firstSeen": "2026-01-03",
+          "lastSeen": "2026-01-03"
+        }
+      },
+      "exampleTitles": [
+        "ci(deploy): bump GitHub Pages actions to latest majors + fix testimonial WCAG-AA contrast"
+      ],
+      "categoryCounts": {
+        "infra": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "archived; claude date from merge (opened date not shown)"
+    },
+    {
+      "name": "FFC-IN-ffcadmin.org",
+      "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org",
+      "kind": "internal",
+      "agents": {
+        "claude": {
+          "total": 99,
+          "open": 0,
+          "closed": 99,
+          "firstSeen": "2026-05-25",
+          "lastSeen": "2026-07-01"
+        },
+        "copilot": {
+          "total": 57,
+          "open": 0,
+          "closed": 57,
+          "firstSeen": "2025-11-15",
+          "lastSeen": "2026-01-08"
+        }
+      },
+      "exampleTitles": [
+        "feat(search): /search results page + Google SearchAction deep links",
+        "feat(ux): 404 recovery page with search + sitemap coverage for roadmap/intake-help",
+        "feat(nav): global site search (⌘K command palette)",
+        "fix(roadmap): defer /roadmap/submit apply to canonical freeforcharity.org",
+        "feat(roadmap): branded 1200x630 OG share image from the FFC circle"
+      ],
+      "categoryCounts": {
+        "content": 3,
+        "feature": 1,
+        "fix": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-IN-freeforcharity.org",
+      "url": "https://github.com/FreeForCharity/FFC-IN-freeforcharity.org",
+      "kind": "internal",
+      "agents": {
+        "claude": {
+          "total": 104,
+          "open": 4,
+          "closed": 100,
+          "firstSeen": "2026-05-23",
+          "lastSeen": "2026-07-05"
+        },
+        "copilot": {
+          "total": 10,
+          "open": 0,
+          "closed": 10,
+          "firstSeen": "2026-02-17",
+          "lastSeen": "2026-02-21"
+        }
+      },
+      "exampleTitles": [
+        "perf: self-host fonts, Lighthouse weight budgets, endowment image resize",
+        "chore: WHMCS config-ops dispatch workflow (checkout policy wiring)",
+        "feat: wire live Microsoft Forms URLs for hours + testimonial collection",
+        "fix: homepage monitoring findings — .at() TypeErrors, 21.65MB page weight, contrast",
+        "feat: consent-governed publicity scaffolding (case studies, testimonials, spotlight)"
+      ],
+      "categoryCounts": {
+        "infra": 2,
+        "feature": 2,
+        "fix": 1
+      },
+      "surveyStatus": "ok",
+      "notes": ""
+    },
+    {
+      "name": "FFC-IN-google_antigravity_agents",
+      "url": "https://github.com/FreeForCharity/FFC-IN-google_antigravity_agents",
+      "kind": "tooling",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        }
+      },
+      "exampleTitles": [],
+      "categoryCounts": {},
+      "surveyStatus": "ok",
+      "notes": "autonomous Gemini loop commits directly; sessions not visible as claude/copilot PRs"
+    },
+    {
+      "name": "FFC-MicrosoftBot",
+      "url": "https://github.com/FreeForCharity/FFC-MicrosoftBot",
+      "kind": "tooling",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 1,
+          "open": 1,
+          "closed": 0,
+          "firstSeen": "2025-09-01",
+          "lastSeen": "2025-09-01"
+        }
+      },
+      "exampleTitles": [
+        "Add comprehensive GitHub Copilot instruction file to FFC-MicrosoftBot"
+      ],
+      "categoryCounts": {
+        "config": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; exampleTitles are copilot"
+    },
+    {
+      "name": "FFC-Static-Site-Capture-Tools",
+      "url": "https://github.com/FreeForCharity/FFC-Static-Site-Capture-Tools",
+      "kind": "tooling",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 1,
+          "open": 0,
+          "closed": 1,
+          "firstSeen": "2025-12-23",
+          "lastSeen": "2025-12-23"
+        }
+      },
+      "exampleTitles": [
+        "Add static site capture tools for Wayback Machine, Wix, and WordPress"
+      ],
+      "categoryCounts": {
+        "migration": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; exampleTitles are copilot"
+    },
+    {
+      "name": "TechnologyMonastery.org",
+      "url": "https://github.com/FreeForCharity/TechnologyMonastery.org",
+      "kind": "internal",
+      "agents": {
+        "claude": {
+          "total": 0,
+          "open": 0,
+          "closed": 0,
+          "firstSeen": null,
+          "lastSeen": null
+        },
+        "copilot": {
+          "total": 5,
+          "open": 1,
+          "closed": 4,
+          "firstSeen": "2025-10-08",
+          "lastSeen": "2025-11-14"
+        }
+      },
+      "exampleTitles": [
+        "[WIP] Fix site view to use Tailwind for styling",
+        "Rebuild site using Next.js 14 + Tailwind CSS (replacing plain HTML)",
+        "Re-deploy to GitHub Pages URL as custom subdomain was not working"
+      ],
+      "categoryCounts": {
+        "fix": 1,
+        "unknown": 1,
+        "content": 1
+      },
+      "surveyStatus": "ok",
+      "notes": "no claude PRs; exampleTitles are copilot"
+    }
+  ]
+}
