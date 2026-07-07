@@ -32,6 +32,13 @@ Closes gaps 3, 6 (adoption), 10.
 Goal: new repos are born with the toolkit; recurring work stops needing a
 human to open a session. Closes gaps 4, 5, 7, 8.
 
+**Down-payment delivered:** the **Ops Concierge autonomy pilot** — a daily
+Routine running `/ops-concierge` (sense feeds → triage → issue-only writes in
+this repo → run summary + notification). See
+[07-autonomy.md](./07-autonomy.md) for the full autonomy ladder; the pilot
+runs under a documented identity exception until the bot identity (gap 7)
+exists.
+
 ## Phase 3 — Operate (observability plane)
 
 Goal: the OS as routine operations with feedback loops. Closes gaps 9, 11, 12.

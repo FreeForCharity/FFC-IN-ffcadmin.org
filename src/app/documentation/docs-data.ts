@@ -246,6 +246,14 @@ export const documentationSections: DocSection[] = [
         githubUrl: `${GH_BLOB}/docs/agentic-os/README.md`,
       },
       {
+        name: 'Autonomy Ladder & Ops Concierge Pilot',
+        file: 'docs/agentic-os/07-autonomy.md',
+        description:
+          'The path from supervised agent sessions to a "Jarvis"-style assistant: the live daily Ops Concierge Routine (feeds → triage → issues → morning report), the @claude conversational entry setup, and the bot-identity gate for org-wide autonomy.',
+        audience: 'Global Admins, Maintainers, AI Agents',
+        githubUrl: `${GH_BLOB}/docs/agentic-os/07-autonomy.md`,
+      },
+      {
         name: 'Agent Issue-to-PR Workflow',
         file: 'docs/agent-issue-pr-workflow.md',
         description:

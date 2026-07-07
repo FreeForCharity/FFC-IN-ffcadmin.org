@@ -34,6 +34,7 @@ full detail.
 | [04-gap-analysis.md](./04-gap-analysis.md)               | Current vs. target, per layer, with severity and effort          |
 | [05-roadmap.md](./05-roadmap.md)                         | Phased plan and the per-repo issues to file                      |
 | [06-governance.md](./06-governance.md)                   | The governance model for a volunteer-run 501(c)(3)               |
+| [07-autonomy.md](./07-autonomy.md)                       | The autonomy ladder and the live Ops Concierge pilot ("Jarvis")  |
 
 ## Ground rules for this directory
 
