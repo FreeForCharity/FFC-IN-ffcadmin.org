@@ -68,6 +68,14 @@
   color: 'fbca04'
   description: More information needed from the charity
 
+# Agentic OS (docs/agentic-os/)
+- name: 'agentic-os'
+  color: '5319e7'
+  description: FFC Agentic OS program work (blueprint, inventory, autonomy)
+- name: 'ops-concierge'
+  color: '1d76db'
+  description: Filed or updated by the autonomous Ops Concierge run
+
 # Severity (escalations)
 - name: 'severity:critical'
   color: 'b60205'
