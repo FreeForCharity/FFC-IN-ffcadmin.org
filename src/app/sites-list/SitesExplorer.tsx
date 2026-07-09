@@ -600,11 +600,11 @@ export default function SitesExplorer({ sites }: { sites: SiteData[] }) {
           <summary className="px-6 py-4 cursor-pointer bg-gray-50 text-gray-700 border-b border-gray-200">
             <span className="text-lg font-bold">👋 Left FFC</span>
             <span className="ml-2 text-sm font-semibold opacity-80">({leftFfcSites.length})</span>
-            <p className="text-sm mt-1 opacity-80 font-normal">
+            <span className="mt-1 block text-sm font-normal opacity-80">
               Transferred away from eNom <strong>and</strong> no longer in FFC Cloudflare — FFC no
               longer manages DNS for these. Some are still live under their new owner. Listed here
               for reference; no action needed.
-            </p>
+            </span>
           </summary>
           <TierTable sites={leftFfcSites} num="6" />
         </details>
