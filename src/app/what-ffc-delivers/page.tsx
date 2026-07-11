@@ -17,15 +17,15 @@ export const metadata: Metadata = {
 const included = [
   {
     title: 'A professional website',
-    body: 'A fast, secure, accessible static site built from the FFC template and hosted free, with AI-assisted editing so you can keep it current yourself.',
+    body: 'A fast, secure, accessible static site built from the FFC template and hosted free — built and validated first on its free GitHub Pages URL, with AI-assisted editing so you can keep it current yourself.',
   },
   {
     title: 'A domain',
-    body: 'A free .org registration (or transfer-in) and DNS managed through Cloudflare, kept renewed while you partner with FFC.',
+    body: 'A free .org registration (or transfer-in) and DNS managed through Cloudflare, kept renewed while you partner with FFC. Registered once your site is validated on its GitHub Pages URL — the website always comes first.',
   },
   {
     title: 'Email & Microsoft 365 / Google Workspace',
-    body: 'Charity email and a productivity suite for eligible 501(c)(3) organizations, with MFA and security baked in.',
+    body: 'Charity email and a productivity suite for eligible 501(c)(3) organizations, with MFA and security baked in — provisioned after your domain is live.',
   },
   {
     title: 'Analytics & basic SEO',

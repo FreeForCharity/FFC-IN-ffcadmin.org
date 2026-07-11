@@ -35,7 +35,7 @@ const cards: PathCard[] = [
   },
   {
     title: 'I’m an existing FFC charity',
-    body: 'Already partnered with FFC and ready for the next service tier? Open a structured intake issue so we can score readiness and route it to a sponsoring admin.',
+    body: 'Application approved and ready for your website build or the next service tier? GitHub issues are FFC’s website-provisioning work orders — open one so we can score readiness and route it to a sponsoring admin.',
     href: INTAKE_ISSUE_URL,
     cta: 'Open an intake issue',
     external: true,
@@ -99,7 +99,7 @@ export default function SubmitPage() {
             </li>
             <li>
               <strong>Your charity appears on the roadmap</strong> as soon as you apply — even
-              before you complete the GitHub-side intake.
+              before your website-provisioning issue is opened on GitHub.
             </li>
             <li>
               <strong>Readiness is scored transparently.</strong> You’ll receive a breakdown with

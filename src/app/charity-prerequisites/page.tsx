@@ -224,8 +224,9 @@ export default function CharityPrerequisitesPage() {
             <h2 className="text-2xl font-bold text-gray-900 mb-2">4. Apply</h2>
             <p className="text-gray-700 text-sm mb-5 max-w-3xl">
               Most charities find and apply to Free For Charity on the main{' '}
-              <strong>freeforcharity.org</strong> website. Start there — the team will guide you
-              into the rest of onboarding. By applying, you agree to the{' '}
+              <strong>freeforcharity.org</strong> website. Start there — your application is
+              submitted and tracked in FFC&apos;s client portal, the system of record for your whole
+              journey. By applying, you agree to the{' '}
               <Link
                 href="/terms-of-service#section-18"
                 className="text-blue-700 underline hover:text-blue-900"
@@ -234,6 +235,33 @@ export default function CharityPrerequisitesPage() {
               </Link>{' '}
               (Section 18 covers supported charities, including the full-stack commitment).
             </p>
+            <div className="rounded-lg bg-gray-50 border border-gray-200 p-4 mb-5 max-w-3xl">
+              <h3 className="text-sm font-bold text-gray-900 mb-2">
+                What happens after you apply — the gated journey, in order
+              </h3>
+              <ol className="list-decimal list-inside space-y-1 text-sm text-gray-700">
+                <li>
+                  <strong>Your application is fully approved</strong> — with complete, validated
+                  data (including your organization&apos;s Facebook and LinkedIn Pages).
+                </li>
+                <li>
+                  <strong>Your website application is approved</strong> — a separate step that
+                  requires the approved application first.
+                </li>
+                <li>
+                  <strong>Your website is built and validated</strong> on its free GitHub Pages URL
+                  — no custom domain yet.
+                </li>
+                <li>
+                  <strong>Only then is your domain registered</strong> (or transferred) and pointed
+                  at the validated site — followed by professional email.
+                </li>
+              </ol>
+              <p className="text-xs text-gray-500 mt-2">
+                Each gate builds on the last — proving the site works before any money is spent on a
+                domain protects both your time and FFC&apos;s donor funds.
+              </p>
+            </div>
             <div className="flex flex-wrap gap-3">
               <a
                 href="https://freeforcharity.org/501c3/"
