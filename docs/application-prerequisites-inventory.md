@@ -128,8 +128,8 @@ submission). The **Glossary** at the end defines the terms.
    GuideStar/Candid seal (Section 6), and FFC-supported org accounts (Section 7).
 6. **Gated service delivery** (Section 4a) — the four gates, in order: charity
    application fully approved → website application approved → website built and
-   **validated on its GitHub Pages URL** → only then the **domain** (register or
-   transfer), with email after the domain.
+   **validated on its GitHub Pages URL** (objective checklist in Section 4b) →
+   only then the **domain** (register or transfer), with email after the domain.
 7. **Service-delivery lifecycle** (Section 8) — legacy WordPress-era flow, kept
    for reference.
 
@@ -861,7 +861,9 @@ work orders** for website provisioning only.
    default URL** (e.g. `https://freeforcharity.github.io/FFC-EX-yourcharity/`)
    — **no custom domain yet**. This is the stage the **GitHub
    website-provisioning issue** drives: the issue is created after Gate 2 and
-   the build runs entirely on the free default URL.
+   the build runs entirely on the free default URL. **"Validated" is defined
+   objectively by the checklist in Section 4b** — every box ticked, not a
+   feeling.
 4. **Gate 4 — Only now does FFC spend money on the domain.** The domain is
    **registered or transferred in Cloudflare** (its own WHMCS order) and
    pointed at the already-validated site. Those order forms require the live
@@ -882,6 +884,39 @@ nonprofit grants) is provisioned once the domain exists, and remains gated on
 - **Clean separation of systems:** WHMCS holds the applications, approvals, and
   orders (system of record); GitHub holds the engineering work orders that
   build the website.
+
+---
+
+## 4b. The "website validated" checklist (Gate 3 definition)
+
+Section 4a stays authoritative for the **flow** — the four gates and their
+order. This section defines one word inside it: what **"validated"** at Gate 3
+objectively means. The same checklist is embedded as tickable items in the
+website-provisioning work order
+(`.github/ISSUE_TEMPLATE/charity-intake.yml`), where the sponsoring admin
+ticks each box as it passes and the charity ticks the final content-review
+box.
+
+A charity's website is **validated** on its GitHub Pages default URL when
+**every** box below is ticked:
+
+- [ ] **CI green** on the charity's FFC-EX repo (latest default-branch run
+      passing)
+- [ ] **Site loads at its GitHub Pages URL** (HTTP 200, no redirect loops)
+- [ ] **FFC-standard footer present and populated from the approved
+      application data** — org legal name, EIN, policy links, social links
+      (the Gate 1 application auto-generates this data; see Section 4a)
+- [ ] **All required sections/pages present** per the chosen template
+- [ ] **Mobile responsive** — spot-check at 375px: no horizontal scroll,
+      navigation usable
+- [ ] **No browser console errors** on any page
+- [ ] **Accessibility pass** — axe clean or Lighthouse accessibility score
+      ≥ 90
+- [ ] **Content reviewed and approved by the charity**
+
+**All boxes ticked = validated → the charity may order its domain** (Gate 4,
+Section 4a). Partial completion is not validated: the domain order form's
+attestation that "the website is validated" refers to this checklist.
 
 ---
 
