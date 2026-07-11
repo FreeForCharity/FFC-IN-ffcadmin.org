@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/roadmap/submit/' },
 }
 
-const FFC_APPLICATION_URL = 'https://freeforcharity.org/submit-information/'
+const FFC_APPLICATION_URL = 'https://freeforcharity.org/help-for-charities/'
 const INTAKE_ISSUE_URL =
   'https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/new?template=charity-intake.yml'
 const ESCALATION_ISSUE_URL =

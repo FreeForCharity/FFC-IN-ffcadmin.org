@@ -37,6 +37,19 @@ export default function FiscalSponsorshipPage() {
           capacity.
         </li>
       </ul>
+      <h2>How FFC works with fiscally sponsored projects</h2>
+      <p>
+        FFC works with fiscally sponsored projects <strong>through the sponsor</strong>: the
+        sponsoring 501(c)(3) submits the FFC application and approves the project as officially
+        theirs. That mechanic isn’t optional — the Microsoft 365 and Google Workspace nonprofit
+        email grants attach to the sponsor’s 501(c)(3), so the sponsor must be the applicant of
+        record for the project to receive them.
+      </p>
+      <p>
+        Given the scoring penalty above, projects under a corporate fiscal sponsor (Tides, Open
+        Collective, Players Philanthropy Fund) should talk with FFC before having their sponsor
+        apply.
+      </p>
       <p>
         If you’re only <em>considering</em> fiscal sponsorship, talk with FFC first — we’ll help you
         weigh independence against speed. A fuller policy explainer is forthcoming.

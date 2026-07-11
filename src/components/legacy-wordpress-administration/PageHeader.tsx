@@ -52,7 +52,7 @@ export default function PageHeader({ page }: PageHeaderProps) {
           <p className="text-blue-900">
             <strong>Looking to apply for a free FFC site?</strong>{' '}
             <a
-              href="https://freeforcharity.org/submit-information/"
+              href="https://freeforcharity.org/help-for-charities/"
               className="underline hover:no-underline"
               target="_blank"
               rel="noopener noreferrer"

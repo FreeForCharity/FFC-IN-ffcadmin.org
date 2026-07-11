@@ -1,6 +1,7 @@
 /**
- * Shared intake-issue plumbing: given a list of PII-safe application records,
- * create one `kind:intake` issue per new applicant and persist a non-PII dedup
+ * Shared intake-issue plumbing: given a list of PII-safe application records
+ * (approved charities), create one `kind:intake` issue — the
+ * website-provisioning work order — per new one and persist a non-PII dedup
  * state file. Used by both the local WHMCS intake (`whmcs-applications.mjs`) and
  * the published-feed consumer (`sync-applications.mjs`) so the dedup, body, and
  * labelling stay identical regardless of where applications come from.
@@ -82,9 +83,11 @@ export function stubBody(app, repo) {
   const name = app.charityName || 'your charity'
   const tier = app.serviceTier ? `\n\n**Service requested:** ${app.serviceTier}` : ''
   const lines = [
-    `_Auto-created from an FFC application for **${name}**._${tier}`,
+    `_Auto-created from an FFC application for **${name}**. This issue is the_`,
+    `_**website-provisioning work order** for an approved charity._${tier}`,
     '',
-    'Welcome to Free For Charity! Complete or correct your structured intake with the',
+    'Welcome to Free For Charity! Your application has been approved — this issue tracks your',
+    'website build. Complete or correct your structured intake with the',
     `[charity intake form](https://github.com/${repo}/issues/new?template=charity-intake.yml),`,
     'or reply here and an FFC admin will help. Your charity already appears on the',
     '[public roadmap](https://ffcadmin.org/roadmap) — completing intake raises your readiness score.',
@@ -121,14 +124,42 @@ function isRefreshableStub(issue) {
 }
 
 /**
- * Create `kind:intake` issues for any applications not already seen.
+ * Flood guard for FIRST-TIME issue creation: returns true when the record's
+ * `submittedAt` is on/after `sinceIso` (a date like '2026-07-11'). Records with
+ * no usable date fail the guard — conservative, so a pile of historical
+ * applications without dates can never mass-create issues. An unset/invalid
+ * `sinceIso` disables the guard. Exported for unit testing.
+ */
+export function passesCreationCutoff(app, sinceIso) {
+  const cutoff = Date.parse(String(sinceIso || ''))
+  if (!Number.isFinite(cutoff)) return true
+  const submitted = Date.parse(String(app?.submittedAt || ''))
+  return Number.isFinite(submitted) && submitted >= cutoff
+}
+
+/**
+ * Create `kind:intake` website-provisioning work-order issues for any approved
+ * applications not already seen.
  *
  * Dedup is two-layered: the non-PII state file (fast path) and an issue-search
  * for the `ffc-application-id` marker (survives a state reset). Writes state /
  * returns `changed: true` only when something actually changed, so a daily run
  * with no new applicants produces no churn.
+ *
+ * `createNewSince` (optional, YYYY-MM-DD) is the first-time-creation flood
+ * guard: records not in the dedup state whose `submittedAt` predates it are
+ * skipped BEFORE the issue search, so hundreds of historical WHMCS services
+ * neither create issues nor burn GitHub search-API quota. Records already in
+ * the state file keep their existing refresh behaviour regardless of date.
  */
-export async function syncIntakeIssues({ applications, repo, token, stateFile, source }) {
+export async function syncIntakeIssues({
+  applications,
+  repo,
+  token,
+  stateFile,
+  source,
+  createNewSince,
+}) {
   if (!token) {
     console.warn('No GITHUB_TOKEN; cannot create issues. Skipping.')
     return { created: 0, changed: false }
@@ -148,9 +179,17 @@ export async function syncIntakeIssues({ applications, repo, token, stateFile, s
 
   let created = 0
   let updated = 0
+  let skippedPreCutoff = 0
   for (const app of applications) {
     const id = String(app.id ?? '').trim()
     if (!id) continue
+    // Flood guard: an id we've never recorded that predates the work-order
+    // cutover gets no new issue (and no API search). Known ids fall through so
+    // their existing issues are still refreshed.
+    if (!knownIds.has(id) && !passesCreationCutoff(app, createNewSince)) {
+      skippedPreCutoff++
+      continue
+    }
     try {
       const title = `[Intake] ${app.charityName || id}`
       const body = stubBody(app, repo)
@@ -177,6 +216,12 @@ export async function syncIntakeIssues({ applications, repo, token, stateFile, s
     } catch (err) {
       console.warn(`Skipping application ${id}: ${errMsg(err)}`)
     }
+  }
+  if (skippedPreCutoff > 0) {
+    console.log(
+      `Intake sync: skipped ${skippedPreCutoff} historical application(s) predating the ` +
+        `work-order cutover (${createNewSince}); no issues created for them.`
+    )
   }
 
   // Persist when issues changed OR when the dedup state drifted from reality —

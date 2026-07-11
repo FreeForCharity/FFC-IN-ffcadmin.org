@@ -206,7 +206,7 @@ src/data/
    published because many partner charities still run WordPress.
 6. Bottom CTAs:
    - "Ready to move off WordPress? → `/guides/wordpress-to-nextjs-guide/`"
-   - "Apply for FFC migration help → freeforcharity.org/submit-information"
+   - "Apply for FFC migration help → freeforcharity.org/help-for-charities"
 
 **Child page template (every leaf page):**
 
@@ -274,7 +274,7 @@ they are donor / trust-signal content. Do not move to ffcadmin.org's blog
    - Be authored in Next.js / Tailwind matching the existing
      `src/app/guides/` and `src/app/training-plan/` patterns.
    - Carry a top callout: "Looking to apply for a free FFC site? Visit
-     freeforcharity.org/submit-information."
+     freeforcharity.org/help-for-charities."
    - Set `<link rel="canonical">` to its own ffcadmin.org URL — this is
      the operations-team copy, not a duplicate of the marketing page.
    - Link back to the public freeforcharity.org equivalent ("Public
