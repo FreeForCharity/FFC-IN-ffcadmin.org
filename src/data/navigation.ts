@@ -136,6 +136,11 @@ export const operateMenu: NavMenu = {
           description: 'All FFC-managed domains with health and migration status.',
         },
         {
+          label: 'Charity Pipeline',
+          href: '/pipeline',
+          description: 'Which gate each charity is at — applied through validated, domain, email.',
+        },
+        {
           label: 'Documentation',
           href: '/documentation',
           description: 'Project documentation and reference materials.',
