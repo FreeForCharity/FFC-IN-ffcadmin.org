@@ -5,6 +5,17 @@
 **Owner:** Clarke Moyer
 **Supersedes:** v1 (2026-05-09)
 
+> **Superseded intake model (2026-07).** This plan predates the current **gated
+> charity journey**: **WHMCS** (the client portal at freeforcharity.org/hub) is
+> now the **core intake and application-tracking tool** and system of record —
+> and **GitHub issues are website-provisioning work orders** created only after
+> a WHMCS application is approved and its data validated. The domain is
+> purchased only after the website is built and validated on its GitHub Pages
+> URL. See
+> [application-prerequisites-inventory.md](./application-prerequisites-inventory.md)
+> (Sections 3 and 4a) for the authoritative flow; the rest of this plan is
+> retained as drafted.
+
 **Repos affected:**
 
 - `FreeForCharity/FFC-IN-ffcadmin.org` (operational/admin hub — primary build target)
