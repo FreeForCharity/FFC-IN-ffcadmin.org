@@ -1,9 +1,10 @@
 name: WHMCS Intake (local)
 
-# LOCAL charity intake: query WHMCS directly for applicants and open a
-# kind:intake issue per new one — no dependency on the Cloudflare repo
-# publishing a feed. WHMCS credentials are pulled at runtime from Azure Key
-# Vault via GitHub OIDC (no long-lived secret stored in GitHub).
+# LOCAL charity intake: query WHMCS directly for APPROVED applications (status
+# Active) and open a kind:intake website-provisioning work-order issue per new
+# one — no dependency on the Cloudflare repo publishing a feed. WHMCS
+# credentials are pulled at runtime from Azure Key Vault via GitHub OIDC (no
+# long-lived secret stored in GitHub).
 #
 # GUARDED: skips cleanly unless the Azure identity variables are configured
 # (vars.AZURE_CLIENT_ID etc.), so CI stays green until setup is complete. See
@@ -71,6 +72,12 @@ jobs:
           # FFC-Cloudflare-Automation. Override via vars.WHMCS_API_URL if needed.
           WHMCS_API_URL: ${{ vars.WHMCS_API_URL || 'https://apim-ffc-gateway-prod.azure-api.net/whmcs/api.php' }}
           # WHMCS_API_IDENTIFIER / _SECRET come from Key Vault above.
+          # Approved-only intake: which WHMCS service statuses become work-order
+          # issues (script default 'Active') and the flood-guard cutover date
+          # (script default 2026-07-11) below which historical services never
+          # get a first-time issue. Override via repo Variables when needed.
+          WHMCS_INTAKE_STATUSES: ${{ vars.WHMCS_INTAKE_STATUSES || '' }}
+          WHMCS_INTAKE_SINCE: ${{ vars.WHMCS_INTAKE_SINCE || '' }}
           WHMCS_DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
 
       - name: Create Pull Request (state file)

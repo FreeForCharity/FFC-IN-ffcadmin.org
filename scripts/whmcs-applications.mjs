@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 /**
- * LOCAL charity intake: query WHMCS directly for charity applicants and open a
- * `kind:intake` issue per new one. This runs inside FFCadmin (no cross-repo
- * feed) using WHMCS credentials pulled at runtime from Azure Key Vault by the
- * workflow (`.github/workflows/whmcs-intake.yml` -> `azure-kv-secrets` action).
+ * LOCAL charity intake: query WHMCS directly for APPROVED charity applications
+ * and open a `kind:intake` issue — the website-provisioning work order — per
+ * new one. WHMCS is the intake/application system of record; a GitHub issue is
+ * created only after the application is approved. This runs inside FFCadmin
+ * (no cross-repo feed) using WHMCS credentials pulled at runtime from Azure Key
+ * Vault by the workflow (`.github/workflows/whmcs-intake.yml` ->
+ * `azure-kv-secrets` action).
  *
  * A charity "application" is a WHMCS client holding an FFC onboarding product:
  * pre-501c3 = pid 16, 501c3 = pid 33 (override via WHMCS_ONBOARDING_PIDS).
@@ -44,15 +47,27 @@ const PRODUCT_IDS = (process.env.WHMCS_ONBOARDING_PIDS || '16,33')
   .map((s) => s.trim())
   .filter(Boolean)
 
-// Only surface applications NOT yet accepted — WHMCS service status "Pending".
-// Active = already onboarded; Cancelled/Fraud/Completed must never be published.
-// Override via WHMCS_INTAKE_STATUSES (comma-separated, case-insensitive).
-const INTAKE_STATUSES = new Set(
-  (process.env.WHMCS_INTAKE_STATUSES || 'Pending')
+// Only surface APPROVED applications — WHMCS service status "Active" (an
+// accepted onboarding service is Active). GitHub issues are website-provisioning
+// work orders created only after approval, so Pending (application still under
+// review) must not generate one, and Cancelled/Fraud/Completed must never be
+// published. Override via WHMCS_INTAKE_STATUSES (comma-separated,
+// case-insensitive). Exported for unit testing.
+export const INTAKE_STATUSES = new Set(
+  (process.env.WHMCS_INTAKE_STATUSES || 'Active')
     .split(',')
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean)
 )
+
+// FLOOD GUARD: WHMCS holds hundreds of historical applications and long-Active
+// services that predate the work-order model and never had issues; switching the
+// default status to Active must not mass-create issues for them. Only services
+// whose registration date (product `regdate`, falling back to the client's
+// `datecreated`) is on/after this cutover date generate NEW issues. Issues that
+// already exist are still refreshed regardless of date. Override via
+// WHMCS_INTAKE_SINCE (YYYY-MM-DD). Exported for unit testing.
+export const INTAKE_SINCE = process.env.WHMCS_INTAKE_SINCE || '2026-07-11'
 
 export const MISSION_MAX_LENGTH = 180
 export const TIER_BY_PID = {
@@ -410,7 +425,16 @@ async function main() {
     console.warn('No GITHUB_TOKEN; cannot create issues. Skipping.')
     return
   }
-  await syncIntakeIssues({ applications, repo, token, stateFile: STATE_FILE, source: 'WHMCS' })
+  await syncIntakeIssues({
+    applications,
+    repo,
+    token,
+    stateFile: STATE_FILE,
+    source: 'WHMCS',
+    // Flood guard (see INTAKE_SINCE above): never first-time-create issues for
+    // services that predate the approval-gated work-order cutover.
+    createNewSince: INTAKE_SINCE,
+  })
 }
 
 // Only run when invoked directly (not when imported by tests). pathToFileURL

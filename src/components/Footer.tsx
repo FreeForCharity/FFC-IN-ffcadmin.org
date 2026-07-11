@@ -334,7 +334,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://freeforcharity.org/submit-information/"
+                  href="https://freeforcharity.org/help-for-charities/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center hover:text-white transition-colors"

@@ -103,7 +103,7 @@ export default function WhatFfcDeliversPage() {
           <ul className="space-y-2 text-sm text-gray-700">
             <li>
               <a
-                href="https://freeforcharity.org/submit-information/"
+                href="https://freeforcharity.org/help-for-charities/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-teal-700 underline hover:text-teal-900"

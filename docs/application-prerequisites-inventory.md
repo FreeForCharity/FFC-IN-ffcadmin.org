@@ -100,7 +100,7 @@ of. This principle is what makes the flow in Section 2 logical and ordered.
 | Onboarding prerequisites + accounts              | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx`          |
 | **Step-by-step account setup guides**            | **`src/data/setup-guides.ts`** (GitHub, MFA, LinkedIn, Facebook, M365, password manager, Canva) |
 | What the charity receives in return              | `src/app/what-ffc-delivers/page.tsx`                                                            |
-| Public application entry point                   | <https://freeforcharity.org/submit-information/> (linked from What FFC Delivers)                |
+| Public application entry point                   | <https://freeforcharity.org/help-for-charities/> (linked from What FFC Delivers)                |
 | Application intake & tracking (system of record) | **WHMCS client portal** — <https://freeforcharity.org/hub>                                      |
 | 501(c)(3) onboarding entry point                 | <https://freeforcharity.org/501c3/>                                                             |
 | Pre-501(c)(3) onboarding entry point             | <https://freeforcharity.org/pre501c3/>                                                          |
@@ -748,7 +748,7 @@ technical-competence signals.
 > application**: a GitHub issue is a **website-provisioning work order**, created
 > only after the WHMCS application is approved and its data validated (see
 > Section 4a). The freeforcharity.org web forms
-> (<https://freeforcharity.org/submit-information/>,
+> (<https://freeforcharity.org/help-for-charities/>,
 > <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>)
 > are informational landing pages that point into the WHMCS flow. The personal
 > GitHub account remains a Phase 0 requirement because it is how the applicant
@@ -1092,7 +1092,7 @@ All policy questions for this document are **resolved** (founder-approved,
   acknowledgment is captured as a mandatory certification field on the WHMCS
   application (Section 3).
 - **WHMCS application channel + GitHub work orders.** The freeforcharity.org
-  pages (<https://freeforcharity.org/submit-information/>,
+  pages (<https://freeforcharity.org/help-for-charities/>,
   <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>)
   point into the **WHMCS client portal** (<https://freeforcharity.org/hub>);
   GitHub issues are created **after approval** as website-provisioning work

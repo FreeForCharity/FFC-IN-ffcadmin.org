@@ -8,7 +8,7 @@
  */
 
 let buildApplicationRecords, TIER_BY_PID, MISSION_MAX_LENGTH, sanitizeCandidUrl, sanitizeEin
-let missionCategoryOption, missionTierFromProduct, MISSION_OPTION
+let missionCategoryOption, missionTierFromProduct, MISSION_OPTION, INTAKE_STATUSES, INTAKE_SINCE
 
 beforeAll(async () => {
   const mod = await import('../scripts/whmcs-applications.mjs')
@@ -20,6 +20,8 @@ beforeAll(async () => {
   missionCategoryOption = mod.missionCategoryOption
   missionTierFromProduct = mod.missionTierFromProduct
   MISSION_OPTION = mod.MISSION_OPTION
+  INTAKE_STATUSES = mod.INTAKE_STATUSES
+  INTAKE_SINCE = mod.INTAKE_SINCE
 })
 
 const ALLOWED_KEYS = [
@@ -34,6 +36,21 @@ const ALLOWED_KEYS = [
   'ein',
   'submittedAt',
 ]
+
+describe('approval-gated intake defaults', () => {
+  it('surfaces only APPROVED services by default (Active), never Pending', () => {
+    // GitHub issues are website-provisioning work orders created after WHMCS
+    // approval; a Pending application must not open one.
+    expect([...INTAKE_STATUSES]).toEqual(['active'])
+    expect(INTAKE_STATUSES.has('pending')).toBe(false)
+  })
+
+  it('has a flood-guard cutover date so historical Active services never mass-create issues', () => {
+    expect(INTAKE_SINCE).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+    // The cutover marker: the date the Active default shipped.
+    expect(Date.parse(INTAKE_SINCE)).toBeGreaterThanOrEqual(Date.parse('2026-07-11'))
+  })
+})
 
 describe('buildApplicationRecords', () => {
   it('emits only the PII-safe allowlist and gates on a public org name', () => {
