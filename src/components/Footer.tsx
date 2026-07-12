@@ -144,6 +144,16 @@ export default function Footer() {
                   Blog
                 </Link>
               </li>
+              <li>
+                <a
+                  href="https://freeforcharity.org/hub/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Supported Charity Login
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -556,7 +566,7 @@ export default function Footer() {
                 className="hover:opacity-80 transition-opacity"
                 style={{ color: 'var(--color-ffc-teal)' }}
               >
-                A project of Free For Charity
+                Supported by Free For Charity
               </a>
             </p>
             <p className="mt-2">
