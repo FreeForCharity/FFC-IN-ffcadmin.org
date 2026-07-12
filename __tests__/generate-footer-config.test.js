@@ -1,79 +1,112 @@
 /**
- * Unit tests for the footer-config bridge (scripts/generate-footer-config.mjs).
+ * Unit tests for the site-config bridge (scripts/generate-footer-config.mjs).
  *
- * The transform is pure — a validated WHMCS application record in, the
- * FFC-standard footer config out — so these tests lock in the happy-path
- * mapping (org name, EIN, GuideStar link, social URLs, policy stack,
- * copyright) and the loud failure when required fields are missing (missing
+ * The transform is pure — a validated WHMCS application record in, a
+ * siteConfig PARTIAL in the shared SiteConfig shape out (template
+ * convergence, FreeForCharity/FFC-Cloudflare-Automation#693) — so these
+ * tests lock in the happy-path mapping (name, EIN, description, guidestar,
+ * social, the always-present supportedBy attribution), the manual-fill
+ * checklist, and the loud failure when required fields are missing (missing
  * data = application not validated for footer generation).
  */
 
-let buildFooterConfig, validateApplication, selectRecord
-let REQUIRED_FIELDS, POLICY_LINKS, SAMPLE_APPLICATION
+let buildSiteConfigPartial, validateApplication, selectRecord
+let REQUIRED_FIELDS, MANUAL_FIELDS_BASE, SUPPORTED_BY, SAMPLE_APPLICATION
 
 beforeAll(async () => {
   const mod = await import('../scripts/generate-footer-config.mjs')
-  buildFooterConfig = mod.buildFooterConfig
+  buildSiteConfigPartial = mod.buildSiteConfigPartial
   validateApplication = mod.validateApplication
   selectRecord = mod.selectRecord
   REQUIRED_FIELDS = mod.REQUIRED_FIELDS
-  POLICY_LINKS = mod.POLICY_LINKS
+  MANUAL_FIELDS_BASE = mod.MANUAL_FIELDS_BASE
+  SUPPORTED_BY = mod.SUPPORTED_BY
   SAMPLE_APPLICATION = mod.SAMPLE_APPLICATION
 })
 
-describe('buildFooterConfig — happy path', () => {
-  it('maps a validated application onto the FFC footer shape', () => {
+describe('buildSiteConfigPartial — happy path', () => {
+  it('maps a validated application onto the shared SiteConfig shape', () => {
     const now = new Date('2026-07-11T12:00:00.000Z')
-    const config = buildFooterConfig(SAMPLE_APPLICATION, { now })
+    const out = buildSiteConfigPartial(SAMPLE_APPLICATION, { now })
 
-    expect(config.source).toMatchObject({
+    expect(out.source).toEqual({
       applicationId: 'ffc-90',
       system: 'WHMCS',
       generatedBy: 'scripts/generate-footer-config.mjs',
-    })
-    expect(config.organization).toEqual({
-      legalName: 'Helping Hands Shelter',
-      ein: '12-3456789',
+      generatedAt: '2026-07-11T12:00:00.000Z',
       charityStage: '501c3',
-      missionStatement: 'We provide shelter, food, and job placement to families in crisis.',
     })
-    expect(config.endorsements).toEqual({
-      guidestarProfileUrl: 'https://www.guidestar.org/profile/12-3456789',
-      einLine: 'Helping Hands Shelter EIN: 12-3456789',
-    })
-    expect(config.socialLinks).toEqual([
-      {
-        platform: 'facebook',
-        label: 'Facebook',
-        url: 'https://www.facebook.com/helpinghandsshelter',
+    // The partial's keys are named and nested exactly as in the template's
+    // typed SiteConfig (src/lib/site.config.ts) — directly transcribable.
+    expect(out.siteConfig).toEqual({
+      name: 'Helping Hands Shelter',
+      description: 'We provide shelter, food, and job placement to families in crisis.',
+      social: [
+        { label: 'Facebook', href: 'https://www.facebook.com/helpinghandsshelter' },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/company/helping-hands-shelter/' },
+      ],
+      ein: '12-3456789',
+      guidestar: {
+        profileUrl: 'https://www.guidestar.org/profile/12-3456789',
+        // Only the public profile URL is collected — the direct "shared
+        // profile" link stays a manual fill (kept as '' so the guidestar
+        // object retains the template's full shape).
+        directProfileUrl: '',
       },
-      {
-        platform: 'linkedin',
-        label: 'LinkedIn',
-        url: 'https://www.linkedin.com/company/helping-hands-shelter/',
+      supportedBy: {
+        name: 'Free For Charity',
+        url: 'https://freeforcharity.org',
+        hubUrl: 'https://freeforcharity.org/hub/',
       },
-    ])
-    expect(config.policyLinks).toEqual(POLICY_LINKS)
-    expect(config.copyright).toEqual({
-      holder: 'Helping Hands Shelter',
-      year: 2026,
-      line: '© 2026 All Rights Are Reserved by Helping Hands Shelter a US 501c3 Non Profit',
-      projectOf: { name: 'Free For Charity', url: 'https://freeforcharity.org' },
     })
-    // Contact details are PII the sync never surfaces — emitted as explicit
-    // volunteer-fill placeholders, not silently omitted.
-    expect(config.contact).toEqual({ email: null, phone: null, addressLines: [] })
   })
 
-  it('covers the FFC-standard policy stack routes', () => {
-    expect(POLICY_LINKS.map((l) => l.href)).toEqual([
-      '/free-for-charity-donation-policy',
-      '/privacy-policy',
-      '/cookie-policy',
-      '/terms-of-service',
-      '/vulnerability-disclosure-policy',
-      '/security-acknowledgements',
+  it('lists every SiteConfig key the application cannot supply in manualFields', () => {
+    const out = buildSiteConfigPartial(SAMPLE_APPLICATION)
+    // The sample record supplies description and social, so only the base
+    // manual-fill list applies.
+    expect(out.manualFields).toEqual(MANUAL_FIELDS_BASE)
+    expect(out.manualFields.map((f) => f.key)).toEqual([
+      'contactEmail',
+      'phone',
+      'addresses',
+      'guidestar.directProfileUrl',
+      'integrations',
+      'url',
+      'tagline',
     ])
+    // Every manual field carries a note telling the volunteer where to get it.
+    for (const f of out.manualFields) {
+      expect(typeof f.note).toBe('string')
+      expect(f.note.length).toBeGreaterThan(0)
+    }
+    // Omitted-key contract: manual keys are NOT emitted in the partial (the
+    // one exception, guidestar.directProfileUrl, is '' to keep the object
+    // shape) — so a volunteer never transcribes a placeholder as real data.
+    expect(out.siteConfig).not.toHaveProperty('contactEmail')
+    expect(out.siteConfig).not.toHaveProperty('phone')
+    expect(out.siteConfig).not.toHaveProperty('addresses')
+    expect(out.siteConfig).not.toHaveProperty('integrations')
+    expect(out.siteConfig).not.toHaveProperty('url')
+    expect(out.siteConfig).not.toHaveProperty('tagline')
+  })
+
+  it('ALWAYS emits the FFC supportedBy attribution (footer standard, never from the record)', () => {
+    // Even a record that (maliciously or accidentally) carries its own
+    // supportedBy cannot repoint the attribution.
+    const record = {
+      ...SAMPLE_APPLICATION,
+      supportedBy: { name: 'Evil Corp', url: 'https://evil.example.com', hubUrl: 'x' },
+    }
+    const out = buildSiteConfigPartial(record)
+    expect(out.siteConfig.supportedBy).toEqual({
+      name: 'Free For Charity',
+      url: 'https://freeforcharity.org',
+      hubUrl: 'https://freeforcharity.org/hub/',
+    })
+    expect(out.siteConfig.supportedBy).toEqual(SUPPORTED_BY)
+    // And it is never on the manual-fill list — nothing to fill by hand.
+    expect(out.manualFields.map((f) => f.key)).not.toContain('supportedBy')
   })
 
   it('omits social links the record does not carry and rejects off-host URLs', () => {
@@ -82,24 +115,27 @@ describe('buildFooterConfig — happy path', () => {
       facebookUrl: undefined,
       linkedinUrl: 'https://evil.example.com/spoof', // not linkedin.com -> dropped
     }
-    const config = buildFooterConfig(record)
-    expect(config.socialLinks).toEqual([])
+    const out = buildSiteConfigPartial(record)
+    expect(out.siteConfig.social).toEqual([])
+    // With no usable page URLs, social joins the manual-fill checklist.
+    expect(out.manualFields.some((f) => f.key === 'social')).toBe(true)
   })
 
-  it('omits missionStatement when the sync record has no mission excerpt', () => {
+  it('omits description (and flags it manual) when the record has no mission excerpt', () => {
     const record = { ...SAMPLE_APPLICATION }
     delete record.missionExcerpt
-    const config = buildFooterConfig(record)
-    expect(config.organization).not.toHaveProperty('missionStatement')
+    const out = buildSiteConfigPartial(record)
+    expect(out.siteConfig).not.toHaveProperty('description')
+    expect(out.manualFields.some((f) => f.key === 'description')).toBe(true)
   })
 })
 
-describe('buildFooterConfig — missing data fails loudly', () => {
+describe('buildSiteConfigPartial — missing data fails loudly', () => {
   it('throws listing EVERY missing required field (missing = not validated)', () => {
     const record = { id: 'ffc-91', charityStage: '501c3' }
-    expect(() => buildFooterConfig(record)).toThrow(/not validated/)
+    expect(() => buildSiteConfigPartial(record)).toThrow(/not validated/)
     try {
-      buildFooterConfig(record)
+      buildSiteConfigPartial(record)
     } catch (err) {
       // All three gaps reported at once, so a volunteer sees the full picture.
       expect(err.message).toMatch(/missing "charityName"/)
@@ -110,7 +146,7 @@ describe('buildFooterConfig — missing data fails loudly', () => {
 
   it('rejects a pre-501c3 application (footer asserts US 501c3 status)', () => {
     const record = { ...SAMPLE_APPLICATION, charityStage: 'pre-501c3' }
-    expect(() => buildFooterConfig(record)).toThrow(/pre-501c3/)
+    expect(() => buildSiteConfigPartial(record)).toThrow(/pre-501c3/)
   })
 
   it('rejects a record with NO charityStage — never fail-open into a 501c3 assertion', () => {
@@ -118,7 +154,7 @@ describe('buildFooterConfig — missing data fails loudly', () => {
     delete record.charityStage
     const problems = validateApplication(record)
     expect(problems.some((p) => /missing "charityStage"/.test(p))).toBe(true)
-    expect(() => buildFooterConfig(record)).toThrow(/charityStage/)
+    expect(() => buildSiteConfigPartial(record)).toThrow(/charityStage/)
   })
 
   it('rejects a malformed EIN', () => {

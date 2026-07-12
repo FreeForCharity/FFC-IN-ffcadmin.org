@@ -1,25 +1,30 @@
 #!/usr/bin/env node
 /**
- * Footer-config bridge (Gate 3 of the gated charity journey): turn ONE
+ * Site-config bridge (Gate 3 of the gated charity journey): turn ONE
  * validated WHMCS application record — the PII-safe shape produced by
- * scripts/whmcs-applications.mjs (`buildApplicationRecords`) — into the
- * FFC-standard footer config for a charity's FFC-EX site (the footer component
- * lives in FFC-IN-Footer_Only_Template; both site templates render the same
- * block: endorsements/EIN, policy links, contact, social icons, copyright).
- * NOTE: no template consumes this JSON yet — volunteers transcribe it into the
- * charity repo's src/lib/site.config.ts (see docs/footer-bridge.md).
+ * scripts/whmcs-applications.mjs (`buildApplicationRecords`) — into a
+ * `siteConfig` PARTIAL for the charity's FFC-EX site.
+ *
+ * The emitted `siteConfig` object uses the canonical shared shape both FFC
+ * site templates are converging on (template convergence,
+ * FreeForCharity/FFC-Cloudflare-Automation#693): the typed `SiteConfig` in
+ * FFC-IN-FFC_Single_Page_Template's src/lib/site.config.ts. Every key is
+ * directly transcribable into that file — same names, same nesting — so a
+ * volunteer copies values across without translating between shapes.
+ * Keys the application data cannot supply are omitted and itemized in
+ * `manualFields` (see docs/footer-bridge.md).
  *
  * Pure transform, no network calls: the WHMCS sync already fetched the data.
  * Missing required fields mean the application is NOT validated for footer
  * generation, so the script fails loudly and lists every gap instead of
- * emitting a half-empty footer.
+ * emitting a half-empty config.
  *
  * Usage:
  *   node scripts/generate-footer-config.mjs --input application.json
  *   cat application.json | node scripts/generate-footer-config.mjs
  *   node scripts/generate-footer-config.mjs --sample            # demo record
  *   node scripts/generate-footer-config.mjs --input apps.json --id ffc-90
- *   ... --output footer.config.json                             # else stdout
+ *   ... --output site.config.partial.json                       # else stdout
  *
  * Input is a single application record, or an array of them (e.g. the
  * WHMCS_DRY_RUN output) plus --id to pick one.
@@ -43,22 +48,75 @@ export const REQUIRED_FIELDS = [
 ]
 
 /**
- * Optional record fields the footer uses when present. `facebookUrl` and
+ * Optional record fields the config uses when present. `facebookUrl` and
  * `linkedinUrl` are the charity PAGE URLs from the hardened onboarding forms
  * (fields `facebook-page` / `linkedin-page`, never board-member profiles),
  * surfaced by the WHMCS sync's PII-safe allowlist. Exported for unit testing.
  */
 export const OPTIONAL_FIELDS = ['missionExcerpt', 'facebookUrl', 'linkedinUrl', 'submittedAt']
 
-/** The FFC-standard policy stack every charity site footer links to. */
-export const POLICY_LINKS = [
-  { name: 'Donation Policy', href: '/free-for-charity-donation-policy' },
-  { name: 'Privacy Policy', href: '/privacy-policy' },
-  { name: 'Cookie Policy', href: '/cookie-policy' },
-  { name: 'Terms of Service', href: '/terms-of-service' },
-  { name: 'Vulnerability Disclosure Policy', href: '/vulnerability-disclosure-policy' },
-  { name: 'Security Acknowledgement', href: '/security-acknowledgements' },
+/**
+ * Permanent "Supported by" attribution required by the FFC footer standard on
+ * every supported charity site (SiteConfig.supportedBy). These values are
+ * intentionally FFC's, forever — never derived from the application record and
+ * never a rebrand target. Exported for unit testing.
+ */
+export const SUPPORTED_BY = Object.freeze({
+  name: 'Free For Charity',
+  url: 'https://freeforcharity.org',
+  hubUrl: 'https://freeforcharity.org/hub/',
+})
+
+/**
+ * SiteConfig keys the WHMCS application can never supply. Always present in
+ * the output's `manualFields` so the provisioning volunteer knows exactly what
+ * to fill by hand (from the charity's public website or the work order).
+ * Exported for unit testing.
+ */
+export const MANUAL_FIELDS_BASE = [
+  {
+    key: 'contactEmail',
+    note: 'PII the WHMCS sync never surfaces — take the public contact email from the charity website',
+  },
+  {
+    key: 'phone',
+    note: 'PII the WHMCS sync never surfaces — fill { display, tel } from the charity website',
+  },
+  {
+    key: 'addresses',
+    note: 'PII the WHMCS sync never surfaces — fill [{ label, lines, mapUrl }] from the charity website',
+  },
+  {
+    key: 'guidestar.directProfileUrl',
+    note: 'Candid "shared profile" direct link — the application only carries the public profile URL',
+  },
+  {
+    key: 'integrations',
+    note: 'per-charity Zeffy / Idealist / SociableKit / Microsoft Forms endpoints — not collected at application time',
+  },
+  {
+    key: 'url',
+    note: "the site's canonical production URL — set when the FFC-EX repo/domain is provisioned",
+  },
+  {
+    key: 'tagline',
+    note: 'short slogan for the default <title> — not collected by the application; agree it with the charity',
+  },
 ]
+
+/** Accept only a real https/http URL on the expected social host, else ''. */
+function sanitizeSocialUrl(raw, hostRe) {
+  if (!raw) return ''
+  let u
+  try {
+    u = new URL(String(raw).trim())
+  } catch {
+    return ''
+  }
+  if (u.protocol !== 'https:' && u.protocol !== 'http:') return ''
+  if (!hostRe.test(u.hostname)) return ''
+  return u.toString()
+}
 
 /**
  * Documented sample record for testing/demo (--sample). Mirrors the exact
@@ -79,20 +137,6 @@ export const SAMPLE_APPLICATION = {
   submittedAt: '2026-07-11T00:00:00.000Z',
   facebookUrl: 'https://www.facebook.com/helpinghandsshelter',
   linkedinUrl: 'https://www.linkedin.com/company/helping-hands-shelter/',
-}
-
-/** Accept only a real https/http URL on the expected social host, else ''. */
-function sanitizeSocialUrl(raw, hostRe) {
-  if (!raw) return ''
-  let u
-  try {
-    u = new URL(String(raw).trim())
-  } catch {
-    return ''
-  }
-  if (u.protocol !== 'https:' && u.protocol !== 'http:') return ''
-  if (!hostRe.test(u.hostname)) return ''
-  return u.toString()
 }
 
 /**
@@ -126,11 +170,21 @@ export function validateApplication(record) {
 }
 
 /**
- * Pure transform: validated application record -> FFC footer config. Throws
- * with the full problem list when the record is not validated. Exported for
- * unit testing.
+ * Pure transform: validated application record -> siteConfig partial in the
+ * shared SiteConfig shape (template convergence,
+ * FreeForCharity/FFC-Cloudflare-Automation#693). Throws with the full problem
+ * list when the record is not validated. Exported for unit testing.
+ *
+ * Output contract:
+ *   - `source`       provenance: which validated application this derives from
+ *                    (including the validated charityStage the 501(c)(3)
+ *                    copyright assertion rests on).
+ *   - `manualFields` every SiteConfig key the application could not supply,
+ *                    each with a note telling the volunteer where to get it.
+ *   - `siteConfig`   the partial itself — keys named and nested exactly as in
+ *                    the template's typed SiteConfig, ready to transcribe.
  */
-export function buildFooterConfig(record, { now = new Date() } = {}) {
+export function buildSiteConfigPartial(record, { now = new Date() } = {}) {
   const problems = validateApplication(record)
   if (problems.length > 0) {
     throw new Error(
@@ -139,45 +193,60 @@ export function buildFooterConfig(record, { now = new Date() } = {}) {
     )
   }
   const legalName = String(record.charityName).trim()
-  const socialLinks = []
+
+  // SiteConfig.social — icon in the template footer resolves by `label`, so
+  // the labels here must match the template's known set exactly.
+  const social = []
   const facebook = sanitizeSocialUrl(record.facebookUrl, /(^|\.)facebook\.com$/i)
-  if (facebook) socialLinks.push({ platform: 'facebook', label: 'Facebook', url: facebook })
+  if (facebook) social.push({ label: 'Facebook', href: facebook })
   const linkedin = sanitizeSocialUrl(record.linkedinUrl, /(^|\.)linkedin\.com$/i)
-  if (linkedin) socialLinks.push({ platform: 'linkedin', label: 'LinkedIn', url: linkedin })
+  if (linkedin) social.push({ label: 'LinkedIn', href: linkedin })
+
+  const mission = String(record.missionExcerpt ?? '').trim()
+
+  const manualFields = [...MANUAL_FIELDS_BASE]
+  if (!mission) {
+    manualFields.push({
+      key: 'description',
+      note: 'no mission excerpt on the application — write the <meta description> from the charity website',
+    })
+  }
+  if (social.length === 0) {
+    manualFields.push({
+      key: 'social',
+      note: 'no valid Facebook/LinkedIn PAGE URL on the application — fill [{ label, href }] from the charity public presence',
+    })
+  }
 
   return {
-    // Provenance: which validated application this footer derives from.
+    // Provenance: which validated application this partial derives from.
     source: {
       applicationId: String(record.id || ''),
       system: 'WHMCS',
       generatedBy: 'scripts/generate-footer-config.mjs',
       generatedAt: now.toISOString(),
-    },
-    organization: {
-      legalName,
-      ein: record.ein,
-      // Required + validated above — never defaulted (the footer legally
-      // asserts 501(c)(3) status).
+      // Required + validated above — never defaulted (the footer's copyright
+      // line legally asserts 501(c)(3) status).
       charityStage: record.charityStage,
-      ...(record.missionExcerpt ? { missionStatement: record.missionExcerpt } : {}),
     },
-    // Column 1 of the FFC footer: transparency endorsements.
-    endorsements: {
-      guidestarProfileUrl: record.candidUrl,
-      einLine: `${legalName} EIN: ${record.ein}`,
-    },
-    // Column 3: contact + social. Contact details are PII the WHMCS sync
-    // deliberately never surfaces; the provisioning volunteer fills these
-    // from the charity's public website before committing the file.
-    contact: { email: null, phone: null, addressLines: [] },
-    socialLinks,
-    // Column 2: the FFC-standard policy stack (same routes on every site).
-    policyLinks: POLICY_LINKS,
-    copyright: {
-      holder: legalName,
-      year: now.getFullYear(),
-      line: `© ${now.getFullYear()} All Rights Are Reserved by ${legalName} a US 501c3 Non Profit`,
-      projectOf: { name: 'Free For Charity', url: 'https://freeforcharity.org' },
+    // SiteConfig keys the application cannot supply — the volunteer's
+    // fill-by-hand checklist. Everything else transcribes verbatim.
+    manualFields,
+    // The partial: key names and nesting match the template's SiteConfig
+    // (src/lib/site.config.ts) exactly. Keys listed in manualFields are
+    // omitted, EXCEPT guidestar.directProfileUrl which is emitted as '' so
+    // the guidestar object keeps the template's full shape.
+    siteConfig: {
+      name: legalName,
+      ...(mission ? { description: mission } : {}),
+      social,
+      ein: record.ein,
+      guidestar: {
+        profileUrl: record.candidUrl,
+        directProfileUrl: '',
+      },
+      // FFC footer standard: always present, always these values.
+      supportedBy: { ...SUPPORTED_BY },
     },
   }
 }
@@ -233,11 +302,11 @@ async function main() {
     }
     record = selectRecord(JSON.parse(raw), args.id)
   }
-  const config = buildFooterConfig(record)
+  const config = buildSiteConfigPartial(record)
   const json = `${JSON.stringify(config, null, 2)}\n`
   if (args.output) {
     fs.writeFileSync(args.output, json)
-    console.error(`footer config written to ${args.output}`)
+    console.error(`site.config partial written to ${args.output}`)
   } else {
     process.stdout.write(json)
   }
