@@ -123,7 +123,7 @@ export const VALIDATION_CHECKLIST = [
 // text — the extractor below greps for it, so keep builder and regex in sync.
 const CONFIG_ATTACHMENT_SUMMARY = 'Generated site.config partial (from validated application data)'
 const CONFIG_ATTACHMENT_RE = new RegExp(
-  `<details><summary>${CONFIG_ATTACHMENT_SUMMARY.replace(/[.()]/g, '\\$&')}</summary>[\\s\\S]*?</details>`
+  `<details><summary>${CONFIG_ATTACHMENT_SUMMARY.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</summary>[\\s\\S]*?</details>`
 )
 
 /**
