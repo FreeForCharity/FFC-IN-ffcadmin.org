@@ -191,6 +191,9 @@ The build uses one of the two FFC site templates, both converging on the shared 
 Pick per charity: full template for new builds, footer-only when preserving an existing site's
 content. Either way, the validated footer data comes from the bridge.
 
+For retrofitting the **already-live** FFC-EX fleet (sites that predate the standard), follow
+[footer-standard-adoption-checklist.md](./footer-standard-adoption-checklist.md).
+
 ---
 
 ## 5. Gate 4 — Domain orders (pids 39/41)
