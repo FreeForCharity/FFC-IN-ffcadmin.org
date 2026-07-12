@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const included = [
   {
     title: 'A professional website',
-    body: 'A fast, secure, accessible static site built from the FFC template and hosted free — built and validated first on its free GitHub Pages URL, with AI-assisted editing so you can keep it current yourself.',
+    body: 'A fast, secure, accessible static site built from one of our two open-source templates — a complete single-page site, or the FFC footer added to your existing design — and hosted free. Built and validated first on its free GitHub Pages URL, with AI-assisted editing so you can keep it current yourself.',
   },
   {
     title: 'A domain',

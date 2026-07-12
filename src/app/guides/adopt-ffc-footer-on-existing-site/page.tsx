@@ -6,7 +6,7 @@ import PromptBox from '@/components/PromptBox'
 export const metadata: Metadata = {
   title: 'Adopting the FFC Footer on an Existing Website',
   description:
-    'Add the FFC footer and compliance layer — policy pages, cookie consent, analytics, team section — to a charity site that already has its own design, so it passes FFC validation and unlocks the free .org domain purchase.',
+    'Add the FFC footer and compliance layer — policy pages, cookie consent, analytics, team section — to a charity site that already has its own design, so it passes FFC validation and unlocks the domain step: a new .org registered, or the domain you already own transferred, in Cloudflare.',
   keywords:
     'FFC footer, Footer-Only Template, existing charity website, policy pages, cookie consent, GDPR, Google Tag Manager, FFC validation, Free For Charity guide',
   alternates: {
@@ -53,7 +53,8 @@ export default function AdoptFfcFooterGuide() {
             Charities that already have a designed website don&apos;t rebuild it — they adopt the{' '}
             <strong>FreeForCharity/FFC-IN-Footer_Only_Template</strong> layer on top of their
             existing design. Passing FFC validation on the site&apos;s GitHub Pages address is what
-            unlocks the free .org domain purchase.
+            unlocks the domain step — FFC registers a new .org, or transfers the domain you already
+            own, in Cloudflare and points it at your validated site.
           </p>
         </div>
       </div>
@@ -108,8 +109,9 @@ export default function AdoptFfcFooterGuide() {
           </ul>
           <p className="text-gray-700 text-sm">
             In both cases the site goes live on its <strong>free GitHub Pages address first</strong>{' '}
-            (no custom domain). Only after it passes validation there does FFC purchase the
-            charity&apos;s free .org domain. The full sequence is on the{' '}
+            (no custom domain). Only after it passes validation there does FFC register the
+            charity&apos;s new .org — or transfer the domain it already owns — in Cloudflare. The
+            full sequence is on the{' '}
             <a
               href="https://freeforcharity.org/charity-onboarding-journey/"
               target="_blank"
@@ -221,9 +223,13 @@ export default function AdoptFfcFooterGuide() {
         <section id="unlock" className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8 scroll-mt-20">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">5. What passing unlocks</h2>
           <p className="text-gray-700 mb-4">
-            Validation is the gate. Once the site passes on its GitHub Pages address, FFC purchases
-            the charity&apos;s <strong>free .org domain</strong> and points it at the site
-            (Cloudflare DNS → GitHub Pages, a Global Admin task — see the{' '}
+            Validation is the gate. Once the site passes on its GitHub Pages address, FFC{' '}
+            <strong>
+              registers a new .org — or transfers the domain the charity already owns — in
+              Cloudflare
+            </strong>{' '}
+            and points it at the validated site (Cloudflare DNS → GitHub Pages, a Global Admin task
+            — see the{' '}
             <Link href="/training" className="text-emerald-700 underline hover:text-emerald-900">
               Domains &amp; DNS module
             </Link>
@@ -231,7 +237,7 @@ export default function AdoptFfcFooterGuide() {
           </p>
           <div className="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded text-sm text-emerald-900">
             The order is deliberate: build → validate on GitHub Pages → domain → email. No domain is
-            purchased for a site that hasn&apos;t passed validation.
+            registered or transferred for a site that hasn&apos;t passed validation.
           </div>
         </section>
 

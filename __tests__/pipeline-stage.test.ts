@@ -70,6 +70,16 @@ describe('deriveStage', () => {
     expect(deriveStage(entry({ status: 'graduated' }))).toBe('domain')
   })
 
+  it('buckets an unknown status conservatively instead of crashing the build', () => {
+    // The entries come from a generated JSON snapshot; a status this build
+    // doesn't know (e.g. a newly introduced status:* label) must not make
+    // groupByStage index `undefined` and crash the static export.
+    const e = entry({ status: 'awaiting-approval' as RoadmapStatus })
+    expect(deriveStage(e)).toBe('applied')
+    expect(() => groupByStage([e])).not.toThrow()
+    expect(groupByStage([e]).applied).toHaveLength(1)
+  })
+
   it('covers every roadmap status', () => {
     const statuses: RoadmapStatus[] = [
       'intake',

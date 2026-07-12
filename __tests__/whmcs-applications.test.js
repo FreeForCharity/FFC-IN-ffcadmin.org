@@ -9,6 +9,7 @@
 
 let buildApplicationRecords, TIER_BY_PID, MISSION_MAX_LENGTH, sanitizeCandidUrl, sanitizeEin
 let missionCategoryOption, missionTierFromProduct, MISSION_OPTION, INTAKE_STATUSES, INTAKE_SINCE
+let PENDING_STATUSES, sanitizeSocialUrl
 
 beforeAll(async () => {
   const mod = await import('../scripts/whmcs-applications.mjs')
@@ -22,6 +23,8 @@ beforeAll(async () => {
   MISSION_OPTION = mod.MISSION_OPTION
   INTAKE_STATUSES = mod.INTAKE_STATUSES
   INTAKE_SINCE = mod.INTAKE_SINCE
+  PENDING_STATUSES = mod.PENDING_STATUSES
+  sanitizeSocialUrl = mod.sanitizeSocialUrl
 })
 
 const ALLOWED_KEYS = [
@@ -34,6 +37,8 @@ const ALLOWED_KEYS = [
   'missionExcerpt',
   'candidUrl',
   'ein',
+  'facebookUrl',
+  'linkedinUrl',
   'submittedAt',
 ]
 
@@ -43,6 +48,13 @@ describe('approval-gated intake defaults', () => {
     // approval; a Pending application must not open one.
     expect([...INTAKE_STATUSES]).toEqual(['active'])
     expect(INTAKE_STATUSES.has('pending')).toBe(false)
+  })
+
+  it('tracks Pending services separately so a post-cutover approval still gets a work order', () => {
+    // Pending ids are recorded in the sync state (no issue); when the same id
+    // later turns Active it bypasses the date cutoff (the date compared is the
+    // APPLICATION date — approval can happen long after it).
+    expect([...PENDING_STATUSES]).toEqual(['pending'])
   })
 
   it('has a flood-guard cutover date so historical Active services never mass-create issues', () => {
@@ -126,6 +138,51 @@ describe('buildApplicationRecords', () => {
     expect(sanitizeEin('413950250')).toBe('41-3950250')
     expect(sanitizeEin('none')).toBe('')
     expect(sanitizeEin('')).toBe('')
+  })
+
+  it('sanitizes charity social PAGE URLs (host-checked, no personal LinkedIn profiles)', () => {
+    const fb = /(^|\.)facebook\.com$/i
+    const li = /(^|\.)linkedin\.com$/i
+    expect(sanitizeSocialUrl('https://www.facebook.com/helpinghands', fb)).toBe(
+      'https://www.facebook.com/helpinghands'
+    )
+    // WHMCS may store link fields HTML-wrapped, like the Candid URL.
+    expect(sanitizeSocialUrl('<a href="https://facebook.com/org">x</a>', fb)).toBe(
+      'https://facebook.com/org'
+    )
+    expect(sanitizeSocialUrl('https://www.linkedin.com/company/helping-hands/', li)).toBe(
+      'https://www.linkedin.com/company/helping-hands/'
+    )
+    // Wrong host, not a URL, or empty -> dropped.
+    expect(sanitizeSocialUrl('https://evil.example.com/facebook.com', fb)).toBe('')
+    expect(sanitizeSocialUrl('not a url', fb)).toBe('')
+    expect(sanitizeSocialUrl('', fb)).toBe('')
+    // A personal LinkedIn profile (/in/...) is PII-adjacent — never published.
+    expect(sanitizeSocialUrl('https://www.linkedin.com/in/jane-doe/', li)).toBe('')
+  })
+
+  it('carries the charity social page URLs onto the published record', () => {
+    const byClient = new Map([
+      [
+        '30',
+        {
+          clientId: '30',
+          pid: '33',
+          company: 'Social Org',
+          facebookUrl: 'https://www.facebook.com/socialorg',
+          linkedinUrl: 'https://www.linkedin.com/company/social-org/',
+        },
+      ],
+      ['31', { clientId: '31', pid: '16', company: 'No Social Org' }],
+    ])
+    const apps = buildApplicationRecords(byClient)
+    expect(apps.find((a) => a.id === 'ffc-30')).toMatchObject({
+      facebookUrl: 'https://www.facebook.com/socialorg',
+      linkedinUrl: 'https://www.linkedin.com/company/social-org/',
+    })
+    const bare = apps.find((a) => a.id === 'ffc-31')
+    expect(bare).not.toHaveProperty('facebookUrl')
+    expect(bare).not.toHaveProperty('linkedinUrl')
   })
 
   it('maps the live WHMCS onboarding options to the three tiers', () => {

@@ -115,6 +115,13 @@ export function deriveStage(entry: RoadmapEntry): PipelineStage {
         return 'validated'
       }
       return 'domain'
+    default:
+      // The status union is exhaustive at compile time, but the entries come
+      // from a generated JSON snapshot: a status label this build doesn't know
+      // (e.g. a newly introduced status:*) must not crash groupByStage — and
+      // with it the whole static build. Bucket unknowns conservatively as
+      // "applied".
+      return 'applied'
   }
 }
 

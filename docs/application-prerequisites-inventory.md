@@ -128,7 +128,8 @@ submission). The **Glossary** at the end defines the terms.
    GuideStar/Candid seal (Section 6), and FFC-supported org accounts (Section 7).
 6. **Gated service delivery** (Section 4a) — the four gates, in order: charity
    application fully approved → website application approved → website built and
-   **validated on its GitHub Pages URL** (objective checklist in Section 4b) →
+   **validated on its GitHub Pages URL** (objective checklist in
+   [Section 4b](#4b-the-website-validated-checklist-gate-3-definition)) →
    only then the **domain** (register or transfer), with email after the domain.
 7. **Service-delivery lifecycle** (Section 8) — legacy WordPress-era flow, kept
    for reference.
@@ -862,8 +863,9 @@ work orders** for website provisioning only.
    — **no custom domain yet**. This is the stage the **GitHub
    website-provisioning issue** drives: the issue is created after Gate 2 and
    the build runs entirely on the free default URL. **"Validated" is defined
-   objectively by the checklist in Section 4b** — every box ticked, not a
-   feeling.
+   objectively by the checklist in
+   [Section 4b](#4b-the-website-validated-checklist-gate-3-definition)** —
+   every box ticked, not a feeling.
 4. **Gate 4 — Only now does FFC spend money on the domain.** The domain is
    **registered or transferred in Cloudflare** (its own WHMCS order) and
    pointed at the already-validated site. Those order forms require the live
@@ -892,10 +894,12 @@ nonprofit grants) is provisioned once the domain exists, and remains gated on
 Section 4a stays authoritative for the **flow** — the four gates and their
 order. This section defines one word inside it: what **"validated"** at Gate 3
 objectively means. The same checklist is embedded as tickable items in the
-website-provisioning work order
-(`.github/ISSUE_TEMPLATE/charity-intake.yml`), where the sponsoring admin
-ticks each box as it passes and the charity ticks the final content-review
-box.
+**sync-created website-provisioning work order** (the issue stub built by
+`scripts/lib/intake-issues.mjs`), where the sponsoring admin ticks each box as
+it passes and the charity ticks the final content-review box. It deliberately
+does **not** appear as checkboxes on the Gate-1 application form
+(`.github/ISSUE_TEMPLATE/charity-intake.yml`) — applicants must not be able to
+pre-tick validation at submission.
 
 A charity's website is **validated** on its GitHub Pages default URL when
 **every** box below is ticked:
