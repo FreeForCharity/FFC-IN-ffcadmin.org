@@ -43,6 +43,7 @@ This repository contains the administrative portal for Free For Charity, built w
 
 **For Administrators:**
 
+- 🚪 [Gated Journey Operator Runbook](docs/gated-journey-operator-runbook.md) · [Intake Automation Architecture](docs/intake-automation-architecture.md) - The four gates end-to-end and how the automation fits together
 - 🌐 [Deployment Guide](DEPLOYMENT.md) - GitHub Pages deployment instructions
 - 🔧 [Issue Resolution](ISSUE_RESOLUTION.md) - Troubleshooting common problems
 - 📋 [Sites List](https://ffcadmin.org/sites-list) - Master list with health checks and categorization
