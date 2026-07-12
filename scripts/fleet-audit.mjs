@@ -14,15 +14,27 @@
  *
  * For each site the script issues read-only GETs (250ms pacing, 10s timeout,
  * one retry) following redirects manually so the chain is recorded, then
- * checks the final HTML body against the FFC footer standard:
- *   - "Free For Charity" marker text
- *   - a link to freeforcharity.org
- *   - a link to the hub (freeforcharity.org/hub)
- *   - an EIN in the standard footer format
- *   - the FFC attribution in either accepted wording: "Supported by" (the
- *     target standard) or the legacy "A project of" accompanied by the
- *     freeforcharity.org link; progress toward the target wording is
- *     reported in its own column
+ * checks the final HTML body against the TWO-LEVEL FFC footer standard
+ * (operator-defined 2026-07-12):
+ *
+ *   Level 1 (pre-501c3): the six positive checks — "Free For Charity"
+ *   marker, freeforcharity.org link, hub link (freeforcharity.org/hub),
+ *   EIN, FFC attribution ("Supported by" target wording, or the legacy
+ *   "A project of" + FFC link), current-year copyright line — AND no
+ *   501(c)(3) status claim. A pre-501c3 footer asserting 501(c)(3) status
+ *   ("a US 501c3 Non Profit") is a Level-1 VIOLATION.
+ *
+ *   Level 2 (full 501c3): all six positive checks PLUS a Candid/GuideStar
+ *   profile link (guidestar.org / candid.org) AND the 501(c)(3) status line.
+ *
+ * Each reachable site is also gap-classified: compliant-L2 / compliant-L1 /
+ * attribution-only (substantively FFC-footered, closable with a one-line
+ * footer edit) / partial (some elements; exact missing checks listed) /
+ * structural (no FFC footer at all — full adoption-checklist retrofit).
+ * Charity STAGE is joined from public/data/roadmap.json by domain/name
+ * match; where the stage is unknown both level verdicts are reported, and a
+ * pre-501c3 site bearing a 501(c)(3) claim is flagged as a false status
+ * claim (legal exposure).
  *
  * Outputs (paths overridable with --json / --md):
  *   docs/fleet-audit.json       machine-readable results (not committed;
@@ -39,6 +51,7 @@ import { dirname, join } from 'path'
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
 const CSV_PATH = join(SCRIPT_DIR, '..', 'docs', 'sites_list.csv')
+const ROADMAP_PATH = join(SCRIPT_DIR, '..', 'public', 'data', 'roadmap.json')
 
 export const REQUEST_TIMEOUT_MS = 10_000
 export const PACING_MS = 250
@@ -162,19 +175,61 @@ export function selectKnownDown(records) {
 // Footer-standard analysis (pure)
 // ---------------------------------------------------------------------------
 
-/** Check an HTML body against the FFC footer standard. */
-export function analyzeFooter(html) {
+// A 501(c)(3) token in any of the renderings seen in the wild:
+// "501(c)(3)", "501(c)3", "501c3", "501 (c)(3)". The deployed templates
+// render "a US 501c3 Non Profit" (see src/components/Footer.tsx and the
+// wordpress-to-nextjs guide's footer snippet).
+const CLAIM_TOKEN_RE = /501\s*\(?\s*c\s*\)?\s*\(?\s*3\s*\)?/gi
+
+/**
+ * Detect a 501(c)(3) STATUS CLAIM: a 501(c)(3) token near "Non Profit" /
+ * "nonprofit" wording asserting the charity's own status. A token whose
+ * nearby preceding text names Free For Charity is FFC's own status line
+ * (the "Supported by Free For Charity, a US 501(c)(3) Non Profit"
+ * attribution) — that describes FFC, not the audited charity, so it is NOT
+ * counted as the site's status claim.
+ */
+export function detectStatusClaim(body) {
+  for (const m of body.matchAll(CLAIM_TOKEN_RE)) {
+    const start = m.index
+    const before = body.slice(Math.max(0, start - 90), start)
+    const near = before.slice(-60) + ' ' + body.slice(start + m[0].length, start + m[0].length + 60)
+    if (!/non[\s-]?profit/i.test(near)) continue
+    if (/free\s*for\s*charity/i.test(before)) continue
+    return true
+  }
+  return false
+}
+
+/**
+ * Check an HTML body against the FFC footer standard. `year` is the
+ * current year for the copyright check (injectable for tests).
+ */
+export function analyzeFooter(html, year = new Date().getFullYear()) {
   const body = html || ''
+  const copyrightRe = new RegExp(
+    // Copyright marker and the current year within a short window, either
+    // order, so "© 2026 …" and "2026 © …" both pass but a stale year fails.
+    String.raw`(?:©|&copy;|\(c\)|copyright)[\s\S]{0,120}?\b${year}\b|\b${year}\b[\s\S]{0,120}?(?:©|&copy;|copyright)`,
+    'i'
+  )
   return {
     footerMarker: /Free ?For ?Charity/i.test(body),
     ffcLink: /href\s*=\s*["'][^"']*freeforcharity\.org/i.test(body),
     hubLink: /freeforcharity\.org\/hub/i.test(body),
     ein: /EIN[:\s]*\d{2}-?\d{7}/i.test(body),
-    // Target attribution wording (tonight's template standard).
+    // Target attribution wording (the template standard).
     supportedBy: /Supported by/i.test(body),
     // Legacy attribution wording still rendered by pre-standard templates
     // ("A project of Free For Charity" / "A project of freeforcharity.org").
     projectOf: /A project of/i.test(body),
+    // Copyright line carrying the CURRENT year (never a hard-coded stale one).
+    copyrightCurrentYear: copyrightRe.test(body),
+    // Candid/GuideStar public-profile link (Level 2 requirement).
+    guidestarLink: /href\s*=\s*["'][^"']*(?:guidestar\.org|candid\.org)/i.test(body),
+    // 501(c)(3) status claim about the charity itself (Level-2 requirement;
+    // Level-1 VIOLATION on a pre-501c3 site).
+    statusClaim501c3: detectStatusClaim(body),
   }
 }
 
@@ -189,16 +244,195 @@ export function hasAttribution(footer) {
   return Boolean(footer && (footer.supportedBy || (footer.projectOf && footer.ffcLink)))
 }
 
-/** A site is footer-compliant when every footer-standard check passes. */
-export function isCompliant(footer) {
+/**
+ * The six POSITIVE checks shared by both levels, with the report labels
+ * used when listing exactly which checks a partial site is missing.
+ */
+export const LEVEL_CHECKS = [
+  ['footerMarker', 'FFC marker'],
+  ['ffcLink', 'FFC link'],
+  ['hubLink', 'hub link'],
+  ['ein', 'EIN'],
+  ['attribution', 'attribution ("Supported by" / "A project of")'],
+  ['copyrightCurrentYear', 'current-year copyright'],
+]
+
+/** Keys of the six positive checks a footer is missing (attribution = either wording). */
+export function missingLevelChecks(footer) {
+  if (!footer) return LEVEL_CHECKS.map(([key]) => key)
+  return LEVEL_CHECKS.filter(([key]) =>
+    key === 'attribution' ? !hasAttribution(footer) : !footer[key]
+  ).map(([key]) => key)
+}
+
+/** Report label for a check key. */
+export function checkLabel(key) {
+  const found = LEVEL_CHECKS.find(([k]) => k === key)
+  return found ? found[1] : key
+}
+
+/**
+ * Level 1 (pre-501c3): all six positive checks pass AND the footer makes
+ * NO 501(c)(3) status claim — a pre-501c3 charity asserting the status is
+ * a violation, not a pass.
+ */
+export function passesLevel1(footer) {
+  return Boolean(footer && missingLevelChecks(footer).length === 0 && !footer.statusClaim501c3)
+}
+
+/**
+ * Level 2 (full 501c3): all six positive checks pass PLUS the
+ * Candid/GuideStar profile link AND the 501(c)(3) status line.
+ */
+export function passesLevel2(footer) {
   return Boolean(
     footer &&
-    footer.footerMarker &&
-    footer.ffcLink &&
-    footer.hubLink &&
-    footer.ein &&
-    hasAttribution(footer)
+    missingLevelChecks(footer).length === 0 &&
+    footer.guidestarLink &&
+    footer.statusClaim501c3
   )
+}
+
+/**
+ * Gap-classify one reachable site's footer:
+ *   compliant-L2 / compliant-L1  passes the respective level
+ *   attribution-only             substantively FFC-footered (FFC marker +
+ *                                EIN + guidestar-or-hub-or-FFC link) but
+ *                                missing ONLY the attribution wording
+ *                                and/or hub link → one-line footer edit
+ *   partial                      some FFC footer elements; the missing
+ *                                checks are listed exactly
+ *   structural                   no FFC footer element at all → full
+ *                                adoption-checklist retrofit
+ */
+export function classifyGap(footer) {
+  if (!footer) return 'structural'
+  if (passesLevel2(footer)) return 'compliant-L2'
+  if (passesLevel1(footer)) return 'compliant-L1'
+  const ffcSignals =
+    footer.footerMarker ||
+    footer.ffcLink ||
+    footer.hubLink ||
+    footer.ein ||
+    hasAttribution(footer) ||
+    footer.guidestarLink
+  if (!ffcSignals) return 'structural'
+  const missing = missingLevelChecks(footer)
+  if (
+    missing.length > 0 &&
+    missing.every((k) => k === 'attribution' || k === 'hubLink') &&
+    footer.footerMarker &&
+    footer.ein &&
+    (footer.guidestarLink || footer.hubLink || footer.ffcLink)
+  ) {
+    return 'attribution-only'
+  }
+  // Includes the six-positives-pass-but-neither-level case: a 501(c)(3)
+  // status line without the Candid/GuideStar link (fails L2) that also
+  // blocks L1 (the claim). buildNotes spells that out.
+  return 'partial'
+}
+
+export const GAP_CLASSES = [
+  'compliant-L2',
+  'compliant-L1',
+  'attribution-only',
+  'partial',
+  'structural',
+]
+
+// ---------------------------------------------------------------------------
+// Charity stage join (roadmap.json)
+// ---------------------------------------------------------------------------
+
+const normalizeToken = (s) =>
+  String(s || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '')
+
+/** The registrable label(s) of a domain, normalized (strip www., path, TLD). */
+function domainLabel(domain) {
+  const host = String(domain || '')
+    .toLowerCase()
+    .replace(/^www\./, '')
+    .split('/')[0]
+  return normalizeToken(host.split('.').slice(0, -1).join(''))
+}
+
+/**
+ * Precompute a stage index from roadmap.json entries (charityName +
+ * charityStage from intake issues; liveUrl when known).
+ */
+export function buildStageIndex(entries) {
+  return (entries || [])
+    .filter((e) => e && (e.charityName || e.liveUrl))
+    .map((e) => {
+      let host = ''
+      try {
+        if (e.liveUrl) host = new URL(e.liveUrl).host.toLowerCase().replace(/^www\./, '')
+      } catch {
+        /* unparseable liveUrl — name matching still applies */
+      }
+      const name = e.charityName || ''
+      return {
+        charityName: name,
+        stage: e.charityStage || 'unknown',
+        normName: normalizeToken(name),
+        // Many roadmap names ARE the charity's domain; strip the TLD for
+        // label-level fuzzy matching (subdomain rows, .com/.org twins).
+        normLabel: name.includes('.') ? domainLabel(name) : normalizeToken(name),
+        host,
+      }
+    })
+}
+
+/**
+ * Fuzzy-match a fleet domain to a roadmap charity: exact liveUrl host or
+ * exact normalized-name match first, then a unique substring match on the
+ * domain label (>= 6 chars, to avoid junk matches). Returns
+ * { stage, charityName } or null (stage unknown).
+ */
+export function matchCharity(domain, index) {
+  const host = String(domain || '')
+    .toLowerCase()
+    .replace(/^www\./, '')
+    .split('/')[0]
+  const normHost = normalizeToken(host)
+  const label = domainLabel(domain)
+  const exact = index.find(
+    (e) => (e.host && e.host === host) || (e.normName && e.normName === normHost)
+  )
+  if (exact) return { stage: exact.stage, charityName: exact.charityName }
+  const fuzzy = index.filter(
+    (e) =>
+      e.normLabel &&
+      label &&
+      ((label.length >= 6 && e.normLabel.includes(label)) ||
+        (e.normLabel.length >= 6 && label.includes(e.normLabel)))
+  )
+  const stages = new Set(fuzzy.map((e) => e.stage))
+  if (fuzzy.length > 0 && stages.size === 1) {
+    return { stage: fuzzy[0].stage, charityName: fuzzy[0].charityName }
+  }
+  return null
+}
+
+/**
+ * Per-site tiered verdict: both level booleans, the gap class, exactly
+ * which of the six checks are missing, and the false-claim flag (a site the
+ * roadmap says is pre-501c3 whose footer asserts 501(c)(3) status — legal
+ * exposure, flagged prominently).
+ */
+export function evaluateSite(site) {
+  const footer = site.ok ? site.footer : null
+  return {
+    ...site,
+    level1: passesLevel1(footer),
+    level2: passesLevel2(footer),
+    gapClass: site.ok ? classifyGap(footer) : 'down',
+    missingChecks: missingLevelChecks(footer),
+    falseClaim: Boolean(site.stage === 'pre-501c3' && footer && footer.statusClaim501c3),
+  }
 }
 
 /** Classify a fetch/TLS error into a short machine-friendly reason. */
@@ -225,19 +459,35 @@ export function buildNotes(site) {
     notes.push(`redirects to ${site.finalUrl}`)
   if (site.finalUrl && site.finalUrl.startsWith('http://')) notes.push('final URL is not HTTPS')
   if (site.retried) notes.push('needed retry')
-  if (!site.error && site.ok && site.footer && !isCompliant(site.footer)) {
-    const missing = []
-    if (!site.footer.footerMarker) missing.push('FFC marker')
-    if (!site.footer.ffcLink) missing.push('FFC link')
-    if (!site.footer.hubLink) missing.push('hub link')
-    if (!site.footer.ein) missing.push('EIN')
-    if (!hasAttribution(site.footer)) missing.push('attribution ("Supported by" / "A project of")')
-    notes.push(`missing: ${missing.join(', ')}`)
-  }
-  // Attribution present but in legacy wording — compliant, yet flagged so the
-  // rollout of the target "Supported by" standard is visible per site.
-  if (site.ok && site.footer && hasAttribution(site.footer) && !site.footer.supportedBy) {
-    notes.push('legacy attribution wording (target: "Supported by")')
+  const f = site.footer
+  if (!site.error && site.ok && f) {
+    // False status claim first: a pre-501c3 charity's footer asserting
+    // 501(c)(3) status is legal exposure, not a formatting gap.
+    if (site.stage === 'pre-501c3' && f.statusClaim501c3) {
+      notes.push('⚠️ false status claim: pre-501c3 site asserts 501(c)(3) status')
+    }
+    const missing = missingLevelChecks(f)
+    if (missing.length > 0) notes.push(`missing: ${missing.map(checkLabel).join(', ')}`)
+    // All six positives pass but neither level does: the status line and
+    // the Candid/GuideStar link disagree.
+    if (missing.length === 0 && !passesLevel1(f) && !passesLevel2(f)) {
+      if (f.statusClaim501c3 && !f.guidestarLink) {
+        notes.push(
+          'has the 501(c)(3) status line but no Candid/GuideStar link ' +
+            '(add the link for L2, or strip the status line for L1)'
+        )
+      }
+    }
+    // A confirmed-501c3 charity resting at Level 1 still owes the Level-2
+    // additions.
+    if (site.stage === '501c3' && passesLevel1(f) && !passesLevel2(f)) {
+      notes.push('passes L1 only; stage 501c3 expects L2 (add Candid/GuideStar link + status line)')
+    }
+    // Attribution present but in legacy wording — accepted, yet flagged so
+    // the rollout of the target "Supported by" standard is visible per site.
+    if (hasAttribution(f) && !f.supportedBy) {
+      notes.push('legacy attribution wording (target: "Supported by")')
+    }
   }
   return notes.join('; ')
 }
@@ -249,17 +499,33 @@ export function buildNotes(site) {
 const mark = (v) => (v ? 'yes' : 'no')
 const httpsCell = (s) => (s.httpsOk === null || s.httpsOk === undefined ? '—' : mark(s.httpsOk))
 
-/** Summary counts across all audited sites. */
+/** Summary counts across all audited sites (levels, gap classes, checks). */
 export function buildSummary(sites) {
   const reachable = sites.filter((s) => s.ok)
   const down = sites.filter((s) => !s.ok)
-  const compliant = reachable.filter((s) => isCompliant(s.footer))
   const checkCount = (key) => reachable.filter((s) => s.footer && s.footer[key]).length
+  const gapClasses = {}
+  for (const cls of GAP_CLASSES) {
+    gapClasses[cls] = reachable.filter((s) => classifyGap(s.footer) === cls).length
+  }
+  const stages = { '501c3': 0, 'pre-501c3': 0, unknown: 0 }
+  for (const s of sites) {
+    const stage = s.stage === '501c3' || s.stage === 'pre-501c3' ? s.stage : 'unknown'
+    stages[stage]++
+  }
   return {
     total: sites.length,
     reachable: reachable.length,
     down: down.length,
-    compliant: compliant.length,
+    levels: {
+      level1: reachable.filter((s) => passesLevel1(s.footer)).length,
+      level2: reachable.filter((s) => passesLevel2(s.footer)).length,
+    },
+    gapClasses,
+    stages,
+    falseClaims: reachable.filter(
+      (s) => s.stage === 'pre-501c3' && s.footer && s.footer.statusClaim501c3
+    ).length,
     checks: {
       footerMarker: checkCount('footerMarker'),
       ffcLink: checkCount('ffcLink'),
@@ -269,14 +535,38 @@ export function buildSummary(sites) {
       attribution: reachable.filter((s) => hasAttribution(s.footer)).length,
       // …and, separately, the target wording, so rollout progress is visible.
       supportedBy: checkCount('supportedBy'),
+      copyrightCurrentYear: checkCount('copyrightCurrentYear'),
+      guidestarLink: checkCount('guidestarLink'),
+      statusClaim501c3: checkCount('statusClaim501c3'),
     },
   }
 }
 
-/** Render the two-section markdown report. */
+/** Stage cell: known roadmap stage, or "unknown". */
+const stageCell = (s) => (s.stage === '501c3' || s.stage === 'pre-501c3' ? s.stage : 'unknown')
+
+/**
+ * Level verdict cell. Where the stage is known the site is judged against
+ * its own level; where it is unknown BOTH level verdicts are reported.
+ */
+export function levelCell(s) {
+  if (!s.ok) return '—'
+  const l1 = passesLevel1(s.footer)
+  const l2 = passesLevel2(s.footer)
+  if (s.stage === '501c3') return l2 ? 'L2 pass' : 'L2 FAIL'
+  if (s.stage === 'pre-501c3') return l1 ? 'L1 pass' : 'L1 FAIL'
+  return `L1 ${l1 ? 'pass' : 'fail'} / L2 ${l2 ? 'pass' : 'fail'}`
+}
+
+/** Render the gap-classified markdown report. */
 export function buildMarkdownReport(sites, generatedAt, knownDown = []) {
+  const evaluated = sites.map(evaluateSite)
   const summary = buildSummary(sites)
-  const down = sites.filter((s) => !s.ok)
+  const down = evaluated.filter((s) => !s.ok)
+  const reachable = evaluated.filter((s) => s.ok)
+  const falseClaims = reachable.filter((s) => s.falseClaim)
+  const quickWins = reachable.filter((s) => s.gapClass === 'attribution-only')
+  const structural = reachable.filter((s) => s.gapClass === 'structural')
   const lines = []
   lines.push('# FFC Fleet Audit Report')
   lines.push('')
@@ -287,6 +577,13 @@ export function buildMarkdownReport(sites, generatedAt, knownDown = []) {
   lines.push('> Redirect — redirects are followed and the destination audited — still with')
   lines.push('> FFC, not staging, not for-profit). Rows the CSV already marks')
   lines.push('> Unreachable/Error are listed under "Down or broken" without being probed.')
+  lines.push('>')
+  lines.push('> Footers are judged against the **two-level standard**: **Level 1**')
+  lines.push('> (pre-501c3) = FFC attribution + FFC link, hub link, EIN, current-year')
+  lines.push('> copyright, FFC marker — and **no** 501(c)(3) status claim. **Level 2**')
+  lines.push('> (full 501c3) = everything in Level 1 plus the Candid/GuideStar profile')
+  lines.push('> link and the 501(c)(3) status line. Charity stage joins from')
+  lines.push('> `public/data/roadmap.json`; unknown-stage sites report both verdicts.')
   lines.push('')
   lines.push('## Summary')
   lines.push('')
@@ -299,15 +596,71 @@ export function buildMarkdownReport(sites, generatedAt, knownDown = []) {
     )
   }
   lines.push(
-    `- **Footer-standard compliant:** ${summary.compliant} / ${summary.reachable} reachable sites`
+    `- **Level 2 (full 501c3) passes:** ${summary.levels.level2} / ${summary.reachable} reachable`
   )
+  lines.push(
+    `- **Level 1 (pre-501c3) passes:** ${summary.levels.level1} / ${summary.reachable} reachable`
+  )
+  lines.push(
+    `- **Gap classes (reachable):** compliant-L2 ${summary.gapClasses['compliant-L2']}, ` +
+      `compliant-L1 ${summary.gapClasses['compliant-L1']}, ` +
+      `attribution-only ${summary.gapClasses['attribution-only']} (one-line quick wins), ` +
+      `partial ${summary.gapClasses.partial}, structural ${summary.gapClasses.structural}`
+  )
+  lines.push(
+    `- **Stage join (roadmap.json):** 501c3 ${summary.stages['501c3']}, ` +
+      `pre-501c3 ${summary.stages['pre-501c3']}, unknown ${summary.stages.unknown}`
+  )
+  lines.push(`- **⚠️ False 501(c)(3) status claims (pre-501c3 sites):** ${summary.falseClaims}`)
   lines.push(
     `- Individual checks (of ${summary.reachable} reachable): FFC marker ${summary.checks.footerMarker}, ` +
       `FFC link ${summary.checks.ffcLink}, hub link ${summary.checks.hubLink}, ` +
       `EIN ${summary.checks.ein}, attribution (either wording) ${summary.checks.attribution}, ` +
-      `"Supported by" target wording ${summary.checks.supportedBy}`
+      `"Supported by" target wording ${summary.checks.supportedBy}, ` +
+      `current-year copyright ${summary.checks.copyrightCurrentYear}, ` +
+      `Candid/GuideStar link ${summary.checks.guidestarLink}, ` +
+      `501(c)(3) status line ${summary.checks.statusClaim501c3}`
   )
   lines.push('')
+  if (falseClaims.length > 0) {
+    lines.push('## ⚠️ False 501(c)(3) status claims (legal exposure — fix first)')
+    lines.push('')
+    lines.push('These sites are **pre-501c3** per the roadmap, but their footers assert')
+    lines.push('501(c)(3) status. Strip the status line from each footer immediately.')
+    lines.push('')
+    lines.push('| Charity | Stage | Problem |')
+    lines.push('| ------- | ----- | ------- |')
+    for (const s of falseClaims) {
+      lines.push(`| ${s.domain} | pre-501c3 | footer asserts 501(c)(3) status |`)
+    }
+    lines.push('')
+  }
+  if (quickWins.length > 0) {
+    lines.push('## Attribution-only quick wins (close now)')
+    lines.push('')
+    lines.push('Substantively FFC-footered sites missing ONLY the attribution wording')
+    lines.push('and/or hub link — each closable with a one-line footer edit.')
+    lines.push('')
+    lines.push('| Charity | Stage | Missing |')
+    lines.push('| ------- | ----- | ------- |')
+    for (const s of quickWins) {
+      lines.push(
+        `| ${s.domain} | ${stageCell(s)} | ${s.missingChecks.map(checkLabel).join(', ')} |`
+      )
+    }
+    lines.push('')
+  }
+  if (structural.length > 0) {
+    lines.push('## Structural gaps (full adoption-checklist retrofit)')
+    lines.push('')
+    lines.push('No FFC footer elements at all — each needs the full retrofit per')
+    lines.push('[footer-standard-adoption-checklist.md](./footer-standard-adoption-checklist.md).')
+    lines.push('')
+    lines.push('| Charity | Stage |')
+    lines.push('| ------- | ----- |')
+    for (const s of structural) lines.push(`| ${s.domain} | ${stageCell(s)} |`)
+    lines.push('')
+  }
   if (down.length > 0 || knownDown.length > 0) {
     lines.push('## Down or broken sites (action needed)')
     lines.push('')
@@ -319,21 +672,15 @@ export function buildMarkdownReport(sites, generatedAt, knownDown = []) {
     }
     lines.push('')
   }
-  lines.push('## Section A — FFC footer-standard compliance')
+  lines.push('## Section A — FFC footer standard by level')
   lines.push('')
-  lines.push(
-    '| Charity | Status | HTTPS | Footer marker | Attribution | Supported by (target wording) | EIN | Hub link | Notes |'
-  )
-  lines.push(
-    '| ------- | ------ | ----- | ------------- | ----------- | ----------------------------- | --- | -------- | ----- |'
-  )
-  for (const s of sites) {
-    const f = s.footer || {}
+  lines.push('| Charity | Status | HTTPS | Stage | Level verdict | Gap class | Notes |')
+  lines.push('| ------- | ------ | ----- | ----- | ------------- | --------- | ----- |')
+  for (const s of evaluated) {
     lines.push(
       `| ${s.domain} | ${s.error ? 'DOWN' : s.httpStatus} | ${httpsCell(s)} | ` +
-        `${s.ok ? mark(f.footerMarker) : '—'} | ${s.ok ? mark(hasAttribution(f)) : '—'} | ` +
-        `${s.ok ? mark(f.supportedBy) : '—'} | ` +
-        `${s.ok ? mark(f.ein) : '—'} | ${s.ok ? mark(f.hubLink) : '—'} | ${buildNotes(s)} |`
+        `${s.ok ? stageCell(s) : '—'} | ${levelCell(s)} | ` +
+        `${s.ok ? s.gapClass : '—'} | ${buildNotes(s)} |`
     )
   }
   lines.push('')
@@ -438,6 +785,12 @@ async function main() {
   const records = parseCsv(readFileSync(CSV_PATH, 'utf8'))
   const fleet = selectFleet(records)
   const knownDown = selectKnownDown(records)
+  let stageIndex = []
+  try {
+    stageIndex = buildStageIndex(JSON.parse(readFileSync(ROADMAP_PATH, 'utf8')).entries)
+  } catch (err) {
+    console.warn(`Stage join unavailable (${err.message}); all stages will be "unknown".`)
+  }
   console.log(
     `Auditing ${fleet.length} charity sites (Live + Redirect); ` +
       `${knownDown.length} more already marked Unreachable/Error in the CSV (listed, not probed)...`
@@ -445,12 +798,16 @@ async function main() {
 
   const results = []
   for (const entry of fleet) {
-    const site = await probeSite(entry)
+    const matched = matchCharity(entry.domain, stageIndex)
+    const probed = await probeSite({
+      ...entry,
+      stage: matched ? matched.stage : 'unknown',
+      matchedCharity: matched ? matched.charityName : null,
+    })
+    const site = evaluateSite(probed)
     results.push(site)
-    const verdict = site.error
-      ? `DOWN (${site.error})`
-      : `${site.httpStatus}${isCompliant(site.footer) ? ' compliant' : ''}`
-    console.log(`  ${site.domain}: ${verdict}`)
+    const verdict = site.error ? `DOWN (${site.error})` : `${site.httpStatus} ${site.gapClass}`
+    console.log(`  ${site.domain}: ${verdict}${site.falseClaim ? ' ⚠️ FALSE STATUS CLAIM' : ''}`)
     await sleep(PACING_MS)
   }
 
@@ -466,8 +823,12 @@ async function main() {
   )
   writeFileSync(mdOut, buildMarkdownReport(results, generatedAt.slice(0, 10), knownDown) + '\n')
   console.log(
-    `\nDone: ${summary.compliant}/${summary.reachable} reachable sites footer-compliant, ` +
-      `${summary.down} down of ${summary.total} audited ` +
+    `\nDone: L2 ${summary.levels.level2} / L1 ${summary.levels.level1} of ${summary.reachable} reachable; ` +
+      `gap classes: compliant-L2 ${summary.gapClasses['compliant-L2']}, ` +
+      `compliant-L1 ${summary.gapClasses['compliant-L1']}, ` +
+      `attribution-only ${summary.gapClasses['attribution-only']}, ` +
+      `partial ${summary.gapClasses.partial}, structural ${summary.gapClasses.structural}; ` +
+      `false claims ${summary.falseClaims}; ${summary.down} down of ${summary.total} audited ` +
       `(+${knownDown.length} known-down CSV rows listed).`
   )
   console.log(`JSON: ${jsonOut}\nReport: ${mdOut}`)
