@@ -1,0 +1,59 @@
+name: Gate 3 Auto-Validation
+
+# Semi-automates the Gate-3 "website validated" checklist
+# (docs/application-prerequisites-inventory.md §4b): dispatch with a
+# website-provisioning work-order issue number and the workflow runs the
+# machine-checkable items against the issue's "Live site:" URL, then posts a
+# PASS/FAIL/MANUAL verdict table as an issue comment. It never ticks boxes —
+# the sponsoring admin still ticks each checklist box on the work order.
+#
+# Uses the plain GITHUB_TOKEN (issues: write) — no environment gate needed
+# since it only reads public pages and comments on issues in this repo.
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Work-order issue number (reads its "Live site:" URL)'
+        required: true
+        type: string
+      url:
+        description: 'Optional explicit URL (overrides the issue body URL)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      # The script is dependency-free (plain node fetch), so no pnpm install.
+      - name: Run Gate-3 checks
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ISSUE: ${{ inputs.issue_number }}
+          URL: ${{ inputs.url }}
+        run: |
+          set -o pipefail
+          if [ -n "$URL" ]; then
+            node scripts/gate3-validate.mjs --issue "$ISSUE" --url "$URL" | tee verdict.md
+          else
+            node scripts/gate3-validate.mjs --issue "$ISSUE" | tee verdict.md
+          fi
+
+      - name: Post verdict as issue comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ inputs.issue_number }}
+        run: gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body-file verdict.md
