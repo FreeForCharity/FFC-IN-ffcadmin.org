@@ -42,8 +42,8 @@ pnpm run build      # static export → out/. Do not cancel.
 Serve the export in the background, wait for the port, then drive it:
 
 ```bash
-# 1. Serve out/ on :3000 (this is `pnpm dlx serve out -l 3000`)
-nohup pnpm dlx serve out -l 3000 >/tmp/preview.log 2>&1 &
+# 1. Serve out/ on :3000 (this is `pnpm exec serve out -l 3000`)
+nohup pnpm exec serve out -l 3000 >/tmp/preview.log 2>&1 &
 echo $! > /tmp/preview.pid
 timeout 30 bash -c 'until curl -sf http://localhost:3000 >/dev/null; do sleep 1; done'
 
