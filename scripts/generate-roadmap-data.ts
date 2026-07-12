@@ -87,8 +87,18 @@ const STATUS_ORDER: RoadmapStatus[] = [
 /** Map the `status:*` label(s) (and a couple of fallbacks) to a lifecycle status. */
 function statusFor(issue: GhIssue): RoadmapStatus {
   const names = issue.labels.map((l) => l.name)
-  const found = names
-    .filter((n) => n.startsWith('status:'))
+  const statusNames = names.filter((n) => n.startsWith('status:'))
+  // An unknown status:* label would otherwise be dropped silently and the
+  // issue misclassified — name it so the label (or STATUS_ORDER) gets fixed.
+  for (const n of statusNames) {
+    if (!(STATUS_ORDER as string[]).includes(n.slice('status:'.length))) {
+      console.warn(
+        `Unknown status label "${n}" on issue #${issue.number} ("${issue.title}") — ` +
+          `ignored for roadmap status derivation; add it to STATUS_ORDER or fix the label.`
+      )
+    }
+  }
+  const found = statusNames
     .map((n) => n.slice('status:'.length))
     .filter((s): s is RoadmapStatus => (STATUS_ORDER as string[]).includes(s))
   if (found.length > 0) {

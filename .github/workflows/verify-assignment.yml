@@ -92,7 +92,7 @@ jobs:
             # remains (the roadmap generator classifies by the status:* label).
             gh issue edit "$ISSUE" --repo "$REPO" \
               --add-label "verified-assignment,status:sponsored" \
-              --remove-label "verified-admin-action-needed,status:intake,status:needs-info,status:needs-admin,status:on-hold,status:active-build,status:live,status:graduated" || true
+              --remove-label "verified-admin-action-needed,status:intake,status:needs-info,status:needs-admin,status:awaiting-approval,status:on-hold,status:active-build,status:live,status:graduated" || true
           elif [ "$code" = "404" ]; then
             echo "${ASSIGNEE} is NOT a sponsoring admin; reverting assignment."
             gh issue edit "$ISSUE" --repo "$REPO" \

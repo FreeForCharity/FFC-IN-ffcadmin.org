@@ -113,6 +113,14 @@ describe('buildFooterConfig — missing data fails loudly', () => {
     expect(() => buildFooterConfig(record)).toThrow(/pre-501c3/)
   })
 
+  it('rejects a record with NO charityStage — never fail-open into a 501c3 assertion', () => {
+    const record = { ...SAMPLE_APPLICATION }
+    delete record.charityStage
+    const problems = validateApplication(record)
+    expect(problems.some((p) => /missing "charityStage"/.test(p))).toBe(true)
+    expect(() => buildFooterConfig(record)).toThrow(/charityStage/)
+  })
+
   it('rejects a malformed EIN', () => {
     const problems = validateApplication({ ...SAMPLE_APPLICATION, ein: '123456789' })
     expect(problems.some((p) => /invalid "ein"/.test(p))).toBe(true)

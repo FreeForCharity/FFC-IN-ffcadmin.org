@@ -3,10 +3,11 @@
  * Footer-config bridge (Gate 3 of the gated charity journey): turn ONE
  * validated WHMCS application record — the PII-safe shape produced by
  * scripts/whmcs-applications.mjs (`buildApplicationRecords`) — into the
- * FFC-standard footer config file a charity's FFC-EX site consumes (the
- * canonical consumer is FFC-IN-Footer-Only-Template's footer component; both
- * site templates render the same block: endorsements/EIN, policy links,
- * contact, social icons, copyright).
+ * FFC-standard footer config for a charity's FFC-EX site (the footer component
+ * lives in FFC-IN-Footer_Only_Template; both site templates render the same
+ * block: endorsements/EIN, policy links, contact, social icons, copyright).
+ * NOTE: no template consumes this JSON yet — volunteers transcribe it into the
+ * charity repo's src/lib/site.config.ts (see docs/footer-bridge.md).
  *
  * Pure transform, no network calls: the WHMCS sync already fetched the data.
  * Missing required fields mean the application is NOT validated for footer
@@ -35,14 +36,17 @@ export const REQUIRED_FIELDS = [
   ['charityName', 'public organization legal name'],
   ['ein', 'EIN (NN-NNNNNNN; public for registered charities)'],
   ['candidUrl', 'Candid/GuideStar profile URL (transparency endorsement)'],
+  // The footer's copyright line legally asserts US 501(c)(3) status, so the
+  // stage must be present AND '501c3' — never assumed. A record without it is
+  // not validated (fail closed; a pre-501(c)(3) must not be mis-asserted).
+  ['charityStage', "charity stage (must be '501c3'; the footer asserts 501(c)(3) status)"],
 ]
 
 /**
  * Optional record fields the footer uses when present. `facebookUrl` and
- * `linkedinUrl` come from the hardened onboarding forms (charity PAGE URLs,
- * not board-member profiles) but are not yet surfaced by the WHMCS sync's
- * PII-safe allowlist — the bridge accepts them so no shape change is needed
- * when the sync starts emitting them. Exported for unit testing.
+ * `linkedinUrl` are the charity PAGE URLs from the hardened onboarding forms
+ * (fields `facebook-page` / `linkedin-page`, never board-member profiles),
+ * surfaced by the WHMCS sync's PII-safe allowlist. Exported for unit testing.
  */
 export const OPTIONAL_FIELDS = ['missionExcerpt', 'facebookUrl', 'linkedinUrl', 'submittedAt']
 
@@ -111,7 +115,8 @@ export function validateApplication(record) {
     problems.push(`invalid "ein" (${ein}) — expected NN-NNNNNNN`)
   }
   // The footer's copyright line asserts US 501(c)(3) status; a pre-501(c)(3)
-  // application has not cleared Gate 3's legal-status validation yet.
+  // application has not cleared Gate 3's legal-status validation yet. (A
+  // MISSING stage is already a problem via REQUIRED_FIELDS — fail closed.)
   if (record.charityStage && record.charityStage !== '501c3') {
     problems.push(
       `charityStage is "${record.charityStage}" — footer generation requires a validated 501c3 application`
@@ -151,7 +156,9 @@ export function buildFooterConfig(record, { now = new Date() } = {}) {
     organization: {
       legalName,
       ein: record.ein,
-      charityStage: record.charityStage || '501c3',
+      // Required + validated above — never defaulted (the footer legally
+      // asserts 501(c)(3) status).
+      charityStage: record.charityStage,
       ...(record.missionExcerpt ? { missionStatement: record.missionExcerpt } : {}),
     },
     // Column 1 of the FFC footer: transparency endorsements.

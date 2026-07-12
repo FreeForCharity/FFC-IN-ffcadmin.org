@@ -486,30 +486,17 @@ body:
         - label: Letter/attestation from a sponsoring institution
         - label: Active community of 10+ named participants
 
-  # ---- Validation checklist (Gate 3) ----------------------------------------
+  # ---- Validation (Gate 3) ---------------------------------------------------
+  # NOTE: the Gate-3 validation checklist deliberately does NOT appear on this
+  # application form — it is ticked during the build, on the sync-created
+  # website-provisioning work order (see scripts/lib/intake-issues.mjs), never
+  # pre-ticked at submission.
   - type: markdown
     attributes:
       value: |
-        ### Validation checklist (completed during the build — leave unticked when submitting)
-        This work order is done when the site is **objectively validated** on its free GitHub
-        Pages URL (Gate 3 of the gated journey — see
-        [the prerequisites inventory, Section 4b](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/docs/application-prerequisites-inventory.md)). The
-        sponsoring admin ticks these boxes as each check passes; the charity ticks the final
-        content-review box.
-  - type: checkboxes
-    id: validation-checklist
-    attributes:
-      label: Validation checklist — all boxes ticked = validated → the charity may order its domain
-      description: Objective definition of "website validated" (Gate 3). Ticked during the build, not at intake.
-      options:
-        - label: CI green on the charity's FFC-EX repo (latest default-branch run passing)
-        - label: Site loads at its GitHub Pages URL (HTTP 200, no redirect loops)
-        - label: FFC-standard footer present and populated from the approved application data (org legal name, EIN, policy links, social links)
-        - label: All required sections/pages present per the chosen template
-        - label: Mobile responsive (spot-check at 375px — no horizontal scroll, nav usable)
-        - label: No browser console errors on any page
-        - label: Accessibility pass (axe clean or Lighthouse accessibility score ≥ 90)
-        - label: Content reviewed and approved by the charity
+        **Validation checklist (Gate 3):** the 8-item "website validated" checklist lives on the
+        website-provisioning work order created after approval — see
+        [the prerequisites inventory, Section 4b](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/docs/application-prerequisites-inventory.md#4b-the-website-validated-checklist-gate-3-definition).
 
   # ---- Acknowledgements ----------------------------------------------------
   - type: checkboxes
