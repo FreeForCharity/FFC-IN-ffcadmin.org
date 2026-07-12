@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import { loadRoadmap } from '../roadmap/roadmapData'
-import { PIPELINE_STAGES, groupByStage } from './pipelineData'
+import { PIPELINE_STAGES, groupByStage, validationProgress } from './pipelineData'
 
 export const metadata: Metadata = {
   title: 'Charity Pipeline',
@@ -79,7 +79,19 @@ export default function PipelinePage() {
                     className="rounded-xl border border-gray-200 bg-white p-4"
                   >
                     <div className="font-semibold text-gray-900">{entry.charityName}</div>
-                    <div className="mt-1 text-sm text-gray-500">{stage.label}</div>
+                    <div className="mt-1 text-sm text-gray-500">
+                      {stage.label}
+                      {(() => {
+                        const progress = validationProgress(entry)
+                        // Gate-3 checklist progress for charities mid-checklist;
+                        // a complete checklist is already expressed by the stage.
+                        return progress && progress.ticked < progress.total ? (
+                          <span className="ml-2 rounded bg-amber-50 px-1.5 py-0.5 text-xs font-medium text-amber-700">
+                            validation {progress.ticked}/{progress.total}
+                          </span>
+                        ) : null
+                      })()}
+                    </div>
                     <div className="mt-2 flex flex-wrap gap-3 text-sm">
                       {entry.issueNumber > 0 && (
                         <a
