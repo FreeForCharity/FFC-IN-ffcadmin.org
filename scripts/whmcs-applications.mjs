@@ -371,9 +371,97 @@ export function buildApplicationRecords(byClient) {
   )
 }
 
+/**
+ * Normalize a GetClientsProducts response to a product array. WHMCS's XML-ish
+ * JSON returns `products.product` as an ARRAY for several services, a single
+ * OBJECT for exactly one, and omits it entirely for none — all three shapes
+ * must land as a plain array. Exported for unit testing.
+ */
+export function productsFromResponse(resp) {
+  return [].concat(resp?.products?.product || [])
+}
+
+/**
+ * The production status filter: true when a client product's WHMCS service
+ * status is an intake (approved) status — the gate that decides whether a
+ * work-order issue may exist at all. Case-insensitive (WHMCS status casing is
+ * not guaranteed). Exported for unit testing.
+ */
+export const isIntakeStatus = (product) =>
+  INTAKE_STATUSES.has(String(product?.status || '').toLowerCase())
+
+/** True when the service status means "application still under review". Exported for unit testing. */
+export const isPendingStatus = (product) =>
+  PENDING_STATUSES.has(String(product?.status || '').toLowerCase())
+
+/**
+ * Pure per-pid ingest (the production filter path, extracted from collect() so
+ * fixture payloads can drive it without network): partition one product list
+ * into intake-eligible vs pending, record pending owners in `pendingIds`
+ * (tracked, no issue — see PENDING_STATUSES), and merge each eligible
+ * product's PII-safe working fields into `byClient`. A client holding both
+ * products is listed once; the 501c3 product (pid 33) wins for the tier label.
+ * Returns the partition sizes for logging. Exported for unit testing.
+ */
+export function ingestProducts(pid, products, byClient, pendingIds) {
+  const eligible = products.filter(isIntakeStatus)
+  const pending = products.filter(isPendingStatus)
+  for (const p of pending) {
+    const clientId = String(p?.clientid || '').trim()
+    if (clientId) pendingIds.add(`ffc-${clientId}`)
+  }
+  for (const p of eligible) {
+    const clientId = String(p?.clientid || '').trim()
+    if (!clientId) continue
+    const regIso = isoDate(p?.regdate)
+    const mission = missionFromProduct(p)
+    const missionOption = missionTierFromProduct(p)
+    // Non-PII transparency fields (allowlisted by field name; board/contact
+    // fields are never matched). Candid link + EIN help donors evaluate.
+    const candidUrl = sanitizeCandidUrl(fieldValue(p, /guidestar|candid/i))
+    const ein = sanitizeEin(fieldValue(p, /\bEIN\b|tax id/i))
+    // Charity social PAGE URLs — the onboarding products carry custom fields
+    // slugged `facebook-page` / `linkedin-page` (org pages, not personal
+    // profiles). The strict "page" suffix keeps board-member profile fields
+    // (e.g. "President — linkedin url") out by construction.
+    const facebookUrl = sanitizeSocialUrl(
+      fieldValue(p, /facebook[\s_-]*page/i),
+      /(^|\.)facebook\.com$/i
+    )
+    const linkedinUrl = sanitizeSocialUrl(
+      fieldValue(p, /linkedin[\s_-]*page/i),
+      /(^|\.)linkedin\.com$/i
+    )
+    const existing = byClient.get(clientId)
+    if (existing) {
+      if (pid === '33') existing.pid = pid
+      if (!existing.mission && mission) existing.mission = mission
+      if (!existing.missionOption && missionOption) existing.missionOption = missionOption
+      if (!existing.regIso && regIso) existing.regIso = regIso
+      if (!existing.candidUrl && candidUrl) existing.candidUrl = candidUrl
+      if (!existing.ein && ein) existing.ein = ein
+      if (!existing.facebookUrl && facebookUrl) existing.facebookUrl = facebookUrl
+      if (!existing.linkedinUrl && linkedinUrl) existing.linkedinUrl = linkedinUrl
+    } else {
+      byClient.set(clientId, {
+        clientId,
+        pid,
+        mission,
+        missionOption,
+        regIso,
+        candidUrl,
+        ein,
+        facebookUrl,
+        linkedinUrl,
+        company: undefined,
+      })
+    }
+  }
+  return { eligibleCount: eligible.length, pendingCount: pending.length }
+}
+
 async function collect() {
-  // clientId -> working record. A client holding both products is listed once;
-  // the 501c3 product (pid 33) wins for the tier label.
+  // clientId -> working record (see ingestProducts).
   const byClient = new Map()
   // Service ids currently PENDING (application under review): recorded in the
   // sync state so a later approval creates a work order even when the
@@ -387,68 +475,12 @@ async function collect() {
       console.warn(`WHMCS GetClientsProducts pid=${pid} failed: ${errMsg(err)}`)
       continue
     }
-    const products = [].concat(resp?.products?.product || [])
-    const eligible = products.filter((p) =>
-      INTAKE_STATUSES.has(String(p?.status || '').toLowerCase())
-    )
-    const pending = products.filter((p) =>
-      PENDING_STATUSES.has(String(p?.status || '').toLowerCase())
-    )
-    for (const p of pending) {
-      const clientId = String(p?.clientid || '').trim()
-      if (clientId) pendingIds.add(`ffc-${clientId}`)
-    }
+    const products = productsFromResponse(resp)
+    const { eligibleCount, pendingCount } = ingestProducts(pid, products, byClient, pendingIds)
     console.log(
-      `pid ${pid} -> ${products.length} client product(s); ${eligible.length} in intake status ` +
-        `[${[...INTAKE_STATUSES].join(', ')}]; ${pending.length} pending (tracked, no issue)`
+      `pid ${pid} -> ${products.length} client product(s); ${eligibleCount} in intake status ` +
+        `[${[...INTAKE_STATUSES].join(', ')}]; ${pendingCount} pending (tracked, no issue)`
     )
-    for (const p of eligible) {
-      const clientId = String(p?.clientid || '').trim()
-      if (!clientId) continue
-      const regIso = isoDate(p?.regdate)
-      const mission = missionFromProduct(p)
-      const missionOption = missionTierFromProduct(p)
-      // Non-PII transparency fields (allowlisted by field name; board/contact
-      // fields are never matched). Candid link + EIN help donors evaluate.
-      const candidUrl = sanitizeCandidUrl(fieldValue(p, /guidestar|candid/i))
-      const ein = sanitizeEin(fieldValue(p, /\bEIN\b|tax id/i))
-      // Charity social PAGE URLs — the onboarding products carry custom fields
-      // slugged `facebook-page` / `linkedin-page` (org pages, not personal
-      // profiles). The strict "page" suffix keeps board-member profile fields
-      // (e.g. "President — linkedin url") out by construction.
-      const facebookUrl = sanitizeSocialUrl(
-        fieldValue(p, /facebook[\s_-]*page/i),
-        /(^|\.)facebook\.com$/i
-      )
-      const linkedinUrl = sanitizeSocialUrl(
-        fieldValue(p, /linkedin[\s_-]*page/i),
-        /(^|\.)linkedin\.com$/i
-      )
-      const existing = byClient.get(clientId)
-      if (existing) {
-        if (pid === '33') existing.pid = pid
-        if (!existing.mission && mission) existing.mission = mission
-        if (!existing.missionOption && missionOption) existing.missionOption = missionOption
-        if (!existing.regIso && regIso) existing.regIso = regIso
-        if (!existing.candidUrl && candidUrl) existing.candidUrl = candidUrl
-        if (!existing.ein && ein) existing.ein = ein
-        if (!existing.facebookUrl && facebookUrl) existing.facebookUrl = facebookUrl
-        if (!existing.linkedinUrl && linkedinUrl) existing.linkedinUrl = linkedinUrl
-      } else {
-        byClient.set(clientId, {
-          clientId,
-          pid,
-          mission,
-          missionOption,
-          regIso,
-          candidUrl,
-          ein,
-          facebookUrl,
-          linkedinUrl,
-          company: undefined,
-        })
-      }
-    }
   }
   // Resolve the public organization name per client (read-only, no stats).
   for (const [clientId, rec] of byClient) {
