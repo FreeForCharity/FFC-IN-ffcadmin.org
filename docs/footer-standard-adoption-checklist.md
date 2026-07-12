@@ -18,6 +18,17 @@ Two companion documents define the standard itself; this checklist only sequence
 
 ## 1. What the standard requires
 
+**The standard has two passing levels, keyed to the charity's stage** (operator-defined
+2026-07-12). **Level 1 (pre-501c3)** is the full footer below **minus** the two items that assert
+IRS recognition: a pre-501c3 retrofit must **strip the 501(c)(3) status line** from the copyright
+text (the templates render "a US 501c3 Non Profit" — on a pre-501c3 site that is a false legal
+claim, flagged by the fleet audit as a violation) and **skip the Candid/GuideStar item** (no public
+profile exists yet). **Level 2 (full 501c3)** is everything in Level 1 plus the Candid/GuideStar
+profile link and the 501(c)(3) status line. `scripts/fleet-audit.mjs` audits the live fleet against
+both levels and gap-classifies every site; when a pre-501c3 charity's determination letter arrives,
+a one-line follow-up PR adds the two Level-2 items. This matches the level-aware footer row of the
+Gate-3 checklist ([application-prerequisites-inventory.md §4b](./application-prerequisites-inventory.md#4b-the-website-validated-checklist-gate-3-definition)).
+
 A retrofitted site is at standard when its footer (rendered on **every** page) carries all of the
 following, populated from the charity's approved application data:
 

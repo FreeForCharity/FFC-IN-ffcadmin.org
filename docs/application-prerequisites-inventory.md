@@ -909,7 +909,13 @@ A charity's website is **validated** on its GitHub Pages default URL when
 - [ ] **Site loads at its GitHub Pages URL** (HTTP 200, no redirect loops)
 - [ ] **FFC-standard footer present and populated from the approved
       application data** — org legal name, EIN, policy links, social links
-      (the Gate 1 application auto-generates this data; see Section 4a)
+      (the Gate 1 application auto-generates this data; see Section 4a).
+      _This check is level-aware:_ a **pre-501(c)(3)** charity's footer is
+      validated at **Level 1** — no 501(c)(3) status line (asserting the
+      status before recognition is a false claim) and no Candid/GuideStar
+      link; a **501(c)(3)** charity's footer is validated at **Level 2**,
+      which requires both (see
+      [footer-standard-adoption-checklist.md](./footer-standard-adoption-checklist.md))
 - [ ] **All required sections/pages present** per the chosen template
 - [ ] **Mobile responsive** — spot-check at 375px: no horizontal scroll,
       navigation usable
