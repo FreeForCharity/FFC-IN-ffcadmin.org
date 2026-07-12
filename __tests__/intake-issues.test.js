@@ -23,8 +23,11 @@ let stubBody,
   loadState,
   labelsFor,
   hasHumanEdits,
+  configAttachment,
+  extractConfigAttachment,
   ID_MARKER,
-  VALIDATION_CHECKLIST
+  VALIDATION_CHECKLIST,
+  SAMPLE_APPLICATION
 
 beforeAll(async () => {
   const mod = await import('../scripts/lib/intake-issues.mjs')
@@ -35,8 +38,11 @@ beforeAll(async () => {
   loadState = mod.loadState
   labelsFor = mod.labelsFor
   hasHumanEdits = mod.hasHumanEdits
+  configAttachment = mod.configAttachment
+  extractConfigAttachment = mod.extractConfigAttachment
   ID_MARKER = mod.ID_MARKER
   VALIDATION_CHECKLIST = mod.VALIDATION_CHECKLIST
+  SAMPLE_APPLICATION = (await import('../scripts/generate-footer-config.mjs')).SAMPLE_APPLICATION
 })
 
 const repo = 'FreeForCharity/FFC-IN-ffcadmin.org'
@@ -70,6 +76,55 @@ describe('stubBody', () => {
     expect(body).not.toMatch(liveUrlRe) // the placeholder itself never parses as a URL
     const filled = body.replace(/^Live site:.*$/m, 'Live site: https://a.github.io/b/')
     expect(filled.match(liveUrlRe)?.[1]).toBe('https://a.github.io/b/')
+  })
+})
+
+describe('configAttachment / extractConfigAttachment', () => {
+  it('a validated record yields the collapsed SiteConfig partial with the manual-fields list', () => {
+    const block = configAttachment(SAMPLE_APPLICATION, repo)
+    expect(block).toMatch(
+      /^<details><summary>Generated site\.config partial \(from validated application data\)<\/summary>/
+    )
+    expect(block).toMatch(/<\/details>$/)
+    expect(block).toContain('```json')
+    expect(block).toContain(`"name": "${SAMPLE_APPLICATION.charityName}"`)
+    expect(block).toContain(`"ein": "${SAMPLE_APPLICATION.ein}"`)
+    expect(block).toContain('"supportedBy"')
+    expect(block).toContain('Manual fields:')
+    expect(block).toContain('`contactEmail`')
+    // Deterministic: no timestamp, so the block never churns on its own.
+    expect(configAttachment(SAMPLE_APPLICATION, repo)).toBe(block)
+  })
+
+  it('a record failing bridge validation yields the fail-open gap list instead', () => {
+    const block = configAttachment({ id: 'ffc-1', charityName: 'Bare Org' }, repo)
+    expect(block).toContain('config not generatable — missing:')
+    expect(block).toContain('missing "ein"')
+    expect(block).toContain('missing "candidUrl"')
+    expect(block).toContain('missing "charityStage"')
+    expect(block).not.toContain('```json')
+  })
+
+  it('round-trips through extractConfigAttachment from a full stub body', () => {
+    const attachment = configAttachment(SAMPLE_APPLICATION, repo)
+    const body = stubBody(SAMPLE_APPLICATION, repo, { attachment })
+    expect(extractConfigAttachment(body)).toBe(attachment)
+    // The attachment sits BEFORE the volunteer-owned Gate-3 block, keeping the
+    // validation checklist the last block in the body.
+    expect(body.indexOf('</details>')).toBeLessThan(body.indexOf('### Validation checklist'))
+    // A body without an attachment extracts to '' (pre-feature stubs).
+    expect(extractConfigAttachment(stubBody(SAMPLE_APPLICATION, repo))).toBe('')
+    expect(extractConfigAttachment(undefined)).toBe('')
+  })
+
+  it('an attached stub still refreshes cleanly: the attachment is not a human edit', () => {
+    const attachment = configAttachment(SAMPLE_APPLICATION, repo)
+    const existing = stubBody(SAMPLE_APPLICATION, repo, { attachment })
+    // The refresh path rebuilds the body with new data + the carried-over block.
+    const fresh = stubBody({ ...SAMPLE_APPLICATION, missionExcerpt: 'New mission' }, repo, {
+      attachment: extractConfigAttachment(existing),
+    })
+    expect(hasHumanEdits(existing, fresh)).toBe(false)
   })
 })
 

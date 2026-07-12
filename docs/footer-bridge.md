@@ -67,9 +67,22 @@ The charity Facebook/LinkedIn **page** URLs collected by the hardened onboarding
 flow straight into `social`; only applications that predate those fields need volunteer fill-in
 for social links.
 
+## Auto-attached to new work orders
+
+Since the intake sync's auto-attach landed, every **newly created** `kind:intake` work-order issue
+already carries this bridge's output, generated at creation time from the same application record:
+a collapsed **"Generated site.config partial (from validated application data)"** block holding the
+`siteConfig` JSON plus the manual-fields checklist — or, when the record fails validation, the
+fail-open gap list (`config not generatable — missing: …`) so the volunteer knows exactly what to
+chase in WHMCS. The block is generated **once, on creation, never on refresh**: the daily sync
+carries it over verbatim (including any edits made inside it). Work orders created before the
+feature stay bare — for those, or to regenerate after WHMCS data is fixed, run the CLI steps below.
+
 ## How a volunteer uses it (website-provisioning work order)
 
 1. Open the charity's `kind:intake` work-order issue; note the application id (`ffc-<clientId>`).
+   **If the issue already has the collapsed "Generated site.config partial" block with JSON, skip
+   to step 5 using that block.**
 2. Get the application record: run the **WHMCS Intake** workflow with dry-run enabled and copy the
    record from the log, or save the JSON array to a file.
 3. Generate the partial (from the FFC-IN-ffcadmin.org repo root):

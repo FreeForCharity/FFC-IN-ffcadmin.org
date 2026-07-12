@@ -106,11 +106,15 @@ same issue plumbing so dedup, body, and labels stay identical.
 
 One `kind:intake` issue per approved application (label `status:needs-admin` at creation). The
 stub body carries: a welcome preamble with the `ffc-application-id` dedup marker; structured intake
-fields pre-filled from the application; the **Gate-3 validation checklist** (8 objective items,
-Section 4b) as the last, volunteer-owned block; and the **`Live site:` line** whose placeholder
-deliberately contains no `http(s)` URL. Existing issues are found by marker (survives state-file
-loss) and their data fields refreshed daily — unless `hasHumanEdits()` detects a ticked box, a
-filled `Live site:` URL, or any structural edit, after which the issue is human-owned.
+fields pre-filled from the application; a collapsed **auto-attached site-config partial** generated
+at creation by the footer bridge — the validated `siteConfig` JSON plus its manual-fields
+checklist, or (fail-open) the `config not generatable — missing: …` gap list when the record fails
+the bridge's validation; the **Gate-3 validation checklist** (8 objective items, Section 4b) as
+the last, volunteer-owned block; and the **`Live site:` line** whose placeholder deliberately
+contains no `http(s)` URL. Existing issues are found by marker (survives state-file loss) and
+their data fields refreshed daily — the site-config attachment is never regenerated on refresh,
+only carried over verbatim — unless `hasHumanEdits()` detects a ticked box, a filled `Live site:`
+URL, or any structural edit, after which the issue is human-owned.
 
 ### Roadmap data generator — `scripts/generate-roadmap-data.ts`
 

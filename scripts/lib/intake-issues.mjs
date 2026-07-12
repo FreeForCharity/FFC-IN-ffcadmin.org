@@ -12,6 +12,9 @@
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs'
 import { dirname } from 'path'
+// The site-config bridge (Gate 3): pure transform + validator, no CLI side
+// effects on import (its main() is guarded by an argv check).
+import { buildSiteConfigPartial, validateApplication } from '../generate-footer-config.mjs'
 
 export const ID_MARKER = 'ffc-application-id'
 
@@ -116,14 +119,88 @@ export const VALIDATION_CHECKLIST = [
   'Content reviewed and approved by the charity',
 ]
 
+// The auto-attached site-config block is identified by this exact <summary>
+// text — the extractor below greps for it, so keep builder and regex in sync.
+const CONFIG_ATTACHMENT_SUMMARY = 'Generated site.config partial (from validated application data)'
+const CONFIG_ATTACHMENT_RE = new RegExp(
+  `<details><summary>${CONFIG_ATTACHMENT_SUMMARY.replace(/[.()]/g, '\\$&')}</summary>[\\s\\S]*?</details>`
+)
+
+/**
+ * Build the collapsed site-config attachment for a NEW work-order issue: the
+ * SiteConfig partial generated from the validated application record by the
+ * footer bridge (scripts/generate-footer-config.mjs), plus the manual-fields
+ * checklist. Fail-open per record: when the record fails the bridge's
+ * validation, the block carries the failure list instead — the volunteer sees
+ * exactly which onboarding gaps to chase in WHMCS rather than a silent gap.
+ * Deliberately timestamp-free so the attachment is deterministic for a given
+ * record. Exported for unit testing.
+ */
+export function configAttachment(app, repo) {
+  const open = [`<details><summary>${CONFIG_ATTACHMENT_SUMMARY}</summary>`, '']
+  const close = ['', '</details>']
+  const bridgeDoc = `https://github.com/${repo}/blob/main/docs/footer-bridge.md`
+  let problems = validateApplication(app)
+  if (problems.length === 0) {
+    let partial
+    try {
+      partial = buildSiteConfigPartial(app)
+    } catch (err) {
+      problems = [errMsg(err)] // fail open: attach the reason, never abort the create
+    }
+    if (partial) {
+      return [
+        ...open,
+        "_Transcribe into the charity repo's `src/lib/site.config.ts` (key names and nesting_",
+        `_match one-for-one). See [footer-bridge.md](${bridgeDoc}); never change or drop \`supportedBy\`._`,
+        '',
+        '```json',
+        JSON.stringify(partial.siteConfig, null, 2),
+        '```',
+        '',
+        'Manual fields: the application cannot supply these — fill each by hand:',
+        '',
+        ...partial.manualFields.map((f) => `- \`${f.key}\` — ${f.note}`),
+        ...close,
+      ].join('\n')
+    }
+  }
+  return [
+    ...open,
+    'config not generatable — missing:',
+    '',
+    ...problems.map((p) => `- ${p}`),
+    '',
+    '_These are onboarding gaps: complete them in WHMCS (see_',
+    `_[footer-bridge.md](${bridgeDoc})), then regenerate with_`,
+    '_`node scripts/generate-footer-config.mjs` — never guess values._',
+    ...close,
+  ].join('\n')
+}
+
+/**
+ * Pull the auto-attached site-config block out of an existing issue body ('' if
+ * absent). The daily refresh carries it over VERBATIM — including any edits a
+ * volunteer made inside it — because the attachment is generated once, at issue
+ * creation, and never regenerated. Exported for unit testing.
+ */
+export function extractConfigAttachment(body) {
+  const m = String(body ?? '').match(CONFIG_ATTACHMENT_RE)
+  return m ? m[0] : ''
+}
+
 /**
  * Build the stub issue body. The leading block is a human-facing welcome plus
  * the dedup marker; the issue-form parser drops that preamble (it has no `###`
  * heading) and reads the structured fields below. Pre-filling the fields we know
  * from the application makes the readiness engine + roadmap card show an
  * accurate charity status, mission, and tier instead of empty defaults.
+ *
+ * `attachment` (optional) is a pre-built site-config <details> block (see
+ * configAttachment): the creation path generates it fresh; the refresh path
+ * passes through whatever block the existing issue already carries.
  */
-export function stubBody(app, repo) {
+export function stubBody(app, repo, { attachment = '' } = {}) {
   const name = app.charityName || 'your charity'
   const tier = app.serviceTier ? `\n\n**Service requested:** ${app.serviceTier}` : ''
   const lines = [
@@ -153,6 +230,10 @@ export function stubBody(app, repo) {
   field('Brief mission', app.missionExcerpt)
   field('EIN', app.ein)
   field('Candid / GuideStar profile URL', app.candidUrl)
+  // Collapsed site-config attachment (creation-time only; carried over verbatim
+  // on refresh). Sits BETWEEN the data fields and the validation checklist so
+  // the volunteer-owned validation block stays last (see hasHumanEdits).
+  if (attachment) lines.push(String(attachment).trim(), '')
   // Gate-3 validation checklist (docs Section 4b): the work order carries the
   // checklist where the sponsoring admin ticks it. Keep this block LAST — the
   // human-edit detector treats everything from its heading onward as the
@@ -341,12 +422,16 @@ export async function syncIntakeIssues({
     if (!id) continue
     try {
       const title = `[Intake] ${app.charityName || id}`
-      const body = stubBody(app, repo)
       // Marker lookup FIRST: an existing issue is always refreshed (the cutoff
       // below only guards NEW creation), so pre-cutoff charities keep their
       // refresh behaviour even if the state file is ever lost.
       const existing = await findIssueForId(id)
       if (existing) {
+        // Refresh path: NEVER regenerate the site-config attachment — carry
+        // whatever block the issue already has (or none) over verbatim, so the
+        // creation-time attachment (and any volunteer edits inside it) survives
+        // data refreshes without producing churn of its own.
+        const body = stubBody(app, repo, { attachment: extractConfigAttachment(existing.body) })
         if (isRefreshableStub(existing) && (existing.body !== body || existing.title !== title)) {
           // Never clobber human edits — ticked validation checkboxes, a filled
           // "Live site:" URL, or any structural change survive the refresh.
@@ -377,6 +462,9 @@ export async function syncIntakeIssues({
         }
         continue
       }
+      // Creation path: the ONE place the site-config attachment is generated
+      // (validated partial, or the fail-open gap list for the volunteer).
+      const body = stubBody(app, repo, { attachment: configAttachment(app, repo) })
       await gh(`/repos/${repo}/issues`, {
         method: 'POST',
         body: JSON.stringify({ title, body, labels: labelsFor(app) }),
