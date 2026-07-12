@@ -1,0 +1,47 @@
+name: Fleet Audit
+
+# One polite probe pass over every live charity site FFC serves
+# (FreeForCharity/FFC-Cloudflare-Automation#697, overnight blocks 10+11):
+# site health (HTTP status, redirect chain, HTTPS) plus FFC footer-standard
+# compliance. Read-only external GETs only — plain GITHUB_TOKEN, no
+# environment gate, manual dispatch only.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fleet-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Run fleet audit
+        run: node scripts/fleet-audit.mjs
+
+      - name: Publish job summary
+        if: always()
+        run: |
+          if [ -f docs/fleet-audit-report.md ]; then
+            cat docs/fleet-audit-report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Fleet audit produced no report." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fleet-audit
+          path: |
+            docs/fleet-audit.json
+            docs/fleet-audit-report.md
+          if-no-files-found: error
