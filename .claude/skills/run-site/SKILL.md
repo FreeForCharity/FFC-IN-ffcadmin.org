@@ -13,8 +13,11 @@ All paths below are relative to the repo root.
 
 ## Prerequisites
 
-No `apt-get` needed in the Claude Code web container: Node and a Chromium build
-are already present. The driver launches the pre-installed browser at
+This repo is pinned to **pnpm** (`packageManager: pnpm@9`, `pnpm-lock.yaml`) —
+use `pnpm`, not `npm`, so installs honor the lockfile and stay reproducible.
+
+No `apt-get` needed in the Claude Code web container: Node, pnpm, and a Chromium
+build are already present. The driver launches the pre-installed browser at
 `/opt/pw-browsers/chromium` (override with `CHROME_PATH=...`). **In that
 container** you do **not** run `npx playwright install` — the repo's pinned
 Playwright may want a different browser build than the container ships, and
@@ -25,13 +28,13 @@ set `CHROME_PATH` to a system Chrome/Chromium.
 ## Setup
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## Build
 
 ```bash
-npm run build      # static export → out/. Do not cancel.
+pnpm run build      # static export → out/. Do not cancel.
 ```
 
 ## Run (agent path)
@@ -39,8 +42,8 @@ npm run build      # static export → out/. Do not cancel.
 Serve the export in the background, wait for the port, then drive it:
 
 ```bash
-# 1. Serve out/ on :3000 (this is `npx serve out -l 3000`)
-nohup npx serve out -l 3000 >/tmp/preview.log 2>&1 &
+# 1. Serve out/ on :3000 (this is `pnpm dlx serve out -l 3000`)
+nohup pnpm dlx serve out -l 3000 >/tmp/preview.log 2>&1 &
 echo $! > /tmp/preview.pid
 timeout 30 bash -c 'until curl -sf http://localhost:3000 >/dev/null; do sleep 1; done'
 
@@ -63,7 +66,7 @@ confirm the page rendered.
 | `node .../driver.mjs / /privacy-policy/`               | Screenshot specific routes                         |
 | `ROUTES="/,/about/,/contact/" node .../driver.mjs`     | Override the default route set                     |
 | `EXPECT="Some text" node .../driver.mjs /`             | Also assert the text is present in the HTML        |
-| `BASE_URL=http://localhost:3000 node .../driver.mjs /` | Override the server origin (e.g. `npm run dev`)    |
+| `BASE_URL=http://localhost:3000 node .../driver.mjs /` | Override the server origin (e.g. `pnpm run dev`)   |
 | `CHROME_PATH=/path/to/chrome node .../driver.mjs`      | Use a different Chromium binary                    |
 
 Exit code is 0 only when every route is clean, so it works in a script.
@@ -71,7 +74,7 @@ Exit code is 0 only when every route is clean, so it works in a script.
 ## Run (human path)
 
 ```bash
-npm run dev        # → http://localhost:3000 with Turbopack HMR. Ctrl-C to stop.
+pnpm run dev        # → http://localhost:3000 with Turbopack HMR. Ctrl-C to stop.
 ```
 
 On its own this is useless in a headless container, since there is no window to
@@ -81,10 +84,10 @@ iterating on a component, because it rebuilds on save.
 ## Test
 
 ```bash
-npm run lint       # eslint
-npm run build      # verify the static export
-npm run test       # jest unit/component tests — not the browser
-npm run test:e2e   # playwright e2e — needs the pinned browser; see gotcha below
+pnpm run lint       # eslint
+pnpm run build      # verify the static export
+pnpm run test       # jest unit/component tests — not the browser
+pnpm run test:e2e   # playwright e2e — needs the pinned browser; see gotcha below
 ```
 
 ## Gotchas
@@ -99,7 +102,7 @@ npm run test:e2e   # playwright e2e — needs the pinned browser; see gotcha bel
   of host), so they never count against a route.
 - **Trailing slashes matter.** The export writes `out/<route>/index.html`, so hit
   `/privacy-policy/`, not `/privacy-policy`.
-- **The repo's Playwright browser build ≠ the container's.** `npm run test:e2e`
+- **The repo's Playwright browser build ≠ the container's.** `pnpm run test:e2e`
   and any bare `chromium.launch()` may try a build the container doesn't have and
   error with "Executable doesn't exist … run npx playwright install". Do not
   install; pass `executablePath: '/opt/pw-browsers/chromium'` (the driver does).
