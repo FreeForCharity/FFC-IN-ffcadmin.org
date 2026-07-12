@@ -922,6 +922,26 @@ A charity's website is **validated** on its GitHub Pages default URL when
 Section 4a). Partial completion is not validated: the domain order form's
 attestation that "the website is validated" refers to this checklist.
 
+### Auto-validation (semi-automated)
+
+The machine-checkable subset of this checklist can be run automatically:
+dispatch the **Gate 3 Auto-Validation** workflow
+(`.github/workflows/gate3-validate.yml`, Actions tab → "Run workflow") with
+the work-order issue number. It reads the issue's `Live site:` URL, runs
+`scripts/gate3-validate.mjs` against the live page, and posts a
+PASS/FAIL/MANUAL verdict table as a comment on the work order.
+
+**What it covers:** HTTP 200 (redirect loops = FAIL), github.io staging-host
+sanity (custom domains are noted), the FFC footer markers (brand text,
+freeforcharity.org link, EIN), a viewport meta tag (mobile baseline only), and
+a broken-basePath scan (up to 10 root-relative asset refs checked for 404s).
+
+**What it does not cover:** CI status, required template sections, the full
+375px responsive spot-check, console errors, accessibility, and charity
+content approval — those rows are reported as MANUAL. The tool never ticks
+checklist boxes: the sponsoring admin (and, for content review, the charity)
+still ticks each box on the work order after verifying it.
+
 ---
 
 ## 5. Validation checks (FFC-run, after submission)
