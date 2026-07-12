@@ -15,6 +15,7 @@
 import { mkdtempSync, rmSync, readFileSync } from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
+import { parseIssueForm } from '@/lib/readiness/parseIntake'
 
 let stubBody,
   passesCreationCutoff,
@@ -25,9 +26,13 @@ let stubBody,
   hasHumanEdits,
   configAttachment,
   extractConfigAttachment,
+  withStalenessNote,
   ID_MARKER,
+  CONFIG_ATTACHMENT_HEADING,
+  ATTACHMENT_STALENESS_NOTE,
   VALIDATION_CHECKLIST,
-  SAMPLE_APPLICATION
+  SAMPLE_APPLICATION,
+  cleanCandidUrl
 
 beforeAll(async () => {
   const mod = await import('../scripts/lib/intake-issues.mjs')
@@ -40,9 +45,13 @@ beforeAll(async () => {
   hasHumanEdits = mod.hasHumanEdits
   configAttachment = mod.configAttachment
   extractConfigAttachment = mod.extractConfigAttachment
+  withStalenessNote = mod.withStalenessNote
   ID_MARKER = mod.ID_MARKER
+  CONFIG_ATTACHMENT_HEADING = mod.CONFIG_ATTACHMENT_HEADING
+  ATTACHMENT_STALENESS_NOTE = mod.ATTACHMENT_STALENESS_NOTE
   VALIDATION_CHECKLIST = mod.VALIDATION_CHECKLIST
   SAMPLE_APPLICATION = (await import('../scripts/generate-footer-config.mjs')).SAMPLE_APPLICATION
+  cleanCandidUrl = (await import('../scripts/lib/roadmap-fields.mjs')).cleanCandidUrl
 })
 
 const repo = 'FreeForCharity/FFC-IN-ffcadmin.org'
@@ -125,6 +134,90 @@ describe('configAttachment / extractConfigAttachment', () => {
       attachment: extractConfigAttachment(existing),
     })
     expect(hasHumanEdits(existing, fresh)).toBe(false)
+  })
+
+  it('places the attachment under its OWN "### Generated site config" heading', () => {
+    const attachment = configAttachment(SAMPLE_APPLICATION, repo)
+    const body = stubBody(SAMPLE_APPLICATION, repo, { attachment })
+    const headingIdx = body.indexOf(`### ${CONFIG_ATTACHMENT_HEADING}`)
+    expect(headingIdx).toBeGreaterThan(-1)
+    // Heading directly precedes the block; no data field sits between them.
+    expect(headingIdx).toBeLessThan(body.indexOf('<details>'))
+    // A bare stub has no orphan heading.
+    expect(stubBody(SAMPLE_APPLICATION, repo)).not.toContain(`### ${CONFIG_ATTACHMENT_HEADING}`)
+  })
+
+  it('REGRESSION (#697 block 8): the attachment never folds into the Candid-URL field', () => {
+    // The real parseIssueForm (scripts/generate-roadmap-data.ts's field parser)
+    // splits fields on "### " headings: before the own-heading fix, the whole
+    // ~2KB <details> block glued onto the Candid-URL value, cleanCandidUrl
+    // passed it, and a percent-encoded monster URL reached the PUBLIC
+    // public/data/roadmap.json.
+    const candidUrl = 'https://www.guidestar.org/profile/12-3456789'
+    const app = { ...SAMPLE_APPLICATION, candidUrl }
+    const body = stubBody(app, repo, { attachment: configAttachment(app, repo) })
+    const form = parseIssueForm(body)
+    const parsed = form.get('candid / guidestar profile url')
+    expect(parsed).toBe(candidUrl)
+    expect(parsed).not.toContain('<details>')
+    // The attachment parses as its own separate field instead.
+    expect(form.get(CONFIG_ATTACHMENT_HEADING.toLowerCase())).toContain('<details>')
+    // And the published value stays the clean profile URL.
+    expect(cleanCandidUrl(parsed)).toBe(candidUrl)
+  })
+
+  it('old-format bodies (attachment glued after the Candid field) still publish a clean candidUrl', () => {
+    // Simulate a pre-fix issue body that is still live on GitHub: the block
+    // sits inside the Candid field's value. Defense in depth: cleanCandidUrl
+    // takes only the field's first line and rejects markup outright.
+    const candidUrl = 'https://www.guidestar.org/profile/12-3456789'
+    const glued = `${candidUrl}\n\n${configAttachment(SAMPLE_APPLICATION, repo)}`
+    expect(cleanCandidUrl(glued)).toBe(candidUrl)
+    // Even a value that IS the block never becomes a published URL.
+    expect(cleanCandidUrl(configAttachment(SAMPLE_APPLICATION, repo))).toBeUndefined()
+  })
+})
+
+describe('withStalenessNote', () => {
+  it('inserts the note after the <summary> line, idempotently', () => {
+    const attachment = configAttachment(SAMPLE_APPLICATION, repo)
+    const noted = withStalenessNote(attachment)
+    expect(noted).toContain(ATTACHMENT_STALENESS_NOTE)
+    expect(noted.indexOf(ATTACHMENT_STALENESS_NOTE)).toBeGreaterThan(noted.indexOf('</summary>'))
+    expect(noted.indexOf(ATTACHMENT_STALENESS_NOTE)).toBeLessThan(noted.indexOf('```json'))
+    // Idempotent: a second pass changes nothing (no refresh churn).
+    expect(withStalenessNote(noted)).toBe(noted)
+    // Empty/absent attachments stay empty.
+    expect(withStalenessNote('')).toBe('')
+    expect(withStalenessNote(undefined)).toBe('')
+  })
+
+  it('the noted attachment still round-trips through extract + stub rebuild', () => {
+    const noted = withStalenessNote(configAttachment(SAMPLE_APPLICATION, repo))
+    const body = stubBody(SAMPLE_APPLICATION, repo, { attachment: noted })
+    expect(extractConfigAttachment(body)).toBe(noted)
+  })
+
+  it('adding the note is not a human edit (the migration refresh may proceed)', () => {
+    const attachment = configAttachment(SAMPLE_APPLICATION, repo)
+    const existing = stubBody(SAMPLE_APPLICATION, repo, { attachment })
+    const fresh = stubBody(SAMPLE_APPLICATION, repo, { attachment: withStalenessNote(attachment) })
+    expect(hasHumanEdits(existing, fresh)).toBe(false)
+  })
+
+  it('a pre-fix glued body (no attachment heading) migrates on refresh, not frozen as human-edited', () => {
+    const attachment = configAttachment(SAMPLE_APPLICATION, repo)
+    // Replicate the pre-fix stub layout: the block sat directly between the
+    // last data field and the validation checklist, with no own heading.
+    const oldFormat = stubBody(SAMPLE_APPLICATION, repo).replace(
+      '### Validation checklist',
+      `${attachment}\n\n### Validation checklist`
+    )
+    const fresh = stubBody(SAMPLE_APPLICATION, repo, {
+      attachment: withStalenessNote(extractConfigAttachment(oldFormat)),
+    })
+    expect(extractConfigAttachment(oldFormat)).toBe(attachment)
+    expect(hasHumanEdits(oldFormat, fresh)).toBe(false)
   })
 })
 

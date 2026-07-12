@@ -8,14 +8,22 @@
  * data (no network).
  */
 
-let parseCsv, selectFleet, analyzeFooter, isCompliant, classifyError
+let parseCsv,
+  selectFleet,
+  selectKnownDown,
+  analyzeFooter,
+  hasAttribution,
+  isCompliant,
+  classifyError
 let buildNotes, buildSummary, buildMarkdownReport
 
 beforeAll(async () => {
   const mod = await import('../scripts/fleet-audit.mjs')
   parseCsv = mod.parseCsv
   selectFleet = mod.selectFleet
+  selectKnownDown = mod.selectKnownDown
   analyzeFooter = mod.analyzeFooter
+  hasAttribution = mod.hasAttribution
   isCompliant = mod.isCompliant
   classifyError = mod.classifyError
   buildNotes = mod.buildNotes
@@ -86,9 +94,16 @@ describe('selectFleet', () => {
     expect(fleet[0]).toMatchObject({ domain: 'example.org', hostCategory: 'GitHub Pages' })
   })
 
-  it('excludes sites that are not Live', () => {
+  it('includes Redirect rows (the probe follows the redirect and audits the destination)', () => {
+    const fleet = selectFleet([{ ...base, 'Site Health': 'Redirect' }])
+    expect(fleet).toHaveLength(1)
+    expect(fleet[0]).toMatchObject({ domain: 'example.org', siteHealth: 'Redirect' })
+  })
+
+  it('excludes health states that are not probed (Unreachable/Error/Unknown)', () => {
     expect(selectFleet([{ ...base, 'Site Health': 'Unreachable' }])).toHaveLength(0)
-    expect(selectFleet([{ ...base, 'Site Health': 'Redirect' }])).toHaveLength(0)
+    expect(selectFleet([{ ...base, 'Site Health': 'Error' }])).toHaveLength(0)
+    expect(selectFleet([{ ...base, 'Site Health': 'Unknown' }])).toHaveLength(0)
   })
 
   it('excludes orgs that left FFC, staging rows, and for-profit sites', () => {
@@ -112,6 +127,31 @@ describe('selectFleet', () => {
   })
 })
 
+describe('selectKnownDown', () => {
+  const base = {
+    Domain: 'broken.org',
+    Section: 'Cloudflare-Only',
+    Status: 'Active',
+    'Site Health': 'Unreachable',
+    'Left FFC': '',
+    'Is Staging': '',
+  }
+
+  it('collects fleet rows the CSV already marks Unreachable or Error', () => {
+    const rows = selectKnownDown([base, { ...base, Domain: 'error.org', 'Site Health': 'Error' }])
+    expect(rows.map((r) => r.domain)).toEqual(['broken.org', 'error.org'])
+    expect(rows[0].siteHealth).toBe('Unreachable')
+  })
+
+  it('applies the same non-health fleet filters and skips probed states', () => {
+    expect(selectKnownDown([{ ...base, 'Left FFC': 'Yes' }])).toHaveLength(0)
+    expect(selectKnownDown([{ ...base, Section: 'For-Profit' }])).toHaveLength(0)
+    expect(selectKnownDown([{ ...base, Status: 'Expired' }])).toHaveLength(0)
+    expect(selectKnownDown([{ ...base, 'Site Health': 'Live' }])).toHaveLength(0)
+    expect(selectKnownDown([{ ...base, 'Site Health': 'Redirect' }])).toHaveLength(0)
+  })
+})
+
 // ---------------------------------------------------------------------------
 // Footer-standard analysis
 // ---------------------------------------------------------------------------
@@ -132,8 +172,32 @@ describe('analyzeFooter', () => {
       hubLink: true,
       ein: true,
       supportedBy: true,
+      projectOf: false,
     })
     expect(isCompliant(f)).toBe(true)
+  })
+
+  it('accepts the deployed legacy attribution ("A project of" + FFC link) as compliant', () => {
+    // Pre-attribution-standard templates render "A project of …freeforcharity.org";
+    // "Supported by" only exists in templates as of tonight, so the audit must
+    // pass EITHER wording — while still reporting supportedBy separately as
+    // the target-wording progress flag.
+    const legacy = `
+      <footer>
+        <p>A project of <a href="https://freeforcharity.org">Free For Charity</a></p>
+        <a href="https://freeforcharity.org/hub">FFC Hub</a>
+        <p>EIN: 46-2471893</p>
+      </footer>`
+    const f = analyzeFooter(legacy)
+    expect(f.supportedBy).toBe(false)
+    expect(f.projectOf).toBe(true)
+    expect(hasAttribution(f)).toBe(true)
+    expect(isCompliant(f)).toBe(true)
+  })
+
+  it('does NOT accept "A project of" without the freeforcharity.org link', () => {
+    const f = analyzeFooter('<footer>A project of Some Other Org</footer>')
+    expect(hasAttribution(f)).toBe(false)
   })
 
   it('matches the marker with and without spaces, case-insensitively', () => {
@@ -225,6 +289,25 @@ describe('buildNotes', () => {
     expect(buildNotes(s)).toBe('missing: FFC link, hub link, EIN')
   })
 
+  it('reports missing attribution only when NEITHER wording is present', () => {
+    const s = site({
+      footer: analyzeFooter(
+        '<footer><a href="https://freeforcharity.org/hub">Free For Charity hub</a> EIN: 46-2471893</footer>'
+      ),
+    })
+    expect(buildNotes(s)).toBe('missing: attribution ("Supported by" / "A project of")')
+  })
+
+  it('flags legacy attribution wording on compliant sites (target-standard progress)', () => {
+    const legacy = site({
+      footer: analyzeFooter(
+        '<footer>A project of <a href="https://freeforcharity.org">Free For Charity</a> ' +
+          '<a href="https://freeforcharity.org/hub">hub</a> EIN: 46-2471893</footer>'
+      ),
+    })
+    expect(buildNotes(legacy)).toBe('legacy attribution wording (target: "Supported by")')
+  })
+
   it('reports unreachable sites and redirect destinations', () => {
     expect(buildNotes(site({ ok: false, error: 'enotfound', httpStatus: null }))).toContain(
       'unreachable: enotfound'
@@ -273,6 +356,22 @@ describe('buildSummary / buildMarkdownReport', () => {
     expect(summary).toMatchObject({ total: 3, reachable: 2, down: 1, compliant: 1 })
     expect(summary.checks.footerMarker).toBe(1)
     expect(summary.checks.ein).toBe(1)
+    // Attribution (either wording) and the target wording are counted apart.
+    expect(summary.checks.attribution).toBe(1)
+    expect(summary.checks.supportedBy).toBe(1)
+  })
+
+  it('counts legacy-wording attribution separately from the target wording', () => {
+    const legacy = site({
+      footer: analyzeFooter(
+        '<footer>A project of <a href="https://freeforcharity.org">Free For Charity</a> ' +
+          '<a href="https://freeforcharity.org/hub">hub</a> EIN: 46-2471893</footer>'
+      ),
+    })
+    const summary = buildSummary([site(), legacy])
+    expect(summary.compliant).toBe(2)
+    expect(summary.checks.attribution).toBe(2)
+    expect(summary.checks.supportedBy).toBe(1)
   })
 
   it('renders summary counts, a prominent down-sites section, and both report sections', () => {
@@ -284,11 +383,26 @@ describe('buildSummary / buildMarkdownReport', () => {
     expect(md).toContain('## Down or broken sites (action needed)')
     expect(md).toContain('| down.org | unreachable: timeout |')
     expect(md).toContain('## Section A — FFC footer-standard compliance')
+    expect(md).toContain(
+      '| Charity | Status | HTTPS | Footer marker | Attribution | Supported by (target wording) | EIN | Hub link | Notes |'
+    )
     expect(md).toContain('## Section B — Site health')
-    // Compliant row: all footer cells yes.
-    expect(md).toContain('| example.org | 200 | yes | yes | yes | yes | yes |  |')
+    // Compliant row: all footer cells yes (attribution + target wording).
+    expect(md).toContain('| example.org | 200 | yes | yes | yes | yes | yes | yes |  |')
     // Down row uses em-dash placeholders instead of misleading "no"s.
-    expect(md).toContain('| down.org | DOWN | — | — | — | — | — |')
+    expect(md).toContain('| down.org | DOWN | — | — | — | — | — | — |')
+  })
+
+  it('lists CSV rows already marked Unreachable/Error in the down table without probing', () => {
+    const knownDown = [
+      { domain: 'gone.org', siteHealth: 'Unreachable' },
+      { domain: 'broken.org', siteHealth: 'Error' },
+    ]
+    const md = buildMarkdownReport([site()], '2026-07-11', knownDown)
+    expect(md).toContain('## Down or broken sites (action needed)')
+    expect(md).toContain('| gone.org | marked "Unreachable" in sites_list.csv (not probed) |')
+    expect(md).toContain('| broken.org | marked "Error" in sites_list.csv (not probed) |')
+    expect(md).toContain('**Already marked Unreachable/Error in the CSV (not probed):** 2')
   })
 
   it('omits the down-sites section when everything is up', () => {

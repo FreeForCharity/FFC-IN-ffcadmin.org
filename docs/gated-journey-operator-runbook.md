@@ -164,10 +164,12 @@ lands, the checklist is verified by hand exactly as in the pilot (Section 7).
 
 The footer must be **generated from validated application data, not hand-typed**. Newly created
 work orders already carry the bridge's output as a collapsed **"Generated site.config partial"**
-block in the issue body (creation-time only; the daily refresh never regenerates it) — either the
-`siteConfig` JSON plus manual-fields checklist, or the fail-open gap list when the application
-fails validation. Use that block directly (jump to step 4). For older work orders, or to
-regenerate after fixing WHMCS data, run
+block in the issue body (creation-time only; the daily refresh never regenerates it, and stamps a
+staleness note inside it) — either the `siteConfig` JSON plus manual-fields checklist, or the
+fail-open gap list when the application fails validation. If the block is still current (the
+WHMCS data has not changed since issue creation), use it and jump to step 4; if the data changed
+— or the block disagrees with the refreshed fields on the issue — regenerate instead. For older
+work orders, or to regenerate after fixing WHMCS data, run
 [`scripts/generate-footer-config.mjs`](../scripts/generate-footer-config.mjs) per
 [footer-bridge.md](./footer-bridge.md):
 
