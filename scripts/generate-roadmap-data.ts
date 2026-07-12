@@ -26,6 +26,9 @@ import { computeReadiness } from '../src/lib/readiness/scoring'
 import { emptyIntake } from '../src/lib/readiness/defaults'
 import { parseIntakeIssue, parseIssueForm } from '../src/lib/readiness/parseIntake'
 import { parseValidationChecklist } from '../src/app/pipeline/pipelineData'
+// Shared with scripts/gate3-validate.mjs (one implementation, no drift) and
+// unit-tested in __tests__/roadmap-fields.test.js.
+import { liveUrlFrom, cleanCandidUrl, cleanEin } from './lib/roadmap-fields.mjs'
 import type {
   RoadmapData,
   RoadmapEntry,
@@ -111,59 +114,6 @@ function statusFor(issue: GhIssue): RoadmapStatus {
   // Closing an issue doesn't reliably mean the site launched (could be
   // rejected/duplicate/abandoned), so we rely on explicit status:* labels only.
   return 'intake'
-}
-
-/**
- * Extract the live site URL only when explicitly marked (e.g. "Live site: …"),
- * so unrelated links in the body (GuideStar, LinkedIn, etc.) are never mistaken
- * for the charity's site.
- */
-function liveUrlFrom(body: string | null): string | undefined {
-  if (!body) return undefined
-  const match = body.match(/^[ \t>*-]*live\s*(?:site|url)\s*[:：]\s*(https?:\/\/\S+)/im)
-  return match ? match[1] : undefined
-}
-
-/**
- * Decode the HTML entities WHMCS/GitHub commonly store in a URL so the parsed
- * value matches `whmcs-applications.mjs`. `&amp;` query separators (and the
- * double-encoded `&amp;amp;`) would otherwise survive into `new URL()` and the
- * link would point at a mangled query string. Angle brackets are intentionally
- * left encoded (anti-injection); a URL never legitimately contains a raw `<`/`>`.
- */
-function decodeUrlEntities(s: string): string {
-  let out = s
-  for (let i = 0; i < 3 && out.includes('&'); i++) {
-    const next = out.replace(/&amp;/gi, '&').replace(/&#0*38;/g, '&')
-    if (next === out) break
-    out = next
-  }
-  return out
-}
-
-/** Public Candid/GuideStar profile URL only (HTML-unwrapped, placeholders dropped). */
-function cleanCandidUrl(raw?: string): string | undefined {
-  if (!raw) return undefined
-  const href = /href=["']([^"']+)["']/i.exec(raw)
-  const candidate = decodeUrlEntities((href ? href[1] : raw).trim())
-  try {
-    const u = new URL(candidate)
-    if (
-      (u.protocol === 'https:' || u.protocol === 'http:') &&
-      /(^|\.)(candid\.org|guidestar\.org)$/i.test(u.hostname)
-    ) {
-      return u.toString()
-    }
-  } catch {
-    /* not a URL */
-  }
-  return undefined
-}
-
-/** Validate a US EIN (NN-NNNNNNN); public for registered charities. */
-function cleanEin(raw?: string): string | undefined {
-  const m = /\b(\d{2})-?(\d{7})\b/.exec(raw ?? '')
-  return m ? `${m[1]}-${m[2]}` : undefined
 }
 
 function toEntry(issue: GhIssue): RoadmapEntry {

@@ -30,7 +30,7 @@ const fixtures = JSON.parse(
 )
 
 let productsFromResponse, isIntakeStatus, isPendingStatus, ingestProducts, buildApplicationRecords
-let syncIntakeIssues, loadState, stubBody, configAttachment
+let syncIntakeIssues, loadState, stubBody, configAttachment, withStalenessNote
 
 beforeAll(async () => {
   const whmcs = await import('../scripts/whmcs-applications.mjs')
@@ -44,6 +44,7 @@ beforeAll(async () => {
   loadState = issues.loadState
   stubBody = issues.stubBody
   configAttachment = issues.configAttachment
+  withStalenessNote = issues.withStalenessNote
 })
 
 const repo = 'FreeForCharity/FFC-IN-ffcadmin.org'
@@ -292,11 +293,49 @@ describe('fixture payload -> issues (mocked GitHub)', () => {
       expect(patched.body).not.toContain('Generated site.config partial')
     })
 
-    it('refresh carries an existing attachment over verbatim (no churn, no clobber)', async () => {
+    it('refresh carries an existing attachment over (no churn, no clobber)', async () => {
+      const { applications } = recordsFromResponse(fixtures.multi)
+      const app = applications.find((a) => a.id === 'ffc-90')
+      // A steady-state issue: the attachment already carries the staleness
+      // note (added by a previous refresh). Identical data -> identical body
+      // -> no PATCH at all (no churn).
+      const noted = withStalenessNote(configAttachment(app, repo))
+      existingIssues = [
+        {
+          number: 8,
+          user: { login: 'github-actions[bot]' },
+          title: '[Intake] Helping Hands Shelter',
+          body: stubBody(app, repo, { attachment: noted }),
+        },
+      ]
+      let result = await sync(fixtures.multi)
+      expect(result.updated).toBe(0)
+      expect(patches()).toHaveLength(0)
+
+      // Changed data -> the refresh updates the fields but keeps the
+      // creation-time attachment byte-for-byte (note included).
+      calls = []
+      existingIssues = [
+        {
+          number: 8,
+          user: { login: 'github-actions[bot]' },
+          title: '[Intake] Old Shelter Name',
+          body: stubBody({ ...app, charityName: 'Old Shelter Name' }, repo, { attachment: noted }),
+        },
+      ]
+      result = await sync(fixtures.multi)
+      expect(result.updated).toBe(1)
+      const patched = JSON.parse(patches()[0].body)
+      expect(patched.body).toContain(noted)
+      expect(patched.title).toBe('[Intake] Helping Hands Shelter')
+    })
+
+    it('a note-less attachment gains the staleness note exactly once on refresh', async () => {
       const { applications } = recordsFromResponse(fixtures.multi)
       const app = applications.find((a) => a.id === 'ffc-90')
       const attachment = configAttachment(app, repo)
-      // Identical data -> identical body -> no PATCH at all (no churn).
+      // A creation-time issue (no note yet): the first refresh is a one-time
+      // migration PATCH that only adds the note.
       existingIssues = [
         {
           number: 8,
@@ -306,25 +345,23 @@ describe('fixture payload -> issues (mocked GitHub)', () => {
         },
       ]
       let result = await sync(fixtures.multi)
-      expect(result.updated).toBe(0)
-      expect(patches()).toHaveLength(0)
+      expect(result.updated).toBe(1)
+      const patched = JSON.parse(patches()[0].body)
+      expect(patched.body).toContain('Generated at issue creation from then-current WHMCS data')
 
-      // Changed data -> the refresh updates the fields but keeps the
-      // creation-time attachment byte-for-byte.
+      // Once noted, the next identical run is quiet again (idempotent).
       calls = []
       existingIssues = [
         {
           number: 8,
           user: { login: 'github-actions[bot]' },
-          title: '[Intake] Old Shelter Name',
-          body: stubBody({ ...app, charityName: 'Old Shelter Name' }, repo, { attachment }),
+          title: '[Intake] Helping Hands Shelter',
+          body: patched.body,
         },
       ]
       result = await sync(fixtures.multi)
-      expect(result.updated).toBe(1)
-      const patched = JSON.parse(patches()[0].body)
-      expect(patched.body).toContain(attachment)
-      expect(patched.title).toBe('[Intake] Helping Hands Shelter')
+      expect(result.updated).toBe(0)
+      expect(patches()).toHaveLength(0)
     })
   })
 })

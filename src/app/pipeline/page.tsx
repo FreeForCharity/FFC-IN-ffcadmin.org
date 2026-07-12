@@ -85,7 +85,14 @@ export default function PipelinePage() {
                         const progress = validationProgress(entry)
                         // Gate-3 checklist progress for charities mid-checklist;
                         // a complete checklist is already expressed by the stage.
-                        return progress && progress.ticked < progress.total ? (
+                        if (!progress || progress.ticked >= progress.total) return null
+                        // An untouched 0/8 checklist is only meaningful once the
+                        // build is actually underway — on earlier stages (e.g.
+                        // "approved") it would wallpaper every card with a
+                        // contentless "validation 0/8" chip.
+                        const relevant =
+                          progress.ticked > 0 || stage.id === 'building' || stage.id === 'validated'
+                        return relevant ? (
                           <span className="ml-2 rounded bg-amber-50 px-1.5 py-0.5 text-xs font-medium text-amber-700">
                             validation {progress.ticked}/{progress.total}
                           </span>

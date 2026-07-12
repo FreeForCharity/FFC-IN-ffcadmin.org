@@ -71,18 +71,25 @@ for social links.
 
 Since the intake sync's auto-attach landed, every **newly created** `kind:intake` work-order issue
 already carries this bridge's output, generated at creation time from the same application record:
-a collapsed **"Generated site.config partial (from validated application data)"** block holding the
-`siteConfig` JSON plus the manual-fields checklist — or, when the record fails validation, the
-fail-open gap list (`config not generatable — missing: …`) so the volunteer knows exactly what to
-chase in WHMCS. The block is generated **once, on creation, never on refresh**: the daily sync
-carries it over verbatim (including any edits made inside it). Work orders created before the
-feature stay bare — for those, or to regenerate after WHMCS data is fixed, run the CLI steps below.
+a collapsed **"Generated site.config partial (from validated application data)"** block (under its
+own `### Generated site config` issue heading) holding the `siteConfig` JSON plus the
+manual-fields checklist — or, when the record fails validation, the fail-open gap list
+(`config not generatable — missing: …`) so the volunteer knows exactly what to chase in WHMCS.
+The block is generated **once, on creation, never on refresh**: the daily sync carries it over
+(including any edits made inside it) and only maintains a one-line staleness note inside the block
+reminding readers that the frozen JSON may lag the refreshed data fields around it. Work orders
+created before the feature stay bare — for those, or to regenerate after WHMCS data is fixed, run
+the CLI steps below.
 
 ## How a volunteer uses it (website-provisioning work order)
 
 1. Open the charity's `kind:intake` work-order issue; note the application id (`ffc-<clientId>`).
-   **If the issue already has the collapsed "Generated site.config partial" block with JSON, skip
-   to step 5 using that block.**
+   **If the issue already has the collapsed "Generated site.config partial" block with JSON, you
+   may skip to step 5 using that block — but only after checking it is still current.** The block
+   is frozen at issue creation (the daily refresh never regenerates it, and stamps a staleness
+   note inside it): if the WHMCS application data changed since — or the block's values disagree
+   with the refreshed fields on the issue — regenerate via steps 2–4 instead of using the frozen
+   block.
 2. Get the application record: run the **WHMCS Intake** workflow with dry-run enabled and copy the
    record from the log, or save the JSON array to a file.
 3. Generate the partial (from the FFC-IN-ffcadmin.org repo root):

@@ -25,24 +25,26 @@
  *   node scripts/gate3-validate.mjs --url https://freeforcharity.github.io/FFC-EX-example/
  */
 import { pathToFileURL } from 'url'
+// The ONE liveUrlFrom implementation, shared with scripts/generate-roadmap-data.ts
+// so both tools read the same work-order field (re-exported for existing consumers).
+import { liveUrlFrom } from './lib/roadmap-fields.mjs'
+
+export { liveUrlFrom }
 
 export const DEFAULT_REPO = 'FreeForCharity/FFC-IN-ffcadmin.org'
 const MAX_ASSET_CHECKS = 10
+// Polite-probe budget, mirroring scripts/fleet-audit.mjs: every outbound fetch
+// aborts after 10s (a hung host must not hang the workflow) and successive
+// asset HEADs are paced 250ms apart.
+export const REQUEST_TIMEOUT_MS = 10_000
+export const PACING_MS = 250
 
-/**
- * Extract the live site URL only when explicitly marked ("Live site: ...").
- * Mirrors liveUrlFrom() in scripts/generate-roadmap-data.ts so both tools
- * read the same work-order field.
- */
-export function liveUrlFrom(body) {
-  if (!body) return undefined
-  const match = body.match(/^[ \t>*-]*live\s*(?:site|url)\s*[:：]\s*(https?:\/\/\S+)/im)
-  return match ? match[1] : undefined
-}
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 /** Fetch the work-order issue body via the GitHub REST API. */
 export async function fetchIssueBody(repo, issueNumber, token, fetchFn = fetch) {
   const res = await fetchFn(`https://api.github.com/repos/${repo}/issues/${issueNumber}`, {
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     headers: {
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
@@ -61,7 +63,10 @@ export async function fetchIssueBody(repo, issueNumber, token, fetchFn = fetch) 
  */
 export async function checkHttp(url, fetchFn = fetch) {
   try {
-    const res = await fetchFn(url, { redirect: 'follow' })
+    const res = await fetchFn(url, {
+      redirect: 'follow',
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    })
     const html = res.ok ? await res.text() : ''
     return { ok: res.ok && res.status === 200, status: res.status, finalUrl: res.url || url, html }
   } catch (err) {
@@ -113,40 +118,77 @@ export function extractRootRelativeRefs(html) {
   return [...refs]
 }
 
+/** HEAD statuses that don't prove anything: many hosts reject HEAD outright. */
+const HEAD_INCONCLUSIVE = new Set([403, 405])
+
 /**
  * basePath sanity: fetch up to MAX_ASSET_CHECKS root-relative refs resolved
  * against the final page URL and report any that 404. No refs = trivially ok
  * (a correctly basePath'd export emits repo-prefixed absolute refs).
+ *
+ * Only a real 404 is a broken-basePath verdict:
+ *   - a thrown fetch (DNS/TLS/timeout) is a transient network failure, NOT a
+ *     404 — reported separately in `unreachable` so it warns instead of fails;
+ *   - 403/405 on HEAD usually means the host rejects HEAD, not that the asset
+ *     is missing — retried with a ranged GET, and if still blocked recorded in
+ *     `inconclusive` (unknown, never a FAIL).
+ *
+ * `pacingMs` (default PACING_MS) spaces successive asset requests; tests pass
+ * 0 to stay fast.
  */
-export async function checkAssets(html, baseUrl, fetchFn = fetch) {
+export async function checkAssets(html, baseUrl, fetchFn = fetch, { pacingMs = PACING_MS } = {}) {
   const refs = extractRootRelativeRefs(html).slice(0, MAX_ASSET_CHECKS)
   const broken = []
+  const unreachable = []
+  const inconclusive = []
+  let first = true
   for (const ref of refs) {
+    if (!first && pacingMs > 0) await sleep(pacingMs)
+    first = false
+    const target = new URL(ref, baseUrl).href
     try {
-      const target = new URL(ref, baseUrl).href
-      const res = await fetchFn(target, { method: 'HEAD', redirect: 'follow' })
+      let res = await fetchFn(target, {
+        method: 'HEAD',
+        redirect: 'follow',
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      })
+      if (HEAD_INCONCLUSIVE.has(res.status)) {
+        // The host may simply reject HEAD; confirm with a 1-byte ranged GET.
+        if (pacingMs > 0) await sleep(pacingMs)
+        res = await fetchFn(target, {
+          method: 'GET',
+          redirect: 'follow',
+          signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+          headers: { range: 'bytes=0-0' },
+        })
+        if (HEAD_INCONCLUSIVE.has(res.status)) {
+          inconclusive.push(ref)
+          continue
+        }
+      }
       if (res.status === 404) broken.push(ref)
     } catch {
-      broken.push(ref)
+      unreachable.push(ref)
     }
   }
-  return { ok: broken.length === 0, checked: refs.length, broken }
+  return { ok: broken.length === 0, checked: refs.length, broken, unreachable, inconclusive }
 }
 
 /** Run every automated check against a live URL. */
-export async function runChecks(url, fetchFn = fetch) {
+export async function runChecks(url, fetchFn = fetch, { pacingMs = PACING_MS } = {}) {
   const http = await checkHttp(url, fetchFn)
   const host = checkHost(http.finalUrl || url)
   const footer = checkFooter(http.html)
   const viewport = checkViewport(http.html)
   const assets = http.ok
-    ? await checkAssets(http.html, http.finalUrl || url, fetchFn)
-    : { ok: false, checked: 0, broken: [] }
+    ? await checkAssets(http.html, http.finalUrl || url, fetchFn, { pacingMs })
+    : { ok: false, checked: 0, broken: [], unreachable: [], inconclusive: [] }
   return { url, http, host, footer, viewport, assets }
 }
 
 const pass = (detail) => ({ status: 'PASS', detail })
 const fail = (detail) => ({ status: 'FAIL', detail })
+const warn = (detail) => ({ status: 'WARN', detail })
 const manual = (detail) => ({ status: 'MANUAL', detail })
 
 /**
@@ -172,13 +214,22 @@ export function buildVerdictRows(results) {
           : `HTTP ${http.status} at ${results.url}`
       ),
     })
-  } else {
-    const hostNote = host.isGithubIo
-      ? `HTTP 200 on staging host \`${host.host}\`.`
-      : `HTTP 200, but host \`${host.host}\` is a custom domain — Gate 3 validates the github.io staging URL.`
+  } else if (host.isGithubIo) {
     rows.push({
       item: 'Site loads at its GitHub Pages URL (HTTP 200, no redirect loops)',
-      ...pass(hostNote),
+      ...pass(`HTTP 200 on staging host \`${host.host}\`.`),
+    })
+  } else {
+    // A non-github.io host is exactly the wrong-URL case this item exists to
+    // catch: Gate 3 validates the GitHub Pages STAGING URL (the custom domain
+    // comes later, at Gate 4). A reachable custom domain must not pass it.
+    rows.push({
+      item: 'Site loads at its GitHub Pages URL (HTTP 200, no redirect loops)',
+      ...fail(
+        `HTTP 200, but \`${host.host}\` is a custom domain, not the GitHub Pages staging URL — ` +
+          "Gate 3 validates the `*.github.io` staging URL. Paste the repo's " +
+          '`https://freeforcharity.github.io/FFC-EX-…/` URL as `Live site:` and re-run.'
+      ),
     })
   }
 
@@ -234,28 +285,40 @@ export function buildVerdictRows(results) {
 
   // Auxiliary automated signal (not a Section-4b line item, but a common
   // failure mode on project-site staging URLs): broken basePath asset refs.
-  rows.push({
-    item: 'basePath sanity (root-relative asset refs resolve)',
-    ...(!http.ok
-      ? fail('Page did not load; assets not checked.')
-      : assets.ok
-        ? pass(
-            assets.checked === 0
-              ? 'No root-relative asset refs found (basePath-prefixed refs expected).'
-              : `${assets.checked} root-relative ref(s) checked, none 404.`
-          )
-        : fail(`404 on: ${assets.broken.join(', ')} — likely a broken Next.js basePath.`)),
-  })
+  // Only a confirmed 404 FAILs; network errors and HEAD-blocked hosts WARN —
+  // "the asset is missing" and "the check could not run" are different verdicts.
+  const assetVerdict = () => {
+    if (!http.ok) return fail('Page did not load; assets not checked.')
+    if (assets.broken.length > 0)
+      return fail(`404 on: ${assets.broken.join(', ')} — likely a broken Next.js basePath.`)
+    const caveats = []
+    if (assets.unreachable.length > 0)
+      caveats.push(
+        `${assets.unreachable.join(', ')} unreachable during check — transient? Re-run to confirm.`
+      )
+    if (assets.inconclusive.length > 0)
+      caveats.push(
+        `${assets.inconclusive.join(', ')} inconclusive (host rejects HEAD and ranged GET) — verify manually.`
+      )
+    if (caveats.length > 0) return warn(caveats.join(' '))
+    return pass(
+      assets.checked === 0
+        ? 'No root-relative asset refs found (basePath-prefixed refs expected).'
+        : `${assets.checked} root-relative ref(s) checked, none 404.`
+    )
+  }
+  rows.push({ item: 'basePath sanity (root-relative asset refs resolve)', ...assetVerdict() })
 
   return rows
 }
 
-const STATUS_EMOJI = { PASS: '✅', FAIL: '❌', MANUAL: '📝' }
+const STATUS_EMOJI = { PASS: '✅', FAIL: '❌', WARN: '⚠️', MANUAL: '📝' }
 
 /** Render the verdict rows as the markdown comment body. */
 export function buildVerdictTable(results, { issueNumber } = {}) {
   const rows = buildVerdictRows(results)
   const failed = rows.filter((r) => r.status === 'FAIL').length
+  const warned = rows.filter((r) => r.status === 'WARN').length
   const manualLeft = rows.filter((r) => r.status === 'MANUAL').length
   const lines = [
     '## Gate-3 auto-validation',
@@ -269,6 +332,9 @@ export function buildVerdictTable(results, { issueNumber } = {}) {
     failed > 0
       ? `**${failed} automated check(s) FAILED** — fix these before ticking the corresponding boxes.`
       : '**All automated checks passed.**',
+    ...(warned > 0
+      ? [`${warned} check(s) WARN — could not be verified conclusively; see the detail column.`]
+      : []),
     `${manualLeft} item(s) remain MANUAL — this tool does not replace the human checklist; tick boxes on the work order as each item is verified.`,
     '',
     '_Posted by `.github/workflows/gate3-validate.yml` (`scripts/gate3-validate.mjs`)._',

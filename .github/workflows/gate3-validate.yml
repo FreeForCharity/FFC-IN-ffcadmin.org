@@ -52,8 +52,23 @@ jobs:
             node scripts/gate3-validate.mjs --issue "$ISSUE" | tee verdict.md
           fi
 
-      - name: Post verdict as issue comment
+      # Marker-based upsert: re-runs UPDATE the existing verdict comment
+      # instead of stacking a new comment per dispatch (comment spam). The
+      # marker is an invisible HTML comment embedded in the body.
+      - name: Post or update verdict comment
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ inputs.issue_number }}
-        run: gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body-file verdict.md
+        run: |
+          MARKER='<!-- gate3-verdict -->'
+          { echo "$MARKER"; cat verdict.md; } > comment.md
+          existing_id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" \
+            --paginate --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -n 1)
+          if [ -n "$existing_id" ]; then
+            echo "Updating existing verdict comment $existing_id"
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$existing_id" \
+              -F body=@comment.md > /dev/null
+          else
+            echo "Creating new verdict comment"
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body-file comment.md
+          fi
