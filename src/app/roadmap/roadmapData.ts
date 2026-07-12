@@ -48,6 +48,14 @@ export interface RoadmapEntry {
   plusOne: number
   issueUrl: string
   liveUrl?: string
+  /**
+   * Gate-3 validation checklist progress parsed from the work-order issue body
+   * (ticked / total items). Absent for entries whose issue predates the
+   * embedded checklist and for portfolio entries without a work order — the
+   * pipeline stage derivation falls back to its URL heuristic then.
+   */
+  validationTicked?: number
+  validationTotal?: number
   /** Public Candid/GuideStar profile URL (donor transparency), when supplied. */
   candidUrl?: string
   /** EIN (public for registered charities), when supplied. */

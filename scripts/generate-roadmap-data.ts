@@ -25,6 +25,7 @@ import { parse as parseCsv } from 'csv-parse/sync'
 import { computeReadiness } from '../src/lib/readiness/scoring'
 import { emptyIntake } from '../src/lib/readiness/defaults'
 import { parseIntakeIssue, parseIssueForm } from '../src/lib/readiness/parseIntake'
+import { parseValidationChecklist } from '../src/app/pipeline/pipelineData'
 import type {
   RoadmapData,
   RoadmapEntry,
@@ -180,6 +181,11 @@ function toEntry(issue: GhIssue): RoadmapEntry {
   // labelled status:live), so the portfolio dedup below can suppress the
   // matching domain even before the issue is flipped to live.
   const liveUrl = liveUrlFrom(issue.body)
+  // Gate-3 validation checklist progress (ticked/total) from the work-order
+  // body — lets the pipeline derive "validated" from the checklist itself
+  // instead of the github.io-URL heuristic. Null (omitted) for pre-checklist
+  // stubs, keeping the snapshot shape backward compatible.
+  const validation = parseValidationChecklist(issue.body)
   const form = parseIssueForm(issue.body ?? '')
   const candidUrl = cleanCandidUrl(form.get('candid / guidestar profile url'))
   const ein = cleanEin(form.get('ein'))
@@ -199,6 +205,9 @@ function toEntry(issue: GhIssue): RoadmapEntry {
     plusOne: issue.reactions?.['+1'] ?? 0,
     issueUrl: issue.html_url,
     ...(liveUrl ? { liveUrl } : {}),
+    ...(validation
+      ? { validationTicked: validation.ticked, validationTotal: validation.total }
+      : {}),
     ...(candidUrl ? { candidUrl } : {}),
     ...(ein ? { ein } : {}),
   }
