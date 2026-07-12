@@ -33,13 +33,33 @@ describe('Footer Component', () => {
       expect(screen.getByText(/501\(c\)\(3\) nonprofit/i)).toBeInTheDocument()
     })
 
-    it('should have link to main Free For Charity website', () => {
+    it('should have "Supported by" attribution linking to Free For Charity', () => {
       render(<Footer />)
-      const ffcLink = screen.getByRole('link', { name: /A project of Free For Charity/i })
+      const ffcLink = screen.getByRole('link', { name: /Supported by Free For Charity/i })
       expect(ffcLink).toBeInTheDocument()
       expect(ffcLink).toHaveAttribute('href', 'https://freeforcharity.org')
       expect(ffcLink).toHaveAttribute('target', '_blank')
       expect(ffcLink).toHaveAttribute('rel', 'noopener noreferrer')
+    })
+
+    it('should have Supported Charity Login link to the FFC hub', () => {
+      render(<Footer />)
+      const hubLink = screen.getByRole('link', { name: /Supported Charity Login/i })
+      expect(hubLink).toBeInTheDocument()
+      expect(hubLink).toHaveAttribute('href', 'https://freeforcharity.org/hub/')
+      expect(hubLink).toHaveAttribute('target', '_blank')
+      expect(hubLink).toHaveAttribute('rel', 'noopener noreferrer')
+    })
+
+    it('should display the FFC EIN block', () => {
+      render(<Footer />)
+      expect(screen.getByText(/EIN[:\s]*46-2471893/i)).toBeInTheDocument()
+    })
+
+    it('should link to the GuideStar profile by EIN', () => {
+      render(<Footer />)
+      const guidestarLink = screen.getByRole('link', { name: /View Full GuideStar Profile/i })
+      expect(guidestarLink).toHaveAttribute('href', 'https://www.guidestar.org/profile/46-2471893')
     })
 
     it('should display privacy policy link', () => {
