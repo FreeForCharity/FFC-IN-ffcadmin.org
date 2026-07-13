@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-07-13T08:27:02Z",
+  "site": "freeforcharity.org",
+  "propertyId": "386764754",
+  "dryRun": false,
+  "range": {
+    "days": 28,
+    "startDate": "28daysAgo",
+    "endDate": "today"
+  },
+  "metrics": {
+    "activeUsers": "789",
+    "newUsers": "816",
+    "sessions": "871",
+    "screenPageViews": "1003",
+    "engagementRate": "0.19632606199770378",
+    "eventCount": "3368",
+    "keyEvents": "0"
+  },
+  "topPages": [
+    {
+      "path": "/",
+      "views": "747"
+    },
+    {
+      "path": "/domains/",
+      "views": "153"
+    },
+    {
+      "path": "/501c3/",
+      "views": "36"
+    },
+    {
+      "path": "/free-charity-web-hosting/",
+      "views": "22"
+    },
+    {
+      "path": "/guidestar-guide/",
+      "views": "11"
+    },
+    {
+      "path": "/ffc-volunteer-proving-ground-core-competencies/",
+      "views": "6"
+    },
+    {
+      "path": "/pre501c3/",
+      "views": "5"
+    },
+    {
+      "path": "/help-for-charities/",
+      "views": "4"
+    },
+    {
+      "path": "/free-for-charitys-tools-for-success/",
+      "views": "3"
+    },
+    {
+      "path": "/free-training-programs/",
+      "views": "3"
+    }
+  ],
+  "channels": [
+    {
+      "channel": "Direct",
+      "sessions": "685"
+    },
+    {
+      "channel": "Organic Search",
+      "sessions": "173"
+    },
+    {
+      "channel": "AI Assistant",
+      "sessions": "12"
+    },
+    {
+      "channel": "Referral",
+      "sessions": "1"
+    },
+    {
+      "channel": "Unassigned",
+      "sessions": "1"
+    }
+  ],
+  "productionHostname": "freeforcharity.org",
+  "metricsProduction": {
+    "activeUsers": "179",
+    "newUsers": "177",
+    "sessions": "261",
+    "screenPageViews": "317",
+    "engagementRate": "0.47892720306513409",
+    "eventCount": "949",
+    "keyEvents": "0"
+  }
+}
