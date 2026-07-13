@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-07-13T08:27:05Z",
+  "site": "ffcadmin.org",
+  "propertyId": "513417483",
+  "dryRun": false,
+  "range": {
+    "days": 28,
+    "startDate": "28daysAgo",
+    "endDate": "today"
+  },
+  "metrics": {
+    "activeUsers": "2004",
+    "newUsers": "2002",
+    "sessions": "2032",
+    "screenPageViews": "2201",
+    "engagementRate": "0.031496062992125984",
+    "eventCount": "6443",
+    "keyEvents": "0"
+  },
+  "topPages": [
+    {
+      "path": "/index.html",
+      "views": "361"
+    },
+    {
+      "path": "/legacy-wordpress-administration/index.html",
+      "views": "361"
+    },
+    {
+      "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
+      "views": "361"
+    },
+    {
+      "path": "/tech-stack/index.html",
+      "views": "357"
+    },
+    {
+      "path": "/documentation/index.html",
+      "views": "356"
+    },
+    {
+      "path": "/",
+      "views": "68"
+    },
+    {
+      "path": "/charity-prerequisites/",
+      "views": "32"
+    },
+    {
+      "path": "/site-owner/",
+      "views": "32"
+    },
+    {
+      "path": "/get-involved/",
+      "views": "15"
+    },
+    {
+      "path": "/guides/github-account/",
+      "views": "13"
+    }
+  ],
+  "channels": [
+    {
+      "channel": "Direct",
+      "sessions": "1988"
+    },
+    {
+      "channel": "Organic Search",
+      "sessions": "32"
+    },
+    {
+      "channel": "Unassigned",
+      "sessions": "8"
+    },
+    {
+      "channel": "Referral",
+      "sessions": "6"
+    },
+    {
+      "channel": "AI Assistant",
+      "sessions": "4"
+    }
+  ],
+  "productionHostname": "ffcadmin.org",
+  "metricsProduction": {
+    "activeUsers": "208",
+    "newUsers": "206",
+    "sessions": "242",
+    "screenPageViews": "405",
+    "engagementRate": "0.26446280991735538",
+    "eventCount": "1055",
+    "keyEvents": "0"
+  }
+}
