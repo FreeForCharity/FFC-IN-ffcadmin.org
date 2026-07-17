@@ -39,33 +39,45 @@ adopts the same shared shape, the one generated artifact serves **both** templat
 
 ### Field mapping (application record → `siteConfig`)
 
-| Application record          | `siteConfig` key       | Notes                                                                                             |
-| --------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------- |
-| `charityName`               | `name`                 | Public organization legal name                                                                    |
-| `missionExcerpt`            | `description`          | Omitted (and flagged manual) when the application predates the mission field                      |
-| `ein`                       | `ein`                  | Validated NN-NNNNNNN                                                                              |
-| `facebookUrl`/`linkedinUrl` | `social[]`             | `{ label, href }` entries; labels match the template's icon set; host-checked, dropped if invalid |
-| `candidUrl`                 | `guidestar.profileUrl` | `guidestar.directProfileUrl` is emitted as `''` and flagged manual                                |
-| _(constant)_                | `supportedBy`          | **Always** FFC: `{ name, url, hubUrl }` — the permanent footer attribution, never from the record |
+| Application record                                             | `siteConfig` key             | Notes                                                                                                        |
+| -------------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `charityName`                                                  | `name`                       | Public organization legal name                                                                               |
+| `missionExcerpt`                                               | `description`                | Omitted (and flagged manual) when the application predates the mission field                                 |
+| `ein`                                                          | `ein`                        | Validated NN-NNNNNNN                                                                                         |
+| `facebookUrl`/`linkedinUrl`/`instagramUrl`/`xUrl`/`youtubeUrl` | `social[]`                   | `{ label, href }` entries; labels match the template's icon set; host-checked, dropped if invalid            |
+| `contactEmail`                                                 | `contactEmail`               | PUBLIC footer email from the hardened onboarding form; omitted (and flagged manual) when the record lacks it |
+| `contactPhone`                                                 | `phone`                      | `{ display, tel }` (tel stripped to `+`/digits); omitted (and flagged manual) when absent                    |
+| `contactCityState`                                             | `addresses[]`                | `[{ label: 'Location', lines: [city & state] }]`; omitted (and flagged manual) when absent                   |
+| `candidUrl`                                                    | `guidestar.profileUrl`       | Public Candid/GuideStar profile URL                                                                          |
+| `candidDirectUrl`                                              | `guidestar.directProfileUrl` | Candid "direct/shared" link; host-checked; emitted as `''` (and flagged manual) when absent                  |
+| _(constant)_                                                   | `supportedBy`                | **Always** FFC: `{ name, url, hubUrl }` — the permanent footer attribution, never from the record            |
+
+The public footer contact fields and the extra social pages are **public-by-design** (they render on
+the charity's website footer) and are read from the hardened onboarding products through the WHMCS
+sync's PII-safe allowlist — never the private "reach you at" phone or any board member's personal
+phone/email/LinkedIn.
 
 ### Manual fields
 
-Contact details (email, phone, address) are PII the WHMCS sync deliberately never surfaces, and
-some `SiteConfig` keys are simply not collected at application time. Those keys are **omitted**
-from the partial (never emitted as placeholder values) and itemized in `manualFields` so the
-provisioning volunteer knows exactly what to fill by hand:
+Some `SiteConfig` keys are never collected at application time, and the public footer fields are
+only present when the applicant filled them in. Keys the record cannot supply are **omitted** from
+the partial (never emitted as placeholder values) and itemized in `manualFields` so the provisioning
+volunteer knows exactly what to fill by hand:
 
-- `contactEmail`, `phone`, `addresses` — from the charity's public website
-- `guidestar.directProfileUrl` — the Candid "shared profile" direct link
-- `integrations` — per-charity Zeffy / Idealist / SociableKit / Microsoft Forms endpoints
+- `integrations` — per-charity Zeffy / Idealist / SociableKit / Microsoft Forms endpoints (never collected)
 - `url` — the site's canonical production URL (set at provisioning/cutover)
 - `tagline` — agreed with the charity
+- `contactEmail`, `phone`, `addresses`, `guidestar.directProfileUrl` — **only** when the application
+  record does not carry the public value (from the charity's public website / Candid profile)
 - `description` / `social` — only when the application record does not carry them
 
-The charity Facebook/LinkedIn **page** URLs collected by the hardened onboarding forms (fields
-`facebook-page` / `linkedin-page`) are surfaced by the sync as `facebookUrl` / `linkedinUrl` and
-flow straight into `social`; only applications that predate those fields need volunteer fill-in
-for social links.
+The public footer fields the hardened onboarding forms collect — the charity Facebook/LinkedIn/
+Instagram/X/YouTube **page** URLs (fields `facebook-page` / `linkedin-page` / `social-instagram` /
+`social-x` / `social-youtube`) and the public contact fields (`public-phone` / `public-email` /
+`footer-location`) plus the Candid `guidestar-full` direct link — are surfaced by the sync's PII-safe
+allowlist and flow straight into `social` / `contactEmail` / `phone` / `addresses` /
+`guidestar.directProfileUrl`; only applications that predate those fields (or leave them blank) need
+volunteer fill-in.
 
 ## Auto-attached to new work orders
 
@@ -116,9 +128,9 @@ the CLI steps below.
 
 - **Auto-PR the generated values** into the charity's FFC-EX repo from the work-order workflow, so
   Gate 3's footer requirement is fully mechanical (generate → validate → PR → review → merge).
-- **Surface the remaining public contact fields** from the hardened onboarding forms through the
-  sync's allowlist so the volunteer fill-in step shrinks further (the social page URLs already
-  flow through).
+- **Site-body / long-form content (pid 40)** — surface the charity's long-form public content
+  through the sync's allowlist (out of scope for the public-footer-fields change; a future
+  follow-up). The public footer contact fields and extra social pages already flow through.
 - **Direct consumption — both templates**: once
   [FFC-IN-Footer_Only_Template](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template)
   adopts the shared `SiteConfig` shape

@@ -37,21 +37,27 @@ describe('buildSiteConfigPartial — happy path', () => {
       charityStage: '501c3',
     })
     // The partial's keys are named and nested exactly as in the template's
-    // typed SiteConfig (src/lib/site.config.ts) — directly transcribable.
+    // typed SiteConfig (src/lib/site.config.ts) — directly transcribable. The
+    // hardened onboarding forms now supply the public footer contact fields and
+    // the extra social pages, so they flow straight through.
     expect(out.siteConfig).toEqual({
       name: 'Helping Hands Shelter',
       description: 'We provide shelter, food, and job placement to families in crisis.',
       social: [
         { label: 'Facebook', href: 'https://www.facebook.com/helpinghandsshelter' },
         { label: 'LinkedIn', href: 'https://www.linkedin.com/company/helping-hands-shelter/' },
+        { label: 'Instagram', href: 'https://www.instagram.com/helpinghandsshelter' },
+        { label: 'X (Twitter)', href: 'https://x.com/helpinghands' },
+        { label: 'YouTube', href: 'https://www.youtube.com/@helpinghandsshelter' },
       ],
+      contactEmail: 'hello@example.org',
+      phone: { display: '+1 520-555-0100', tel: '+15205550100' },
+      addresses: [{ label: 'Location', lines: ['Tucson, AZ'] }],
       ein: '12-3456789',
       guidestar: {
         profileUrl: 'https://www.guidestar.org/profile/12-3456789',
-        // Only the public profile URL is collected — the direct "shared
-        // profile" link stays a manual fill (kept as '' so the guidestar
-        // object retains the template's full shape).
-        directProfileUrl: '',
+        // The direct "shared profile" link is now captured too (public-by-design).
+        directProfileUrl: 'https://www.guidestar.org/profile/shared/12-3456789',
       },
       supportedBy: {
         name: 'Free For Charity',
@@ -61,31 +67,87 @@ describe('buildSiteConfigPartial — happy path', () => {
     })
   })
 
-  it('lists every SiteConfig key the application cannot supply in manualFields', () => {
+  it('flows the public contact fields into contact/phone/address and drops them from manual', () => {
     const out = buildSiteConfigPartial(SAMPLE_APPLICATION)
-    // The sample record supplies description and social, so only the base
-    // manual-fill list applies.
-    expect(out.manualFields).toEqual(MANUAL_FIELDS_BASE)
-    expect(out.manualFields.map((f) => f.key)).toEqual([
-      'contactEmail',
-      'phone',
-      'addresses',
-      'guidestar.directProfileUrl',
-      'integrations',
-      'url',
-      'tagline',
+    expect(out.siteConfig.contactEmail).toBe('hello@example.org')
+    expect(out.siteConfig.phone).toEqual({ display: '+1 520-555-0100', tel: '+15205550100' })
+    expect(out.siteConfig.addresses).toEqual([{ label: 'Location', lines: ['Tucson, AZ'] }])
+    // Supplied -> not on the manual-fill checklist.
+    const manualKeys = out.manualFields.map((f) => f.key)
+    expect(manualKeys).not.toContain('contactEmail')
+    expect(manualKeys).not.toContain('phone')
+    expect(manualKeys).not.toContain('addresses')
+    expect(manualKeys).not.toContain('guidestar.directProfileUrl')
+  })
+
+  it('emits all five social networks when present, in a fixed order', () => {
+    const out = buildSiteConfigPartial(SAMPLE_APPLICATION)
+    expect(out.siteConfig.social.map((s) => s.label)).toEqual([
+      'Facebook',
+      'LinkedIn',
+      'Instagram',
+      'X (Twitter)',
+      'YouTube',
     ])
+  })
+
+  it('omits contact fields (and re-lists them manual) when the record lacks them', () => {
+    const record = { ...SAMPLE_APPLICATION }
+    delete record.contactEmail
+    delete record.contactPhone
+    delete record.contactCityState
+    delete record.candidDirectUrl
+    const out = buildSiteConfigPartial(record)
+    expect(out.siteConfig).not.toHaveProperty('contactEmail')
+    expect(out.siteConfig).not.toHaveProperty('phone')
+    expect(out.siteConfig).not.toHaveProperty('addresses')
+    // guidestar.directProfileUrl stays in the object (as '') to keep the shape.
+    expect(out.siteConfig.guidestar.directProfileUrl).toBe('')
+    const manualKeys = out.manualFields.map((f) => f.key)
+    expect(manualKeys).toEqual(
+      expect.arrayContaining(['contactEmail', 'phone', 'addresses', 'guidestar.directProfileUrl'])
+    )
+  })
+
+  it('drops individual socials that are absent or on the wrong host', () => {
+    const record = {
+      ...SAMPLE_APPLICATION,
+      instagramUrl: undefined, // absent -> omitted
+      xUrl: 'https://evil.example.com/@spoof', // wrong host -> rejected
+      youtubeUrl: 'https://youtu.be/abcd1234', // short host allowed
+    }
+    const out = buildSiteConfigPartial(record)
+    const labels = out.siteConfig.social.map((s) => s.label)
+    expect(labels).toContain('YouTube')
+    expect(labels).not.toContain('Instagram')
+    expect(labels).not.toContain('X (Twitter)')
+    expect(out.siteConfig.social.find((s) => s.label === 'YouTube').href).toBe(
+      'https://youtu.be/abcd1234'
+    )
+  })
+
+  it('rejects a wrong-host Candid direct link (empty directProfileUrl)', () => {
+    const out = buildSiteConfigPartial({
+      ...SAMPLE_APPLICATION,
+      candidDirectUrl: 'https://evil.example.com/profile/shared/12-3456789',
+    })
+    expect(out.siteConfig.guidestar.directProfileUrl).toBe('')
+    expect(out.manualFields.map((f) => f.key)).toContain('guidestar.directProfileUrl')
+  })
+
+  it('lists every never-suppliable SiteConfig key in manualFields', () => {
+    const out = buildSiteConfigPartial(SAMPLE_APPLICATION)
+    // The sample record supplies description, social, AND every public contact
+    // field, so only the always-manual base list applies.
+    expect(out.manualFields).toEqual(MANUAL_FIELDS_BASE)
+    expect(out.manualFields.map((f) => f.key)).toEqual(['integrations', 'url', 'tagline'])
     // Every manual field carries a note telling the volunteer where to get it.
     for (const f of out.manualFields) {
       expect(typeof f.note).toBe('string')
       expect(f.note.length).toBeGreaterThan(0)
     }
-    // Omitted-key contract: manual keys are NOT emitted in the partial (the
-    // one exception, guidestar.directProfileUrl, is '' to keep the object
-    // shape) — so a volunteer never transcribes a placeholder as real data.
-    expect(out.siteConfig).not.toHaveProperty('contactEmail')
-    expect(out.siteConfig).not.toHaveProperty('phone')
-    expect(out.siteConfig).not.toHaveProperty('addresses')
+    // Omitted-key contract: never-suppliable keys are NOT emitted in the partial
+    // — so a volunteer never transcribes a placeholder as real data.
     expect(out.siteConfig).not.toHaveProperty('integrations')
     expect(out.siteConfig).not.toHaveProperty('url')
     expect(out.siteConfig).not.toHaveProperty('tagline')
@@ -114,6 +176,9 @@ describe('buildSiteConfigPartial — happy path', () => {
       ...SAMPLE_APPLICATION,
       facebookUrl: undefined,
       linkedinUrl: 'https://evil.example.com/spoof', // not linkedin.com -> dropped
+      instagramUrl: undefined,
+      xUrl: undefined,
+      youtubeUrl: undefined,
     }
     const out = buildSiteConfigPartial(record)
     expect(out.siteConfig.social).toEqual([])

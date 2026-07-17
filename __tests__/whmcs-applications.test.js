@@ -9,7 +9,7 @@
 
 let buildApplicationRecords, TIER_BY_PID, MISSION_MAX_LENGTH, sanitizeCandidUrl, sanitizeEin
 let missionCategoryOption, missionTierFromProduct, MISSION_OPTION, INTAKE_STATUSES, INTAKE_SINCE
-let PENDING_STATUSES, sanitizeSocialUrl
+let PENDING_STATUSES, sanitizeSocialUrl, ingestProducts
 
 beforeAll(async () => {
   const mod = await import('../scripts/whmcs-applications.mjs')
@@ -25,6 +25,7 @@ beforeAll(async () => {
   INTAKE_SINCE = mod.INTAKE_SINCE
   PENDING_STATUSES = mod.PENDING_STATUSES
   sanitizeSocialUrl = mod.sanitizeSocialUrl
+  ingestProducts = mod.ingestProducts
 })
 
 const ALLOWED_KEYS = [
@@ -39,6 +40,14 @@ const ALLOWED_KEYS = [
   'ein',
   'facebookUrl',
   'linkedinUrl',
+  // PUBLIC-by-design footer fields surfaced by the hardened onboarding forms.
+  'instagramUrl',
+  'xUrl',
+  'youtubeUrl',
+  'contactPhone',
+  'contactEmail',
+  'contactCityState',
+  'candidDirectUrl',
   'submittedAt',
 ]
 
@@ -302,5 +311,148 @@ describe('buildApplicationRecords', () => {
       ['2', { clientId: '2', pid: '16', company: 'Alpha', regIso: '2026-01-01T00:00:00.000Z' }],
     ])
     expect(buildApplicationRecords(byClient).map((a) => a.charityName)).toEqual(['Alpha', 'Zebra'])
+  })
+
+  it('emits the public footer contact + extra social fields at the top level (only when set)', () => {
+    const byClient = new Map([
+      [
+        '40',
+        {
+          clientId: '40',
+          pid: '33',
+          company: 'Full Footer Org',
+          instagramUrl: 'https://www.instagram.com/fullfooter',
+          xUrl: 'https://x.com/fullfooter',
+          youtubeUrl: 'https://www.youtube.com/@fullfooter',
+          contactPhone: '+1 520-555-0100',
+          contactEmail: 'hello@example.org',
+          contactCityState: 'Tucson, AZ',
+          candidDirectUrl: 'https://www.guidestar.org/profile/shared/12-3456789',
+        },
+      ],
+      ['41', { clientId: '41', pid: '16', company: 'Bare Org' }],
+    ])
+    const apps = buildApplicationRecords(byClient)
+    const full = apps.find((a) => a.id === 'ffc-40')
+    expect(full).toMatchObject({
+      instagramUrl: 'https://www.instagram.com/fullfooter',
+      xUrl: 'https://x.com/fullfooter',
+      youtubeUrl: 'https://www.youtube.com/@fullfooter',
+      contactPhone: '+1 520-555-0100',
+      contactEmail: 'hello@example.org',
+      contactCityState: 'Tucson, AZ',
+      candidDirectUrl: 'https://www.guidestar.org/profile/shared/12-3456789',
+    })
+    // Every emitted key stays on the PII-safe allowlist.
+    expect(Object.keys(full).every((k) => ALLOWED_KEYS.includes(k))).toBe(true)
+    // Empty record omits them all — never emitted as empty placeholders.
+    const bare = apps.find((a) => a.id === 'ffc-41')
+    for (const k of [
+      'instagramUrl',
+      'xUrl',
+      'youtubeUrl',
+      'contactPhone',
+      'contactEmail',
+      'contactCityState',
+      'candidDirectUrl',
+    ]) {
+      expect(bare).not.toHaveProperty(k)
+    }
+  })
+})
+
+describe('ingestProducts — public footer field reads (allowlisted, PII-safe)', () => {
+  const active = (clientid, customfield) => ({
+    clientid,
+    status: 'Active',
+    regdate: '2026-07-12',
+    customfields: { customfield },
+  })
+
+  it('reads the public footer contact + org social fields from a product', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    // Field NAMES are slug-prefixed as WHMCS GetClientsProducts returns them.
+    ingestProducts(
+      '33',
+      [
+        active('50', [
+          { name: 'public-phone|Public phone (footer)', value: '+1 520-555-0100' },
+          { name: 'public-email|Public email (footer)', value: 'hello@example.org' },
+          { name: 'footer-location|City & State', value: 'Tucson, AZ' },
+          { name: 'social-instagram|Instagram', value: 'https://www.instagram.com/org' },
+          { name: 'social-x|X (Twitter)', value: 'https://x.com/org' },
+          { name: 'social-youtube|YouTube', value: 'https://www.youtube.com/@org' },
+          {
+            name: 'guidestar-full|Candid direct/shared link',
+            value: 'https://www.guidestar.org/profile/shared/12-3456789',
+          },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    expect(byClient.get('50')).toMatchObject({
+      contactPhone: '+1 520-555-0100',
+      contactEmail: 'hello@example.org',
+      contactCityState: 'Tucson, AZ',
+      instagramUrl: 'https://www.instagram.com/org',
+      xUrl: 'https://x.com/org',
+      youtubeUrl: 'https://www.youtube.com/@org',
+      candidDirectUrl: 'https://www.guidestar.org/profile/shared/12-3456789',
+    })
+  })
+
+  it('NEVER reads a board member *-linkedin field as the org LinkedIn (PII regression)', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    ingestProducts(
+      '33',
+      [
+        active('60', [
+          // Board-member PERSONAL profiles — must never be published.
+          {
+            name: 'chair-linkedin|Chair LinkedIn',
+            value: 'https://www.linkedin.com/in/jane-chair/',
+          },
+          {
+            name: 'secretary-linkedin|Secretary LinkedIn',
+            value: 'https://www.linkedin.com/in/sam-secretary/',
+          },
+          { name: 'treasurer-linkedin', value: 'https://www.linkedin.com/in/tim-treasurer/' },
+          { name: 'vicechair-linkedin', value: 'https://www.linkedin.com/in/val-vicechair/' },
+          { name: 'member-linkedin', value: 'https://www.linkedin.com/in/mo-member/' },
+          { name: 'primary-linkedin', value: 'https://www.linkedin.com/in/pat-primary/' },
+          { name: 'technical-linkedin', value: 'https://www.linkedin.com/in/ted-technical/' },
+          // The real ORG page field (slugged `linkedin-page`).
+          {
+            name: 'linkedin-page|Charity LinkedIn Page URL',
+            value: 'https://www.linkedin.com/company/the-org/',
+          },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    // Only the org PAGE is captured; no board profile leaks in.
+    expect(byClient.get('60').linkedinUrl).toBe('https://www.linkedin.com/company/the-org/')
+  })
+
+  it('captures NO org LinkedIn when only board *-linkedin fields are present', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    ingestProducts(
+      '33',
+      [
+        active('61', [
+          { name: 'chair-linkedin', value: 'https://www.linkedin.com/in/jane-chair/' },
+          { name: 'treasurer-linkedin', value: 'https://www.linkedin.com/in/tim-treasurer/' },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    // No field matches the `linkedin-page` org slug -> nothing captured.
+    expect(byClient.get('61').linkedinUrl).toBe('')
   })
 })
