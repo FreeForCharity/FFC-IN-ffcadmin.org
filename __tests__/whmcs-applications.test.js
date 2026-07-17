@@ -403,6 +403,58 @@ describe('ingestProducts — public footer field reads (allowlisted, PII-safe)',
     })
   })
 
+  it('keeps the Candid PROFILE and DIRECT links on their own fields (no cross-capture)', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    // Both fields present; their display text both mention "Candid". fieldValue
+    // returns the first NAME match, so the profile reader must skip the
+    // `guidestar-full` slug and the direct reader must skip the profile slug.
+    ingestProducts(
+      '33',
+      [
+        active('70', [
+          {
+            name: 'guidestar-full|GuideStar/Candid full (direct/shared) profile',
+            value: 'https://www.guidestar.org/profile/shared/12-3456789',
+          },
+          {
+            name: 'guidestar|GuideStar/Candid public profile URL',
+            value: 'https://www.guidestar.org/profile/12-3456789',
+          },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    const rec = byClient.get('70')
+    expect(rec.candidUrl).toBe('https://www.guidestar.org/profile/12-3456789')
+    expect(rec.candidDirectUrl).toBe('https://www.guidestar.org/profile/shared/12-3456789')
+    // And the two never collapse onto the same value.
+    expect(rec.candidUrl).not.toBe(rec.candidDirectUrl)
+  })
+
+  it('does NOT read the direct link as the public profile when only guidestar-full exists', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    ingestProducts(
+      '33',
+      [
+        active('71', [
+          {
+            name: 'guidestar-full|GuideStar/Candid direct/shared profile',
+            value: 'https://www.guidestar.org/profile/shared/12-3456789',
+          },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    const rec = byClient.get('71')
+    // The profile reader excludes the `guidestar-full` slug entirely.
+    expect(rec.candidUrl).toBe('')
+    expect(rec.candidDirectUrl).toBe('https://www.guidestar.org/profile/shared/12-3456789')
+  })
+
   it('NEVER reads a board member *-linkedin field as the org LinkedIn (PII regression)', () => {
     const byClient = new Map()
     const pendingIds = new Set()

@@ -259,11 +259,15 @@ export function buildSiteConfigPartial(record, { now = new Date() } = {}) {
   const contactEmail = String(record.contactEmail ?? '').trim()
   const contactPhone = String(record.contactPhone ?? '').trim()
   const contactCityState = String(record.contactCityState ?? '').trim()
-  // SiteConfig.phone is { display, tel }: display is verbatim, tel strips to the
-  // href-safe subset (leading + and digits) for the footer's tel: link.
-  const phone = contactPhone
-    ? { display: contactPhone, tel: contactPhone.replace(/[^\d+]/g, '') }
-    : null
+  // SiteConfig.phone is { display, tel }: display is verbatim, tel is the
+  // href-safe subset for the footer's tel: link — digits, keeping only a single
+  // LEADING '+' (any non-leading '+' is dropped, so "+1 (520) 555+0100" ->
+  // "+15205550100" and a bare "520-555-0100" -> "5205550100").
+  const telHref = (raw) => {
+    const digits = raw.replace(/\D/g, '')
+    return /^\s*\+/.test(raw) ? `+${digits}` : digits
+  }
+  const phone = contactPhone ? { display: contactPhone, tel: telHref(contactPhone) } : null
   // SiteConfig.addresses is [{ label, lines, mapUrl }]; the application supplies
   // only a public city & state, so emit a single labelled line.
   const addresses = contactCityState ? [{ label: 'Location', lines: [contactCityState] }] : []

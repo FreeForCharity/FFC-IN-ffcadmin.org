@@ -430,8 +430,14 @@ export function ingestProducts(pid, products, byClient, pendingIds) {
     const mission = missionFromProduct(p)
     const missionOption = missionTierFromProduct(p)
     // Non-PII transparency fields (allowlisted by field name; board/contact
-    // fields are never matched). Candid link + EIN help donors evaluate.
-    const candidUrl = sanitizeCandidUrl(fieldValue(p, /guidestar|candid/i))
+    // fields are never matched). Candid link + EIN help donors evaluate. The
+    // profile reader must NOT swallow the `guidestar-full` (direct/shared)
+    // field — fieldValue returns the first name match, so any name carrying the
+    // `guidestar-full` slug is excluded (its display text also mentions Candid),
+    // keeping the public profile URL and the direct link cleanly separated.
+    const candidUrl = sanitizeCandidUrl(
+      fieldValue(p, /^(?!.*guidestar-full).*(?:guidestar|candid)/i)
+    )
     const ein = sanitizeEin(fieldValue(p, /\bEIN\b|tax id/i))
     // Charity social PAGE URLs — the onboarding products carry custom fields
     // slugged `facebook-page` / `linkedin-page` (org pages, not personal
@@ -450,34 +456,33 @@ export function ingestProducts(pid, products, byClient, pendingIds) {
       /(^|\.)linkedin\.com$/i
     )
     // Additional PUBLIC org social pages captured on the hardened onboarding
-    // products (slugged `social-instagram` / `social-x` / `social-youtube`).
-    // Host-checked; these are public-by-design (they render on the site footer).
+    // products. These fields are ALWAYS slugged on pid 16/33 (`social-instagram`
+    // / `social-x` / `social-youtube`), so each read is anchored to ONLY its
+    // exact slug — no broad `instagram`/`twitter`/`youtube` alternatives that
+    // could catch a differently-purposed field. Host-checked; public-by-design.
     const instagramUrl = sanitizeSocialUrl(
-      fieldValue(p, /social-instagram|(^|[^a-z])instagram/i),
+      fieldValue(p, /social-instagram/i),
       /(^|\.)instagram\.com$/i
     )
-    const xUrl = sanitizeSocialUrl(
-      fieldValue(p, /social-x|x \(twitter\)/i),
-      /(^|\.)(x\.com|twitter\.com)$/i
-    )
+    const xUrl = sanitizeSocialUrl(fieldValue(p, /social-x/i), /(^|\.)(x\.com|twitter\.com)$/i)
     const youtubeUrl = sanitizeSocialUrl(
-      fieldValue(p, /social-youtube|youtube/i),
+      fieldValue(p, /social-youtube/i),
       /(^|\.)(youtube\.com|youtu\.be)$/i
     )
-    // PUBLIC footer contact fields (slugged `public-phone` / `public-email` /
-    // `footer-location`). These are the org's PUBLIC-facing values the charity
-    // chose for its website footer — NOT the private onboarding "reach you at"
-    // phone or any board member's personal phone/email. Captured as trimmed
-    // strings; the footer bridge sanitizes further. NEVER read the private
-    // `*-phone` / `*-email` board fields.
-    const contactPhone = fieldValue(p, /public-phone|public phone/i)
-    const contactEmail = fieldValue(p, /public-email|public email/i)
-    const contactCityState = fieldValue(p, /footer-location|city ?& ?state|city and state/i)
+    // PUBLIC footer contact fields (always slugged `public-phone` / `public-email`
+    // / `footer-location` on pid 16/33). These are the org's PUBLIC-facing values
+    // the charity chose for its website footer — NOT the private onboarding "reach
+    // you at" phone or any board member's personal phone/email. Each read is
+    // anchored to ONLY its exact slug; captured as trimmed strings (the footer
+    // bridge sanitizes further). NEVER read the private `*-phone` / `*-email`
+    // board fields.
+    const contactPhone = fieldValue(p, /public-phone/i)
+    const contactEmail = fieldValue(p, /public-email/i)
+    const contactCityState = fieldValue(p, /footer-location/i)
     // Candid "full"/"direct/shared" profile link (distinct from the public
-    // profile URL). Reuses the Candid sanitizer (candid.org/guidestar.org only).
-    const candidDirectUrl = sanitizeCandidUrl(
-      fieldValue(p, /guidestar-full|guidestar.*(full|direct|shared)|candid.*(direct|shared)/i)
-    )
+    // profile URL above, which excludes this slug). Always slugged
+    // `guidestar-full`; reuses the Candid sanitizer (candid.org/guidestar.org).
+    const candidDirectUrl = sanitizeCandidUrl(fieldValue(p, /guidestar-full/i))
     // NOTE: pid 40 (site-body / long-form charity content) is intentionally NOT
     // scanned here — that is a future follow-up, out of scope for this change.
     const existing = byClient.get(clientId)

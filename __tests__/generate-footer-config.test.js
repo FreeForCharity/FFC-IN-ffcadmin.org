@@ -67,6 +67,21 @@ describe('buildSiteConfigPartial — happy path', () => {
     })
   })
 
+  it('normalizes tel to digits with only a single leading +', () => {
+    // Leading + kept, all other punctuation (incl. a stray inner +) dropped.
+    const withPlus = buildSiteConfigPartial({
+      ...SAMPLE_APPLICATION,
+      contactPhone: '+1 (520) 555+0100',
+    })
+    expect(withPlus.siteConfig.phone).toEqual({
+      display: '+1 (520) 555+0100',
+      tel: '+15205550100',
+    })
+    // No leading + -> tel is bare digits (never gains a +).
+    const noPlus = buildSiteConfigPartial({ ...SAMPLE_APPLICATION, contactPhone: '(520) 555-0100' })
+    expect(noPlus.siteConfig.phone).toEqual({ display: '(520) 555-0100', tel: '5205550100' })
+  })
+
   it('flows the public contact fields into contact/phone/address and drops them from manual', () => {
     const out = buildSiteConfigPartial(SAMPLE_APPLICATION)
     expect(out.siteConfig.contactEmail).toBe('hello@example.org')
