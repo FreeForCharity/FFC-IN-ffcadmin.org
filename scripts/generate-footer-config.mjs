@@ -48,12 +48,28 @@ export const REQUIRED_FIELDS = [
 ]
 
 /**
- * Optional record fields the config uses when present. `facebookUrl` and
- * `linkedinUrl` are the charity PAGE URLs from the hardened onboarding forms
- * (fields `facebook-page` / `linkedin-page`, never board-member profiles),
- * surfaced by the WHMCS sync's PII-safe allowlist. Exported for unit testing.
+ * Optional record fields the config uses when present. The social page URLs
+ * (`facebookUrl` / `linkedinUrl` / `instagramUrl` / `xUrl` / `youtubeUrl`) and
+ * the public footer contact fields (`contactEmail` / `contactPhone` /
+ * `contactCityState`) are the PUBLIC-by-design values the hardened onboarding
+ * forms collect for the charity's website footer — never board-member profiles
+ * or private "reach you at" contact info — surfaced by the WHMCS sync's PII-safe
+ * allowlist. `candidDirectUrl` is Candid's "direct/shared" profile link.
+ * Exported for unit testing.
  */
-export const OPTIONAL_FIELDS = ['missionExcerpt', 'facebookUrl', 'linkedinUrl', 'submittedAt']
+export const OPTIONAL_FIELDS = [
+  'missionExcerpt',
+  'facebookUrl',
+  'linkedinUrl',
+  'instagramUrl',
+  'xUrl',
+  'youtubeUrl',
+  'contactEmail',
+  'contactPhone',
+  'contactCityState',
+  'candidDirectUrl',
+  'submittedAt',
+]
 
 /**
  * Permanent "Supported by" attribution required by the FFC footer standard on
@@ -68,28 +84,15 @@ export const SUPPORTED_BY = Object.freeze({
 })
 
 /**
- * SiteConfig keys the WHMCS application can never supply. Always present in
- * the output's `manualFields` so the provisioning volunteer knows exactly what
- * to fill by hand (from the charity's public website or the work order).
+ * SiteConfig keys the WHMCS application can NEVER supply — always present in the
+ * output's `manualFields` so the provisioning volunteer knows exactly what to
+ * fill by hand. The public footer contact fields and the Candid direct link are
+ * NOT here: the hardened onboarding forms now capture their public-by-design
+ * values, so they are emitted into the partial when present and only fall back
+ * to `manualFields` (see MANUAL_FIELDS_CONDITIONAL) when the record lacks them.
  * Exported for unit testing.
  */
 export const MANUAL_FIELDS_BASE = [
-  {
-    key: 'contactEmail',
-    note: 'PII the WHMCS sync never surfaces — take the public contact email from the charity website',
-  },
-  {
-    key: 'phone',
-    note: 'PII the WHMCS sync never surfaces — fill { display, tel } from the charity website',
-  },
-  {
-    key: 'addresses',
-    note: 'PII the WHMCS sync never surfaces — fill [{ label, lines, mapUrl }] from the charity website',
-  },
-  {
-    key: 'guidestar.directProfileUrl',
-    note: 'Candid "shared profile" direct link — the application only carries the public profile URL',
-  },
   {
     key: 'integrations',
     note: 'per-charity Zeffy / Idealist / SociableKit / Microsoft Forms endpoints — not collected at application time',
@@ -103,6 +106,39 @@ export const MANUAL_FIELDS_BASE = [
     note: 'short slogan for the default <title> — not collected by the application; agree it with the charity',
   },
 ]
+
+/**
+ * SiteConfig keys the application CAN supply from the hardened onboarding forms'
+ * public footer fields, but only when the applicant filled them in. Each is
+ * emitted into the partial when the record carries it, and appended to
+ * `manualFields` (with the note below) only when it does not. Exported for unit
+ * testing. `has(record)` decides "did the record supply this key?".
+ */
+export const MANUAL_FIELDS_CONDITIONAL = [
+  {
+    key: 'contactEmail',
+    has: (r) => Boolean(String(r.contactEmail ?? '').trim()),
+    note: 'no public contact email on the application — take it from the charity website',
+  },
+  {
+    key: 'phone',
+    has: (r) => Boolean(String(r.contactPhone ?? '').trim()),
+    note: 'no public phone on the application — fill { display, tel } from the charity website',
+  },
+  {
+    key: 'addresses',
+    has: (r) => Boolean(String(r.contactCityState ?? '').trim()),
+    note: 'no public city & state on the application — fill [{ label, lines, mapUrl }] from the charity website',
+  },
+  {
+    key: 'guidestar.directProfileUrl',
+    has: (r) => Boolean(sanitizeSocialUrl(r.candidDirectUrl, GUIDESTAR_HOST_RE)),
+    note: 'no Candid "direct/shared" profile link on the application — add it from the charity\'s Candid profile',
+  },
+]
+
+/** Candid/GuideStar host allowlist for the direct ("shared") profile link. */
+const GUIDESTAR_HOST_RE = /(^|\.)(candid\.org|guidestar\.org)$/i
 
 /** Accept only a real https/http URL on the expected social host, else ''. */
 function sanitizeSocialUrl(raw, hostRe) {
@@ -121,8 +157,9 @@ function sanitizeSocialUrl(raw, hostRe) {
 /**
  * Documented sample record for testing/demo (--sample). Mirrors the exact
  * shape `buildApplicationRecords` publishes for an approved 501(c)(3)
- * application, plus the two social page URLs the hardened onboarding forms
- * collect. Exported for unit testing.
+ * application, plus the public social page URLs and public footer contact
+ * fields the hardened onboarding forms collect. All values are clearly fake
+ * (example.org / obviously-fake handles). Exported for unit testing.
  */
 export const SAMPLE_APPLICATION = {
   id: 'ffc-90',
@@ -133,10 +170,17 @@ export const SAMPLE_APPLICATION = {
   missionCategoryOption: 'Basic needs (food, water, shelter)',
   missionExcerpt: 'We provide shelter, food, and job placement to families in crisis.',
   candidUrl: 'https://www.guidestar.org/profile/12-3456789',
+  candidDirectUrl: 'https://www.guidestar.org/profile/shared/12-3456789',
   ein: '12-3456789',
   submittedAt: '2026-07-11T00:00:00.000Z',
   facebookUrl: 'https://www.facebook.com/helpinghandsshelter',
   linkedinUrl: 'https://www.linkedin.com/company/helping-hands-shelter/',
+  instagramUrl: 'https://www.instagram.com/helpinghandsshelter',
+  xUrl: 'https://x.com/helpinghands',
+  youtubeUrl: 'https://www.youtube.com/@helpinghandsshelter',
+  contactEmail: 'hello@example.org',
+  contactPhone: '+1 520-555-0100',
+  contactCityState: 'Tucson, AZ',
 }
 
 /**
@@ -195,16 +239,51 @@ export function buildSiteConfigPartial(record, { now = new Date() } = {}) {
   const legalName = String(record.charityName).trim()
 
   // SiteConfig.social — icon in the template footer resolves by `label`, so
-  // the labels here must match the template's known set exactly.
+  // the labels here must match the template's known set exactly. All hosts are
+  // validated; a wrong-host or non-URL value is dropped.
   const social = []
   const facebook = sanitizeSocialUrl(record.facebookUrl, /(^|\.)facebook\.com$/i)
   if (facebook) social.push({ label: 'Facebook', href: facebook })
   const linkedin = sanitizeSocialUrl(record.linkedinUrl, /(^|\.)linkedin\.com$/i)
   if (linkedin) social.push({ label: 'LinkedIn', href: linkedin })
+  const instagram = sanitizeSocialUrl(record.instagramUrl, /(^|\.)instagram\.com$/i)
+  if (instagram) social.push({ label: 'Instagram', href: instagram })
+  const x = sanitizeSocialUrl(record.xUrl, /(^|\.)(x\.com|twitter\.com)$/i)
+  if (x) social.push({ label: 'X (Twitter)', href: x })
+  const youtube = sanitizeSocialUrl(record.youtubeUrl, /(^|\.)(youtube\.com|youtu\.be)$/i)
+  if (youtube) social.push({ label: 'YouTube', href: youtube })
 
   const mission = String(record.missionExcerpt ?? '').trim()
 
-  const manualFields = [...MANUAL_FIELDS_BASE]
+  // PUBLIC footer contact fields the hardened onboarding forms now capture.
+  const contactEmail = String(record.contactEmail ?? '').trim()
+  const contactPhone = String(record.contactPhone ?? '').trim()
+  const contactCityState = String(record.contactCityState ?? '').trim()
+  // SiteConfig.phone is { display, tel }: display is verbatim, tel is the
+  // href-safe subset for the footer's tel: link — digits, keeping only a single
+  // LEADING '+' (any non-leading '+' is dropped, so "+1 (520) 555+0100" ->
+  // "+15205550100" and a bare "520-555-0100" -> "5205550100").
+  const telHref = (raw) => {
+    const digits = raw.replace(/\D/g, '')
+    return /^\s*\+/.test(raw) ? `+${digits}` : digits
+  }
+  const phone = contactPhone ? { display: contactPhone, tel: telHref(contactPhone) } : null
+  // SiteConfig.addresses is [{ label, lines, mapUrl }]; the application supplies
+  // only a public city & state, so emit a single labelled line.
+  const addresses = contactCityState ? [{ label: 'Location', lines: [contactCityState] }] : []
+  // Candid "direct/shared" profile link — sanitized to a candid.org/guidestar.org
+  // URL; '' keeps the guidestar object's template shape when absent.
+  const guidestarDirectProfileUrl = sanitizeSocialUrl(record.candidDirectUrl, GUIDESTAR_HOST_RE)
+
+  // manualFields: the conditional public keys the record did NOT supply, then
+  // the always-manual base, then description/social when the record lacks them.
+  const manualFields = [
+    ...MANUAL_FIELDS_CONDITIONAL.filter((f) => !f.has(record)).map(({ key, note }) => ({
+      key,
+      note,
+    })),
+    ...MANUAL_FIELDS_BASE,
+  ]
   if (!mission) {
     manualFields.push({
       key: 'description',
@@ -214,7 +293,7 @@ export function buildSiteConfigPartial(record, { now = new Date() } = {}) {
   if (social.length === 0) {
     manualFields.push({
       key: 'social',
-      note: 'no valid Facebook/LinkedIn PAGE URL on the application — fill [{ label, href }] from the charity public presence',
+      note: 'no valid social PAGE URL on the application — fill [{ label, href }] from the charity public presence',
     })
   }
 
@@ -234,16 +313,20 @@ export function buildSiteConfigPartial(record, { now = new Date() } = {}) {
     manualFields,
     // The partial: key names and nesting match the template's SiteConfig
     // (src/lib/site.config.ts) exactly. Keys listed in manualFields are
-    // omitted, EXCEPT guidestar.directProfileUrl which is emitted as '' so
-    // the guidestar object keeps the template's full shape.
+    // omitted (the volunteer never transcribes a placeholder as real data),
+    // EXCEPT guidestar.directProfileUrl which is always emitted (as '' when
+    // absent) so the guidestar object keeps the template's full shape.
     siteConfig: {
       name: legalName,
       ...(mission ? { description: mission } : {}),
       social,
+      ...(contactEmail ? { contactEmail } : {}),
+      ...(phone ? { phone } : {}),
+      ...(addresses.length ? { addresses } : {}),
       ein: record.ein,
       guidestar: {
         profileUrl: record.candidUrl,
-        directProfileUrl: '',
+        directProfileUrl: guidestarDirectProfileUrl,
       },
       // FFC footer standard: always present, always these values.
       supportedBy: { ...SUPPORTED_BY },

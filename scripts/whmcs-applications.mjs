@@ -361,6 +361,19 @@ export function buildApplicationRecords(byClient) {
       // org-public by construction, host-checked, never personal profiles.
       ...(rec.facebookUrl ? { facebookUrl: rec.facebookUrl } : {}),
       ...(rec.linkedinUrl ? { linkedinUrl: rec.linkedinUrl } : {}),
+      // Additional PUBLIC org social pages + PUBLIC footer contact fields
+      // (public-by-design: they render on the charity's website footer). These
+      // do NOT leak into the public roadmap issue — `stubBody` renders only a
+      // fixed field allowlist (charityName, serviceTier, charityStatusOption,
+      // missionCategoryOption, missionExcerpt, ein, candidUrl) and `writeState`
+      // stores ids only, so extra top-level record keys stay off the roadmap.
+      ...(rec.instagramUrl ? { instagramUrl: rec.instagramUrl } : {}),
+      ...(rec.xUrl ? { xUrl: rec.xUrl } : {}),
+      ...(rec.youtubeUrl ? { youtubeUrl: rec.youtubeUrl } : {}),
+      ...(rec.contactPhone ? { contactPhone: rec.contactPhone } : {}),
+      ...(rec.contactEmail ? { contactEmail: rec.contactEmail } : {}),
+      ...(rec.contactCityState ? { contactCityState: rec.contactCityState } : {}),
+      ...(rec.candidDirectUrl ? { candidDirectUrl: rec.candidDirectUrl } : {}),
       ...(rec.regIso ? { submittedAt: rec.regIso } : {}),
     })
   }
@@ -417,8 +430,14 @@ export function ingestProducts(pid, products, byClient, pendingIds) {
     const mission = missionFromProduct(p)
     const missionOption = missionTierFromProduct(p)
     // Non-PII transparency fields (allowlisted by field name; board/contact
-    // fields are never matched). Candid link + EIN help donors evaluate.
-    const candidUrl = sanitizeCandidUrl(fieldValue(p, /guidestar|candid/i))
+    // fields are never matched). Candid link + EIN help donors evaluate. The
+    // profile reader must NOT swallow the `guidestar-full` (direct/shared)
+    // field — fieldValue returns the first name match, so any name carrying the
+    // `guidestar-full` slug is excluded (its display text also mentions Candid),
+    // keeping the public profile URL and the direct link cleanly separated.
+    const candidUrl = sanitizeCandidUrl(
+      fieldValue(p, /^(?!.*guidestar-full).*(?:guidestar|candid)/i)
+    )
     const ein = sanitizeEin(fieldValue(p, /\bEIN\b|tax id/i))
     // Charity social PAGE URLs — the onboarding products carry custom fields
     // slugged `facebook-page` / `linkedin-page` (org pages, not personal
@@ -428,10 +447,44 @@ export function ingestProducts(pid, products, byClient, pendingIds) {
       fieldValue(p, /facebook[\s_-]*page/i),
       /(^|\.)facebook\.com$/i
     )
+    // ORG LinkedIn PAGE only. The "page" suffix is load-bearing PII safety: it
+    // excludes every board-member profile field (`chair-linkedin`,
+    // `secretary-linkedin`, `treasurer-linkedin`, `primary-linkedin`, …), and
+    // sanitizeSocialUrl additionally rejects `/in/…` personal-profile paths.
     const linkedinUrl = sanitizeSocialUrl(
       fieldValue(p, /linkedin[\s_-]*page/i),
       /(^|\.)linkedin\.com$/i
     )
+    // Additional PUBLIC org social pages captured on the hardened onboarding
+    // products. These fields are ALWAYS slugged on pid 16/33 (`social-instagram`
+    // / `social-x` / `social-youtube`), so each read is anchored to ONLY its
+    // exact slug — no broad `instagram`/`twitter`/`youtube` alternatives that
+    // could catch a differently-purposed field. Host-checked; public-by-design.
+    const instagramUrl = sanitizeSocialUrl(
+      fieldValue(p, /social-instagram/i),
+      /(^|\.)instagram\.com$/i
+    )
+    const xUrl = sanitizeSocialUrl(fieldValue(p, /social-x/i), /(^|\.)(x\.com|twitter\.com)$/i)
+    const youtubeUrl = sanitizeSocialUrl(
+      fieldValue(p, /social-youtube/i),
+      /(^|\.)(youtube\.com|youtu\.be)$/i
+    )
+    // PUBLIC footer contact fields (always slugged `public-phone` / `public-email`
+    // / `footer-location` on pid 16/33). These are the org's PUBLIC-facing values
+    // the charity chose for its website footer — NOT the private onboarding "reach
+    // you at" phone or any board member's personal phone/email. Each read is
+    // anchored to ONLY its exact slug; captured as trimmed strings (the footer
+    // bridge sanitizes further). NEVER read the private `*-phone` / `*-email`
+    // board fields.
+    const contactPhone = fieldValue(p, /public-phone/i)
+    const contactEmail = fieldValue(p, /public-email/i)
+    const contactCityState = fieldValue(p, /footer-location/i)
+    // Candid "full"/"direct/shared" profile link (distinct from the public
+    // profile URL above, which excludes this slug). Always slugged
+    // `guidestar-full`; reuses the Candid sanitizer (candid.org/guidestar.org).
+    const candidDirectUrl = sanitizeCandidUrl(fieldValue(p, /guidestar-full/i))
+    // NOTE: pid 40 (site-body / long-form charity content) is intentionally NOT
+    // scanned here — that is a future follow-up, out of scope for this change.
     const existing = byClient.get(clientId)
     if (existing) {
       if (pid === '33') existing.pid = pid
@@ -442,6 +495,14 @@ export function ingestProducts(pid, products, byClient, pendingIds) {
       if (!existing.ein && ein) existing.ein = ein
       if (!existing.facebookUrl && facebookUrl) existing.facebookUrl = facebookUrl
       if (!existing.linkedinUrl && linkedinUrl) existing.linkedinUrl = linkedinUrl
+      if (!existing.instagramUrl && instagramUrl) existing.instagramUrl = instagramUrl
+      if (!existing.xUrl && xUrl) existing.xUrl = xUrl
+      if (!existing.youtubeUrl && youtubeUrl) existing.youtubeUrl = youtubeUrl
+      if (!existing.contactPhone && contactPhone) existing.contactPhone = contactPhone
+      if (!existing.contactEmail && contactEmail) existing.contactEmail = contactEmail
+      if (!existing.contactCityState && contactCityState)
+        existing.contactCityState = contactCityState
+      if (!existing.candidDirectUrl && candidDirectUrl) existing.candidDirectUrl = candidDirectUrl
     } else {
       byClient.set(clientId, {
         clientId,
@@ -453,6 +514,13 @@ export function ingestProducts(pid, products, byClient, pendingIds) {
         ein,
         facebookUrl,
         linkedinUrl,
+        instagramUrl,
+        xUrl,
+        youtubeUrl,
+        contactPhone,
+        contactEmail,
+        contactCityState,
+        candidDirectUrl,
         company: undefined,
       })
     }

@@ -100,7 +100,7 @@ describe('configAttachment / extractConfigAttachment', () => {
     expect(block).toContain(`"ein": "${SAMPLE_APPLICATION.ein}"`)
     expect(block).toContain('"supportedBy"')
     expect(block).toContain('Manual fields:')
-    expect(block).toContain('`contactEmail`')
+    expect(block).toContain('`integrations`')
     // Deterministic: no timestamp, so the block never churns on its own.
     expect(configAttachment(SAMPLE_APPLICATION, repo)).toBe(block)
   })
