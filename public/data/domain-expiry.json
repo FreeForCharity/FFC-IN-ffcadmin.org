@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T08:05:45.307Z",
+  "generatedAt": "2026-07-19T19:27:16.164Z",
   "seed": false,
   "source": "RDAP",
   "summary": {
@@ -7,185 +7,276 @@
     "expired": 0,
     "expiring30": 0,
     "expiring60": 3,
-    "expiring90": 1,
-    "ok": 21,
-    "unknown": 168
+    "expiring90": 0,
+    "ok": 27,
+    "unknown": 163
   },
   "domains": [
     {
-      "domain": "armstrongacesbaseball.org",
-      "expiresAt": "2026-08-15",
-      "daysRemaining": 33,
-      "registrar": "eNom, LLC",
-      "bucket": "expiring60"
-    },
-    {
-      "domain": "youngfatherscare.org",
-      "expiresAt": "2026-08-16",
-      "daysRemaining": 34,
+      "domain": "wonderseedstudios.org",
+      "expiresAt": "2026-08-25",
+      "daysRemaining": 37,
       "registrar": "eNom, LLC",
       "bucket": "expiring60"
     },
     {
       "domain": "americanlegionpost64.org",
       "expiresAt": "2026-08-29",
-      "daysRemaining": 47,
+      "daysRemaining": 40,
       "registrar": "eNom, LLC",
       "bucket": "expiring60"
     },
     {
-      "domain": "bhakthinivedana.com",
-      "expiresAt": "2026-09-21",
-      "daysRemaining": 70,
-      "registrar": "GoDaddy.com, LLC",
-      "bucket": "expiring90"
+      "domain": "tpainepta.org",
+      "expiresAt": "2026-09-09",
+      "daysRemaining": 51,
+      "registrar": "eNom, LLC",
+      "bucket": "expiring60"
     },
     {
-      "domain": "bowiesblessings.org",
-      "expiresAt": "2026-10-16",
-      "daysRemaining": 95,
+      "domain": "trinitylutheranconcord.org",
+      "expiresAt": "2026-10-19",
+      "daysRemaining": 91,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "americanlegionpost64.com",
       "expiresAt": "2026-10-25",
-      "daysRemaining": 104,
+      "daysRemaining": 97,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "ambofoundation.org",
       "expiresAt": "2026-11-07",
-      "daysRemaining": 118,
-      "registrar": "eNom, LLC",
-      "bucket": "ok"
-    },
-    {
-      "domain": "bulldogztowing.com",
-      "expiresAt": "2026-11-29",
-      "daysRemaining": 139,
-      "registrar": "eNom, LLC",
-      "bucket": "ok"
-    },
-    {
-      "domain": "bintobetter.org",
-      "expiresAt": "2026-11-30",
-      "daysRemaining": 140,
-      "registrar": "eNom, LLC",
-      "bucket": "ok"
-    },
-    {
-      "domain": "bucktownbullsbaseball.org",
-      "expiresAt": "2026-12-11",
-      "daysRemaining": 151,
+      "daysRemaining": 111,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "apollonianfp.org",
       "expiresAt": "2026-12-13",
-      "daysRemaining": 153,
+      "daysRemaining": 147,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "acharyaapp.org",
       "expiresAt": "2026-12-15",
-      "daysRemaining": 156,
+      "daysRemaining": 149,
       "registrar": "GoDaddy.com, LLC",
       "bucket": "ok"
     },
     {
       "domain": "aprilunlimited.com",
       "expiresAt": "2026-12-24",
-      "daysRemaining": 164,
+      "daysRemaining": 157,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "amargraves.org",
       "expiresAt": "2027-01-15",
-      "daysRemaining": 187,
+      "daysRemaining": 180,
       "registrar": "eNom, LLC",
+      "bucket": "ok"
+    },
+    {
+      "domain": "wisdomfinancialministries.org",
+      "expiresAt": "2027-01-28",
+      "daysRemaining": 192,
+      "registrar": "eNom, LLC",
+      "bucket": "ok"
+    },
+    {
+      "domain": "vetmast.org",
+      "expiresAt": "2027-01-31",
+      "daysRemaining": 195,
+      "registrar": "Cloudflare, Inc.",
       "bucket": "ok"
     },
     {
       "domain": "aariasblueelephant.org",
       "expiresAt": "2027-02-08",
-      "daysRemaining": 210,
+      "daysRemaining": 204,
       "registrar": "Cloudflare, Inc.",
+      "bucket": "ok"
+    },
+    {
+      "domain": "trinityucclewistown.org",
+      "expiresAt": "2027-02-26",
+      "daysRemaining": 222,
+      "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "amplifiedaid.org",
       "expiresAt": "2027-03-01",
-      "daysRemaining": 231,
+      "daysRemaining": 224,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
-      "domain": "bringingpeople2people.org",
-      "expiresAt": "2027-03-25",
-      "daysRemaining": 255,
-      "registrar": "eNom, LLC",
+      "domain": "transferca.org",
+      "expiresAt": "2027-03-20",
+      "daysRemaining": 244,
+      "registrar": "DreamHost, LLC",
       "bucket": "ok"
     },
     {
       "domain": "alltypetowing.com",
       "expiresAt": "2027-04-15",
-      "daysRemaining": 276,
+      "daysRemaining": 270,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
-      "domain": "browncanyonranch.org",
-      "expiresAt": "2027-05-14",
-      "daysRemaining": 306,
+      "domain": "wamhelp.org",
+      "expiresAt": "2027-04-23",
+      "daysRemaining": 278,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "bearupinternationalministries.org",
       "expiresAt": "2027-05-29",
-      "daysRemaining": 320,
+      "daysRemaining": 314,
       "registrar": "Cloudflare, Inc.",
       "bucket": "ok"
     },
     {
       "domain": "aprilmoyer.com",
       "expiresAt": "2027-07-13",
-      "daysRemaining": 365,
+      "daysRemaining": 359,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
-      "domain": "birthfree.org",
-      "expiresAt": "2027-07-16",
-      "daysRemaining": 368,
+      "domain": "thrivecollectionagency.org",
+      "expiresAt": "2027-07-14",
+      "daysRemaining": 360,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "avengedfastpitch.org",
       "expiresAt": "2027-07-25",
-      "daysRemaining": 378,
+      "daysRemaining": 371,
       "registrar": "eNom, LLC",
+      "bucket": "ok"
+    },
+    {
+      "domain": "trendylittlegeek.com",
+      "expiresAt": "2027-08-07",
+      "daysRemaining": 384,
+      "registrar": "eNom, LLC",
+      "bucket": "ok"
+    },
+    {
+      "domain": "armstrongacesbaseball.org",
+      "expiresAt": "2027-08-15",
+      "daysRemaining": 391,
+      "registrar": "eNom, LLC",
+      "bucket": "ok"
+    },
+    {
+      "domain": "youngfatherscare.org",
+      "expiresAt": "2027-08-16",
+      "daysRemaining": 393,
+      "registrar": "eNom, LLC",
+      "bucket": "ok"
+    },
+    {
+      "domain": "thewayofyeshuaministries.org",
+      "expiresAt": "2027-12-07",
+      "daysRemaining": 505,
+      "registrar": "Cloudflare, Inc.",
+      "bucket": "ok"
+    },
+    {
+      "domain": "workreadyrva.com",
+      "expiresAt": "2028-03-28",
+      "daysRemaining": 618,
+      "registrar": "DreamHost, LLC",
+      "bucket": "ok"
+    },
+    {
+      "domain": "turksotx.org",
+      "expiresAt": "2030-05-09",
+      "daysRemaining": 1389,
+      "registrar": "GoDaddy.com, LLC",
       "bucket": "ok"
     },
     {
       "domain": "3dmc2.org",
       "expiresAt": "2030-06-28",
-      "daysRemaining": 1446,
+      "daysRemaining": 1440,
       "registrar": "eNom, LLC",
       "bucket": "ok"
     },
     {
       "domain": "3dmc2.com",
       "expiresAt": "2035-06-28",
-      "daysRemaining": 3272,
+      "daysRemaining": 3266,
       "registrar": "eNom, LLC",
       "bucket": "ok"
+    },
+    {
+      "domain": "bhakthinivedana.com",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "bintobetter.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "birthfree.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "bowiesblessings.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "bringingpeople2people.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "browncanyonranch.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "bucktownbullsbaseball.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "bulldogztowing.com",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
     },
     {
       "domain": "burnsurvivorscharity.org",
@@ -1252,70 +1343,7 @@
       "bucket": "unknown"
     },
     {
-      "domain": "thewayofyeshuaministries.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "thrivecollectionagency.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "tpainepta.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "transferca.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "trendylittlegeek.com",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
       "domain": "tribute-aviation.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "trinitylutheranconcord.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "trinityucclewistown.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "turksotx.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "vetmast.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
@@ -1330,34 +1358,6 @@
     },
     {
       "domain": "vtyouthchat.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "wamhelp.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "wisdomfinancialministries.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "wonderseedstudios.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "workreadyrva.com",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
