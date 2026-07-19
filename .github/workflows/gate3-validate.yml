@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
 
       # The script is dependency-free (plain node fetch), so no pnpm install.
       - name: Run Gate-3 checks
