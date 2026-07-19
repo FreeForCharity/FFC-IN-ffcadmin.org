@@ -190,7 +190,11 @@ export default function AgenticOsStatus() {
         .
       </p>
       <p className="mb-6 text-sm text-gray-500">
-        Updated {relativeAge(data.generated_at)} · {data.repo} ·{' '}
+        {/* The relative age is computed at static-export time, so it only moves
+            when the site rebuilds (the daily sync triggers one). The absolute
+            <time> makes staleness visible even if that rebuild stalls. */}
+        Updated {relativeAge(data.generated_at)} (
+        <time dateTime={data.generated_at}>{data.generated_at}</time>) · {data.repo} ·{' '}
         <a href={STATUS_JSON_HREF} className="text-blue-700 hover:underline">
           raw JSON
         </a>
