@@ -648,7 +648,8 @@ export default function DeveloperEnvironmentSetupPage() {
                     Cloudflare / Microsoft Learn / Sentry
                   </td>
                   <td className="p-3 border border-gray-200">
-                    DNS &amp; Pages, Microsoft 365 docs, and production error tracking
+                    DNS &amp; Pages, Microsoft 365 docs, and error tracking (Sentry is a pilot on
+                    freeforcharity.org only)
                   </td>
                   <td className="p-3 border border-gray-200 text-amber-700 font-semibold">
                     Optional

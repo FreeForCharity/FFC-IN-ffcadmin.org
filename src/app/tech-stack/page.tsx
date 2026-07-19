@@ -585,8 +585,9 @@ export default function TechStack() {
                   <strong>Link integrity:</strong> lycheeverse/lychee in CI to catch broken links
                 </li>
                 <li>
-                  <strong>Error tracking (optional):</strong> Sentry for client‑side JS (respect
-                  consent)
+                  <strong>Error tracking (pilot):</strong> Sentry for client‑side JS (respect
+                  consent) — currently piloted on freeforcharity.org only; not yet graduated to the
+                  rest of the FFC stack
                 </li>
                 <li>
                   <strong>Performance telemetry:</strong> Lighthouse CI trends per commit/PR
