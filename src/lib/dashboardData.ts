@@ -24,6 +24,31 @@ export interface CiStatusData {
   workflows: CiWorkflowStatus[]
 }
 
+export type FleetSmokeState =
+  'passing' | 'failing' | 'running' | 'not-cutover' | 'pending' | 'unknown'
+
+export interface FleetSmokeSite {
+  repo: string
+  domain: string | null
+  state: FleetSmokeState
+  smoke: {
+    status: string
+    conclusion: string | null
+    event: string
+    runUrl: string
+    updatedAt: string
+  } | null
+  failureIssue: { number: number; url: string } | null
+}
+
+export interface FleetSmokeData {
+  generatedAt: string
+  org: string
+  repoCount: number
+  summary: Record<FleetSmokeState, number>
+  sites: FleetSmokeSite[]
+}
+
 export type ExpiryBucket = 'expired' | 'expiring30' | 'expiring60' | 'expiring90' | 'ok' | 'unknown'
 
 export interface DomainExpiryEntry {
@@ -55,6 +80,12 @@ export function loadCiStatus(): CiStatusData | null {
   const data = readJson<CiStatusData>('ci-status.json')
   // Shape guard: a syntactically valid but malformed file degrades to null.
   if (!data || !Array.isArray(data.workflows)) return null
+  return data
+}
+
+export function loadFleetSmoke(): FleetSmokeData | null {
+  const data = readJson<FleetSmokeData>('fleet-smoke-status.json')
+  if (!data || !Array.isArray(data.sites)) return null
   return data
 }
 
