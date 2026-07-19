@@ -1340,7 +1340,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
       {
         q: 'I already added my domain to my personal account — what now?',
-        a: 'Stop there — don’t delete the site or change nameservers yourself, especially if the domain is live. Contact FFC (text Clarke at (520) 222-8104) and we’ll move the domain into the FFC account cleanly, with no downtime.',
+        a: 'Stop there — don’t delete the site or change nameservers yourself, especially if the domain is live. Contact FFC (text Clarke Moyer at (520) 222-8104) and we’ll move the domain into the FFC account cleanly, with no downtime.',
       },
       {
         q: 'Does this cost anything?',
