@@ -24,9 +24,11 @@ const STATUS_JSON_HREF = assetPath('/data/agentic-os-status.json')
 const CONDUCTOR_LOG_HREF = 'https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719'
 const STATUS_ISSUE_HREF = 'https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/723'
 
-function labelBadges(labels: string[]) {
+function labelBadges(labels: string[] | null | undefined) {
   // The `agentic-os` label is on everything here; surface only the extra labels.
-  return labels.filter((l) => l !== 'agentic-os')
+  // Guard for a malformed feed: a null/non-array `labels` must not throw at
+  // build time (the page is statically exported).
+  return (Array.isArray(labels) ? labels : []).filter((l) => l !== 'agentic-os')
 }
 
 function IssueRow({ issue }: { issue: AgenticIssue }) {
@@ -150,9 +152,9 @@ export default function AgenticOsStatus() {
       <main className="mx-auto max-w-5xl px-4 py-12">
         <h1 className="mb-4 text-3xl font-bold text-gray-900">Agentic OS Status</h1>
         <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 text-gray-600">
-          Agentic OS status data is not available yet — the scheduled sync workflow has not produced
-          <code className="mx-1">agentic-os-status.json</code>. It refreshes daily alongside the
-          automation catalog.
+          Agentic OS status data is unavailable —
+          <code className="mx-1">agentic-os-status.json</code> is missing or malformed. The
+          scheduled sync workflow refreshes it daily alongside the automation catalog.
         </div>
       </main>
     )
