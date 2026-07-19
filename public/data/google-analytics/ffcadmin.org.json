@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-19T13:09:00Z",
+  "updatedAt": "2026-07-19T19:26:07Z",
   "site": "ffcadmin.org",
   "propertyId": "513417483",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "1945",
-    "newUsers": "1940",
-    "sessions": "1977",
-    "screenPageViews": "2159",
-    "engagementRate": "0.039959534648457258",
-    "eventCount": "6320",
+    "activeUsers": "2010",
+    "newUsers": "2005",
+    "sessions": "2045",
+    "screenPageViews": "2225",
+    "engagementRate": "0.041564792176039117",
+    "eventCount": "6518",
     "keyEvents": "0"
   },
   "topPages": [
     {
       "path": "/legacy-wordpress-administration/index.html",
-      "views": "338"
+      "views": "353"
     },
     {
       "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
-      "views": "338"
+      "views": "352"
     },
     {
       "path": "/tech-stack/index.html",
-      "views": "337"
-    },
-    {
-      "path": "/index.html",
-      "views": "336"
+      "views": "350"
     },
     {
       "path": "/documentation/index.html",
-      "views": "333"
+      "views": "346"
+    },
+    {
+      "path": "/index.html",
+      "views": "345"
     },
     {
       "path": "/",
@@ -45,7 +45,7 @@
     },
     {
       "path": "/charity-prerequisites/",
-      "views": "40"
+      "views": "41"
     },
     {
       "path": "/site-owner/",
@@ -63,7 +63,7 @@
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "1934"
+      "sessions": "2000"
     },
     {
       "channel": "Organic Search",
@@ -75,7 +75,7 @@
     },
     {
       "channel": "Unassigned",
-      "sessions": "7"
+      "sessions": "5"
     },
     {
       "channel": "AI Assistant",
@@ -84,12 +84,12 @@
   ],
   "productionHostname": "ffcadmin.org",
   "metricsProduction": {
-    "activeUsers": "263",
-    "newUsers": "258",
-    "sessions": "295",
-    "screenPageViews": "477",
-    "engagementRate": "0.26779661016949152",
-    "eventCount": "1274",
+    "activeUsers": "264",
+    "newUsers": "259",
+    "sessions": "297",
+    "screenPageViews": "479",
+    "engagementRate": "0.28619528619528617",
+    "eventCount": "1280",
     "keyEvents": "0"
   }
 }
