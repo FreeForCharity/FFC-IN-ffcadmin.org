@@ -585,10 +585,6 @@ export default function TechStack() {
                   <strong>Link integrity:</strong> lycheeverse/lychee in CI to catch broken links
                 </li>
                 <li>
-                  <strong>Error tracking (optional):</strong> Sentry for client‑side JS (respect
-                  consent)
-                </li>
-                <li>
                   <strong>Performance telemetry:</strong> Lighthouse CI trends per commit/PR
                 </li>
               </ul>

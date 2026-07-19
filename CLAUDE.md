@@ -58,7 +58,6 @@ You may have access to these MCP servers. Use them when available:
 | **Playwright MCP** | Browser automation, screenshots, accessibility snapshots |
 | **GitHub MCP**     | Issue/PR management, repository operations               |
 | **Cloudflare MCP** | DNS records, Pages deployments, Workers                  |
-| **Sentry MCP**     | Error tracking, performance monitoring                   |
 
 Check your available tools at the start of each session. If an MCP server is available, prefer it over CLI alternatives for that domain.
 
