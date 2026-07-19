@@ -645,10 +645,11 @@ export default function DeveloperEnvironmentSetupPage() {
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="p-3 border border-gray-200 font-medium">
-                    Cloudflare / Microsoft Learn
+                    Cloudflare / Microsoft Learn / Sentry
                   </td>
                   <td className="p-3 border border-gray-200">
-                    DNS &amp; Pages and Microsoft 365 docs
+                    DNS &amp; Pages, Microsoft 365 docs, and error tracking (Sentry is a pilot on
+                    freeforcharity.org only)
                   </td>
                   <td className="p-3 border border-gray-200 text-amber-700 font-semibold">
                     Optional
@@ -659,10 +660,11 @@ export default function DeveloperEnvironmentSetupPage() {
           </div>
           <div className="mt-5 bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
             <p className="text-amber-900 text-sm">
-              <strong>Security:</strong> MCP servers that reach GitHub or Cloudflare need an access
-              token. <strong>Never paste a token into a file, a commit, or a chat message.</strong>{' '}
-              Use the app’s secure credential prompt or an environment variable, scope it narrowly,
-              and rotate it. See our{' '}
+              <strong>Security:</strong> MCP servers that reach GitHub, Cloudflare, or Sentry need
+              an access token.{' '}
+              <strong>Never paste a token into a file, a commit, or a chat message.</strong> Use the
+              app’s secure credential prompt or an environment variable, scope it narrowly, and
+              rotate it. See our{' '}
               <a
                 href="https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/.claude/rules/01-security.md"
                 target="_blank"

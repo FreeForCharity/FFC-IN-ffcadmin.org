@@ -53,11 +53,12 @@ If any step fails, fix the issue and re-run from that step forward.
 
 You may have access to these MCP servers. Use them when available:
 
-| Server             | What It Provides                                         |
-| ------------------ | -------------------------------------------------------- |
-| **Playwright MCP** | Browser automation, screenshots, accessibility snapshots |
-| **GitHub MCP**     | Issue/PR management, repository operations               |
-| **Cloudflare MCP** | DNS records, Pages deployments, Workers                  |
+| Server             | What It Provides                                                         |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Playwright MCP** | Browser automation, screenshots, accessibility snapshots                 |
+| **GitHub MCP**     | Issue/PR management, repository operations                               |
+| **Cloudflare MCP** | DNS records, Pages deployments, Workers                                  |
+| **Sentry MCP**     | Error tracking — pilot on freeforcharity.org only; not used on this site |
 
 Check your available tools at the start of each session. If an MCP server is available, prefer it over CLI alternatives for that domain.
 
