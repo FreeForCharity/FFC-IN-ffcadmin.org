@@ -139,8 +139,13 @@ export function loadDomainExpiry(): DomainExpiryData | null {
 export function loadAgenticOsStatus(): AgenticOsStatusData | null {
   const data = readJson<AgenticOsStatusData>('agentic-os-status.json')
   // Shape guard: a syntactically valid but malformed file degrades to null.
+  // `generated_at`/`repo` are rendered directly in JSX, so they must be
+  // strings — a non-primitive would throw at render, breaking the static
+  // export the loader promises never to break.
   if (
     !data ||
+    typeof data.generated_at !== 'string' ||
+    typeof data.repo !== 'string' ||
     !Array.isArray(data.backlog_issues) ||
     !Array.isArray(data.in_flight_prs) ||
     !Array.isArray(data.conductor_log) ||
