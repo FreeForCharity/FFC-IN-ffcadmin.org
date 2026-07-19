@@ -1294,7 +1294,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
           'Sign up with the email address that is the **primary account on your cell phone** — the same identity approach as your GitHub account. Use your password manager to generate and save a strong, unique password.',
           'The **Free** plan is all you need. You are not buying anything.',
         ],
-        tip: 'After signup, Cloudflare immediately suggests adding a website or domain (“Add a site” / “Get started”). Skip it. Do not enter your charity’s domain — or any domain. Step 4 explains why.',
+        tip: 'After signup, Cloudflare immediately suggests adding a website or domain (“Add a site” / “Get started”). Skip it. Do not enter your charity’s domain — or any domain. The “Do NOT add your domain” step below explains why.',
       },
       {
         title: 'Verify your email',
