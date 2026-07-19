@@ -648,7 +648,7 @@ export default function DeveloperEnvironmentSetupPage() {
                     Cloudflare / Microsoft Learn
                   </td>
                   <td className="p-3 border border-gray-200">
-                    DNS &amp; Pages, and Microsoft 365 docs
+                    DNS &amp; Pages and Microsoft 365 docs
                   </td>
                   <td className="p-3 border border-gray-200 text-amber-700 font-semibold">
                     Optional
