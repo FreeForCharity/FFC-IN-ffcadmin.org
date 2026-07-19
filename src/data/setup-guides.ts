@@ -1265,6 +1265,90 @@ export const SETUP_GUIDES: SetupGuide[] = [
     ],
     related: ['facebook', 'instagram-organization', 'canva'],
   },
+  {
+    slug: 'cloudflare-account',
+    title: 'Create your personal Cloudflare account',
+    shortTitle: 'Cloudflare account',
+    category: 'Tools',
+    icon: '☁️',
+    gradient: 'from-orange-500 to-amber-600',
+    description:
+      'Create a free personal Cloudflare account, turn on two-factor authentication, and get it ready for FFC to invite you to the FFC Cloudflare account — without adding your domain to it.',
+    keywords:
+      'create Cloudflare account, Cloudflare signup, Cloudflare 2FA, Cloudflare two-factor authentication, Cloudflare account invitation, do not add domain Cloudflare, Free For Charity Cloudflare',
+    audience: 'Charity site owners and volunteers being invited to the FFC Cloudflare account',
+    estMinutes: 10,
+    intro: [
+      'Cloudflare is where FFC manages every charity’s domain and DNS. To work with FFC on domains, you need your own free Cloudflare account so FFC can **invite you into the FFC Cloudflare account** — the same person-first pattern as GitHub.',
+      'This guide has one unusual rule, so read it before you start: you create the account and secure it, but you **do not add any domain or website to it**. Your charity’s domain lives in the FFC account, not your personal one.',
+    ],
+    principle: {
+      title: 'Your account is you — your domain stays with FFC',
+      body: 'You create ONE free Cloudflare account as yourself, secured with two-factor authentication. Your charity’s domain is NOT added to this account: FFC manages it inside the FFC Cloudflare account, and FFC invites your personal account in as a member. If you add the domain to your own account instead, Cloudflare tells you to change nameservers, control gets split, and onboarding stalls — so skip every “Add a site” prompt, no matter how often Cloudflare shows one.',
+    },
+    steps: [
+      {
+        title: 'Sign up for a free account',
+        body: [
+          'On your computer, go to **dash.cloudflare.com/sign-up**.',
+          'Sign up with the email address that is the **primary account on your cell phone** — the same identity approach as your GitHub account. Use your password manager to generate and save a strong, unique password.',
+          'The **Free** plan is all you need. You are not buying anything.',
+        ],
+        tip: 'After signup, Cloudflare immediately suggests adding a website or domain (“Add a site” / “Get started”). Skip it. Do not enter your charity’s domain — or any domain. Step 4 explains why.',
+      },
+      {
+        title: 'Verify your email',
+        body: [
+          'Cloudflare sends a verification email — open it and click **Verify email**. An unverified account can’t accept the FFC invitation properly, so do this right away.',
+        ],
+      },
+      {
+        ...MFA_STEP_SHARED,
+        title: 'Turn on two-factor authentication (2FA)',
+        body: [
+          'In the Cloudflare dashboard, click your profile icon (top-right) → **My Profile → Authentication**, and under **Two-Factor Authentication** click **Enable** (Cloudflare calls MFA “2FA”).',
+          ...MFA_STEP_SHARED.body.slice(1),
+        ],
+        tip: 'Cloudflare shows **backup codes** during setup — save them in your password manager before clicking past that screen. FFC requires 2FA on every account it invites, so this step is not optional.',
+      },
+      {
+        title: 'Do NOT add your domain or website',
+        body: [
+          'This is the step where this guide differs from every other “set up Cloudflare” tutorial on the internet: your dashboard should stay **empty**. No domains, no websites, nothing.',
+          'FFC registers and manages your charity’s domain inside the **FFC Cloudflare account**, where volunteers handle DNS, email records, and security for you. That only works if the domain lives in exactly one place.',
+          'If you add the domain to your personal account, Cloudflare will instruct you to change your nameservers — which pulls the domain away from FFC’s management, breaks or delays your website and email setup, and has to be untangled by hand.',
+        ],
+        tip: 'If Cloudflare ever prompts you to “Add a site,” “Add a domain,” or change nameservers — close the prompt. If you think you’ve already added something, don’t delete or change anything yourself; contact FFC and we’ll sort it out together.',
+      },
+      {
+        title: 'Tell FFC your account email and accept the invitation',
+        body: [
+          'Send the **email address you signed up with** to FFC (text Clarke Moyer at (520) 222-8104) so you can be invited to the FFC Cloudflare account.',
+          'Cloudflare then emails you an invitation — open it and click **Accept**. You may be asked to sign in (with your password and a 2FA code) first.',
+          'After accepting, the account picker in the top-left of the Cloudflare dashboard lets you switch into the **Free For Charity** account, where you’ll see what FFC has shared with you. Your own account underneath stays empty — that’s exactly right.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why can’t I add my charity’s domain to my own Cloudflare account?',
+        a: 'Because a domain can only be actively managed in one Cloudflare account at a time, and for FFC charities that place is the FFC account — where volunteers manage your DNS, email records, and security as part of the free service. Adding the domain to your personal account tells Cloudflare to move it (via a nameserver change), which splits control and breaks or delays your website and email setup. Your personal account exists only so FFC can invite you in as a member.',
+      },
+      {
+        q: 'I already have a Cloudflare account — do I need a new one?',
+        a: 'No. Use your existing account: make sure 2FA is turned on and send FFC the email address on it. Just don’t add the charity’s domain to it.',
+      },
+      {
+        q: 'I already added my domain to my personal account — what now?',
+        a: 'Stop there — don’t delete the site or change nameservers yourself, especially if the domain is live. Contact FFC (text Clarke at (520) 222-8104) and we’ll move the domain into the FFC account cleanly, with no downtime.',
+      },
+      {
+        q: 'Does this cost anything?',
+        a: 'No. The Cloudflare Free plan is all you need, and being a member of the FFC account costs you nothing either.',
+      },
+    ],
+    related: ['multi-factor-authentication', 'github-account', 'password-manager'],
+  },
 
   // ────────────────────────────────────────────────────────────────────────
   // Organizational track — the charity/501(c)(3)-level setup of the same tools.
