@@ -10,7 +10,7 @@
       "5": "Google",
       "6": "WPMUDEV",
       "7": "GitHub (Website + Repo)",
-      "8": "Reserved",
+      "8": "Candid (GuideStar)",
       "9": "Reserved"
     },
     "tagRule": "the [TAG] lists ALL APIs the workflow CALLS (not services configured-for, not plumbing like KV auth or issue comments)"
@@ -979,6 +979,26 @@
       "categoryCode": "WHMCS"
     },
     {
+      "number": 227,
+      "title": "cPanel - Deploy WHMCS Hooks (FTPS/lftp)",
+      "apis": [
+        "cPanel"
+      ],
+      "file": "227-whmcs-hooks-deploy.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "whmcs-prod"
+      ],
+      "description": "Deploys the version-controlled WHMCS hooks in whmcs/hooks/*.php to the production cPanel host, replacing the manual-FTPS runbook. It uses the SAME proven transport as the freeforcharity.org website deploy (deploy-cpanel.yml): GH OIDC -> Azure -> Key Vault (kv-ffc-admin-prod-cbm) -> MAIN cPanel FTP creds -> lftp over FTPS (AUTH TLS). The MAIN account is homed at the account root, so it can write into ~/public_html/hub/includes/hooks/. Creds are piped to lftp via stdin (never argv).  Target:   public_html/hub/includes/hooks/<file>.php  (relative to the cPanel home) KV creds: wr-all-cbm-cpanel-ffc-interserver-ftp-{host,port,user,password}  mode=verify (default) is READ-ONLY: it connects (proving auth+connectivity), downloads the deployed hooks, and reports whether each matches the repo (or is not deployed yet). mode=deploy uploads each hook first, then downloads + compares and fails on any mismatch.",
+      "safetyLevel": "Writes (verify default)",
+      "approvalEnv": "\u2705 whmcs-prod",
+      "guard": "mode=verify (read-only) vs deploy; hooks input is basename-validated",
+      "category": "WHMCS",
+      "categoryCode": "WHMCS"
+    },
+    {
       "number": 301,
       "title": "M365 - Domain Preflight (Read-only)",
       "apis": [
@@ -1344,7 +1364,7 @@
       "description": "Regenerates an FFC-EX site as a faithful static clone of the live WordPress site and opens a PR on the target FFC-EX repo. Pipeline (all proven locally): clone-site-static.mjs (httrack) -> integrate-clone-into-nextjs.mjs -> next build (output: 'export') so the Next.js app serves the exact clone. See docs/ffc-ex-static-clone-runbook.md.  Auth: uses CBM_TOKEN (cross-repo PAT, same secret create-repo.yml uses) to check out the FFC-EX repo and push a branch + open a PR there. Non-destructive: it never pushes to the FFC-EX default branch, only opens a PR for review.",
       "safetyLevel": "Writes (gated)",
       "approvalEnv": "\u2705 github-prod",
-      "guard": "opens a draft PR (never pushes); serialized",
+      "guard": "ungated preflight (repo must exist; refuses live sites and sibling-domain repos unless `force=true`); opens a draft PR (never pushes); serialized",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1703,6 +1723,66 @@
       "guard": "weekly org inventory (feeds smoke-protected waves); PR-only + auto-merge",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
+    },
+    {
+      "number": 736,
+      "title": "Repo - Archive / Application Denied (Admin)",
+      "apis": [
+        "Repo"
+      ],
+      "file": "736-repo-archive.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "github-prod"
+      ],
+      "description": "Destructive-adjacent, so heavily guarded. This workflow ONLY archives a repository (`archived: true`) \u2014 it NEVER deletes one. Archiving is fully reversible (a maintainer can unarchive from Settings), which is the deliberate safety choice: the worst case is a repo that is temporarily read-only, not data loss.  Five guards, all must pass for a live archive: 1. dispatch-only (never issue/label triggered \u2014 no accidental auto-archive) 2. dry_run defaults to true (preview only; you must pass dry_run=false) 3. typed confirmation: confirm_repo must exactly equal repo 4. org lock + hard denylist (refuses anything outside FreeForCharity, and always refuses the automation repo, the website template, and the org-wide .github repo) 5. github-prod environment approval gate (a human reviewer must approve the deployment)",
+      "safetyLevel": "Writes (dry-run default)",
+      "approvalEnv": "\u2705 github-prod",
+      "guard": "ungated preflight (live archive requires a matching successful dry-run within 48h; fails fast on missing/already-archived; warns on recent push/Pages/open-issue references); archive-only (reversible, never deletes); `dry_run` default true; typed `confirm_repo`; org-locked + denylist",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 801,
+      "title": "Candid - Charity Check (EIN)",
+      "apis": [
+        "CANDID"
+      ],
+      "file": "801-candid-charity-check.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "candid-prod-read"
+      ],
+      "description": "Read-only: validates a nonprofit's IRS 501(c)(3) / Pub78 / BMF / OFAC standing via the Candid Charity Check v1 API. Used to verify an applicant's EIN during charity onboarding and to re-verify existing partners. Key comes from Azure Key Vault at run time via OIDC (candid-keys-from-kv); see docs/candid-api-and-mcp.md for the one-time setup.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "candid-prod-read",
+      "guard": "read-only IRS-status lookup; public org data only",
+      "category": "Candid (GuideStar)",
+      "categoryCode": "CANDID"
+    },
+    {
+      "number": 802,
+      "title": "Candid - Essentials Search",
+      "apis": [
+        "CANDID"
+      ],
+      "file": "802-candid-essentials-search.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "candid-prod-read"
+      ],
+      "description": "Read-only: searches Candid's nonprofit database (Essentials v4) by EIN, organization name, or keywords and reports name / EIN / location / transparency-seal level / profile URL. Used during charity onboarding to locate an applicant's Candid (GuideStar) profile and seal level. Key comes from Azure Key Vault at run time via OIDC (candid-keys-from-kv); see docs/candid-api-and-mcp.md.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "candid-prod-read",
+      "guard": "read-only profile search; public org data only",
+      "category": "Candid (GuideStar)",
+      "categoryCode": "CANDID"
     }
   ]
 }
