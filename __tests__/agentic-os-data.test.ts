@@ -208,6 +208,31 @@ describe('agenticOsData pure helpers', () => {
         agents: { ...base.agents, claude: { ...base.agents.claude, lastSeen: '2026-99-99' } },
       })
     ).toBe(false)
+    // Counts must be finite, non-negative, and internally consistent.
+    expect(
+      isValidRepoEntry({
+        ...base,
+        agents: { ...base.agents, claude: { ...base.agents.claude, total: 99 } },
+      })
+    ).toBe(false)
+    expect(
+      isValidRepoEntry({
+        ...base,
+        agents: {
+          ...base.agents,
+          claude: { ...base.agents.claude, total: -1, open: -1, closed: 0 },
+        },
+      })
+    ).toBe(false)
+    expect(
+      isValidRepoEntry({
+        ...base,
+        agents: {
+          ...base.agents,
+          claude: { ...base.agents.claude, total: NaN, open: NaN, closed: 0 },
+        },
+      })
+    ).toBe(false)
     expect(isValidRepoEntry(null)).toBe(false)
   })
 })

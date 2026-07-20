@@ -81,13 +81,20 @@ function isValidSeenDate(value: unknown): boolean {
   )
 }
 
+function isValidCount(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0
+}
+
 function isValidAgentStats(stats: unknown): stats is AgentPrStats {
   if (!stats || typeof stats !== 'object') return false
   const s = stats as Record<string, unknown>
   return (
-    typeof s.total === 'number' &&
-    typeof s.open === 'number' &&
-    typeof s.closed === 'number' &&
+    isValidCount(s.total) &&
+    isValidCount(s.open) &&
+    isValidCount(s.closed) &&
+    // Semantic invariant, not just shape: inconsistent counts mean the
+    // snapshot is broken and must degrade to the unavailable state.
+    s.total === s.open + s.closed &&
     isValidSeenDate(s.firstSeen) &&
     isValidSeenDate(s.lastSeen)
   )
