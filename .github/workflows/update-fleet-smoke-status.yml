@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 jobs:
   update-fleet-smoke-status:
@@ -27,6 +28,12 @@ jobs:
         run: node scripts/generate-fleet-smoke-status.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upsert stale-monitor hub issue
+        run: node scripts/report-stale-monitors.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Create Pull Request
         id: create-pr

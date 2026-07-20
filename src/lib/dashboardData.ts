@@ -25,7 +25,7 @@ export interface CiStatusData {
 }
 
 export type FleetSmokeState =
-  'passing' | 'failing' | 'running' | 'not-cutover' | 'pending' | 'unknown'
+  'passing' | 'failing' | 'running' | 'stale-monitor' | 'not-cutover' | 'pending' | 'unknown'
 
 export interface FleetSmokeSite {
   repo: string
@@ -38,6 +38,12 @@ export interface FleetSmokeSite {
     runUrl: string
     updatedAt: string
   } | null
+  // Enabled/disabled state of the site's "Post-Deploy Smoke Test" workflow
+  // (null when the workflow is absent or could not be read). A non-'active'
+  // value means GitHub has stopped running the daily pass.
+  smokeWorkflowState?: string | null
+  // Why a site is in the 'stale-monitor' state (null otherwise).
+  staleReason?: string | null
   failureIssue: { number: number; url: string } | null
 }
 

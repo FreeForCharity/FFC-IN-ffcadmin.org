@@ -4,23 +4,49 @@
  *
  * Sweeps every non-archived FFC-EX-* repo (plus the two site templates) and
  * records the latest "Post-Deploy Smoke Test" run, whether the site is cut
- * over (public/CNAME present), and any open auto-managed smoke-failure issue.
- * The static /fleet-status page renders this as per-site green/red tiles.
+ * over (public/CNAME present), the smoke workflow's enabled/disabled state,
+ * and any open auto-managed smoke-failure issue. The static /fleet-status page
+ * renders this as per-site green/red tiles.
+ *
+ * Stale-monitor detection (FFC-Cloudflare-Automation#753): a cut-over site
+ * whose latest smoke run is older than 48h — or whose smoke workflow is no
+ * longer `active` — is flagged `stale-monitor`. That covers GitHub's 60-day
+ * scheduled-workflow auto-disable, broken triggers, and anything else that
+ * silently stops the daily pass. The upsert step in the refresh workflow
+ * surfaces those sites in one hub issue.
  *
  * All data read here is public; auth is the workflow's built-in GITHUB_TOKEN
  * (rate limit only). If the token or network is unavailable it leaves the
  * existing file untouched and exits 0 so the pipeline degrades gracefully.
  */
 import { writeFileSync, readFileSync } from 'fs'
-import { fileURLToPath } from 'url'
+import { fileURLToPath, pathToFileURL } from 'url'
 import { dirname, join } from 'path'
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const OUT = join(__dirname, '..', 'public', 'data', 'fleet-smoke-status.json')
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
+const OUT = join(SCRIPT_DIR, '..', 'public', 'data', 'fleet-smoke-status.json')
 
 const ORG = 'FreeForCharity'
 const SMOKE_WORKFLOW_NAME = 'Post-Deploy Smoke Test'
 const EXTRA_REPOS = ['FFC-IN-FFC_Single_Page_Template', 'FFC-IN-Footer_Only_Template']
+
+// A cut-over site whose latest smoke run (or, for a disabled workflow, whose
+// monitoring) is older than this is considered "monitoring stopped". Smoke
+// runs daily, so 48h leaves a full missed day of buffer before we flag it.
+export const STALE_HOURS = 48
+
+// Empty summary shape — every state key present with a 0 count so the page's
+// chip loop and the summary object stay in sync with FleetSmokeState.
+export const EMPTY_SUMMARY = {
+  passing: 0,
+  failing: 0,
+  running: 0,
+  'stale-monitor': 0,
+  'not-cutover': 0,
+  pending: 0,
+  unknown: 0,
+}
+
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
 
 async function ghJson(path) {
@@ -49,13 +75,62 @@ async function listFleetRepos() {
   return [...names.sort((a, b) => a.localeCompare(b)), ...EXTRA_REPOS]
 }
 
-async function siteStatus(repo) {
-  const [cname, runs, issues] = await Promise.all([
+/** Whole hours between an ISO timestamp and `now` (null timestamp -> Infinity). */
+export function hoursSince(iso, now = new Date()) {
+  if (!iso) return Infinity
+  const then = new Date(iso).getTime()
+  if (Number.isNaN(then)) return Infinity
+  return (now.getTime() - then) / 3_600_000
+}
+
+/**
+ * Pure tile-state decision (unit-tested). Given the cut-over domain, the latest
+ * smoke run, and the smoke workflow's `state`, return the tile state plus a
+ * human-readable `staleReason` when monitoring has stopped.
+ *
+ * Precedence, most specific first:
+ *   not-cutover  — no CNAME, nothing to monitor.
+ *   running      — a run is queued/in progress right now.
+ *   stale-monitor — workflow disabled, OR latest completed run older than 48h.
+ *   passing/failing — latest run's conclusion, when recent.
+ *   pending      — cut over, engine present, no run yet.
+ *   unknown      — anything else.
+ */
+export function computeSiteState({ domain, run, workflowState, now = new Date() } = {}) {
+  if (!domain) return { state: 'not-cutover', staleReason: null }
+  if (run && (run.status === 'in_progress' || run.status === 'queued'))
+    return { state: 'running', staleReason: null }
+
+  // A workflow GitHub has disabled (e.g. `disabled_inactivity` after 60 days,
+  // or manually disabled) means the daily pass has stopped regardless of run
+  // history — the strongest stale signal.
+  if (workflowState && workflowState !== 'active')
+    return {
+      state: 'stale-monitor',
+      staleReason: `smoke workflow is ${workflowState} (not active)`,
+    }
+
+  const ageH = hoursSince(run?.updated_at, now)
+  if (run && ageH > STALE_HOURS)
+    return {
+      state: 'stale-monitor',
+      staleReason: `latest smoke run is ${Math.round(ageH)}h old (> ${STALE_HOURS}h)`,
+    }
+
+  if (run?.conclusion === 'success') return { state: 'passing', staleReason: null }
+  if (run?.conclusion === 'failure') return { state: 'failing', staleReason: null }
+  if (!run) return { state: 'pending', staleReason: null }
+  return { state: 'unknown', staleReason: null }
+}
+
+async function siteStatus(repo, now = new Date()) {
+  const [cname, runs, issues, workflows] = await Promise.all([
     ghJson(`/repos/${ORG}/${repo}/contents/public/CNAME`).catch(() => null),
     ghJson(`/repos/${ORG}/${repo}/actions/runs?per_page=10`).catch(() => null),
     ghJson(`/repos/${ORG}/${repo}/issues?state=open&labels=smoke-failure&per_page=1`).catch(
       () => null
     ),
+    ghJson(`/repos/${ORG}/${repo}/actions/workflows`).catch(() => null),
   ])
 
   const domain = cname?.content
@@ -63,15 +138,11 @@ async function siteStatus(repo) {
     : null
   const run = (runs?.workflow_runs || []).find((r) => r.name === SMOKE_WORKFLOW_NAME) || null
   const issue = Array.isArray(issues) && issues[0] ? issues[0] : null
+  const smokeWorkflow =
+    (workflows?.workflows || []).find((w) => w.name === SMOKE_WORKFLOW_NAME) || null
+  const workflowState = smokeWorkflow?.state || null
 
-  // Tile state, most specific first. A repo with no CNAME is "not cut over"
-  // regardless of run history (the v2 engine skips those neutrally anyway).
-  let state = 'unknown'
-  if (!domain) state = 'not-cutover'
-  else if (run && (run.status === 'in_progress' || run.status === 'queued')) state = 'running'
-  else if (run?.conclusion === 'success') state = 'passing'
-  else if (run?.conclusion === 'failure') state = 'failing'
-  else if (!run) state = 'pending' // cut over, engine present, no run yet
+  const { state, staleReason } = computeSiteState({ domain, run, workflowState, now })
 
   return {
     repo,
@@ -86,6 +157,8 @@ async function siteStatus(repo) {
           updatedAt: run.updated_at,
         }
       : null,
+    smokeWorkflowState: workflowState,
+    staleReason,
     failureIssue: issue ? { number: issue.number, url: issue.html_url } : null,
   }
 }
@@ -96,29 +169,38 @@ async function main() {
     return
   }
 
+  const now = new Date()
   const repos = await listFleetRepos()
   console.log(`Sweeping ${repos.length} repos…`)
 
   const sites = []
-  // Small batches: ~4 API calls per repo across a ~60-repo fleet.
+  // Small batches: ~5 API calls per repo across a ~60-repo fleet.
   const BATCH = 8
   for (let i = 0; i < repos.length; i += BATCH) {
     const chunk = await Promise.all(
       repos.slice(i, i + BATCH).map((r) =>
-        siteStatus(r).catch((err) => {
+        siteStatus(r, now).catch((err) => {
           console.warn(`${r}: ${err.message}`)
-          return { repo: r, domain: null, state: 'unknown', smoke: null, failureIssue: null }
+          return {
+            repo: r,
+            domain: null,
+            state: 'unknown',
+            smoke: null,
+            smokeWorkflowState: null,
+            staleReason: null,
+            failureIssue: null,
+          }
         })
       )
     )
     sites.push(...chunk)
   }
 
-  const summary = { passing: 0, failing: 0, running: 0, 'not-cutover': 0, pending: 0, unknown: 0 }
+  const summary = { ...EMPTY_SUMMARY }
   for (const s of sites) summary[s.state] = (summary[s.state] || 0) + 1
 
   const out = {
-    generatedAt: new Date().toISOString(),
+    generatedAt: now.toISOString(),
     org: ORG,
     repoCount: sites.length,
     summary,
@@ -138,12 +220,15 @@ async function main() {
   }
   writeFileSync(OUT, next)
   console.log(
-    `Wrote ${OUT}: ${sites.length} sites (${summary.passing} passing, ${summary.failing} failing, ${summary['not-cutover']} not cut over)`
+    `Wrote ${OUT}: ${sites.length} sites (${summary.passing} passing, ${summary.failing} failing, ${summary['stale-monitor']} stale-monitor, ${summary['not-cutover']} not cut over)`
   )
 }
 
-main().catch((err) => {
-  // Degrade gracefully: keep the previous committed file rather than failing
-  // the whole data-refresh pipeline on a transient API error.
-  console.warn(`fleet-smoke-status generation failed: ${err.message}`)
-})
+// Only run the sweep when invoked directly (not when imported by unit tests).
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((err) => {
+    // Degrade gracefully: keep the previous committed file rather than failing
+    // the whole data-refresh pipeline on a transient API error.
+    console.warn(`fleet-smoke-status generation failed: ${err.message}`)
+  })
+}
