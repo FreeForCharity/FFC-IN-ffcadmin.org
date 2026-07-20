@@ -1,8 +1,9 @@
 name: Claim Sweep
 run-name: 'Claim sweep: ${{ github.event_name }}'
 
-# Releases stale work-claims on THIS repo's issues, mirroring the AGENTS.md
-# work-claiming protocol (available = `is:open -label:claimed`). An issue
+# Releases stale work-claims on THIS repo's issues, mirroring the FFC hub's
+# work-claiming protocol (defined in FreeForCharity/FFC-Cloudflare-Automation
+# AGENTS.md, "Work claiming"; available = `is:open -label:claimed`). An issue
 # labeled `claimed` with no open linked PR and no activity for 48h is freed:
 # the label is removed and a 🔓 comment posted.
 #
@@ -55,7 +56,8 @@ jobs:
           script: |
             const CLAIM_LABEL = 'claimed';
             // A hand-labeled claim with no open linked PR is released after this
-            // much inactivity (mirrors the 48h AGENTS.md expiry).
+            // much inactivity (mirrors the 48h expiry in the hub's work-claiming
+            // protocol — FFC-Cloudflare-Automation AGENTS.md).
             const EXPIRY_MS = 48 * 60 * 60 * 1000;
             // GitHub closing keywords plus bare ref/refs (which do not auto-close
             // but still signal a claim). Requires a separator so "closes#3" and
