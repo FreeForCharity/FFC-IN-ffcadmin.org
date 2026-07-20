@@ -48,9 +48,9 @@ jobs:
       - name: Release expired claims
         uses: actions/github-script@v9
         env:
-          DRY_RUN:
-            ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run || 'false'
-            }}
+          # Folded scalar (`>-`) so this is unambiguously a string, not a mapping.
+          DRY_RUN: >-
+            ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run || 'false' }}
         with:
           script: |
             const CLAIM_LABEL = 'claimed';
@@ -117,15 +117,30 @@ jobs:
                 if (!decideRelease({ hasOpenLinkedPR, lastActivityMs, nowMs: now, thresholdMs: EXPIRY_MS })) {
                   continue;
                 }
-                released.push(issue.number);
-                if (dryRun) continue;
-                await github.rest.issues.removeLabel({
-                  owner, repo, issue_number: issue.number, name: CLAIM_LABEL,
-                }).catch(() => {});
+                if (dryRun) {
+                  released.push(issue.number);
+                  continue;
+                }
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner, repo, issue_number: issue.number, name: CLAIM_LABEL,
+                  });
+                } catch (e) {
+                  // 404 = the label was already removed (raced with another
+                  // actor): skip quietly — do not post a misleading "removed"
+                  // comment. Any other status (permission, rate-limit, 5xx) is a
+                  // real failure that must surface rather than be masked.
+                  if (e.status === 404) {
+                    core.info(`#${issue.number}: '${CLAIM_LABEL}' already removed; skipping.`);
+                    continue;
+                  }
+                  throw e;
+                }
                 await github.rest.issues.createComment({
                   owner, repo, issue_number: issue.number,
                   body: `🔓 Claim expired — no open linked PR and no activity for 48h. Label \`${CLAIM_LABEL}\` removed; available again (\`is:open -label:claimed\`).`,
                 });
+                released.push(issue.number);
               }
             }
 
