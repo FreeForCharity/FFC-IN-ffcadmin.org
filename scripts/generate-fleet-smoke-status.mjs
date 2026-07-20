@@ -157,27 +157,34 @@ async function siteStatus(repo, now = new Date()) {
     : null
   const issue = Array.isArray(issues) && issues[0] ? issues[0] : null
 
-  // null when the workflows list couldn't be read (unknown — don't flag stale);
-  // 'missing' when it was readable but the smoke workflow is absent; otherwise
-  // the workflow's own state ('active', 'disabled_inactivity', …).
+  // workflowState: null when the workflows list couldn't be read (unknown —
+  // don't flag stale); 'missing' when it was readable but the smoke workflow is
+  // absent; otherwise the workflow's own state ('active', 'disabled_inactivity').
+  const workflowsReadable = Array.isArray(workflows?.workflows)
   let workflowState = null
   let smokeWorkflowId = null
-  if (Array.isArray(workflows?.workflows)) {
+  if (workflowsReadable) {
     const smokeWorkflow = workflows.workflows.find((w) => w.name === SMOKE_WORKFLOW_NAME)
     workflowState = smokeWorkflow ? smokeWorkflow.state : 'missing'
     smokeWorkflowId = smokeWorkflow ? smokeWorkflow.id : null
   }
 
-  // Fetch the latest run of the smoke workflow *specifically* via its
-  // workflow-scoped runs endpoint. The cross-workflow /actions/runs feed would
-  // bury the daily smoke run beneath unrelated CI in a busy repo, dropping the
-  // site to pending/unknown and hiding a real by-age staleness (#753 review).
+  // Prefer the smoke workflow's *own* runs endpoint: the cross-workflow
+  // /actions/runs feed would bury the daily smoke run beneath unrelated CI in a
+  // busy repo, dropping the site to pending/unknown and hiding by-age staleness.
   let run = null
   if (smokeWorkflowId) {
     const runs = await ghJson(
       `/repos/${ORG}/${repo}/actions/workflows/${smokeWorkflowId}/runs?per_page=1`
     ).catch(() => null)
     run = runs?.workflow_runs?.[0] || null
+  } else if (!workflowsReadable) {
+    // Best-effort fallback ONLY when the workflows list itself was unreadable
+    // (not when it was readable and the workflow is genuinely 'missing'): recover
+    // the latest smoke run from the cross-workflow feed so a transient
+    // workflows-list outage doesn't blank the tile or mask real by-age staleness.
+    const runs = await ghJson(`/repos/${ORG}/${repo}/actions/runs?per_page=30`).catch(() => null)
+    run = (runs?.workflow_runs || []).find((r) => r.name === SMOKE_WORKFLOW_NAME) || null
   }
 
   const { state, staleReason } = computeSiteState({ domain, run, workflowState, now })
