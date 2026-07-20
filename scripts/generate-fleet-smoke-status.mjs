@@ -136,8 +136,14 @@ export function hoursSince(iso, now = new Date()) {
  * Pages is on, `false` when it is disabled (404), and `null`/`undefined` when
  * we could not read the Pages config (treated as unknown, not disabled).
  *
+ * `identityUnknown` is true when serving identity could not be determined from
+ * either source — the Pages config was unreadable AND there is no committed
+ * CNAME file to fall back to. In that case a null `domain` means "we don't
+ * know", not "not cut over".
+ *
  * Precedence, most specific first:
  *   not-deployed — Pages disabled, nothing is served, so nothing to monitor.
+ *   unknown      — serving identity undeterminable (Pages unreadable + no CNAME file).
  *   not-cutover  — no serving domain yet, nothing to monitor.
  *   running      — a run is queued/in progress right now.
  *   stale-monitor — workflow not active (disabled or missing), OR latest run older than 48h.
@@ -150,6 +156,7 @@ export function computeSiteState({
   run,
   workflowState,
   pagesEnabled,
+  identityUnknown = false,
   now = new Date(),
 } = {}) {
   // GitHub Pages disabled — the site is not served, so nothing to monitor.
@@ -158,7 +165,16 @@ export function computeSiteState({
   // transient Pages-read failure never mislabels a live site as not-deployed.
   if (pagesEnabled === false) return { state: 'not-deployed', staleReason: null }
 
-  if (!domain) return { state: 'not-cutover', staleReason: null }
+  if (!domain) {
+    // No serving domain. Distinguish "genuinely not cut over" (we *could* read
+    // the serving identity — it just has no custom domain) from "we couldn't
+    // determine it at all" (Pages unreadable AND no committed CNAME to fall
+    // back to). The latter can happen on a build-emitted-CNAME repo during a
+    // transient Pages-read/rate-limit failure; reporting `unknown` there is
+    // more honest than claiming a cut-over site isn't cut over.
+    if (identityUnknown) return { state: 'unknown', staleReason: null }
+    return { state: 'not-cutover', staleReason: null }
+  }
   if (run && (run.status === 'in_progress' || run.status === 'queued'))
     return { state: 'running', staleReason: null }
 
@@ -225,6 +241,11 @@ async function siteStatus(repo, now = new Date()) {
   // than blanking the domain. When Pages is disabled (enabled === false) there
   // is no serving domain and computeSiteState resolves it to `not-deployed`.
   const domain = pages.enabled === true ? pages.cname : pages.enabled === null ? cnameFile : null
+  // Serving identity is undeterminable only when the Pages config was unreadable
+  // (not a definitive 404) AND there is no committed CNAME to fall back to — then
+  // a null domain means "we don't know", so computeSiteState reports 'unknown'
+  // rather than mislabelling a (possibly cut-over) site as 'not-cutover'.
+  const identityUnknown = pages.enabled === null && !cnameFile
   const issue = Array.isArray(issues) && issues[0] ? issues[0] : null
 
   // workflowState: null when the workflows list couldn't be read (unknown —
@@ -262,6 +283,7 @@ async function siteStatus(repo, now = new Date()) {
     run,
     workflowState,
     pagesEnabled: pages.enabled,
+    identityUnknown,
     now,
   })
 

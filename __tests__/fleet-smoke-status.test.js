@@ -87,6 +87,24 @@ describe('computeSiteState', () => {
     ).toBe('passing')
   })
 
+  it('serving identity undeterminable (Pages unreadable + no CNAME) -> unknown, not not-cutover', () => {
+    expect(
+      computeSiteState({
+        domain: null,
+        run: null,
+        pagesEnabled: null,
+        identityUnknown: true,
+        now: NOW,
+      }).state
+    ).toBe('unknown')
+  })
+
+  it('no domain with identity known -> not-cutover (default)', () => {
+    expect(
+      computeSiteState({ domain: null, run: null, identityUnknown: false, now: NOW }).state
+    ).toBe('not-cutover')
+  })
+
   it('in-progress run -> running', () => {
     expect(
       computeSiteState({ domain: 'x.org', run: run({ status: 'in_progress' }), now: NOW }).state
