@@ -1,0 +1,389 @@
+{
+  "generated_at": "2026-07-19T19:29:53Z",
+  "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+  "backlog_issues": [
+    {
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T19:14:42Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 730,
+      "title": "Stale branch cleanup: 53 branches in the hub, most merged or abandoned",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T18:27:00Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/730",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 756,
+      "title": "Weekly process-health metrics report to #719 (child of #752)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T18:03:29Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/756",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 755,
+      "title": "Canary drill: prove the smoke engine catches each failure class it claims (child of #752)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T18:03:27Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/755",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 754,
+      "title": "Weekly engine drift audit: byte-identity of post-deploy-smoke.yml across all fleet repos (child of #752)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T18:03:24Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/754",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 753,
+      "title": "Stale-monitor detection: flag fleet sites whose smoke has not run in 48h (child of #752)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T18:03:21Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/753",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 752,
+      "title": "Epic: process assurance — verify the Agentic OS's own processes keep working (monitor the monitors)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T18:03:17Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/752",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 748,
+      "title": "Conditional basePath missing: default-Pages-URL sites serve pages with 404 assets (technomonasteries, Footer_Only_Template; audit fleet)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T17:19:13Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/748",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 740,
+      "title": "4 FFC-EX repos carry a stale template CNAME (ffcworkingsite1.org) — smoke correctly red, cutover would conflict",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T17:08:44Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/740",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 743,
+      "title": "Fleet sync: smoke engine v3.2 (Zeffy donation-embed check) to all FFC-EX repos + Zeffy inventory",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T16:52:26Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/743",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 747,
+      "title": "Fleet-status donation badges + campaigns dashboard page on ffcadmin (child of #745)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T16:43:05Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/747",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 746,
+      "title": "Campaign registry collector: sweep live fleet sites for Zeffy URLs into campaigns-registry.json (child of #745)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T16:42:44Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/746",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 745,
+      "title": "Epic: charity campaign registry — capture and track every Zeffy campaign across FFC-supported sites, surfaced in the dashboards",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T16:42:19Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/745",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 744,
+      "title": "Publish FFC Zeffy campaign list for smoke auto-classification (charity-specific vs ffc-interim donations)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T16:36:13Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/744",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 723,
+      "title": "Agentic OS public status page: generator workflow in hub + /agentic-os page on ffcadmin.org",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T16:22:22Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/723",
+      "labels": [
+        "documentation",
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 742,
+      "title": "fleet-status generator v2: derive site identity from Pages config, not the CNAME file (child of #738)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T16:15:30Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/742",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 738,
+      "title": "Epic: unify fleet smoke patterns into one Agentic-OS-integrated verification system with public visual fleet status",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T14:20:47Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/738",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 726,
+      "title": "Testing target: full WordPress→Pages cutover of technologymonastery.org (epic)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T00:57:49Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/726",
+      "labels": [
+        "epic",
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 729,
+      "title": "Repo hygiene for the cutover test target FFC-EX-technologymonastery.org (child of #726)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T00:57:32Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/729",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 728,
+      "title": "Dry-run the 119/120 cutover chain for technologymonastery.org and document every gap (child of #726)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T00:57:22Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/728",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 727,
+      "title": "Cutover prep PR for FFC-EX-technologymonastery.org: switchable basePath + CNAME + apex metadata (child of #726)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T00:57:13Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/727",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 724,
+      "title": "Migrate remaining value out of FFC-IN-AI-Management into the hub (inventory + first tranche)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-19T00:11:51Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/724",
+      "labels": [
+        "documentation",
+        "agentic-os"
+      ]
+    }
+  ],
+  "in_flight_prs": [],
+  "conductor_log": [
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T16:24:19Z",
+      "body": "## Correction + donation-test shaping (Clarke-directed) — freedomrisingusa.org resolved\n\n**Correction to follow-up 9:** freedomrisingusa.org does NOT integrate Stripe directly — the only 'stripe' string in that repo is a comment in the smoke workflow itself. Donations run through an **embedded Zeffy iframe** (`zeffy.com/embed/donation-form/state-college-independence-day-parade`) plus Zeffy ticketing links; **Zeffy runs on Stripe internally**, which is why its widget beacons to stripe.com / Googl…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5016471270"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T16:36:16Z",
+      "body": "## Donations as a first-class smoke dimension (v3.3) — Clarke-directed\n\nRequirements implemented: (1) detect **Zeffy payment buttons/links**, not just iframe embeds; (2) **no-donation detection** — a live apex site with zero Zeffy surfaces fails compliance unless it declares `SMOKE_DONATION_SCOPE=none`; (3) **FFC-interim vs charity-specific**: `SMOKE_DONATION_SCOPE=ffc-interim` keeps donations working on an FFC campaign (green smoke) while a standing `donation-interim` + `priority: high` issue s…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5016511601"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T16:52:37Z",
+      "body": "## Campaign registry epic + #743 sync complete — 2026-07-19 (run 4 follow-up 14, Clarke-directed)\n\n**New epic #745 (native sub-issues):** charity campaign registry — capture and track EVERY Zeffy campaign across FFC-supported sites, tied into the dashboards. Sub-issues: **#746** (collector: sweep live sites' served HTML for zeffy.com URLs → campaigns-registry.json, daily), **#747** (fleet-status donation badges + /campaigns dashboard page), **#744** (committed FFC campaign list from the 401 expo…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5016568295"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T17:19:14Z",
+      "body": "## Open-internet live proof of the #740 CNAME fixes (Clarke-requested)\n\nProbed every affected site from the open internet on both URL classes (bound domain: status+title+**real asset fetch**; default Pages URL: redirect/serve behavior):\n\n**✅ 10/14 fully live and correctly built:** canadatokeywestcoastalrun.org, clarasbridge.org, garrisonareacaregivers.org, legioninthewoods.org, alltypetowing.com, pagbooster.org, aariasblueelephant.org, thecrookedhouse.net, slopestohope.org (all: bound 200 + asse…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5016663302"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T17:33:38Z",
+      "body": "## 3dmc2 parked + friendsof362 resurrected — 2026-07-19 (run 4 follow-up 15, Clarke-directed)\n\n**3dmc2.org:** per Clarke, no DNS change — [FFC-EX-3dmc2.org#39](https://github.com/FreeForCharity/FFC-EX-3dmc2.org/issues/39) labeled `awaiting-org-owner` with the full diagnosis + staged 106 dry-run preview preserved for when the organization's owners engage.\n\n**friendsof362.org root cause + fix:** GitHub Pages was NEVER enabled on the repo (provisioning stopped short in March) — 5 deploy attempts, 0…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5016710520"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T17:44:18Z",
+      "body": "## Foxtrot moved to default Pages URL — 2026-07-19 (run 4 follow-up 16, Clarke-directed)\n\nPer Clarke: unbound the unreachable `staging.foxtrotenterprises.com` custom domain (its DNS record never existed), removed `public/CNAME` (PR #39), deploy re-ran green → **verified live at https://freeforcharity.github.io/FFC-EX-foxtrotenterprises.com/ with correct-basePath assets (200)**. Marked **awaiting-org-owner** via tracking issue (repo issue #40) — same posture as 3dmc2. Engine covers it daily in pr…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5016746659"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T18:03:43Z",
+      "body": "## Process assurance epic #752 — 2026-07-19 (run 4 follow-up 17, Clarke-directed)\n\nQuestion: how do we CHECK the processes themselves? Answer shipped as epic **#752** with native sub-issues:\n- **#753** stale-monitor detection (48h-no-smoke state + purple tiles + auto-issue — covers GitHub's 60-day scheduled-workflow auto-disable; audited fleet today: clean, but only because the rollout committed everywhere)\n- **#754** weekly engine byte-identity drift audit (mechanically catches racing-variant i…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5016810551"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T18:53:31Z",
+      "body": "## Evening session wrap — 2026-07-19 (run 4 follow-ups 17-19, Clarke-directed)\n\n**All landed:**\n- **#749 MERGED → #722 closed**: 726 + 502 now supersede their own stale gate-waits (ref-scoped concurrency; Copilot review fully addressed incl. a real catch — 726's catalog description; the stuck code-scanning check needed a CodeQL rerun). Gate pileup era ends: tomorrow's 13:00Z Drift + 07:17Z GA runs cancel today's waiting ones; steady state = ≤1 waiting run per workflow.\n- **#750 MERGED**: claim p…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5016969726"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T19:04:45Z",
+      "body": "## Conductor run start — 2026-07-19 19:04Z (run 7)\n\nScheduled autonomous run. Bootstrap complete: 5 core clones fetched/fast-forwarded (hub 43f4860→bd82811, ffcadmin 5f19001→1a129c7, SPT a7d9f04→7a7c563, Footer 1c8db1a→8753104). Agenda: gates → PR supervision (incl. post-live-session sweep of #744-#756 era work) → backlog band check → board/status sync → health → lessons.",
+      "truncated": false,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5017005767"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-19T19:14:42Z",
+      "body": "## Conductor run end — 2026-07-19 19:35Z (run 7) ✅\n\n**Merged: [#757](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/757) claim-sync workflow (closes #751)** — reviewed (all 7 Copilot findings verified fixed in code, incl. checkout pinned to base.sha so the `issues: write` job never executes PR-modified code), then resolved its whole-table merge conflict with main's new 122 row on-branch (main's table + 737 row, prettier, doc-consistency 89 workflows/80 rows OK) → queue → merged…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5017035452"
+    }
+  ],
+  "pending_gates": [
+    {
+      "run_id": 29185146653,
+      "workflow_name": "Google Analytics Report",
+      "environment": "github-prod",
+      "created_at": "2026-07-12T08:00:47Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29185146653"
+    },
+    {
+      "run_id": 29254887907,
+      "workflow_name": "Drift Audit",
+      "environment": "github-prod",
+      "created_at": "2026-07-13T13:43:19Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29254887907"
+    },
+    {
+      "run_id": 29316431096,
+      "workflow_name": "Google Analytics Report",
+      "environment": "github-prod",
+      "created_at": "2026-07-14T07:59:30Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29316431096"
+    },
+    {
+      "run_id": 29337045253,
+      "workflow_name": "Drift Audit",
+      "environment": "github-prod",
+      "created_at": "2026-07-14T13:34:25Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29337045253"
+    },
+    {
+      "run_id": 29399222300,
+      "workflow_name": "Google Analytics Report",
+      "environment": "github-prod",
+      "created_at": "2026-07-15T07:59:59Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29399222300"
+    },
+    {
+      "run_id": 29419674613,
+      "workflow_name": "Drift Audit",
+      "environment": "github-prod",
+      "created_at": "2026-07-15T13:33:20Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29419674613"
+    },
+    {
+      "run_id": 29564903416,
+      "workflow_name": "Google Analytics Report",
+      "environment": "github-prod",
+      "created_at": "2026-07-17T08:00:01Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29564903416"
+    },
+    {
+      "run_id": 29584434541,
+      "workflow_name": "Drift Audit",
+      "environment": "github-prod",
+      "created_at": "2026-07-17T13:33:47Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29584434541"
+    },
+    {
+      "run_id": 29636649806,
+      "workflow_name": "Google Analytics Report",
+      "environment": "github-prod",
+      "created_at": "2026-07-18T07:58:06Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29636649806"
+    }
+  ]
+}

@@ -47,3 +47,6 @@ next-env.d.ts
 
 # Generated on every build from committed data (#427)
 public/data/sites-alerts.json
+
+# Fleet audit machine output (workflow artifact, never committed)
+docs/fleet-audit.json

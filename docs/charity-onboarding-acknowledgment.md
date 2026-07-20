@@ -1,7 +1,8 @@
 # Charity Onboarding Acknowledgment
 
 > The short acknowledgment a charity confirms during the FFC application (captured
-> via the application issue-template form). The binding terms live in the
+> as a mandatory certification field on the WHMCS application — the
+> tos-certification field on the onboarding products). The binding terms live in the
 > **[Terms of Service](https://ffcadmin.org/terms-of-service/)** — Section 18
 > (Supported Charities). This page is the plain-language summary the applicant
 > agrees to; the Terms of Service are the controlling version.

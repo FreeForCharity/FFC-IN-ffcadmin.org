@@ -566,22 +566,6 @@ export default function SitesExplorer({ sites }: { sites: SiteData[] }) {
         </div>
       </div>
 
-      {/* Domains that left FFC (transferred away + not in FFC Cloudflare) */}
-      {leftFfcSites.length > 0 && (
-        <details className="mb-8 rounded-lg shadow-md border border-red-300 bg-red-50 overflow-hidden">
-          <summary className="px-6 py-4 cursor-pointer bg-red-100 text-red-900 border-b border-red-200">
-            <span className="text-lg font-bold">🚨 Left FFC — needs attention</span>
-            <span className="ml-2 text-sm font-semibold opacity-80">({leftFfcSites.length})</span>
-            <p className="text-sm mt-1 opacity-80 font-normal">
-              Transferred away from eNom <strong>and</strong> no longer in FFC Cloudflare — FFC no
-              longer manages DNS for these. Still in WHMCS, so worth a cleanup/outreach pass (some
-              are still live under their new owner).
-            </p>
-          </summary>
-          <TierTable sites={leftFfcSites} num="6" />
-        </details>
-      )}
-
       {/* Work Tier sections */}
       {TIERS.map((t) => {
         const tierSites = sortTier(byTier(t.num), t.num)
@@ -608,6 +592,23 @@ export default function SitesExplorer({ sites }: { sites: SiteData[] }) {
           </details>
         )
       })}
+
+      {/* Domains that left FFC (transferred away + not in FFC Cloudflare).
+          Leaving FFC is a fine outcome — shown last, purely for reference. */}
+      {leftFfcSites.length > 0 && (
+        <details className="mb-6 rounded-lg shadow-md border border-gray-200 bg-white overflow-hidden">
+          <summary className="px-6 py-4 cursor-pointer bg-gray-50 text-gray-700 border-b border-gray-200">
+            <span className="text-lg font-bold">👋 Left FFC</span>
+            <span className="ml-2 text-sm font-semibold opacity-80">({leftFfcSites.length})</span>
+            <span className="mt-1 block text-sm font-normal opacity-80">
+              Transferred away from eNom <strong>and</strong> no longer in FFC Cloudflare — FFC no
+              longer manages DNS for these. Some are still live under their new owner. Listed here
+              for reference; no action needed.
+            </span>
+          </summary>
+          <TierTable sites={leftFfcSites} num="6" />
+        </details>
+      )}
     </>
   )
 }

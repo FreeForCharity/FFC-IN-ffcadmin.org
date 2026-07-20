@@ -65,7 +65,7 @@ export default function LegacyWordPressAdministrationHubPage() {
           <p>
             <strong>Looking to apply for a free FFC site?</strong>{' '}
             <a
-              href="https://freeforcharity.org/submit-information/"
+              href="https://freeforcharity.org/help-for-charities/"
               className="underline hover:no-underline"
               target="_blank"
               rel="noopener noreferrer"
@@ -122,7 +122,7 @@ export default function LegacyWordPressAdministrationHubPage() {
             <p className="text-sm text-gray-600">Read the WordPress-to-Next.js conversion guide.</p>
           </Link>
           <a
-            href="https://freeforcharity.org/submit-information/"
+            href="https://freeforcharity.org/help-for-charities/"
             target="_blank"
             rel="noopener noreferrer"
             className="block rounded-lg bg-white border border-gray-200 p-6 hover:border-blue-400 hover:shadow-md transition-all"

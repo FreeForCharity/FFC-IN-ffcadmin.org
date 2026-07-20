@@ -9,8 +9,7 @@ declare global {
   }
 }
 
-const GUIDESTAR_PROFILE_URL =
-  'https://www.guidestar.org/profile/shared/bbbe173a-87b9-4af9-a8a2-cae255a95742'
+const GUIDESTAR_PROFILE_URL = 'https://www.guidestar.org/profile/46-2471893'
 
 export default function Footer() {
   return (
@@ -334,7 +333,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://freeforcharity.org/submit-information/"
+                  href="https://freeforcharity.org/help-for-charities/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center hover:text-white transition-colors"
@@ -352,6 +351,16 @@ export default function Footer() {
                   style={{ color: 'var(--color-ffc-orange)' }}
                 >
                   Donate →
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://freeforcharity.org/hub/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Supported Charity Login
                 </a>
               </li>
               <li>
@@ -556,7 +565,7 @@ export default function Footer() {
                 className="hover:opacity-80 transition-opacity"
                 style={{ color: 'var(--color-ffc-teal)' }}
               >
-                A project of Free For Charity
+                Supported by Free For Charity
               </a>
             </p>
             <p className="mt-2">

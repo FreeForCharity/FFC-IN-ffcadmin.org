@@ -867,7 +867,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'It sharpens what makes your organization distinct, and FFC asks for them during validation. Searching by cause, location, or NTEE code on Candid is the fastest way to find organizations doing your exact or near-exact mission.',
       },
     ],
-    related: ['idealist', 'taproot'],
+    related: ['idealist', 'taproot', 'volunteermatch'],
   },
   {
     slug: 'idealist',
@@ -918,7 +918,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'Idealist covers general nonprofit volunteering and jobs; Taproot focuses on skills-based, pro-bono projects (design, marketing, consulting). FFC has you try both so you understand each channel.',
       },
     ],
-    related: ['candid', 'taproot'],
+    related: ['candid', 'taproot', 'volunteermatch'],
   },
   {
     slug: 'taproot',
@@ -972,7 +972,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'Once your organization is set up you can post pro-bono requests on Taproot Plus. For now, study how existing projects are scoped — clear scope is what attracts skilled volunteers — and FFC can help you post later.',
       },
     ],
-    related: ['idealist', 'candid'],
+    related: ['idealist', 'candid', 'volunteermatch'],
   },
   {
     slug: 'chrome',
@@ -1264,6 +1264,270 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
     ],
     related: ['facebook', 'instagram-organization', 'canva'],
+  },
+  {
+    slug: 'cloudflare-account',
+    title: 'Create your personal Cloudflare account',
+    shortTitle: 'Cloudflare account',
+    category: 'Tools',
+    icon: '☁️',
+    gradient: 'from-orange-500 to-amber-600',
+    description:
+      'Create a free personal Cloudflare account, turn on two-factor authentication, and get it ready for FFC to invite you to the FFC Cloudflare account — without adding your domain to it.',
+    keywords:
+      'create Cloudflare account, Cloudflare signup, Cloudflare 2FA, Cloudflare two-factor authentication, Cloudflare account invitation, do not add domain Cloudflare, Free For Charity Cloudflare',
+    audience: 'Charity site owners and volunteers being invited to the FFC Cloudflare account',
+    estMinutes: 10,
+    intro: [
+      'Cloudflare is where FFC manages every charity’s domain and DNS. To work with FFC on domains, you need your own free Cloudflare account so FFC can **invite you into the FFC Cloudflare account** — the same person-first pattern as GitHub.',
+      'This guide has one unusual rule, so read it before you start: you create the account and secure it, but you **do not add any domain or website to it**. Your charity’s domain lives in the FFC account, not your personal one.',
+    ],
+    principle: {
+      title: 'Your account is you — your domain stays with FFC',
+      body: 'You create ONE free Cloudflare account as yourself, secured with two-factor authentication. Your charity’s domain is NOT added to this account: FFC manages it inside the FFC Cloudflare account, and FFC invites your personal account in as a member. If you add the domain to your own account instead, Cloudflare tells you to change nameservers, control gets split, and onboarding stalls — so skip every “Add a site” prompt, no matter how often Cloudflare shows one.',
+    },
+    steps: [
+      {
+        title: 'Sign up for a free account',
+        body: [
+          'On your computer, go to **dash.cloudflare.com/sign-up**.',
+          'Sign up with the email address that is the **primary account on your cell phone** — the same identity approach as your GitHub account. Use your password manager to generate and save a strong, unique password.',
+          'The **Free** plan is all you need. You are not buying anything.',
+        ],
+        tip: 'After signup, Cloudflare immediately suggests adding a website or domain (“Add a site” / “Get started”). Skip it. Do not enter your charity’s domain — or any domain. The “Do NOT add your domain” step below explains why.',
+      },
+      {
+        title: 'Verify your email',
+        body: [
+          'Cloudflare sends a verification email — open it and click **Verify email**. An unverified account can’t accept the FFC invitation properly, so do this right away.',
+        ],
+      },
+      {
+        ...MFA_STEP_SHARED,
+        title: 'Turn on two-factor authentication (2FA)',
+        body: [
+          'In the Cloudflare dashboard, click your profile icon (top-right) → **My Profile → Authentication**, and under **Two-Factor Authentication** click **Enable** (Cloudflare calls MFA “2FA”).',
+          ...MFA_STEP_SHARED.body.slice(1),
+        ],
+        tip: 'Cloudflare shows **backup codes** during setup — save them in your password manager before clicking past that screen. FFC requires 2FA on every account it invites, so this step is not optional.',
+      },
+      {
+        title: 'Do NOT add your domain or website',
+        body: [
+          'This is the step where this guide differs from every other “set up Cloudflare” tutorial on the internet: your dashboard should stay **empty**. No domains, no websites, nothing.',
+          'FFC registers and manages your charity’s domain inside the **FFC Cloudflare account**, where volunteers handle DNS, email records, and security for you. That only works if the domain lives in exactly one place.',
+          'If you add the domain to your personal account, Cloudflare will instruct you to change your nameservers — which pulls the domain away from FFC’s management, breaks or delays your website and email setup, and has to be untangled by hand.',
+        ],
+        tip: 'If Cloudflare ever prompts you to “Add a site,” “Add a domain,” or change nameservers — close the prompt. If you think you’ve already added something, don’t delete or change anything yourself; contact FFC and we’ll sort it out together.',
+      },
+      {
+        title: 'Tell FFC your account email and accept the invitation',
+        body: [
+          'Send the **email address you signed up with** to FFC (text Clarke Moyer at (520) 222-8104) so you can be invited to the FFC Cloudflare account.',
+          'Cloudflare then emails you an invitation — open it and click **Accept**. You may be asked to sign in (with your password and a 2FA code) first.',
+          'After accepting, the account picker in the top-left of the Cloudflare dashboard lets you switch into the **Free For Charity** account, where you’ll see what FFC has shared with you. Your own account underneath stays empty — that’s exactly right.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why can’t I add my charity’s domain to my own Cloudflare account?',
+        a: 'Because a domain can only be actively managed in one Cloudflare account at a time, and for FFC charities that place is the FFC account — where volunteers manage your DNS, email records, and security as part of the free service. Adding the domain to your personal account tells Cloudflare to move it (via a nameserver change), which splits control and breaks or delays your website and email setup. Your personal account exists only so FFC can invite you in as a member.',
+      },
+      {
+        q: 'I already have a Cloudflare account — do I need a new one?',
+        a: 'No. Use your existing account: make sure 2FA is turned on and send FFC the email address on it. Just don’t add the charity’s domain to it.',
+      },
+      {
+        q: 'I already added my domain to my personal account — what now?',
+        a: 'Stop there — don’t delete the site or change nameservers yourself, especially if the domain is live. Contact FFC (text Clarke Moyer at (520) 222-8104) and we’ll move the domain into the FFC account cleanly, with no downtime.',
+      },
+      {
+        q: 'Does this cost anything?',
+        a: 'No. The Cloudflare Free plan is all you need, and being a member of the FFC account costs you nothing either.',
+      },
+    ],
+    related: ['multi-factor-authentication', 'github-account', 'password-manager'],
+  },
+  {
+    slug: 'zeffy',
+    counterpart: 'zeffy-organization',
+    title: 'Join your charity’s Zeffy (donations & CRM)',
+    shortTitle: 'Zeffy',
+    category: 'Tools',
+    icon: '💝',
+    gradient: 'from-rose-500 to-pink-600',
+    description:
+      'Get your own login on the charity’s Zeffy account — accept the invitation, set a strong password, turn on two-factor authentication — without creating a second Zeffy organization by mistake.',
+    keywords:
+      'Zeffy login, join Zeffy team, Zeffy invitation, Zeffy 2FA, Zeffy nonprofit donations, zero-fee fundraising, Free For Charity Zeffy',
+    audience: 'Charity owners, treasurers, and volunteers who work with donations',
+    estMinutes: 10,
+    intro: [
+      'Zeffy is the **100% free** donation and fundraising platform FFC recommends — donation forms, ticketing, memberships, and a donor CRM with no platform fees taken out of what supporters give.',
+      'Like Cloudflare, this guide has a join-don’t-create rule: the charity has **one** Zeffy organization, and you get your own login **on it** by invitation. Signing yourself up fresh at zeffy.com creates a brand-new, empty organization — not access to your charity’s.',
+    ],
+    principle: {
+      title: 'Join the charity’s Zeffy — never create a second one',
+      body: 'The charity’s Zeffy organization holds its donation forms, donor records, and bank connection, and it already exists (or gets created once, in the organizational guide). You are added to it by invitation, with your own login. If you instead “sign up” on the Zeffy homepage, you create a separate empty organization under your name — donations and donor data end up split, exactly the problem the one-account rule prevents.',
+    },
+    steps: [
+      {
+        title: 'Ask for an invitation',
+        body: [
+          'Ask the charity’s Zeffy administrator (or your FFC contact) to invite you, and tell them which email to use — your **charity email** if you have one (e.g. you@yourcharity.org), otherwise the email tied to your phone.',
+          'Zeffy sends an invitation email to that address.',
+        ],
+        tip: 'No invitation yet? Don’t go to zeffy.com and sign up — that creates a new organization, not access to your charity’s. Wait for the invite.',
+      },
+      {
+        title: 'Accept the invite and set your password',
+        body: [
+          'Open the invitation email and click **Accept / Join**. Set a strong, unique password and save it in your **password manager** (see that guide).',
+        ],
+      },
+      {
+        ...MFA_STEP_SHARED,
+        title: 'Turn on two-factor authentication',
+        body: [
+          'In Zeffy, open your account/security settings and turn on **two-factor authentication**. Zeffy guards the charity’s donor data and its connection to the bank — FFC expects MFA here just like everywhere else.',
+          ...MFA_STEP_SHARED.body.slice(1),
+        ],
+      },
+      {
+        title: 'Find your way around',
+        body: [
+          'Once in, you’ll see the charity’s **forms** (donations, tickets, memberships), **payments**, and the **contacts** CRM. Look, learn, and coordinate with the charity owner before changing live forms.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is Zeffy really free?',
+        a: 'Yes — Zeffy charges the charity nothing and takes no platform fee from donations; it runs on optional tips donors can add at checkout. That’s why FFC recommends it as the default donations platform.',
+      },
+      {
+        q: 'I accidentally created my own Zeffy organization — what now?',
+        a: 'Don’t build anything in it. Tell the charity’s Zeffy admin or your FFC contact; they’ll invite your email to the real organization, and the empty accidental one can be closed.',
+      },
+      {
+        q: 'Which email should my invitation go to?',
+        a: 'Your charity email if you have one — donation work is charity business. If your mailbox isn’t provisioned yet, use the email tied to your phone; the important part is that the login is yours, secured with MFA.',
+      },
+    ],
+    related: ['zeffy-organization', 'multi-factor-authentication', 'password-manager'],
+  },
+  {
+    slug: 'volunteermatch',
+    counterpart: 'volunteermatch-organization',
+    title: 'Set up VolunteerMatch (find volunteers & causes)',
+    shortTitle: 'VolunteerMatch',
+    category: 'Social Presence',
+    icon: '🤝',
+    gradient: 'from-teal-500 to-cyan-700',
+    description:
+      'Create a personal VolunteerMatch account to see how volunteers discover causes. Your organization’s listings come later — the same learn-it-as-a-volunteer-first pattern as Idealist and Taproot.',
+    keywords:
+      'VolunteerMatch account, find volunteers nonprofit, volunteer recruitment, volunteer opportunities, Free For Charity VolunteerMatch',
+    audience: 'Charity applicants and founders',
+    estMinutes: 10,
+    intro: [
+      'VolunteerMatch is one of the largest volunteer-recruitment platforms — where people looking to help find organizations that need them.',
+      'Like Idealist and Taproot, you experience it from the **volunteer’s side first**: seeing how causes are presented teaches you what your charity’s own listings will need to attract help later.',
+    ],
+    principle: {
+      title: 'Learn it as a volunteer before you recruit as an organization',
+      body: 'Set up a personal account and browse as someone looking to give time. Noticing which opportunities appeal to you — and why — is exactly the judgment you’ll need when your charity posts its own openings later, with FFC’s help.',
+    },
+    steps: [
+      {
+        title: 'Create your account',
+        body: [
+          'Go to **volunteermatch.org** and sign up with your real name and email (the one tied to your phone, same as everywhere else).',
+        ],
+      },
+      {
+        title: 'Explore causes like yours',
+        body: [
+          'Search opportunities near you and in your cause area. See how organizations describe the work, the time commitment, and the impact.',
+        ],
+      },
+      {
+        title: 'Save strong examples',
+        body: [
+          'Bookmark two or three listings that made you want to sign up. When your charity recruits later, you’ll model its listings on these.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'How is VolunteerMatch different from Idealist and Taproot?',
+        a: 'They overlap but serve different slices: VolunteerMatch is the biggest general volunteer-matching marketplace, Idealist adds nonprofit jobs and internships, and Taproot focuses on skills-based pro-bono projects. FFC has you try all three so you know which channel fits a given need.',
+      },
+      {
+        q: 'Will I post my charity’s openings here now?',
+        a: 'Not yet — that’s the organizational guide, once your charity is up and running. For now you’re learning what makes a listing work, from the volunteer’s side.',
+      },
+    ],
+    related: ['idealist', 'taproot', 'candid'],
+  },
+  {
+    slug: 'quickbooks',
+    counterpart: 'quickbooks-online',
+    title: 'Set up your Intuit account (QuickBooks access)',
+    shortTitle: 'Intuit (QuickBooks)',
+    category: 'Tools',
+    icon: '🧾',
+    gradient: 'from-green-600 to-emerald-700',
+    description:
+      'Create your own Intuit login with two-factor authentication so the charity can invite you into its QuickBooks Online — you never create a company file of your own.',
+    keywords:
+      'Intuit account, QuickBooks Online login, QuickBooks invite user, Intuit 2FA, nonprofit bookkeeping access, Free For Charity QuickBooks',
+    audience: 'Treasurers, bookkeepers, and volunteers who need access to the charity’s books',
+    estMinutes: 10,
+    intro: [
+      'The charity’s books live in **QuickBooks Online**, in a company file the charity owns (set up in the organizational guide, via TechSoup).',
+      'You get access the same way as GitHub and Cloudflare: with your **own** Intuit login, secured with MFA, invited into the charity’s company. You don’t buy anything, and you don’t create a company file of your own.',
+    ],
+    principle: {
+      title: 'Your login is yours — the books belong to the charity',
+      body: 'One personal Intuit account per person, invited into the charity’s QuickBooks company with the least access needed. Never share a login, and never start a new company file when what you mean to do is join the charity’s — the books must live in exactly one place.',
+    },
+    steps: [
+      {
+        title: 'Create your Intuit account',
+        body: [
+          'Go to **accounts.intuit.com** and create a free Intuit account with your email (charity email if you have one, otherwise the email tied to your phone). Use your password manager to generate and save the password.',
+          'If QuickBooks offers to start a company or a free trial — skip it. Your account is just a login; the company file comes from the charity’s invitation.',
+        ],
+      },
+      {
+        ...MFA_STEP_SHARED,
+        title: 'Turn on two-factor authentication',
+        body: [
+          'In your Intuit account, open **Sign in & security** and turn on **two-step verification** with an **authenticator app**. This login can reach financial data, so MFA is not optional.',
+          ...MFA_STEP_SHARED.body.slice(1),
+        ],
+      },
+      {
+        title: 'Get invited to the charity’s QuickBooks',
+        body: [
+          'Tell the charity’s QuickBooks admin (or your FFC contact) the email on your Intuit account. They invite you from **Settings → Manage users** with the role you need — accept the emailed invitation and you’ll see the charity’s company on your account.',
+        ],
+        tip: 'Least access wins: reports-only if you just read, standard user if you enter transactions. Full admin should stay with the charity owner or treasurer.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Do I need to buy QuickBooks?',
+        a: 'No. The charity gets QuickBooks Online at the nonprofit rate through TechSoup (see the organizational guide). Your Intuit account is free — it’s just your personal login that the charity’s company invites in.',
+      },
+      {
+        q: 'I already use QuickBooks for another organization or my own business — new account?',
+        a: 'No. One Intuit login can be a user on many QuickBooks companies. Use your existing account, make sure two-step verification is on, and have the charity invite that email.',
+      },
+    ],
+    related: ['quickbooks-online', 'multi-factor-authentication', 'password-manager'],
   },
 
   // ────────────────────────────────────────────────────────────────────────
@@ -2024,6 +2288,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
         q: 'How long does validation take?',
         a: 'Usually a couple of business days while TechSoup independently confirms your legal status. Have your EIN and IRS determination letter ready (scanned in your shared drive) to avoid delays.',
       },
+      {
+        q: 'Why is there no personal version of this guide?',
+        a: 'By design. A TechSoup registration is tied to the organization’s validation record, so there’s nothing to set up personally ahead of time — unlike GitHub or Cloudflare, where you create a personal account first and get invited in.',
+      },
     ],
     related: ['goodstack', 'quickbooks-online', 'microsoft-365-organization'],
   },
@@ -2086,12 +2354,17 @@ export const SETUP_GUIDES: SetupGuide[] = [
         q: 'Do I have to go to Goodstack first?',
         a: 'Usually you don’t — when you apply to a partner like Canva or Google for Nonprofits, they route you into Goodstack’s verification automatically. You can also start directly at goodstack.io.',
       },
+      {
+        q: 'Why is there no personal version of this guide?',
+        a: 'By design. Goodstack verification is tied to the organization’s legal status, so there’s nothing to set up personally ahead of time — unlike GitHub or Cloudflare, where you create a personal account first and get invited in.',
+      },
     ],
     related: ['techsoup', 'canva-organization', 'google-workspace-organization'],
   },
   {
     slug: 'quickbooks-online',
     track: 'organizational',
+    counterpart: 'quickbooks',
     title: 'Set up QuickBooks Online for your charity',
     shortTitle: 'QuickBooks Online',
     category: 'Tools',
@@ -2163,6 +2436,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
     intro: [
       'Microsoft Clarity is **free for everyone** (no nonprofit gate, no traffic limits) and shows **heatmaps** and **session recordings** — where people click, scroll, and get stuck on the charity’s site.',
       'It answers “**how** are people using the site,” complementing Google Analytics, which answers “**how many** and from where.”',
+      'The project lives under the charity’s Microsoft account; volunteers who help with analytics are added later with their **own personal Microsoft accounts** — individual access, never a shared login.',
     ],
     principle: {
       title: 'See what visitors actually do',
@@ -2217,6 +2491,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
     intro: [
       'Google Analytics 4 (GA4) is the **free** standard for measuring website traffic — how many people visit, where they come from, and what they do.',
       'It’s the foundation for the **impact reporting** behind FFC’s Data & Analytics work, and pairs with Microsoft Clarity’s behavior view.',
+      'The property lives under the charity’s Google account; volunteers who help with analytics are granted access with their **own personal Google accounts** — individual access, never a shared login.',
     ],
     principle: {
       title: 'Measure what matters',
@@ -2253,7 +2528,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
         a: 'Both. GA4 measures traffic and conversions; Clarity shows on-page behavior via heatmaps and recordings. They answer different questions, so FFC sites typically run both.',
       },
     ],
-    related: ['microsoft-clarity', 'google-workspace-organization'],
+    related: ['microsoft-clarity', 'google-tag-manager', 'google-search-console'],
   },
   {
     slug: 'ai-assistant-organization',
@@ -2341,6 +2616,258 @@ export const SETUP_GUIDES: SetupGuide[] = [
       'google-workspace-organization',
       'microsoft-365-organization',
     ],
+  },
+  {
+    slug: 'zeffy-organization',
+    track: 'organizational',
+    counterpart: 'zeffy',
+    title: 'Set up Zeffy for your charity',
+    shortTitle: 'Zeffy (org)',
+    category: 'Tools',
+    icon: '💝',
+    gradient: 'from-rose-700 to-pink-800',
+    description:
+      'Create the charity’s one Zeffy organization: register with the charity email, connect the bank account for payouts, build the first donation form, and invite your team as individual MFA-secured users.',
+    keywords:
+      'Zeffy nonprofit setup, Zeffy organization account, Zeffy bank connection, free donation platform, Zeffy team members, Free For Charity Zeffy org',
+    audience: 'Charity owners and treasurers (after the charity can receive donations)',
+    estMinutes: 25,
+    intro: [
+      'Zeffy is the **zero-fee** fundraising platform FFC recommends: donation forms, event tickets, memberships, raffles, and a donor CRM — with no platform fee taken from what supporters give.',
+      'The charity creates **one** Zeffy organization, once. Everyone who works in it afterwards joins by invitation with their own login (see the personal Zeffy guide).',
+    ],
+    principle: {
+      title: 'One Zeffy organization, owned by the charity',
+      body: 'Register Zeffy with the charity’s email and details — not a personal address — and connect it to the charity’s bank account. Then add people as individual team members with their own MFA-secured logins. One organization, one bank connection, many individual users: donor data and donations stay in one place with a clear owner.',
+    },
+    steps: [
+      {
+        title: 'Create the organization account',
+        body: [
+          'Go to **zeffy.com** and sign up **as the charity** — use the charity’s email (e.g. info@ or treasurer@yourcharity.org), legal name, and **EIN**.',
+          'This is the one moment the “sign up” button is correct: it creates the charity’s organization. Everyone after you joins by invitation instead.',
+        ],
+      },
+      {
+        title: 'Connect the charity’s bank account',
+        body: [
+          'In Zeffy’s payout/banking settings, connect the **charity’s bank account** (never a personal one) and complete the identity verification Zeffy requires so donations can be paid out.',
+        ],
+        tip: 'Have your EIN, formation details, and bank information ready — verification is the step that takes the longest.',
+      },
+      {
+        title: 'Build your first donation form',
+        body: [
+          'Create a simple **donation form**, brand it with the charity’s logo and colors (from your Canva brand kit), and test it with a small real donation before sharing it.',
+          'FFC can help you embed the form on the charity’s website once it works.',
+        ],
+      },
+      {
+        title: 'Invite your team',
+        body: [
+          'Add the treasurer and anyone who works with donations as **individual team members** — each with their own email, own login, and **two-factor authentication** turned on (point them at the personal Zeffy guide).',
+          'Never share the main login between people.',
+        ],
+      },
+    ],
+    phaseNote:
+      'Zeffy itself is free to set up, but bank verification and donation processing require the charity to legally exist with its own bank account; donation receipts require 501(c)(3) recognition.',
+    faqs: [
+      {
+        q: 'How can Zeffy be free — what’s the catch?',
+        a: 'Zeffy is funded by optional tips donors can add on top of their gift at checkout. The charity pays nothing, and 100% of the donation amount goes to the charity. There’s no platform fee and no per-transaction cut.',
+      },
+      {
+        q: 'Can we use Zeffy before we have 501(c)(3) status?',
+        a: 'You can set up the account once the organization legally exists and has a bank account. But tax-deductible receipts require IRS recognition — talk to your FFC contact about what you can collect in the meantime.',
+      },
+      {
+        q: 'Who should own the Zeffy account?',
+        a: 'Register it with a charity role address (like treasurer@yourcharity.org) so it survives any one person leaving, then add real people — owner, treasurer, volunteers — as individual users with their own logins.',
+      },
+    ],
+    related: ['zeffy', 'quickbooks-online', 'canva-organization'],
+  },
+  {
+    slug: 'volunteermatch-organization',
+    track: 'organizational',
+    counterpart: 'volunteermatch',
+    title: 'Recruit on VolunteerMatch as your charity',
+    shortTitle: 'VolunteerMatch (org)',
+    category: 'Social Presence',
+    icon: '🤝',
+    gradient: 'from-teal-700 to-cyan-800',
+    description:
+      'Register the charity on VolunteerMatch and post volunteer opportunities that actually attract help — using what you learned from the volunteer’s side in the personal guide.',
+    keywords:
+      'VolunteerMatch nonprofit registration, post volunteer opportunities, recruit volunteers charity, volunteer listing, Free For Charity VolunteerMatch org',
+    audience: 'Charity owners and whoever coordinates volunteers',
+    estMinutes: 20,
+    intro: [
+      'Once the charity is running, VolunteerMatch is where you **recruit**: you register the organization, then post opportunities that show up for the millions of people searching by cause and location.',
+      'Everything you noticed as a volunteer in the personal guide — clear scope, real impact, honest time commitment — is what your own listings now need.',
+    ],
+    principle: {
+      title: 'Write listings for the volunteer you were',
+      body: 'The strong listings you saved in the personal guide are your templates. A good opportunity says what the volunteer will do, how long it takes, what skills help, and what changes because they showed up. Vague listings get scrolled past; specific ones get sign-ups.',
+    },
+    steps: [
+      {
+        title: 'Register the organization',
+        body: [
+          'On **volunteermatch.org**, add your organization: legal name, **EIN**, mission, location, and cause areas. VolunteerMatch checks nonprofit status for full features.',
+          'Use a charity role email for the org profile, and administer it signed in as yourself — the same person-runs-the-page pattern as LinkedIn and Facebook.',
+        ],
+      },
+      {
+        title: 'Post your first opportunity',
+        body: [
+          'Model it on the listings you saved: a concrete task, the time commitment, remote or on-site, and the impact one volunteer makes. Add the charity’s logo so the listing looks alive.',
+        ],
+      },
+      {
+        title: 'Respond fast and keep listings fresh',
+        body: [
+          'Reply to interested volunteers within a couple of days — slow responses are the #1 way charities lose them. Close filled roles and repost seasonal ones so the profile never looks abandoned.',
+        ],
+      },
+    ],
+    phaseNote:
+      'Organization registration works best once the charity legally exists; some features require verified 501(c)(3) status.',
+    faqs: [
+      {
+        q: 'Does it cost anything to post opportunities?',
+        a: 'Basic organization registration and volunteer listings are free for nonprofits; VolunteerMatch sells optional upgrades, which most small charities don’t need to start.',
+      },
+      {
+        q: 'Should we also post on Idealist?',
+        a: 'Yes, when you’re ready — VolunteerMatch has the largest general volunteer audience, Idealist adds nonprofit jobs and internships, and Taproot covers skills-based pro-bono projects. Post where the audience matches the need.',
+      },
+    ],
+    related: ['volunteermatch', 'idealist-organization', 'taproot-organization'],
+  },
+  {
+    slug: 'google-search-console',
+    track: 'organizational',
+    title: 'Set up Google Search Console for your charity site',
+    shortTitle: 'Google Search Console',
+    category: 'Tools',
+    icon: '🔍',
+    gradient: 'from-blue-600 to-indigo-700',
+    description:
+      'Verify the charity’s domain in Google Search Console so you can see how the site appears in Google, submit the sitemap, and catch indexing problems — with FFC adding the DNS verification record for you.',
+    keywords:
+      'Google Search Console setup, verify domain DNS TXT, submit sitemap, nonprofit SEO, site indexing, Free For Charity Search Console',
+    audience: 'Charity owners and the volunteer maintaining the website',
+    estMinutes: 15,
+    intro: [
+      'Google Search Console is Google’s **free** window into how your site performs in search: what queries bring people in, which pages are indexed, and what’s broken.',
+      'Verifying the whole **domain** requires adding a DNS record — and since FFC manages your DNS in Cloudflare, that part is a support ticket, not something you do yourself.',
+    ],
+    principle: {
+      title: 'Verify the domain — and let FFC place the DNS record',
+      body: 'Choose the Domain property type so all versions of the site (www and not, http and https) are covered by one verification. The DNS TXT record it requires lives in Cloudflare, where FFC manages your domain — send the record value to FFC and never try to change nameservers or DNS yourself.',
+    },
+    steps: [
+      {
+        title: 'Add a Domain property',
+        body: [
+          'Go to **search.google.com/search-console**, sign in with the charity’s **Google account**, and choose **Add property → Domain**. Enter the bare domain (e.g. yourcharity.org).',
+        ],
+      },
+      {
+        title: 'Send the TXT record to FFC',
+        body: [
+          'Search Console shows a **TXT record** value (starts with google-site-verification=). Copy it and send it to FFC in a support ticket — an FFC volunteer adds it to your DNS in Cloudflare, usually the same day.',
+          'Once it’s added, come back and click **Verify**. DNS can take up to an hour to propagate, so a first failed attempt just means “try again later.”',
+        ],
+        tip: 'Remember the Cloudflare rule: your domain’s DNS lives in the FFC Cloudflare account. You send record values to FFC; you don’t add them yourself.',
+      },
+      {
+        title: 'Submit the sitemap',
+        body: [
+          'In **Sitemaps**, submit your sitemap URL (usually **yourcharity.org/sitemap.xml** — FFC-built sites generate one automatically). This tells Google exactly what to index.',
+        ],
+      },
+      {
+        title: 'Add teammates and check in monthly',
+        body: [
+          'Under **Settings → Users and permissions**, add helpers by their **own Google account emails** — individual access, never a shared login.',
+          'Check the **Performance** and **Pages** (indexing) reports monthly to spot drops or errors early.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why does verification need a DNS record I can’t add myself?',
+        a: 'Domain-level verification proves you control the domain, and that proof lives in DNS — which for FFC charities is managed in the FFC Cloudflare account. Send the TXT value to FFC via support ticket; a volunteer places it for you, then you click Verify.',
+      },
+      {
+        q: 'Search Console or Google Analytics — don’t we already have analytics?',
+        a: 'They answer different questions. Search Console shows how Google sees and ranks your site (queries, indexing, errors) before anyone clicks; Analytics shows what visitors do after they arrive. Run both.',
+      },
+    ],
+    related: ['google-analytics', 'google-tag-manager', 'cloudflare-account'],
+  },
+  {
+    slug: 'google-tag-manager',
+    track: 'organizational',
+    title: 'Set up Google Tag Manager for your charity site',
+    shortTitle: 'Google Tag Manager',
+    category: 'Tools',
+    icon: '🏷️',
+    gradient: 'from-slate-600 to-gray-800',
+    description:
+      'Create the charity’s Google Tag Manager container so analytics tags can be managed in one consent-aware place — GA4, Clarity, and future tools — without editing the website each time.',
+    keywords:
+      'Google Tag Manager setup, GTM container, consent mode analytics, GA4 via GTM, nonprofit website tags, Free For Charity Tag Manager',
+    audience: 'Charity owners and the volunteer maintaining the website',
+    estMinutes: 20,
+    intro: [
+      'Google Tag Manager (GTM) is a **free** container that holds your site’s measurement tags — Google Analytics, Microsoft Clarity, and whatever comes later — so adding or changing one is a GTM edit, not a website code change.',
+      'On FFC sites, tags must respect the **cookie consent banner**: analytics only fire after a visitor consents. GTM is where that gating lives.',
+    ],
+    principle: {
+      title: 'One container, consent first',
+      body: 'All tags go through the one GTM container, and every tag waits for cookie consent before firing — that’s both the law in many places and FFC’s standard. Changes are versioned and published from GTM, so there’s always a record of what changed and a one-click way back.',
+    },
+    steps: [
+      {
+        title: 'Create the account and container',
+        body: [
+          'Go to **tagmanager.google.com**, sign in with the charity’s **Google account**, and create an **Account** (the charity) with one **Web container** for the site. Note the container ID (starts with GTM-).',
+        ],
+      },
+      {
+        title: 'Have FFC wire the container into the site',
+        body: [
+          'Send the **GTM container ID** to FFC in a support ticket. FFC installs the snippet consent-gated behind the site’s cookie banner, so nothing fires before a visitor agrees.',
+        ],
+      },
+      {
+        title: 'Add your tags inside GTM',
+        body: [
+          'Add the **GA4** tag (with your Measurement ID — see the Google Analytics guide) and, if you use it, **Microsoft Clarity**. Use GTM’s **Preview** mode to confirm tags fire only after consent, then **Publish** a named version.',
+        ],
+      },
+      {
+        title: 'Grant individual access',
+        body: [
+          'Under **Admin → User management**, add helpers with their **own Google accounts** and the least permission needed. Publishing rights should stay with whoever owns analytics.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Do we need GTM if GA4 is already on the site?',
+        a: 'If GA4 is your only tag ever, not strictly. But the moment you add a second tool (Clarity, conversion tracking, a pixel), GTM pays for itself: one consent-gated container, versioned changes, and no website edits per tag. FFC recommends starting with GTM so growth doesn’t require rewiring.',
+      },
+      {
+        q: 'What does “consent-gated” mean?',
+        a: 'Tags wait until the visitor accepts the cookie banner before running. GTM supports Google’s consent mode so analytics respect the visitor’s choice — required under GDPR-style laws and standard on every FFC-built site.',
+      },
+    ],
+    related: ['google-analytics', 'microsoft-clarity', 'google-search-console'],
   },
 ]
 

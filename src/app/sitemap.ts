@@ -214,6 +214,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // for arbitrary queries), and noindexed URLs don't belong in a sitemap.
     // Public roadmap & intake program
     { url: `${SITE_URL}/roadmap/`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/pipeline/`, lastModified: now, changeFrequency: 'daily', priority: 0.7 },
     {
       url: `${SITE_URL}/roadmap/submit/`,
       lastModified: now,

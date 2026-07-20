@@ -24,6 +24,31 @@ export interface CiStatusData {
   workflows: CiWorkflowStatus[]
 }
 
+export type FleetSmokeState =
+  'passing' | 'failing' | 'running' | 'not-cutover' | 'pending' | 'unknown'
+
+export interface FleetSmokeSite {
+  repo: string
+  domain: string | null
+  state: FleetSmokeState
+  smoke: {
+    status: string
+    conclusion: string | null
+    event: string
+    runUrl: string
+    updatedAt: string
+  } | null
+  failureIssue: { number: number; url: string } | null
+}
+
+export interface FleetSmokeData {
+  generatedAt: string
+  org: string
+  repoCount: number
+  summary: Record<FleetSmokeState, number>
+  sites: FleetSmokeSite[]
+}
+
 export type ExpiryBucket = 'expired' | 'expiring30' | 'expiring60' | 'expiring90' | 'ok' | 'unknown'
 
 export interface DomainExpiryEntry {
@@ -42,6 +67,47 @@ export interface DomainExpiryData {
   domains: DomainExpiryEntry[]
 }
 
+// Agentic OS status feed (#723). Produced by the hub's
+// scripts/generate-agentic-os-status.py and synced daily by workflow 502.
+export interface AgenticIssue {
+  number: number
+  title: string
+  state: string
+  assignee: string | null
+  updated_at: string
+  url: string
+  labels: string[]
+}
+
+export interface AgenticPr extends AgenticIssue {
+  draft: boolean
+}
+
+export interface AgenticLogEntry {
+  author: string | null
+  created_at: string
+  body: string
+  truncated: boolean
+  url: string
+}
+
+export interface AgenticGate {
+  run_id: number
+  workflow_name: string | null
+  environment: string | null
+  created_at: string
+  url: string
+}
+
+export interface AgenticOsStatusData {
+  generated_at: string
+  repo: string
+  backlog_issues: AgenticIssue[]
+  in_flight_prs: AgenticPr[]
+  conductor_log: AgenticLogEntry[]
+  pending_gates: AgenticGate[]
+}
+
 function readJson<T>(file: string): T | null {
   try {
     const full = path.join(process.cwd(), 'public', 'data', file)
@@ -58,9 +124,34 @@ export function loadCiStatus(): CiStatusData | null {
   return data
 }
 
+export function loadFleetSmoke(): FleetSmokeData | null {
+  const data = readJson<FleetSmokeData>('fleet-smoke-status.json')
+  if (!data || !Array.isArray(data.sites)) return null
+  return data
+}
+
 export function loadDomainExpiry(): DomainExpiryData | null {
   const data = readJson<DomainExpiryData>('domain-expiry.json')
   if (!data || typeof data.summary !== 'object' || !Array.isArray(data.domains)) return null
+  return data
+}
+
+export function loadAgenticOsStatus(): AgenticOsStatusData | null {
+  const data = readJson<AgenticOsStatusData>('agentic-os-status.json')
+  // Shape guard: a syntactically valid but malformed file degrades to null.
+  // `generated_at`/`repo` are rendered directly in JSX, so they must be
+  // strings — a non-primitive would throw at render, breaking the static
+  // export the loader promises never to break.
+  if (
+    !data ||
+    typeof data.generated_at !== 'string' ||
+    typeof data.repo !== 'string' ||
+    !Array.isArray(data.backlog_issues) ||
+    !Array.isArray(data.in_flight_prs) ||
+    !Array.isArray(data.conductor_log) ||
+    !Array.isArray(data.pending_gates)
+  )
+    return null
   return data
 }
 

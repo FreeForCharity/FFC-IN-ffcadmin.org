@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 /**
- * LOCAL charity intake: query WHMCS directly for charity applicants and open a
- * `kind:intake` issue per new one. This runs inside FFCadmin (no cross-repo
- * feed) using WHMCS credentials pulled at runtime from Azure Key Vault by the
- * workflow (`.github/workflows/whmcs-intake.yml` -> `azure-kv-secrets` action).
+ * LOCAL charity intake: query WHMCS directly for APPROVED charity applications
+ * and open a `kind:intake` issue — the website-provisioning work order — per
+ * new one. WHMCS is the intake/application system of record; a GitHub issue is
+ * created only after the application is approved. This runs inside FFCadmin
+ * (no cross-repo feed) using WHMCS credentials pulled at runtime from Azure Key
+ * Vault by the workflow (`.github/workflows/whmcs-intake.yml` ->
+ * `azure-kv-secrets` action).
  *
  * A charity "application" is a WHMCS client holding an FFC onboarding product:
  * pre-501c3 = pid 16, 501c3 = pid 33 (override via WHMCS_ONBOARDING_PIDS).
@@ -21,7 +24,7 @@
  */
 import { fileURLToPath, pathToFileURL } from 'url'
 import { dirname, join } from 'path'
-import { syncIntakeIssues, errMsg } from './lib/intake-issues.mjs'
+import { syncIntakeIssues, errMsg, DEFAULT_CREATE_NEW_SINCE } from './lib/intake-issues.mjs'
 
 const moduleDir = dirname(fileURLToPath(import.meta.url))
 const STATE_FILE = join(moduleDir, '..', 'automation', 'applications-sync-state.json')
@@ -44,11 +47,38 @@ const PRODUCT_IDS = (process.env.WHMCS_ONBOARDING_PIDS || '16,33')
   .map((s) => s.trim())
   .filter(Boolean)
 
-// Only surface applications NOT yet accepted — WHMCS service status "Pending".
-// Active = already onboarded; Cancelled/Fraud/Completed must never be published.
-// Override via WHMCS_INTAKE_STATUSES (comma-separated, case-insensitive).
-const INTAKE_STATUSES = new Set(
-  (process.env.WHMCS_INTAKE_STATUSES || 'Pending')
+// Only surface APPROVED applications — WHMCS service status "Active" (an
+// accepted onboarding service is Active). GitHub issues are website-provisioning
+// work orders created only after approval, so Pending (application still under
+// review) must not generate one, and Cancelled/Fraud/Completed must never be
+// published. Override via WHMCS_INTAKE_STATUSES (comma-separated,
+// case-insensitive). Exported for unit testing.
+export const INTAKE_STATUSES = new Set(
+  (process.env.WHMCS_INTAKE_STATUSES || 'Active')
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean)
+)
+
+// FLOOD GUARD: WHMCS holds hundreds of historical applications and long-Active
+// services that predate the work-order model and never had issues; switching the
+// default status to Active must not mass-create issues for them. Only services
+// whose registration date (product `regdate`, falling back to the client's
+// `datecreated`) is on/after this cutover date generate NEW issues. Issues that
+// already exist are still refreshed regardless of date, and — because the date
+// compared is the APPLICATION date, not the approval date — services observed
+// PENDING since the cutover (tracked below) also bypass the date check when
+// they later turn Active, so a charity that applied pre-cutoff but is approved
+// post-cutoff still gets its work order. Override via WHMCS_INTAKE_SINCE
+// (YYYY-MM-DD). Exported for unit testing.
+export const INTAKE_SINCE = process.env.WHMCS_INTAKE_SINCE || DEFAULT_CREATE_NEW_SINCE
+
+// Service statuses that mean "application still under review". Each run records
+// these service ids in the sync state (`pendingSeenIds`) WITHOUT creating any
+// issue; when the same id later shows up Active (approved), it is allowed to
+// create a work order even though its application date predates INTAKE_SINCE.
+export const PENDING_STATUSES = new Set(
+  (process.env.WHMCS_PENDING_STATUSES || 'Pending')
     .split(',')
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean)
@@ -171,6 +201,31 @@ export function sanitizeCandidUrl(raw) {
 export function sanitizeEin(raw) {
   const m = /\b(\d{2})-?(\d{7})\b/.exec(String(raw || ''))
   return m ? `${m[1]}-${m[2]}` : ''
+}
+
+/**
+ * Pull a clean charity social PAGE URL (organization page, not a person's
+ * profile — the onboarding products carry fields slugged `facebook-page` and
+ * `linkedin-page`). WHMCS may store it HTML-wrapped like the Candid link.
+ * Returns '' unless it is a real http(s) URL on the expected host; LinkedIn
+ * personal-profile paths (`/in/…`) are rejected outright so a mis-slugged
+ * board-member profile can never leak into the published record.
+ * Exported for unit testing.
+ */
+export function sanitizeSocialUrl(raw, hostRe) {
+  if (!raw) return ''
+  const href = /href=["']([^"']+)["']/i.exec(raw)
+  const candidate = decodeEntities(String(href ? href[1] : raw)).trim()
+  let u
+  try {
+    u = new URL(candidate)
+  } catch {
+    return ''
+  }
+  if (u.protocol !== 'https:' && u.protocol !== 'http:') return ''
+  if (!hostRe.test(u.hostname)) return ''
+  if (/(^|\.)linkedin\.com$/i.test(u.hostname) && /^\/in(\/|$)/i.test(u.pathname)) return ''
+  return u.toString()
 }
 
 // The WHMCS host's Imunify360 bot-protection intermittently challenges GitHub
@@ -302,6 +357,23 @@ export function buildApplicationRecords(byClient) {
       ...(mission ? { missionExcerpt: mission } : {}),
       ...(rec.candidUrl ? { candidUrl: rec.candidUrl } : {}),
       ...(rec.ein ? { ein: rec.ein } : {}),
+      // Charity PAGE URLs (facebook-page / linkedin-page onboarding fields) —
+      // org-public by construction, host-checked, never personal profiles.
+      ...(rec.facebookUrl ? { facebookUrl: rec.facebookUrl } : {}),
+      ...(rec.linkedinUrl ? { linkedinUrl: rec.linkedinUrl } : {}),
+      // Additional PUBLIC org social pages + PUBLIC footer contact fields
+      // (public-by-design: they render on the charity's website footer). These
+      // do NOT leak into the public roadmap issue — `stubBody` renders only a
+      // fixed field allowlist (charityName, serviceTier, charityStatusOption,
+      // missionCategoryOption, missionExcerpt, ein, candidUrl) and `writeState`
+      // stores ids only, so extra top-level record keys stay off the roadmap.
+      ...(rec.instagramUrl ? { instagramUrl: rec.instagramUrl } : {}),
+      ...(rec.xUrl ? { xUrl: rec.xUrl } : {}),
+      ...(rec.youtubeUrl ? { youtubeUrl: rec.youtubeUrl } : {}),
+      ...(rec.contactPhone ? { contactPhone: rec.contactPhone } : {}),
+      ...(rec.contactEmail ? { contactEmail: rec.contactEmail } : {}),
+      ...(rec.contactCityState ? { contactCityState: rec.contactCityState } : {}),
+      ...(rec.candidDirectUrl ? { candidDirectUrl: rec.candidDirectUrl } : {}),
       ...(rec.regIso ? { submittedAt: rec.regIso } : {}),
     })
   }
@@ -312,10 +384,157 @@ export function buildApplicationRecords(byClient) {
   )
 }
 
+/**
+ * Normalize a GetClientsProducts response to a product array. WHMCS's XML-ish
+ * JSON returns `products.product` as an ARRAY for several services, a single
+ * OBJECT for exactly one, and omits it entirely for none — all three shapes
+ * must land as a plain array. Exported for unit testing.
+ */
+export function productsFromResponse(resp) {
+  return [].concat(resp?.products?.product || [])
+}
+
+/**
+ * The production status filter: true when a client product's WHMCS service
+ * status is an intake (approved) status — the gate that decides whether a
+ * work-order issue may exist at all. Case-insensitive (WHMCS status casing is
+ * not guaranteed). Exported for unit testing.
+ */
+export const isIntakeStatus = (product) =>
+  INTAKE_STATUSES.has(String(product?.status || '').toLowerCase())
+
+/** True when the service status means "application still under review". Exported for unit testing. */
+export const isPendingStatus = (product) =>
+  PENDING_STATUSES.has(String(product?.status || '').toLowerCase())
+
+/**
+ * Pure per-pid ingest (the production filter path, extracted from collect() so
+ * fixture payloads can drive it without network): partition one product list
+ * into intake-eligible vs pending, record pending owners in `pendingIds`
+ * (tracked, no issue — see PENDING_STATUSES), and merge each eligible
+ * product's PII-safe working fields into `byClient`. A client holding both
+ * products is listed once; the 501c3 product (pid 33) wins for the tier label.
+ * Returns the partition sizes for logging. Exported for unit testing.
+ */
+export function ingestProducts(pid, products, byClient, pendingIds) {
+  const eligible = products.filter(isIntakeStatus)
+  const pending = products.filter(isPendingStatus)
+  for (const p of pending) {
+    const clientId = String(p?.clientid || '').trim()
+    if (clientId) pendingIds.add(`ffc-${clientId}`)
+  }
+  for (const p of eligible) {
+    const clientId = String(p?.clientid || '').trim()
+    if (!clientId) continue
+    const regIso = isoDate(p?.regdate)
+    const mission = missionFromProduct(p)
+    const missionOption = missionTierFromProduct(p)
+    // Non-PII transparency fields (allowlisted by field name; board/contact
+    // fields are never matched). Candid link + EIN help donors evaluate. The
+    // profile reader must NOT swallow the `guidestar-full` (direct/shared)
+    // field — fieldValue returns the first name match, so any name carrying the
+    // `guidestar-full` slug is excluded (its display text also mentions Candid),
+    // keeping the public profile URL and the direct link cleanly separated.
+    const candidUrl = sanitizeCandidUrl(
+      fieldValue(p, /^(?!.*guidestar-full).*(?:guidestar|candid)/i)
+    )
+    const ein = sanitizeEin(fieldValue(p, /\bEIN\b|tax id/i))
+    // Charity social PAGE URLs — the onboarding products carry custom fields
+    // slugged `facebook-page` / `linkedin-page` (org pages, not personal
+    // profiles). The strict "page" suffix keeps board-member profile fields
+    // (e.g. "President — linkedin url") out by construction.
+    const facebookUrl = sanitizeSocialUrl(
+      fieldValue(p, /facebook[\s_-]*page/i),
+      /(^|\.)facebook\.com$/i
+    )
+    // ORG LinkedIn PAGE only. The "page" suffix is load-bearing PII safety: it
+    // excludes every board-member profile field (`chair-linkedin`,
+    // `secretary-linkedin`, `treasurer-linkedin`, `primary-linkedin`, …), and
+    // sanitizeSocialUrl additionally rejects `/in/…` personal-profile paths.
+    const linkedinUrl = sanitizeSocialUrl(
+      fieldValue(p, /linkedin[\s_-]*page/i),
+      /(^|\.)linkedin\.com$/i
+    )
+    // Additional PUBLIC org social pages captured on the hardened onboarding
+    // products. These fields are ALWAYS slugged on pid 16/33 (`social-instagram`
+    // / `social-x` / `social-youtube`), so each read is anchored to ONLY its
+    // exact slug — no broad `instagram`/`twitter`/`youtube` alternatives that
+    // could catch a differently-purposed field. Host-checked; public-by-design.
+    const instagramUrl = sanitizeSocialUrl(
+      fieldValue(p, /social-instagram/i),
+      /(^|\.)instagram\.com$/i
+    )
+    const xUrl = sanitizeSocialUrl(fieldValue(p, /social-x/i), /(^|\.)(x\.com|twitter\.com)$/i)
+    const youtubeUrl = sanitizeSocialUrl(
+      fieldValue(p, /social-youtube/i),
+      /(^|\.)(youtube\.com|youtu\.be)$/i
+    )
+    // PUBLIC footer contact fields (always slugged `public-phone` / `public-email`
+    // / `footer-location` on pid 16/33). These are the org's PUBLIC-facing values
+    // the charity chose for its website footer — NOT the private onboarding "reach
+    // you at" phone or any board member's personal phone/email. Each read is
+    // anchored to ONLY its exact slug; captured as trimmed strings (the footer
+    // bridge sanitizes further). NEVER read the private `*-phone` / `*-email`
+    // board fields.
+    const contactPhone = fieldValue(p, /public-phone/i)
+    const contactEmail = fieldValue(p, /public-email/i)
+    const contactCityState = fieldValue(p, /footer-location/i)
+    // Candid "full"/"direct/shared" profile link (distinct from the public
+    // profile URL above, which excludes this slug). Always slugged
+    // `guidestar-full`; reuses the Candid sanitizer (candid.org/guidestar.org).
+    const candidDirectUrl = sanitizeCandidUrl(fieldValue(p, /guidestar-full/i))
+    // NOTE: pid 40 (site-body / long-form charity content) is intentionally NOT
+    // scanned here — that is a future follow-up, out of scope for this change.
+    const existing = byClient.get(clientId)
+    if (existing) {
+      if (pid === '33') existing.pid = pid
+      if (!existing.mission && mission) existing.mission = mission
+      if (!existing.missionOption && missionOption) existing.missionOption = missionOption
+      if (!existing.regIso && regIso) existing.regIso = regIso
+      if (!existing.candidUrl && candidUrl) existing.candidUrl = candidUrl
+      if (!existing.ein && ein) existing.ein = ein
+      if (!existing.facebookUrl && facebookUrl) existing.facebookUrl = facebookUrl
+      if (!existing.linkedinUrl && linkedinUrl) existing.linkedinUrl = linkedinUrl
+      if (!existing.instagramUrl && instagramUrl) existing.instagramUrl = instagramUrl
+      if (!existing.xUrl && xUrl) existing.xUrl = xUrl
+      if (!existing.youtubeUrl && youtubeUrl) existing.youtubeUrl = youtubeUrl
+      if (!existing.contactPhone && contactPhone) existing.contactPhone = contactPhone
+      if (!existing.contactEmail && contactEmail) existing.contactEmail = contactEmail
+      if (!existing.contactCityState && contactCityState)
+        existing.contactCityState = contactCityState
+      if (!existing.candidDirectUrl && candidDirectUrl) existing.candidDirectUrl = candidDirectUrl
+    } else {
+      byClient.set(clientId, {
+        clientId,
+        pid,
+        mission,
+        missionOption,
+        regIso,
+        candidUrl,
+        ein,
+        facebookUrl,
+        linkedinUrl,
+        instagramUrl,
+        xUrl,
+        youtubeUrl,
+        contactPhone,
+        contactEmail,
+        contactCityState,
+        candidDirectUrl,
+        company: undefined,
+      })
+    }
+  }
+  return { eligibleCount: eligible.length, pendingCount: pending.length }
+}
+
 async function collect() {
-  // clientId -> working record. A client holding both products is listed once;
-  // the 501c3 product (pid 33) wins for the tier label.
+  // clientId -> working record (see ingestProducts).
   const byClient = new Map()
+  // Service ids currently PENDING (application under review): recorded in the
+  // sync state so a later approval creates a work order even when the
+  // application date predates the INTAKE_SINCE flood-guard cutoff.
+  const pendingIds = new Set()
   for (const pid of PRODUCT_IDS) {
     let resp
     try {
@@ -324,44 +543,12 @@ async function collect() {
       console.warn(`WHMCS GetClientsProducts pid=${pid} failed: ${errMsg(err)}`)
       continue
     }
-    const products = [].concat(resp?.products?.product || [])
-    const eligible = products.filter((p) =>
-      INTAKE_STATUSES.has(String(p?.status || '').toLowerCase())
-    )
+    const products = productsFromResponse(resp)
+    const { eligibleCount, pendingCount } = ingestProducts(pid, products, byClient, pendingIds)
     console.log(
-      `pid ${pid} -> ${products.length} client product(s); ${eligible.length} in intake status [${[...INTAKE_STATUSES].join(', ')}]`
+      `pid ${pid} -> ${products.length} client product(s); ${eligibleCount} in intake status ` +
+        `[${[...INTAKE_STATUSES].join(', ')}]; ${pendingCount} pending (tracked, no issue)`
     )
-    for (const p of eligible) {
-      const clientId = String(p?.clientid || '').trim()
-      if (!clientId) continue
-      const regIso = isoDate(p?.regdate)
-      const mission = missionFromProduct(p)
-      const missionOption = missionTierFromProduct(p)
-      // Non-PII transparency fields (allowlisted by field name; board/contact
-      // fields are never matched). Candid link + EIN help donors evaluate.
-      const candidUrl = sanitizeCandidUrl(fieldValue(p, /guidestar|candid/i))
-      const ein = sanitizeEin(fieldValue(p, /\bEIN\b|tax id/i))
-      const existing = byClient.get(clientId)
-      if (existing) {
-        if (pid === '33') existing.pid = pid
-        if (!existing.mission && mission) existing.mission = mission
-        if (!existing.missionOption && missionOption) existing.missionOption = missionOption
-        if (!existing.regIso && regIso) existing.regIso = regIso
-        if (!existing.candidUrl && candidUrl) existing.candidUrl = candidUrl
-        if (!existing.ein && ein) existing.ein = ein
-      } else {
-        byClient.set(clientId, {
-          clientId,
-          pid,
-          mission,
-          missionOption,
-          regIso,
-          candidUrl,
-          ein,
-          company: undefined,
-        })
-      }
-    }
   }
   // Resolve the public organization name per client (read-only, no stats).
   for (const [clientId, rec] of byClient) {
@@ -373,7 +560,7 @@ async function collect() {
       console.warn(`GetClientsDetails ${clientId} failed: ${errMsg(err)}`)
     }
   }
-  return buildApplicationRecords(byClient)
+  return { applications: buildApplicationRecords(byClient), pendingIds }
 }
 
 async function main() {
@@ -397,8 +584,11 @@ async function main() {
     )
     return
   }
-  const applications = await collect()
-  console.log(`WHMCS intake: ${applications.length} applicant(s) found.`)
+  const { applications, pendingIds } = await collect()
+  console.log(
+    `WHMCS intake: ${applications.length} approved applicant(s) found; ` +
+      `${pendingIds.size} pending (tracked for post-approval work orders).`
+  )
   // Dry run: print the PII-safe records and stop — no GitHub issues created.
   // Used for validating the WHMCS path before relying on it (and exposed as a
   // workflow_dispatch input).
@@ -410,7 +600,19 @@ async function main() {
     console.warn('No GITHUB_TOKEN; cannot create issues. Skipping.')
     return
   }
-  await syncIntakeIssues({ applications, repo, token, stateFile: STATE_FILE, source: 'WHMCS' })
+  await syncIntakeIssues({
+    applications,
+    repo,
+    token,
+    stateFile: STATE_FILE,
+    source: 'WHMCS',
+    // Flood guard (see INTAKE_SINCE above): never first-time-create issues for
+    // services that predate the approval-gated work-order cutover — unless the
+    // service was observed Pending since the cutover (pendingIds/state), i.e.
+    // it applied pre-cutoff but was approved post-cutoff.
+    createNewSince: INTAKE_SINCE,
+    pendingIds,
+  })
 }
 
 // Only run when invoked directly (not when imported by tests). pathToFileURL

@@ -1,0 +1,143 @@
+# Site-Config Bridge (WHMCS → FFC-EX `siteConfig` partial)
+
+Gate 3 of the gated charity journey requires each charity site's FFC-standard footer to be
+generated from **validated** WHMCS application data — not hand-typed. The bridge is
+`scripts/generate-footer-config.mjs`: a pure transform (no network calls) that turns one
+application record from the existing WHMCS sync (`scripts/whmcs-applications.mjs`) into a
+**`siteConfig` partial** for the charity's FFC-EX repo.
+
+The partial uses the canonical shared shape both FFC site templates are converging on
+([template convergence, FreeForCharity/FFC-Cloudflare-Automation#693](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/693)):
+the typed `SiteConfig` in
+[FFC-IN-FFC_Single_Page_Template](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template)'s
+`src/lib/site.config.ts`. Every emitted key is named and nested exactly as in that type, so the
+output is **directly transcribable** — and, once
+[FFC-IN-Footer_Only_Template](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template)
+adopts the same shared shape, the one generated artifact serves **both** templates.
+
+> **Consumption status (today):** no template imports this JSON file yet — both templates read
+> their values from `src/lib/site.config.ts` in the charity repo. Until direct consumption lands
+> (see Future work), the generated partial is the **source document a volunteer transcribes
+> from**, not a file the site loads.
+
+## What it does
+
+- **Input**: one PII-safe application record as published by the sync's
+  `buildApplicationRecords` — JSON on stdin, `--input <file>`, or `--sample` (a documented demo
+  record). An array (e.g. `WHMCS_DRY_RUN` output) works with `--id ffc-<clientId>`.
+- **Validation**: `charityName`, `ein` (NN-NNNNNNN), `candidUrl` (Candid/GuideStar profile), and
+  `charityStage` are required, and `charityStage` must be `501c3` (the footer's copyright line
+  asserts US 501(c)(3) status — a record that does not carry the stage explicitly is not
+  validated). Anything missing means the application is **not validated** for footer generation:
+  the script exits non-zero and lists every gap. It never emits a partial footer.
+- **Output** (stdout, or `--output <file>`): a JSON object with three keys —
+  - `source` — provenance: which validated application the partial derives from (id, system,
+    generator, timestamp, and the validated `charityStage` the 501(c)(3) assertion rests on).
+  - `manualFields` — every `SiteConfig` key the application could **not** supply, each with a
+    note telling the volunteer where to get the value (see below).
+  - `siteConfig` — the partial itself, in the shared `SiteConfig` shape.
+
+### Field mapping (application record → `siteConfig`)
+
+| Application record                                             | `siteConfig` key             | Notes                                                                                                        |
+| -------------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `charityName`                                                  | `name`                       | Public organization legal name                                                                               |
+| `missionExcerpt`                                               | `description`                | Omitted (and flagged manual) when the application predates the mission field                                 |
+| `ein`                                                          | `ein`                        | Validated NN-NNNNNNN                                                                                         |
+| `facebookUrl`/`linkedinUrl`/`instagramUrl`/`xUrl`/`youtubeUrl` | `social[]`                   | `{ label, href }` entries; labels match the template's icon set; host-checked, dropped if invalid            |
+| `contactEmail`                                                 | `contactEmail`               | PUBLIC footer email from the hardened onboarding form; omitted (and flagged manual) when the record lacks it |
+| `contactPhone`                                                 | `phone`                      | `{ display, tel }` (tel stripped to `+`/digits); omitted (and flagged manual) when absent                    |
+| `contactCityState`                                             | `addresses[]`                | `[{ label: 'Location', lines: [city & state] }]`; omitted (and flagged manual) when absent                   |
+| `candidUrl`                                                    | `guidestar.profileUrl`       | Public Candid/GuideStar profile URL                                                                          |
+| `candidDirectUrl`                                              | `guidestar.directProfileUrl` | Candid "direct/shared" link; host-checked; emitted as `''` (and flagged manual) when absent                  |
+| _(constant)_                                                   | `supportedBy`                | **Always** FFC: `{ name, url, hubUrl }` — the permanent footer attribution, never from the record            |
+
+The public footer contact fields and the extra social pages are **public-by-design** (they render on
+the charity's website footer) and are read from the hardened onboarding products through the WHMCS
+sync's PII-safe allowlist — never the private "reach you at" phone or any board member's personal
+phone/email/LinkedIn.
+
+### Manual fields
+
+Some `SiteConfig` keys are never collected at application time, and the public footer fields are
+only present when the applicant filled them in. Keys the record cannot supply are **omitted** from
+the partial (never emitted as placeholder values) and itemized in `manualFields` so the provisioning
+volunteer knows exactly what to fill by hand:
+
+- `integrations` — per-charity Zeffy / Idealist / SociableKit / Microsoft Forms endpoints (never collected)
+- `url` — the site's canonical production URL (set at provisioning/cutover)
+- `tagline` — agreed with the charity
+- `contactEmail`, `phone`, `addresses`, `guidestar.directProfileUrl` — **only** when the application
+  record does not carry the public value (from the charity's public website / Candid profile)
+- `description` / `social` — only when the application record does not carry them
+
+The public footer fields the hardened onboarding forms collect — the charity Facebook/LinkedIn/
+Instagram/X/YouTube **page** URLs (fields `facebook-page` / `linkedin-page` / `social-instagram` /
+`social-x` / `social-youtube`) and the public contact fields (`public-phone` / `public-email` /
+`footer-location`) plus the Candid `guidestar-full` direct link — are surfaced by the sync's PII-safe
+allowlist and flow straight into `social` / `contactEmail` / `phone` / `addresses` /
+`guidestar.directProfileUrl`; only applications that predate those fields (or leave them blank) need
+volunteer fill-in.
+
+## Auto-attached to new work orders
+
+Since the intake sync's auto-attach landed, every **newly created** `kind:intake` work-order issue
+already carries this bridge's output, generated at creation time from the same application record:
+a collapsed **"Generated site.config partial (from validated application data)"** block (under its
+own `### Generated site config` issue heading) holding the `siteConfig` JSON plus the
+manual-fields checklist — or, when the record fails validation, the fail-open gap list
+(`config not generatable — missing: …`) so the volunteer knows exactly what to chase in WHMCS.
+The block is generated **once, on creation, never on refresh**: the daily sync carries it over
+(including any edits made inside it) and only maintains a one-line staleness note inside the block
+reminding readers that the frozen JSON may lag the refreshed data fields around it. Work orders
+created before the feature stay bare — for those, or to regenerate after WHMCS data is fixed, run
+the CLI steps below.
+
+## How a volunteer uses it (website-provisioning work order)
+
+1. Open the charity's `kind:intake` work-order issue; note the application id (`ffc-<clientId>`).
+   **If the issue already has the collapsed "Generated site.config partial" block with JSON, you
+   may skip to step 5 using that block — but only after checking it is still current.** The block
+   is frozen at issue creation (the daily refresh never regenerates it, and stamps a staleness
+   note inside it): if the WHMCS application data changed since — or the block's values disagree
+   with the refreshed fields on the issue — regenerate via steps 2–4 instead of using the frozen
+   block.
+2. Get the application record: run the **WHMCS Intake** workflow with dry-run enabled and copy the
+   record from the log, or save the JSON array to a file.
+3. Generate the partial (from the FFC-IN-ffcadmin.org repo root):
+
+   ```bash
+   node scripts/generate-footer-config.mjs --input applications.json --id ffc-90 \
+     --output site.config.partial.json
+   ```
+
+   Try it without WHMCS data: `node scripts/generate-footer-config.mjs --sample`
+
+4. If it fails, the listed gaps are onboarding gaps — send the application back for completion in
+   WHMCS rather than guessing values.
+5. Work through `manualFields`, gathering each value from the charity's public website (or the
+   work order), then **transcribe the `siteConfig` object into the charity repo's
+   `src/lib/site.config.ts`** — key names and nesting match one-for-one — and/or **attach the
+   generated JSON to the work-order issue** (paste it in a comment or attach the file) so the
+   provisioning volunteer has the validated source document. Do **not** commit the JSON into the
+   charity repo expecting the footer to pick it up; no template consumes it directly yet. Never
+   change or drop `supportedBy` — it is the permanent FFC footer attribution required on every
+   supported charity site.
+
+## Future work
+
+- **Auto-PR the generated values** into the charity's FFC-EX repo from the work-order workflow, so
+  Gate 3's footer requirement is fully mechanical (generate → validate → PR → review → merge).
+- **Site-body / long-form content (pid 40)** — surface the charity's long-form public content
+  through the sync's allowlist (out of scope for the public-footer-fields change; a future
+  follow-up). The public footer contact fields and extra social pages already flow through.
+- **Direct consumption — both templates**: once
+  [FFC-IN-Footer_Only_Template](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template)
+  adopts the shared `SiteConfig` shape
+  ([FreeForCharity/FFC-Cloudflare-Automation#693](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/693)),
+  have the templates import the generated partial (or generate `site.config.ts` from it) so one
+  artifact drives every charity site and the transcription step in Step 5 disappears.
+
+Refs: FreeForCharity/FFC-Cloudflare-Automation#682 (part of epic #676);
+FreeForCharity/FFC-Cloudflare-Automation#693 (template convergence — this bridge emits the shared
+shape as phase 2).

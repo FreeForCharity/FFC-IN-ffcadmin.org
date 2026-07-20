@@ -1,0 +1,185 @@
+{
+  "//": "Realistic WHMCS GetClientsProducts response shapes for the sync integration tests. WHMCS's XML-ish JSON returns products.product as an ARRAY for several services, a single OBJECT for exactly one, and omits it for none. Statuses deliberately mix casing (WHMCS does not guarantee it). regdate '0000-00-00' is WHMCS's null date.",
+  "multi": {
+    "result": "success",
+    "totalresults": "9",
+    "startnumber": 0,
+    "numreturned": 9,
+    "products": {
+      "product": [
+        {
+          "id": "201",
+          "clientid": "90",
+          "pid": "33",
+          "name": "FFC Onboarding — 501(c)(3)",
+          "domain": "",
+          "regdate": "2026-07-12",
+          "status": "Active",
+          "customfields": {
+            "customfield": [
+              {
+                "id": "1",
+                "name": "Organization Type",
+                "value": "501(c)(3) Food, Water, or Shelter Organization"
+              },
+              {
+                "id": "2",
+                "name": "Mission Statement",
+                "value": "We provide shelter, food, and job placement to families in crisis."
+              },
+              { "id": "3", "name": "EIN", "value": "12-3456789" },
+              {
+                "id": "4",
+                "name": "GuideStar / Candid profile",
+                "value": "<a href=\"https://www.guidestar.org/profile/12-3456789\">profile</a>"
+              },
+              {
+                "id": "5",
+                "name": "Facebook Page",
+                "value": "https://www.facebook.com/helpinghandsshelter"
+              },
+              {
+                "id": "6",
+                "name": "LinkedIn Page",
+                "value": "https://www.linkedin.com/company/helping-hands-shelter/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "202",
+          "clientid": "91",
+          "pid": "16",
+          "name": "FFC Onboarding — pre-501(c)(3)",
+          "regdate": "2026-07-15",
+          "status": "active",
+          "customfields": {
+            "customfield": [
+              {
+                "id": "2",
+                "name": "Mission Statement",
+                "value": "Neighborhood tool library for low-income makers."
+              }
+            ]
+          }
+        },
+        {
+          "id": "203",
+          "clientid": "92",
+          "pid": "33",
+          "name": "FFC Onboarding — 501(c)(3)",
+          "regdate": "2026-07-01",
+          "status": "Pending",
+          "customfields": { "customfield": [] }
+        },
+        {
+          "id": "204",
+          "clientid": "93",
+          "pid": "33",
+          "name": "FFC Onboarding — 501(c)(3)",
+          "regdate": "2026-05-20",
+          "status": "Cancelled",
+          "customfields": { "customfield": [] }
+        },
+        {
+          "id": "205",
+          "clientid": "94",
+          "pid": "16",
+          "name": "FFC Onboarding — pre-501(c)(3)",
+          "regdate": "2026-04-02",
+          "status": "Completed",
+          "customfields": { "customfield": [] }
+        },
+        {
+          "id": "206",
+          "clientid": "95",
+          "pid": "33",
+          "name": "FFC Onboarding — 501(c)(3)",
+          "regdate": "2026-06-01",
+          "status": "ACTIVE",
+          "customfields": { "customfield": [] }
+        },
+        {
+          "id": "207",
+          "clientid": "96",
+          "pid": "33",
+          "name": "FFC Onboarding — 501(c)(3)",
+          "regdate": "0000-00-00",
+          "status": "Active",
+          "customfields": { "customfield": [] }
+        },
+        {
+          "id": "208",
+          "clientid": "97",
+          "pid": "33",
+          "name": "FFC Onboarding — 501(c)(3)",
+          "regdate": "2026-03-15",
+          "status": "Terminated",
+          "customfields": { "customfield": [] }
+        },
+        {
+          "id": "209",
+          "clientid": "98",
+          "pid": "33",
+          "name": "FFC Onboarding — 501(c)(3)",
+          "regdate": "2026-03-16",
+          "status": "Fraud",
+          "customfields": { "customfield": [] }
+        }
+      ]
+    }
+  },
+  "single": {
+    "result": "success",
+    "totalresults": "1",
+    "startnumber": 0,
+    "numreturned": 1,
+    "products": {
+      "product": {
+        "id": "301",
+        "clientid": "90",
+        "pid": "33",
+        "name": "FFC Onboarding — 501(c)(3)",
+        "regdate": "2026-07-12",
+        "status": "Active",
+        "customfields": { "customfield": [] }
+      }
+    }
+  },
+  "empty": {
+    "result": "success",
+    "totalresults": "0",
+    "startnumber": 0,
+    "numreturned": 0
+  },
+  "singlePending": {
+    "result": "success",
+    "totalresults": "1",
+    "products": {
+      "product": {
+        "id": "203",
+        "clientid": "92",
+        "pid": "33",
+        "name": "FFC Onboarding — 501(c)(3)",
+        "regdate": "2026-07-01",
+        "status": "Pending",
+        "customfields": { "customfield": [] }
+      }
+    }
+  },
+  "singleTurnedActive": {
+    "result": "success",
+    "totalresults": "1",
+    "products": {
+      "product": {
+        "id": "203",
+        "clientid": "92",
+        "pid": "33",
+        "name": "FFC Onboarding — 501(c)(3)",
+        "regdate": "2026-07-01",
+        "status": "Active",
+        "customfields": { "customfield": [] }
+      }
+    }
+  }
+}

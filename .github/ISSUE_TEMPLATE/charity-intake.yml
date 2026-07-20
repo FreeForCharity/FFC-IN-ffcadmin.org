@@ -1,13 +1,16 @@
 name: Charity intake
-description: Structured intake for a charity seeking Free For Charity service. Captures the data that drives the public roadmap and readiness scoring.
+description: Website-provisioning intake for an approved Free For Charity charity. Captures the data that drives the public roadmap and readiness scoring.
 title: '[Intake] <charity name>'
 labels: ['kind:intake', 'status:needs-info']
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for applying to Free For Charity! This form captures the information that powers your
-        listing on the [public roadmap](https://ffcadmin.org/roadmap) and your readiness score.
+        Welcome! **New to FFC?** Applications are submitted and tracked at
+        [freeforcharity.org](https://freeforcharity.org/help-for-charities/) — start there. This
+        GitHub issue is the **website-provisioning work order** for charities whose application has
+        been approved. It captures the information that powers your listing on the
+        [public roadmap](https://ffcadmin.org/roadmap) and your readiness score.
 
         Fill in what you can — a half-complete form still scores, and your score rises as you add
         more. Not comfortable with GitHub? Text **520-222-8104** and an FFC admin will complete it
@@ -482,6 +485,18 @@ body:
         - label: Sponsoring institution (school, church, troop, etc.)
         - label: Letter/attestation from a sponsoring institution
         - label: Active community of 10+ named participants
+
+  # ---- Validation (Gate 3) ---------------------------------------------------
+  # NOTE: the Gate-3 validation checklist deliberately does NOT appear on this
+  # application form — it is ticked during the build, on the sync-created
+  # website-provisioning work order (see scripts/lib/intake-issues.mjs), never
+  # pre-ticked at submission.
+  - type: markdown
+    attributes:
+      value: |
+        **Validation checklist (Gate 3):** the 8-item "website validated" checklist lives on the
+        website-provisioning work order created after approval — see
+        [the prerequisites inventory, Section 4b](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/blob/main/docs/application-prerequisites-inventory.md#4b-the-website-validated-checklist-gate-3-definition).
 
   # ---- Acknowledgements ----------------------------------------------------
   - type: checkboxes

@@ -8,7 +8,8 @@
  */
 
 let buildApplicationRecords, TIER_BY_PID, MISSION_MAX_LENGTH, sanitizeCandidUrl, sanitizeEin
-let missionCategoryOption, missionTierFromProduct, MISSION_OPTION
+let missionCategoryOption, missionTierFromProduct, MISSION_OPTION, INTAKE_STATUSES, INTAKE_SINCE
+let PENDING_STATUSES, sanitizeSocialUrl, ingestProducts
 
 beforeAll(async () => {
   const mod = await import('../scripts/whmcs-applications.mjs')
@@ -20,6 +21,11 @@ beforeAll(async () => {
   missionCategoryOption = mod.missionCategoryOption
   missionTierFromProduct = mod.missionTierFromProduct
   MISSION_OPTION = mod.MISSION_OPTION
+  INTAKE_STATUSES = mod.INTAKE_STATUSES
+  INTAKE_SINCE = mod.INTAKE_SINCE
+  PENDING_STATUSES = mod.PENDING_STATUSES
+  sanitizeSocialUrl = mod.sanitizeSocialUrl
+  ingestProducts = mod.ingestProducts
 })
 
 const ALLOWED_KEYS = [
@@ -32,8 +38,40 @@ const ALLOWED_KEYS = [
   'missionExcerpt',
   'candidUrl',
   'ein',
+  'facebookUrl',
+  'linkedinUrl',
+  // PUBLIC-by-design footer fields surfaced by the hardened onboarding forms.
+  'instagramUrl',
+  'xUrl',
+  'youtubeUrl',
+  'contactPhone',
+  'contactEmail',
+  'contactCityState',
+  'candidDirectUrl',
   'submittedAt',
 ]
+
+describe('approval-gated intake defaults', () => {
+  it('surfaces only APPROVED services by default (Active), never Pending', () => {
+    // GitHub issues are website-provisioning work orders created after WHMCS
+    // approval; a Pending application must not open one.
+    expect([...INTAKE_STATUSES]).toEqual(['active'])
+    expect(INTAKE_STATUSES.has('pending')).toBe(false)
+  })
+
+  it('tracks Pending services separately so a post-cutover approval still gets a work order', () => {
+    // Pending ids are recorded in the sync state (no issue); when the same id
+    // later turns Active it bypasses the date cutoff (the date compared is the
+    // APPLICATION date — approval can happen long after it).
+    expect([...PENDING_STATUSES]).toEqual(['pending'])
+  })
+
+  it('has a flood-guard cutover date so historical Active services never mass-create issues', () => {
+    expect(INTAKE_SINCE).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+    // The cutover marker: the date the Active default shipped.
+    expect(Date.parse(INTAKE_SINCE)).toBeGreaterThanOrEqual(Date.parse('2026-07-11'))
+  })
+})
 
 describe('buildApplicationRecords', () => {
   it('emits only the PII-safe allowlist and gates on a public org name', () => {
@@ -109,6 +147,51 @@ describe('buildApplicationRecords', () => {
     expect(sanitizeEin('413950250')).toBe('41-3950250')
     expect(sanitizeEin('none')).toBe('')
     expect(sanitizeEin('')).toBe('')
+  })
+
+  it('sanitizes charity social PAGE URLs (host-checked, no personal LinkedIn profiles)', () => {
+    const fb = /(^|\.)facebook\.com$/i
+    const li = /(^|\.)linkedin\.com$/i
+    expect(sanitizeSocialUrl('https://www.facebook.com/helpinghands', fb)).toBe(
+      'https://www.facebook.com/helpinghands'
+    )
+    // WHMCS may store link fields HTML-wrapped, like the Candid URL.
+    expect(sanitizeSocialUrl('<a href="https://facebook.com/org">x</a>', fb)).toBe(
+      'https://facebook.com/org'
+    )
+    expect(sanitizeSocialUrl('https://www.linkedin.com/company/helping-hands/', li)).toBe(
+      'https://www.linkedin.com/company/helping-hands/'
+    )
+    // Wrong host, not a URL, or empty -> dropped.
+    expect(sanitizeSocialUrl('https://evil.example.com/facebook.com', fb)).toBe('')
+    expect(sanitizeSocialUrl('not a url', fb)).toBe('')
+    expect(sanitizeSocialUrl('', fb)).toBe('')
+    // A personal LinkedIn profile (/in/...) is PII-adjacent — never published.
+    expect(sanitizeSocialUrl('https://www.linkedin.com/in/jane-doe/', li)).toBe('')
+  })
+
+  it('carries the charity social page URLs onto the published record', () => {
+    const byClient = new Map([
+      [
+        '30',
+        {
+          clientId: '30',
+          pid: '33',
+          company: 'Social Org',
+          facebookUrl: 'https://www.facebook.com/socialorg',
+          linkedinUrl: 'https://www.linkedin.com/company/social-org/',
+        },
+      ],
+      ['31', { clientId: '31', pid: '16', company: 'No Social Org' }],
+    ])
+    const apps = buildApplicationRecords(byClient)
+    expect(apps.find((a) => a.id === 'ffc-30')).toMatchObject({
+      facebookUrl: 'https://www.facebook.com/socialorg',
+      linkedinUrl: 'https://www.linkedin.com/company/social-org/',
+    })
+    const bare = apps.find((a) => a.id === 'ffc-31')
+    expect(bare).not.toHaveProperty('facebookUrl')
+    expect(bare).not.toHaveProperty('linkedinUrl')
   })
 
   it('maps the live WHMCS onboarding options to the three tiers', () => {
@@ -228,5 +311,200 @@ describe('buildApplicationRecords', () => {
       ['2', { clientId: '2', pid: '16', company: 'Alpha', regIso: '2026-01-01T00:00:00.000Z' }],
     ])
     expect(buildApplicationRecords(byClient).map((a) => a.charityName)).toEqual(['Alpha', 'Zebra'])
+  })
+
+  it('emits the public footer contact + extra social fields at the top level (only when set)', () => {
+    const byClient = new Map([
+      [
+        '40',
+        {
+          clientId: '40',
+          pid: '33',
+          company: 'Full Footer Org',
+          instagramUrl: 'https://www.instagram.com/fullfooter',
+          xUrl: 'https://x.com/fullfooter',
+          youtubeUrl: 'https://www.youtube.com/@fullfooter',
+          contactPhone: '+1 520-555-0100',
+          contactEmail: 'hello@example.org',
+          contactCityState: 'Tucson, AZ',
+          candidDirectUrl: 'https://www.guidestar.org/profile/shared/12-3456789',
+        },
+      ],
+      ['41', { clientId: '41', pid: '16', company: 'Bare Org' }],
+    ])
+    const apps = buildApplicationRecords(byClient)
+    const full = apps.find((a) => a.id === 'ffc-40')
+    expect(full).toMatchObject({
+      instagramUrl: 'https://www.instagram.com/fullfooter',
+      xUrl: 'https://x.com/fullfooter',
+      youtubeUrl: 'https://www.youtube.com/@fullfooter',
+      contactPhone: '+1 520-555-0100',
+      contactEmail: 'hello@example.org',
+      contactCityState: 'Tucson, AZ',
+      candidDirectUrl: 'https://www.guidestar.org/profile/shared/12-3456789',
+    })
+    // Every emitted key stays on the PII-safe allowlist.
+    expect(Object.keys(full).every((k) => ALLOWED_KEYS.includes(k))).toBe(true)
+    // Empty record omits them all — never emitted as empty placeholders.
+    const bare = apps.find((a) => a.id === 'ffc-41')
+    for (const k of [
+      'instagramUrl',
+      'xUrl',
+      'youtubeUrl',
+      'contactPhone',
+      'contactEmail',
+      'contactCityState',
+      'candidDirectUrl',
+    ]) {
+      expect(bare).not.toHaveProperty(k)
+    }
+  })
+})
+
+describe('ingestProducts — public footer field reads (allowlisted, PII-safe)', () => {
+  const active = (clientid, customfield) => ({
+    clientid,
+    status: 'Active',
+    regdate: '2026-07-12',
+    customfields: { customfield },
+  })
+
+  it('reads the public footer contact + org social fields from a product', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    // Field NAMES are slug-prefixed as WHMCS GetClientsProducts returns them.
+    ingestProducts(
+      '33',
+      [
+        active('50', [
+          { name: 'public-phone|Public phone (footer)', value: '+1 520-555-0100' },
+          { name: 'public-email|Public email (footer)', value: 'hello@example.org' },
+          { name: 'footer-location|City & State', value: 'Tucson, AZ' },
+          { name: 'social-instagram|Instagram', value: 'https://www.instagram.com/org' },
+          { name: 'social-x|X (Twitter)', value: 'https://x.com/org' },
+          { name: 'social-youtube|YouTube', value: 'https://www.youtube.com/@org' },
+          {
+            name: 'guidestar-full|Candid direct/shared link',
+            value: 'https://www.guidestar.org/profile/shared/12-3456789',
+          },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    expect(byClient.get('50')).toMatchObject({
+      contactPhone: '+1 520-555-0100',
+      contactEmail: 'hello@example.org',
+      contactCityState: 'Tucson, AZ',
+      instagramUrl: 'https://www.instagram.com/org',
+      xUrl: 'https://x.com/org',
+      youtubeUrl: 'https://www.youtube.com/@org',
+      candidDirectUrl: 'https://www.guidestar.org/profile/shared/12-3456789',
+    })
+  })
+
+  it('keeps the Candid PROFILE and DIRECT links on their own fields (no cross-capture)', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    // Both fields present; their display text both mention "Candid". fieldValue
+    // returns the first NAME match, so the profile reader must skip the
+    // `guidestar-full` slug and the direct reader must skip the profile slug.
+    ingestProducts(
+      '33',
+      [
+        active('70', [
+          {
+            name: 'guidestar-full|GuideStar/Candid full (direct/shared) profile',
+            value: 'https://www.guidestar.org/profile/shared/12-3456789',
+          },
+          {
+            name: 'guidestar|GuideStar/Candid public profile URL',
+            value: 'https://www.guidestar.org/profile/12-3456789',
+          },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    const rec = byClient.get('70')
+    expect(rec.candidUrl).toBe('https://www.guidestar.org/profile/12-3456789')
+    expect(rec.candidDirectUrl).toBe('https://www.guidestar.org/profile/shared/12-3456789')
+    // And the two never collapse onto the same value.
+    expect(rec.candidUrl).not.toBe(rec.candidDirectUrl)
+  })
+
+  it('does NOT read the direct link as the public profile when only guidestar-full exists', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    ingestProducts(
+      '33',
+      [
+        active('71', [
+          {
+            name: 'guidestar-full|GuideStar/Candid direct/shared profile',
+            value: 'https://www.guidestar.org/profile/shared/12-3456789',
+          },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    const rec = byClient.get('71')
+    // The profile reader excludes the `guidestar-full` slug entirely.
+    expect(rec.candidUrl).toBe('')
+    expect(rec.candidDirectUrl).toBe('https://www.guidestar.org/profile/shared/12-3456789')
+  })
+
+  it('NEVER reads a board member *-linkedin field as the org LinkedIn (PII regression)', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    ingestProducts(
+      '33',
+      [
+        active('60', [
+          // Board-member PERSONAL profiles — must never be published.
+          {
+            name: 'chair-linkedin|Chair LinkedIn',
+            value: 'https://www.linkedin.com/in/jane-chair/',
+          },
+          {
+            name: 'secretary-linkedin|Secretary LinkedIn',
+            value: 'https://www.linkedin.com/in/sam-secretary/',
+          },
+          { name: 'treasurer-linkedin', value: 'https://www.linkedin.com/in/tim-treasurer/' },
+          { name: 'vicechair-linkedin', value: 'https://www.linkedin.com/in/val-vicechair/' },
+          { name: 'member-linkedin', value: 'https://www.linkedin.com/in/mo-member/' },
+          { name: 'primary-linkedin', value: 'https://www.linkedin.com/in/pat-primary/' },
+          { name: 'technical-linkedin', value: 'https://www.linkedin.com/in/ted-technical/' },
+          // The real ORG page field (slugged `linkedin-page`).
+          {
+            name: 'linkedin-page|Charity LinkedIn Page URL',
+            value: 'https://www.linkedin.com/company/the-org/',
+          },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    // Only the org PAGE is captured; no board profile leaks in.
+    expect(byClient.get('60').linkedinUrl).toBe('https://www.linkedin.com/company/the-org/')
+  })
+
+  it('captures NO org LinkedIn when only board *-linkedin fields are present', () => {
+    const byClient = new Map()
+    const pendingIds = new Set()
+    ingestProducts(
+      '33',
+      [
+        active('61', [
+          { name: 'chair-linkedin', value: 'https://www.linkedin.com/in/jane-chair/' },
+          { name: 'treasurer-linkedin', value: 'https://www.linkedin.com/in/tim-treasurer/' },
+        ]),
+      ],
+      byClient,
+      pendingIds
+    )
+    // No field matches the `linkedin-page` org slug -> nothing captured.
+    expect(byClient.get('61').linkedinUrl).toBe('')
   })
 })

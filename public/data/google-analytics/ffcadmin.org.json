@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-07-19T19:26:07Z",
+  "site": "ffcadmin.org",
+  "propertyId": "513417483",
+  "dryRun": false,
+  "range": {
+    "days": 28,
+    "startDate": "28daysAgo",
+    "endDate": "today"
+  },
+  "metrics": {
+    "activeUsers": "2010",
+    "newUsers": "2005",
+    "sessions": "2045",
+    "screenPageViews": "2225",
+    "engagementRate": "0.041564792176039117",
+    "eventCount": "6518",
+    "keyEvents": "0"
+  },
+  "topPages": [
+    {
+      "path": "/legacy-wordpress-administration/index.html",
+      "views": "353"
+    },
+    {
+      "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
+      "views": "352"
+    },
+    {
+      "path": "/tech-stack/index.html",
+      "views": "350"
+    },
+    {
+      "path": "/documentation/index.html",
+      "views": "346"
+    },
+    {
+      "path": "/index.html",
+      "views": "345"
+    },
+    {
+      "path": "/",
+      "views": "68"
+    },
+    {
+      "path": "/charity-prerequisites/",
+      "views": "41"
+    },
+    {
+      "path": "/site-owner/",
+      "views": "29"
+    },
+    {
+      "path": "/roadmap/",
+      "views": "16"
+    },
+    {
+      "path": "/developer-environment-setup/",
+      "views": "14"
+    }
+  ],
+  "channels": [
+    {
+      "channel": "Direct",
+      "sessions": "2000"
+    },
+    {
+      "channel": "Organic Search",
+      "sessions": "31"
+    },
+    {
+      "channel": "Referral",
+      "sessions": "7"
+    },
+    {
+      "channel": "Unassigned",
+      "sessions": "5"
+    },
+    {
+      "channel": "AI Assistant",
+      "sessions": "4"
+    }
+  ],
+  "productionHostname": "ffcadmin.org",
+  "metricsProduction": {
+    "activeUsers": "264",
+    "newUsers": "259",
+    "sessions": "297",
+    "screenPageViews": "479",
+    "engagementRate": "0.28619528619528617",
+    "eventCount": "1280",
+    "keyEvents": "0"
+  }
+}

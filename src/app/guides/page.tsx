@@ -43,6 +43,22 @@ const guideDisplayProps: Record<
       />
     ),
   },
+  '/guides/adopt-ffc-footer-on-existing-site': {
+    longDescription:
+      'For charities that already have a designed website: adopt the FFC footer, 7 policy pages, GDPR cookie consent, GTM analytics, and team section from the Footer-Only Template so the site passes FFC validation on its GitHub Pages address — the gate that unlocks the free .org domain purchase.',
+    version: 'v1',
+    date: 'July 2026',
+    tags: ['Footer-Only Template', 'Compliance', 'Validation', 'GitHub Pages'],
+    gradient: 'from-emerald-500 to-teal-600',
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+      />
+    ),
+  },
   '/guides/wordpress-to-nextjs-guide': {
     longDescription:
       'Step-by-step guide for FFC volunteers to convert WordPress/Divi charity sites to Next.js static sites on GitHub Pages. Covers content audit, export, CI/CD, testing, and DNS cutover.',

@@ -71,9 +71,10 @@ export const VENDOR_URLS = {
     description: 'Pre-501(c)(3) onboarding entry point.',
   },
   freeforcharitySubmit: {
-    url: 'https://freeforcharity.org/submit-information/',
-    lastVerified: '2026-05-24',
-    description: 'Charity application form — the primary CTA target.',
+    url: 'https://freeforcharity.org/help-for-charities/',
+    lastVerified: '2026-07-11',
+    description:
+      'Charity application entry point (apply CTAs) — the primary CTA target. Replaces the retired /submit-information/ form page.',
   },
 } as const satisfies Record<string, VendorUrl>
 

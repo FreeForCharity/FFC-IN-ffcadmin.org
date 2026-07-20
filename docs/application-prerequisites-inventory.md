@@ -92,18 +92,19 @@ of. This principle is what makes the flow in Section 2 logical and ordered.
 
 ## Where this lives in the codebase
 
-| Topic                                    | Source                                                                                          |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| End-to-end lifecycle + eligibility floor | `src/app/legacy-wordpress-administration/wordpress-service-delivery-stages/page.tsx`            |
-| External + internal validation checks    | `src/app/legacy-wordpress-administration/wordpress-charity-validation/page.tsx`                 |
-| Candid/GuideStar seal progression        | `src/app/legacy-wordpress-administration/wordpress-guidestar-guide/page.tsx`                    |
-| Onboarding prerequisites + accounts      | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx`          |
-| **Step-by-step account setup guides**    | **`src/data/setup-guides.ts`** (GitHub, MFA, LinkedIn, Facebook, M365, password manager, Canva) |
-| What the charity receives in return      | `src/app/what-ffc-delivers/page.tsx`                                                            |
-| Public application entry point           | <https://freeforcharity.org/submit-information/> (linked from What FFC Delivers)                |
-| 501(c)(3) onboarding entry point         | <https://freeforcharity.org/501c3/>                                                             |
-| Pre-501(c)(3) onboarding entry point     | <https://freeforcharity.org/pre501c3/>                                                          |
-| Recommended tools + setup order          | <https://freeforcharity.org/free-for-charitys-tools-for-success/>                               |
+| Topic                                            | Source                                                                                          |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| End-to-end lifecycle + eligibility floor         | `src/app/legacy-wordpress-administration/wordpress-service-delivery-stages/page.tsx`            |
+| External + internal validation checks            | `src/app/legacy-wordpress-administration/wordpress-charity-validation/page.tsx`                 |
+| Candid/GuideStar seal progression                | `src/app/legacy-wordpress-administration/wordpress-guidestar-guide/page.tsx`                    |
+| Onboarding prerequisites + accounts              | `src/app/legacy-wordpress-administration/wordpress-online-impacts-onboarding/page.tsx`          |
+| **Step-by-step account setup guides**            | **`src/data/setup-guides.ts`** (GitHub, MFA, LinkedIn, Facebook, M365, password manager, Canva) |
+| What the charity receives in return              | `src/app/what-ffc-delivers/page.tsx`                                                            |
+| Public application entry point                   | <https://freeforcharity.org/help-for-charities/> (linked from What FFC Delivers)                |
+| Application intake & tracking (system of record) | **WHMCS client portal** — <https://freeforcharity.org/hub>                                      |
+| 501(c)(3) onboarding entry point                 | <https://freeforcharity.org/501c3/>                                                             |
+| Pre-501(c)(3) onboarding entry point             | <https://freeforcharity.org/pre501c3/>                                                          |
+| Recommended tools + setup order                  | <https://freeforcharity.org/free-for-charitys-tools-for-success/>                               |
 
 ---
 
@@ -119,11 +120,18 @@ submission). The **Glossary** at the end defines the terms.
    passkeys, the applicant's personal accounts, and org basics; then create the
    organization **LinkedIn + Facebook Pages**. Ends with the **self-check** (2c).
    _Nothing else is provisioned until Phase 0 is complete._
-3. **Submit** (Section 3) — apply through **GitHub**.
+3. **Submit** (Section 3) — apply through **WHMCS** (the client portal at
+   <https://freeforcharity.org/hub> — FFC's core intake and application-tracking
+   tool).
 4. **Tracks diverge** (Section 4) — 501(c)(3) vs pre-501(c)(3) legal documentation.
 5. **FFC-side, after submission** — validation checks (Section 5), the
    GuideStar/Candid seal (Section 6), and FFC-supported org accounts (Section 7).
-6. **Service-delivery lifecycle** (Section 8) — legacy WordPress-era flow, kept
+6. **Gated service delivery** (Section 4a) — the four gates, in order: charity
+   application fully approved → website application approved → website built and
+   **validated on its GitHub Pages URL** (objective checklist in
+   [Section 4b](#4b-the-website-validated-checklist-gate-3-definition)) →
+   only then the **domain** (register or transfer), with email after the domain.
+7. **Service-delivery lifecycle** (Section 8) — legacy WordPress-era flow, kept
    for reference.
 
 ---
@@ -137,7 +145,7 @@ these generally results in a polite decline rather than a fix-and-retry.
    charities are politely declined — US-only restriction.)
 2. **501(c)(3) status active** — or on the **pre-501(c)(3) track** for
    organizations not yet recognized (see Section 1a; this track has its own
-   landing page on freeforcharity.org that points into the GitHub-only
+   landing page on freeforcharity.org that points into the WHMCS
    application flow — see Section 3).
 3. **(501(c)(3) track only)** at minimum a Gold Candid (GuideStar) seal (see
    Section 6). This is **not** a universal gate — a pre-501(c)(3) organization
@@ -155,7 +163,7 @@ these generally results in a polite decline rather than a fix-and-retry.
 
 Organizations that are not yet IRS-recognized 501(c)(3)s can still apply through
 the **pre-501(c)(3) track** (its <https://freeforcharity.org/pre501c3/> landing page points into the
-GitHub-only application flow — Section 3). The track carries its own prerequisite
+WHMCS application flow — Section 3). The track carries its own prerequisite
 expectations:
 
 - The organization **Facebook Page and LinkedIn Page must still be created** (see
@@ -439,12 +447,13 @@ into the categories below.
   - _What:_ Your own GitHub account in your real name (e.g. `@FirstnameLastname`),
     MFA on. You add your charity email to it later — you do **not** create a
     separate "charity" login.
-  - _You:_ It is **how you apply** (FFC's application flow is GitHub-only — see
-    Section 3) and how you'll later review and approve changes to your website;
-    one personal account works across every charity and role you hold.
-  - _FFC:_ The application arrives through GitHub and we add your account to the
+  - _You:_ It is how your **website** gets built — once your WHMCS application is
+    approved, a GitHub **website-provisioning issue** drives the build (see
+    Sections 3 and 4a) — and how you'll later review and approve changes to your
+    website; one personal account works across every charity and role you hold.
+  - _FFC:_ The website work order lives in GitHub and we add your account to the
     charity's repository as a writer; a real, secured personal identity keeps the
-    application and contribution history accountable.
+    contribution history accountable.
   - _Guide:_ <https://ffcadmin.org/guides/github-account/>
 - **A personal LinkedIn profile — applicant and every board / planned-board
   member**
@@ -634,7 +643,9 @@ it is identical for both tracks.
 
 > The **organizational** GitHub (the charity's repo/org), **Microsoft 365** email,
 > the **domain**, and the **website** are provisioned by **FFC after acceptance** —
-> they are services, not applicant prerequisites.
+> they are services, not applicant prerequisites — and they arrive in the
+> **gated order** of Section 4a: **website first** (built and validated on its
+> free GitHub Pages URL), **then the domain**, then email.
 
 **End state:** the applicant has, unaided — a secured personal identity (devices,
 the three tools, and personal GitHub / LinkedIn / Facebook), and the
@@ -725,17 +736,29 @@ If you get stuck on any item, use **Contact us for help**.
 These are the steps the applicant actively performs. They double as the first
 technical-competence signals.
 
-> **Application channel — moving to GitHub-only** _(new FFC policy)_. FFC is
-> moving to a **GitHub-only application flow**: the applicant applies through
-> **GitHub** using the **personal GitHub account** created in Phase 0 (Group D).
-> The legacy **WHMCS portal product checkout** is **retired** as an application
-> mechanism, and the freeforcharity.org web forms (<https://freeforcharity.org/submit-information/>,
-> <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>) are informational landing pages that point into the
-> GitHub flow. This is exactly why a personal GitHub account is a Phase 0
-> requirement.
+> **Application channel — WHMCS is the front door** _(current FFC policy)_.
+> The applicant applies through the **WHMCS client portal**
+> (<https://freeforcharity.org/hub>) — FFC's **core intake and
+> application-tracking tool** and the **system of record** for the charity
+> journey. Each track has its own application product: **pre-501(c)(3)** and
+> **501(c)(3)**. The application captures **complete, validated data** — now
+> including the mandatory **organization Facebook Page** and **LinkedIn Page**
+> URLs, the **Terms of Service certification**, a **US-based attestation**, and
+> the **AI-usage questions** — and that validated data also auto-generates the
+> full FFC footer for the charity's site. **GitHub issues are not the
+> application**: a GitHub issue is a **website-provisioning work order**, created
+> only after the WHMCS application is approved and its data validated (see
+> Section 4a). The freeforcharity.org web forms
+> (<https://freeforcharity.org/help-for-charities/>,
+> <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>)
+> are informational landing pages that point into the WHMCS flow. The personal
+> GitHub account remains a Phase 0 requirement because it is how the applicant
+> participates in the website build later.
 
-1. **Apply through GitHub** with your personal GitHub account (Phase 0, Group D).
-2. **Acknowledge the FFC Terms of Service** (Section 18 — Supported Charities).
+1. **Apply through the WHMCS client portal** (<https://freeforcharity.org/hub>),
+   choosing your track's application product (pre-501(c)(3) or 501(c)(3)).
+2. **Acknowledge the FFC Terms of Service** (Section 18 — Supported Charities) —
+   a mandatory certification field on the application.
 3. _(501(c)(3) track)_ **Provide Candid/GuideStar profile links** (Public Profile
    and Full Profile).
 4. **Provide board contact information** — President/Chair, Secretary, Treasurer
@@ -744,8 +767,8 @@ technical-competence signals.
 5. **Designate primary + technical contacts**, including timezone and preferred
    contact hours.
 
-**Exit gate:** application submitted through GitHub, all fields completed, Terms of
-Service acknowledged.
+**Exit gate:** application submitted through WHMCS, all fields completed and
+validated, Terms of Service acknowledged.
 
 ### Prerequisite materials the charity must have in hand
 
@@ -758,8 +781,9 @@ of stuck onboardings.")
   [Terms of Service](https://ffcadmin.org/terms-of-service/) (Section 18 — Supported
   Charities), including the **full-stack commitment** (adopt and use the complete
   FFC stack, not pick-and-choose) and the **conflict-of-interest & data-handling**
-  terms. Acknowledgment is captured via the FFC application issue-template form (see
-  the plain-language [onboarding acknowledgment](./charity-onboarding-acknowledgment.md)).
+  terms. Acknowledgment is captured as a mandatory certification field on the
+  WHMCS application (see the plain-language
+  [onboarding acknowledgment](./charity-onboarding-acknowledgment.md)).
 - EIN (Employer Identification Number)
 - **Applicant's personal LinkedIn profile** (required for every applicant)
 - Board member names, titles, contact info, **personal LinkedIn profiles**, and
@@ -803,16 +827,126 @@ status and documentation**:
 |                | **501(c)(3) track**                                                   | **pre-501(c)(3) track**                                                                                          |
 | -------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Landing page   | <https://freeforcharity.org/501c3/>                                   | <https://freeforcharity.org/pre501c3/>                                                                           |
-| How you apply  | **GitHub-only flow** (see Section 3)                                  | **GitHub-only flow** (see Section 3)                                                                             |
+| How you apply  | **WHMCS client portal** (see Section 3)                               | **WHMCS client portal** (see Section 3)                                                                          |
 | Legal status   | Already IRS-recognized; has EIN + **IRS determination letter**        | Not yet recognized; working **IRS Form 1023** + state nonprofit formation + charitable-solicitation registration |
 | Board          | **Seated** legal board (officers)                                     | **Planned** board members                                                                                        |
 | Transparency   | **Candid/GuideStar to Gold** (Form 990, financials); see Sections 5–6 | No 990 yet; GuideStar deferred until recognized                                                                  |
 | Extra accounts | TechSoup, VolunteerMatch, PayPal emphasized                           | Deferred / as-available                                                                                          |
 
-After acceptance, FFC then provides the **services** (not prerequisites):
-organizational email on Microsoft 365 by default, domain + `info@` routing, and
-the website/template, plus — on the 501(c)(3) track — the validation work in
-Sections 5–6.
+After acceptance, FFC then provides the **services** (not prerequisites) — in
+the **gated order** described in Section 4a: the **website first** (built and
+validated on its free GitHub Pages URL), **then the domain** + `info@` routing,
+then organizational email on Microsoft 365 by default — plus, on the 501(c)(3)
+track, the validation work in Sections 5–6.
+
+---
+
+## 4a. The gated journey (service delivery, in order)
+
+FFC has re-sequenced the charity journey into **four gates**. **WHMCS**
+(<https://freeforcharity.org/hub>) is the **system of record** — every gate is
+an approved application/order there — while **GitHub issues are engineering
+work orders** for website provisioning only.
+
+1. **Gate 1 — Charity application fully approved.** The track application in
+   WHMCS (pre-501(c)(3) or 501(c)(3)) is approved with **complete, validated
+   data** — including the mandatory organization **Facebook Page** and
+   **LinkedIn Page**, the **Terms of Service certification**, the **US-based
+   attestation**, and the **AI-usage questions**. The validated data also
+   auto-generates the full FFC footer for the charity's site.
+2. **Gate 2 — Website application approved.** A separate **website product**
+   order in WHMCS, which requires Gate 1: the order form asks for the
+   approved organization's name and an attestation that the charity
+   application was approved.
+3. **Gate 3 — Website built, working, and validated on its GitHub Pages
+   default URL** (e.g. `https://freeforcharity.github.io/FFC-EX-yourcharity/`)
+   — **no custom domain yet**. This is the stage the **GitHub
+   website-provisioning issue** drives: the issue is created after Gate 2 and
+   the build runs entirely on the free default URL. **"Validated" is defined
+   objectively by the checklist in
+   [Section 4b](#4b-the-website-validated-checklist-gate-3-definition)** —
+   every box ticked, not a feeling.
+4. **Gate 4 — Only now does FFC spend money on the domain.** The domain is
+   **registered or transferred in Cloudflare** (its own WHMCS order) and
+   pointed at the already-validated site. Those order forms require the live
+   GitHub Pages URL and an attestation that the website is validated.
+
+**Email comes after the domain** — organizational email (Microsoft 365 / Google
+nonprofit grants) is provisioned once the domain exists, and remains gated on
+501(c)(3) status per existing policy (unchanged).
+
+**Why this order:**
+
+- **No sunk domain cost on charities that stall.** A domain registration
+  (~$16.50/yr) is the first real money FFC spends; it now happens only after a
+  working, validated website proves the engagement is real.
+- **The sequence is itself a competence filter** — the same "filter out"
+  philosophy as the Phase 0 ladder, extended through delivery: each gate
+  demonstrates the charity can complete the previous stage.
+- **Clean separation of systems:** WHMCS holds the applications, approvals, and
+  orders (system of record); GitHub holds the engineering work orders that
+  build the website.
+
+---
+
+## 4b. The "website validated" checklist (Gate 3 definition)
+
+Section 4a stays authoritative for the **flow** — the four gates and their
+order. This section defines one word inside it: what **"validated"** at Gate 3
+objectively means. The same checklist is embedded as tickable items in the
+**sync-created website-provisioning work order** (the issue stub built by
+`scripts/lib/intake-issues.mjs`), where the sponsoring admin ticks each box as
+it passes and the charity ticks the final content-review box. It deliberately
+does **not** appear as checkboxes on the Gate-1 application form
+(`.github/ISSUE_TEMPLATE/charity-intake.yml`) — applicants must not be able to
+pre-tick validation at submission.
+
+A charity's website is **validated** on its GitHub Pages default URL when
+**every** box below is ticked:
+
+- [ ] **CI green** on the charity's FFC-EX repo (latest default-branch run
+      passing)
+- [ ] **Site loads at its GitHub Pages URL** (HTTP 200, no redirect loops)
+- [ ] **FFC-standard footer present and populated from the approved
+      application data** — org legal name, EIN, policy links, social links
+      (the Gate 1 application auto-generates this data; see Section 4a).
+      _This check is level-aware:_ a **pre-501(c)(3)** charity's footer is
+      validated at **Level 1** — no 501(c)(3) status line (asserting the
+      status before recognition is a false claim) and no Candid/GuideStar
+      link; a **501(c)(3)** charity's footer is validated at **Level 2**,
+      which requires both (see
+      [footer-standard-adoption-checklist.md](./footer-standard-adoption-checklist.md))
+- [ ] **All required sections/pages present** per the chosen template
+- [ ] **Mobile responsive** — spot-check at 375px: no horizontal scroll,
+      navigation usable
+- [ ] **No browser console errors** on any page
+- [ ] **Accessibility pass** — axe clean or Lighthouse accessibility score
+      ≥ 90
+- [ ] **Content reviewed and approved by the charity**
+
+**All boxes ticked = validated → the charity may order its domain** (Gate 4,
+Section 4a). Partial completion is not validated: the domain order form's
+attestation that "the website is validated" refers to this checklist.
+
+### Auto-validation (semi-automated)
+
+The machine-checkable subset of this checklist can be run automatically:
+dispatch the **Gate 3 Auto-Validation** workflow
+(`.github/workflows/gate3-validate.yml`, Actions tab → "Run workflow") with
+the work-order issue number. It reads the issue's `Live site:` URL, runs
+`scripts/gate3-validate.mjs` against the live page, and posts a
+PASS/FAIL/MANUAL verdict table as a comment on the work order.
+
+**What it covers:** HTTP 200 (redirect loops = FAIL), github.io staging-host
+sanity (custom domains are noted), the FFC footer markers (brand text,
+freeforcharity.org link, EIN), a viewport meta tag (mobile baseline only), and
+a broken-basePath scan (up to 10 root-relative asset refs checked for 404s).
+
+**What it does not cover:** CI status, required template sections, the full
+375px responsive spot-check, console errors, accessibility, and charity
+content approval — those rows are reported as MANUAL. The tool never ticks
+checklist boxes: the sponsoring admin (and, for content review, the charity)
+still ticks each box on the work order after verifying it.
 
 ---
 
@@ -836,16 +970,16 @@ uniformly (see Section 4).
 
 ### 5a. External validation checks (third-party signals)
 
-| #   | Check                                                                                                                                           | Demonstrates                                                          |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                                                  | Legitimacy; mission-alignment scoring                                 |
-| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                                             | Independent vetting; unlocks discounted-software pipeline             |
-| 3   | **VolunteerMatch engagement check**                                                                                                             | Charity can receive and act on volunteer work                         |
-| 4   | **Verified organization Facebook Page** (cross-checked vs. intake form)                                                                         | Identity/branding consistency; applicant-run litmus test              |
-| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                                    | Technical readiness; enables SPF/DKIM/DMARC under charity domain      |
-| 6   | **PayPal Nonprofits account + donor flow** _(the legacy WHMCS checkout that once paired with this is **retired** under the GitHub-only intake)_ | KYC step; donor funding path                                          |
-| 7   | **Verified organization LinkedIn Page** (cross-checked vs. intake form)                                                                         | Professional identity; applicant-run litmus test                      |
-| 8   | **Personal LinkedIn profiles** — applicant **and every legal/planned board member**, each with the charity linked under "Volunteering"          | Real people stand behind the org; accepted board position & liability |
+| #   | Check                                                                                                                                                                                    | Demonstrates                                                          |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| 1   | **501(c)(3) status via Candid / GuideStar** (record NTEE code)                                                                                                                           | Legitimacy; mission-alignment scoring                                 |
+| 2   | **TechSoup legal-entity confirmation** ("Validated", not "Pending")                                                                                                                      | Independent vetting; unlocks discounted-software pipeline             |
+| 3   | **VolunteerMatch engagement check**                                                                                                                                                      | Charity can receive and act on volunteer work                         |
+| 4   | **Verified organization Facebook Page** (cross-checked vs. intake form)                                                                                                                  | Identity/branding consistency; applicant-run litmus test              |
+| 5   | **Email on a reputable provider** (Microsoft 365 preferred; not Gmail/Yahoo)                                                                                                             | Technical readiness; enables SPF/DKIM/DMARC under charity domain      |
+| 6   | **PayPal Nonprofits account + donor flow** _(the legacy WHMCS product checkout that once paired with this is **retired**; today's WHMCS application products — Section 3 — replaced it)_ | KYC step; donor funding path                                          |
+| 7   | **Verified organization LinkedIn Page** (cross-checked vs. intake form)                                                                                                                  | Professional identity; applicant-run litmus test                      |
+| 8   | **Personal LinkedIn profiles** — applicant **and every legal/planned board member**, each with the charity linked under "Volunteering"                                                   | Real people stand behind the org; accepted board position & liability |
 
 > **Promoted from Phase 0 (founder decision):** the organization **Facebook Page**
 > (4), organization **LinkedIn Page** (7), and the **personal LinkedIn profiles**
@@ -919,11 +1053,15 @@ flow), on both tracks. These (plus the personal LinkedIn profiles) are also
 ## 8. Service-delivery lifecycle (legacy — for reference)
 
 Once validation passes and the charity accepts the written offer (historically a
-signed WHMCS quote — **legacy/pending replacement** under the GitHub-only intake),
-the prerequisite/application phase is complete and the engagement moves into
+signed WHMCS quote — **legacy**; today the WHMCS application/website/domain
+orders and the gated flow in Section 4a fill this role), the
+prerequisite/application phase is complete and the engagement moves into
 provisioning. The full lifecycle below is the **legacy WordPress/Divi-era**
 eight-stage flow (stages 6–8 in particular reflect the old stack); it is retained
-**for reference** and is being superseded by the current FFC template direction:
+**for reference** and is superseded by the current FFC template direction and
+the **gated journey in Section 4a** (note the legacy order — domain in stage 4,
+website in stage 5 — is **reversed** in the current model: website first, then
+domain):
 
 1. Initial Contact & Onboarding
 2. **FFC Validation Checks** ← prerequisite gate (Sections 5–6)
@@ -975,8 +1113,13 @@ non-technical).
   Charities) carries the charity-specific terms a charity acknowledges to apply.
 - **Cloudflare** — the service FFC uses to register/secure charity domains; also
   offers the domain name-availability check used in Phase 0.
-- **WHMCS** — the legacy client/billing portal once used for intake; **retired**
-  as the application mechanism under the GitHub-only flow.
+- **WHMCS** — FFC's client portal (<https://freeforcharity.org/hub>) and the
+  **core intake and application-tracking tool** — the **system of record** for
+  the charity journey. The track applications, the website product, and the
+  domain register/transfer products are all ordered and tracked here; GitHub
+  issues are downstream **website-provisioning work orders** only (Section 4a).
+  (The legacy WordPress-era product **checkout** intake was retired; the current
+  application products replaced it.)
 - **TechSoup** — nonprofit tech-discount and validation service.
 - **VolunteerMatch / Idealist / Taproot** — platforms for finding volunteers and
   (Taproot) skills-based/pro-bono help.
@@ -1009,13 +1152,16 @@ All policy questions for this document are **resolved** (founder-approved,
 
 **Maintenance / follow-up tasks** (engineering, not policy):
 
-- **Wire the acknowledgment into the application form.** The Terms of Service is
-  live at `/terms-of-service/`; extend the FFC application issue-template form to
-  capture the Terms of Service / full-stack-commitment acknowledgment.
-- **GitHub-only application channel.** Build the GitHub entry point (repo + issue
-  template/form) that the freeforcharity.org pages
-  (<https://freeforcharity.org/submit-information/>,
+- **Acknowledgment lives in the application.** The Terms of Service is live at
+  `/terms-of-service/`; the Terms of Service / full-stack-commitment
+  acknowledgment is captured as a mandatory certification field on the WHMCS
+  application (Section 3).
+- **WHMCS application channel + GitHub work orders.** The freeforcharity.org
+  pages (<https://freeforcharity.org/help-for-charities/>,
   <https://freeforcharity.org/501c3/>, <https://freeforcharity.org/pre501c3/>)
-  point into; the legacy WHMCS checkout is retired.
+  point into the **WHMCS client portal** (<https://freeforcharity.org/hub>);
+  GitHub issues are created **after approval** as website-provisioning work
+  orders (Section 4a). The GitHub intake issue template remains in service for
+  that downstream purpose.
 - **Keep in sync.** Update this document and `src/data/setup-guides.ts` together
   whenever the program changes.

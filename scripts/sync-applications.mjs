@@ -10,6 +10,10 @@
  * `lib/intake-issues.mjs`, so whichever source runs, intake issues are
  * identical and dedup against the same state.
  *
+ * Approval-gated like the WHMCS path: only feed records explicitly marked with
+ * a post-approval status create NEW issues (see APPROVED_STATUSES below), and
+ * the same flood-guard cutover date applies. Everything else is refresh-only.
+ *
  * Auth: built-in GITHUB_TOKEN (to create issues) — no Zeffy/WHMCS secret here.
  * Graceful: a missing/unpublished feed (404) or empty list is a no-op.
  *
@@ -17,7 +21,7 @@
  */
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-import { syncIntakeIssues, errMsg } from './lib/intake-issues.mjs'
+import { syncIntakeIssues, errMsg, DEFAULT_CREATE_NEW_SINCE } from './lib/intake-issues.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const STATE_FILE = join(__dirname, '..', 'automation', 'applications-sync-state.json')
@@ -39,6 +43,22 @@ async function fetchApplications() {
   return Array.isArray(data) ? data : Array.isArray(data?.applications) ? data.applications : []
 }
 
+// APPROVAL GATE (same model as the local WHMCS path): a GitHub issue is a
+// website-provisioning work order created only for APPROVED charities. Feed
+// records carrying one of these post-approval lifecycle statuses may create a
+// new issue; records with a pre-approval status (intake / needs-info) — or no
+// status at all, which this feed cannot prove approved — are refresh-only:
+// their existing issues keep being updated, but no new issue is ever created
+// from this path for them.
+const APPROVED_STATUSES = new Set([
+  'needs-admin',
+  'on-hold',
+  'sponsored',
+  'active-build',
+  'live',
+  'graduated',
+])
+
 async function main() {
   let applications = []
   try {
@@ -53,6 +73,12 @@ async function main() {
     token,
     stateFile: STATE_FILE,
     source: 'feed',
+    // Same flood-guard cutover as the WHMCS path: never first-time-create
+    // issues for feed records whose application predates the work-order model.
+    createNewSince: process.env.WHMCS_INTAKE_SINCE || DEFAULT_CREATE_NEW_SINCE,
+    // Approval gate: only records the feed explicitly marks with a
+    // post-approval status may create NEW issues (see APPROVED_STATUSES).
+    allowCreate: (app) => APPROVED_STATUSES.has(String(app?.status ?? '')),
   })
 }
 
