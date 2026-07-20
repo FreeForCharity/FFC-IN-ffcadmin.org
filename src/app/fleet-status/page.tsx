@@ -95,8 +95,8 @@ function SiteTile({ site }: { site: FleetSmokeSite }) {
       )}
       {site.state !== 'not-deployed' && site.cnameFile && site.cnameFile !== site.domain && (
         <div className="text-xs text-amber-800 mb-2">
-          CNAME file <span className="font-mono">{site.cnameFile}</span> differs from the served
-          domain{site.domain ? '' : ' (Pages serves the default URL)'}.
+          CNAME file <span className="font-mono break-all">{site.cnameFile}</span> differs from the
+          served domain{site.domain ? '' : ' (Pages serves the default URL)'}.
         </div>
       )}
       <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
