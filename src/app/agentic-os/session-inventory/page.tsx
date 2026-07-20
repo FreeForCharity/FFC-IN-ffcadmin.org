@@ -265,13 +265,14 @@ export default function SessionInventory() {
           <h2 className="text-2xl font-bold text-gray-900 mb-3">For AI agents & new admins</h2>
           <p className="text-gray-700 text-sm">
             The machine-readable snapshot is published at{' '}
-            <a
-              href={INVENTORY_JSON_HREF}
-              className="text-blue-600 hover:underline font-mono text-xs"
-            >
+            <code className="bg-white px-1 rounded border border-indigo-100 text-xs">
               https://ffcadmin.org/data/agent-session-inventory.json
+            </code>{' '}
+            (
+            <a href={INVENTORY_JSON_HREF} className="text-blue-600 hover:underline">
+              raw JSON
             </a>
-            . Schema:{' '}
+            ). Schema:{' '}
             <code className="bg-white px-1 rounded border border-indigo-100">repos[]</code> with{' '}
             <em>
               name, url, kind, agents.claude/copilot (total, open, closed, firstSeen, lastSeen),
