@@ -120,8 +120,11 @@ export function computeSiteState({ domain, run, workflowState, now = new Date() 
           : `smoke workflow is ${workflowState} (not active)`,
     }
 
+  // Only judge staleness by age when we have a finite age. A run object without
+  // a usable `updated_at` yields Infinity; rather than render "Infinityh old",
+  // fall through to the conclusion-based states below.
   const ageH = hoursSince(run?.updated_at, now)
-  if (run && ageH > STALE_HOURS)
+  if (run && Number.isFinite(ageH) && ageH > STALE_HOURS)
     return {
       state: 'stale-monitor',
       // Round up so a just-stale run never reads "48h old (> 48h)".

@@ -152,6 +152,17 @@ describe('computeSiteState', () => {
     expect(res.staleReason).toMatch(/no active smoke workflow/)
   })
 
+  it('run without a usable updated_at is not "Infinityh old" — falls through to conclusion', () => {
+    const res = computeSiteState({
+      domain: 'x.org',
+      run: { status: 'completed', conclusion: 'success', updated_at: null },
+      workflowState: 'active',
+      now: NOW,
+    })
+    expect(res.state).toBe('passing')
+    expect(res.staleReason).toBeNull()
+  })
+
   it('rounds the age up so a just-stale run never reads "48h old (> 48h)"', () => {
     const res = computeSiteState({
       domain: 'x.org',
