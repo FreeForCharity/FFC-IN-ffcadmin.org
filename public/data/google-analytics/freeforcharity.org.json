@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-19T19:26:04Z",
+  "updatedAt": "2026-07-20T08:20:01Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "837",
-    "newUsers": "858",
-    "sessions": "953",
-    "screenPageViews": "1100",
-    "engagementRate": "0.23189926547743966",
-    "eventCount": "3641",
+    "activeUsers": "821",
+    "newUsers": "838",
+    "sessions": "947",
+    "screenPageViews": "1091",
+    "engagementRate": "0.23970432946145723",
+    "eventCount": "3570",
     "keyEvents": "0"
   },
   "topPages": [
     {
       "path": "/",
-      "views": "719"
+      "views": "685"
     },
     {
       "path": "/domains/",
-      "views": "222"
+      "views": "232"
     },
     {
       "path": "/501c3/",
-      "views": "50"
+      "views": "56"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "43"
+      "views": "50"
     },
     {
       "path": "/guidestar-guide/",
-      "views": "19"
+      "views": "20"
     },
     {
       "path": "/about-us/",
@@ -48,30 +48,30 @@
       "views": "6"
     },
     {
+      "path": "/help-for-charities/",
+      "views": "6"
+    },
+    {
       "path": "/pre501c3/",
       "views": "6"
     },
     {
       "path": "/contact-us/",
       "views": "5"
-    },
-    {
-      "path": "/help-for-charities/",
-      "views": "5"
     }
   ],
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "681"
+      "sessions": "658"
     },
     {
       "channel": "Organic Search",
-      "sessions": "253"
+      "sessions": "268"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "19"
+      "sessions": "20"
     },
     {
       "channel": "Organic Social",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "258",
-    "newUsers": "256",
-    "sessions": "379",
-    "screenPageViews": "460",
-    "engagementRate": "0.48548812664907653",
-    "eventCount": "1380",
+    "activeUsers": "269",
+    "newUsers": "267",
+    "sessions": "399",
+    "screenPageViews": "487",
+    "engagementRate": "0.48872180451127817",
+    "eventCount": "1452",
     "keyEvents": "0"
   }
 }
