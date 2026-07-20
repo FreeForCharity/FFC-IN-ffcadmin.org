@@ -139,9 +139,8 @@ export function computeSiteState({ domain, run, workflowState, now = new Date() 
 }
 
 async function siteStatus(repo, now = new Date()) {
-  const [cname, runs, issues, workflows] = await Promise.all([
+  const [cname, issues, workflows] = await Promise.all([
     ghJson(`/repos/${ORG}/${repo}/contents/public/CNAME`).catch(() => null),
-    ghJson(`/repos/${ORG}/${repo}/actions/runs?per_page=10`).catch(() => null),
     ghJson(`/repos/${ORG}/${repo}/issues?state=open&labels=smoke-failure&per_page=1`).catch(
       () => null
     ),
@@ -153,15 +152,29 @@ async function siteStatus(repo, now = new Date()) {
   const domain = cname?.content
     ? Buffer.from(cname.content, 'base64').toString('utf8').trim()
     : null
-  const run = (runs?.workflow_runs || []).find((r) => r.name === SMOKE_WORKFLOW_NAME) || null
   const issue = Array.isArray(issues) && issues[0] ? issues[0] : null
+
   // null when the workflows list couldn't be read (unknown — don't flag stale);
   // 'missing' when it was readable but the smoke workflow is absent; otherwise
   // the workflow's own state ('active', 'disabled_inactivity', …).
   let workflowState = null
+  let smokeWorkflowId = null
   if (Array.isArray(workflows?.workflows)) {
     const smokeWorkflow = workflows.workflows.find((w) => w.name === SMOKE_WORKFLOW_NAME)
     workflowState = smokeWorkflow ? smokeWorkflow.state : 'missing'
+    smokeWorkflowId = smokeWorkflow ? smokeWorkflow.id : null
+  }
+
+  // Fetch the latest run of the smoke workflow *specifically* via its
+  // workflow-scoped runs endpoint. The cross-workflow /actions/runs feed would
+  // bury the daily smoke run beneath unrelated CI in a busy repo, dropping the
+  // site to pending/unknown and hiding a real by-age staleness (#753 review).
+  let run = null
+  if (smokeWorkflowId) {
+    const runs = await ghJson(
+      `/repos/${ORG}/${repo}/actions/workflows/${smokeWorkflowId}/runs?per_page=1`
+    ).catch(() => null)
+    run = runs?.workflow_runs?.[0] || null
   }
 
   const { state, staleReason } = computeSiteState({ domain, run, workflowState, now })
@@ -196,7 +209,8 @@ async function main() {
   console.log(`Sweeping ${repos.length} repos…`)
 
   const sites = []
-  // Small batches: ~5 API calls per repo across a ~60-repo fleet.
+  // Small batches: ~4 API calls per repo (CNAME, issues, workflows, and the
+  // smoke workflow's runs) across a ~60-repo fleet.
   const BATCH = 8
   for (let i = 0; i < repos.length; i += BATCH) {
     const chunk = await Promise.all(
