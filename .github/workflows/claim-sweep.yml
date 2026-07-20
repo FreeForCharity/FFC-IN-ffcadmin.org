@@ -88,31 +88,42 @@ jobs:
             const { owner, repo } = context.repo;
 
             // Bounded pager: cap pages so the daily sweep can't spike the shared
-            // REST budget. `labels=claimed` already keeps the issue set tiny.
-            const listOpen = async (method, params, maxPages = 5) => {
-              const out = [];
+            // REST budget (`labels=claimed` already keeps the issue set tiny).
+            // Returns { items, truncated } so a caller can tell a genuine end of
+            // list from a page-cap cutoff and fail safe on the latter.
+            const MAX_PAGES = 5;
+            const listOpen = async (method, params, maxPages = MAX_PAGES) => {
+              const items = [];
               for (let page = 1; page <= maxPages; page++) {
                 const { data } = await method({ ...params, per_page: 100, page });
-                out.push(...data);
-                if (data.length < 100) break;
+                items.push(...data);
+                if (data.length < 100) return { items, truncated: false };
               }
-              return out;
+              return { items, truncated: true };
             };
 
             const claimed = await listOpen(github.rest.issues.listForRepo, {
               owner, repo, state: 'open', labels: CLAIM_LABEL,
             });
-            const issues = claimed.filter((i) => !i.pull_request);
+            const issues = claimed.items.filter((i) => !i.pull_request);
 
             const released = [];
             if (issues.length) {
-              const openPrs = await listOpen(github.rest.pulls.list, {
+              const prs = await listOpen(github.rest.pulls.list, {
                 owner, repo, state: 'open',
               });
-              for (const issue of issues) {
-                const hasOpenLinkedPR = openPrs.some(
-                  (p) => extractLinkedIssues(p.body || '').includes(issue.number),
+              // Fail-safe: if the open-PR list was truncated at the page cap we
+              // can't be sure an issue has no linked PR, so keep every claim this
+              // run rather than risk releasing an active one (>500 open PRs).
+              if (prs.truncated) {
+                core.warning(
+                  `Open-PR list hit the ${MAX_PAGES}-page cap (>500 open PRs); keeping all claims this run to avoid a false release.`,
                 );
+              }
+              for (const issue of issues) {
+                const hasOpenLinkedPR =
+                  prs.truncated ||
+                  prs.items.some((p) => extractLinkedIssues(p.body || '').includes(issue.number));
                 const lastActivityMs = new Date(issue.updated_at).getTime();
                 if (!decideRelease({ hasOpenLinkedPR, lastActivityMs, nowMs: now, thresholdMs: EXPIRY_MS })) {
                   continue;
