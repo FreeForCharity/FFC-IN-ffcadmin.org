@@ -61,11 +61,17 @@ const STATE_STYLES: Record<
     card: 'bg-gray-50 border-gray-200',
     order: 5,
   },
+  'not-deployed': {
+    label: 'Not deployed',
+    dot: 'bg-gray-400',
+    card: 'bg-gray-50 border-gray-200',
+    order: 6,
+  },
   unknown: {
     label: 'Unknown',
     dot: 'bg-gray-300',
     card: 'bg-gray-50 border-gray-200',
-    order: 6,
+    order: 7,
   },
 }
 
@@ -85,6 +91,12 @@ function SiteTile({ site }: { site: FleetSmokeSite }) {
       {site.state === 'stale-monitor' && site.staleReason && (
         <div className="text-xs text-purple-800 font-medium mb-2">
           Monitoring stopped — {site.staleReason}.
+        </div>
+      )}
+      {site.state !== 'not-deployed' && site.cnameFile && site.cnameFile !== site.domain && (
+        <div className="text-xs text-amber-800 mb-2">
+          CNAME file <span className="font-mono break-all">{site.cnameFile}</span> differs from the
+          served domain{site.domain ? '' : ' (Pages serves the default URL)'}.
         </div>
       )}
       <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">

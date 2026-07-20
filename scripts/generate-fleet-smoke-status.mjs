@@ -43,6 +43,7 @@ export const EMPTY_SUMMARY = {
   running: 0,
   'stale-monitor': 0,
   'not-cutover': 0,
+  'not-deployed': 0,
   pending: 0,
   unknown: 0,
 }
@@ -60,6 +61,44 @@ async function ghJson(path) {
   if (res.status === 404) return null
   if (!res.ok) throw new Error(`GitHub API ${path} -> ${res.status}`)
   return res.json()
+}
+
+/**
+ * Read a repo's GitHub Pages configuration — the *serving* truth (#742). The
+ * committed public/CNAME file is only the build's claim of a domain; the Pages
+ * `cname` is what the site is actually served on, and the two can disagree.
+ * Returns:
+ *   { enabled: true,  cname, htmlUrl, status } — Pages on (cname null when
+ *                                                served on the default *.github.io URL).
+ *   { enabled: false, ... }                    — Pages disabled (404).
+ *   { enabled: null,  ... }                    — could not determine (network /
+ *                                                permission / other error).
+ * Pages metadata on a public repo is world-readable with the ambient token,
+ * like the actions/workflows and actions/runs endpoints this script already
+ * reads cross-repo.
+ */
+async function pagesInfo(repo) {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${ORG}/${repo}/pages`, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    })
+    if (res.status === 404) return { enabled: false, cname: null, htmlUrl: null, status: null }
+    if (!res.ok) return { enabled: null, cname: null, htmlUrl: null, status: null }
+    const body = await res.json()
+    const cname = body?.cname ? String(body.cname).trim() : ''
+    return {
+      enabled: true,
+      cname: cname || null,
+      htmlUrl: body?.html_url || null,
+      status: body?.status || null,
+    }
+  } catch {
+    return { enabled: null, cname: null, htmlUrl: null, status: null }
+  }
 }
 
 async function listFleetRepos() {
@@ -93,16 +132,49 @@ export function hoursSince(iso, now = new Date()) {
  * the workflows list was readable but the workflow is absent, or null/undefined
  * when we could not read the workflows list (treated as unknown, not stale).
  *
+ * `pagesEnabled` is the serving truth from the Pages API (#742): `true` when
+ * Pages is on, `false` when it is disabled (404), and `null`/`undefined` when
+ * we could not read the Pages config (treated as unknown, not disabled).
+ *
+ * `identityUnknown` is true when serving identity could not be determined from
+ * either source — the Pages config was unreadable AND there is no committed
+ * CNAME file to fall back to. In that case a null `domain` means "we don't
+ * know", not "not cut over".
+ *
  * Precedence, most specific first:
- *   not-cutover  — no CNAME, nothing to monitor.
+ *   not-deployed — Pages disabled, nothing is served, so nothing to monitor.
+ *   unknown      — serving identity undeterminable (Pages unreadable + no CNAME file).
+ *   not-cutover  — no serving domain yet, nothing to monitor.
  *   running      — a run is queued/in progress right now.
  *   stale-monitor — workflow not active (disabled or missing), OR latest run older than 48h.
  *   passing/failing — latest run's conclusion, when recent.
  *   pending      — cut over, workflow known 'active', no run yet.
  *   unknown      — no run and the workflow state is unknown (list unreadable).
  */
-export function computeSiteState({ domain, run, workflowState, now = new Date() } = {}) {
-  if (!domain) return { state: 'not-cutover', staleReason: null }
+export function computeSiteState({
+  domain,
+  run,
+  workflowState,
+  pagesEnabled,
+  identityUnknown = false,
+  now = new Date(),
+} = {}) {
+  // GitHub Pages disabled — the site is not served, so nothing to monitor.
+  // Mirror smoke engine v3's neutral skip. Only a definitive `false` triggers
+  // this; `null`/`undefined` (Pages config unreadable) falls through so a
+  // transient Pages-read failure never mislabels a live site as not-deployed.
+  if (pagesEnabled === false) return { state: 'not-deployed', staleReason: null }
+
+  if (!domain) {
+    // No serving domain. Distinguish "genuinely not cut over" (we *could* read
+    // the serving identity — it just has no custom domain) from "we couldn't
+    // determine it at all" (Pages unreadable AND no committed CNAME to fall
+    // back to). The latter can happen on a build-emitted-CNAME repo during a
+    // transient Pages-read/rate-limit failure; reporting `unknown` there is
+    // more honest than claiming a cut-over site isn't cut over.
+    if (identityUnknown) return { state: 'unknown', staleReason: null }
+    return { state: 'not-cutover', staleReason: null }
+  }
   if (run && (run.status === 'in_progress' || run.status === 'queued'))
     return { state: 'running', staleReason: null }
 
@@ -142,7 +214,7 @@ export function computeSiteState({ domain, run, workflowState, now = new Date() 
 }
 
 async function siteStatus(repo, now = new Date()) {
-  const [cname, issues, workflows] = await Promise.all([
+  const [cname, issues, workflows, pages] = await Promise.all([
     ghJson(`/repos/${ORG}/${repo}/contents/public/CNAME`).catch(() => null),
     ghJson(`/repos/${ORG}/${repo}/issues?state=open&labels=smoke-failure&per_page=1`).catch(
       () => null
@@ -150,11 +222,30 @@ async function siteStatus(repo, now = new Date()) {
     // per_page=100 so the smoke workflow is never off-page and mis-flagged
     // 'missing' (default page size is 30). FFC repos have far fewer than 100.
     ghJson(`/repos/${ORG}/${repo}/actions/workflows?per_page=100`).catch(() => null),
+    // Serving identity — one bounded Pages call per repo (#742).
+    pagesInfo(repo),
   ])
 
-  const domain = cname?.content
-    ? Buffer.from(cname.content, 'base64').toString('utf8').trim()
+  // The committed public/CNAME file is only the build's *claim* of a domain;
+  // keep it as a secondary field so drift from the serving truth stays visible
+  // on the page instead of being silently masked (#742 / #740).
+  const cnameFile = cname?.content
+    ? Buffer.from(cname.content, 'base64').toString('utf8').trim() || null
     : null
+
+  // Primary identity is the Pages `cname` (the serving truth). When Pages is
+  // enabled but has no custom domain, `cname` is null — the site serves on its
+  // default *.github.io URL, i.e. not yet cut over. When the Pages config could
+  // not be read at all (enabled === null) fall back to the committed CNAME file
+  // so a transient Pages-read failure degrades to the pre-#742 behaviour rather
+  // than blanking the domain. When Pages is disabled (enabled === false) there
+  // is no serving domain and computeSiteState resolves it to `not-deployed`.
+  const domain = pages.enabled === true ? pages.cname : pages.enabled === null ? cnameFile : null
+  // Serving identity is undeterminable only when the Pages config was unreadable
+  // (not a definitive 404) AND there is no committed CNAME to fall back to — then
+  // a null domain means "we don't know", so computeSiteState reports 'unknown'
+  // rather than mislabelling a (possibly cut-over) site as 'not-cutover'.
+  const identityUnknown = pages.enabled === null && !cnameFile
   const issue = Array.isArray(issues) && issues[0] ? issues[0] : null
 
   // workflowState: null when the workflows list couldn't be read (unknown —
@@ -187,11 +278,19 @@ async function siteStatus(repo, now = new Date()) {
     run = (runs?.workflow_runs || []).find((r) => r.name === SMOKE_WORKFLOW_NAME) || null
   }
 
-  const { state, staleReason } = computeSiteState({ domain, run, workflowState, now })
+  const { state, staleReason } = computeSiteState({
+    domain,
+    run,
+    workflowState,
+    pagesEnabled: pages.enabled,
+    identityUnknown,
+    now,
+  })
 
   return {
     repo,
     domain,
+    cnameFile,
     state,
     smoke: run
       ? {
@@ -230,6 +329,7 @@ async function main() {
           return {
             repo: r,
             domain: null,
+            cnameFile: null,
             state: 'unknown',
             smoke: null,
             smokeWorkflowState: null,
