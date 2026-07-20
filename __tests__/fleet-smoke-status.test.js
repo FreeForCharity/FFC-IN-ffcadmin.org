@@ -132,6 +132,27 @@ describe('computeSiteState', () => {
       }).state
     ).toBe('passing')
   })
+
+  it("absent workflow ('missing' sentinel) -> stale-monitor immediately", () => {
+    const res = computeSiteState({
+      domain: 'x.org',
+      run: run({ updated_at: hoursAgo(1) }),
+      workflowState: 'missing',
+      now: NOW,
+    })
+    expect(res.state).toBe('stale-monitor')
+    expect(res.staleReason).toMatch(/no active smoke workflow/)
+  })
+
+  it('rounds the age up so a just-stale run never reads "48h old (> 48h)"', () => {
+    const res = computeSiteState({
+      domain: 'x.org',
+      run: run({ updated_at: hoursAgo(48.1) }),
+      now: NOW,
+    })
+    expect(res.state).toBe('stale-monitor')
+    expect(res.staleReason).toContain('49h old')
+  })
 })
 
 describe('report-stale-monitors body', () => {

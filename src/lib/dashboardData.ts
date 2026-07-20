@@ -38,11 +38,12 @@ export interface FleetSmokeSite {
     runUrl: string
     updatedAt: string
   } | null
-  // Enabled/disabled state of the site's "Post-Deploy Smoke Test" workflow
-  // (null when the workflow is absent or could not be read). A non-'active'
-  // value means GitHub has stopped running the daily pass.
+  // State of the site's "Post-Deploy Smoke Test" workflow: 'active', a GitHub
+  // disabled reason (e.g. 'disabled_inactivity'), or the sentinel 'missing'
+  // when the workflow is absent from the repo. null when the workflows list
+  // could not be read. Any non-'active' value means the daily pass has stopped.
   smokeWorkflowState?: string | null
-  // Why a site is in the 'stale-monitor' state (null otherwise).
+  // Human-readable reason a site is in the 'stale-monitor' state (null otherwise).
   staleReason?: string | null
   failureIssue: { number: number; url: string } | null
 }

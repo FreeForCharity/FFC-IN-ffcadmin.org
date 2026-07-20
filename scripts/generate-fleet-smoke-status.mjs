@@ -75,7 +75,7 @@ async function listFleetRepos() {
   return [...names.sort((a, b) => a.localeCompare(b)), ...EXTRA_REPOS]
 }
 
-/** Whole hours between an ISO timestamp and `now` (null timestamp -> Infinity). */
+/** Fractional hours between an ISO timestamp and `now` (null/invalid -> Infinity). */
 export function hoursSince(iso, now = new Date()) {
   if (!iso) return Infinity
   const then = new Date(iso).getTime()
@@ -88,12 +88,17 @@ export function hoursSince(iso, now = new Date()) {
  * smoke run, and the smoke workflow's `state`, return the tile state plus a
  * human-readable `staleReason` when monitoring has stopped.
  *
+ * `workflowState` is the smoke workflow's `state` ('active' / a GitHub
+ * disabled reason such as 'disabled_inactivity'), the sentinel 'missing' when
+ * the workflows list was readable but the workflow is absent, or null/undefined
+ * when we could not read the workflows list (treated as unknown, not stale).
+ *
  * Precedence, most specific first:
  *   not-cutover  — no CNAME, nothing to monitor.
  *   running      — a run is queued/in progress right now.
- *   stale-monitor — workflow disabled, OR latest completed run older than 48h.
+ *   stale-monitor — workflow not active (disabled or missing), OR latest run older than 48h.
  *   passing/failing — latest run's conclusion, when recent.
- *   pending      — cut over, engine present, no run yet.
+ *   pending      — cut over, active engine, no run yet.
  *   unknown      — anything else.
  */
 export function computeSiteState({ domain, run, workflowState, now = new Date() } = {}) {
@@ -101,20 +106,26 @@ export function computeSiteState({ domain, run, workflowState, now = new Date() 
   if (run && (run.status === 'in_progress' || run.status === 'queued'))
     return { state: 'running', staleReason: null }
 
-  // A workflow GitHub has disabled (e.g. `disabled_inactivity` after 60 days,
-  // or manually disabled) means the daily pass has stopped regardless of run
-  // history — the strongest stale signal.
+  // A smoke workflow that is not `active` — GitHub-disabled (e.g.
+  // `disabled_inactivity` after 60 days) or absent from the repo ('missing') —
+  // means the daily pass has stopped regardless of run history. Strongest stale
+  // signal, so it wins even over a recent passing run. `null`/`undefined` means
+  // we could not read the workflows list, so we can't conclude stale here.
   if (workflowState && workflowState !== 'active')
     return {
       state: 'stale-monitor',
-      staleReason: `smoke workflow is ${workflowState} (not active)`,
+      staleReason:
+        workflowState === 'missing'
+          ? 'no active smoke workflow found in the repo'
+          : `smoke workflow is ${workflowState} (not active)`,
     }
 
   const ageH = hoursSince(run?.updated_at, now)
   if (run && ageH > STALE_HOURS)
     return {
       state: 'stale-monitor',
-      staleReason: `latest smoke run is ${Math.round(ageH)}h old (> ${STALE_HOURS}h)`,
+      // Round up so a just-stale run never reads "48h old (> 48h)".
+      staleReason: `latest smoke run is ${Math.ceil(ageH)}h old (> ${STALE_HOURS}h)`,
     }
 
   if (run?.conclusion === 'success') return { state: 'passing', staleReason: null }
@@ -138,9 +149,14 @@ async function siteStatus(repo, now = new Date()) {
     : null
   const run = (runs?.workflow_runs || []).find((r) => r.name === SMOKE_WORKFLOW_NAME) || null
   const issue = Array.isArray(issues) && issues[0] ? issues[0] : null
-  const smokeWorkflow =
-    (workflows?.workflows || []).find((w) => w.name === SMOKE_WORKFLOW_NAME) || null
-  const workflowState = smokeWorkflow?.state || null
+  // null when the workflows list couldn't be read (unknown — don't flag stale);
+  // 'missing' when it was readable but the smoke workflow is absent; otherwise
+  // the workflow's own state ('active', 'disabled_inactivity', …).
+  let workflowState = null
+  if (Array.isArray(workflows?.workflows)) {
+    const smokeWorkflow = workflows.workflows.find((w) => w.name === SMOKE_WORKFLOW_NAME)
+    workflowState = smokeWorkflow ? smokeWorkflow.state : 'missing'
+  }
 
   const { state, staleReason } = computeSiteState({ domain, run, workflowState, now })
 
