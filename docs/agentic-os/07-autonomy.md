@@ -55,13 +55,13 @@ and the action would no longer be needed._
 
 ## The autonomy ladder
 
-| Rung | Name                       | Initiator                                 | Status                                                        | Gate to climb                                                                 |
-| ---- | -------------------------- | ----------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| L0   | Supervised sessions        | Human, per task                           | ✅ How the 879 inventoried sessions ran                       | —                                                                             |
-| L1   | Scheduled sense/act/report | Cron / Conductor loop                     | 🟢 **Operating: the hub Conductor** (+ manual /ops-concierge) | —                                                                             |
-| L2   | Event-driven conversation  | `@claude` mention on an issue/PR          | 📋 Prepared, not activated                                    | You: `claude setup-token` → `CLAUDE_CODE_OAUTH_TOKEN` secret; see setup below |
-| L3   | Cross-repo fleet           | Schedule + events, org-wide               | 🟡 Emerging via the hub (#724 migration umbrella)             | Dedicated automation account (roadmap: FFC-Cloudflare-Automation issue)       |
-| L4   | Full concierge ("Jarvis")  | Anyone: intake forms, site owners, admins | 🔭 Vision                                                     | L2 + L3 + reflection loop (Phase 3)                                           |
+| Rung | Name                       | Initiator                                                     | Status                                                        | Gate to climb                                                                                                                                    |
+| ---- | -------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| L0   | Supervised sessions        | Human, per task                                               | ✅ How the 879 inventoried sessions ran                       | —                                                                                                                                                |
+| L1   | Scheduled sense/act/report | Cron / Conductor loop                                         | 🟢 **Operating: the hub Conductor** (+ manual /ops-concierge) | —                                                                                                                                                |
+| L2   | Event-driven entry         | GitHub PR/Release events, or `@claude` mention on an issue/PR | 📋 Prepared, not activated                                    | You: install the Claude GitHub App (Routine triggers) and/or `claude setup-token` → `CLAUDE_CODE_OAUTH_TOKEN` secret (mentions); see setup below |
+| L3   | Cross-repo fleet           | Schedule + events, org-wide                                   | 🟡 Emerging via the hub (#724 migration umbrella)             | Dedicated automation account (roadmap: FFC-Cloudflare-Automation issue)                                                                          |
+| L4   | Full concierge ("Jarvis")  | Anyone: intake forms, site owners, admins                     | 🔭 Vision                                                     | L2 + L3 + reflection loop (Phase 3)                                                                                                              |
 
 ### L1 — operating today: the Conductor, plus the manual Ops Concierge
 
@@ -117,7 +117,7 @@ interactive sessions — see Cost bounds below.
 
 The same concierge pattern pointed at all 56 repos — but unattended cross-repo
 writes under a volunteer's personal account violate governance rule 5. Under
-the Max-only model, the "bot identity" is a **dedicated, single-owner Claude
+the Max-only model, the automation account is a **dedicated, single-owner Claude
 account** (e.g., automation@freeforcharity.org) with its own GitHub identity,
 used exclusively through Anthropic's first-party tooling (Routines,
 claude-code-action via its own setup-token). Cautions: never share its login

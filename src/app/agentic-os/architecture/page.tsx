@@ -47,7 +47,7 @@ const LAYERS: {
     today:
       'Permission allow/deny policy in .claude/settings.json, secret rules, approval-gated write workflows with dry-run defaults, no-self-merge PR review.',
     planned:
-      'A written org governance doc (docs/agentic-os/06-governance.md) adopted across repos; a dedicated bot identity for unattended runs.',
+      'A written org governance doc (docs/agentic-os/06-governance.md) adopted across repos; a dedicated automation account for unattended runs.',
   },
   {
     name: '6 · Observability',

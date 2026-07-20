@@ -21,13 +21,13 @@ volunteer-sized effort**, not maximum automation.
 
 ## Roles
 
-| Role               | Who                               | Authority over agents                                       |
-| ------------------ | --------------------------------- | ----------------------------------------------------------- |
-| Global Admin       | FFC core (verified admins)        | Approves write-workflow runs, owns bot identity and secrets |
-| Maintainer         | Trusted volunteers per repo       | Reviews and merges agent PRs; can initiate agent sessions   |
-| Contributor        | Any volunteer                     | Runs agent sessions on branches; cannot merge               |
-| Agent (supervised) | Claude Code / Copilot sessions    | Proposes changes as PRs only                                |
-| Agent (autonomous) | Antigravity loop, future routines | Same PR-only rule, plus explicit scope and identity (below) |
+| Role               | Who                               | Authority over agents                                                 |
+| ------------------ | --------------------------------- | --------------------------------------------------------------------- |
+| Global Admin       | FFC core (verified admins)        | Approves write-workflow runs, owns the automation account and secrets |
+| Maintainer         | Trusted volunteers per repo       | Reviews and merges agent PRs; can initiate agent sessions             |
+| Contributor        | Any volunteer                     | Runs agent sessions on branches; cannot merge                         |
+| Agent (supervised) | Claude Code / Copilot sessions    | Proposes changes as PRs only                                          |
+| Agent (autonomous) | Antigravity loop, future routines | Same PR-only rule, plus explicit scope and identity (below)           |
 
 ## The seven rules
 
@@ -60,7 +60,7 @@ volunteer-sized effort**, not maximum automation.
    > designed Ops Concierge Routine was deliberately deferred pending
    > reconciliation with the hub Conductor loop — see
    > [07-autonomy.md](./07-autonomy.md) for the bounded pilot-exception terms
-   > that would apply if it is ever armed before the bot identity exists.
+   > that would apply if it is ever armed before the automation account exists.
 
 6. **Snapshot, don't scan.** This repo documents other repos via committed,
    freshness-stamped snapshots (see [standards](../standards/README.md)).
