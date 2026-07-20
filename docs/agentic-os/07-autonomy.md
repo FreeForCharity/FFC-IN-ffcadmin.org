@@ -34,7 +34,7 @@ achievable with Anthropic's first-party subscription tooling:
 
 | Need                       | Max-subscription mechanism                                                                                                                                                                                   |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Interactive + remote work  | Claude Code CLI and Claude Code on the web (claude.ai/code) — included in Max, one shared usage pool                                                                                                         |
+| Interactive + remote work  | Claude Code CLI and Claude Code on the web (<https://claude.ai/code>) — included in Max, one shared usage pool                                                                                               |
 | Scheduled unattended runs  | **Routines** (cron ≥ 1 hour, a per-routine HTTP trigger endpoint — a subscription-funded Routines feature, not Anthropic API billing — or GitHub triggers) — 15 runs/day on Max; requires subscription login |
 | Event-driven automation    | **Routine GitHub triggers** — PR and Release events with author/branch/label/regex filters (Claude GitHub App per repo)                                                                                      |
 | `@claude` comment mentions | `anthropics/claude-code-action` authenticated with **`CLAUDE_CODE_OAUTH_TOKEN`** from `claude setup-token` (Pro/Max supported)                                                                               |
@@ -87,7 +87,8 @@ The dispatch half of Jarvis, on the Max subscription. Prepared but **not
 activated** — both mechanisms need setup only a human admin can do:
 
 **Mechanism A — Routine GitHub triggers** (for PR and Release events): install
-the Claude GitHub App on the repo, then create a Routine at claude.ai/code →
+the Claude GitHub App on the repo, then create a Routine at
+<https://claude.ai/code> →
 Routines with a GitHub trigger (filter by author, branch, labels, draft state,
 or regex). Covers PR-review, label-gated, and release automation with no
 workflow file and no secret at all. Limits: PR/Release events only (no
