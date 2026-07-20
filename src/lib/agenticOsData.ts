@@ -67,14 +67,46 @@ function readJson<T>(file: string): T | null {
   }
 }
 
+const REPO_KINDS: readonly string[] = ['internal', 'charity-site', 'template', 'tooling']
+const SURVEY_STATUSES: readonly string[] = ['ok', 'partial', 'unreachable']
+
+function isValidAgentStats(stats: unknown): stats is AgentPrStats {
+  if (!stats || typeof stats !== 'object') return false
+  const s = stats as Record<string, unknown>
+  return typeof s.total === 'number' && typeof s.open === 'number' && typeof s.closed === 'number'
+}
+
+/** Validate the minimal per-repo shape the dashboard and helpers rely on. */
+export function isValidRepoEntry(entry: unknown): entry is RepoSessionEntry {
+  if (!entry || typeof entry !== 'object') return false
+  const e = entry as Record<string, unknown>
+  const agents = e.agents as Record<string, unknown> | undefined
+  return (
+    typeof e.name === 'string' &&
+    typeof e.url === 'string' &&
+    REPO_KINDS.includes(e.kind as string) &&
+    SURVEY_STATUSES.includes(e.surveyStatus as string) &&
+    Array.isArray(e.exampleTitles) &&
+    !!e.categoryCounts &&
+    typeof e.categoryCounts === 'object' &&
+    !Array.isArray(e.categoryCounts) &&
+    !!agents &&
+    isValidAgentStats(agents.claude) &&
+    isValidAgentStats(agents.copilot)
+  )
+}
+
 export function loadAgentSessionInventory(): AgentSessionInventory | null {
   const data = readJson<AgentSessionInventory>('agent-session-inventory.json')
-  // Shape guard: a syntactically valid but malformed file degrades to null.
+  // Shape guard: a syntactically valid but malformed file degrades to null —
+  // including any malformed repos[]/categories[] entry, so downstream helpers
+  // and pages never throw on partial data.
   if (
     !data ||
     !Array.isArray(data.repos) ||
     !Array.isArray(data.categories) ||
     typeof data.generatedAt !== 'string' ||
+    Number.isNaN(Date.parse(data.generatedAt)) ||
     !data.window ||
     typeof data.window.from !== 'string' ||
     typeof data.window.to !== 'string' ||
@@ -83,7 +115,9 @@ export function loadAgentSessionInventory(): AgentSessionInventory | null {
     typeof data.orgTotals.reposWithSessions !== 'number' ||
     typeof data.orgTotals.claudePrs !== 'number' ||
     typeof data.orgTotals.copilotPrs !== 'number' ||
-    typeof data.orgTotals.totalSessions !== 'number'
+    typeof data.orgTotals.totalSessions !== 'number' ||
+    !data.categories.every((c) => !!c && typeof c.id === 'string' && typeof c.label === 'string') ||
+    !data.repos.every(isValidRepoEntry)
   ) {
     return null
   }

@@ -5,8 +5,8 @@
 | Field           | Value                               |
 | --------------- | ----------------------------------- |
 | Status          | 🟡 snapshot (verify before relying) |
-| Last verified   | 2026-07-05                          |
-| Re-verify by    | 2026-10-05                          |
+| Last verified   | 2026-07-20                          |
+| Re-verify by    | 2026-10-18                          |
 | Source of truth | The five plane repos linked below   |
 
 **How to refresh:** verify each plane repo still plays the stated role, correct
@@ -19,13 +19,13 @@ drift, update this block.
 The FFC Agentic OS is not a new system — it is five existing repos playing
 distinct, non-overlapping roles:
 
-| Plane                    | Repo                                                                                                   | Responsibility                                                                                                                                                            | Must NOT do                                         |
-| ------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| **Control**              | [FFC-IN-AI-Management](https://github.com/FreeForCharity/FFC-IN-AI-Management)                         | Source of truth for agent configuration (CLAUDE.md, AGENTS.md, GEMINI.md, `.claude/`, Copilot/Gemini configs); base + overlay templates synced to ~30 repos across 3 orgs | Run site builds or live ops                         |
-| **Observability & docs** | [FFC-IN-ffcadmin.org](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org) (this repo)               | Publish committed snapshots: session inventory, blueprint docs, dashboards, standards                                                                                     | Live-scan or run workflows against other repos      |
-| **Ops**                  | [FFC-Cloudflare-Automation](https://github.com/FreeForCharity/FFC-Cloudflare-Automation)               | The numbered workflow catalog driving Cloudflare/WHMCS/M365 writes behind approval gates and dry-runs                                                                     | Hold agent instruction configs (that's Control)     |
-| **Distribution**         | [FFC-IN-FFC_Single_Page_Template](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template)   | The template every FFC-EX-* site is created from; improvements propagate at creation time                                                                                 | Diverge from Control's agent-config baseline        |
-| **Autonomous loop**      | [FFC-IN-google_antigravity_agents](https://github.com/FreeForCharity/FFC-IN-google_antigravity_agents) | Closed-loop Gemini reviewer/coder across org repos, complementing supervised Claude sessions                                                                              | Merge its own PRs (no-self-merge applies to it too) |
+| Plane                    | Repo                                                                                                   | Responsibility                                                                                                                                                                                                                                                         | Must NOT do                                         |
+| ------------------------ | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **Control**              | [FFC-IN-AI-Management](https://github.com/FreeForCharity/FFC-IN-AI-Management)                         | Source of truth for agent configuration (CLAUDE.md, AGENTS.md, GEMINI.md, `.claude/`, Copilot/Gemini configs); base + overlay templates synced to ~30 repos across 3 orgs                                                                                              | Run site builds or live ops                         |
+| **Observability & docs** | [FFC-IN-ffcadmin.org](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org) (this repo)               | Publish committed snapshots: session inventory, blueprint docs, dashboards, standards                                                                                                                                                                                  | Live-scan or run workflows against other repos      |
+| **Ops**                  | [FFC-Cloudflare-Automation](https://github.com/FreeForCharity/FFC-Cloudflare-Automation)               | The numbered workflow catalog driving Cloudflare/WHMCS/M365 writes behind approval gates and dry-runs; also the **Agentic OS hub**: the Conductor loop (log issue #719), the `agentic-os` backlog, and workflow 502 generating the daily `agentic-os-status.json` feed | Hold agent instruction configs (that's Control)     |
+| **Distribution**         | [FFC-IN-FFC_Single_Page_Template](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template)   | The template every FFC-EX-* site is created from; improvements propagate at creation time                                                                                                                                                                              | Diverge from Control's agent-config baseline        |
+| **Autonomous loop**      | [FFC-IN-google_antigravity_agents](https://github.com/FreeForCharity/FFC-IN-google_antigravity_agents) | Closed-loop Gemini reviewer/coder across org repos, complementing supervised Claude sessions                                                                                                                                                                           | Merge its own PRs (no-self-merge applies to it too) |
 
 Everything else — the ~40 `FFC-EX-*` charity sites, the internal sites — are
 **workload repos** the planes serve.
@@ -51,8 +51,15 @@ FFC-IN-FFC_Single_Page_Template (distribution)
 FFC-IN-ffcadmin.org (observability)
   ◀── committed snapshots (inventory JSON, standards docs) — manual/skill refresh only
 FFC-Cloudflare-Automation (ops)
-  ──publishes──▶ data feeds (sites list, workflow catalog) that ffcadmin syncs
+  ──publishes──▶ data feeds (sites list, workflow catalog, agentic-os-status) that ffcadmin syncs
 ```
+
+Two `/agentic-os` surfaces on ffcadmin, deliberately split: **`/agentic-os`**
+renders the hub's live `agentic-os-status.json` (current backlog, in-flight
+PRs, gates, Conductor log — hub PR #732 + ffcadmin PR #654), while
+**`/agentic-os/session-inventory`** renders this repo's committed historical
+snapshot (the 879-session survey). Live state belongs to the ops plane's feed;
+history belongs to the observability plane's snapshot.
 
 Phase 2 upgrades the sync mechanism from PowerShell file-copy to a Claude Code
 **plugin marketplace** (one versioned install instead of N copied files) — see

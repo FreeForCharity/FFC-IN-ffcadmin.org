@@ -53,12 +53,11 @@ volunteer-sized effort**, not maximum automation.
    as their creator's identity, and a green run means the infra ran, not that
    the task succeeded — verify outcomes via the PR, not the run status.)
 
-   > **Current pilot exception:** the daily **FFC Ops Concierge** Routine
-   > (see [07-autonomy.md](./07-autonomy.md)) runs under its creator's
-   > personal identity. Accepted because its scope is issue-only writes in
-   > this repo with a 10-issue circuit breaker; kill switch = disable/delete
-   > the Routine at claude.ai/code → Routines. The exception ends when the
-   > Phase 2 bot identity exists.
+   > **Status:** no personal-identity Routine is currently armed. The
+   > designed Ops Concierge Routine was deliberately deferred pending
+   > reconciliation with the hub Conductor loop — see
+   > [07-autonomy.md](./07-autonomy.md) for the bounded pilot-exception terms
+   > that would apply if it is ever armed before the bot identity exists.
 
 6. **Snapshot, don't scan.** This repo documents other repos via committed,
    freshness-stamped snapshots (see [standards](../standards/README.md)).

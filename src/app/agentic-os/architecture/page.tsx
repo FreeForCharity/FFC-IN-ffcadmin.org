@@ -74,8 +74,8 @@ const PHASES = [
   {
     phase: 'Phase 2 — Automate',
     detail:
-      'Org plugin marketplace + claude-code-action on the template repo so every new charity site is born with the full agent toolkit; bot identity for unattended runs. Down-payment live: the daily Ops Concierge autonomy pilot (feeds → triage → issues → morning report).',
-    status: 'In pilot',
+      'Org plugin marketplace + claude-code-action on the template repo so every new charity site is born with the full agent toolkit; bot identity for unattended runs. Already operating from the hub: the Conductor loop and the daily agentic-os status feed rendered on the Agentic OS status page.',
+    status: 'In progress',
   },
   {
     phase: 'Phase 3 — Operate',
@@ -88,7 +88,7 @@ const PHASES = [
 function statusBadge(status: string) {
   if (status === 'Delivered') return 'bg-green-100 text-green-800'
   if (status === 'Next') return 'bg-blue-100 text-blue-800'
-  if (status === 'In pilot') return 'bg-emerald-100 text-emerald-800'
+  if (status === 'In progress') return 'bg-emerald-100 text-emerald-800'
   return 'bg-gray-100 text-gray-600'
 }
 

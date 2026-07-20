@@ -83,9 +83,11 @@ the "Jarvis morning report."
 
 ## Notes
 
-- Runs unattended via the daily "FFC Ops Concierge" Routine (identity pilot
-  exception documented in `docs/agentic-os/06-governance.md`; kill switch on
-  the tracking issue) — or manually any time via `/ops-concierge`.
+- **Manual-only for now** — invoke via `/ops-concierge`. The unattended daily
+  Routine was designed but deliberately not armed: the hub Conductor loop
+  (FFC-Cloudflare-Automation #719) already runs an autonomous sense/report
+  cycle, and two systems filing overlapping issues is worse than one. See
+  `docs/agentic-os/07-autonomy.md` for the reconciliation plan (#724).
 - This skill deliberately does not violate the snapshot-only plane rule: the
   feeds it reads are published BY this repo's own data pipeline, and its only
   writes are issues in this repo.

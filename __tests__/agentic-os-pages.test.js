@@ -11,30 +11,20 @@ import SessionInventory from '@/app/agentic-os/session-inventory/page'
 import AgenticOsArchitecture from '@/app/agentic-os/architecture/page'
 import { loadAgentSessionInventory } from '@/lib/agenticOsData'
 
-describe('Agentic OS overview page', () => {
-  it('renders the hero and core sections', () => {
+describe('Agentic OS status page (hub-fed, from #654)', () => {
+  it('renders the status h1 and links to the harvested sub-pages', () => {
     render(<AgenticOs />)
-    expect(
-      screen.getByRole('heading', { level: 1, name: /The FFC Agentic OS/ })
-    ).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: /The five planes/ })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: /The six layers/ })).toBeInTheDocument()
-  })
-
-  it('links every plane to its GitHub repo', () => {
-    render(<AgenticOs />)
-    for (const repo of [
-      'FFC-IN-AI-Management',
-      'FFC-IN-ffcadmin.org',
-      'FFC-Cloudflare-Automation',
-      'FFC-IN-FFC_Single_Page_Template',
-      'FFC-IN-google_antigravity_agents',
-    ]) {
-      expect(screen.getByRole('link', { name: repo })).toHaveAttribute(
-        'href',
-        `https://github.com/FreeForCharity/${repo}`
-      )
-    }
+    expect(screen.getByRole('heading', { level: 1, name: /Agentic OS Status/ })).toBeInTheDocument()
+    // The "More" section links the status page to the historical inventory
+    // and architecture sub-pages added by this branch.
+    expect(screen.getByRole('link', { name: /historical session inventory/ })).toHaveAttribute(
+      'href',
+      '/agentic-os/session-inventory'
+    )
+    expect(screen.getByRole('link', { name: /architecture & roadmap/ })).toHaveAttribute(
+      'href',
+      '/agentic-os/architecture'
+    )
   })
 })
 

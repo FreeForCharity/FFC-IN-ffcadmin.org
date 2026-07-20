@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('Agentic OS', () => {
-  test('overview page loads with hero and plane links', async ({ page }) => {
+  test('status page loads and links to the harvested sub-pages', async ({ page }) => {
     await page.goto('/agentic-os/')
-    await expect(page).toHaveTitle(/Agentic OS/)
-    await expect(page.getByRole('heading', { name: 'The FFC Agentic OS' })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'The five planes' })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'FFC-IN-AI-Management' })).toBeVisible()
+    await expect(page).toHaveTitle(/Agentic OS Status/)
+    await expect(page.getByRole('heading', { name: 'Agentic OS Status' })).toBeVisible()
+    await expect(page.getByRole('link', { name: /historical session inventory/ })).toBeVisible()
+    await expect(page.getByRole('link', { name: /architecture & roadmap/ })).toBeVisible()
   })
 
   test('session inventory dashboard renders repo tables', async ({ page }) => {

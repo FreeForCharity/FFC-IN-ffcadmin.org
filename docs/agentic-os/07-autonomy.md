@@ -2,15 +2,15 @@
 
 ## 🗓️ Freshness
 
-| Field           | Value                                                                                                                 |
-| --------------- | --------------------------------------------------------------------------------------------------------------------- |
-| Status          | 🟡 snapshot (verify before relying)                                                                                   |
-| Last verified   | 2026-07-05                                                                                                            |
-| Re-verify by    | 2026-10-05                                                                                                            |
-| Source of truth | The Routine at claude.ai/code (Routines), the `ops-concierge` tracking issue, `.claude/skills/ops-concierge/SKILL.md` |
+| Field           | Value                                                                                                                               |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Status          | 🟡 snapshot (verify before relying)                                                                                                 |
+| Last verified   | 2026-07-20                                                                                                                          |
+| Re-verify by    | 2026-10-18                                                                                                                          |
+| Source of truth | The Conductor log (FFC-Cloudflare-Automation #719), tracking issue #574, `.claude/skills/ops-concierge/SKILL.md`, hub umbrella #724 |
 
-**How to refresh:** confirm the Routine still exists and matches the schedule
-below, check the tracking issue for run history, update rung statuses.
+**How to refresh:** check the Conductor log and tracking issue for what
+actually runs, update rung statuses, correct drift.
 
 ---
 
@@ -28,32 +28,31 @@ much the agent may do before a human sees it_.
 
 ## The autonomy ladder
 
-| Rung | Name                       | Initiator                                 | Status                                  | Gate to climb                                                                 |
-| ---- | -------------------------- | ----------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------- |
-| L0   | Supervised sessions        | Human, per task                           | ✅ How the 879 inventoried sessions ran | —                                                                             |
-| L1   | Scheduled sense/act/report | Cron (Routine)                            | 🟢 **Live pilot: the Ops Concierge**    | Was: nothing. Done in this PR.                                                |
-| L2   | Event-driven conversation  | `@claude` mention on an issue/PR          | 📋 Prepared, not activated              | You: install the Claude GitHub app / add `ANTHROPIC_API_KEY`; see setup below |
-| L3   | Cross-repo fleet           | Schedule + events, org-wide               | 📋 Planned (Phase 2)                    | Dedicated bot/GitHub-App identity (roadmap: FFC-Cloudflare-Automation issue)  |
-| L4   | Full concierge ("Jarvis")  | Anyone: intake forms, site owners, admins | 🔭 Vision                               | L2 + L3 + reflection loop (Phase 3)                                           |
+| Rung | Name                       | Initiator                                 | Status                                                        | Gate to climb                                                                 |
+| ---- | -------------------------- | ----------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| L0   | Supervised sessions        | Human, per task                           | ✅ How the 879 inventoried sessions ran                       | —                                                                             |
+| L1   | Scheduled sense/act/report | Cron / Conductor loop                     | 🟢 **Operating: the hub Conductor** (+ manual /ops-concierge) | —                                                                             |
+| L2   | Event-driven conversation  | `@claude` mention on an issue/PR          | 📋 Prepared, not activated                                    | You: install the Claude GitHub app / add `ANTHROPIC_API_KEY`; see setup below |
+| L3   | Cross-repo fleet           | Schedule + events, org-wide               | 🟡 Emerging via the hub (#724 migration umbrella)             | Dedicated bot/GitHub-App identity (roadmap: FFC-Cloudflare-Automation issue)  |
+| L4   | Full concierge ("Jarvis")  | Anyone: intake forms, site owners, admins | 🔭 Vision                                                     | L2 + L3 + reflection loop (Phase 3)                                           |
 
-### L1 — the live pilot (Ops Concierge)
+### L1 — operating today: the Conductor, plus the manual Ops Concierge
 
-A daily **Claude Code Routine** ("FFC Ops Concierge", cron `0 13 * * *` UTC)
-wakes a fresh agent session in this repo's environment and runs
-[`/ops-concierge`](../../.claude/skills/ops-concierge/SKILL.md):
+The org's live L1 system is the **Conductor loop** in the
+FFC-Cloudflare-Automation hub: it grooms the `agentic-os` backlog, logs every
+run to issue #719, and workflow 502 publishes the daily
+`agentic-os-status.json` feed rendered at `/agentic-os` (hub #732 + ffcadmin
+PR #654). That is the sense → decide → act → report loop, running.
 
-- **Sense:** the published feeds this repo already generates —
-  `sites-alerts.json` (built explicitly "for email/Teams automations to
-  poll"), `domain-expiry.json`, `ci-status.json` — plus snapshot/doc freshness.
-- **Decide:** a written triage policy (severity table in the skill).
-- **Act:** GitHub issues in this repo only, deduped, labeled
-  `ops-concierge`, capped at 10 per run.
-- **Report:** a run summary on the tracking issue + a push/email notification
-  to the routine owner — the "Jarvis morning report."
-
-**Kill switch:** disable or delete the Routine at claude.ai/code → Routines
-(or via the claude-code-remote `update_trigger`/`delete_trigger` tools).
-Also recorded on the tracking issue so any maintainer can find it.
+[`/ops-concierge`](../../.claude/skills/ops-concierge/SKILL.md) is its
+**manual, ffcadmin-local complement**: the same loop over this repo's own
+feeds (`sites-alerts.json`, `domain-expiry.json`, `ci-status.json`, snapshot
+freshness), issue-only writes, run summaries on tracking issue #574. A daily
+unattended Routine for it was designed and **deliberately not armed** — two
+autonomous systems filing overlapping issues is worse than one — and stays
+un-armed until it is reconciled with the Conductor under hub umbrella #724
+(either the Conductor absorbs its triage table, or the Routine is scoped to
+what the Conductor doesn't watch).
 
 ### L2 — conversational entry (`@claude` on GitHub)
 
@@ -90,11 +89,12 @@ an auditable issue/PR a human approved. The "voice" is push/email today;
 Teams/M365 chat is possible later (the ms365 connector requires interactive
 authorization before any of that can be wired).
 
-## Identity pilot exception (governance rule 5)
+## Identity policy for unattended runs (governance rule 5)
 
-Rule 5 requires unattended runs to use a dedicated identity. The L1 pilot
-knowingly runs under the routine owner's personal Claude account, accepted
-because its blast radius is minimal and fully auditable:
+Rule 5 requires unattended runs to use a dedicated identity. **No
+personal-identity Routine is currently armed.** If the ops-concierge Routine
+is ever armed before the bot identity exists, it runs as a documented pilot
+exception bounded to:
 
 | Allowed while on personal identity                            | Gated on the bot identity         |
 | ------------------------------------------------------------- | --------------------------------- |
@@ -102,8 +102,8 @@ because its blast radius is minimal and fully auditable:
 | Creating/updating/closing `ops-concierge` issues in this repo | Triggering write workflows        |
 | Posting run summaries + notifications                         | claude-code-action on other repos |
 
-Exit criteria for the exception: the bot identity exists → recreate the
-Routine under it → remove this section.
+Exit criteria for any such exception: the bot identity exists → recreate the
+Routine under it → remove the exception note.
 
 ## Cost bounds
 

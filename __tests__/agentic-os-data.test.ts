@@ -12,6 +12,7 @@ import fs from 'fs'
 import path from 'path'
 import {
   loadAgentSessionInventory,
+  isValidRepoEntry,
   totalsByKind,
   topRepos,
   categoryTotals,
@@ -159,5 +160,31 @@ describe('agenticOsData pure helpers', () => {
     expect(totalsByKind([])).toEqual([])
     expect(topRepos([], 5)).toEqual([])
     expect(categoryTotals([])).toEqual([])
+  })
+
+  test('isValidRepoEntry accepts a well-formed entry', () => {
+    expect(isValidRepoEntry(makeRepo())).toBe(true)
+  })
+
+  test('isValidRepoEntry rejects entries the dashboard cannot render', () => {
+    const base = makeRepo()
+    // Missing agents entirely (the case from the review: r.agents.* would throw).
+    expect(isValidRepoEntry({ ...base, agents: undefined })).toBe(false)
+    // Agent stats with non-numeric counts.
+    expect(
+      isValidRepoEntry({
+        ...base,
+        agents: { ...base.agents, claude: { ...base.agents.claude, total: '3' } },
+      })
+    ).toBe(false)
+    // categoryCounts must be a plain object (Object.entries is iterated).
+    expect(isValidRepoEntry({ ...base, categoryCounts: null })).toBe(false)
+    expect(isValidRepoEntry({ ...base, categoryCounts: [] })).toBe(false)
+    // Enum fields must hold known values.
+    expect(isValidRepoEntry({ ...base, kind: 'mystery' })).toBe(false)
+    expect(isValidRepoEntry({ ...base, surveyStatus: 'maybe' })).toBe(false)
+    // exampleTitles must be an array.
+    expect(isValidRepoEntry({ ...base, exampleTitles: 'feat: x' })).toBe(false)
+    expect(isValidRepoEntry(null)).toBe(false)
   })
 })

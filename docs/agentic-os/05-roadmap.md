@@ -5,8 +5,8 @@
 | Field           | Value                                              |
 | --------------- | -------------------------------------------------- |
 | Status          | 🟡 snapshot (verify before relying)                |
-| Last verified   | 2026-07-05                                         |
-| Re-verify by    | 2026-10-05                                         |
+| Last verified   | 2026-07-20                                         |
+| Re-verify by    | 2026-10-18                                         |
 | Source of truth | The issues filed from the table below, once opened |
 
 **How to refresh:** mark delivered items, link the real issue numbers, update
@@ -32,12 +32,19 @@ Closes gaps 3, 6 (adoption), 10.
 Goal: new repos are born with the toolkit; recurring work stops needing a
 human to open a session. Closes gaps 4, 5, 7, 8.
 
-**Down-payment delivered:** the **Ops Concierge autonomy pilot** — a daily
-Routine running `/ops-concierge` (sense feeds → triage → issue-only writes in
-this repo → run summary + notification). See
-[07-autonomy.md](./07-autonomy.md) for the full autonomy ladder; the pilot
-runs under a documented identity exception until the bot identity (gap 7)
-exists.
+**Progress (as of 2026-07-20):** the hub-led Agentic OS program shipped its
+observability slice independently — the **Conductor loop** runs from
+FFC-Cloudflare-Automation (log issue #719, migration umbrella #724), the
+visibility epic (hub #723) is complete via workflow 502's daily
+`agentic-os-status.json` feed (hub #732) rendered at `/agentic-os` (ffcadmin
+PR #654). The `/ops-concierge` skill remains **manual-only**: its planned
+unattended Routine was deliberately not armed to avoid duplicating the
+Conductor's loop — see [07-autonomy.md](./07-autonomy.md).
+
+Filed issues in this repo: [#572](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/572)
+(quarterly refresh + reflection), [#573](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/573)
+(cost/turn budgets), [#574](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/574)
+(ops-concierge tracking).
 
 ## Phase 3 — Operate (observability plane)
 
