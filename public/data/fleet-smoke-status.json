@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-20T07:13:35.797Z",
+  "generatedAt": "2026-07-20T07:46:28.537Z",
   "org": "FreeForCharity",
   "repoCount": 63,
   "summary": {
-    "passing": 12,
-    "failing": 27,
+    "passing": 13,
+    "failing": 26,
     "running": 0,
     "stale-monitor": 0,
     "not-cutover": 24,
@@ -915,20 +915,17 @@
     {
       "repo": "FFC-EX-technologymonastery.org",
       "domain": "technologymonastery.org",
-      "state": "failing",
+      "state": "passing",
       "smoke": {
         "status": "completed",
-        "conclusion": "failure",
-        "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-technologymonastery.org/actions/runs/29721552159",
-        "updatedAt": "2026-07-20T06:24:42Z"
+        "conclusion": "success",
+        "event": "workflow_dispatch",
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-technologymonastery.org/actions/runs/29725020182",
+        "updatedAt": "2026-07-20T07:35:17Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
-      "failureIssue": {
-        "number": 55,
-        "url": "https://github.com/FreeForCharity/FFC-EX-technologymonastery.org/issues/55"
-      }
+      "failureIssue": null
     },
     {
       "repo": "FFC-EX-technomonasteries.org",
