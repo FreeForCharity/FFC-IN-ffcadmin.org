@@ -1,0 +1,136 @@
+name: Claim Sweep
+run-name: 'Claim sweep: ${{ github.event_name }}'
+
+# Releases stale work-claims on THIS repo's issues, mirroring the AGENTS.md
+# work-claiming protocol (available = `is:open -label:claimed`). An issue
+# labeled `claimed` with no open linked PR and no activity for 48h is freed:
+# the label is removed and a 🔓 comment posted.
+#
+# Why this lives here and not in the hub's 737 Claim Sync sweep: cross-repo
+# mutation of ffcadmin requires the CBM_TOKEN PAT, which exists only inside the
+# hub's gated `github-prod` environment and is therefore unusable from an
+# ungated daily job. This workflow runs in-repo with the ambient GITHUB_TOKEN
+# (issues: write), so it needs no PAT and no environment gate. See
+# FFC-Cloudflare-Automation#786.
+#
+# Writes issues/labels only; no external API; ungated. The decision helpers are
+# inlined below (ffcadmin has no workflow-logic test harness); they are a copy
+# of the hub's scripts/claim-sync-lib.js logic kept intentionally small.
+
+on:
+  schedule:
+    - cron: '53 5 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Report only; do not remove labels or comment'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  # Single shared group so a scheduled and a dispatched sweep serialize and can
+  # never double-comment / double-remove on the same issue.
+  group: claim-sweep
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    steps:
+      - name: Release expired claims
+        uses: actions/github-script@v9
+        env:
+          DRY_RUN:
+            ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run || 'false'
+            }}
+        with:
+          script: |
+            const CLAIM_LABEL = 'claimed';
+            // A hand-labeled claim with no open linked PR is released after this
+            // much inactivity (mirrors the 48h AGENTS.md expiry).
+            const EXPIRY_MS = 48 * 60 * 60 * 1000;
+            // GitHub closing keywords plus bare ref/refs (which do not auto-close
+            // but still signal a claim). Requires a separator so "closes#3" and
+            // "prefix" never false-match.
+            const LINK_RE = /\b(close[sd]?|fix(?:e[sd])?|resolve[sd]?|refs?)\b[:\s]+#(\d+)/gi;
+
+            // De-duplicated issue numbers referenced anywhere in a PR body.
+            const extractLinkedIssues = (body) => {
+              const out = [];
+              if (!body) return out;
+              LINK_RE.lastIndex = 0;
+              let m;
+              while ((m = LINK_RE.exec(body)) !== null) {
+                const n = Number(m[2]);
+                if (Number.isInteger(n) && n > 0 && !out.includes(n)) out.push(n);
+              }
+              return out;
+            };
+
+            // Released only when there is NO open linked PR AND the issue has been
+            // idle for >= thresholdMs. An open linked PR always keeps the claim.
+            const decideRelease = ({ hasOpenLinkedPR, lastActivityMs, nowMs, thresholdMs }) => {
+              if (hasOpenLinkedPR) return false;
+              if (!Number.isFinite(lastActivityMs) || !Number.isFinite(nowMs)) return false;
+              return nowMs - lastActivityMs >= thresholdMs;
+            };
+
+            const dryRun = String(process.env.DRY_RUN) === 'true';
+            const now = Date.now();
+            const { owner, repo } = context.repo;
+
+            // Bounded pager: cap pages so the daily sweep can't spike the shared
+            // REST budget. `labels=claimed` already keeps the issue set tiny.
+            const listOpen = async (method, params, maxPages = 5) => {
+              const out = [];
+              for (let page = 1; page <= maxPages; page++) {
+                const { data } = await method({ ...params, per_page: 100, page });
+                out.push(...data);
+                if (data.length < 100) break;
+              }
+              return out;
+            };
+
+            const claimed = await listOpen(github.rest.issues.listForRepo, {
+              owner, repo, state: 'open', labels: CLAIM_LABEL,
+            });
+            const issues = claimed.filter((i) => !i.pull_request);
+
+            const released = [];
+            if (issues.length) {
+              const openPrs = await listOpen(github.rest.pulls.list, {
+                owner, repo, state: 'open',
+              });
+              for (const issue of issues) {
+                const hasOpenLinkedPR = openPrs.some(
+                  (p) => extractLinkedIssues(p.body || '').includes(issue.number),
+                );
+                const lastActivityMs = new Date(issue.updated_at).getTime();
+                if (!decideRelease({ hasOpenLinkedPR, lastActivityMs, nowMs: now, thresholdMs: EXPIRY_MS })) {
+                  continue;
+                }
+                released.push(issue.number);
+                if (dryRun) continue;
+                await github.rest.issues.removeLabel({
+                  owner, repo, issue_number: issue.number, name: CLAIM_LABEL,
+                }).catch(() => {});
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: issue.number,
+                  body: `🔓 Claim expired — no open linked PR and no activity for 48h. Label \`${CLAIM_LABEL}\` removed; available again (\`is:open -label:claimed\`).`,
+                });
+              }
+            }
+
+            core.summary
+              .addHeading(`Claim sweep — ${released.length} expired claim(s)${dryRun ? ' (dry-run)' : ''}`)
+              .addRaw(released.length ? released.map((n) => `- #${n}`).join('\n') : 'No expired claims. All claims active.')
+              .write();
+            console.log(`${dryRun ? 'Would release' : 'Released'} ${released.length} expired claim(s).`);
