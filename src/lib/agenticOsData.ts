@@ -108,6 +108,7 @@ export function isValidRepoEntry(entry: unknown): entry is RepoSessionEntry {
   return (
     typeof e.name === 'string' &&
     typeof e.url === 'string' &&
+    typeof e.notes === 'string' &&
     REPO_KINDS.includes(e.kind as string) &&
     SURVEY_STATUSES.includes(e.surveyStatus as string) &&
     Array.isArray(e.exampleTitles) &&

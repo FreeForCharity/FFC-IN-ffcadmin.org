@@ -93,12 +93,14 @@ export default function SessionInventory() {
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Agent Session Inventory</h1>
           <p className="text-blue-100 max-w-3xl">
-            Every AI coding-agent session at FFC lands as a pull request from a{' '}
-            <code className="bg-blue-700/50 px-1 rounded">claude/*</code> or{' '}
-            <code className="bg-blue-700/50 px-1 rounded">copilot/*</code> branch, so the PR record
-            is the session record. This dashboard renders the committed snapshot of that record
-            across all {orgTotals.repos} public FreeForCharity repositories —{' '}
-            {orgTotals.totalSessions} agent PR sessions in total.
+            Claude and Copilot coding-agent sessions at FFC land as pull requests from{' '}
+            <code className="bg-blue-700/50 px-1 rounded">claude/*</code> and{' '}
+            <code className="bg-blue-700/50 px-1 rounded">copilot/*</code> branches, so the PR
+            record is the session record. This dashboard renders the committed snapshot of that
+            record across all {orgTotals.repos} public FreeForCharity repositories —{' '}
+            {orgTotals.totalSessions} agent PR sessions in total. (The Gemini/Antigravity autonomous
+            loop commits under its own identity and is not captured here — see the methodology
+            below.)
           </p>
         </div>
       </div>
