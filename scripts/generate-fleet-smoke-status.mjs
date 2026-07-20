@@ -145,7 +145,9 @@ async function siteStatus(repo, now = new Date()) {
     ghJson(`/repos/${ORG}/${repo}/issues?state=open&labels=smoke-failure&per_page=1`).catch(
       () => null
     ),
-    ghJson(`/repos/${ORG}/${repo}/actions/workflows`).catch(() => null),
+    // per_page=100 so the smoke workflow is never off-page and mis-flagged
+    // 'missing' (default page size is 30). FFC repos have far fewer than 100.
+    ghJson(`/repos/${ORG}/${repo}/actions/workflows?per_page=100`).catch(() => null),
   ])
 
   const domain = cname?.content
