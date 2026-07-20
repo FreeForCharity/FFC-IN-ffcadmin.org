@@ -5,8 +5,8 @@
 | Field           | Value                                  |
 | --------------- | -------------------------------------- |
 | Status          | 🟡 snapshot (verify before relying)    |
-| Last verified   | 2026-07-05                             |
-| Re-verify by    | 2026-10-05                             |
+| Last verified   | 2026-07-20                             |
+| Re-verify by    | 2026-10-18                             |
 | Source of truth | The cited vendor docs and repositories |
 
 **How to refresh:** re-check the cited docs (Claude Code features move fast),
@@ -42,16 +42,16 @@ coordinating them, not green-fielding.
 
 ## Claude Code-native building blocks (mid-2026)
 
-| Primitive                     | What it is                                                                                                                                                        | Where FFC uses it                                                                                                                                   |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CLAUDE.md` / `AGENTS.md`     | Project instructions agents auto-read                                                                                                                             | All managed repos (synced by AI-Management)                                                                                                         |
-| Skills (`.claude/skills/`)    | Markdown workflows invoked as `/slash` commands                                                                                                                   | This repo: `/session-inventory-refresh`, `/agentic-os-status`                                                                                       |
-| Subagents (`.claude/agents/`) | Isolated-context specialist agents                                                                                                                                | 8 agents in this repo                                                                                                                               |
-| Hooks                         | Deterministic scripts on lifecycle events                                                                                                                         | Not yet used                                                                                                                                        |
-| MCP servers                   | Tool/data connectors                                                                                                                                              | GitHub, Cloudflare, Playwright, Sentry, MS Learn                                                                                                    |
-| Plugins + marketplaces        | Bundle skills+agents+hooks+MCP; `.claude-plugin/marketplace.json` in an org repo, auto-installed via `extraKnownMarketplaces` in per-repo `.claude/settings.json` | Not yet — the Phase 2 distribution mechanism                                                                                                        |
-| `claude-code-action@v1`       | Runs Claude on GitHub events (`@claude` mentions or explicit prompts)                                                                                             | Not yet — Phase 2 candidate for the template repo                                                                                                   |
-| Routines (research preview)   | Scheduled/API/GitHub-event cloud sessions                                                                                                                         | Not yet. **Caveat:** routines run as the creating user's identity, and a green run status means the infrastructure ran, not that the task succeeded |
+| Primitive                     | What it is                                                                                                                                                                                                                                                         | Where FFC uses it                                                                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CLAUDE.md` / `AGENTS.md`     | Project instructions agents auto-read                                                                                                                                                                                                                              | All managed repos (synced by AI-Management)                                                                                                         |
+| Skills (`.claude/skills/`)    | Markdown workflows invoked as `/slash` commands                                                                                                                                                                                                                    | This repo: `/session-inventory-refresh`, `/agentic-os-status`                                                                                       |
+| Subagents (`.claude/agents/`) | Isolated-context specialist agents                                                                                                                                                                                                                                 | 8 agents in this repo                                                                                                                               |
+| Hooks                         | Deterministic scripts on lifecycle events                                                                                                                                                                                                                          | Not yet used                                                                                                                                        |
+| MCP servers                   | Tool/data connectors                                                                                                                                                                                                                                               | GitHub, Cloudflare, Playwright, Sentry, MS Learn                                                                                                    |
+| Plugins + marketplaces        | Bundle skills+agents+hooks+MCP; `.claude-plugin/marketplace.json` in an org repo, auto-installed via `extraKnownMarketplaces` in per-repo `.claude/settings.json`                                                                                                  | Not yet — the Phase 2 distribution mechanism                                                                                                        |
+| `claude-code-action@v1`       | Runs Claude on GitHub events (`@claude` mentions or explicit prompts). **FFC uses subscription auth only:** `CLAUDE_CODE_OAUTH_TOKEN` from `claude setup-token` (Pro/Max), never `ANTHROPIC_API_KEY`                                                               | Not yet — Phase 2 candidate for the template repo                                                                                                   |
+| Routines (research preview)   | Cloud sessions triggered by cron, a per-routine HTTP trigger endpoint (a subscription-funded Routines feature — not pay-per-token Anthropic API usage), or GitHub PR/Release events (rich filters). Included in Max — **15 runs/day**; subscription login required | Not yet. **Caveat:** routines run as the creating user's identity, and a green run status means the infrastructure ran, not that the task succeeded |
 
 ## Session capture / institutional memory
 
@@ -73,10 +73,17 @@ coordinating them, not green-fielding.
 - **GitHub for Nonprofits:** verified 501(c)(3) orgs get the GitHub Team plan
   free (unlimited private repos/users) — apply via
   [github.com/solutions/industry/nonprofits](https://github.com/solutions/industry/nonprofits).
-- **Cost control for Actions-driven agents:** explicit prompts over broad
-  triggers, `--max-turns` caps, workflow timeouts, concurrency limits.
-- **Identity:** unattended automation should run under a dedicated bot/GitHub
-  App identity rather than a volunteer's personal account, so the audit trail
+- **Funding rule — Max subscription only, no API billing:** all agent work
+  runs on the Claude Max subscription via Anthropic's first-party tooling
+  (Claude Code CLI/web, Routines, claude-code-action with a `setup-token`
+  OAuth token). The Agent SDK, Bedrock/Vertex, third-party runners on
+  subscription OAuth, and metered overage credits are off-limits. Budgets are
+  session/run counts against the shared subscription pool, not tokens;
+  `--max-turns` and workflow timeouts remain as runaway guards. See
+  [07-autonomy](./07-autonomy.md) for the full model.
+- **Identity:** unattended automation should run under a dedicated automation
+  account (a single-owner Max account or Team seat with its own GitHub
+  identity) rather than a volunteer's personal account, so the audit trail
   survives volunteer turnover (see [06-governance](./06-governance.md)).
 
 ## Sources
@@ -85,7 +92,8 @@ coordinating them, not green-fielding.
 - MindStudio — the six-layer agentic OS stack <https://www.mindstudio.ai/blog/what-is-agentic-operating-system>
 - AgenticOS workshops (OS-for-agents research) <https://os-for-agent.github.io/>
 - Claude Code docs — GitHub Actions <https://code.claude.com/docs/en/github-actions>, plugin marketplaces <https://code.claude.com/docs/en/plugin-marketplaces>, sessions <https://code.claude.com/docs/en/sessions>
-- anthropics/claude-code-action <https://github.com/anthropics/claude-code-action>
+- anthropics/claude-code-action <https://github.com/anthropics/claude-code-action> (subscription auth: <https://github.com/anthropics/claude-code-action/blob/main/docs/setup.md>)
+- Claude Code Routines <https://code.claude.com/docs/en/routines> · authentication / setup-token <https://code.claude.com/docs/en/authentication>
 - Transcript tooling: <https://github.com/simonw/claude-code-transcripts>, <https://github.com/daaain/claude-code-log>
 - GitHub for Nonprofits <https://github.com/solutions/industry/nonprofits>, quickstart <https://docs.github.com/en/nonprofit/quickstart>
 - Orchestrator landscape: crewAI <https://github.com/crewaiinc/crewai>, Composio agent-orchestrator <https://github.com/ComposioHQ/agent-orchestrator>, awesome-agent-orchestrators <https://github.com/andyrewlee/awesome-agent-orchestrators>

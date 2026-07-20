@@ -40,21 +40,21 @@ const LAYERS: {
     today:
       'The issue → branch → PR runbook (docs/agent-issue-pr-workflow.md), fan-out skills in .claude/skills/, and the numbered ops workflow catalog.',
     planned:
-      'claude-code-action on the template repo for @claude-mention automation; scheduled routines for recurring housekeeping, run under a bot identity.',
+      'Event-driven runs on the Max subscription: Routine GitHub triggers for PR and Release events, plus @claude mentions via the subscription-authenticated claude-code-action — all under a dedicated automation account, never API billing.',
   },
   {
     name: '5 · Governance & guardrails',
     today:
       'Permission allow/deny policy in .claude/settings.json, secret rules, approval-gated write workflows with dry-run defaults, no-self-merge PR review.',
     planned:
-      'A written org governance doc (docs/agentic-os/06-governance.md) adopted across repos; a dedicated bot identity for unattended runs.',
+      'A written org governance doc (docs/agentic-os/06-governance.md) adopted across repos; a dedicated automation account for unattended runs.',
   },
   {
     name: '6 · Observability',
     today:
       'The session inventory snapshot + dashboard, CI status and data feeds on this site, freshness conventions on every snapshot doc.',
     planned:
-      'Quarterly inventory refreshes, per-plane health checks via the /agentic-os-status skill, and cost/turn budgets on automated runs.',
+      'Quarterly inventory refreshes, per-plane health checks via the /agentic-os-status skill, and session/run budgets on automated runs (subscription capacity, not token spend).',
   },
 ]
 
@@ -74,7 +74,7 @@ const PHASES = [
   {
     phase: 'Phase 2 — Automate',
     detail:
-      'Org plugin marketplace + claude-code-action on the template repo so every new charity site is born with the full agent toolkit; bot identity for unattended runs. Already operating from the hub: the Conductor loop and the daily agentic-os status feed rendered on the Agentic OS status page.',
+      'Org plugin marketplace + Max-subscription event automation (Routine GitHub triggers, subscription-authenticated claude-code-action) so every new charity site is born with the full agent toolkit; a dedicated automation account for unattended runs. Already operating from the hub: the Conductor loop and the daily agentic-os status feed rendered on the Agentic OS status page.',
     status: 'In progress',
   },
   {
