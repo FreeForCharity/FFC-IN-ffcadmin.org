@@ -31,35 +31,41 @@ const STATE_STYLES: Record<
     card: 'bg-red-50 border-red-200',
     order: 0,
   },
+  'stale-monitor': {
+    label: 'Monitoring stopped',
+    dot: 'bg-purple-500',
+    card: 'bg-purple-50 border-purple-200',
+    order: 1,
+  },
   running: {
     label: 'Running',
     dot: 'bg-blue-500',
     card: 'bg-blue-50 border-blue-200',
-    order: 1,
+    order: 2,
   },
   passing: {
     label: 'Passing',
     dot: 'bg-green-500',
     card: 'bg-white border-gray-200',
-    order: 2,
+    order: 3,
   },
   pending: {
     label: 'Awaiting first run',
     dot: 'bg-amber-400',
     card: 'bg-amber-50 border-amber-200',
-    order: 3,
+    order: 4,
   },
   'not-cutover': {
     label: 'Not cut over yet',
     dot: 'bg-gray-300',
     card: 'bg-gray-50 border-gray-200',
-    order: 4,
+    order: 5,
   },
   unknown: {
     label: 'Unknown',
     dot: 'bg-gray-300',
     card: 'bg-gray-50 border-gray-200',
-    order: 5,
+    order: 6,
   },
 }
 
@@ -76,6 +82,11 @@ function SiteTile({ site }: { site: FleetSmokeSite }) {
         </span>
       </div>
       <div className="text-xs text-gray-500 mb-2">{site.repo}</div>
+      {site.state === 'stale-monitor' && site.staleReason && (
+        <div className="text-xs text-purple-800 font-medium mb-2">
+          Monitoring stopped — {site.staleReason}.
+        </div>
+      )}
       <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
         {site.domain && (
           <a
