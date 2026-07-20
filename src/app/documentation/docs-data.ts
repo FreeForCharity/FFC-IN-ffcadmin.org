@@ -224,6 +224,55 @@ export const documentationSections: DocSection[] = [
     ],
   },
   {
+    title: 'AI & Agentic Operations',
+    description: 'How FFC runs AI coding agents at scale: architecture, inventory, and governance',
+    icon: '🤖',
+    docs: [
+      {
+        name: 'Agentic OS (Public Pages)',
+        file: '/agentic-os',
+        description:
+          'The public overview of the FFC Agentic OS: the five repository planes, the six capability layers, and links to the session inventory dashboard and architecture pages.',
+        audience: 'Everyone - Volunteers, Administrators, AI Agents',
+        githubUrl: `${GH_BLOB}/src/app/agentic-os/page.tsx`,
+        liveUrl: '/agentic-os',
+      },
+      {
+        name: 'Agentic OS Blueprint',
+        file: 'docs/agentic-os/README.md',
+        description:
+          'The full blueprint directory: research summary, session inventory methodology and findings, target architecture, gap analysis, phased roadmap, and the governance model for a volunteer 501(c)(3).',
+        audience: 'Global Admins, Maintainers, AI Agents',
+        githubUrl: `${GH_BLOB}/docs/agentic-os/README.md`,
+      },
+      {
+        name: 'Autonomy Ladder & Ops Concierge Pilot',
+        file: 'docs/agentic-os/07-autonomy.md',
+        description:
+          'The path from supervised agent sessions to a "Jarvis"-style assistant: the live daily Ops Concierge Routine (feeds → triage → issues → morning report), the @claude conversational entry setup, and the bot-identity gate for org-wide autonomy.',
+        audience: 'Global Admins, Maintainers, AI Agents',
+        githubUrl: `${GH_BLOB}/docs/agentic-os/07-autonomy.md`,
+      },
+      {
+        name: 'Agent Issue-to-PR Workflow',
+        file: 'docs/agent-issue-pr-workflow.md',
+        description:
+          'The coordination runbook every AI agent follows: issue claims, branch naming, PR requirements, and the no-self-merge policy.',
+        audience: 'AI Agents, Maintainers',
+        githubUrl: `${GH_BLOB}/docs/agent-issue-pr-workflow.md`,
+      },
+      {
+        name: 'Agent Session Inventory (Dashboard)',
+        file: '/agentic-os/session-inventory',
+        description:
+          'Per-repo Claude and Copilot PR session counts, date ranges, and task categories across all public FreeForCharity repositories, rendered from the committed snapshot.',
+        audience: 'Everyone - Administrators, Auditors, AI Agents',
+        githubUrl: `${GH_BLOB}/src/app/agentic-os/session-inventory/page.tsx`,
+        liveUrl: '/agentic-os/session-inventory',
+      },
+    ],
+  },
+  {
     title: 'Archived Documentation',
     description: 'Previously active documentation that has been consolidated or completed',
     icon: '📦',

@@ -1,65 +1,338 @@
-﻿[
+[
   {
-    "name": "FFC-Cloudflare-Automation-",
-    "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation-"
+    "name": ".github",
+    "url": "https://github.com/FreeForCharity/.github",
+    "kind": "internal",
+    "archived": false
   },
   {
-    "name": "FFC-IN-Single_Page_Template_Jekell",
-    "url": "https://github.com/FreeForCharity/FFC-IN-Single_Page_Template_Jekell"
-  },
-  { "name": "FFC-EX-SRRN.net", "url": "https://github.com/FreeForCharity/FFC-EX-SRRN.net" },
-  {
-    "name": "FFC-EX-bintobetter.org",
-    "url": "https://github.com/FreeForCharity/FFC-EX-bintobetter.org"
+    "name": "FFC-Cloudflare-Automation",
+    "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation",
+    "kind": "tooling",
+    "archived": false
   },
   {
-    "name": "FFC-IN-Single_Page_Template_HTML",
-    "url": "https://github.com/FreeForCharity/FFC-IN-Single_Page_Template_HTML"
-  },
-  {
-    "name": "FFC_Single_Page_Template",
-    "url": "https://github.com/FreeForCharity/FFC_Single_Page_Template"
-  },
-  {
-    "name": "FFC-EX-PAGboosters.org",
-    "url": "https://github.com/FreeForCharity/FFC-EX-PAGboosters.org"
+    "name": "FFC-EX-3dmc2.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-3dmc2.org",
+    "kind": "charity-site",
+    "archived": false
   },
   {
     "name": "FFC-EX-AllTypeTowing.com",
-    "url": "https://github.com/FreeForCharity/FFC-EX-AllTypeTowing.com"
+    "url": "https://github.com/FreeForCharity/FFC-EX-AllTypeTowing.com",
+    "kind": "charity-site",
+    "archived": false
   },
   {
-    "name": "legioninthewoods.org",
-    "url": "https://github.com/FreeForCharity/legioninthewoods.org"
+    "name": "FFC-EX-PAGboosters.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-PAGboosters.org",
+    "kind": "charity-site",
+    "archived": false
   },
   {
-    "name": "freedomrisingusa.org",
-    "url": "https://github.com/FreeForCharity/freedomrisingusa.org"
+    "name": "FFC-EX-SRRN-Static-site-conversion",
+    "url": "https://github.com/FreeForCharity/FFC-EX-SRRN-Static-site-conversion",
+    "kind": "charity-site",
+    "archived": true
   },
   {
-    "name": "FFC-Static-Site-Capture-Tools",
-    "url": "https://github.com/FreeForCharity/FFC-Static-Site-Capture-Tools"
+    "name": "FFC-EX-SRRN.net",
+    "url": "https://github.com/FreeForCharity/FFC-EX-SRRN.net",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-aariasblueelephant.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-aariasblueelephant.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-amargraves.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-amargraves.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-americanlegionpost64.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-americanlegionpost64.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-aprilhansen.com",
+    "url": "https://github.com/FreeForCharity/FFC-EX-aprilhansen.com",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-armstrongacesbaseball.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-armstrongacesbaseball.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-bearupinternationalministries.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-bearupinternationalministries.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-bintobetter.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-bintobetter.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-browncanyonranch.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-browncanyonranch.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-bucktownbullsbaseball.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-bucktownbullsbaseball.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-bulldogztowing.com",
+    "url": "https://github.com/FreeForCharity/FFC-EX-bulldogztowing.com",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-cactuswrenpreschool.com",
+    "url": "https://github.com/FreeForCharity/FFC-EX-cactuswrenpreschool.com",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-canadatokeywestcoastalrun.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-canadatokeywestcoastalrun.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-clarasbridge.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-clarasbridge.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-compassionstl.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-compassionstl.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-coronadonationalforestheritagesociety.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-coronadonationalforestheritagesociety.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-falloutshelterecovillage.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-falloutshelterecovillage.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-foxtrotenterprises.com",
+    "url": "https://github.com/FreeForCharity/FFC-EX-foxtrotenterprises.com",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-freedomrisingusa.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-freedomrisingusa.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-friendsof362.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-friendsof362.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-garrisonareacaregivers.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-garrisonareacaregivers.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-hclwellness.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-hclwellness.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-instituteofforgiveness.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-instituteofforgiveness.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-jwvpost619.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-jwvpost619.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-legioninthewoods.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-legioninthewoods.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-mitchellnchistory.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-mitchellnchistory.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-nittanypost245.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-nittanypost245.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-nj4israel.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-nj4israel.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-rebirthsdc.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-rebirthsdc.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-savewatersaveplanet.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-savewatersaveplanet.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-slopestohope.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-slopestohope.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-soulcap.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-soulcap.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-southamptonfriends.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-southamptonfriends.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-sporting2Impact.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-sporting2Impact.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-technomonasteries.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-technomonasteries.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-theafghanistanaffairs.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-theafghanistanaffairs.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-thecrookedhouse.net",
+    "url": "https://github.com/FreeForCharity/FFC-EX-thecrookedhouse.net",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-EX-thewayofyeshuaministries.org",
+    "url": "https://github.com/FreeForCharity/FFC-EX-thewayofyeshuaministries.org",
+    "kind": "charity-site",
+    "archived": false
+  },
+  {
+    "name": "FFC-IN-AI-Management",
+    "url": "https://github.com/FreeForCharity/FFC-IN-AI-Management",
+    "kind": "tooling",
+    "archived": false
   },
   {
     "name": "FFC-IN-Antigravity-Static-site-agent",
-    "url": "https://github.com/FreeForCharity/FFC-IN-Antigravity-Static-site-agent"
+    "url": "https://github.com/FreeForCharity/FFC-IN-Antigravity-Static-site-agent",
+    "kind": "tooling",
+    "archived": false
   },
-  { "name": "FFC-IN-ffcadmin.org", "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org" },
   {
-    "name": "FFC-EX-SRRN-Static-site-conversion",
-    "url": "https://github.com/FreeForCharity/FFC-EX-SRRN-Static-site-conversion"
+    "name": "FFC-IN-FFC_Single_Page_Template",
+    "url": "https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template",
+    "kind": "template",
+    "archived": false
   },
-  { "name": "freeforcharity-web", "url": "https://github.com/FreeForCharity/freeforcharity-web" },
   {
-    "name": "FFC-Technology-Directory",
-    "url": "https://github.com/FreeForCharity/FFC-Technology-Directory"
+    "name": "FFC-IN-Footer_Only_Template",
+    "url": "https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template",
+    "kind": "template",
+    "archived": false
   },
-  { "name": "FreeForCharity.org", "url": "https://github.com/FreeForCharity/FreeForCharity.org" },
+  {
+    "name": "FFC-IN-Single_Page_Template_HTML",
+    "url": "https://github.com/FreeForCharity/FFC-IN-Single_Page_Template_HTML",
+    "kind": "template",
+    "archived": true
+  },
+  {
+    "name": "FFC-IN-Single_Page_Template_Jekell",
+    "url": "https://github.com/FreeForCharity/FFC-IN-Single_Page_Template_Jekell",
+    "kind": "template",
+    "archived": true
+  },
+  {
+    "name": "FFC-IN-ffcadmin.org",
+    "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org",
+    "kind": "internal",
+    "archived": false
+  },
+  {
+    "name": "FFC-IN-freeforcharity.org",
+    "url": "https://github.com/FreeForCharity/FFC-IN-freeforcharity.org",
+    "kind": "internal",
+    "archived": false
+  },
+  {
+    "name": "FFC-IN-google_antigravity_agents",
+    "url": "https://github.com/FreeForCharity/FFC-IN-google_antigravity_agents",
+    "kind": "tooling",
+    "archived": false
+  },
+  {
+    "name": "FFC-MicrosoftBot",
+    "url": "https://github.com/FreeForCharity/FFC-MicrosoftBot",
+    "kind": "tooling",
+    "archived": false
+  },
+  {
+    "name": "FFC-Static-Site-Capture-Tools",
+    "url": "https://github.com/FreeForCharity/FFC-Static-Site-Capture-Tools",
+    "kind": "tooling",
+    "archived": false
+  },
   {
     "name": "TechnologyMonastery.org",
-    "url": "https://github.com/FreeForCharity/TechnologyMonastery.org"
-  },
-  { "name": "crookedhouse-net", "url": "https://github.com/FreeForCharity/crookedhouse-net" },
-  { "name": "FFC-MicrosoftBot", "url": "https://github.com/FreeForCharity/FFC-MicrosoftBot" },
-  { "name": "FFC-Discussions", "url": "https://github.com/FreeForCharity/FFC-Discussions" }
+    "url": "https://github.com/FreeForCharity/TechnologyMonastery.org",
+    "kind": "internal",
+    "archived": false
+  }
 ]

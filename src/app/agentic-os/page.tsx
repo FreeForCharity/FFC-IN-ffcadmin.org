@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import {
   loadAgenticOsStatus,
@@ -272,7 +273,7 @@ export default function AgenticOsStatus() {
         )}
       </section>
 
-      <section>
+      <section className="mb-10">
         <h2 className="mb-3 text-xl font-bold text-gray-900">Latest Conductor log</h2>
         {log.length === 0 ? (
           <p className="text-sm text-gray-500">No recent Conductor log entries.</p>
@@ -283,6 +284,26 @@ export default function AgenticOsStatus() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600">
+        More on the Agentic OS:{' '}
+        <Link href="/agentic-os/session-inventory" className="text-blue-700 hover:underline">
+          historical session inventory
+        </Link>{' '}
+        (879 agent PR sessions across the org) ·{' '}
+        <Link href="/agentic-os/architecture" className="text-blue-700 hover:underline">
+          architecture &amp; roadmap
+        </Link>{' '}
+        ·{' '}
+        <a
+          href="https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/tree/main/docs/agentic-os"
+          className="text-blue-700 hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          blueprint docs
+        </a>
       </section>
     </main>
   )

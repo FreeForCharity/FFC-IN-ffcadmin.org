@@ -156,6 +156,11 @@ export const operateMenu: NavMenu = {
           description: 'The workflow catalog: how FFC automates its infrastructure.',
         },
         {
+          label: 'Agentic OS',
+          href: '/agentic-os',
+          description: 'How FFC runs on AI agents: architecture, governance, session inventory.',
+        },
+        {
           label: 'Testing',
           href: '/testing',
           description: 'Testing strategy, live CI status, and best practices.',
