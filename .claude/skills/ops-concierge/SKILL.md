@@ -1,6 +1,6 @@
 ---
 name: ops-concierge
-description: Autonomous daily ops sweep - fetch FFC's published health feeds (site alerts, domain expiry, CI status), triage against policy, file or update GitHub issues in THIS repo only, and post a run summary on the pilot tracking issue. Issue-only writes; safe to run unattended or manually.
+description: Manual ops sweep (invoke via /ops-concierge; do NOT schedule) - fetch FFC's published health feeds (site alerts, domain expiry, CI status), triage against policy, file or update GitHub issues in THIS repo only, and post a run summary on the tracking issue. Issue-only writes; unattended runs stay deferred until reconciled with the hub Conductor loop.
 ---
 
 # Ops Concierge
