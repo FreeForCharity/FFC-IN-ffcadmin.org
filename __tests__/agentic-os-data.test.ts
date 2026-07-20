@@ -188,11 +188,24 @@ describe('agenticOsData pure helpers', () => {
     expect(isValidRepoEntry({ ...base, exampleTitles: [42] })).toBe(false)
     // categoryCounts values must be numeric (categoryTotals does arithmetic).
     expect(isValidRepoEntry({ ...base, categoryCounts: { feature: 'many' } })).toBe(false)
-    // firstSeen/lastSeen must be string or null.
+    // firstSeen/lastSeen must be YYYY-MM-DD strings (dateRange compares
+    // lexicographically) or null.
     expect(
       isValidRepoEntry({
         ...base,
         agents: { ...base.agents, copilot: { ...base.agents.copilot, firstSeen: 20260101 } },
+      })
+    ).toBe(false)
+    expect(
+      isValidRepoEntry({
+        ...base,
+        agents: { ...base.agents, copilot: { ...base.agents.copilot, firstSeen: 'yesterday' } },
+      })
+    ).toBe(false)
+    expect(
+      isValidRepoEntry({
+        ...base,
+        agents: { ...base.agents, claude: { ...base.agents.claude, lastSeen: '2026-99-99' } },
       })
     ).toBe(false)
     expect(isValidRepoEntry(null)).toBe(false)

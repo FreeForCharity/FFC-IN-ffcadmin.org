@@ -70,6 +70,17 @@ function readJson<T>(file: string): T | null {
 const REPO_KINDS: readonly string[] = ['internal', 'charity-site', 'template', 'tooling']
 const SURVEY_STATUSES: readonly string[] = ['ok', 'partial', 'unreachable']
 
+// dateRange() on the dashboard compares these lexicographically, so seen-dates
+// must be real YYYY-MM-DD strings, not just any string.
+const SEEN_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+
+function isValidSeenDate(value: unknown): boolean {
+  return (
+    value === null ||
+    (typeof value === 'string' && SEEN_DATE_RE.test(value) && !Number.isNaN(Date.parse(value)))
+  )
+}
+
 function isValidAgentStats(stats: unknown): stats is AgentPrStats {
   if (!stats || typeof stats !== 'object') return false
   const s = stats as Record<string, unknown>
@@ -77,8 +88,8 @@ function isValidAgentStats(stats: unknown): stats is AgentPrStats {
     typeof s.total === 'number' &&
     typeof s.open === 'number' &&
     typeof s.closed === 'number' &&
-    (s.firstSeen === null || typeof s.firstSeen === 'string') &&
-    (s.lastSeen === null || typeof s.lastSeen === 'string')
+    isValidSeenDate(s.firstSeen) &&
+    isValidSeenDate(s.lastSeen)
   )
 }
 
