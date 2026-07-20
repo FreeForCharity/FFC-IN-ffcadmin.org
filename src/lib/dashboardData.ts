@@ -25,11 +25,23 @@ export interface CiStatusData {
 }
 
 export type FleetSmokeState =
-  'passing' | 'failing' | 'running' | 'stale-monitor' | 'not-cutover' | 'pending' | 'unknown'
+  | 'passing'
+  | 'failing'
+  | 'running'
+  | 'stale-monitor'
+  | 'not-cutover'
+  | 'not-deployed'
+  | 'pending'
+  | 'unknown'
 
 export interface FleetSmokeSite {
   repo: string
+  // Serving identity resolved from the Pages API `cname` (#742) — the domain the
+  // site is actually served on; null when served on the default *.github.io URL.
   domain: string | null
+  // The committed public/CNAME file value (the build's claim of a domain), kept
+  // as a secondary field so drift from `domain` stays visible; null when absent.
+  cnameFile?: string | null
   state: FleetSmokeState
   smoke: {
     status: string

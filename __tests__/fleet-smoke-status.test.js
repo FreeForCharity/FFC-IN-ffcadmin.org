@@ -48,11 +48,43 @@ describe('EMPTY_SUMMARY', () => {
   it('has a zeroed count for stale-monitor', () => {
     expect(EMPTY_SUMMARY['stale-monitor']).toBe(0)
   })
+  it('has a zeroed count for not-deployed', () => {
+    expect(EMPTY_SUMMARY['not-deployed']).toBe(0)
+  })
 })
 
 describe('computeSiteState', () => {
   it('no domain -> not-cutover', () => {
     expect(computeSiteState({ domain: null, run: run(), now: NOW }).state).toBe('not-cutover')
+  })
+
+  it('Pages disabled -> not-deployed, even with a fresh passing run', () => {
+    const res = computeSiteState({
+      domain: 'x.org',
+      run: run({ updated_at: hoursAgo(1) }),
+      workflowState: 'active',
+      pagesEnabled: false,
+      now: NOW,
+    })
+    expect(res.state).toBe('not-deployed')
+    expect(res.staleReason).toBeNull()
+  })
+
+  it('Pages disabled with no domain -> not-deployed (not not-cutover)', () => {
+    expect(computeSiteState({ domain: null, run: null, pagesEnabled: false, now: NOW }).state).toBe(
+      'not-deployed'
+    )
+  })
+
+  it('Pages config unreadable (pagesEnabled null) does not force not-deployed', () => {
+    expect(
+      computeSiteState({
+        domain: 'x.org',
+        run: run({ updated_at: hoursAgo(1) }),
+        pagesEnabled: null,
+        now: NOW,
+      }).state
+    ).toBe('passing')
   })
 
   it('in-progress run -> running', () => {
