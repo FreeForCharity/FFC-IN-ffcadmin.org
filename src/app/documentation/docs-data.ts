@@ -249,7 +249,7 @@ export const documentationSections: DocSection[] = [
         name: 'Autonomy Ladder & Ops Concierge Pilot',
         file: 'docs/agentic-os/07-autonomy.md',
         description:
-          'The path from supervised agent sessions to a "Jarvis"-style assistant: the live daily Ops Concierge Routine (feeds → triage → issues → morning report), the @claude conversational entry setup, and the bot-identity gate for org-wide autonomy.',
+          'The path from supervised agent sessions to a "Jarvis"-style assistant, funded entirely by the Claude Max subscription (no API billing): the Ops Concierge manual sweep, Routine GitHub triggers and subscription-authenticated @claude entry, and the automation-account gate for org-wide autonomy.',
         audience: 'Global Admins, Maintainers, AI Agents',
         githubUrl: `${GH_BLOB}/docs/agentic-os/07-autonomy.md`,
       },
