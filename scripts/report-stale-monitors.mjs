@@ -84,7 +84,11 @@ async function main() {
   const slug = process.env.GITHUB_REPOSITORY || 'FreeForCharity/FFC-IN-ffcadmin.org'
   const [owner, repo] = slug.split('/')
 
-  async function gh(path, init = {}) {
+  // `okStatuses` lists extra non-2xx codes to tolerate for a specific call
+  // (only used for label creation, where 422 means "already exists"). Every
+  // other call surfaces a non-2xx as an error so issue create/update/close
+  // failures are never silently swallowed.
+  async function gh(path, init = {}, okStatuses = []) {
     const res = await fetch(`https://api.github.com${path}`, {
       ...init,
       headers: {
@@ -95,8 +99,7 @@ async function main() {
         ...(init.headers || {}),
       },
     })
-    // 422 on label create == already exists; treat as success.
-    if (!res.ok && res.status !== 422) {
+    if (!res.ok && !okStatuses.includes(res.status)) {
       throw new Error(`GitHub API ${init.method || 'GET'} ${path} -> ${res.status}`)
     }
     const text = await res.text()
@@ -133,15 +136,18 @@ async function main() {
     return
   }
 
-  // Ensure the labels exist (idempotent; 422 == already there).
-  await gh(`/repos/${owner}/${repo}/labels`, {
-    method: 'POST',
-    body: JSON.stringify({ name: 'smoke-failure', color: 'b60205' }),
-  })
-  await gh(`/repos/${owner}/${repo}/labels`, {
-    method: 'POST',
-    body: JSON.stringify({ name: 'priority: high', color: 'd93f0b' }),
-  })
+  // Ensure the labels exist (idempotent; 422 == already there, tolerated only
+  // for these two label-create calls).
+  await gh(
+    `/repos/${owner}/${repo}/labels`,
+    { method: 'POST', body: JSON.stringify({ name: 'smoke-failure', color: 'b60205' }) },
+    [422]
+  )
+  await gh(
+    `/repos/${owner}/${repo}/labels`,
+    { method: 'POST', body: JSON.stringify({ name: 'priority: high', color: 'd93f0b' }) },
+    [422]
+  )
 
   const title = issueTitle(staleSites)
   const body = buildIssueBody(staleSites, generatedAt)
