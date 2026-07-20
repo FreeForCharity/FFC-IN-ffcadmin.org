@@ -35,7 +35,7 @@ achievable with Anthropic's first-party subscription tooling:
 | Need                       | Max-subscription mechanism                                                                                                     |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | Interactive + remote work  | Claude Code CLI and Claude Code on the web (claude.ai/code) — included in Max, one shared usage pool                           |
-| Scheduled unattended runs  | **Routines** (cron ≥ 1 hour, API-fire, or GitHub triggers) — 15 runs/day on Max; requires subscription login                   |
+| Scheduled unattended runs  | **Routines** (cron ≥ 1 hour, API-triggered, or GitHub triggers) — 15 runs/day on Max; requires subscription login              |
 | Event-driven automation    | **Routine GitHub triggers** — PR and Release events with author/branch/label/regex filters (Claude GitHub App per repo)        |
 | `@claude` comment mentions | `anthropics/claude-code-action` authenticated with **`CLAUDE_CODE_OAUTH_TOKEN`** from `claude setup-token` (Pro/Max supported) |
 
