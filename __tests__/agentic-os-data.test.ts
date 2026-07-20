@@ -186,8 +186,10 @@ describe('agenticOsData pure helpers', () => {
     // exampleTitles must be an array of strings.
     expect(isValidRepoEntry({ ...base, exampleTitles: 'feat: x' })).toBe(false)
     expect(isValidRepoEntry({ ...base, exampleTitles: [42] })).toBe(false)
-    // categoryCounts values must be numeric (categoryTotals does arithmetic).
+    // categoryCounts values must be finite non-negative numbers
+    // (categoryTotals does arithmetic; the dashboard sizes bars from them).
     expect(isValidRepoEntry({ ...base, categoryCounts: { feature: 'many' } })).toBe(false)
+    expect(isValidRepoEntry({ ...base, categoryCounts: { feature: -2 } })).toBe(false)
     // firstSeen/lastSeen must be YYYY-MM-DD strings (dateRange compares
     // lexicographically) or null.
     expect(

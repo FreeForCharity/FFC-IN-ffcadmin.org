@@ -115,7 +115,7 @@ export function isValidRepoEntry(entry: unknown): entry is RepoSessionEntry {
     !!e.categoryCounts &&
     typeof e.categoryCounts === 'object' &&
     !Array.isArray(e.categoryCounts) &&
-    Object.values(e.categoryCounts).every((v) => typeof v === 'number') &&
+    Object.values(e.categoryCounts).every(isValidCount) &&
     !!agents &&
     isValidAgentStats(agents.claude) &&
     isValidAgentStats(agents.copilot)
@@ -129,6 +129,8 @@ export function loadAgentSessionInventory(): AgentSessionInventory | null {
   // and pages never throw on partial data.
   if (
     !data ||
+    data.schemaVersion !== 1 ||
+    typeof data.method !== 'string' ||
     !Array.isArray(data.repos) ||
     !Array.isArray(data.categories) ||
     typeof data.generatedAt !== 'string' ||
@@ -139,11 +141,11 @@ export function loadAgentSessionInventory(): AgentSessionInventory | null {
     typeof data.window.to !== 'string' ||
     Number.isNaN(Date.parse(data.window.to)) ||
     !data.orgTotals ||
-    typeof data.orgTotals.repos !== 'number' ||
-    typeof data.orgTotals.reposWithSessions !== 'number' ||
-    typeof data.orgTotals.claudePrs !== 'number' ||
-    typeof data.orgTotals.copilotPrs !== 'number' ||
-    typeof data.orgTotals.totalSessions !== 'number' ||
+    !isValidCount(data.orgTotals.repos) ||
+    !isValidCount(data.orgTotals.reposWithSessions) ||
+    !isValidCount(data.orgTotals.claudePrs) ||
+    !isValidCount(data.orgTotals.copilotPrs) ||
+    !isValidCount(data.orgTotals.totalSessions) ||
     !data.categories.every((c) => !!c && typeof c.id === 'string' && typeof c.label === 'string') ||
     !data.repos.every(isValidRepoEntry)
   ) {
