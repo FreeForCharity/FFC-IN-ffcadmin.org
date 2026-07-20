@@ -77,8 +77,16 @@ describe('computeSiteState', () => {
     ).toBe('failing')
   })
 
-  it('cut over, no run yet -> pending', () => {
-    expect(computeSiteState({ domain: 'x.org', run: null, now: NOW }).state).toBe('pending')
+  it('cut over, active workflow, no run yet -> pending', () => {
+    expect(
+      computeSiteState({ domain: 'x.org', run: null, workflowState: 'active', now: NOW }).state
+    ).toBe('pending')
+  })
+
+  it('cut over, no run, workflow state unknown (unreadable list) -> unknown, not pending', () => {
+    expect(
+      computeSiteState({ domain: 'x.org', run: null, workflowState: null, now: NOW }).state
+    ).toBe('unknown')
   })
 
   it('latest run older than 48h -> stale-monitor with age reason', () => {

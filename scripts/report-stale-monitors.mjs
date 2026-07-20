@@ -28,6 +28,9 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
 const DATA = join(SCRIPT_DIR, '..', 'public', 'data', 'fleet-smoke-status.json')
 
 export const MANAGED_MARKER = '<!-- fleet-stale-monitor-report -->'
+// Distinctive slug inside the marker, used for the label-independent search
+// fallback so a manually stripped label can't orphan the managed issue.
+export const MARKER_SLUG = 'fleet-stale-monitor-report'
 export const LABELS = ['smoke-failure', 'priority: high']
 
 /** Stable-ish title; the marker (not the title) is what identifies the issue. */
@@ -75,6 +78,28 @@ function readStaleData() {
   }
 }
 
+/**
+ * Locate the managed issue by its hidden body marker — identity is the marker,
+ * NOT the label. Fast path filters by the `smoke-failure` label (cheap, always
+ * consistent); if that misses (e.g. the label was manually stripped) it falls
+ * back to a label-independent body search so the issue is never orphaned into a
+ * duplicate. `gh` is the caller's request helper.
+ */
+async function findManagedIssue(gh, owner, repo) {
+  const hasMarker = (i) => i && !i.pull_request && (i.body || '').includes(MANAGED_MARKER)
+
+  const labeled =
+    (await gh(
+      `/repos/${owner}/${repo}/issues?state=open&labels=${encodeURIComponent('smoke-failure')}&per_page=100`
+    )) || []
+  const viaLabel = labeled.find(hasMarker)
+  if (viaLabel) return viaLabel
+
+  const q = `repo:${owner}/${repo} is:issue is:open in:body "${MARKER_SLUG}"`
+  const searched = await gh(`/search/issues?q=${encodeURIComponent(q)}&per_page=20`)
+  return (searched?.items || []).find(hasMarker) || null
+}
+
 async function main() {
   const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
   if (!token) {
@@ -109,13 +134,7 @@ async function main() {
   const { generatedAt, staleSites } = readStaleData()
   console.log(`${staleSites.length} stale-monitor site(s).`)
 
-  // Find the existing managed issue (open, labeled smoke-failure, marker in body).
-  const open =
-    (await gh(
-      `/repos/${owner}/${repo}/issues?state=open&labels=${encodeURIComponent('smoke-failure')}&per_page=100`
-    )) || []
-  const managed =
-    open.find((i) => !i.pull_request && (i.body || '').includes(MANAGED_MARKER)) || null
+  const managed = await findManagedIssue(gh, owner, repo)
 
   if (staleSites.length === 0) {
     if (managed) {
@@ -156,6 +175,13 @@ async function main() {
     await gh(`/repos/${owner}/${repo}/issues/${managed.number}`, {
       method: 'PATCH',
       body: JSON.stringify({ title, body }),
+    })
+    // Re-assert the contract labels (additive — POST .../labels never removes
+    // human-added ones) so a manually stripped label is restored and the
+    // label-filtered lookup keeps finding this issue next run.
+    await gh(`/repos/${owner}/${repo}/issues/${managed.number}/labels`, {
+      method: 'POST',
+      body: JSON.stringify({ labels: LABELS }),
     })
     console.log(`Updated managed issue #${managed.number}.`)
   } else {

@@ -98,8 +98,8 @@ export function hoursSince(iso, now = new Date()) {
  *   running      — a run is queued/in progress right now.
  *   stale-monitor — workflow not active (disabled or missing), OR latest run older than 48h.
  *   passing/failing — latest run's conclusion, when recent.
- *   pending      — cut over, active engine, no run yet.
- *   unknown      — anything else.
+ *   pending      — cut over, workflow known 'active', no run yet.
+ *   unknown      — no run and the workflow state is unknown (list unreadable).
  */
 export function computeSiteState({ domain, run, workflowState, now = new Date() } = {}) {
   if (!domain) return { state: 'not-cutover', staleReason: null }
@@ -130,7 +130,11 @@ export function computeSiteState({ domain, run, workflowState, now = new Date() 
 
   if (run?.conclusion === 'success') return { state: 'passing', staleReason: null }
   if (run?.conclusion === 'failure') return { state: 'failing', staleReason: null }
-  if (!run) return { state: 'pending', staleReason: null }
+  // No run: only "awaiting first run" when we positively know the workflow is
+  // active. If the workflows list was unreadable (workflowState null/undefined)
+  // we can't tell a fresh cutover from a transient API failure, so report
+  // 'unknown' rather than mislabelling it 'pending'.
+  if (!run) return { state: workflowState === 'active' ? 'pending' : 'unknown', staleReason: null }
   return { state: 'unknown', staleReason: null }
 }
 
