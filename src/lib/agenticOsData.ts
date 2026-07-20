@@ -73,7 +73,13 @@ const SURVEY_STATUSES: readonly string[] = ['ok', 'partial', 'unreachable']
 function isValidAgentStats(stats: unknown): stats is AgentPrStats {
   if (!stats || typeof stats !== 'object') return false
   const s = stats as Record<string, unknown>
-  return typeof s.total === 'number' && typeof s.open === 'number' && typeof s.closed === 'number'
+  return (
+    typeof s.total === 'number' &&
+    typeof s.open === 'number' &&
+    typeof s.closed === 'number' &&
+    (s.firstSeen === null || typeof s.firstSeen === 'string') &&
+    (s.lastSeen === null || typeof s.lastSeen === 'string')
+  )
 }
 
 /** Validate the minimal per-repo shape the dashboard and helpers rely on. */
@@ -87,9 +93,11 @@ export function isValidRepoEntry(entry: unknown): entry is RepoSessionEntry {
     REPO_KINDS.includes(e.kind as string) &&
     SURVEY_STATUSES.includes(e.surveyStatus as string) &&
     Array.isArray(e.exampleTitles) &&
+    e.exampleTitles.every((t) => typeof t === 'string') &&
     !!e.categoryCounts &&
     typeof e.categoryCounts === 'object' &&
     !Array.isArray(e.categoryCounts) &&
+    Object.values(e.categoryCounts).every((v) => typeof v === 'number') &&
     !!agents &&
     isValidAgentStats(agents.claude) &&
     isValidAgentStats(agents.copilot)
@@ -109,7 +117,9 @@ export function loadAgentSessionInventory(): AgentSessionInventory | null {
     Number.isNaN(Date.parse(data.generatedAt)) ||
     !data.window ||
     typeof data.window.from !== 'string' ||
+    Number.isNaN(Date.parse(data.window.from)) ||
     typeof data.window.to !== 'string' ||
+    Number.isNaN(Date.parse(data.window.to)) ||
     !data.orgTotals ||
     typeof data.orgTotals.repos !== 'number' ||
     typeof data.orgTotals.reposWithSessions !== 'number' ||

@@ -183,8 +183,18 @@ describe('agenticOsData pure helpers', () => {
     // Enum fields must hold known values.
     expect(isValidRepoEntry({ ...base, kind: 'mystery' })).toBe(false)
     expect(isValidRepoEntry({ ...base, surveyStatus: 'maybe' })).toBe(false)
-    // exampleTitles must be an array.
+    // exampleTitles must be an array of strings.
     expect(isValidRepoEntry({ ...base, exampleTitles: 'feat: x' })).toBe(false)
+    expect(isValidRepoEntry({ ...base, exampleTitles: [42] })).toBe(false)
+    // categoryCounts values must be numeric (categoryTotals does arithmetic).
+    expect(isValidRepoEntry({ ...base, categoryCounts: { feature: 'many' } })).toBe(false)
+    // firstSeen/lastSeen must be string or null.
+    expect(
+      isValidRepoEntry({
+        ...base,
+        agents: { ...base.agents, copilot: { ...base.agents.copilot, firstSeen: 20260101 } },
+      })
+    ).toBe(false)
     expect(isValidRepoEntry(null)).toBe(false)
   })
 })
