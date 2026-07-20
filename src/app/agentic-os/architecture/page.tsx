@@ -40,7 +40,7 @@ const LAYERS: {
     today:
       'The issue → branch → PR runbook (docs/agent-issue-pr-workflow.md), fan-out skills in .claude/skills/, and the numbered ops workflow catalog.',
     planned:
-      'Event-driven runs on the Max subscription: Routine GitHub triggers for PR events, plus @claude mentions via the subscription-authenticated claude-code-action — all under a dedicated automation account, never API billing.',
+      'Event-driven runs on the Max subscription: Routine GitHub triggers for PR and Release events, plus @claude mentions via the subscription-authenticated claude-code-action — all under a dedicated automation account, never API billing.',
   },
   {
     name: '5 · Governance & guardrails',
