@@ -118,7 +118,9 @@ describe('extractZeffyUrls', () => {
     const urls = extractZeffyUrls(html)
     expect(urls).toContain('https://www.zeffy.com/embed/donation-form/abc')
     expect(urls).toContain('https://www.zeffy.com/ticketing/gala')
-    expect(urls.some((u) => u.includes('example.com'))).toBe(false)
+    // Only the two Zeffy URLs — the example.com anchor is not captured.
+    expect(urls).toHaveLength(2)
+    for (const u of urls) expect(new URL(u).hostname).toBe('www.zeffy.com')
   })
 
   it('returns an empty array for empty/no-match HTML', () => {
