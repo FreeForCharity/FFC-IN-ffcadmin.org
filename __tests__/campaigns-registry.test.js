@@ -181,6 +181,29 @@ describe('mergeRegistries', () => {
     expect(campaigns[0].lastSeen).toBe(NOW)
   })
 
+  it('unions previous site/surface attribution so a transient site failure does not drop it', () => {
+    const previous = {
+      campaigns: [
+        {
+          url: 'https://zeffy.com/donation-form/parade',
+          kind: 'donation-form',
+          surfaces: ['link'],
+          class: 'charity-specific',
+          // z.org carried this campaign before but is unreachable this run.
+          sites: ['a.org', 'z.org'],
+          firstSeen: '2026-01-01T00:00:00.000Z',
+          lastSeen: '2026-07-01T00:00:00.000Z',
+        },
+      ],
+    }
+    const { campaigns, sites } = mergeRegistries(detected, previous, ffcSet(), NOW)
+    const c = campaigns.find((x) => x.url.endsWith('parade'))
+    expect(c.sites).toEqual(['a.org', 'b.org', 'z.org'])
+    expect(c.surfaces).toEqual(['embed', 'link'])
+    expect(sites['z.org']).toContain('https://zeffy.com/donation-form/parade')
+    expect(c.lastSeen).toBe(NOW)
+  })
+
   it('carries forward a previously-seen campaign not detected this run', () => {
     const previous = {
       campaigns: [

@@ -147,6 +147,8 @@ export function extractZeffyUrls(html) {
  * `detected` is a Map<canonicalUrl, {kind, surfaces:Set, sites:Set}> from this
  * run. `previous` is the parsed previous registry (or null). `ffcSet` classifies
  * every campaign fresh so a newly-authoritative FFC list re-labels old entries.
+ * Site and surface attribution is cumulative (union of previous + this run) so a
+ * transient per-site fetch failure never drops a site from a still-live campaign.
  * Returns { campaigns, sites } ready to serialize.
  */
 export function mergeRegistries(detected, previous, ffcSet, nowIso) {
@@ -160,12 +162,18 @@ export function mergeRegistries(detected, previous, ffcSet, nowIso) {
     const prev = prevByUrl.get(url)
     const firstSeen = prev?.firstSeen || nowIso
     if (cur) {
+      // Union this run's attribution with the previous entry's so a campaign
+      // that stays live on one site does not lose another site whose fetch was
+      // transiently down this run (the reverse `sites` map would otherwise flap).
+      // lastSeen still reflects this run since the campaign was detected now.
+      const sites = new Set([...(prev?.sites || []), ...cur.sites])
+      const surfaces = new Set([...(prev?.surfaces || []), ...cur.surfaces])
       campaigns.push({
         url,
         kind: cur.kind,
-        surfaces: [...cur.surfaces].sort(),
+        surfaces: [...surfaces].sort(),
         class: classifyCampaign(url, ffcSet),
-        sites: [...cur.sites].sort(),
+        sites: [...sites].sort(),
         firstSeen,
         lastSeen: nowIso,
       })
