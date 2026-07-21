@@ -1,0 +1,347 @@
+{
+  "generatedAt": "2026-07-21T06:26:15.625Z",
+  "org": "FreeForCharity",
+  "campaignCount": 21,
+  "summary": {
+    "ffc-owned": 1,
+    "charity-specific": 20,
+    "unknown": 0
+  },
+  "campaigns": [
+    {
+      "url": "https://zeffy.com/donation-form/1147c71d-852d-4639-a9ac-48dc0c89d039",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "pagbooster.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/1bbf7eac-7a56-419e-8aab-7d39111709a7",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "pagbooster.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/8e423183-d093-41c4-91a0-947ff24c3bee",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "hclwellness.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/aariasblueelephant",
+      "kind": "donation-form",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "aariasblueelephant.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/backpacks-new-gymnasts",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "pagbooster.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/cancer-took-a-lot-lets-help-survivors-reclaim-their-skin-and-their-confidence",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "restoredradiancefoundation.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/compassionate-care-for-community-cats",
+      "kind": "donation-form",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "catnipandcattitude.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/donate-for-our-ministry",
+      "kind": "donation-form",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "thewayofyeshuaministries.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/donate-to-change-lives-10174",
+      "kind": "donation-form",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "clarasbridge.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/donate-to-the-crooked-house",
+      "kind": "donation-form",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "thecrookedhouse.net"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/free-for-charity-endowment-fund",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed",
+        "link"
+      ],
+      "class": "ffc-owned",
+      "sites": [
+        "FFC-EX-foxtrotenterprises.com",
+        "FFC-EX-sporting2Impact.org",
+        "ffcworkingsite1.org",
+        "technologymonastery.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/fundraising-opt-out",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "pagbooster.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/general-american-legion-post-245-fund",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "nittanypost245.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/project-rebirth-uniting-communities-to-eradicate-homelessness",
+      "kind": "donation-form",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "rebirthsdc.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/state-college-independence-day-parade",
+      "kind": "donation-form",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "freedomrisingusa.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/support-this-ministry-3",
+      "kind": "donation-form",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "bearupinternationalministries.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/ticketing/fly-away-meet-registration",
+      "kind": "ticketing",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "pagbooster.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/ticketing/pag-parents-inc-usag-team-memberships-2025-annual",
+      "kind": "ticketing",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "pagbooster.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/ticketing/reeeal-good-bbq",
+      "kind": "ticketing",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "nittanypost245.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/ticketing/region-7-competition-fees",
+      "kind": "ticketing",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "pagbooster.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    },
+    {
+      "url": "https://zeffy.com/ticketing/wise-crackers-comedy-charity-night",
+      "kind": "ticketing",
+      "surfaces": [
+        "embed"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "pagbooster.org"
+      ],
+      "firstSeen": "2026-07-21T06:26:15.625Z",
+      "lastSeen": "2026-07-21T06:26:15.625Z"
+    }
+  ],
+  "sites": {
+    "FFC-EX-foxtrotenterprises.com": [
+      "https://zeffy.com/donation-form/free-for-charity-endowment-fund"
+    ],
+    "FFC-EX-sporting2Impact.org": [
+      "https://zeffy.com/donation-form/free-for-charity-endowment-fund"
+    ],
+    "aariasblueelephant.org": [
+      "https://zeffy.com/donation-form/aariasblueelephant"
+    ],
+    "bearupinternationalministries.org": [
+      "https://zeffy.com/donation-form/support-this-ministry-3"
+    ],
+    "catnipandcattitude.org": [
+      "https://zeffy.com/donation-form/compassionate-care-for-community-cats"
+    ],
+    "clarasbridge.org": [
+      "https://zeffy.com/donation-form/donate-to-change-lives-10174"
+    ],
+    "ffcworkingsite1.org": [
+      "https://zeffy.com/donation-form/free-for-charity-endowment-fund"
+    ],
+    "freedomrisingusa.org": [
+      "https://zeffy.com/donation-form/state-college-independence-day-parade"
+    ],
+    "hclwellness.org": [
+      "https://zeffy.com/donation-form/8e423183-d093-41c4-91a0-947ff24c3bee"
+    ],
+    "nittanypost245.org": [
+      "https://zeffy.com/donation-form/general-american-legion-post-245-fund",
+      "https://zeffy.com/ticketing/reeeal-good-bbq"
+    ],
+    "pagbooster.org": [
+      "https://zeffy.com/donation-form/1147c71d-852d-4639-a9ac-48dc0c89d039",
+      "https://zeffy.com/donation-form/1bbf7eac-7a56-419e-8aab-7d39111709a7",
+      "https://zeffy.com/donation-form/backpacks-new-gymnasts",
+      "https://zeffy.com/donation-form/fundraising-opt-out",
+      "https://zeffy.com/ticketing/fly-away-meet-registration",
+      "https://zeffy.com/ticketing/pag-parents-inc-usag-team-memberships-2025-annual",
+      "https://zeffy.com/ticketing/region-7-competition-fees",
+      "https://zeffy.com/ticketing/wise-crackers-comedy-charity-night"
+    ],
+    "rebirthsdc.org": [
+      "https://zeffy.com/donation-form/project-rebirth-uniting-communities-to-eradicate-homelessness"
+    ],
+    "restoredradiancefoundation.org": [
+      "https://zeffy.com/donation-form/cancer-took-a-lot-lets-help-survivors-reclaim-their-skin-and-their-confidence"
+    ],
+    "technologymonastery.org": [
+      "https://zeffy.com/donation-form/free-for-charity-endowment-fund"
+    ],
+    "thecrookedhouse.net": [
+      "https://zeffy.com/donation-form/donate-to-the-crooked-house"
+    ],
+    "thewayofyeshuaministries.org": [
+      "https://zeffy.com/donation-form/donate-for-our-ministry"
+    ]
+  }
+}
