@@ -16,6 +16,7 @@ let normalizeZeffyUrl,
   mergeRegistries,
   siteUrls,
   loadFfcCampaignSet,
+  stableKey,
   FFC_CAMPAIGNS_FALLBACK
 
 beforeAll(async () => {
@@ -29,6 +30,7 @@ beforeAll(async () => {
     mergeRegistries,
     siteUrls,
     loadFfcCampaignSet,
+    stableKey,
     FFC_CAMPAIGNS_FALLBACK,
   } = mod)
 })
@@ -197,6 +199,33 @@ describe('mergeRegistries', () => {
     const carried = campaigns.find((c) => c.url.endsWith('old-campaign'))
     expect(carried).toBeTruthy()
     expect(carried.lastSeen).toBe('2026-06-06T00:00:00.000Z')
+  })
+})
+
+describe('stableKey', () => {
+  it('ignores a generatedAt-only difference (no daily churn)', () => {
+    const a = {
+      generatedAt: '2026-07-21T06:00:00.000Z',
+      campaignCount: 1,
+      campaigns: [{ url: 'x' }],
+    }
+    const b = {
+      generatedAt: '2026-07-22T09:30:00.000Z',
+      campaignCount: 1,
+      campaigns: [{ url: 'x' }],
+    }
+    expect(stableKey(a)).toBe(stableKey(b))
+  })
+
+  it('reflects a real content change', () => {
+    const a = { generatedAt: 'T', campaignCount: 1, campaigns: [{ url: 'x' }] }
+    const b = { generatedAt: 'T', campaignCount: 2, campaigns: [{ url: 'x' }, { url: 'y' }] }
+    expect(stableKey(a)).not.toBe(stableKey(b))
+  })
+
+  it('returns null for nullish input', () => {
+    expect(stableKey(null)).toBeNull()
+    expect(stableKey(undefined)).toBeNull()
   })
 })
 

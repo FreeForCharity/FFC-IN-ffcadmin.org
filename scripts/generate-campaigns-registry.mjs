@@ -195,6 +195,18 @@ export function mergeRegistries(detected, previous, ffcSet, nowIso) {
   return { campaigns, sites }
 }
 
+/**
+ * A content key for a registry object with the volatile `generatedAt` removed,
+ * so a run that changed nothing but the timestamp is detected as unchanged
+ * regardless of JSON formatting/whitespace. Returns null for a nullish input.
+ */
+export function stableKey(registry) {
+  if (!registry) return null
+  const clone = { ...registry }
+  delete clone.generatedAt
+  return JSON.stringify(clone)
+}
+
 async function fetchText(url) {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS)
@@ -321,20 +333,14 @@ async function main() {
     sites,
   }
 
-  const next = JSON.stringify(out, null, 2) + '\n'
-  let prevRaw = ''
-  try {
-    prevRaw = readFileSync(OUT, 'utf8')
-  } catch {
-    // first run
-  }
-  // Ignore a changed generatedAt-only diff so a no-campaign-change run doesn't
-  // churn a PR every day.
-  const stripTs = (s) => s.replace(/"generatedAt": "[^"]*",\n\s*/, '')
-  if (stripTs(prevRaw) === stripTs(next)) {
+  // Suppress a generatedAt-only churn so an unchanged registry doesn't open a PR
+  // every day. Compare the parsed objects with the timestamp removed, so the
+  // check is independent of JSON formatting/whitespace.
+  if (previous && stableKey(previous) === stableKey(out)) {
     console.log('No campaign changes.')
     return
   }
+  const next = JSON.stringify(out, null, 2) + '\n'
   writeFileSync(OUT, next)
   console.log(
     `Wrote ${OUT}: ${campaigns.length} campaigns ` +
