@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-20T08:20:04Z",
+  "updatedAt": "2026-07-22T08:02:49Z",
   "site": "ffcadmin.org",
   "propertyId": "513417483",
   "dryRun": false,
@@ -10,72 +10,72 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2154",
-    "newUsers": "2150",
-    "sessions": "2191",
-    "screenPageViews": "2386",
-    "engagementRate": "0.038795070743952532",
-    "eventCount": "6973",
+    "activeUsers": "2348",
+    "newUsers": "2344",
+    "sessions": "2388",
+    "screenPageViews": "2602",
+    "engagementRate": "0.040201005025125629",
+    "eventCount": "7587",
     "keyEvents": "0"
   },
   "topPages": [
     {
       "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
-      "views": "380"
+      "views": "416"
     },
     {
       "path": "/tech-stack/index.html",
-      "views": "379"
-    },
-    {
-      "path": "/index.html",
-      "views": "376"
+      "views": "415"
     },
     {
       "path": "/legacy-wordpress-administration/index.html",
-      "views": "375"
+      "views": "414"
+    },
+    {
+      "path": "/index.html",
+      "views": "413"
     },
     {
       "path": "/documentation/index.html",
-      "views": "374"
+      "views": "412"
     },
     {
       "path": "/",
-      "views": "67"
+      "views": "66"
     },
     {
       "path": "/charity-prerequisites/",
-      "views": "45"
+      "views": "48"
     },
     {
       "path": "/site-owner/",
-      "views": "30"
+      "views": "31"
     },
     {
       "path": "/roadmap/",
-      "views": "16"
+      "views": "17"
     },
     {
-      "path": "/site-owner/accept-invitation/",
-      "views": "15"
+      "path": "/volunteer/",
+      "views": "17"
     }
   ],
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "2142"
+      "sessions": "2342"
     },
     {
       "channel": "Organic Search",
-      "sessions": "31"
-    },
-    {
-      "channel": "Unassigned",
-      "sessions": "11"
+      "sessions": "33"
     },
     {
       "channel": "Referral",
       "sessions": "7"
+    },
+    {
+      "channel": "Unassigned",
+      "sessions": "5"
     },
     {
       "channel": "AI Assistant",
@@ -84,12 +84,12 @@
   ],
   "productionHostname": "ffcadmin.org",
   "metricsProduction": {
-    "activeUsers": "272",
-    "newUsers": "266",
-    "sessions": "307",
-    "screenPageViews": "502",
-    "engagementRate": "0.27687296416938112",
-    "eventCount": "1321",
+    "activeUsers": "280",
+    "newUsers": "274",
+    "sessions": "317",
+    "screenPageViews": "532",
+    "engagementRate": "0.30283911671924291",
+    "eventCount": "1377",
     "keyEvents": "0"
   }
 }
