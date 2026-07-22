@@ -1175,12 +1175,13 @@
         "workflow_dispatch"
       ],
       "environments": [
+        "github-prod",
         "zeffy-prod"
       ],
-      "description": "Read-only export of Zeffy campaigns/events (GET /api/v1/campaigns) via OIDC -> Key Vault. This endpoint returns NO personal data (forms/events only: title, target, volume, dates, URLs), so the uploaded artifact is inherently safe to keep on this public repo. Dispatch-only (no schedule) while we are testing the API. One workflow per endpoint.",
-      "safetyLevel": "Reads",
-      "approvalEnv": "zeffy-prod",
-      "guard": "PII masked; never `-IncludePii`",
+      "description": "Read-only export of Zeffy campaigns/events (GET /api/v1/campaigns) via OIDC -> Key Vault. This endpoint returns NO personal data (forms/events only: title, target, volume, dates, URLs), so the uploaded artifact is inherently safe to keep on this public repo. Dispatch-only (no schedule) while we are testing the API. One workflow per endpoint.  The `deliver` job additionally publishes a public, PII-free campaign list (docs/data/ffc-zeffy-campaigns.json \u2014 title/url/status only) as a reviewable data-update PR, so the fleet smoke engine can classify a detected donation surface as ffc-interim (FFC-owned campaign) vs charity-specific (#744). Mirrors the 502 export->deliver split (github-prod gate, CBM_TOKEN) and the 703 same-repo peter-evans data-PR pattern.",
+      "safetyLevel": "Reads (+ PR delivery)",
+      "approvalEnv": "zeffy-prod \u2192 \u2705 github-prod (deliver)",
+      "guard": "PII masked; the published `docs/data/ffc-zeffy-campaigns.json` is title/url/status only (no financials); `deliver` opens a reviewable data PR via CBM_TOKEN",
       "category": "Zeffy",
       "categoryCode": "ZEFFY"
     },
@@ -1404,9 +1405,9 @@
         "github-prod"
       ],
       "description": "Generates the merged FFC sites list from the WHMCS / Cloudflare / WPMUDEV exports plus the curated base list, runs per-domain health checks, and commits both sites-list/sites_list.csv and sites-list/sites_list.json.  This repo owns the export environments (whmcs-prod, cloudflare-prod-read, wpmudev-prod) and the GitHub PAT (CBM_TOKEN in github-prod) needed to dispatch the sibling export workflows, so generation lives here. Downstream consumers (e.g. ffcadmin.org) pull the published files from this repo.",
-      "safetyLevel": "",
-      "approvalEnv": "",
-      "guard": "",
+      "safetyLevel": "Writes (data PR only)",
+      "approvalEnv": "\u2705 github-prod",
+      "guard": "dispatches read-only exports 201/108/601 (601 waits on its own wpmudev-prod gate); regenerates `sites-list/` CSV+JSON; opens a data PR (never pushes to `main`); weekly Mon 08:00Z + dispatch; serialized concurrency group",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1444,9 +1445,9 @@
         "github-prod"
       ],
       "description": "",
-      "safetyLevel": "",
-      "approvalEnv": "",
-      "guard": "",
+      "safetyLevel": "Writes (gated)",
+      "approvalEnv": "\u2705 github-prod",
+      "guard": "dispatch-only; creates an FFC-EX repo from a template (no dry_run \u2014 gate is the only stop); duplicate-repo warning text in inputs; visibility/Pages options set at creation",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1801,6 +1802,25 @@
       "safetyLevel": "Reads",
       "approvalEnv": "\u2014",
       "guard": "weekly SHA-256 byte-identity audit of `post-deploy-smoke.yml` across the fleet vs canonical (FFC-IN-FFC_Single_Page_Template@main); rolling issue upsert/close on divergence; GITHUB_TOKEN (public reads + own-repo issue), no external API, ungated",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 739,
+      "title": "Repo - Process Health Metrics Report",
+      "apis": [
+        "GH"
+      ],
+      "file": "739-process-health-metrics.yml",
+      "triggers": [
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "environments": [],
+      "description": "Weekly, read-only \"monitor the monitors\" report for the Agentic OS (process-assurance epic #752, issue #756). A REST sweep of THIS repo turns the backlog + data-pipeline signals into a metrics object and posts it as a new comment on the Conductor log (#719) \u2014 the comment thread is the visible trend history. Each comment embeds its metrics in a hidden data block; the next run reads the most recent block to render week-over-week deltas (\"trends over absolute numbers\"). The same JSON is uploaded as an artifact for later ffcadmin rendering (#723).  Read-only: the ambient GITHUB_TOKEN reads issues + Actions runs and writes ONE comment on #719 in this repo. No external API, no environment gate, no push to `main`. Aggregation/trend/render logic lives in scripts/process-health-metrics-lib.js (unit-tested under tests/workflow-logic/).",
+      "safetyLevel": "Reads",
+      "approvalEnv": "\u2014",
+      "guard": "weekly \"monitor the monitors\" REST sweep (backlog + data-pipeline signals) posted as a new comment on #719 with week-over-week trends (baseline read from the prior comment's hidden data block); JSON artifact; GITHUB_TOKEN (own-repo issue/Actions reads + one comment), no external API, ungated",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
