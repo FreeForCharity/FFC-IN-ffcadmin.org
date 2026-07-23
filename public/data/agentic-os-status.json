@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-07-22T19:11:59Z",
+  "generated_at": "2026-07-23T19:07:11Z",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "backlog_issues": [
     {
-      "number": 770,
-      "title": "Build a custom WHMCS MCP server (migrated from FFC-IN-AI-Management#3)",
+      "number": 816,
+      "title": "Enhance the Charity Website product request (pid 40) to collect full-template content + self-hiding sections",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-22T18:23:28Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/770",
+      "updated_at": "2026-07-23T19:02:55Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/816",
       "labels": [
-        "agentic-os",
-        "claimed"
+        "enhancement",
+        "agentic-os"
       ]
     },
     {
-      "number": 813,
-      "title": "Epic: WHMCS fraud review via FraudLabs Pro + daily agent check (charities mis-flagged as fraud)",
+      "number": 822,
+      "title": "Security: bump Next.js to patched 16.2.11 across the fleet (scheduled Security Audit red on both templates)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-22T17:45:27Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/813",
+      "updated_at": "2026-07-23T18:20:08Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/822",
       "labels": [
         "enhancement",
         "agentic-os"
@@ -31,7 +31,7 @@
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-22T16:16:32Z",
+      "updated_at": "2026-07-23T17:27:59Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
@@ -42,9 +42,45 @@
       "title": "Epic: process assurance — verify the Agentic OS's own processes keep working (monitor the monitors)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-22T16:09:14Z",
+      "updated_at": "2026-07-23T17:23:48Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/752",
       "labels": [
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "number": 813,
+      "title": "Epic: WHMCS fraud review via FraudLabs Pro + daily agent check (charities mis-flagged as fraud)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-23T15:19:34Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/813",
+      "labels": [
+        "enhancement",
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 770,
+      "title": "Build a custom WHMCS MCP server (migrated from FFC-IN-AI-Management#3)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-23T15:19:13Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/770",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 724,
+      "title": "Migrate remaining value out of FFC-IN-AI-Management into the hub (inventory + first tranche)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-23T15:19:00Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/724",
+      "labels": [
+        "documentation",
         "agentic-os"
       ]
     },
@@ -57,18 +93,6 @@
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/778",
       "labels": [
         "enhancement",
-        "agentic-os"
-      ]
-    },
-    {
-      "number": 724,
-      "title": "Migrate remaining value out of FFC-IN-AI-Management into the hub (inventory + first tranche)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-22T10:08:35Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/724",
-      "labels": [
-        "documentation",
         "agentic-os"
       ]
     },
@@ -186,48 +210,19 @@
   ],
   "in_flight_prs": [
     {
-      "number": 815,
-      "title": "docs: WHMCS MCP server implementation design (read-only v1) (Refs #770)",
+      "number": 821,
+      "title": "test: cover 733 quarterly credential-rotation reminders (Refs #752)",
       "state": "open",
-      "draft": true,
+      "draft": false,
       "assignee": null,
-      "updated_at": "2026-07-22T19:04:23Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/815",
+      "updated_at": "2026-07-23T18:42:15Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/821",
       "labels": [
-        "documentation",
         "agentic-os"
       ]
     }
   ],
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-22T04:04:15Z",
-      "body": "## Conductor run 26 — START (2026-07-22 04:04Z)\n\nScheduled run. Agenda: promote draft PR #807 (run-25 tier-c docs lesson), review pending gates (4 carried, no re-nag per doctrine), supervise open agentic-os PRs, backlog/board upkeep, health sweep. Morning cron stack (05:17Z bulldogz smoke, 06:38Z claim sweep, etc.) fires after this run — the 07:04Z run verifies.",
-      "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5041729669"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-22T04:13:28Z",
-      "body": "## Conductor run 26 — END (2026-07-22 ~04:2xZ)\n\n**PR #807 MERGED** (c98f684, 04:11:13Z) — AGENTS.md claim-sync docs fix. Fixed + resolved the one Copilot thread (clarified: claim release fires only when the *last* open linked PR closes), supersession clean, ready → queue → merge group green → merged. Board → Done. Post-merge verify: #752 labels clean.\n\n**Gates**: same 4 pending, untouched per doctrine (no re-nag; today's 08:00Z 502 + 13:00Z Drift instances supersede two of them). Zero action_req…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5041780238"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-22T07:04:29Z",
-      "body": "🤖 **Conductor run 27 START** — 2026-07-22 07:04Z\n\nPlan: verify the 07-22 morning stack (bulldogztowing first scheduled smoke ~05:17Z, hub claim sweep ~06:38Z — #788 claim survival + no #752 re-claim, ffcadmin sweep ~05:53Z, campaigns registry cron ~07:15Z fires mid-run), review gates (4 carried, no re-nag doctrine), supervise open agentic-os PRs (new hub branch `claude/wizardly-volta-8x7orp` spotted), backlog/board upkeep, health checks, lessons triage.",
-      "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5042909497"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-22T07:07:33Z",
-      "body": "🤖 **Conductor run 27 END** — 2026-07-22 ~07:08Z. Quiet, all-green verification run; no Clarke contact needed.\n\n**Morning stack 07-22 — ALL VERIFIED ✅**\n- bulldogztowing.com FIRST scheduled smoke fired 06:09Z (+52 min drift) **SUCCESS** → post-cutover watch **CLOSED** (`https_enforced: true` held, cert approved).\n- Hub claim sweep 06:39Z success — #788 claim survived; #752 was **not** re-claimed (the [#807](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/807) pattern-free rewordi…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5042934635"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-07-22T10:04:21Z",
@@ -269,22 +264,35 @@
       "body": "## Conductor run 30 — END (2026-07-22 ~16:2xZ)\n\n**Outcome: productive run, no Clarke contact needed (no re-nags due, no new gates).**\n\n**Gates (Step 2)** — 4 pending at close, all write-env, none auto-approvable, all previously one-tapped or doctrine-parked:\n- **Drift Audit [29924472525](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29924472525)** — NEW: today's 13:00Z instance fired late at 13:34Z (+34 min, within the late-until-90min window). The old gate 29835012932…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5048613855"
-    }
-  ],
-  "pending_gates": [
-    {
-      "run_id": 29847118166,
-      "workflow_name": "Zeffy Campaigns Export",
-      "environment": "github-prod",
-      "created_at": "2026-07-21T16:06:46Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29847118166"
     },
     {
-      "run_id": 29924472525,
-      "workflow_name": "Drift Audit",
-      "environment": "github-prod",
-      "created_at": "2026-07-22T13:34:07Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29924472525"
+      "author": "clarkemoyer",
+      "created_at": "2026-07-23T12:18:03Z",
+      "body": "## Cloud-worker supervision pass — 3 open `agentic-os` PRs, all landable (2026-07-23)\n\nPer the ≥3-open-PRs rule this run was spent supervising, not starting new work. All three open `agentic-os` PRs are **CI-green, review-threads fully resolved, and `mergeable_state: clean`** — ready for the Conductor's promote+merge (a sandbox worker can't promote/enqueue or approve gates; run-30 established that as the Conductor's step after worker-quiet).\n\n| PR | Kind | CI | Review threads | mergeable | Super…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5058284773"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-23T15:18:45Z",
+      "body": "**cloud-worker run — END (landing pass, 2026-07-23 ~15:16 UTC)**\n\nPer the ≥3-open-`agentic-os`-PRs rule, this run landed the backlog instead of starting new work. Exactly 3 open `agentic-os` PRs were found (#820, #817, #815) — all authored by prior sandbox runs and all sitting as **draft** despite being merge-ready.\n\n**Verified each before promoting** (all three passed):\n- **CI:** 722 (CI Validate & Test), 723 (CodeQL), 727 (Phantom Revert Guard), Copilot review — all `success` on the current he…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5060159182"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-23T17:15:03Z",
+      "body": "**Conductor run 31 — START** `2026-07-23T17:14Z`\n\nBootstrap green: all 5 core clones fetched + fast-forwarded to `main` (hub was on a leftover `fix/219-do-not-mask-ein` branch, cleanly switched back — working tree clean). gh authed as clarkemoyer; core budget 4996, graphql 4660.\n\nPicking up from run 30 (2026-07-22 16:04Z). Plan this run: (2) re-check the 4 standing pending gates — do NOT re-nag per doctrine; (3) supervise — hub PRs are 4 dependabot one-taps only, no agent PRs open; (4) backlog a…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5061282198"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-23T17:27:59Z",
+      "body": "**Conductor run 31 — END** `2026-07-23T17:2xZ` · core 4966 / graphql 4976\n\n**Supervision — 3 worker PRs found, queue drained:**\n- **SPT [#421](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/pull/421) MERGED** (17:19Z, `701736c`) — #819 Part B, data-driven Team section `{name, role, linkedinUrl?}` + initials monogram + tests. Supersession-checked (main had the old `title/imageUrl` shape; this is the intended refactor).\n- **FOT [#113](https://github.com/FreeForCharity/FFC-IN-Foo…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5061400751"
     }
-  ]
+  ],
+  "pending_gates": []
 }

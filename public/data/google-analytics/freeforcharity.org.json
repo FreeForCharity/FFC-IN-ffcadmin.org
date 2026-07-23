@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-22T08:02:45Z",
+  "updatedAt": "2026-07-23T08:04:19Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,12 +10,12 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "819",
-    "newUsers": "832",
+    "activeUsers": "824",
+    "newUsers": "837",
     "sessions": "953",
-    "screenPageViews": "1092",
-    "engagementRate": "0.24763903462749212",
-    "eventCount": "3559",
+    "screenPageViews": "1100",
+    "engagementRate": "0.25498426023084997",
+    "eventCount": "3580",
     "keyEvents": "0"
   },
   "topPages": [
@@ -25,11 +25,11 @@
     },
     {
       "path": "/domains/",
-      "views": "239"
+      "views": "238"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "65"
+      "views": "72"
     },
     {
       "path": "/501c3/",
@@ -37,15 +37,11 @@
     },
     {
       "path": "/guidestar-guide/",
-      "views": "18"
+      "views": "20"
     },
     {
       "path": "/pre501c3/",
       "views": "8"
-    },
-    {
-      "path": "/about-us/",
-      "views": "6"
     },
     {
       "path": "/ffc-volunteer-proving-ground-core-competencies/",
@@ -54,6 +50,10 @@
     {
       "path": "/help-for-charities/",
       "views": "6"
+    },
+    {
+      "path": "/about-us/",
+      "views": "5"
     },
     {
       "path": "/contact-us/",
@@ -67,7 +67,7 @@
     },
     {
       "channel": "Organic Search",
-      "sessions": "282"
+      "sessions": "283"
     },
     {
       "channel": "AI Assistant",
@@ -75,7 +75,7 @@
     },
     {
       "channel": "Organic Social",
-      "sessions": "2"
+      "sessions": "3"
     },
     {
       "channel": "Referral",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "286",
-    "newUsers": "283",
-    "sessions": "425",
-    "screenPageViews": "515",
-    "engagementRate": "0.49176470588235294",
-    "eventCount": "1532",
+    "activeUsers": "291",
+    "newUsers": "288",
+    "sessions": "427",
+    "screenPageViews": "523",
+    "engagementRate": "0.50585480093676816",
+    "eventCount": "1553",
     "keyEvents": "0"
   }
 }
