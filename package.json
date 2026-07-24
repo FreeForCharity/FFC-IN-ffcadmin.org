@@ -23,7 +23,7 @@
   "dependencies": {
     "csv-parse": "^7.0.1",
     "csv-stringify": "^6.8.0",
-    "next": "^16.2.9",
+    "next": "^16.2.11",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
@@ -69,7 +69,8 @@
     "overrides": {
       "postcss@<8.5.10": ">=8.5.10",
       "eslint-plugin-react-hooks": "7.0.1",
-      "undici@>=7.0.0 <7.28.0": ">=7.28.0 <8.0.0"
+      "undici@>=7.0.0 <7.28.0": ">=7.28.0 <8.0.0",
+      "sharp": "^0.35.3"
     }
   },
   "lint-staged": {
