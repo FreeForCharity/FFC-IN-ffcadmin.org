@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-24T08:02:33Z",
+  "updatedAt": "2026-07-24T22:14:56Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,12 +10,12 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "836",
-    "newUsers": "847",
-    "sessions": "973",
-    "screenPageViews": "1116",
-    "engagementRate": "0.25899280575539568",
-    "eventCount": "3626",
+    "activeUsers": "841",
+    "newUsers": "852",
+    "sessions": "980",
+    "screenPageViews": "1123",
+    "engagementRate": "0.26224489795918365",
+    "eventCount": "3650",
     "keyEvents": "0"
   },
   "topPages": [
@@ -25,7 +25,7 @@
     },
     {
       "path": "/domains/",
-      "views": "245"
+      "views": "251"
     },
     {
       "path": "/free-charity-web-hosting/",
@@ -33,7 +33,7 @@
     },
     {
       "path": "/501c3/",
-      "views": "60"
+      "views": "61"
     },
     {
       "path": "/guidestar-guide/",
@@ -67,11 +67,11 @@
     },
     {
       "channel": "Organic Search",
-      "sessions": "293"
+      "sessions": "298"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "22"
+      "sessions": "24"
     },
     {
       "channel": "Referral",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "305",
-    "newUsers": "300",
-    "sessions": "445",
-    "screenPageViews": "541",
-    "engagementRate": "0.5056179775280899",
-    "eventCount": "1607",
+    "activeUsers": "310",
+    "newUsers": "305",
+    "sessions": "452",
+    "screenPageViews": "548",
+    "engagementRate": "0.50884955752212391",
+    "eventCount": "1631",
     "keyEvents": "0"
   }
 }
