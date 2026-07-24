@@ -18,6 +18,7 @@
     "data:roadmap": "tsx scripts/generate-roadmap-data.ts",
     "analyze": "ANALYZE=true pnpm build",
     "test:e2e": "playwright test",
+    "audit:high": "pnpm audit --prod --audit-level high",
     "prepare": "husky"
   },
   "dependencies": {
@@ -54,7 +55,7 @@
     "js-yaml": "^5.2.1",
     "linkinator": "^7.6.1",
     "lint-staged": "^17.0.8",
-    "postcss": "^8.5.16",
+    "postcss": "^8.5.23",
     "prettier": "^3.9.4",
     "serve": "^14.2.6",
     "tailwindcss": "^4.3.1",
@@ -67,7 +68,7 @@
   "packageManager": "pnpm@9.0.0",
   "pnpm": {
     "overrides": {
-      "postcss@<8.5.10": ">=8.5.10",
+      "postcss@<8.5.18": ">=8.5.18",
       "eslint-plugin-react-hooks": "7.0.1",
       "undici@>=7.0.0 <7.28.0": ">=7.28.0 <8.0.0",
       "sharp": "^0.35.3"
