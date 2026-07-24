@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-23T08:04:42Z",
+  "updatedAt": "2026-07-24T08:02:37Z",
   "site": "ffcadmin.org",
   "propertyId": "513417483",
   "dryRun": false,
@@ -10,38 +10,38 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2384",
-    "newUsers": "2379",
-    "sessions": "2423",
-    "screenPageViews": "2638",
-    "engagementRate": "0.039207593891869584",
-    "eventCount": "7698",
+    "activeUsers": "2423",
+    "newUsers": "2419",
+    "sessions": "2462",
+    "screenPageViews": "2679",
+    "engagementRate": "0.039398862713241264",
+    "eventCount": "7821",
     "keyEvents": "0"
   },
   "topPages": [
     {
-      "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
-      "views": "423"
-    },
-    {
       "path": "/index.html",
-      "views": "421"
-    },
-    {
-      "path": "/tech-stack/index.html",
-      "views": "420"
-    },
-    {
-      "path": "/documentation/index.html",
-      "views": "419"
+      "views": "430"
     },
     {
       "path": "/legacy-wordpress-administration/index.html",
-      "views": "419"
+      "views": "429"
+    },
+    {
+      "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
+      "views": "429"
+    },
+    {
+      "path": "/tech-stack/index.html",
+      "views": "429"
+    },
+    {
+      "path": "/documentation/index.html",
+      "views": "427"
     },
     {
       "path": "/",
-      "views": "67"
+      "views": "66"
     },
     {
       "path": "/charity-prerequisites/",
@@ -63,7 +63,7 @@
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "2378"
+      "sessions": "2418"
     },
     {
       "channel": "Organic Search",
@@ -74,22 +74,22 @@
       "sessions": "7"
     },
     {
-      "channel": "AI Assistant",
-      "sessions": "4"
+      "channel": "Unassigned",
+      "sessions": "6"
     },
     {
-      "channel": "Unassigned",
-      "sessions": "4"
+      "channel": "AI Assistant",
+      "sessions": "3"
     }
   ],
   "productionHostname": "ffcadmin.org",
   "metricsProduction": {
-    "activeUsers": "283",
-    "newUsers": "277",
-    "sessions": "321",
-    "screenPageViews": "536",
-    "engagementRate": "0.29595015576323985",
-    "eventCount": "1392",
+    "activeUsers": "281",
+    "newUsers": "275",
+    "sessions": "320",
+    "screenPageViews": "535",
+    "engagementRate": "0.303125",
+    "eventCount": "1389",
     "keyEvents": "0"
   }
 }

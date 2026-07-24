@@ -1,16 +1,39 @@
 {
-  "generated_at": "2026-07-23T19:07:11Z",
+  "generated_at": "2026-07-24T10:05:39Z",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "backlog_issues": [
     {
-      "number": 816,
-      "title": "Enhance the Charity Website product request (pid 40) to collect full-template content + self-hiding sections",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-23T19:02:55Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/816",
+      "updated_at": "2026-07-24T10:05:00Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 813,
+      "title": "Epic: WHMCS fraud review via FraudLabs Pro + daily agent check (charities mis-flagged as fraud)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-24T09:23:54Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/813",
       "labels": [
         "enhancement",
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "number": 788,
+      "title": "Fleet: upload-pages-artifact@v5 silently drops dot-entries — .well-known/security.txt 404s on affected sites",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-24T06:22:24Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/788",
+      "labels": [
         "agentic-os"
       ]
     },
@@ -19,7 +42,7 @@
       "title": "Security: bump Next.js to patched 16.2.11 across the fleet (scheduled Security Audit red on both templates)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-23T18:20:08Z",
+      "updated_at": "2026-07-24T04:08:42Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/822",
       "labels": [
         "enhancement",
@@ -27,13 +50,14 @@
       ]
     },
     {
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
+      "number": 823,
+      "title": "WHMCS: auto-populate client custom fields from product-order answers (order → client sync)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-23T17:27:59Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "updated_at": "2026-07-24T00:42:06Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/823",
       "labels": [
+        "enhancement",
         "agentic-os"
       ]
     },
@@ -42,20 +66,19 @@
       "title": "Epic: process assurance — verify the Agentic OS's own processes keep working (monitor the monitors)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-23T17:23:48Z",
+      "updated_at": "2026-07-23T19:12:47Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/752",
       "labels": [
-        "agentic-os",
-        "claimed"
+        "agentic-os"
       ]
     },
     {
-      "number": 813,
-      "title": "Epic: WHMCS fraud review via FraudLabs Pro + daily agent check (charities mis-flagged as fraud)",
+      "number": 816,
+      "title": "Enhance the Charity Website product request (pid 40) to collect full-template content + self-hiding sections",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-23T15:19:34Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/813",
+      "updated_at": "2026-07-23T19:02:55Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/816",
       "labels": [
         "enhancement",
         "agentic-os"
@@ -94,18 +117,6 @@
       "labels": [
         "enhancement",
         "agentic-os"
-      ]
-    },
-    {
-      "number": 788,
-      "title": "Fleet: upload-pages-artifact@v5 silently drops dot-entries — .well-known/security.txt 404s on affected sites",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-21T16:19:52Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/788",
-      "labels": [
-        "agentic-os",
-        "claimed"
       ]
     },
     {
@@ -210,13 +221,13 @@
   ],
   "in_flight_prs": [
     {
-      "number": 821,
-      "title": "test: cover 733 quarterly credential-rotation reminders (Refs #752)",
+      "number": 827,
+      "title": "feat(228): daily schedule + rolling Fraud tracking issue (Refs #813 item 2)",
       "state": "open",
-      "draft": false,
+      "draft": true,
       "assignee": null,
-      "updated_at": "2026-07-23T18:42:15Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/821",
+      "updated_at": "2026-07-24T09:52:44Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/827",
       "labels": [
         "agentic-os"
       ]
@@ -225,73 +236,73 @@
   "conductor_log": [
     {
       "author": "clarkemoyer",
-      "created_at": "2026-07-22T10:04:21Z",
-      "body": "🤖 **Conductor run 28 START** — 2026-07-22 10:04Z (scheduled 10:04Z slot)\n\nPlan: verify morning-stack carryovers (campaigns 07:15Z cron, 08:00Z 502, 13:00Z Drift pending), gate sweep (4 carried, no re-nag doctrine), PR #808 promotion check, new branch `claude/wizardly-volta-idrafn` triage, backlog/board/health sweep.",
+      "created_at": "2026-07-23T22:05:38Z",
+      "body": "### 🟢 Conductor run 33 — START (2026-07-23T22:0xZ) · core 4989/5000 · graphql 4959/5000\n\nRead the newest START/END first (per run-32's numbering fix): last public entry was **run 32 END** (19:16Z). This is **run 33**, ~2.8h later.\n\nBootstrap green: 5 core clones fetched + fast-forwarded on `main`, all clean (hub `71d68a7`, ffcadmin `4e4e9c9`, freeforcharity `c4cc08c`, SPT `701736c`, FOT `a38f63e`); gh authed (clarkemoyer); az/gcloud/gh present.\n\n**Carried-in from run 32 to check this run:**\n- ⏳ …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5064000538"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-23T22:13:20Z",
+      "body": "### ⚫ Conductor run 33 — END (2026-07-23T22:2xZ) · core 4979 / graphql 4498\n\nProductive run, **no Clarke contact** (0 gates pending; run-32's gate-doctrine question still open — no re-nag). Ran ~2.8h after run 32; overnight scheduler gap did **not** recur.\n\n**🔒 Security (top priority) — both #822 template halves MERGED + VERIFIED GREEN:**\n- **SPT [#422](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/pull/422) MERGED** (`178b089`) — `next ^16.2.9→^16.2.11` + lockfile regen.\n- *…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5064055620"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-24T00:16:20Z",
+      "body": "### 🔵 Run 33 — Clarke ruling + follow-ups (interactive, post-END)\n\n**Gate doctrine RESOLVED.** @clarkemoyer ruled: **\"auto-approve them all if safe.\"** Encoded in the safety doc via **[#824](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/824)** (docs-only): the Conductor judges a waiting gate by the run's **safety LEVEL, not the environment name** — ✅ auto-approve `Reads` / `dry_run=true` (even on `github-prod`); ⛔ never auto-approve real mutations (`Writes (gated)` / `dry_run=…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5064805674"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-24T01:06:45Z",
+      "body": "**Conductor run 34 — START** (2026-07-24 ~01:06Z)\n\nBootstrap OK: gh authed (clarkemoyer), core 5 clones fetched/ff'd. PR #824 (gate auto-approval doctrine) confirmed **merged** on main (`221962e`) — recurring daily 726/502 gates now auto-approve by safety level.\n\nOpening state:\n- **Gates:** 0 waiting (hub + ffcadmin both empty). Nothing to approve/page.\n- **Supervision queue:** 2 open agentic-os PRs — ffcadmin **#690** (the #822 next→16.2.11 security bump, draft, CLEAN, all checks green) and SPT…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5065081353"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-24T01:16:10Z",
+      "body": "**Conductor run 34 — END** (2026-07-24 ~01:15Z) · productive · NO Clarke contact\n\n**Gate doctrine live:** PR #824 confirmed merged (`221962e`) — auto-approval-by-safety-level now in `docs/workflow-safety-and-approvals.md`. 0 gates pending this run, so nothing to exercise it on; next run's daily 726/502 gates auto-approve.\n\n**Security (#822 fleet sweep) — 2 more repos patched to next 16.2.11:**\n- ffcadmin [#690](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/690) **merged** (`dce4c3a`…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5065136818"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-24T04:06:53Z",
+      "body": "### 🟢 Conductor run 35 — START (2026-07-24) · core 4978/5000 · graphql 4889/5000\n\nBootstrap green: 5 core clones fetched + ff'd to `main` (all clean); gh authed `clarkemoyer`; az/m365/gcloud CLIs all present. Re-read AGENTS.md + safety doc + #824 gate doctrine.\n\n**Doctrine live (from run 33 Clarke ruling / #824):** auto-approve waiting gates by **safety LEVEL not env name** — ✅ Reads / `dry_run=true`; ⛔ never real mutations.\n\nOpening state:\n- **Gates:** 0 waiting (hub + ffcadmin both empty). Not…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5066034860"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-24T04:14:46Z",
+      "body": "### ⚫ Conductor run 35 — END (2026-07-24) · core 5000/5000 · graphql 4854/5000 · productive · NO Clarke contact\n\n**Gates:** 0 waiting (hub + ffcadmin) all run — nothing to approve. Doctrine (#824) confirmed live; the daily 07-24 08:00Z 726+502 gates will auto-approve (Reads/dry-run) on whichever conductor run is active when they wait.\n\n**Supervision — 1 security PR merged:**\n- FFC-EX-canary [#17](https://github.com/FreeForCharity/FFC-EX-canary/pull/17) **merged** (`db005d5`) — `next` ^16.2.9→^16…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5066078425"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-24T07:04:59Z",
+      "body": "### 🟢 Conductor run 36 — START (2026-07-24) · core 5000/5000 · graphql 4901/5000\n\nBOOTSTRAP green: 5 core clones fast-forwarded, all clean on `main` (hub, freeforcharity, ffcadmin, SPT, FOT). gh authed as clarkemoyer; az + gcloud present, m365 CLI present but logged out. Re-read AGENTS.md + safety doc + run-35 state.\n\nProceeding: gates → supervise → backlog → visibility → health → lessons.",
       "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5044510778"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5067093068"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-07-22T10:14:13Z",
-      "body": "🤖 **Conductor run 28 END** — 2026-07-22 ~10:25Z\n\n**Merged (2):**\n- #808 → `547ea23` — #778 bulk-lib CI guard (5/5 threads resolved, supersession clean, promoted + queued + merged)\n- #809 → `150e9fa` — #724 docs/ historical-annotation tranche (new agent PR this morning; 3/3 threads resolved, quiet 40 min, promoted + queued + merged)\n- Claim-sync released the exclusive label on #778 and #724 event-driven post-merge; both epics' remaining tranches are visible for pickup again.\n\n**Gates (4 pending a…",
+      "created_at": "2026-07-24T07:09:23Z",
+      "body": "### ⚫ Conductor run 36 — END (2026-07-24) · core ~4870/5000 · productive · NO Clarke contact\n\n**Gates:** 0 waiting across hub + ffcadmin + freeforcharity. Daily 726/502 08:00Z gates had not fired yet (run active pre-08:00Z UTC) — they auto-approve (Reads/dry-run) on whichever run is live when they wait, per doctrine #824.\n\n**Supervise (hub):** 2 open PRs, both `clarkemoyer`.\n- [#826](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/826) (my run-35 docs draft — AGENTS.md `--pagina…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5044598433"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5067128805"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-07-22T13:04:25Z",
-      "body": "**Conductor run 29 — START** (2026-07-22 ~13:04Z, scheduled)\n\nPlan: Step 2 gates (4 pending carried from run 28 — no re-nag doctrine); verify today's 13:00Z Drift Audit fires and dispose superseded gate 29835012932; Step 3 supervise open agentic-os PRs; Step 4 backlog (watch #810 pickup); Step 5 board/status page; Step 6 health; Step 7 lessons; Step 8 end log.",
-      "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5046100487"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-22T13:34:48Z",
-      "body": "**Conductor run 29 — END** (2026-07-22 ~13:35Z)\n\n## Highlights\n- **#810 (template sharp/libvips CVEs) RESOLVED — issue-to-main in ~3h.** Cloud worker's twin PRs reviewed and merged: [FFC-IN-FFC_Single_Page_Template#419](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/pull/419) + [FFC-IN-Footer_Only_Template#111](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template/pull/111) (npm overrides pin `sharp ^0.35.3`). CI all green incl. `npm audit (production)` on both; thread…",
+      "created_at": "2026-07-24T10:05:00Z",
+      "body": "### 🟢 Conductor run 37 — START (2026-07-24) · core 4959/5000 · graphql 4878/5000\n\n**Bootstrap:** green — 5 core clones ff-clean on `main` (hub @ `8842359`, ffcadmin @ `ba785f9`); gh=clarkemoyer; az+gcloud present, m365 logged out. Numbering per #719 tail (last START = run 36 → this = 37).\n\n**Plan this run:** gates → supervise open PRs (confirm #826 merge-queue drain) → backlog groom → visibility feed → health/janitor → lessons.\n\n_Automated Conductor run; Clarke contacted only for gates/blockers.…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5046524340"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-22T16:04:31Z",
-      "body": "## Conductor run 30 — START (2026-07-22 16:04Z)\n\nScheduled 16:04Z run. Bootstrap clean: all 5 core clones fetched/pulled to `main`, workspace intact.\n\nPlan this run:\n1. **Gates**: verify today's 13:00Z Drift Audit instance (had NOT fired by 13:34Z at run-29 close; late-until-90min window ended ~14:30Z) → dispose superseded gate 29835012932 or flag 2nd-miss cron-health check. Review the other 3 pending (502 29902389270, 401 deliver 29847118166, 106 bulldogz 29831549094) — no re-nag per standing d…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5048494223"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-22T16:16:32Z",
-      "body": "## Conductor run 30 — END (2026-07-22 ~16:2xZ)\n\n**Outcome: productive run, no Clarke contact needed (no re-nags due, no new gates).**\n\n**Gates (Step 2)** — 4 pending at close, all write-env, none auto-approvable, all previously one-tapped or doctrine-parked:\n- **Drift Audit [29924472525](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/29924472525)** — NEW: today's 13:00Z instance fired late at 13:34Z (+34 min, within the late-until-90min window). The old gate 29835012932…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5048613855"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-23T12:18:03Z",
-      "body": "## Cloud-worker supervision pass — 3 open `agentic-os` PRs, all landable (2026-07-23)\n\nPer the ≥3-open-PRs rule this run was spent supervising, not starting new work. All three open `agentic-os` PRs are **CI-green, review-threads fully resolved, and `mergeable_state: clean`** — ready for the Conductor's promote+merge (a sandbox worker can't promote/enqueue or approve gates; run-30 established that as the Conductor's step after worker-quiet).\n\n| PR | Kind | CI | Review threads | mergeable | Super…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5058284773"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-23T15:18:45Z",
-      "body": "**cloud-worker run — END (landing pass, 2026-07-23 ~15:16 UTC)**\n\nPer the ≥3-open-`agentic-os`-PRs rule, this run landed the backlog instead of starting new work. Exactly 3 open `agentic-os` PRs were found (#820, #817, #815) — all authored by prior sandbox runs and all sitting as **draft** despite being merge-ready.\n\n**Verified each before promoting** (all three passed):\n- **CI:** 722 (CI Validate & Test), 723 (CodeQL), 727 (Phantom Revert Guard), Copilot review — all `success` on the current he…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5060159182"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-23T17:15:03Z",
-      "body": "**Conductor run 31 — START** `2026-07-23T17:14Z`\n\nBootstrap green: all 5 core clones fetched + fast-forwarded to `main` (hub was on a leftover `fix/219-do-not-mask-ein` branch, cleanly switched back — working tree clean). gh authed as clarkemoyer; core budget 4996, graphql 4660.\n\nPicking up from run 30 (2026-07-22 16:04Z). Plan this run: (2) re-check the 4 standing pending gates — do NOT re-nag per doctrine; (3) supervise — hub PRs are 4 dependabot one-taps only, no agent PRs open; (4) backlog a…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5061282198"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-23T17:27:59Z",
-      "body": "**Conductor run 31 — END** `2026-07-23T17:2xZ` · core 4966 / graphql 4976\n\n**Supervision — 3 worker PRs found, queue drained:**\n- **SPT [#421](https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/pull/421) MERGED** (17:19Z, `701736c`) — #819 Part B, data-driven Team section `{name, role, linkedinUrl?}` + initials monogram + tests. Supersession-checked (main had the old `title/imageUrl` shape; this is the intended refactor).\n- **FOT [#113](https://github.com/FreeForCharity/FFC-IN-Foo…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5061400751"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5068596132"
     }
   ],
   "pending_gates": []
