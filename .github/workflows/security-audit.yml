@@ -1,0 +1,57 @@
+name: Security Audit
+
+# Runs `pnpm audit` against production dependencies on a daily cadence and on
+# pull requests that touch package files. Fails on `high` or `critical`, so a
+# dependency change that introduces a known-exploitable library is caught in
+# review, and an advisory published after merge is caught by the next daily
+# run. This is a detection check, NOT a deploy gate — it does not run on every
+# push, so a red audit does not by itself block a deploy.
+#
+# Dependabot still handles the upgrades; this workflow makes sure we notice if
+# a published advisory lands between Dependabot runs.
+#
+# Ported from FFC-IN-FFC_Single_Page_Template's security-audit.yml (adapted to
+# pnpm). The cron minute is deliberately distinct from the other FFC repos'
+# audits so the fleet's scheduled runs do not stack.
+
+on:
+  schedule:
+    - cron: '47 6 * * *' # daily, 06:47 UTC
+  pull_request:
+    branches: ['main']
+    paths:
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: pnpm audit (production)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 9.0.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install (no scripts)
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Audit high-severity production deps
+        run: pnpm run audit:high
