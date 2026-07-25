@@ -1,0 +1,22 @@
+# RFC 9116 security.txt — root-path copy.
+#
+# This file MUST stay byte-for-byte identical to
+# public/.well-known/security.txt below the header block.
+#
+# Why two copies: GitHub Pages (this site's host) does not reliably serve
+# files inside dot-prefixed directories like `.well-known/`. The
+# actions/upload-pages-artifact step additionally drops dot-entries unless
+# `include-hidden-files: true` is set — see .github/workflows/deploy.yml.
+# This root copy is the fallback so scanners still find a reachable file if
+# the well-known path is ever dropped again. RFC 9116 §2.5.2 allows multiple
+# Canonical lines to advertise both URLs.
+#
+# Expires MUST be a future RFC 3339 datetime. Bump it on a regular cadence.
+
+Contact: mailto:clarkemoyer@freeforcharity.org
+Expires: 2027-12-31T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://ffcadmin.org/.well-known/security.txt
+Canonical: https://ffcadmin.org/security.txt
+Policy: https://ffcadmin.org/vulnerability-disclosure-policy/
+Acknowledgments: https://ffcadmin.org/security-acknowledgements/

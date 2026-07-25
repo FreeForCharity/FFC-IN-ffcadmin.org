@@ -154,10 +154,31 @@ jobs:
           fi
           echo "✓ .nojekyll file found in ./out directory"
 
+      - name: Verify security.txt exists at both paths
+        run: |
+          for f in ./out/.well-known/security.txt ./out/security.txt; do
+            if [ ! -f "$f" ]; then
+              echo "Error: $f not found in build output"
+              exit 1
+            fi
+            echo "✓ $f found"
+          done
+          # The two copies must not drift apart (payload below the comments).
+          if ! diff <(grep -v '^#' ./out/.well-known/security.txt) \
+                    <(grep -v '^#' ./out/security.txt) > /dev/null; then
+            echo "Error: security.txt payloads differ between /.well-known/ and root"
+            exit 1
+          fi
+          echo "✓ security.txt payloads match"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
           path: ./out
+          # Without this, upload-pages-artifact drops dot-entries such as
+          # .well-known/ and .nojekyll, so /.well-known/security.txt would
+          # silently never reach the deployed site. Refs #788.
+          include-hidden-files: true
 
   deploy:
     environment:
