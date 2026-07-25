@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-25T04:17:41Z",
+  "updatedAt": "2026-07-25T07:13:04Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,18 +10,18 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "810",
-    "newUsers": "816",
-    "sessions": "946",
-    "screenPageViews": "1072",
-    "engagementRate": "0.25898520084566595",
-    "eventCount": "3489",
+    "activeUsers": "812",
+    "newUsers": "818",
+    "sessions": "948",
+    "screenPageViews": "1074",
+    "engagementRate": "0.25843881856540085",
+    "eventCount": "3495",
     "keyEvents": "0"
   },
   "topPages": [
     {
       "path": "/",
-      "views": "608"
+      "views": "610"
     },
     {
       "path": "/domains/",
@@ -63,7 +63,7 @@
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "612"
+      "sessions": "614"
     },
     {
       "channel": "Organic Search",
