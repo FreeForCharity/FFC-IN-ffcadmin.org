@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-25T04:17:44Z",
+  "updatedAt": "2026-07-25T07:13:07Z",
   "site": "ffcadmin.org",
   "propertyId": "513417483",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2504",
-    "newUsers": "2497",
-    "sessions": "2541",
-    "screenPageViews": "2738",
-    "engagementRate": "0.038173947264856359",
-    "eventCount": "8020",
+    "activeUsers": "2528",
+    "newUsers": "2521",
+    "sessions": "2564",
+    "screenPageViews": "2762",
+    "engagementRate": "0.037831513260530421",
+    "eventCount": "8093",
     "keyEvents": "0"
   },
   "topPages": [
     {
-      "path": "/index.html",
-      "views": "447"
-    },
-    {
       "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
-      "views": "446"
+      "views": "452"
     },
     {
       "path": "/legacy-wordpress-administration/index.html",
-      "views": "445"
+      "views": "451"
+    },
+    {
+      "path": "/index.html",
+      "views": "449"
     },
     {
       "path": "/tech-stack/index.html",
-      "views": "444"
+      "views": "449"
     },
     {
       "path": "/documentation/index.html",
-      "views": "439"
+      "views": "443"
     },
     {
       "path": "/",
@@ -63,7 +63,7 @@
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "2497"
+      "sessions": "2519"
     },
     {
       "channel": "Organic Search",
@@ -84,12 +84,12 @@
   ],
   "productionHostname": "ffcadmin.org",
   "metricsProduction": {
-    "activeUsers": "284",
-    "newUsers": "276",
-    "sessions": "322",
-    "screenPageViews": "517",
-    "engagementRate": "0.30124223602484473",
-    "eventCount": "1357",
+    "activeUsers": "285",
+    "newUsers": "277",
+    "sessions": "323",
+    "screenPageViews": "518",
+    "engagementRate": "0.30030959752321984",
+    "eventCount": "1361",
     "keyEvents": "0"
   }
 }
