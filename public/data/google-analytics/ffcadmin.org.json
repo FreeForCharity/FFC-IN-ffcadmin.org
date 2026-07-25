@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-24T22:15:00Z",
+  "updatedAt": "2026-07-25T01:20:53Z",
   "site": "ffcadmin.org",
   "propertyId": "513417483",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2507",
-    "newUsers": "2501",
-    "sessions": "2547",
-    "screenPageViews": "2762",
-    "engagementRate": "0.038869257950530034",
-    "eventCount": "8074",
+    "activeUsers": "2533",
+    "newUsers": "2527",
+    "sessions": "2571",
+    "screenPageViews": "2788",
+    "engagementRate": "0.038506417736289385",
+    "eventCount": "8153",
     "keyEvents": "0"
   },
   "topPages": [
     {
       "path": "/index.html",
-      "views": "447"
-    },
-    {
-      "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
-      "views": "446"
+      "views": "452"
     },
     {
       "path": "/legacy-wordpress-administration/index.html",
-      "views": "445"
+      "views": "451"
+    },
+    {
+      "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
+      "views": "451"
     },
     {
       "path": "/tech-stack/index.html",
-      "views": "445"
+      "views": "450"
     },
     {
       "path": "/documentation/index.html",
-      "views": "439"
+      "views": "444"
     },
     {
       "path": "/",
@@ -63,7 +63,7 @@
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "2500"
+      "sessions": "2524"
     },
     {
       "channel": "Organic Search",
@@ -89,7 +89,7 @@
     "sessions": "325",
     "screenPageViews": "540",
     "engagementRate": "0.30461538461538462",
-    "eventCount": "1408",
+    "eventCount": "1409",
     "keyEvents": "0"
   }
 }
