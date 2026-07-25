@@ -1,40 +1,16 @@
 {
-  "generated_at": "2026-07-25T10:05:33Z",
+  "generated_at": "2026-07-25T15:14:14Z",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "backlog_issues": [
     {
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
+      "number": 843,
+      "title": "Alerting layer is dead: workflow_run has never fired in this repo — convert 740 to a poll and retire 732",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-25T10:04:39Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "updated_at": "2026-07-25T13:59:00Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/843",
       "labels": [
-        "agentic-os",
-        "claimed"
-      ]
-    },
-    {
-      "number": 838,
-      "title": "Security: 34 of 44 Node FFC-EX repos have no vulnerability detection at all (why #822's scope read 13 instead of 38)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-25T09:33:56Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/838",
-      "labels": [
-        "agentic-os",
-        "claimed"
-      ]
-    },
-    {
-      "number": 841,
-      "title": "Fleet security-audit coverage gap: Node repos with no vulnerability detection",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-25T09:33:07Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/841",
-      "labels": [
-        "security",
+        "bug",
         "agentic-os",
         "claimed",
         "priority: high"
@@ -45,8 +21,70 @@
       "title": "Scheduled workflow failures are invisible: extend the rolling failure-alert to 726/734/738",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-25T04:16:12Z",
+      "updated_at": "2026-07-25T13:58:01Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/832",
+      "labels": [
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "number": 848,
+      "title": "Key Vault: both read-all GitHub PATs are dead, and the read/write split is unenforced (per-secret RBAC + liveness monitoring)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T12:48:54Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/848",
+      "labels": [
+        "security",
+        "agentic-os",
+        "priority: high"
+      ]
+    },
+    {
+      "number": 844,
+      "title": "Credential consistency: 4 environments still hold raw secrets in GitHub instead of Key Vault",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T12:27:01Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/844",
+      "labels": [
+        "security",
+        "agentic-os",
+        "priority: high"
+      ]
+    },
+    {
+      "number": 838,
+      "title": "Security: 34 of 44 Node FFC-EX repos have no vulnerability detection at all (why #822's scope read 13 instead of 38)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T11:19:18Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/838",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 841,
+      "title": "Fleet security-audit coverage gap: Node repos with no vulnerability detection",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T11:19:01Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/841",
+      "labels": [
+        "security",
+        "agentic-os",
+        "priority: high"
+      ]
+    },
+    {
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T10:27:40Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os",
         "claimed"
@@ -282,27 +320,15 @@
   ],
   "in_flight_prs": [
     {
-      "number": 842,
-      "title": "feat(742): fleet security-audit backfill — one PR per uncovered repo, both halves together",
+      "number": 846,
+      "title": "fix(843): convert 740 to a poll and retire 732 into it",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-07-25T10:04:37Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/842",
+      "updated_at": "2026-07-25T13:58:13Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/846",
       "labels": [
-        "security",
-        "agentic-os"
-      ]
-    },
-    {
-      "number": 833,
-      "title": "feat(740): alert on scheduled workflow failures via a rolling issue",
-      "state": "open",
-      "draft": true,
-      "assignee": null,
-      "updated_at": "2026-07-25T07:31:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/833",
-      "labels": [
+        "bug",
         "agentic-os"
       ]
     },
@@ -320,13 +346,6 @@
     }
   ],
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-24T19:40:08Z",
-      "body": "### Run 35 addendum — retry loop exhausted, both PRs still unopened\n\nClosing the loop I left open in the end log: the background retry ran **14 more attempts** (19:28Z → 19:39Z) and **every one failed**. Total for the run: **~51 attempts over ~22 minutes** (19:18Z–19:40Z) across `gh`, REST, and the GitHub MCP, on two repos, with full and minimal bodies. `githubstatus.com` read all-operational throughout.\n\n**Final state — both branches verified intact, neither PR exists:**\n\n| Repo | Branch | Head…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5073696148"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-07-24T22:05:03Z",
@@ -389,6 +408,13 @@
       "body": "### 🟢 Conductor run 45 — START (2026-07-25 ~09:5xZ) · core 4943/5000 · graphql 4873/5000\n\nBootstrap clean: all 5 core clones fetched + fast-forwarded to `main`, 0 dirty.\nHeads — hub `28fb96e` (#840) · ffcadmin `a4d1cc3` (#707) · freeforcharity `fe7835d` (#504) ·\nSPT `5823b4c` (#420) · FOT `443142f` (#117). Re-read `AGENTS.md` + the safety doc from the repo.\n\nRun number taken from this log's tail (run 44 END at 07:25Z), not from local notes.\n\n**Focus this run**\n1. **New worker PR #842** (09:32Z, …",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5078085323"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-25T10:27:40Z",
+      "body": "### ⚫ Conductor run 45 — END (2026-07-25 ~10:3xZ) · core 4963 / graphql 4896 · **high-yield** · **NO Clarke contact**\n\n**GATES: 1 pending, 1 auto-approved, 0 pushed to Clarke.**\n`30150301861` (502 Analytics Report, `github-prod`) — Reads per safety doc line 172, auto-approved.\nVerified from the run, not the POST (run-44 lesson): 4 jobs, `deliver: success`, ffcadmin **#710\nmerged 10:06:49Z**, public feed now `generated_at 10:05:33Z`. No write gate waited this run.\n\n**SUPERVISION — #833 merged (10…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5078148363"
     }
   ],
   "pending_gates": []
