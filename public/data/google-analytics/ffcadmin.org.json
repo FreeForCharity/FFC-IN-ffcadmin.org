@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-25T01:20:53Z",
+  "updatedAt": "2026-07-25T04:17:44Z",
   "site": "ffcadmin.org",
   "propertyId": "513417483",
   "dryRun": false,
@@ -10,38 +10,38 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2533",
-    "newUsers": "2527",
-    "sessions": "2571",
-    "screenPageViews": "2788",
-    "engagementRate": "0.038506417736289385",
-    "eventCount": "8153",
+    "activeUsers": "2504",
+    "newUsers": "2497",
+    "sessions": "2541",
+    "screenPageViews": "2738",
+    "engagementRate": "0.038173947264856359",
+    "eventCount": "8020",
     "keyEvents": "0"
   },
   "topPages": [
     {
       "path": "/index.html",
-      "views": "452"
-    },
-    {
-      "path": "/legacy-wordpress-administration/index.html",
-      "views": "451"
+      "views": "447"
     },
     {
       "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
-      "views": "451"
+      "views": "446"
+    },
+    {
+      "path": "/legacy-wordpress-administration/index.html",
+      "views": "445"
     },
     {
       "path": "/tech-stack/index.html",
-      "views": "450"
-    },
-    {
-      "path": "/documentation/index.html",
       "views": "444"
     },
     {
+      "path": "/documentation/index.html",
+      "views": "439"
+    },
+    {
       "path": "/",
-      "views": "66"
+      "views": "59"
     },
     {
       "path": "/charity-prerequisites/",
@@ -49,7 +49,7 @@
     },
     {
       "path": "/site-owner/",
-      "views": "30"
+      "views": "26"
     },
     {
       "path": "/roadmap/",
@@ -63,11 +63,11 @@
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "2524"
+      "sessions": "2497"
     },
     {
       "channel": "Organic Search",
-      "sessions": "35"
+      "sessions": "33"
     },
     {
       "channel": "Referral",
@@ -84,12 +84,12 @@
   ],
   "productionHostname": "ffcadmin.org",
   "metricsProduction": {
-    "activeUsers": "286",
-    "newUsers": "279",
-    "sessions": "325",
-    "screenPageViews": "540",
-    "engagementRate": "0.30461538461538462",
-    "eventCount": "1409",
+    "activeUsers": "284",
+    "newUsers": "276",
+    "sessions": "322",
+    "screenPageViews": "517",
+    "engagementRate": "0.30124223602484473",
+    "eventCount": "1357",
     "keyEvents": "0"
   }
 }
