@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-25T01:20:49Z",
+  "updatedAt": "2026-07-25T04:17:41Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,26 +10,26 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "843",
-    "newUsers": "854",
-    "sessions": "984",
-    "screenPageViews": "1126",
-    "engagementRate": "0.26117886178861788",
-    "eventCount": "3660",
+    "activeUsers": "810",
+    "newUsers": "816",
+    "sessions": "946",
+    "screenPageViews": "1072",
+    "engagementRate": "0.25898520084566595",
+    "eventCount": "3489",
     "keyEvents": "0"
   },
   "topPages": [
     {
       "path": "/",
-      "views": "658"
+      "views": "608"
     },
     {
       "path": "/domains/",
-      "views": "252"
+      "views": "248"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "79"
+      "views": "80"
     },
     {
       "path": "/501c3/",
@@ -37,7 +37,7 @@
     },
     {
       "path": "/guidestar-guide/",
-      "views": "20"
+      "views": "19"
     },
     {
       "path": "/pre501c3/",
@@ -56,18 +56,18 @@
       "views": "5"
     },
     {
-      "path": "/about-us/",
-      "views": "4"
+      "path": "/free-training-programs/",
+      "views": "5"
     }
   ],
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "648"
+      "sessions": "612"
     },
     {
       "channel": "Organic Search",
-      "sessions": "302"
+      "sessions": "299"
     },
     {
       "channel": "AI Assistant",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "312",
-    "newUsers": "307",
-    "sessions": "456",
-    "screenPageViews": "551",
-    "engagementRate": "0.50438596491228072",
-    "eventCount": "1641",
+    "activeUsers": "311",
+    "newUsers": "306",
+    "sessions": "450",
+    "screenPageViews": "544",
+    "engagementRate": "0.50444444444444447",
+    "eventCount": "1625",
     "keyEvents": "0"
   }
 }

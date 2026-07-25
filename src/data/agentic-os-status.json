@@ -1,14 +1,61 @@
 {
-  "generated_at": "2026-07-25T01:21:36Z",
+  "generated_at": "2026-07-25T04:18:32Z",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "backlog_issues": [
+    {
+      "number": 832,
+      "title": "Scheduled workflow failures are invisible: extend the rolling failure-alert to 726/734/738",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T04:16:12Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/832",
+      "labels": [
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "number": 838,
+      "title": "Security: 34 of 44 Node FFC-EX repos have no vulnerability detection at all (why #822's scope read 13 instead of 38)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T04:15:38Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/838",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "number": 822,
+      "title": "Security: bump Next.js to patched 16.2.11 across the fleet (scheduled Security Audit red on both templates)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T04:14:40Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/822",
+      "labels": [
+        "enhancement",
+        "agentic-os"
+      ]
+    },
     {
       "number": 834,
       "title": "Reads-level GitHub workflows are gated on github-prod: 8 of 21 scheduled runs failed or were cancelled waiting for approval",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-25T01:15:13Z",
+      "updated_at": "2026-07-25T04:07:57Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/834",
+      "labels": [
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-25T04:04:54Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
       ]
@@ -21,41 +68,6 @@
       "updated_at": "2026-07-25T01:15:02Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/835",
       "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "number": 832,
-      "title": "Scheduled workflow failures are invisible: extend the rolling failure-alert to 726/734/738",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-25T01:12:08Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/832",
-      "labels": [
-        "agentic-os",
-        "claimed"
-      ]
-    },
-    {
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-25T01:05:07Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "number": 822,
-      "title": "Security: bump Next.js to patched 16.2.11 across the fleet (scheduled Security Audit red on both templates)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-24T22:19:11Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/822",
-      "labels": [
-        "enhancement",
         "agentic-os"
       ]
     },
@@ -254,6 +266,18 @@
   ],
   "in_flight_prs": [
     {
+      "number": 837,
+      "title": "feat(834): ungated github-prod-read lane for Reads-level GitHub workflows",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-07-25T04:08:31Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/837",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
       "number": 833,
       "title": "feat(740): alert on scheduled workflow failures via a rolling issue",
       "state": "open",
@@ -267,20 +291,6 @@
     }
   ],
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-24T13:09:17Z",
-      "body": "### ⚫ Conductor run 38 — END (2026-07-24) · core 4989 / graphql 4879 · productive · NO Clarke contact\n\n**GATES:** 0 waiting across hub + ffcadmin + freeforcharity. Today's daily **726/502** 08:00Z gates were already auto-approved by run 37 (feed refreshed 10:05Z). Nothing to approve — no Clarke contact needed.\n\n**SUPERVISE (hub):** 3 open PRs, **all DRAFT + worker/Clarke-owned → left alone** (Step 3 a no-op by design):\n- **#828** test(731) — unit-tests the last untested `github-script` monitor; …",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5070184517"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-24T16:06:26Z",
-      "body": "### 🟢 Conductor run 39 — START (2026-07-24) · core 4953/5000 · graphql 4740/5000\n\n**Bootstrap** green: 5 core clones ff-clean on `main` (hub `8842359` unchanged since run 38; ffcadmin `b558be8`, freeforcharity `c4cc08c`, SPT `178b089`, FOT `178da5a`). gh=clarkemoyer (repo/workflow/project/admin:org). Re-read AGENTS.md + safety doc (PR #824 doctrine: approve by safety level, not env). #719 tail via `--paginate` → run 38 END newest → this = **run 39**.\n\n**Gate handled at START:** workflow **726 Dr…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5071862891"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-07-24T16:10:35Z",
@@ -336,22 +346,21 @@
       "body": "### 🟢 Conductor run 42 — START (2026-07-25 01:0xZ)\n\nNewest START in this log was **run 41** (22:04Z), so this is **42**, ~2.9h later.\n\nBootstrap green: workspace intact, 5 core clones fetched + fast-forwarded, all clean (0 dirty).\n`hub 3751a84 · ffcadmin 2819277 · freeforcharity 3dee713 · SPT 5823b4c · FOT 443142f`\nRe-read `AGENTS.md` + `docs/workflow-safety-and-approvals.md` from `main` (not memory).\nRate: core 4951 / graphql 4726.\n\n**Run 41's first ask is already answered:** hub **#831 cleared…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5075985965"
-    }
-  ],
-  "pending_gates": [
-    {
-      "run_id": 30116967112,
-      "workflow_name": "Bulk cutover staging->apex (dry_run=false, skip_dns=false, skip_cname=true)",
-      "environment": "cloudflare-prod-write",
-      "created_at": "2026-07-24T18:27:11Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/30116967112"
     },
     {
-      "run_id": 30138239259,
-      "workflow_name": "Running Copilot Code Review",
-      "environment": "copilot",
-      "created_at": "2026-07-25T01:19:02Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/30138239259"
+      "author": "clarkemoyer",
+      "created_at": "2026-07-25T01:23:14Z",
+      "body": "### ⚫ Conductor run 42 — END (2026-07-25 ~01:3xZ) · core 4964 / graphql 3580 · **NO Clarke contact**\n\n**#830 is closed, and closed verified rather than assumed.**\n\n`freeforcharity.org` was the last FFC repo with no scheduled production-dependency audit — and it is\nthe main public website, the one that had been silently carrying 4 high advisories when #822 found\nthem by hand. [#504](https://github.com/FreeForCharity/FFC-IN-freeforcharity.org/pull/504) merged\n`fe7835d` (8/8 checks green), then I d…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5076053787"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-25T04:04:54Z",
+      "body": "### 🟢 Conductor run 43 — START (2026-07-25 04:04Z) · core 4940/5000 · graphql 4865/5000\n\n**Bootstrap green.** All 5 core clones fetched + fast-forwarded to `main`, working trees clean:\n\n| repo | HEAD |\n|---|---|\n| FFC-Cloudflare-Automation | `3751a84` |\n| FFC-IN-ffcadmin.org | `198a17a` (was 2819277 — 502 data-sync landed) |\n| FFC-IN-freeforcharity.org | `fe7835d` |\n| FFC-IN-FFC_Single_Page_Template | `5823b4c` |\n| FFC-IN-Footer_Only_Template | `443142f` |\n\nToolchain verified: `gh` 2.96.0 (clark…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5076840305"
     }
-  ]
+  ],
+  "pending_gates": []
 }
