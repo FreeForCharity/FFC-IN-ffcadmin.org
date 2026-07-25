@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-24T22:14:56Z",
+  "updatedAt": "2026-07-25T01:20:49Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,12 +10,12 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "841",
-    "newUsers": "852",
-    "sessions": "980",
-    "screenPageViews": "1123",
-    "engagementRate": "0.26224489795918365",
-    "eventCount": "3650",
+    "activeUsers": "843",
+    "newUsers": "854",
+    "sessions": "984",
+    "screenPageViews": "1126",
+    "engagementRate": "0.26117886178861788",
+    "eventCount": "3660",
     "keyEvents": "0"
   },
   "topPages": [
@@ -25,11 +25,11 @@
     },
     {
       "path": "/domains/",
-      "views": "251"
+      "views": "252"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "77"
+      "views": "79"
     },
     {
       "path": "/501c3/",
@@ -67,7 +67,7 @@
     },
     {
       "channel": "Organic Search",
-      "sessions": "298"
+      "sessions": "302"
     },
     {
       "channel": "AI Assistant",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "310",
-    "newUsers": "305",
-    "sessions": "452",
-    "screenPageViews": "548",
-    "engagementRate": "0.50884955752212391",
-    "eventCount": "1631",
+    "activeUsers": "312",
+    "newUsers": "307",
+    "sessions": "456",
+    "screenPageViews": "551",
+    "engagementRate": "0.50438596491228072",
+    "eventCount": "1641",
     "keyEvents": "0"
   }
 }
