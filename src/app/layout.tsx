@@ -60,6 +60,43 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        {/*
+          Consent Mode v2 defaults. This MUST render before the GTM snippet below,
+          and it is a plain inline <script> rather than next/script on purpose:
+          next/script "beforeInteractive" is still injected by the runtime, whereas
+          a raw inline tag is executed by the parser at exactly this position. GTM
+          reads the consent state present when it initialises, so "before" here is a
+          correctness requirement, not a preference.
+
+          Without this block GTM loaded with no consent state at all, which Google
+          treats as unrestricted: every tag in the container fired on first paint,
+          before the banner was even shown. The banner's later consent_update then
+          arrived after the tracking it was supposed to authorise had already
+          happened — the site behaved as though consent were granted while telling
+          the visitor it was being asked for.
+
+          Denied-by-default is also what the banner's own copy promises. wait_for_update
+          gives the stored-preference restore a window to grant before tags evaluate,
+          so a returning visitor who already accepted is not measured as a new denial.
+        */}
+        <script
+          id="consent-mode-default"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied',
+                'functionality_storage': 'granted',
+                'security_storage': 'granted',
+                'wait_for_update': 500
+              });
+            `,
+          }}
+        />
         <Script
           id="google-tag-manager"
           strategy="afterInteractive"
