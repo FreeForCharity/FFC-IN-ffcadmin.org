@@ -142,7 +142,11 @@ export default function PrivacyPolicy() {
                 </li>
                 <li>
                   <strong>Analytics Cookies:</strong> Help us understand how visitors interact with
-                  our website (Google Analytics, Microsoft Clarity). Requires consent.
+                  our website (Google Analytics, Microsoft Clarity). Consent is required before
+                  these are set if you are in the EEA, the UK, or Switzerland; elsewhere analytics
+                  storage is on by default and the banner switches it off. Declining always stops
+                  Microsoft Clarity outright, and reduces Google Analytics to a cookieless record
+                  that cannot be linked to your other visits.
                 </li>
                 <li>
                   <strong>Marketing Cookies:</strong> Would be used to track visitors across
@@ -166,10 +170,22 @@ export default function PrivacyPolicy() {
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
-                  <strong>Google Analytics:</strong> Web analytics service (only with consent)
+                  <strong>Google Analytics:</strong> Web analytics service. Runs on every visit;
+                  consent controls whether it may use cookies and identifiers, not whether it runs.
+                  This site reports to the same Google Analytics property as our sister site{' '}
+                  <a
+                    href="https://www.freeforcharity.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    freeforcharity.org
+                  </a>
+                  , so a visit that spans both sites is recorded as one journey.
                 </li>
                 <li>
-                  <strong>Microsoft Clarity:</strong> User behavior analytics (only with consent)
+                  <strong>Microsoft Clarity:</strong> User behavior analytics (only with consent —
+                  it does not run at all unless you accept analytics)
                 </li>
               </ul>
               <p>

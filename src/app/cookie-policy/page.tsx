@@ -73,10 +73,36 @@ export default function CookiePolicy() {
               <p className="mb-4">When you visit our website, we use cookies to:</p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>Remember your cookie consent preferences</li>
-                <li>Understand how you use our website (with your consent)</li>
-                <li>Analyze website traffic and user behavior (with your consent)</li>
+                <li>Understand how you use our website</li>
+                <li>Analyze website traffic and user behavior</li>
                 <li>Improve our website and user experience</li>
               </ul>
+              <p className="mb-4">
+                <strong>Where consent is required.</strong> If you are in the European Economic
+                Area, the United Kingdom, or Switzerland, analytics and advertising storage stay
+                switched off until you accept — nothing is stored on your device and no identifiers
+                are read before then. Everywhere else, analytics storage is enabled by default when
+                you arrive, and declining in the banner switches it off.
+              </p>
+              <p className="mb-4">
+                Declining does not make you invisible to us, and we would rather say so plainly than
+                imply otherwise: Google Analytics still receives a record of the visit, without
+                cookies and without any identifier that could link it to your other visits. We learn
+                that a page was viewed; we do not learn that it was you.
+              </p>
+              <p className="mb-4">
+                We share a single analytics property with our sister site,{' '}
+                <a
+                  href="https://www.freeforcharity.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  freeforcharity.org
+                </a>
+                , so that moving between the two is understood as one visit rather than two
+                unrelated ones. Your consent choice is asked and honoured separately on each site.
+              </p>
             </section>
 
             <section id="section-3" className="scroll-mt-20">
@@ -131,7 +157,7 @@ export default function CookiePolicy() {
 
                 <div className="border-l-4 border-green-600 pl-4">
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    3.2 Analytics Cookies (Requires Consent)
+                    3.2 Analytics Cookies (Consent Required in the EEA, UK &amp; Switzerland)
                   </h3>
                   <p className="mb-4">
                     These cookies help us understand how visitors interact with our website by
@@ -288,9 +314,11 @@ export default function CookiePolicy() {
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">4.3 Opt-Out Links</h3>
               <p className="mb-4">
-                Declining analytics in the consent banner already stops both Google Analytics and
-                Microsoft Clarity from loading. For Google Analytics, you can also opt out
-                browser-wide:
+                Declining analytics in the consent banner stops Microsoft Clarity entirely — no
+                session recording takes place. Google Analytics behaves differently and we want to
+                be exact about it: declining stops it using cookies or reading any identifier, but
+                it still receives an anonymous, cookieless record of the visit. For Google
+                Analytics, you can also opt out browser-wide:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
