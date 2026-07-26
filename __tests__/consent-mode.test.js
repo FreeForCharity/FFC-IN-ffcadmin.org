@@ -112,6 +112,48 @@ describe('CookieConsent grant path', () => {
       /analytics_storage:\s*prefs\.analytics\s*\?\s*'granted'\s*:\s*'denied'/
     )
   })
+
+  test('personalization_storage in the update tracks the marketing preference', () => {
+    // Regression: the region-scoped bootstrap denies personalization_storage in
+    // the EEA/UK/CH and grants it everywhere else, but the update call omitted
+    // it — so a non-EEA visitor who declined everything kept
+    // personalization_storage: granted. An opt-out the tags never saw.
+    expect(consentSrc).toMatch(
+      /personalization_storage:\s*prefs\.marketing\s*\?\s*'granted'\s*:\s*'denied'/
+    )
+  })
+
+  // The general form of that bug, so the NEXT omission fails here instead of
+  // shipping. Any category the bootstrap can leave non-granted is a category
+  // the banner must be able to change; one it cannot change keeps its default
+  // forever, silently.
+  test('every category the bootstrap can deny is also settable by the update', () => {
+    const regional = consentModeSrc.slice(firstDefaultAt, secondDefaultAt)
+    // Match any denied consent key, not just those ending in _storage:
+    // ad_user_data and ad_personalization do not carry that suffix, and a
+    // regex anchored on it would quietly skip them.
+    const deniable = [
+      ...new Set(Array.from(regional.matchAll(/'(\w+)':\s*'denied'/g)).map((m) => m[1])),
+    ]
+    // Sanity-check the extraction itself — a regex that silently matched
+    // nothing would make this test vacuously green.
+    expect(deniable).toEqual(
+      expect.arrayContaining([
+        'ad_storage',
+        'ad_user_data',
+        'ad_personalization',
+        'analytics_storage',
+        'personalization_storage',
+      ])
+    )
+
+    const updateAt = consentSrc.indexOf("'consent', 'update'")
+    expect(updateAt).toBeGreaterThan(-1)
+    const updateCall = consentSrc.slice(updateAt, consentSrc.indexOf('})', updateAt))
+
+    const missing = deniable.filter((c) => !updateCall.includes(`${c}:`))
+    expect(missing).toEqual([])
+  })
 })
 
 describe('Analytics provisioning guard', () => {

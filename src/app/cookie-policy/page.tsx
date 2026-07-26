@@ -84,7 +84,9 @@ export default function CookiePolicy() {
                   Analyze website traffic and user behavior —{' '}
                   <strong>only where analytics storage is permitted</strong>
                 </li>
-                <li>Improve our website and user experience, using whatever the above collect</li>
+                <li>
+                  Improve our website and user experience, using whatever the items above collect
+                </li>
               </ul>
               <p className="mb-4">
                 <strong>Where consent is required.</strong> If you are in the European Economic
