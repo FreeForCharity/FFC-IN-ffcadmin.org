@@ -89,9 +89,16 @@ export default function CookiePolicy() {
               <p className="mb-4">
                 <strong>Where consent is required.</strong> If you are in the European Economic
                 Area, the United Kingdom, or Switzerland, analytics and advertising storage stay
-                switched off until you accept — nothing is stored on your device and no identifiers
-                are read before then. Everywhere else, analytics storage is enabled by default when
-                you arrive, and declining in the banner switches it off.
+                switched off until you accept — no analytics or advertising cookie is written and no
+                such identifier is read before then. Everywhere else, analytics storage is enabled
+                by default when you arrive, and declining in the banner switches it off.
+              </p>
+              <p className="mb-4">
+                This does not mean your device is untouched: the necessary items in section 3.1
+                below — the cookie recording your consent choice, and the note that you dismissed
+                the sister-site banner — are stored either way, because a preference we cannot
+                remember is a preference we cannot honour. They carry no identifier and are never
+                sent to an analytics provider.
               </p>
               <p className="mb-4">
                 Declining does not make you invisible to us, and we would rather say so plainly than
