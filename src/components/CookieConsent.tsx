@@ -6,6 +6,19 @@ import { useState, useEffect, useRef } from 'react'
 // Environment variables for tracking IDs (replace with actual values)
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
 
+// The fallback above is a placeholder, not a measurement ID. Loading it sent real
+// visitors' page views to https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX —
+// a request to Google carrying the visitor's IP and referrer, made in the name of
+// analytics that cannot be collected because no such property exists. That is the
+// privacy cost of tracking with none of the benefit, and it happened only AFTER the
+// visitor clicked Accept, so consent was obtained for something that never worked.
+//
+// A real GA4 ID is 'G-' followed by an alphanumeric string; the placeholder is all
+// X's. Match the shape rather than the exact placeholder so a differently-spelled
+// stand-in ('G-XXXX', 'G-TODO') is caught too.
+const isAnalyticsProvisioned = (id: string): boolean =>
+  /^G-[A-Z0-9]{6,}$/.test(id) && !/^G-X+$/.test(id)
+
 type ConsentPreferences = {
   necessary: boolean
   analytics: boolean
@@ -38,6 +51,12 @@ function isConsentPreferences(value: unknown): value is ConsentPreferences {
 declare global {
   interface Window {
     dataLayer: DataLayerEvent[]
+    // Defined by the inline Consent Mode block in layout.tsx
+    // (`function gtag(){dataLayer.push(arguments)}` — a function declaration in an
+    // inline script becomes a property of window). Optional because that block is
+    // parser-executed in the document head: on any page rendered without the app
+    // layout, and in jsdom-based tests, it is simply absent.
+    gtag?: (...args: unknown[]) => void
     openCookiePreferences?: () => void
   }
 }
@@ -156,6 +175,27 @@ export default function CookieConsent() {
     // Push consent update to GTM dataLayer
     if (typeof window !== 'undefined') {
       window.dataLayer = window.dataLayer || []
+
+      // Consent Mode update. This is what actually releases the tags held by the
+      // denied-by-default state set in layout.tsx. The custom consent_update event
+      // below is kept because container-side triggers may already depend on it, but
+      // it is NOT a substitute: a custom event only does something if a tag in the
+      // container listens for it, whereas this is read by Google's tags directly.
+      // Relying on the custom event alone meant consent was enforced only as long as
+      // container config happened to agree with the banner — invisible from the repo,
+      // and silently lost on any container edit.
+      //
+      // Called through window.gtag rather than pushed as an array: gtag pushes the
+      // `arguments` object, and Google's consent handling reads that shape. A literal
+      // array is NOT equivalent, and the difference is silent — consent would appear
+      // to be sent while the tags stayed denied.
+      window.gtag?.('consent', 'update', {
+        ad_storage: prefs.marketing ? 'granted' : 'denied',
+        ad_user_data: prefs.marketing ? 'granted' : 'denied',
+        ad_personalization: prefs.marketing ? 'granted' : 'denied',
+        analytics_storage: prefs.analytics ? 'granted' : 'denied',
+      })
+
       window.dataLayer.push({
         event: 'consent_update',
         analytics_consent: prefs.analytics ? 'granted' : 'denied',
@@ -173,6 +213,17 @@ export default function CookieConsent() {
   }
 
   const loadGoogleAnalytics = () => {
+    if (!isAnalyticsProvisioned(GA_MEASUREMENT_ID)) {
+      // Nothing to load. Deliberately silent in production rather than throwing:
+      // an unprovisioned site should degrade to no analytics, not to a broken page.
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn(
+          `[CookieConsent] NEXT_PUBLIC_GA_MEASUREMENT_ID is not set (got "${GA_MEASUREMENT_ID}"). Skipping Google Analytics.`
+        )
+      }
+      return
+    }
+
     if (
       typeof window !== 'undefined' &&
       !document.querySelector('script[src*="googletagmanager.com/gtag"]')
