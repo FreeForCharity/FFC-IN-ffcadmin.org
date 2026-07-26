@@ -33,6 +33,15 @@ interface DataLayerEvent {
   [key: string]: DataLayerValue
 }
 
+// What actually lands in window.dataLayer is NOT only DataLayerEvent. The inline
+// `function gtag(){dataLayer.push(arguments)}` shim — defined in layout.tsx and again
+// in the GA loader below — pushes an `arguments` object, which has no `event` key.
+// Typing the array as DataLayerEvent[] told TypeScript every entry has `event: string`,
+// so `dataLayer[0].event` would type-check and be undefined at runtime. Google's tags
+// depend on that arguments shape, so it cannot be normalised away; the type has to
+// admit it instead.
+type DataLayerEntry = DataLayerEvent | IArguments
+
 function isConsentPreferences(value: unknown): value is ConsentPreferences {
   if (typeof value !== 'object' || value === null) {
     return false
@@ -50,7 +59,7 @@ function isConsentPreferences(value: unknown): value is ConsentPreferences {
 // Extend Window interface to include dataLayer
 declare global {
   interface Window {
-    dataLayer: DataLayerEvent[]
+    dataLayer: DataLayerEntry[]
     // Defined by the inline Consent Mode block in layout.tsx
     // (`function gtag(){dataLayer.push(arguments)}` — a function declaration in an
     // inline script becomes a property of window). Optional because that block is
@@ -218,7 +227,7 @@ export default function CookieConsent() {
       // an unprovisioned site should degrade to no analytics, not to a broken page.
       if (process.env.NODE_ENV !== 'production') {
         console.warn(
-          `[CookieConsent] NEXT_PUBLIC_GA_MEASUREMENT_ID is not set (got "${GA_MEASUREMENT_ID}"). Skipping Google Analytics.`
+          `[CookieConsent] NEXT_PUBLIC_GA_MEASUREMENT_ID is missing or not a real measurement ID (got "${GA_MEASUREMENT_ID}"). Skipping Google Analytics.`
         )
       }
       return
