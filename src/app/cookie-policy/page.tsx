@@ -73,8 +73,9 @@ export default function CookiePolicy() {
               <p className="mb-4">When you visit our website, cookies may be used to:</p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
-                  Remember your cookie consent preferences — <strong>always, on every visit</strong>
-                  , because without it we cannot honour your choice
+                  Remember your cookie consent preferences —{' '}
+                  <strong>from the moment you make a choice</strong>, so we do not have to ask again
+                  and can apply it on later visits
                 </li>
                 <li>
                   Understand how you use our website —{' '}
@@ -96,11 +97,12 @@ export default function CookiePolicy() {
                 by default when you arrive, and declining in the banner switches it off.
               </p>
               <p className="mb-4">
-                This does not mean your device is untouched: the necessary items in section 3.1
-                below — the cookie recording your consent choice, and the note that you dismissed
-                the sister-site banner — are stored either way, because a preference we cannot
-                remember is a preference we cannot honour. They carry no identifier and are never
-                sent to an analytics provider.
+                This does not mean your device is untouched. Once you make a choice, the necessary
+                items in section 3.1 below are saved in your browser regardless of what you chose —
+                your consent preference (kept in local storage and also mirrored to a{' '}
+                <code>cookie-consent</code> cookie) and, if you dismiss it, a note that you closed
+                the sister-site banner. A preference we cannot remember is one we cannot honour.
+                They carry no identifier and are never sent to an analytics provider.
               </p>
               <p className="mb-4">
                 Declining does not make you invisible to us, and we would rather say so plainly than
@@ -152,9 +154,12 @@ export default function CookiePolicy() {
                       <tbody>
                         <tr className="border-b">
                           <td className="py-2 pr-4 font-mono">cookie-consent</td>
-                          <td className="py-2 pr-4">Cookie</td>
-                          <td className="py-2 pr-4">Stores your cookie preferences</td>
-                          <td className="py-2">12 months</td>
+                          <td className="py-2 pr-4">Local storage + cookie</td>
+                          <td className="py-2 pr-4">
+                            Stores your cookie preferences. Written to both; the local-storage copy
+                            is the one we read back on your next visit.
+                          </td>
+                          <td className="py-2">Local storage: until cleared. Cookie: 12 months.</td>
                         </tr>
                         <tr className="border-b">
                           <td className="py-2 pr-4 font-mono">

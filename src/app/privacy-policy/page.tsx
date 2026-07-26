@@ -109,9 +109,10 @@ export default function PrivacyPolicy() {
                 <em>kept in an analytics cookie or tied to an identifier</em>, not whether the visit
                 is recorded at all. If you are in the EEA, the UK, or Switzerland, no analytics or
                 advertising cookie is written and no such identifier is read until you accept.
-                Elsewhere, analytics storage is on by default and the banner switches it off. The
-                cookie that records your own consent choice is stored either way — without it we
-                could not honour the choice.
+                Elsewhere, analytics storage is on by default and the banner switches it off. Your
+                own consent choice is saved in your browser either way, once you make one — in local
+                storage, and mirrored to a cookie — because a preference we cannot remember is one
+                we cannot honour.
               </p>
               <p>
                 Either way, a visit you have not consented to is still recorded — cookielessly, with
