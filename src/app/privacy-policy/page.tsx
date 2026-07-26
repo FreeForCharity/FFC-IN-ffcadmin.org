@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'June 20, 2026'
+const LAST_UPDATED = 'July 26, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
@@ -104,9 +104,17 @@ export default function PrivacyPolicy() {
                 <li>Referring website addresses</li>
                 <li>Date and time of visit</li>
               </ul>
+              <p className="mb-4">
+                Consent controls whether this information can be{' '}
+                <em>stored on your device or tied to an identifier</em>, not whether the visit is
+                recorded at all. If you are in the EEA, the UK, or Switzerland, nothing is stored
+                and no identifier is read until you accept. Elsewhere, analytics storage is on by
+                default and the banner switches it off.
+              </p>
               <p>
-                This information is collected only if you have provided consent through our cookie
-                consent banner.
+                Either way, a visit you have not consented to is still recorded — cookielessly, with
+                no identifier that could connect it to your other visits. We would rather state that
+                than claim nothing is collected, which would not be true.
               </p>
             </section>
 
@@ -118,7 +126,9 @@ export default function PrivacyPolicy() {
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>Operate, maintain, and improve our website</li>
                 <li>Understand how visitors use our site</li>
-                <li>Analyze site traffic and user behavior (with consent)</li>
+                <li>
+                  Analyze site traffic and user behavior (where analytics storage is permitted)
+                </li>
                 <li>Respond to support requests and communications</li>
                 <li>Detect, prevent, and address technical issues</li>
                 <li>Comply with legal obligations</li>

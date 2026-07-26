@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'June 20, 2026'
+const LAST_UPDATED = 'July 26, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
@@ -70,12 +70,21 @@ export default function CookiePolicy() {
 
             <section id="section-2" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">2. How We Use Cookies</h2>
-              <p className="mb-4">When you visit our website, we use cookies to:</p>
+              <p className="mb-4">When you visit our website, cookies may be used to:</p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
-                <li>Remember your cookie consent preferences</li>
-                <li>Understand how you use our website</li>
-                <li>Analyze website traffic and user behavior</li>
-                <li>Improve our website and user experience</li>
+                <li>
+                  Remember your cookie consent preferences — <strong>always, on every visit</strong>
+                  , because without it we cannot honour your choice
+                </li>
+                <li>
+                  Understand how you use our website —{' '}
+                  <strong>only where analytics storage is permitted</strong>
+                </li>
+                <li>
+                  Analyze website traffic and user behavior —{' '}
+                  <strong>only where analytics storage is permitted</strong>
+                </li>
+                <li>Improve our website and user experience, using whatever the above collect</li>
               </ul>
               <p className="mb-4">
                 <strong>Where consent is required.</strong> If you are in the European Economic
