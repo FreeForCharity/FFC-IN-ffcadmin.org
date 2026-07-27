@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T08:52:19.257Z",
+  "generatedAt": "2026-07-27T09:04:25.520Z",
   "source": "github:FreeForCharity/FFC-IN-ffcadmin.org+sites_list",
   "entries": [
     {
@@ -18,6 +18,26 @@
       "plusOne": 0,
       "issueUrl": "https://github.com/FreeForCharity",
       "liveUrl": "https://freeforcharity.org"
+    },
+    {
+      "issueNumber": 718,
+      "charityName": "Minority Wealth Gap",
+      "missionExcerpt": "The mission of MWG is to minimize and eliminate the Wealth Gap through a “War on Poverty” in the Black and Hispanic Community.We believe in changing lives and creating generationa…",
+      "status": "needs-admin",
+      "charityStage": "501c3",
+      "missionCategory": "basic-needs",
+      "serviceTier": "Tier 1 — Application",
+      "readinessScore": -57,
+      "readinessTier": "Just getting started",
+      "submittedAt": "2026-07-26T08:52:11Z",
+      "updatedAt": "2026-07-26T08:52:11Z",
+      "sponsor": null,
+      "plusOne": 0,
+      "issueUrl": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/718",
+      "validationTicked": 0,
+      "validationTotal": 8,
+      "candidUrl": "https://app.candid.org/profile/14588092/minoritywealthgap-88-3800775",
+      "ein": "88-3800775"
     },
     {
       "issueNumber": 631,
