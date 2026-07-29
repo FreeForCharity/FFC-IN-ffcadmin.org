@@ -91,6 +91,11 @@ function PrCard({ pr }: { pr: AgenticPr }) {
       <div className="text-sm text-gray-900">{pr.title}</div>
       <div className="mt-2 text-xs text-gray-500">
         {pr.assignee ?? 'unassigned'} · updated {relativeAge(pr.updated_at)}
+        {/* Why this PR is on the list. Most agent PRs carry no label at all —
+            the backlog issue they reference is what places them here. */}
+        {pr.linked_agentic_issues && pr.linked_agentic_issues.length > 0 && (
+          <> · refs {pr.linked_agentic_issues.map((n) => `#${n}`).join(', ')}</>
+        )}
       </div>
     </div>
   )
@@ -213,7 +218,12 @@ export default function AgenticOsStatus() {
           {data.backlog_issues.length} backlog issues
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-semibold text-gray-800">
-          {data.in_flight_prs.length} PRs in flight
+          {/* Shown as a fraction of all open PRs when the feed provides the
+              denominator. "0 of 8" reads as a filter problem; a bare "0" does
+              not — see #909. */}
+          {typeof data.open_prs_total === 'number'
+            ? `${data.in_flight_prs.length} of ${data.open_prs_total} PRs in flight`
+            : `${data.in_flight_prs.length} PRs in flight`}
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-semibold text-gray-800">
           {data.pending_gates.length} gates waiting
@@ -237,8 +247,20 @@ export default function AgenticOsStatus() {
 
       <section className="mb-10">
         <h2 className="mb-3 text-xl font-bold text-gray-900">Pull requests in flight</h2>
+        {/* State the inclusion rule on the page. A count with no stated
+            definition cannot be checked by a reader, and an empty panel cannot
+            be told apart from a broken one (#909). */}
+        {data.in_flight_prs_rule && (
+          <p className="mb-4 text-sm text-gray-600">
+            <span className="font-semibold">What counts:</span> {data.in_flight_prs_rule}
+          </p>
+        )}
         {data.in_flight_prs.length === 0 ? (
-          <p className="text-sm text-gray-500">No open Agentic OS pull requests right now.</p>
+          <p className="text-sm text-gray-500">
+            {data.open_prs_total
+              ? `None of the ${data.open_prs_total} open pull requests are linked to this backlog.`
+              : 'No open Agentic OS pull requests right now.'}
+          </p>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {data.in_flight_prs.map((pr) => (

@@ -104,6 +104,9 @@ export interface AgenticIssue {
 
 export interface AgenticPr extends AgenticIssue {
   draft: boolean
+  /** Agentic-os issues this PR references — why it counts as in flight.
+   * Optional: a feed generated before the #909 fix will not carry it. */
+  linked_agentic_issues?: number[]
 }
 
 export interface AgenticLogEntry {
@@ -129,6 +132,14 @@ export interface AgenticOsStatusData {
   in_flight_prs: AgenticPr[]
   conductor_log: AgenticLogEntry[]
   pending_gates: AgenticGate[]
+  /** The rule the generator used to decide what counts as "in flight", stated
+   * in the feed so the page renders the definition instead of keeping a second
+   * copy of it that can drift. Optional — feeds predating #909 lack it. */
+  in_flight_prs_rule?: string
+  /** Every open PR on the hub, unfiltered. The denominator matters: a panel
+   * showing a bare 0 is indistinguishable from a panel whose filter is dead,
+   * which is exactly how #909 went unnoticed while 8 PRs were open. */
+  open_prs_total?: number
 }
 
 function readJson<T>(file: string): T | null {
