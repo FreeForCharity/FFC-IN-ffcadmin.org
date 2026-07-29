@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-28T08:07:07Z",
+  "updatedAt": "2026-07-29T08:10:13Z",
   "site": "ffcadmin.org",
   "propertyId": "513417483",
   "dryRun": false,
@@ -10,38 +10,38 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2314",
-    "newUsers": "2306",
-    "sessions": "2351",
-    "screenPageViews": "2537",
-    "engagementRate": "0.042109740535942151",
-    "eventCount": "7433",
+    "activeUsers": "2187",
+    "newUsers": "2180",
+    "sessions": "2226",
+    "screenPageViews": "2408",
+    "engagementRate": "0.0431266846361186",
+    "eventCount": "7045",
     "keyEvents": "0"
   },
   "topPages": [
     {
       "path": "/index.html",
-      "views": "407"
+      "views": "383"
     },
     {
       "path": "/legacy-wordpress-administration/index.html",
-      "views": "407"
+      "views": "383"
     },
     {
       "path": "/legacy-wordpress-administration/wordpress-web-hosting/index.html",
-      "views": "407"
+      "views": "383"
     },
     {
       "path": "/tech-stack/index.html",
-      "views": "407"
+      "views": "383"
     },
     {
       "path": "/documentation/index.html",
-      "views": "405"
+      "views": "381"
     },
     {
       "path": "/",
-      "views": "57"
+      "views": "55"
     },
     {
       "path": "/charity-prerequisites/",
@@ -49,7 +49,7 @@
     },
     {
       "path": "/site-owner/",
-      "views": "24"
+      "views": "23"
     },
     {
       "path": "/roadmap/",
@@ -63,7 +63,7 @@
   "channels": [
     {
       "channel": "Direct",
-      "sessions": "2310"
+      "sessions": "2185"
     },
     {
       "channel": "Organic Search",
@@ -84,12 +84,12 @@
   ],
   "productionHostname": "ffcadmin.org",
   "metricsProduction": {
-    "activeUsers": "281",
-    "newUsers": "273",
-    "sessions": "318",
-    "screenPageViews": "504",
-    "engagementRate": "0.31132075471698112",
-    "eventCount": "1334",
+    "activeUsers": "274",
+    "newUsers": "267",
+    "sessions": "310",
+    "screenPageViews": "495",
+    "engagementRate": "0.30967741935483872",
+    "eventCount": "1306",
     "keyEvents": "0"
   }
 }
