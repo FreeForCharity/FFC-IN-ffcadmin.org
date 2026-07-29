@@ -76,7 +76,22 @@ describe('in-flight panel legibility (#909)', () => {
       open_prs_total: 8,
     })
     render(<AgenticOs />)
-    expect(screen.getByText('1 of 8 PRs in flight')).toBeInTheDocument()
+    expect(screen.getByText('1 of 8 PR in flight')).toBeInTheDocument()
+  })
+
+  it('separates "none are open" from "none are linked" (open_prs_total: 0)', () => {
+    // 0 is a real reading, not a missing field. A truthiness check would send
+    // it to the pre-#909 wording and lose the distinction this panel is for.
+    loadAgenticOsStatus.mockReturnValue({
+      ...BASE,
+      in_flight_prs: [],
+      in_flight_prs_rule: RULE,
+      open_prs_total: 0,
+    })
+    render(<AgenticOs />)
+    expect(screen.getByText('0 of 0 PRs in flight')).toBeInTheDocument()
+    expect(screen.getByText('No pull requests are open on the hub.')).toBeInTheDocument()
+    expect(screen.queryByText(/No open Agentic OS pull requests right now/)).not.toBeInTheDocument()
   })
 
   it('names the referenced issue on a PR that carries no label at all', () => {
@@ -113,7 +128,7 @@ describe('in-flight panel legibility (#909)', () => {
     // undefined".
     loadAgenticOsStatus.mockReturnValue({ ...BASE, in_flight_prs: [pr({})] })
     render(<AgenticOs />)
-    expect(screen.getByText('1 PRs in flight')).toBeInTheDocument()
+    expect(screen.getByText('1 PR in flight')).toBeInTheDocument()
     expect(screen.queryByText(/What counts:/)).not.toBeInTheDocument()
     expect(screen.queryByText(/undefined/)).not.toBeInTheDocument()
   })
