@@ -76,7 +76,7 @@ describe('in-flight panel legibility (#909)', () => {
       open_prs_total: 8,
     })
     render(<AgenticOs />)
-    expect(screen.getByText('1 of 8 PR in flight')).toBeInTheDocument()
+    expect(screen.getByText('1 of 8 PRs in flight')).toBeInTheDocument()
   })
 
   it('separates "none are open" from "none are linked" (open_prs_total: 0)', () => {

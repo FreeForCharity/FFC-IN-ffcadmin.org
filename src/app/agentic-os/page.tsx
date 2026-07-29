@@ -228,8 +228,10 @@ export default function AgenticOsStatus() {
           {/* Shown as a fraction of all open PRs when the feed provides the
               denominator. "0 of 8" reads as a filter problem; a bare "0" does
               not — see #909. */}
+          {/* In the fraction form the noun agrees with the total, not the
+              numerator: "1 of 8 PRs", "1 of 1 PR". */}
           {typeof data.open_prs_total === 'number'
-            ? `${data.in_flight_prs.length} of ${data.open_prs_total} ${prLabel(data.in_flight_prs.length)} in flight`
+            ? `${data.in_flight_prs.length} of ${data.open_prs_total} ${prLabel(data.open_prs_total)} in flight`
             : `${data.in_flight_prs.length} ${prLabel(data.in_flight_prs.length)} in flight`}
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-semibold text-gray-800">
