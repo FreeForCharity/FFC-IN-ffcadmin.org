@@ -25,6 +25,13 @@ const STATUS_JSON_HREF = assetPath('/data/agentic-os-status.json')
 const CONDUCTOR_LOG_HREF = 'https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719'
 const STATUS_ISSUE_HREF = 'https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/723'
 
+/** "PR" / "PRs" for the in-flight chip. Scoped to the chip this change touches
+ * — the sibling backlog/gates chips have the same singular wording issue and
+ * are left for a change that is actually about them. */
+function prLabel(count: number) {
+  return count === 1 ? 'PR' : 'PRs'
+}
+
 function labelBadges(labels: string[] | null | undefined) {
   // The `agentic-os` label is on everything here; surface only the extra labels.
   // Guard for a malformed feed: a null/non-array `labels` must not throw at
@@ -91,6 +98,11 @@ function PrCard({ pr }: { pr: AgenticPr }) {
       <div className="text-sm text-gray-900">{pr.title}</div>
       <div className="mt-2 text-xs text-gray-500">
         {pr.assignee ?? 'unassigned'} · updated {relativeAge(pr.updated_at)}
+        {/* Why this PR is on the list. Most agent PRs carry no label at all —
+            the backlog issue they reference is what places them here. */}
+        {pr.linked_agentic_issues && pr.linked_agentic_issues.length > 0 && (
+          <> · refs {pr.linked_agentic_issues.map((n) => `#${n}`).join(', ')}</>
+        )}
       </div>
     </div>
   )
@@ -213,7 +225,14 @@ export default function AgenticOsStatus() {
           {data.backlog_issues.length} backlog issues
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-semibold text-gray-800">
-          {data.in_flight_prs.length} PRs in flight
+          {/* Shown as a fraction of all open PRs when the feed provides the
+              denominator. "0 of 8" reads as a filter problem; a bare "0" does
+              not — see #909. */}
+          {/* In the fraction form the noun agrees with the total, not the
+              numerator: "1 of 8 PRs", "1 of 1 PR". */}
+          {typeof data.open_prs_total === 'number'
+            ? `${data.in_flight_prs.length} of ${data.open_prs_total} ${prLabel(data.open_prs_total)} in flight`
+            : `${data.in_flight_prs.length} ${prLabel(data.in_flight_prs.length)} in flight`}
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-semibold text-gray-800">
           {data.pending_gates.length} gates waiting
@@ -237,8 +256,26 @@ export default function AgenticOsStatus() {
 
       <section className="mb-10">
         <h2 className="mb-3 text-xl font-bold text-gray-900">Pull requests in flight</h2>
+        {/* State the inclusion rule on the page. A count with no stated
+            definition cannot be checked by a reader, and an empty panel cannot
+            be told apart from a broken one (#909). */}
+        {data.in_flight_prs_rule && (
+          <p className="mb-4 text-sm text-gray-600">
+            <span className="font-semibold">What counts:</span> {data.in_flight_prs_rule}
+          </p>
+        )}
         {data.in_flight_prs.length === 0 ? (
-          <p className="text-sm text-gray-500">No open Agentic OS pull requests right now.</p>
+          <p className="text-sm text-gray-500">
+            {/* `open_prs_total: 0` is a real reading — no PR is open at all —
+                and a distinct statement from "some are open, none of them are
+                linked". A truthiness check would collapse the two, which is
+                the same conflation this panel exists to undo. */}
+            {typeof data.open_prs_total !== 'number'
+              ? 'No open Agentic OS pull requests right now.'
+              : data.open_prs_total === 0
+                ? 'No pull requests are open on the hub.'
+                : `None of the ${data.open_prs_total} open pull requests are linked to this backlog.`}
+          </p>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {data.in_flight_prs.map((pr) => (
