@@ -461,6 +461,49 @@ describe('main() wiring (mocked API, no network)', () => {
     await expect(main()).resolves.toBeUndefined()
   })
 
+  it('treats a 422 as benign when the branch turns out to be current', async () => {
+    // Another actor can update the branch between our compare and our PUT. The
+    // response is a 422 either way, so the message is not the discriminator —
+    // re-reading the comparison is. A false `blocked` here would fail the run
+    // with nothing wrong, and an alert that cries wolf gets ignored.
+    let compares = 0
+    global.fetch = jest.fn(async (url) => {
+      const u = String(url).replace('https://api.github.com', '')
+      if (u.includes('/pulls?state=open')) {
+        return reply(200, [apiPr({ number: 750 })])
+      }
+      if (u.includes('/compare/')) {
+        compares += 1
+        return reply(200, { behind_by: compares === 1 ? 3 : 0 })
+      }
+      if (u.endsWith('/update-branch')) return reply(422, { message: 'Unprocessable Entity' })
+      throw new Error(`unexpected request: ${u}`)
+    })
+    await expect(main()).resolves.toBeUndefined()
+    expect(compares).toBe(2)
+  })
+
+  it('still blocks on a 422 when the branch is genuinely behind', async () => {
+    fakeApi({
+      pulls: [apiPr({ number: 751 })],
+      behind: { 'data/ci-status': 3 },
+      updateBranch: { status: 422, message: 'merge conflict between base and head' },
+    })
+    await expect(main()).rejects.toThrow(/merge conflict/)
+  })
+
+  it('spends no compare call on a draft', async () => {
+    // Drafts are skipped whatever the comparison says, and the REST budget is
+    // shared org-wide.
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 744, draft: true, auto_merge: null, created_at: hoursAgo(30) })],
+      behind: { 'data/ci-status': 7 },
+    })
+    await main()
+    expect(calls.some((c) => c.includes('/compare/'))).toBe(false)
+    expect(calls.some((c) => c.startsWith('PUT') || c === 'POST /graphql')).toBe(false)
+  })
+
   it('fails the run on a conflict a human has to resolve', async () => {
     fakeApi({
       pulls: [apiPr({ number: 741 })],
@@ -491,6 +534,63 @@ describe('main() wiring (mocked API, no network)', () => {
   it('surfaces an API failure instead of exiting clean', async () => {
     global.fetch = jest.fn(async () => reply(500, { message: 'server error' }))
     await expect(main()).rejects.toThrow(/500/)
+  })
+})
+
+describe('entrypoint guard (spawned, not mocked)', () => {
+  const { execFileSync } = require('child_process')
+  const os = require('os')
+
+  /** Runs the script as the workflow does and returns { code, output }. */
+  const run = (cwd, script) => {
+    const env = { ...process.env }
+    delete env.GITHUB_TOKEN // so a running main() identifies itself by failing
+    delete env.GH_TOKEN
+    try {
+      const stdout = execFileSync('node', [script], { cwd, env, encoding: 'utf8' })
+      return { code: 0, output: stdout }
+    } catch (e) {
+      return { code: e.status, output: `${e.stdout || ''}${e.stderr || ''}` }
+    }
+  }
+
+  // The failure mode: if the guard does not match, main() never runs and the
+  // workflow exits 0 having done nothing — a green run that reconciled nothing,
+  // which is precisely the invisibility this whole script exists to remove. So
+  // assert main() RAN, via the one message only main() can produce.
+  const ITS_ALIVE = /GITHUB_TOKEN is required/
+
+  it('runs main() when invoked the way the workflow invokes it', () => {
+    const { code, output } = run(process.cwd(), 'scripts/reconcile-data-prs.mjs')
+    expect(output).toMatch(ITS_ALIVE)
+    expect(code).toBe(1)
+  })
+
+  it('runs main() from a path containing a space', () => {
+    // `file://${process.argv[1]}` fails here while pathToFileURL() does not:
+    // import.meta.url percent-encodes the space, the concatenation does not.
+    // Verified: the naive form yields false and the script exits 0 silently.
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'has space-'))
+    try {
+      const scripts = path.join(dir, 'scripts')
+      fs.mkdirSync(scripts)
+      fs.copyFileSync(
+        path.join(process.cwd(), 'scripts', 'reconcile-data-prs.mjs'),
+        path.join(scripts, 'reconcile-data-prs.mjs')
+      )
+      const { code, output } = run(dir, 'scripts/reconcile-data-prs.mjs')
+      expect(output).toMatch(ITS_ALIVE)
+      expect(code).toBe(1)
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true })
+    }
+  })
+
+  it('does not run main() on import', async () => {
+    // The other half of the contract: importing for tests must not fire the run.
+    // If it did, this suite would already have hit the network.
+    const mod = await import('../scripts/reconcile-data-prs.mjs')
+    expect(typeof mod.main).toBe('function')
   })
 })
 

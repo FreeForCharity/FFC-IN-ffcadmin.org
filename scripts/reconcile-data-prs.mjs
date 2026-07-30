@@ -33,6 +33,8 @@
  * an API failure — silence is the failure mode it exists to remove.
  */
 
+import { pathToFileURL } from 'url'
+
 const API = 'https://api.github.com'
 
 /** Long-lived data-refresh branches all share this prefix. */
@@ -203,25 +205,29 @@ export async function main() {
   const results = []
 
   for (const pr of pulls) {
-    const plan = planFor(
-      {
-        number: pr.number,
-        headRef: pr.head.ref,
-        draft: pr.draft,
-        autoMergeEnabled: Boolean(pr.auto_merge),
-        createdAtMs: new Date(pr.created_at).getTime(),
-        behindBy: await behindBy(pr),
-      },
-      { nowMs, stuckAfterMs }
-    )
-    const result = { ...plan, actions: [], outcome: 'ok', reason: '', progressing: false }
+    const base = {
+      number: pr.number,
+      headRef: pr.head.ref,
+      draft: pr.draft,
+      autoMergeEnabled: Boolean(pr.auto_merge),
+      createdAtMs: new Date(pr.created_at).getTime(),
+    }
 
-    if (plan.draft) {
-      result.outcome = 'skipped'
-      result.reason = 'draft — left for its author'
-      results.push(result)
+    // Drafts are skipped whatever the answer, so do not spend a compare call
+    // on them — the REST budget is shared org-wide (hub AGENTS.md).
+    if (pr.draft) {
+      results.push({
+        ...planFor({ ...base, behindBy: 0 }, { nowMs, stuckAfterMs }),
+        actions: [],
+        outcome: 'skipped',
+        reason: 'draft — left for its author',
+        progressing: false,
+      })
       continue
     }
+
+    const plan = planFor({ ...base, behindBy: await behindBy(pr) }, { nowMs, stuckAfterMs })
+    const result = { ...plan, actions: [], outcome: 'ok', reason: '', progressing: false }
 
     if (plan.needsUpdate) {
       if (dryRun) {
@@ -240,8 +246,20 @@ export async function main() {
           result.actions.push('skipped update-branch (in merge queue)')
           result.progressing = true
         } else {
-          result.outcome = 'blocked'
-          result.reason = `update-branch ${status}: ${message.slice(0, 120)}`
+          // A 422 can also mean the branch is already current: another actor (a
+          // human clicking "Update branch", the queue) got there between our
+          // compare and this call. Re-read the comparison rather than pattern-
+          // matching a message string we have never observed — behind=0 means
+          // there was nothing to do, and anything else (including a comparison
+          // we cannot re-read) stays blocked rather than being swallowed.
+          const recheck = await behindBy(pr).catch(() => null)
+          if (recheck === 0) {
+            result.actions.push('branch already current, nothing to update')
+            result.behindBy = 0
+          } else {
+            result.outcome = 'blocked'
+            result.reason = `update-branch ${status}: ${message.slice(0, 120)}`
+          }
         }
       }
     }
@@ -278,7 +296,11 @@ export async function main() {
 }
 
 // Only run when executed directly, so the pure helpers can be unit-tested.
-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
+// pathToFileURL, not `file://${argv[1]}`: import.meta.url percent-encodes the
+// path, so a checkout containing a space made the naive comparison false and
+// this script exit 0 having done nothing — matching the repo idiom in
+// fleet-audit.mjs and gate3-validate.mjs. Guarded by a spawn test.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err) => {
     console.error(err.message)
     process.exitCode = 1
