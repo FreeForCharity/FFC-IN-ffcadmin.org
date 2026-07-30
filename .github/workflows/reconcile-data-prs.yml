@@ -1,0 +1,72 @@
+name: Reconcile Data PRs
+run-name: 'Reconcile data PRs: ${{ github.event_name }}'
+
+# Unsticks the long-lived data-refresh PRs (FFC-Cloudflare-Automation#908).
+#
+# Ruleset "Merge Queue + Branch Up-to-Date" requires a PR branch be current with
+# `main`. While one data PR waits, the others merge and it falls behind; its
+# auto-merge stays armed but never enqueues, and nothing issues an "Update
+# branch". On 2026-07-29 three public dashboards served stale data for ~6h that
+# way, with every check green.
+#
+# The race is lost after the creating workflow has exited, so this watches from
+# outside it: every 30 minutes across the window the data workflows run in
+# (their crons are 05:00-09:00 UTC), update any behind `data/*` PR and arm
+# auto-merge where the creating workflow never did.
+#
+# Writes only to PR branches already opened by the data workflows (update-branch
+# + auto-merge). No deployment environment, no external API, no credential
+# beyond the ambient GITHUB_TOKEN, so this is ungated by design.
+#
+# A PR still un-reconciled after STUCK_AFTER_HOURS fails this run on purpose: a
+# red scheduled run is what the existing failure-alert layer already watches
+# (FFC-Cloudflare-Automation#843 / #832), so no second alerting path is built
+# here. The six-hour outage was invisible, and that is the part that cost time.
+
+on:
+  schedule:
+    # Every 30 min, 05:00-15:00 UTC — covers every data cron plus the margin the
+    # 2026-07-29 stall needed (06:53 -> 13:07). Deliberately not all day: the
+    # REST budget is shared org-wide (hub AGENTS.md).
+    - cron: '*/30 5-15 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Report only; do not update branches or arm auto-merge'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  # Single shared group so a scheduled and a dispatched run serialize and can
+  # never race each other on the same PR branch.
+  group: reconcile-data-prs
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # update-branch pushes a merge commit to the PR branch
+      pull-requests: write # arm auto-merge
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      # No dependency install: the script uses only Node built-ins and fetch.
+      - name: Reconcile open data PRs
+        run: node scripts/reconcile-data-prs.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          # Folded scalar (`>-`) so this is unambiguously a string, not a mapping.
+          DRY_RUN: >-
+            ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run || 'false' }}
