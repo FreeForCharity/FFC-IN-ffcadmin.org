@@ -1,17 +1,18 @@
 {
-  "generated_at": "2026-07-30T13:26:09Z",
+  "generated_at": "2026-07-30T16:17:29Z",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "backlog_issues": [
     {
-      "number": 930,
-      "title": "Nothing catches a PowerShell call to a function that does not exist — add a command-resolution guard to Validate Repository",
+      "number": 918,
+      "title": "www is unverified across the fleet: aprilhansen.com serves 526 on www, and both the cutover and the smoke reported OK",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-30T13:25:06Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/930",
+      "updated_at": "2026-07-30T16:16:18Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/918",
       "labels": [
-        "enhancement",
-        "agentic-os"
+        "bug",
+        "agentic-os",
+        "priority: high"
       ]
     },
     {
@@ -19,11 +20,36 @@
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-30T13:04:57Z",
+      "updated_at": "2026-07-30T16:05:23Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os",
         "claimed"
+      ]
+    },
+    {
+      "number": 930,
+      "title": "Nothing catches a PowerShell call to a function that does not exist — add a command-resolution guard to Validate Repository",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-30T15:53:10Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/930",
+      "labels": [
+        "enhancement",
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "number": 932,
+      "title": "740 deliberately does not watch the WHMCS or Azure lanes — which is where every silent multi-day failure has happened (228 has never succeeded)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-30T13:32:05Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/932",
+      "labels": [
+        "enhancement",
+        "agentic-os"
       ]
     },
     {
@@ -135,18 +161,6 @@
         "security",
         "agentic-os",
         "priority: high"
-      ]
-    },
-    {
-      "number": 918,
-      "title": "www is unverified across the fleet: aprilhansen.com serves 526 on www, and both the cutover and the smoke reported OK",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-29T22:23:41Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/918",
-      "labels": [
-        "bug",
-        "agentic-os"
       ]
     },
     {
@@ -570,7 +584,7 @@
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-07-30T11:03:10Z",
+      "updated_at": "2026-07-30T13:42:43Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/839",
       "labels": [],
       "linked_agentic_issues": [
@@ -620,20 +634,6 @@
   "in_flight_prs_rule": "Open pull requests on this repo that are agent work on this backlog: a PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue (e.g. 'Closes #123' / 'Refs #123'). Referenced-issue labels are what decide it — nothing labels the pull requests themselves.",
   "open_prs_total": 6,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-29T23:43:03Z",
-      "body": "## Conductor run 47 — correction to the END log\n\n**One claim in my END comment above is wrong, and it would have cost a future run a real step.** I wrote:\n\n> Recorded for future runs: **PRs are not on this board — only issues.**\n\nThat is false. PRs **are** tracked on board #9:\n\n| PR | On board | Status |\n| --- | --- | --- |\n| #839 | yes | In Review |\n| #836 | yes | In Review |\n| #914 | yes | In Review |\n| #917 | **no — my omission** | now added, In Review |\n\nI generalized from a four-PR sample (…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5124531535"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-30T01:05:05Z",
-      "body": "## Conductor run 48 — START (2026-07-30)\n\nLocal privileged Conductor booting. Bootstrap clean: all 5 core clones ff-pulled to `origin/main`,\n0 dirty trees (hub `241d316`, ffcadmin `9c4b035`, freeforcharity `fa3f600`, SPT `b4e6d32`,\nFOT `c310e85`). Core rate limit **4976/5000**, graphql 4675 — GraphQL fully refilled after run 47's\nself-inflicted exhaustion.\n\nRun number taken as **48** from the newest START in this thread (run 47) + 1, per standing doctrine.\nNote for the record: `state\\CONDUCTOR.m…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5125114593"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-07-30T01:24:21Z",
@@ -689,6 +689,20 @@
       "body": "## Conductor run 51 — START\n\n`2026-07-30`, workspace `C:\\ClaudeCodeDesktop\\Claude_AI_OS_Routine`.\n\n**Bootstrap: clean.** 5/5 core clones fetched and on origin default branch, **0 dirty**. (The\nffcadmin clone was parked on last run's `conductor/agentic-os-feed-r50` branch — returned to `main`,\nnow at `14ba967`.) Tooling verified: `gh` 2.96.0 (clarkemoyer, scopes incl. `project`), `az` 2.81.0,\n`m365` 11.9.0, gcloud 552.0.0. Rate budget at start: core **4995**, graphql **4764**.\n\nRun number taken f…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5131176580"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-30T13:38:36Z",
+      "body": "## Conductor run 51 — END\n\n**A workflow that had never once worked now works, and it is proven by output, not by a green tick.**\n\n### 1. #931 merged, and 221 verified live\n\nRun 50 ungated 221 and found `Remove-Html` called at `whmcs-application-search.ps1:122` and defined\nnowhere. A cloud worker shipped the fix; I reviewed it, promoted it, and merged it at **13:19:43Z**\n(`f068fb1`). Then dispatched 221 on `main`:\n\n```\nrun 30546493678 → success\n  \"query\": \"restoredradiance\", \"matchCount\": 1, \"mat…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5131549933"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-30T16:05:23Z",
+      "body": "## Conductor run 52 — START\n\n`2026-07-30`, workspace `C:\\ClaudeCodeDesktop\\Claude_AI_OS_Routine`. Run number from the #719 tail\n(newest START = 51), per the standing rule.\n\n**Bootstrap: clean.** 5/5 core clones fetched, on `main`, 0 dirty. Tooling: `gh` 2.96.0\n(clarkemoyer, scopes incl. `project`), `az` 2.81.0, gcloud 552.0.0. Rate budget at start:\ncore **4984**, graphql to be sampled at END.\n\nRun 51 ended 13:38Z today; this run picks up ~2.5h later.\n\n**Carrying in:**\n- **#933 is new since run 5…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5133307974"
     }
   ],
   "pending_gates": [
