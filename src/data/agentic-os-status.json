@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T01:18:46Z",
+  "generated_at": "2026-07-31T04:27:57Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -12,50 +12,11 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 939,
-      "title": "Claim-sync is blind to cross-repo references: 3 high-priority issues are in the pickup query with finished PRs",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-31T01:17:54Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/939",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "priority: high"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 729,
-      "title": "Repo hygiene for the cutover test target FFC-EX-technologymonastery.org (child of #726)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-31T01:13:17Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/729",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-31T01:05:07Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os",
-        "claimed"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 880,
       "title": "Every FFC Pages deploy silently discards next.config.ts (configure-pages writes its own .js)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-30T22:14:02Z",
+      "updated_at": "2026-07-31T04:25:09Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/880",
       "labels": [
         "bug",
@@ -70,7 +31,7 @@
       "title": "Fleet smoke engine drift detected",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-30T22:14:00Z",
+      "updated_at": "2026-07-31T04:25:08Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/893",
       "labels": [
         "agentic-os",
@@ -85,13 +46,51 @@
       "title": "Smoke never probes www: the engine only mentions it in an error hint, while 13 of 55 live sites are broken on www",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-07-30T22:13:58Z",
+      "updated_at": "2026-07-31T04:25:06Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/934",
       "labels": [
         "bug",
         "agentic-os",
         "claimed",
         "priority: high"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 755,
+      "title": "Canary drill: prove the smoke engine catches each failure class it claims (child of #752)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-31T04:14:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/755",
+      "labels": [
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-31T04:04:48Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 729,
+      "title": "Repo hygiene for the cutover test target FFC-EX-technologymonastery.org (child of #726)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-07-31T01:13:17Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/729",
+      "labels": [
+        "agentic-os"
       ]
     },
     {
@@ -591,18 +590,6 @@
       ]
     },
     {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 755,
-      "title": "Canary drill: prove the smoke engine catches each failure class it claims (child of #752)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-21T07:06:22Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/755",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
       "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
       "number": 670,
       "title": "Weekly Linkinator (external) fails on synthetic issues/new links: skip pattern + 2 stale repoUrl rows",
@@ -739,6 +726,20 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 839,
+      "title": "docs(claude): two local-run env facts — UTF-8 on gh JSON output, and don't confirm a gate approval from the POST",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-07-31T01:29:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/839",
+      "labels": [],
+      "linked_agentic_issues": [
+        719
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 940,
       "title": "feat(hooks): block `gh api graphql --paginate` without $endCursor, + three run-54 lessons",
       "state": "open",
@@ -794,20 +795,6 @@
       "linked_agentic_issues": [
         930,
         929
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 839,
-      "title": "docs(claude): two local-run env facts — UTF-8 on gh JSON output, and don't confirm a gate approval from the POST",
-      "state": "open",
-      "draft": true,
-      "assignee": null,
-      "updated_at": "2026-07-30T13:42:43Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/839",
-      "labels": [],
-      "linked_agentic_issues": [
-        719
       ]
     },
     {
@@ -958,20 +945,6 @@
   "conductor_log": [
     {
       "author": "clarkemoyer",
-      "created_at": "2026-07-30T13:38:36Z",
-      "body": "## Conductor run 51 — END\n\n**A workflow that had never once worked now works, and it is proven by output, not by a green tick.**\n\n### 1. #931 merged, and 221 verified live\n\nRun 50 ungated 221 and found `Remove-Html` called at `whmcs-application-search.ps1:122` and defined\nnowhere. A cloud worker shipped the fix; I reviewed it, promoted it, and merged it at **13:19:43Z**\n(`f068fb1`). Then dispatched 221 on `main`:\n\n```\nrun 30546493678 → success\n  \"query\": \"restoredradiance\", \"matchCount\": 1, \"mat…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5131549933"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-07-30T16:05:23Z",
-      "body": "## Conductor run 52 — START\n\n`2026-07-30`, workspace `C:\\ClaudeCodeDesktop\\Claude_AI_OS_Routine`. Run number from the #719 tail\n(newest START = 51), per the standing rule.\n\n**Bootstrap: clean.** 5/5 core clones fetched, on `main`, 0 dirty. Tooling: `gh` 2.96.0\n(clarkemoyer, scopes incl. `project`), `az` 2.81.0, gcloud 552.0.0. Rate budget at start:\ncore **4984**, graphql to be sampled at END.\n\nRun 51 ended 13:38Z today; this run picks up ~2.5h later.\n\n**Carrying in:**\n- **#933 is new since run 5…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5133307974"
-    },
-    {
-      "author": "clarkemoyer",
       "created_at": "2026-07-30T16:29:52Z",
       "body": "## Conductor run 52 — END\n\n**A guard shipped, and it was reviewed by breaking the thing it claims to catch. And a defect\nbelieved to affect one charity site actually affects thirteen.**\n\n### 1. #933 merged — and the review that mattered was not the diff\n\nThe #930 PowerShell command-resolution guard merged at **16:17:25Z** (`a5b97ac`). Reading\n`722-ci.yml` proved it sits in the `validate` job with no `continue-on-error` — that it is *wired*.\nThat is not the same claim as *it detects*. So I put th…",
       "truncated": true,
@@ -1025,6 +998,20 @@
       "body": "## Conductor run 55 — START (2026-07-30 ~23:5xZ)\n\nBootstrap clean: 5/5 core clones fetched + fast-forwarded to `main`, **0 dirty**\n(`0005fdf` hub, `fa3f600` freeforcharity, `0aaf677` ffcadmin, `b4e6d32` SPT, `c310e85` FOT).\nBudget at start: core 4945, graphql 3880.\n\n**Run number taken from this log, not my notes** — `state/CONDUCTOR.md` had stalled at run 51 while\n#719 reached 54, the same drift run 44 repaired. The log is the source of truth; recovering 52-54\nfrom here before acting.\n\nPlan, in …",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5137974111"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-31T01:24:21Z",
+      "body": "## Conductor run 55 — END (2026-07-31 ~01:3xZ)\n\n**A PR merged green and its central capability does nothing in production. One warning line said so.**\n\n### Supervised: #941 reviewed by execution, merged — and then found inert\n\n#941 (the #939 fix) landed **01:15:26Z** (`f8efcaa`) with 6/6 checks, 47 test cases and both\nmutations proved in its body. I dispatched 737 on `main` immediately rather than inferring from green\nCI — run 50's rule, that a workflow entering service gets driven to a **termin…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5138106387"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-07-31T04:04:47Z",
+      "body": "## Conductor run 56 — START (2026-07-31 ~02:0xZ)\n\n**Bootstrap:** 5/5 core clones fetched. Two were parked off `main` by run 55 and were reset:\n`FFC-Cloudflare-Automation` was on `docs/local-run-env-facts`, `FFC-IN-ffcadmin.org` on\n`chore/agentic-os-status-run55`. All 5 clean (0 dirty), all on origin default. Hub `main` at\n`f8efcaa` (#941, run 55's merge). Run number taken from the #719 tail with `--paginate` (newest\nSTART = 55).\n\n**Gates at start: 2 waiting, both write, both unchanged.**\n- `703 …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5139137652"
     }
   ],
   "pending_gates": [
