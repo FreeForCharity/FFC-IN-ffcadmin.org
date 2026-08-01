@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T19:22:13Z",
+  "generated_at": "2026-08-01T22:26:59Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -12,16 +12,68 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 989,
+      "title": "gh api --paginate with an array-building --jq silently emits one array per page",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-01T22:13:24Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/989",
+      "labels": [
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-01T22:04:29Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 983,
       "title": "dry_run is enforced per-step, not per-job: every dry run of 701/702/720 parks on a write gate and mints a write credential",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-01T19:17:23Z",
+      "updated_at": "2026-08-01T19:43:04Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/983",
       "labels": [
         "security",
         "agentic-os",
         "claimed",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 848,
+      "title": "Key Vault: read-all-cbm-github-pat is dead (502's deliver job down 3 days), and the read/write split is unenforced (per-secret RBAC + liveness monitoring)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-01T19:36:29Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/848",
+      "labels": [
+        "security",
+        "agentic-os",
+        "priority: high"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
+      "number": 771,
+      "title": "Guard that the dual-written data feeds cannot drift (public/data vs src/data)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-01T19:33:12Z",
+      "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/771",
+      "labels": [
+        "agentic-os",
         "agent-ready"
       ]
     },
@@ -37,32 +89,6 @@
         "documentation",
         "agentic-os",
         "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-01T19:06:11Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 848,
-      "title": "Key Vault: read-all-cbm-github-pat is dead (502's deliver job down 3 days), and the read/write split is unenforced (per-secret RBAC + liveness monitoring)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-01T10:17:36Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/848",
-      "labels": [
-        "security",
-        "agentic-os",
-        "priority: high"
       ]
     },
     {
@@ -123,20 +149,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 970,
-      "title": "A conductor run that starts and never ends is undetected (run 63 died silently for 3h)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-01T04:28:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/970",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 969,
       "title": "Schedule the Agentic OS board audit — #968 shipped the script, nothing runs it",
       "state": "open",
@@ -145,19 +157,6 @@
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/969",
       "labels": [
         "enhancement",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
-      "number": 771,
-      "title": "Guard that the dual-written data feeds cannot drift (public/data vs src/data)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-31T22:18:40Z",
-      "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/771",
-      "labels": [
         "agentic-os",
         "agent-ready"
       ]
@@ -749,6 +748,32 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 989,
+      "title": "gh api --paginate with an array-building --jq silently emits one array per page",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-01T22:13:24Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/989",
+      "labels": [
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
+      "number": 771,
+      "title": "Guard that the dual-written data feeds cannot drift (public/data vs src/data)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-01T19:33:12Z",
+      "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/771",
+      "labels": [
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 986,
       "title": "Six orphan branches have no open PR and an unknown disposition — decide by content, not by ancestry",
       "state": "open",
@@ -792,20 +817,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 970,
-      "title": "A conductor run that starts and never ends is undetected (run 63 died silently for 3h)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-01T04:28:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/970",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 969,
       "title": "Schedule the Agentic OS board audit — #968 shipped the script, nothing runs it",
       "state": "open",
@@ -814,19 +825,6 @@
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/969",
       "labels": [
         "enhancement",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
-      "number": 771,
-      "title": "Guard that the dual-written data feeds cannot drift (public/data vs src/data)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-31T22:18:40Z",
-      "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/771",
-      "labels": [
         "agentic-os",
         "agent-ready"
       ]
@@ -906,19 +904,42 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 985,
-      "title": "fix: a dry run must not mint a write credential — job-level dry_run in 701/720 + a parser-driven guard",
+      "number": 990,
+      "title": "docs: three run-70 lessons — an exported guard, a per-page jq array, a five-hour window",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-01T19:21:40Z",
+      "updated_at": "2026-08-01T22:26:34Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/990",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        719,
+        989,
+        848,
+        921
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 985,
+      "title": "fix: a dry run must not mint a write credential — relocate 701's DNS rehearsal to the read lane + a parser-driven guard",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-08-01T19:46:42Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/985",
       "labels": [
         "security",
         "agentic-os"
       ],
       "linked_agentic_issues": [
-        983
+        983,
+        918,
+        934,
+        834,
+        848
       ]
     },
     {
@@ -1079,22 +1100,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 70,
+  "open_prs_total": 71,
   "conductor_log": [
-    {
-      "author": "github-actions[bot]",
-      "created_at": "2026-08-01T07:21:39Z",
-      "body": "### 734 stale waiting-run janitor\n\nThreshold: waiting runs are cancelled after **7d**, warned about for the last **2d**.\n\n#### Expiring within 2d (1)\n\n- [30206375399](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/30206375399) — Redirect Rule: trendylittlegeek.com → aprilhansen.com — waiting since `2026-07-26T14:34:56Z` — **will be cancelled at `2026-08-03T06:31:00.000Z`**\n\nTimes are the janitor's own next daily tick after each run crosses the threshold — not the thresh…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5150389963"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-01T07:30:58Z",
-      "body": "## Run 65 — END (2026-08-01T07:5xZ) · core 4900 / graphql 4436\n\n**2 PRs merged, 2 opened, 1 issue filed, 0 gates approved, board 0/0/0 twice.**\n\n### Gates — 0 auto-approved, 2 held (13th consecutive run)\n\nRe-derived from the workflow source, not inherited:\n\n| Gate | Waiting job | Why held |\n| --- | --- | --- |\n| **111** `30206375399` | `apply`, behind `if: inputs.dry_run == false` — **dispatched live** | `cloudflare-prod-write`; `cloudflare-tokens-from-kv` `scope: write` (L88). Both auto-approve…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5150422201"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-08-01T10:05:51Z",
@@ -1150,6 +1157,20 @@
       "body": "## Run 69 — START (2026-08-01T19:0xZ)\n\nLocal Windows host, `gh` as clarkemoyer. Bootstrap clean: 5/5 core clones fetched + pruned, all on `main`, 0 dirty. Hub `7bce4f0`, ffcadmin `33e0856`. Core 4969 / graphql 5000. `az` 2.81.0, `m365` 11.9.0, `gcloud` 552.0.0 all present.\n\n**Run number taken from #719, not from `state/`.** Run 68 logged START 16:06Z and END 17:09Z; `state/CONDUCTOR.md` has its entry and `lessons-inbox.md` its captures, so both agree for once. Fifth run of the day.\n\n### Carry-fo…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5152957439"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-01T19:50:08Z",
+      "body": "## Run 69 — END (2026-08-01T19:5xZ) · core ~4890 / graphql ~3530\n\n**3 PRs merged, 1 reviewed with changes requested, 1 issue filed, 1 groomed, 0 gates approved, board 235 items 0/0/0 by script. The public feed was delivered, and it was inert when first filed.**\n\n### Gates — 0 auto-approved, 2 held (17th consecutive run)\n\nRe-derived from workflow source, not inherited:\n\n| Gate | Waiting job | Why held |\n| --- | --- | --- |\n| **111** `30206375399` | `apply` | `needs: preview`, `if: inputs.dry_run …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5153134204"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-01T22:04:29Z",
+      "body": "## Run 70 — START (2026-08-01T22:0xZ)\n\nConductor run 70 beginning. Bootstrap complete:\n\n- Workspace `C:\\ClaudeCodeDesktop\\Claude_AI_OS_Routine` intact; all 5 core clones fetched and fast-forwarded to `main` (hub `c8a80a6` = #987, ffcadmin `794364f` = #780 run-69 feed, freeforcharity `fa3f600`, SPT `b4e6d32`, FOT `c310e85`).\n- Tooling verified: `gh` 2.96.0 (clarkemoyer, scopes incl. `project`/`workflow`), `az` 2.81.0, `m365` 11.9.0, `gcloud` 552.0.0.\n- `AGENTS.md` + `docs/workflow-safety-and-appr…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5153656604"
     }
   ],
   "pending_gates": [
