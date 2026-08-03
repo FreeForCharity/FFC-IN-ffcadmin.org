@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03T04:10:18Z",
+  "generated_at": "2026-08-03T07:13:15Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -12,12 +12,38 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1030,
+      "title": "734 publishes an exact reap deadline that has been wrong on 26 of 26 runs: the cron instant is not the delivery instant",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T07:10:39Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1030",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 719,
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-03T04:05:40Z",
+      "updated_at": "2026-08-03T07:06:14Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 771,
+      "title": "Standardize on pnpm across FFC templates and repos (migrated from FFC-IN-AI-Management#9)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T04:16:10Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/771",
       "labels": [
         "agentic-os"
       ]
@@ -759,18 +785,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 771,
-      "title": "Standardize on pnpm across FFC templates and repos (migrated from FFC-IN-AI-Management#9)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-20T02:20:05Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/771",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 769,
       "title": "Build a custom Zeffy MCP server (migrated from FFC-IN-AI-Management#2)",
       "state": "open",
@@ -856,6 +870,20 @@
     }
   ],
   "ready_issues": [
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1030,
+      "title": "734 publishes an exact reap deadline that has been wrong on 26 of 26 runs: the cron instant is not the delivery instant",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T07:10:39Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1030",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1024,
@@ -1037,9 +1065,43 @@
       ]
     }
   ],
-  "ready_count": 13,
+  "ready_count": 14,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
   "in_flight_prs": [
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1029,
+      "title": "docs: L89-L90 — a repeated check can verify a property the artifact lacks, and prove a restricted directory is safe before resolving",
+      "state": "open",
+      "draft": false,
+      "assignee": null,
+      "updated_at": "2026-08-03T07:09:02Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1029",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        771
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1005,
+      "title": "feat: check our gated/ungated claims against GitHub, not against ourselves",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-08-03T06:17:07Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1005",
+      "labels": [
+        "security",
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        993,
+        834
+      ]
+    },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 961,
@@ -1047,7 +1109,7 @@
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-03T04:09:18Z",
+      "updated_at": "2026-08-03T04:21:19Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/961",
       "labels": [
         "agentic-os"
@@ -1101,24 +1163,6 @@
       "linked_agentic_issues": [
         971,
         989
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1005,
-      "title": "feat: check our gated/ungated claims against GitHub, not against ourselves",
-      "state": "open",
-      "draft": true,
-      "assignee": null,
-      "updated_at": "2026-08-02T09:20:09Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1005",
-      "labels": [
-        "security",
-        "agentic-os"
-      ],
-      "linked_agentic_issues": [
-        993,
-        834
       ]
     },
     {
@@ -1251,29 +1295,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 73,
+  "open_prs_total": 74,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-02T22:19:23Z",
-      "body": "## For Clarke — run 78. Four items, and one of them expires in ~8 hours.\n\nContacting you this run because **every open item is now yours**, which has not been true before, and because 111's deadline lands before the next run can tell you about it. Nothing here is a re-nag of unchanged state — each item has a decision or a deadline that is new.\n\n---\n\n### 1. ⏰ Gate 111 is cancelled at **2026-08-03T06:31Z** — this is the last run before it goes\n\n`Redirect Rule: trendylittlegeek.com → aprilhansen.co…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5160610438"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-02T22:21:11Z",
-      "body": "## Run 78 — END (2026-08-02, 22:0x–23:0xZ) · core 4995 / graphql 4958\n\n**1 PR merged** (ffcadmin #793, the feed) · **1 issue filed** (#1026) · **0 hub PRs merged** · **0 gates approved, 2 held (21st consecutive run)** · **board 0/0/0 by script, exit 0, twice** · **Clarke contacted** ([here](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5160610438)).\n\n### The headline: the entire supervision queue is Clarke's, and that is a first\n\nAll five open `agentic-os` P…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5160617120"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-03T00:20:08Z",
-      "body": "**Cloud worker run — landing pass.** Five agentic-os PRs open (#1018, #1007, #1005, #961, #940), so no new work was started. Full write-up: #940 (comment).\n\n- **#940** — both Copilot threads were real; fixed in `381036f`, answered, resolved. `guard_bash.py` tested `\"$endcursor\" not in low`, so `$endCursorX` / `$endCursor_2` — different GraphQL variables that `--paginate` substitutes into neither — were allowed by the guard written to stop exactly that infinite page-1 loop. Now exact-matched; bot…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5161067495"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-08-03T00:21:54Z",
@@ -1322,6 +1345,27 @@
       "body": "## Run 80 START — 2026-08-03 ~04:05Z\n\nBootstrap clean: all five core clones fetched and fast-forwarded to `origin/main` (hub at `c55a1bb`),\none deleted remote branch pruned from ffcadmin (`conductor/feed-run79`). `gh` 2.96.0 authed as\n`clarkemoyer`; `az` 2.81.0, m365 11.9.0, gcloud 552.0.0 all present. Run number taken from the #719\ntail with `--paginate` + streaming `--jq` (run 79 START is the newest), not from `state\\CONDUCTOR.md`.\n\nOpening state, measured rather than inherited:\n\n- **Gates: 2 …",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5162166981"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-03T04:24:32Z",
+      "body": "## Run 80 — END (2026-08-03, 04:0x–04:3xZ) · core 4976 / graphql 4249\n\n**1 PR merged (ffcadmin #795 feed); 1 draft opened (#1029); 0 issues filed; 1 groomed (#771);\n0 gates approved — 23rd consecutive hold; board 0/0/0 exit 0 twice; 1 card placed by hand.**\nNO Clarke contact, and that is a decision with a reason, below.\n\n### THE HEADLINE: all four hooks PRs read `mergeable=true` at the same time for the first time\n\n#961 had gone `CONFLICTING` and **147 behind**. Resolved this run, so the queue C…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5162280507"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-03T06:17:59Z",
+      "body": "## Cloud worker — landing pass over the open `agentic-os` PR queue\n\n**Six open `agentic-os` PRs (≥3), so this run landed rather than started work.** No new work PR opened, per the routine's branch rule. One unit: triage all six to a landing decision, then act on the only two that had an actionable blocker.\n\n### Landing readiness — measured, not inferred\n\n| PR | required checks | review threads | blocker |\n| --- | --- | --- | --- |\n| [#1029](https://github.com/FreeForCharity/FFC-Cloudflare-Automa…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5162975179"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-03T07:06:14Z",
+      "body": "## Run 81 START — 2026-08-03 ~07:05Z\n\nWorkspace refreshed (5 core clones on `main`, ffcadmin pulled `32c3f33..f530322`). Core 4993 / graphql 4893 at boot.\n\n**Opening finding, before any gate work: the reap deadline this log has circulated for three runs is ~50 minutes early.**\nRuns 78/79/80 all published gate 111's cancellation as `2026-08-03T06:31:00Z`, taken from 734's cron (`31 6 * * *`).\nIt is 07:05Z and **111 is still `waiting`**. 734's last five scheduled runs fired at 07:23:34Z, 07:21:29Z…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5163324599"
     }
   ],
   "pending_gates": [
