@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03T13:14:46Z",
+  "generated_at": "2026-08-03T16:13:57Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -12,14 +12,97 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1040,
+      "title": "Hook rule coverage is blind to the warn() channel: #1018's two rules land green with zero cases",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T16:11:10Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1040",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 719,
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-03T13:06:46Z",
+      "updated_at": "2026-08-03T16:06:47Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1023,
+      "title": "test_729 runs the step in the checkout, loses all 5 of its tests, and leaves a stray file — while CLAUDE.md points at closed #945",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T15:26:40Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1023",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1027,
+      "title": "Hook rule tests have no per-rule polarity check: a rule tested only in the direction it passes is green and wrong (4th instance)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T15:26:23Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1027",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "claimed",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 949,
+      "title": "🚨 Scheduled workflow failing: 228. WHMCS - Fraud Review (FraudLabs Pro) [FRAUDLABS+WHMCS]",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T14:32:59Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/949",
+      "labels": [
+        "bug",
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1022,
+      "title": "`$?` guard misses the `&&` and `||` separators: `cmd | tail && echo $?` still prints a false EXIT=0",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T13:22:40Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1022",
+      "labels": [
+        "bug",
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1026,
+      "title": "guard_bash.py rule numbers are a shared namespace with no uniqueness check: 6 and 7 are each claimed twice across 4 open PRs",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T13:18:44Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1026",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
       ]
     },
     {
@@ -103,19 +186,6 @@
         "security",
         "agentic-os",
         "priority: high"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1034,
-      "title": "🚨 Scheduled workflow failing: 745. Repo - Agentic OS Board Audit [GH]",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-03T09:19:31Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1034",
-      "labels": [
-        "bug",
-        "agentic-os"
       ]
     },
     {
@@ -229,48 +299,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1027,
-      "title": "Hook rule tests have no per-rule polarity check: a rule tested only in the direction it passes is green and wrong (4th instance)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-03T01:14:12Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1027",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1026,
-      "title": "guard_bash.py rule numbers are a shared namespace with no uniqueness check: 6 and 7 are each claimed twice across 4 open PRs",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-02T22:12:52Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1026",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1023,
-      "title": "test_729 runs the step in the checkout, loses all 5 of its tests, and leaves a stray file — while CLAUDE.md points at closed #945",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-02T19:26:18Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1023",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1006,
       "title": "candid-prod-read does not exist as a GitHub environment: 801/802 have never been runnable, and it blocks #1005",
       "state": "open",
@@ -279,19 +307,6 @@
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1006",
       "labels": [
         "security",
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1022,
-      "title": "`$?` guard misses the `&&` and `||` separators: `cmd | tail && echo $?` still prints a false EXIT=0",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-02T19:10:27Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1022",
-      "labels": [
-        "bug",
         "agentic-os"
       ]
     },
@@ -446,19 +461,6 @@
         "agentic-os",
         "priority: high",
         "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 949,
-      "title": "🚨 Scheduled workflow failing: 228. WHMCS - Fraud Review (FraudLabs Pro) [FRAUDLABS+WHMCS]",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-31T15:01:12Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/949",
-      "labels": [
-        "bug",
-        "agentic-os"
       ]
     },
     {
@@ -940,6 +942,48 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1040,
+      "title": "Hook rule coverage is blind to the warn() channel: #1018's two rules land green with zero cases",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T16:11:10Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1040",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1023,
+      "title": "test_729 runs the step in the checkout, loses all 5 of its tests, and leaves a stray file — while CLAUDE.md points at closed #945",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T15:26:40Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1023",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1026,
+      "title": "guard_bash.py rule numbers are a shared namespace with no uniqueness check: 6 and 7 are each claimed twice across 4 open PRs",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-03T13:18:44Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1026",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1037,
       "title": "111's apply job always fails after succeeding: curl.exe does not exist on ubuntu-latest, and the only assertions that could fail are exit-0 warnings",
       "state": "open",
@@ -1015,48 +1059,6 @@
       "assignee": null,
       "updated_at": "2026-08-03T01:14:50Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1028",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1027,
-      "title": "Hook rule tests have no per-rule polarity check: a rule tested only in the direction it passes is green and wrong (4th instance)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-03T01:14:12Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1027",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1026,
-      "title": "guard_bash.py rule numbers are a shared namespace with no uniqueness check: 6 and 7 are each claimed twice across 4 open PRs",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-02T22:12:52Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1026",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1023,
-      "title": "test_729 runs the step in the checkout, loses all 5 of its tests, and leaves a stray file — while CLAUDE.md points at closed #945",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-02T19:26:18Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1023",
       "labels": [
         "bug",
         "agentic-os",
@@ -1180,12 +1182,28 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1039,
+      "title": "test(hooks): per-rule polarity + source-derived block-site coverage (#1027)",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-08-03T16:11:16Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1039",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        1027
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1018,
       "title": "feat(hooks): warn on unpaginated gh api list reads (#971) and paginate+array-jq (#989)",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-03T13:12:12Z",
+      "updated_at": "2026-08-03T13:23:08Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1018",
       "labels": [
         "agentic-os"
@@ -1344,29 +1362,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 71,
+  "open_prs_total": 72,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-03T07:37:44Z",
-      "body": "## Run 81 — END (2026-08-03, 07:0x–07:3xZ) · core 4978 / graphql 4886\n\n**2 PRs merged** ([#1029](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1029) hub ledger,\n[ffcadmin #798](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/798) feed) · **1 opened, promoted and\nqueued** ([#1032](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1032)) · **2 issues filed**\n([#1030](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1030),\n[#1031](https…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5163584208"
-    },
-    {
-      "author": "github-actions[bot]",
-      "created_at": "2026-08-03T07:43:19Z",
-      "body": "### 734 stale waiting-run janitor\n\nThreshold: waiting runs are cancelled after **7d**, warned about for the last **2d**.\n\n#### Cancelled (1)\n\n- [30206375399](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/30206375399) — Redirect Rule: trendylittlegeek.com → aprilhansen.com — waiting since `2026-07-26T14:34:56Z` — cancelled\n\nA cancelled run cannot be resumed from its gate: it must be **re-dispatched**.\n\n#### Expiring within 2d (1)\n\n- [30252940885](https://github.com/Free…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5163629383"
-    },
-    {
-      "author": "github-actions[bot]",
-      "created_at": "2026-08-03T08:50:56Z",
-      "body": "### 745 Agentic OS board audit — 1 finding(s)\n\nBoard: FreeForCharity project #9 (Agentic OS) · `expected=80` `board=281` · repos swept: 77\n\nBoth denominators are printed deliberately: run 62 reported \"0 missing\" off an expected set that was one item short, and a short denominator was the only thing a reader could have found suspicious (#966).\n\n#### Missing from the board: 0\n\n_open `agentic-os` items with no card — add them to org project #9_\n\n- (none)\n\n#### On the board with no Status: 0\n\n_cards…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5164246716"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-08-03T09:37:16Z",
@@ -1415,6 +1412,27 @@
       "body": "## Run 83 START — 2026-08-03 ~13:05Z\n\nBootstrap: five core clones fetched. **The hub clone was broken and is now fixed** — it was parked on `conductor/971-989-gh-api-pagination-guards` with `AGENTS.md: needs merge` left over from a prior run's sync, so `pull --ff-only` aborted. No `MERGE_HEAD`, working tree clean, so this was a stale index state rather than an in-flight resolution: reset to `main` at `6ae77af`. ffcadmin pulled `c10c597..c2eef47` off its own parked `conductor/feed-run82`. Recordi…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5166681349"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-03T13:30:55Z",
+      "body": "## Run 83 — END (2026-08-03, 13:0x–13:4xZ) · core ~4900 / graphql ~4870\n\n**1 PR merged (ffcadmin [#807](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/807) feed), 1 queued ([#1038](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1038), L94–L95), [#1018](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1018) synced + deconflicted + 5/5 green, 2 issues groomed (#1026, #1022), 0 issues filed, 0 gates approved — but the waiting list is now **one**. Board …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5166966433"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-03T13:35:04Z",
+      "body": "**Run 83 closeout — #1038 landed, board re-audited clean after it.**\n\n[#1038](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1038) merged `13:33:55Z`, so L94 and L95 are on `main`. The END comment above says \"queued\" because that was true at post time; recording the resolution here rather than leaving run 84 to check.\n\nBoard re-audited after the merge: `0/0/0 exit 0`, `expected=79 board=284`. The expected count moved 80 → 79 as #1038 closed, and no card drifted — a merge does n…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5167016769"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-03T16:06:47Z",
+      "body": "## Run 84 START — 2026-08-03 ~16:05Z\n\n**Bootstrap clean for the first time in three runs.** All five core clones fetched, all on `main`, all `status=0`, none parked on a prior-run `conductor/*` branch. Runs 82 and 83 both opened with a clone that could not fast-forward (83's hub was stuck on `conductor/971-989-gh-api-pagination-guards` with `AGENTS.md: needs merge`); the fix run 83 applied held, and this run had nothing to repair. Hub at `f890b01`, ffcadmin at `5d39c0a`.\n\n### What changed since …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5168813218"
     }
   ],
   "pending_gates": [
