@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T10:30:38Z",
+  "generated_at": "2026-08-04T13:36:34Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -10,6 +10,45 @@
     "FreeForCharity/FFC-IN-ffcadmin.org"
   ],
   "backlog_issues": [
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1060,
+      "title": "pwsh invocation guard skips a call whose script path is a variable: 701's 11-parameter content call is unjudged",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T13:28:14Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1060",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T13:06:56Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1040,
+      "title": "Hook rule coverage is blind to the warn() channel: #1018's two rules land green with zero cases",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T10:34:17Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1040",
+      "labels": [
+        "bug",
+        "agentic-os"
+      ]
+    },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1057,
@@ -40,18 +79,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-04T10:06:13Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 921,
       "title": "🚨 Scheduled workflow failing: 502. Google - Analytics Report (GA4 -> JSON) [GOOGLE]",
       "state": "open",
@@ -61,20 +88,6 @@
       "labels": [
         "bug",
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1051,
-      "title": "Workflow YAML's inline pwsh is untested: array splatting silently mis-binds every argument to our scripts",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-04T07:33:43Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1051",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
       ]
     },
     {
@@ -126,20 +139,6 @@
       "assignee": null,
       "updated_at": "2026-08-04T01:11:29Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1048",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1040,
-      "title": "Hook rule coverage is blind to the warn() channel: #1018's two rules land green with zero cases",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-03T22:12:25Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1040",
       "labels": [
         "bug",
         "agentic-os",
@@ -1010,6 +1009,20 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1060,
+      "title": "pwsh invocation guard skips a call whose script path is a variable: 701's 11-parameter content call is unjudged",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T13:28:14Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1060",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1057,
       "title": "Dependabot has capped out in 35 of 62 fleet repos: 793 open PRs, nothing merges them, so Actions updates have stopped being filed",
       "state": "open",
@@ -1019,20 +1032,6 @@
       "labels": [
         "agentic-os",
         "priority: high",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1051,
-      "title": "Workflow YAML's inline pwsh is untested: array splatting silently mis-binds every argument to our scripts",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-04T07:33:43Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1051",
-      "labels": [
-        "bug",
-        "agentic-os",
         "agent-ready"
       ]
     },
@@ -1072,20 +1071,6 @@
       "assignee": null,
       "updated_at": "2026-08-04T01:11:29Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1048",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1040,
-      "title": "Hook rule coverage is blind to the warn() channel: #1018's two rules land green with zero cases",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-03T22:12:25Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1040",
       "labels": [
         "bug",
         "agentic-os",
@@ -1315,21 +1300,22 @@
       ]
     }
   ],
-  "ready_count": 22,
+  "ready_count": 21,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1058,
-      "title": "docs(lessons): add L111-L113 from Conductor run 90",
+      "number": 1061,
+      "title": "docs(lessons): add L115-L117 from Conductor run 91",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-04T10:30:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1058",
+      "updated_at": "2026-08-04T13:36:13Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1061",
       "labels": [],
       "linked_agentic_issues": [
-        1057,
+        819,
+        1060,
         1055
       ]
     },
@@ -1496,29 +1482,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 79,
+  "open_prs_total": 80,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T01:31:34Z",
-      "body": "## Run 87 — END (2026-08-04, 01:0x–01:3xZ) · core 4949 / graphql 4906\n\n**2 PRs merged and both verified in-run** (ffcadmin **#811** 01:22:51Z, hub **#1049** 01:28:38Z) · **1 issue filed** (#1048) · **2 groomed** (#835, #724) · **0 gates approved — 29th consecutive hold** · board 295, exit 0 · **Clarke contacted once**, about #1048.\n\n### START called a non-event an anomaly, and correcting it is the run's second lesson\n\nSTART reported gate 703 as overdue: created 07-27T09:12Z, `MAX_AGE_DAYS=7`, st…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5173557828"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T03:17:06Z",
-      "body": "## Cloud worker run — 2026-08-04 — landing run (no new work started)\n\n3 open PRs carry `agentic-os` (#1039, #1018, #1005), so per the routine this was a landing run, not a new-work run. **All three turn out to be blocked on a human, not on an agent** — so the deliverable is verification and routing rather than commits. Nothing was pushed; no branch was touched.\n\n### Verified against current `main` (`70508cd`), not taken on trust\n\nEvery one of these PRs was last checked by CI against a base 4–15 …",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5174201201"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T04:07:03Z",
-      "body": "## Run 88 — START (2026-08-04, ~04:0xZ) · core 4989 / graphql 4910\n\nBootstrap clean on the first pass: 5/5 core clones fetched and already fast-forwarded to `origin/main`, 0 dirty files in any of them. Hub at `70508cd` — unchanged since the 03:17Z cloud worker measured against it, so its three re-verified PR results are still current and I am not re-running them.\n\n### The state I inherit is entirely Clarke's, and he is awake in it right now\n\n**Clarke has been working on `slopestohope.org` mail f…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5174485452"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-08-04T04:26:59Z",
@@ -1567,6 +1532,27 @@
       "body": "## Run 90 — START (2026-08-04, ~09:0xZ) · core 4983 / graphql 4907\n\nBootstrap clean on the first pass: 5/5 core clones fetched, fast-forwarded to `main`, 0 dirty files. Hub at `3aaad32` — run 89's `#1054` landed, so the ledger on `main` is **L110 / 109 rows**. ffcadmin at `fcb142a` (#817, campaigns registry data refresh — moved past run 89's `e825c30`).\n\nRun number derived from #719 (run 89 END 07:51:54Z), not from `state/CONDUCTOR.md`, which stopped mirroring run narratives at run 71 by decisio…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5177522770"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-04T10:42:21Z",
+      "body": "## Run 90 — END (2026-08-04, 09:0x–10:4xZ) · core 4987 / graphql 4913\n\n**2 PRs merged** ([#1056](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1056) 10:25:42Z, [ffcadmin #819](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/819) 10:35:17Z) · **1 PR queued** ([#1058](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1058), position 1, merge group running at time of writing) · **1 issue closed** (#1055, by the merge) · **1 issue filed** ([#1057](https:/…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5177909388"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-04T10:44:57Z",
+      "body": "### Run 90 addendum — #1058 landed, and the ledger is confirmed on `main`\n\nThe END comment above was written while #1058 was still in the merge group, so this closes the one\nopen fact in it. It merged at **10:43:23Z**; `main` is now `7f04c9f5`.\n\nVerified on `main` rather than inferred from the merge:\n\n- `docs/lessons-ledger.md` carries **112 rows** by `grep -c`, and `_rows()` parses **112** — the two\n  numbers agree, which is the property L112 is about and which #1056 now asserts every run.\n- L1…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5177934906"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-04T13:06:56Z",
+      "body": "## Run 91 — START (2026-08-04, ~13:0xZ) · core 4988 / graphql 4941\n\nRun number derived from #719 (run 90 END 10:42:21Z, addendum 10:44:57Z), not from `state/CONDUCTOR.md`, which stopped mirroring run narratives at run 71 by decision.\n\nHub at `7f04c9f` — run 90's #1058 landed, so the ledger on `main` is **L113 / 112 rows**, exactly as the addendum verified.\n\n### Bootstrap: 5/5 clones fetched, and one was parked off `main` for the third time in nine runs\n\n`FFC-IN-ffcadmin.org` was sitting on `cond…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5179495495"
     }
   ],
   "pending_gates": [
