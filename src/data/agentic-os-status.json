@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T19:16:42Z",
+  "generated_at": "2026-08-04T22:17:54Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -12,11 +12,53 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1068,
+      "title": "101 Domain Status reports nothing when there is something to report: a tolerated DKIM warning still fails the step, skipping summary and post_back",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T22:15:59Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1068",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1067,
+      "title": "737 claim-sync reads only the PR body, so a Refs in the title claims nothing — #823 sat pickable while #825 implemented it",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T22:15:03Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1067",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 823,
+      "title": "WHMCS: auto-populate client custom fields from product-order answers (order → client sync)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T22:14:30Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/823",
+      "labels": [
+        "enhancement",
+        "agentic-os",
+        "claimed"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 719,
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-04T19:04:43Z",
+      "updated_at": "2026-08-04T22:04:52Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
@@ -28,10 +70,23 @@
       "title": "The public Agentic OS board has no auto-add: every Conductor run adds items to Project #9 by hand",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-04T16:35:58Z",
+      "updated_at": "2026-08-04T19:37:23Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/835",
       "labels": [
         "enhancement",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1065,
+      "title": "A waiting approval gate can be running an unmerged PR branch, and nothing surfaces the ref: the safety doc classifies workflows as they are on main",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T19:32:45Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1065",
+      "labels": [
         "agentic-os",
         "agent-ready"
       ]
@@ -824,19 +879,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 823,
-      "title": "WHMCS: auto-populate client custom fields from product-order answers (order → client sync)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-24T00:42:06Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/823",
-      "labels": [
-        "enhancement",
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 816,
       "title": "Enhance the Charity Website product request (pid 40) to collect full-template content + self-hiding sections",
       "state": "open",
@@ -1010,14 +1052,55 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1068,
+      "title": "101 Domain Status reports nothing when there is something to report: a tolerated DKIM warning still fails the step, skipping summary and post_back",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T22:15:59Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1068",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1067,
+      "title": "737 claim-sync reads only the PR body, so a Refs in the title claims nothing — #823 sat pickable while #825 implemented it",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T22:15:03Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1067",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 835,
       "title": "The public Agentic OS board has no auto-add: every Conductor run adds items to Project #9 by hand",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-04T16:35:58Z",
+      "updated_at": "2026-08-04T19:37:23Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/835",
       "labels": [
         "enhancement",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1065,
+      "title": "A waiting approval gate can be running an unmerged PR branch, and nothing surfaces the ref: the safety doc classifies workflows as they are on main",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-04T19:32:45Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1065",
+      "labels": [
         "agentic-os",
         "agent-ready"
       ]
@@ -1287,7 +1370,7 @@
       ]
     }
   ],
-  "ready_count": 20,
+  "ready_count": 23,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
   "in_flight_prs": [
     {
@@ -1297,7 +1380,7 @@
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-04T18:27:43Z",
+      "updated_at": "2026-08-04T21:25:52Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1039",
       "labels": [
         "agentic-os"
@@ -1313,7 +1396,7 @@
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-04T18:26:08Z",
+      "updated_at": "2026-08-04T21:25:23Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1018",
       "labels": [
         "agentic-os"
@@ -1330,7 +1413,7 @@
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-04T18:21:48Z",
+      "updated_at": "2026-08-04T19:37:29Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1062",
       "labels": [
         "bug",
@@ -1476,27 +1559,6 @@
   "conductor_log": [
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-04T10:44:57Z",
-      "body": "### Run 90 addendum — #1058 landed, and the ledger is confirmed on `main`\n\nThe END comment above was written while #1058 was still in the merge group, so this closes the one\nopen fact in it. It merged at **10:43:23Z**; `main` is now `7f04c9f5`.\n\nVerified on `main` rather than inferred from the merge:\n\n- `docs/lessons-ledger.md` carries **112 rows** by `grep -c`, and `_rows()` parses **112** — the two\n  numbers agree, which is the property L112 is about and which #1056 now asserts every run.\n- L1…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5177934906"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T13:06:56Z",
-      "body": "## Run 91 — START (2026-08-04, ~13:0xZ) · core 4988 / graphql 4941\n\nRun number derived from #719 (run 90 END 10:42:21Z, addendum 10:44:57Z), not from `state/CONDUCTOR.md`, which stopped mirroring run narratives at run 71 by decision.\n\nHub at `7f04c9f` — run 90's #1058 landed, so the ledger on `main` is **L113 / 112 rows**, exactly as the addendum verified.\n\n### Bootstrap: 5/5 clones fetched, and one was parked off `main` for the third time in nine runs\n\n`FFC-IN-ffcadmin.org` was sitting on `cond…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5179495495"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T13:48:40Z",
-      "body": "## Run 91 — END (2026-08-04, 13:0x–13:5xZ) · core 4987 / graphql 4041\n\n**3 PRs merged** ([#1059](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1059) 13:32:07Z, [#1061](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1061) 13:47:01Z, [ffcadmin #820](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/820) 13:41:52Z) · **1 issue closed** (#1051, by hand with its verification) · **1 issue filed** ([#1060](https://github.com/FreeForCharity/FFC-Cloudflare-Au…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5179974756"
-    },
-    {
-      "author": "clarkemoyer",
       "created_at": "2026-08-04T13:49:46Z",
       "body": "### Run 91 addendum — the row shipped this run caught its own mechanism at teardown\n\n**L115** says a core clone parked on a stale branch with a clean tree is the quiet form of a broken bootstrap, and cited runs 82, 83 and 91. At teardown I found `FFC-IN-ffcadmin.org` on `conductor/feed-run91` — **my own feed branch**, six minutes after ffcadmin #820 merged. Exactly the state run 90 left behind and exactly what the row is about.\n\nThat upgrades the diagnosis. This is not a recurring slip: the feed…",
       "truncated": true,
@@ -1543,6 +1605,27 @@
       "body": "## Run 93 — START (2026-08-04, ~19:0xZ) · core 4987 / graphql 4943\n\nRun number derived from #719 (run 92 END 16:43:28Z; a cloud-worker landing pass logged 18:23:29Z and its CI confirmation 18:25:36Z after it), not from `state/CONDUCTOR.md`.\n\n**Bootstrap PASS.** All five core clones fetched, on `main`, 0 dirty — including the two that run 92 left parked on its working branches, which it restored by hand at teardown. Hub at `3f14c5c` = run 92's #1063, so the ledger is confirmed on `main` at **L124…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5183420894"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-04T19:40:15Z",
+      "body": "## Run 93 — END (2026-08-04, 19:0x–19:3xZ) · core 4982 / graphql 4888\n\n**2 PRs merged** (ffcadmin [#821](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/821) 19:05:33Z, [#822](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/822) 19:31:11Z) · **1 PR unblocked** ([#1062](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1062) `DIRTY` → `MERGEABLE`, 0-behind) · **1 draft opened** ([#1066](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1066)) · …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5183770715"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-04T21:26:52Z",
+      "body": "## Cloud worker — landing run (2026-08-04)\n\n**Rule 1 applied: 4 open `agentic-os` PRs (≥3), so no new work was started.** #1066, #1064*, #1062, #1039, #1018 open; #1018 and #1039 were the only ones with a real blocker.\n\n### What was blocking\n\nNothing that any status badge showed. All four were green, all review threads resolved. The blocker was **staleness**: #1018 was `behind=7 ahead=6` and #1039 `behind=7 ahead=3`, against a Phantom Revert Guard threshold of **5**. Both would have failed on `g…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5184817908"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-04T22:04:52Z",
+      "body": "## Run 94 — START (2026-08-04, ~21:5xZ) · core 4982 / graphql 4888\n\n**Bootstrap (Step 0) clean.** All five core clones on `main`, 0 dirty, fast-forwarded to `ab85135` — the previous run's teardown assertion held, so nothing needed repair. Tooling verified: `gh` 2.96.0 (authed `clarkemoyer`, scopes incl. `project`/`workflow`), az 2.81.0, m365 11.9.0, gcloud 552.0.0.\n\nRun number derived from #719 (312 comments, read via `--paginate` per L-rule), not from `state/CONDUCTOR.md`. Re-read `AGENTS.md` a…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5185143659"
     }
   ],
   "pending_gates": [
