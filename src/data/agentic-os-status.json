@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05T01:21:26Z",
+  "generated_at": "2026-08-05T04:09:38Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -10,6 +10,18 @@
     "FreeForCharity/FFC-IN-ffcadmin.org"
   ],
   "backlog_issues": [
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-05T04:04:50Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 835,
@@ -36,18 +48,6 @@
         "bug",
         "agentic-os",
         "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-05T01:05:24Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
       ]
     },
     {
@@ -1403,12 +1403,26 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1064,
+      "title": "fix(dns): compare TXT records by logical value so a DKIM key stays idempotent",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-08-05T04:08:39Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1064",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": []
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 825,
       "title": "feat: WHMCS 229 - populate client fields from product answers (Refs #823)",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-05T01:19:47Z",
+      "updated_at": "2026-08-05T03:33:08Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/825",
       "labels": [
         "agentic-os"
@@ -1417,20 +1431,6 @@
         823,
         1067
       ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1064,
-      "title": "fix(dns): compare TXT records by logical value so a DKIM key stays idempotent",
-      "state": "open",
-      "draft": true,
-      "assignee": null,
-      "updated_at": "2026-08-05T01:11:15Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1064",
-      "labels": [
-        "agentic-os"
-      ],
-      "linked_agentic_issues": []
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
@@ -1603,27 +1603,6 @@
   "open_prs_total": 80,
   "conductor_log": [
     {
-      "author": "github-actions[bot]",
-      "created_at": "2026-08-04T16:47:52Z",
-      "body": "🔓 Claim released — linked PR #1063 merged and no other open PR references this issue. Available again (`is:open -label:claimed`).",
-      "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5182045025"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T18:23:29Z",
-      "body": "## Cloud worker run — landing pass on the open `agentic-os` PR queue\n\n**Trigger for the mode.** Three open PRs carried `agentic-os` (#1062, #1039, #1018), which meets the ≥3 threshold, so this run landed existing work rather than starting new work. No new work PR opened.\n\n### What was actually blocking them\n\nAll three were green on CI with every review thread resolved — and **none of them could have been queued**. Each was held by something the check list does not show:\n\n| PR | apparent state | …",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5182996057"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T18:25:36Z",
-      "body": "**CI confirmation for the landing pass above** — both refreshed branches finished green, so the \"re-running\" caveat in my summary is resolved:\n\n| PR | head | Validate Repository | Phantom Revert Guard |\n| --- | --- | --- | --- |\n| #1039 | `7e32dc3` | ✅ success (18:23:52Z) | ✅ success |\n| #1018 | `e1fe082` | ✅ success (18:23:42Z) | ✅ success |\n\nCodeQL, Analyze Code, and Validate AI agent hooks are green on both. **Both are promotable now** — nothing outstanding but the landing-order reconciliatio…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5183017466"
-    },
-    {
       "author": "clarkemoyer",
       "created_at": "2026-08-04T19:04:43Z",
       "body": "## Run 93 — START (2026-08-04, ~19:0xZ) · core 4987 / graphql 4943\n\nRun number derived from #719 (run 92 END 16:43:28Z; a cloud-worker landing pass logged 18:23:29Z and its CI confirmation 18:25:36Z after it), not from `state/CONDUCTOR.md`.\n\n**Bootstrap PASS.** All five core clones fetched, on `main`, 0 dirty — including the two that run 92 left parked on its working branches, which it restored by hand at teardown. Hub at `3f14c5c` = run 92's #1063, so the ledger is confirmed on `main` at **L124…",
@@ -1671,6 +1650,27 @@
       "body": "## Run 95 — START (2026-08-05, ~01:0xZ) · core 4992 / graphql 4940\n\n**Bootstrap (Step 0) clean.** All five core clones on `main`, 0 dirty, at `d3ab994` — run 94's teardown assertion held, nothing needed repair. Tooling verified: `gh` 2.96.0 (authed `clarkemoyer`, scopes incl. `project`/`workflow`), az 2.81.0, m365 11.9.0, gcloud 552.0.0. Run number derived from the #719 tail via `--paginate`, not from `state/CONDUCTOR.md` (which is stale at run 88 and says so at the top). Re-read `AGENTS.md` and…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5186340813"
+    },
+    {
+      "author": "github-actions[bot]",
+      "created_at": "2026-08-05T01:50:28Z",
+      "body": "🔓 Claim released — linked PR #1071 merged and no other open PR references this issue. Available again (`is:open -label:claimed`).",
+      "truncated": false,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5186605718"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-05T01:55:14Z",
+      "body": "## Run 95 — END (2026-08-05, 01:0x–02:0xZ) · core 4983 / graphql 4502\n\n**2 PRs merged** ([#1069](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1069) 01:15:34Z · ffcadmin [#824](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/824) 01:26:21Z) · **1 opened+promoted+queued+merged** ([#1071](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1071) 01:50:16Z) · **1 issue filed** ([#1070](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1070…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5186633026"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-05T04:04:50Z",
+      "body": "## Run 96 — START (2026-08-05, ~04:0xZ) · core 4995 / graphql 4963\n\n**Bootstrap (Step 0) clean, and this is the first run in three where it was clean without repair.**\nAll five core clones on `main`, 0 dirty, fast-forwarded to `8f84148` / `fa3f600` / `28f19f9` /\n`b4e6d32` / `c310e85`. Run 95's teardown assertion held — L115's \"parked by construction\" mechanism\ndid not fire this time, which is the first clean back-to-back pair since run 91 named it. Run number\nderived from the #719 tail (`--pagin…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5187400725"
     }
   ],
   "pending_gates": [
