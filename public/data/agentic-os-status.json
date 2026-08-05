@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05T07:13:53Z",
+  "generated_at": "2026-08-05T10:13:13Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -12,13 +12,40 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 863,
+      "title": "Establish the canonical URL standard on FFC_Single_Page_Template (trailingSlash + sitemap + canonicals + lighthouserc)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-05T10:12:56Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/863",
+      "labels": [
+        "enhancement",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 719,
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-05T07:06:41Z",
+      "updated_at": "2026-08-05T10:05:31Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 921,
+      "title": "🚨 Scheduled workflow failing: 502. Google - Analytics Report (GA4 -> JSON) [GOOGLE]",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-05T09:08:24Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/921",
+      "labels": [
+        "bug",
         "agentic-os"
       ]
     },
@@ -226,19 +253,6 @@
         "security",
         "agentic-os",
         "priority: high"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 921,
-      "title": "🚨 Scheduled workflow failing: 502. Google - Analytics Report (GA4 -> JSON) [GOOGLE]",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-04T09:09:30Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/921",
-      "labels": [
-        "bug",
-        "agentic-os"
       ]
     },
     {
@@ -679,20 +693,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 863,
-      "title": "Establish the canonical URL standard on FFC_Single_Page_Template (trailingSlash + sitemap + canonicals + lighthouserc)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-31T13:18:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/863",
-      "labels": [
-        "enhancement",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 859,
       "title": "Baseline compliance is unmeasured across the fleet — policy pages, consent and security must hold regardless of template divergence",
       "state": "open",
@@ -1092,6 +1092,20 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 863,
+      "title": "Establish the canonical URL standard on FFC_Single_Page_Template (trailingSlash + sitemap + canonicals + lighthouserc)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-05T10:12:56Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/863",
+      "labels": [
+        "enhancement",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1026,
       "title": "guard_bash.py rule numbers are a shared namespace with no uniqueness check: 6 and 7 are each claimed twice across 4 open PRs",
       "state": "open",
@@ -1397,20 +1411,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 863,
-      "title": "Establish the canonical URL standard on FFC_Single_Page_Template (trailingSlash + sitemap + canonicals + lighthouserc)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-07-31T13:18:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/863",
-      "labels": [
-        "enhancement",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 859,
       "title": "Baseline compliance is unmeasured across the fleet — policy pages, consent and security must hold regardless of template divergence",
       "state": "open",
@@ -1443,19 +1443,21 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1018,
-      "title": "feat(hooks): warn on unpaginated gh api list reads (#971) and paginate+array-jq (#989)",
+      "number": 1075,
+      "title": "feat(scripts): audit open PRs for stale-green and thread-blocked states",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-05T07:13:31Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1018",
+      "updated_at": "2026-08-05T10:10:03Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1075",
       "labels": [
         "agentic-os"
       ],
       "linked_agentic_issues": [
-        971,
-        989
+        993,
+        992,
+        966,
+        912
       ]
     },
     {
@@ -1465,7 +1467,7 @@
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-05T07:11:16Z",
+      "updated_at": "2026-08-05T07:24:30Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1062",
       "labels": [
         "bug",
@@ -1479,12 +1481,29 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1018,
+      "title": "feat(hooks): warn on unpaginated gh api list reads (#971) and paginate+array-jq (#989)",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-08-05T07:21:30Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1018",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        971,
+        989
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1039,
       "title": "test(hooks): per-rule polarity + source-derived block-site coverage (#1027)",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-05T07:11:14Z",
+      "updated_at": "2026-08-05T07:19:48Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1039",
       "labels": [
         "agentic-os"
@@ -1640,36 +1659,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 80,
+  "open_prs_total": 82,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T22:04:52Z",
-      "body": "## Run 94 — START (2026-08-04, ~21:5xZ) · core 4982 / graphql 4888\n\n**Bootstrap (Step 0) clean.** All five core clones on `main`, 0 dirty, fast-forwarded to `ab85135` — the previous run's teardown assertion held, so nothing needed repair. Tooling verified: `gh` 2.96.0 (authed `clarkemoyer`, scopes incl. `project`/`workflow`), az 2.81.0, m365 11.9.0, gcloud 552.0.0.\n\nRun number derived from #719 (312 comments, read via `--paginate` per L-rule), not from `state/CONDUCTOR.md`. Re-read `AGENTS.md` a…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5185143659"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-04T22:30:55Z",
-      "body": "## Run 94 — END (2026-08-04, 21:5x–22:3xZ) · core 5000 / graphql 4540\n\n**2 PRs merged** ([#1066](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1066) 22:17:25Z · ffcadmin [#823](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/823) 22:28:25Z) · **2 issues filed** ([#1067](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1067), [#1068](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1068)) · **1 draft opened** ([#1069](https://githu…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5185338481"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-05T00:26:12Z",
-      "body": "## Cloud worker — landing run (no new work opened)\n\n4 open PRs carry `agentic-os` (#1069, #1062, #1039, #1018), so this run went to landing them rather than picking up an issue.\n\n### Nothing is blocked on CI or review\n\n| PR | checks | review threads | mergeable | behind `main` |\n| --- | --- | --- | --- | --- |\n| #1069 | all green | none | clean | 0 |\n| #1062 | all green | 2/2 resolved | clean | 2 |\n| #1039 | all green | none | clean | 2 |\n| #1018 | all green | 1/1 resolved | clean | 2 |\n\nAll fou…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5186102754"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-05T01:05:24Z",
-      "body": "## Run 95 — START (2026-08-05, ~01:0xZ) · core 4992 / graphql 4940\n\n**Bootstrap (Step 0) clean.** All five core clones on `main`, 0 dirty, at `d3ab994` — run 94's teardown assertion held, nothing needed repair. Tooling verified: `gh` 2.96.0 (authed `clarkemoyer`, scopes incl. `project`/`workflow`), az 2.81.0, m365 11.9.0, gcloud 552.0.0. Run number derived from the #719 tail via `--paginate`, not from `state/CONDUCTOR.md` (which is stale at run 88 and says so at the top). Re-read `AGENTS.md` and…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5186340813"
-    },
     {
       "author": "github-actions[bot]",
       "created_at": "2026-08-05T01:50:28Z",
@@ -1711,6 +1702,34 @@
       "body": "## Run 97 — START (2026-08-05, ~07:0xZ) · core 4988 / graphql 4951\n\nBootstrap clean without repair, third consecutive run. Five core clones on `main`, 0 dirty; hub\nfast-forwarded `8f84148 → 95b77ac` (3 commits, incl. #1073's ledger rows), ffcadmin `37b5b56 →\n32e319e`. Six stale remote branches pruned (`conductor/lessons-run94..96`, ffcadmin\n`conductor/feed-run96`, `conductor/status-run95`). Tooling verified: gh 2.96.0 (clarkemoyer,\n`admin:org gist project repo workflow write:packages`), az 2.81.…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5188661662"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-05T07:30:15Z",
+      "body": "## Run 97 — END (2026-08-05, 07:0x–08:0xZ) · core 4996 / graphql 4981\n\n**3 stale branches repaired** (#1018, #1039, #1062) · **1 PR reviewed in depth with a verdict**\n(#1018) · **1 PR opened** ([#1075](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1075),\nnew audit + 23 tests + 2 ledger rows) · **1 feed delivered**\n(ffcadmin [#828](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/828), delivery 37) ·\n**0 issues filed** · board **0/0/0/0 exit 0** · **0 gates approved**…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5188882812"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-05T07:35:25Z",
+      "body": "### Run 97 addendum — #1075 is green in CI, the feed is live, and the finding path is now verified against live data\n\nThree things closed after the END comment.\n\n**1. #1075 passed `Validate Repository` (4m50s) and every other check.** That is the confirmation\nthe local run could not give: the new module satisfies `run_all.py`'s roster convention and runs\nclean on `ubuntu-latest`, not merely on this Windows host. Still a draft, per its own scope.\n\n**2. Feed delivered — ffcadmin [#828](https://git…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5188940166"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-05T09:21:53Z",
+      "body": "## Cloud worker run — landing pass over open `agentic-os` PRs\n\nSix open PRs carried the `agentic-os` label, so per the routine this run went to landing them rather than starting new work. **No new work PR opened; no branch pushed.**\n\n### State of all six, re-derived rather than read off a stored conclusion\n\n| PR | checks | unresolved threads | behind `main` |\n| --- | --- | --- | --- |\n| #1075 | green | **1 → 0** (this run) | 0 |\n| #1064 | green | 0 | 3 |\n| #1062 | green | 0 | 0 |\n| #1039 | green…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5189986778"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-05T10:05:31Z",
+      "body": "## Run 98 — START (2026-08-05, ~10:0xZ) · core 4993 / graphql 4958\n\nBootstrap clean without repair, **fourth consecutive run**: all five core clones fetched, reset to\n`origin/main`, 0 dirty. Hub at `95b77ac` (#1073), ffcadmin at `7a590fc` (#829). All four CLIs\nverified present and authed (gh as `clarkemoyer`, az 2.81.0, m365 11.9.0, gcloud 552.0.0).\n\nEntering state, re-derived from the endpoints rather than inherited from run 97's close-out:\n\n- **1 waiting gate** — `Generate Sites List` / run `3…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5190398473"
     }
   ],
   "pending_gates": [
