@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06T16:20:23Z",
+  "generated_at": "2026-08-07T01:28:45Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -10,6 +10,62 @@
     "FreeForCharity/FFC-IN-ffcadmin.org"
   ],
   "backlog_issues": [
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-07T01:07:50Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1041,
+      "title": "echo-secret-var false-positives on `GH_TOKEN=$(gh auth token) cmd` + any later echo — the Conductor's standard idiom",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-07T00:25:12Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1041",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "claimed",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1028,
+      "title": "App-identity pushes fire no pull_request event: the PR keeps the previous commit's green checks and reads as CI-verified",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-06T22:13:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1028",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready",
+        "blocked"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1095,
+      "title": "Ledger path:line citations are never validated: a security row now points at a checkout step, and a 166-line-wrong pointer shipped green",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-06T19:11:27Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1095",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1096,
@@ -40,18 +96,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-06T16:05:00Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 949,
       "title": "🚨 Scheduled workflow failing: 228. WHMCS - Fraud Review (FraudLabs Pro) [FRAUDLABS+WHMCS]",
       "state": "open",
@@ -61,20 +105,6 @@
       "labels": [
         "bug",
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1095,
-      "title": "Ledger path:line citations are never validated: a security row now points at a checkout step, and a 166-line-wrong pointer shipped green",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-06T13:21:17Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1095",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
       ]
     },
     {
@@ -156,21 +186,6 @@
       "labels": [
         "bug",
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1041,
-      "title": "echo-secret-var false-positives on `GH_TOKEN=$(gh auth token) cmd` + any later echo — the Conductor's standard idiom",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-06T01:52:40Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1041",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "claimed",
-        "agent-ready"
       ]
     },
     {
@@ -497,20 +512,6 @@
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/724",
       "labels": [
         "documentation",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1028,
-      "title": "App-identity pushes fire no pull_request event: the PR keeps the previous commit's green checks and reads as CI-verified",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-03T19:27:18Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1028",
-      "labels": [
-        "bug",
         "agentic-os",
         "agent-ready"
       ]
@@ -1256,16 +1257,17 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1096,
-      "title": "A close/reopen round trip launders a `claimed` label past both release paths: #986 sat claimed for 4 days with no open PR",
+      "number": 1028,
+      "title": "App-identity pushes fire no pull_request event: the PR keeps the previous commit's green checks and reads as CI-verified",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-06T16:19:06Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1096",
+      "updated_at": "2026-08-06T22:13:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1028",
       "labels": [
         "bug",
         "agentic-os",
-        "agent-ready"
+        "agent-ready",
+        "blocked"
       ]
     },
     {
@@ -1274,8 +1276,22 @@
       "title": "Ledger path:line citations are never validated: a security row now points at a checkout step, and a 166-line-wrong pointer shipped green",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-06T13:21:17Z",
+      "updated_at": "2026-08-06T19:11:27Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1095",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1096,
+      "title": "A close/reopen round trip launders a `claimed` label past both release paths: #986 sat claimed for 4 days with no open PR",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-06T16:19:06Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1096",
       "labels": [
         "bug",
         "agentic-os",
@@ -1574,20 +1590,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1028,
-      "title": "App-identity pushes fire no pull_request event: the PR keeps the previous commit's green checks and reads as CI-verified",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-03T19:27:18Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1028",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1044,
       "title": "Nothing validates that a sites-list Repo URL resolves: a 404 sat in the public dataset until another repo's link checker found it",
       "state": "open",
@@ -1745,19 +1747,19 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1093,
-      "title": "docs(lessons): L155-L157 — a stale tree, a threshold that taxes hygiene, and a stale view",
+      "number": 1097,
+      "title": "docs(lessons): L159-L162 — outage triage, two modes of no-checks, sha-bound sign-offs, and a page that quotes itself",
       "state": "open",
-      "draft": false,
+      "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-06T16:07:03Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1093",
+      "updated_at": "2026-08-07T01:27:06Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1097",
       "labels": [
         "agentic-os"
       ],
       "linked_agentic_issues": [
         719,
-        1091
+        1028
       ]
     },
     {
@@ -1767,7 +1769,7 @@
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-06T15:36:52Z",
+      "updated_at": "2026-08-07T01:24:06Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1062",
       "labels": [
         "bug",
@@ -1786,13 +1788,30 @@
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-06T12:38:51Z",
+      "updated_at": "2026-08-07T01:21:57Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1039",
       "labels": [
         "agentic-os"
       ],
       "linked_agentic_issues": [
         1027
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1018,
+      "title": "feat(hooks): warn on unpaginated gh api list reads (#971) and paginate+array-jq (#989)",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-08-07T01:20:07Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1018",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        971,
+        989
       ]
     },
     {
@@ -1810,23 +1829,6 @@
       "linked_agentic_issues": [
         823,
         1074
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1018,
-      "title": "feat(hooks): warn on unpaginated gh api list reads (#971) and paginate+array-jq (#989)",
-      "state": "open",
-      "draft": true,
-      "assignee": null,
-      "updated_at": "2026-08-06T12:36:28Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1018",
-      "labels": [
-        "agentic-os"
-      ],
-      "linked_agentic_issues": [
-        971,
-        989
       ]
     },
     {
@@ -1931,77 +1933,77 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 81,
+  "open_prs_total": 80,
   "conductor_log": [
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T10:27:43Z",
-      "body": "### Addendum to the END — the Pages deploy hang, narrowed\n\nStill hung at teardown. `updatedAt` on run [31092985255](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/actions/runs/31092985255) has not moved from **10:23:37Z** in ~22 minutes, and `https://ffcadmin.org/data/agentic-os-status.json` still serves delivery 44.\n\nTwo explanations ruled out, so run 107 does not have to:\n\n- **Not an environment gate.** `GET .../runs/31092985255/pending_deployments` returns an **empty array** — nothing …",
+      "created_at": "2026-08-06T16:25:42Z",
+      "body": "## Run 108 — END (2026-08-06, 15:5x–16:3xZ) · core 4993 → 4977 / graphql 3954 → 3916\n\n**1 issue filed** ([#1096](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1096)) · **1 issue groomed `claimed` → `blocked` + escalated as a yes/no** (#986) · **2 PRs promoted and armed with auto-merge** ([#1093](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1093), [ffcadmin #844](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/844)) · **0 PRs merged — blocked by…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5203426890"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5207418583"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T10:28:36Z",
-      "body": "## Correction — there was no deploy hang, and delivery 45 is live. I escalated an observation lag.\n\n**Delivery 45 is serving.** Plain URL, no cache-buster:\n\n```\ngenerated_at: 2026-08-06T10:12:24Z   conductor_log_rule: True   pending_gates: 2   backlog_issues: 91\n```\n\nAnd the run I called hung:\n\n```\n31092985255  completed/success  2026-08-06T10:22:24Z -> 10:27:43Z\n```\n\n**5 minutes 19 seconds** — inside the 1.5–5 min baseline I measured it against, not 20+ minutes outside it. The END section heade…",
+      "created_at": "2026-08-06T16:35:54Z",
+      "body": "### Addendum to the END — the outage went from `partial` to `major`, and it broke my \"self-healing\" claim\n\nCorrecting the END rather than leaving a statement that would mislead run 109. It said both PRs were armed and would \"enter the queue the moment Actions recovers, with or without a Conductor present.\" **That is now false**, and the reason is a change in how the outage expressed itself.\n\n**What changed.** At END time the two checks on #1093 were `queued` — pending, so auto-merge would still …",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5203436058"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5207486165"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T10:35:29Z",
-      "body": "### Teardown state of #1093\n\nAll checks green — `Validate Repository` 5m32s, `Phantom Revert Guard`, `CodeQL`, `Analyze Code (actions)`, `label-sync` pass; `sweep` skipped.\n\nLeft as a **draft**, per the routine step 7 instruction to ship lessons as draft PRs. Note that run 105 merged its own ledger PR (#1092), so this is a deliberate divergence from last run rather than an oversight — L156, written this run, is the reason: every ledger merge is charged against all four open PRs, which are alread…",
+      "created_at": "2026-08-06T18:21:05Z",
+      "body": "## Cloud worker run — 2026-08-06 ~18:20Z — landing run\n\nFive open `agentic-os` PRs (≥3), so no new work was started per the standing rule. Unit of work: **triage the queue and unblock what can be unblocked.**\n\n### Queue state: everything is green and current — nothing is stale\n\nMeasured locally against `origin/main` @ `d54e57f`, with `git rev-list --left-right --count`:\n\n| PR | behind | ahead | required checks | review threads |\n| --- | --- | --- | --- | --- |\n| #1093 | 0 | 4 | **727 = failure**…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5203516787"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5208157516"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T12:37:42Z",
-      "body": "## Cloud worker run — landing pass on open `agentic-os` PRs\n\nPer step 1 of the worker routine: 5 open PRs carry `agentic-os` (≥3), so this run was spent making them landable rather than opening new work. **No new work PR was opened.**\n\n### What was actually blocking them\n\nNothing was blocked on CI or review. All 5 were green on both required checks and had **every review thread resolved**. The blocker was invisible from the PR page: four of five were far enough behind `main` that **Phantom Rever…",
+      "created_at": "2026-08-06T19:07:17Z",
+      "body": "## Run 109 — START (2026-08-06, ~19:0xZ) · core 4994 / graphql 4902\n\nBootstrap clean: **5/5 core clones** fetched, on `main`, fast-forwarded, no dirty trees. Hub at `d54e57f`; ffcadmin advanced `77b23d8 → 939bb65` (that is **#844 merging at 16:49:43Z** — run 108's thread 1 is half-answered before I start). `gh` 2.96.0 authed as clarkemoyer. Run number from #719, not `state/CONDUCTOR.md`, which still says \"open threads for run 108\".\n\n### The one fact that governs this run\n\n**`Actions` = `major_ou…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5204719245"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5208435609"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T13:06:04Z",
-      "body": "## Run 107 — START (2026-08-06, ~13:0xZ) · core 4934 / graphql 4923\n\nBootstrap clean. All five core clones fetched + fast-forwarded to their origin default branch:\n`FFC-Cloudflare-Automation` **d54e57f**, `FFC-IN-freeforcharity.org` **fa3f600**,\n`FFC-IN-ffcadmin.org` **77b23d8** (moved 5870f17→77b23d8 — delivery 45 landed),\n`FFC-IN-FFC_Single_Page_Template` **c4b77b6**, `FFC-IN-Footer_Only_Template` **c310e85**.\nRe-read `AGENTS.md` and `docs/workflow-safety-and-approvals.md` from the tree, not m…",
+      "created_at": "2026-08-06T19:16:13Z",
+      "body": "## Run 109 — END (2026-08-06, 19:0x–19:3xZ) · core 4994 → 4990 / graphql 4902 → 4868\n\n**0 PRs merged · 0 promoted · 0 re-runs issued · 0 issues filed · 0 gates approved (44th hold on 703)** — and every one of those zeros is a decision, not an absence. Against them: **1 full independent review** ([#1094](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1094)), **2 findings onto existing issues**, **4 lessons captured**, board **0/0/0/0/0 exit 0**, **1 Clarke push**.\n\nRun 108's add…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5205007720"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5208490885"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T13:07:38Z",
-      "body": "## Gate held for @clarkemoyer — 703 `Generate Sites List`, `github-prod` (42nd hold, but the reason has changed)\n\n**Held. Not approved.** `github-prod` is a reviewer-gated **write** environment and the job loads\n`wr-all-cbm-ffc-copilot-mcp-github-pat` — a write-scoped PAT — then commits `sites-list/*` and opens\nPRs. That is outside \"read-only environments and `dry_run=true` runs\", so it is not mine to approve\nunder any circumstance.\n\n| | |\n|---|---|\n| Run | [30800404614](https://github.com/FreeF…",
+      "created_at": "2026-08-06T21:33:06Z",
+      "body": "## 🤖 Cloud Worker — landing pass (2026-08-06 ~21:20Z)\n\nFive open `agentic-os` PRs (≥3), so this run went to landing, not new work. Full detail on #1062; this is the short version plus one **systemic** finding that affects every cloud-worker run, not just that PR.\n\n### Work landed\n\n**#1062: ledger id `L155` → `L158`** ([`50b3d4e`](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/commit/50b3d4e)). #1093 and #1062 both reserved `L155`. Measured against `main` (60 rows, highest `L154`, no…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5205024073"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5209266687"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T13:23:04Z",
-      "body": "## Run 107 — END (2026-08-06, 13:0x–13:4xZ) · core 4934 → 4921 / graphql 4923 → 4763\n\n**1 draft PR opened** (ffcadmin #844) · **1 open PR unblocked + pushed** (#1093) · **1 issue filed**\n(#1095) · **1 gate held, escalated with new reasoning** · **0 gates approved** — 42nd hold on 703 ·\n**1 Clarke push** · **1 board card placed** · **2 findings posted to existing issues** · **1 review\nthread answered + resolved**.\n\n### The headline: Copilot caught a ledger error that 26 green tests could not, and…",
+      "created_at": "2026-08-06T22:04:49Z",
+      "body": "## Run 110 — START (2026-08-06, ~22:0xZ) · core 4994 / graphql 4931\n\n**The outage from run 108/109 is still open.** `Actions` and `Pages` both read **`major_outage`**; the incident opened **15:22:49Z** and is still `investigating` at 22:04Z — **6h40m and counting**. Run 109 left me an explicit precondition: *\"Check `Actions`/`Pages` on githubstatus FIRST. Nothing below is safe until both are operational.\"* They are not. So this run does **not** re-run the ffcadmin Pages deploy (thread 2), does *…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5205188195"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5209433442"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T13:31:14Z",
-      "body": "### Addendum to the END — I turned #1093 red, and it is green again\n\nClosing the loop honestly rather than leaving the END's \"all six green\" table to age into a false statement.\n\nMy first push to #1093 (`4b051ff`) failed **Validate Repository / Check formatting (Prettier)** on both files it touched. Fixed in `2f7a96a`; run `31105769748` is **completed/success**. Final state:\n\n```\nstate=CLEAN\nValidate Repository=SUCCESS | Analyze Code (actions)=SUCCESS | Phantom Revert Guard=SUCCESS | CodeQL=SUCC…",
+      "created_at": "2026-08-06T22:14:53Z",
+      "body": "## Run 110 — END (2026-08-06, 22:0x–22:4xZ) · core 4994 → ~4930 / graphql 4931\n\n**0 merged · 0 promoted · 0 pushed · 0 dispatched · 0 issues filed · 0 gates approved (45th hold on 703).** Board **0/0/0/0/0, exit 0**. Actions **and** Pages were still `major_outage` throughout — the 15:22:49Z incident is now **7+ hours** open — so all three of run 109's action threads were refused rather than deferred.\n\n### I opened this run intending to correct the cloud worker. I did, but not the way I said I wo…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5205277356"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5209490219"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T15:37:15Z",
-      "body": "## Cloud worker — run summary: five `agentic-os` PRs are ready, two of them collide\n\n**Mode:** 5 open `agentic-os` PRs (≥3), so this run went to landing them, not new work. No branch pushed, no PR opened.\n\n### Readiness (all five, verified this run)\n\n| PR | checks | review threads | behind `main` |\n| --- | --- | --- | --- |\n| #1093 | 5/5 green | 1, resolved | 0 |\n| #1062 | 6/6 green | 3, all resolved | 0 |\n| #1039 | 6/6 green | none | 0 |\n| #1018 | 6/6 green | 1, resolved | 0 |\n| #825 | 5/5 gree…",
+      "created_at": "2026-08-07T00:32:24Z",
+      "body": "## Cloud worker — landing run. 5 open `agentic-os` PRs, so no new work started.\n\nStep 1 of the routine applied (≥3 open PRs → spend the run landing them). **All five are now green with every review thread resolved.** One had a real, invisible blocker; I fixed it. The other four needed nothing.\n\n### Board\n\n| PR | draft | required checks | threads | behind `main` | state |\n| --- | --- | --- | --- | --- | --- |\n| [#1093](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1093) | **no*…",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5207035250"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5210371036"
     },
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-06T16:05:00Z",
-      "body": "## Run 108 — START (2026-08-06, ~15:5xZ)\n\nBootstrap clean: workspace present, **5/5 core clones** fetched, checked out `main`, fast-forwarded, no dirty trees. Two clones came in on stale conductor branches from run 107 (`conductor/lessons-l155-l156` in the hub, `conductor/agentic-os-status-delivery-46` in ffcadmin) and were returned to `main`. Hub at `d54e57f`, ffcadmin at `77b23d8`. Tooling verified: `gh` 2.96.0 (clarkemoyer, `repo`+`project`+`workflow`+`admin:org`), Azure CLI 2.81.0, CLI for M…",
+      "created_at": "2026-08-07T01:07:50Z",
+      "body": "## Run 111 — START (2026-08-07, ~01:0xZ) · core 4991 / graphql 4924\n\n**The outage is over, and I checked it the way run 110 told me to — then checked it again against real runs.** githubstatus reads `Actions` and `Pages` **operational** and the summary line is \"All Systems Operational\", but the 15:22:49Z incident is **still open** at `monitoring`, and its most recent update — **00:59:01Z, four minutes before this comment** — says some Actions Runner Controller runners are still slow to recover. …",
       "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5207269774"
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5210744481"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
