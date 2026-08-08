@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T19:42:00Z",
+  "generated_at": "2026-08-08T22:22:50Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -7,6 +7,47 @@
     "FreeForCharity/FFC-IN-ffcadmin.org"
   ],
   "backlog_issues": [
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1072,
+      "title": "Bash-tool commands collapse every doubled backslash before the shell: six runs blamed the heredoc, and the surface is the command string",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-08T22:17:22Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1072",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-08T22:06:33Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1027,
+      "title": "Hook rule tests have no per-rule polarity check: a rule tested only in the direction it passes is green and wrong (4th instance)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-08T21:21:50Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1027",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "claimed",
+        "agent-ready"
+      ]
+    },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 788,
@@ -22,18 +63,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-08T19:06:37Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1100,
       "title": "Nothing detects a Dependabot advisory deadlock: 2 PRs each fixing one high advisory kept the main website red for 4 days, and neither could ever go green",
       "state": "open",
@@ -44,22 +73,6 @@
         "security",
         "agentic-os",
         "priority: high",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1102,
-      "title": "Credential steps guard emptiness, not liveness: a dead PAT passes 14 workflows' checks and fails 3 steps later naming the wrong cause",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-08T18:27:57Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1102",
-      "labels": [
-        "bug",
-        "security",
-        "agentic-os",
-        "claimed",
         "agent-ready"
       ]
     },
@@ -582,20 +595,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1072,
-      "title": "Bash-tool commands collapse every doubled backslash before the shell: six runs blamed the heredoc, and the surface is the command string",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-05T04:14:37Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1072",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1070,
       "title": "745 board audit is blind to agent work that was never labelled: expected comes from a hand-applied label",
       "state": "open",
@@ -715,21 +714,6 @@
       "labels": [
         "bug",
         "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1027,
-      "title": "Hook rule tests have no per-rule polarity check: a rule tested only in the direction it passes is green and wrong (4th instance)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-03T16:20:21Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1027",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "claimed",
         "agent-ready"
       ]
     },
@@ -1318,6 +1302,20 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1072,
+      "title": "Bash-tool commands collapse every doubled backslash before the shell: six runs blamed the heredoc, and the surface is the command string",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-08T22:17:22Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1072",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 788,
       "title": "Fleet: upload-pages-artifact@v5 silently drops dot-entries — .well-known/security.txt 404s on affected sites",
       "state": "open",
@@ -1653,20 +1651,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1072,
-      "title": "Bash-tool commands collapse every doubled backslash before the shell: six runs blamed the heredoc, and the surface is the command string",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-05T04:14:37Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1072",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1070,
       "title": "745 board audit is blind to agent work that was never labelled: expected comes from a hand-applied label",
       "state": "open",
@@ -1906,22 +1890,18 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1125,
-      "title": "feat(security): probe PAT liveness in the credential step, not four steps later (#1102)",
+      "number": 1127,
+      "title": "feat(hooks): block gh issue/pr edit label flags — they rewrite the whole label set (L193)",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-08-08T19:37:00Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1125",
+      "updated_at": "2026-08-08T22:16:05Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1127",
       "labels": [
-        "security",
         "agentic-os"
       ],
       "linked_agentic_issues": [
-        1102,
-        848,
-        1109,
-        719
+        788
       ]
     },
     {
@@ -1944,27 +1924,6 @@
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
   "open_prs_total": 8,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-08T07:06:33Z",
-      "body": "## Run 121 — START (2026-08-08, ~07:0xZ) · core 4990 / graphql 4974\n\nBootstrap clean. All **5/5 core clones** fetched and fast-forwarded to `main`, **0 dirty files** in any of the five. Hub `main` = `f3f24cf` (#1113, the L38 ledger restore, merged 04:31:43Z). `ffcadmin.org` advanced `648c37e → 39761b9` (delivery 55) and its clone was still parked on the delivery-55 branch — switched back to `main` as part of bootstrap. `gh` authed as `clarkemoyer`; `az` 2.81.0, `m365` 11.9.0, `gcloud` 552.0.0 al…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5225051427"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-08T07:57:32Z",
-      "body": "## Run 121 — END (2026-08-08, 07:0x–07:5xZ) · core 4990 → 4956 / graphql 4974 → 4928\n\n**3 PRs merged and verified on their merged trees · 2 ledger rows (ledger at L184) · 1 satellite PR landed after execution review · 0 issues filed · 0 gates approved (56th hold on 703, 4th on 106) · delivery 56 live and byte-identical · board 360 items, 0/0/0/0, exit 0 · Clarke pinged once**\n\nThe run's finding is that a convention shipped repo-wide three days ago cannot change any approval outcome, and the run'…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5225224667"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-08T10:26:15Z",
-      "body": "## Run 121 — addendum: Clarke authorised merging the hooks PRs. 3 of 4 landed; the 4th needs re-deriving, and the reason is a number\n\nClarke's instruction after the END above: **\"merge the hooks.\"** Result:\n\n| PR | outcome | verified |\n| --- | --- | --- |\n| **#1062** echo-secret-var per statement | **merged 09:47:05Z** | ledger 35 ✅ · hooks **150 passed, 0 failed** |\n| **#1018** unpaginated `gh api` guards | **merged 10:03:16Z** | corpus `329`, **0 lost** · hooks **172 passed** |\n| **#1115** the…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5225698152"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-08-08T10:29:45Z",
@@ -2013,6 +1972,27 @@
       "body": "## Run 125 — START (2026-08-08, ~19:0xZ) · core 4992 / graphql 4985\n\nBootstrap clean. All **5/5 core clones** fetched and fast-forwarded to `origin/main`, **0 dirty files** in any of the five, no leftover worktrees. Hub `main` = `20c506b` (#1124, ledger at **L192**).\n\n| clone | head |\n| --- | --- |\n| FFC-Cloudflare-Automation | `20c506b` |\n| FFC-IN-freeforcharity.org | `88593b3` |\n| FFC-IN-ffcadmin.org | `8f39010` |\n| FFC-IN-FFC_Single_Page_Template | `edfd3ff` |\n| FFC-IN-Footer_Only_Template | …",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5227656416"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-08T19:57:09Z",
+      "body": "## Run 125 — END (2026-08-08, 19:0x–20:0xZ) · core 4992 → 4946 / graphql 4985 → 4926\n\n**1 PR reviewed with a finding and 1 closed as already-merged · 1 fleet audit that turned a 20-day-old issue into 7 confirmed live failures · 3 ledger rows (L193–L195) with a new hook · delivery 60 live and byte-identical (37th hand delivery) · 0 gates approved (60th hold on 703) · 0 issues filed · board 370 items, 0/0/0/0/0, exit 0 · Clarke not pinged, deliberately**\n\nThree of this run's findings were errors i…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5227857877"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-08T21:22:21Z",
+      "body": "## Cloud worker run — landing mode (4 open `agentic-os` PRs ≥ threshold)\n\nOpened no new work. Per the standing instruction, with 3+ open `agentic-os` PRs this run went to landing them.\n\n**Open `agentic-os` PRs surveyed:** #1039, #1125, #1126, #1127. Exactly one was red: **#1126**.\n\n### Worked: #1126 (`conductor/lessons-run125`) — red → green\n\n`Validate Repository` was failing at the **prettier gate**; `docs/lessons-ledger.md` was the only warned file. Cause was in the three rows the PR adds (L19…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5228232387"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-08T22:06:33Z",
+      "body": "## Run 126 — START (2026-08-08, ~22:0xZ) · core 4992 / graphql 4984\n\nBootstrap clean. All **5/5 core clones** fetched and fast-forwarded to `origin/main`, **0 dirty files** in any of the five, no leftover worktrees.\n\n| clone | head |\n| --- | --- |\n| FFC-Cloudflare-Automation | `20c506b` (#1124, ledger at **L192** — 192 rows) |\n| FFC-IN-freeforcharity.org | `88593b3` |\n| FFC-IN-ffcadmin.org | `0e1074a` (#867, delivery 60) |\n| FFC-IN-FFC_Single_Page_Template | `edfd3ff` |\n| FFC-IN-Footer_Only_Temp…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5228419086"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
