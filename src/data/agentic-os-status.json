@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-09T19:46:04Z",
+  "generated_at": "2026-08-09T22:30:15Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -7,6 +7,32 @@
     "FreeForCharity/FFC-IN-ffcadmin.org"
   ],
   "backlog_issues": [
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1084,
+      "title": "728 never runs in the merge group, so a red hooks suite can land on main — measured on #1018 + #1039",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-09T22:29:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1084",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-09T22:05:27Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1080,
@@ -19,18 +45,6 @@
         "security",
         "agentic-os",
         "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-09T19:06:16Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
       ]
     },
     {
@@ -374,20 +388,6 @@
       "labels": [
         "bug",
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1084,
-      "title": "728 never runs in the merge group, so a red hooks suite can land on main — measured on #1018 + #1039",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-07T21:21:14Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1084",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
       ]
     },
     {
@@ -1317,6 +1317,20 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1084,
+      "title": "728 never runs in the merge group, so a red hooks suite can land on main — measured on #1018 + #1039",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-09T22:29:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1084",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1080,
       "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
       "state": "open",
@@ -1506,20 +1520,6 @@
       "assignee": null,
       "updated_at": "2026-08-08T09:20:44Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1040",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1084,
-      "title": "728 never runs in the merge group, so a red hooks suite can land on main — measured on #1018 + #1039",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-07T21:21:14Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1084",
       "labels": [
         "bug",
         "agentic-os",
@@ -1969,20 +1969,6 @@
   "conductor_log": [
     {
       "author": "clarkemoyer",
-      "created_at": "2026-08-09T09:26:52Z",
-      "body": "## Cloud worker — landing run (3 open `agentic-os` PRs, no new work started)\n\nThree open `agentic-os` PRs met the landing threshold, so this run cleared blockers rather than starting new work. **All three are now 0 behind `main`, fully green, and thread-clean.**\n\n| PR | before | action | after |\n| --- | --- | --- | --- |\n| [#1134](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1134) | 0 behind, green | none needed — verified only | ready to promote |\n| [#1127](https://github.co…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5230801443"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-09T09:28:07Z",
-      "body": "### Follow-up: the one open item from the landing run above is now closed\n\nCopilot's re-review was still `in_progress` on both updated heads when I posted. Both have since completed, and I re-polled `reviewThreads` rather than inferring from the check conclusion:\n\n| PR | copilot re-review | review threads |\n| --- | --- | --- |\n| #1039 | `success` (completed 09:27:05Z) | **0** — none filed against the merge resolution |\n| #1127 | `success` (completed 09:25:53Z) | 1, the pre-existing one, still re…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5230805971"
-    },
-    {
-      "author": "clarkemoyer",
       "created_at": "2026-08-09T10:07:22Z",
       "body": "## Run 130 — START (2026-08-09, ~10:0xZ) · core 4985 / graphql 4987\n\nRun number derived from the #719 tail (`--paginate`, streaming `--jq`): newest START is **run 129** at `2026-08-09T07:05:11Z`, so this is **130**. `state\\CONDUCTOR.md` agrees, which is corroboration and not the source.\n\n**Bootstrap.** All five core clones fetched. `FFC-Cloudflare-Automation` `main` = `8774a1a` (#1132), in sync. `FFC-IN-ffcadmin.org` was sitting on `data/agentic-os-status-run129`, whose remote is **gone** — retu…",
       "truncated": true,
@@ -2036,6 +2022,20 @@
       "body": "## Run 133 — START (2026-08-09, ~19:0xZ) · core 4992 / graphql 4899\n\nWorkspace bootstrapped, all 5 core clones fetched + fast-forwarded to `main`.\n`FFC-Cloudflare-Automation` @ `83e0e54`, `FFC-IN-ffcadmin.org` @ `5cb06ed` (delivery 67).\n\nCarried in from run 132 (open threads):\n1. Nothing carried — both PRs landed and the feed is live.\n2. The four asks are ONE consolidated comment (`issuecomment-5232613899`) + phone push. Point at it; do not re-list.\n3. **Falsifiable prediction to test this run**…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5233358198"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-09T20:15:27Z",
+      "body": "## Run 133 — END (2026-08-09, 19:0x–21:0xZ) · core 4992 → 4982 / graphql 4899 → 4999 (hourly reset)\n\n**2 PRs merged (#1141 `5788d14`, #1142 `2200cdb`) + ffcadmin #879 (delivery 68, `5a4f901`, LIVE) /\n0 issues filed / 0 groomed / 2 ledger rows (L215, L216) / 0 gates approved (69th hold on 703) /\nboard audit exit 0, 0/0/0/0/0 / 7 orphan branches (named, unchanged) / no reply from Clarke.**\n\n### Gates — 1 real, held; 1 that was never a gate\n\n- **703 `Generate Sites List`, held for the 69th time.** …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5233638629"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-09T22:05:27Z",
+      "body": "## Run 134 — START (2026-08-09, ~22:0xZ) · core 4986 / graphql 4900\n\nBootstrap clean. All five core clones fetched and fast-forwarded to their origin default branch;\ntooling verified present (gh 2.96.0 authed `clarkemoyer`, az 2.81.0, m365 11.9.0, gcloud 552.0.0).\n\n| repo | head |\n| --- | --- |\n| FFC-Cloudflare-Automation | `2200cdb` |\n| FFC-IN-ffcadmin.org | `5a4f901` |\n| FFC-IN-freeforcharity.org | `88593b3` |\n| FFC-IN-FFC_Single_Page_Template | `edfd3ff` |\n| FFC-IN-Footer_Only_Template | `d16…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5234079411"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
