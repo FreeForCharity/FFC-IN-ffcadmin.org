@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10T01:51:15Z",
+  "generated_at": "2026-08-10T04:28:55Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -9,25 +9,11 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1146,
-      "title": "The #1080 remedy's second half is unenforced: 16 pwsh lanes take a dispatch input as a bare $env: argument with no fail-closed guard (L214)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-10T01:33:32Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1146",
-      "labels": [
-        "security",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 719,
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-10T01:05:52Z",
+      "updated_at": "2026-08-10T04:05:55Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
@@ -1331,20 +1317,6 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1146,
-      "title": "The #1080 remedy's second half is unenforced: 16 pwsh lanes take a dispatch input as a bare $env: argument with no fail-closed guard (L214)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-10T01:33:32Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1146",
-      "labels": [
-        "security",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1080,
       "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
       "state": "open",
@@ -1956,9 +1928,25 @@
       ]
     }
   ],
-  "ready_count": 45,
+  "ready_count": 44,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
   "in_flight_prs": [
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1149,
+      "title": "docs(ledger): L220/L221 — probes must reproduce the cause, and relational mutations need a post-condition",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-08-10T04:24:06Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1149",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        1146
+      ]
+    },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1039,
@@ -1993,22 +1981,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 8,
+  "open_prs_total": 9,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-09T13:05:05Z",
-      "body": "## Run 131 — START (2026-08-09, ~13:0xZ) · core 5000 / graphql 4898\n\n**Bootstrap clean.** All five core clones fetched + fast-forwarded, zero dirty files:\n\n| repo | branch | head |\n| --- | --- | --- |\n| FFC-Cloudflare-Automation | main | `1f5e4d0` |\n| FFC-IN-freeforcharity.org | main | `88593b3` |\n| FFC-IN-ffcadmin.org | main | `a3f7261` |\n| FFC-IN-FFC_Single_Page_Template | main | `edfd3ff` |\n| FFC-IN-Footer_Only_Template | main | `d163883` |\n\nHub `main` is still `1f5e4d0` — run 130's #1136 mer…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5231666908"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-09T13:47:04Z",
-      "body": "## Run 131 — END (2026-08-09, 13:0x–13:4xZ) · core 5000 → 4930 / graphql 4898 → 4850\n\n**2 PRs merged (#1137 `f808373` 13:17Z; #1138 `dab1c52` 13:45:24Z) · 1 delivery\nLIVE (ffcadmin #877, delivery 66) · 1 issue groomed (#983) · 2 ledger rows (L208, L209) · 0 issues\nfiled · 0 gates approved (67th hold on 703) · board 0/0/0, 2 cards placed by hand · Clarke NOT\npinged.**\n\n### Gates — 1 pending, held (step 2)\n\nOnly one waiting run org-wide: **703 Generate Sites List**, run `30800404614`, `github-prod…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5231844197"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-08-09T16:06:08Z",
@@ -2064,6 +2038,20 @@
       "body": "## Run 135 — START (2026-08-10, ~01:0xZ) · core 4985 / graphql 4880\n\n**Bootstrap clean.** All five core clones fetched and fast-forwarded to `main`; nothing broken, nothing recreated. Tooling verified present: `gh` 2.96.0 (authed `clarkemoyer`, scopes `admin:org, gist, project, repo, workflow, write:packages`), `az` 2.81.0, `m365` 11.9.0, `gcloud` 552.0.0, `git` 2.51.0. `jq` and `pwsh` remain absent on this host.\n\n| repo | HEAD |\n|---|---|\n| FFC-Cloudflare-Automation | `954b95d` |\n| FFC-IN-ffcad…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5234828906"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-10T01:59:44Z",
+      "body": "## Run 135 — END (2026-08-10, 01:0x–02:0xZ) · core 4985 → 4994 (hourly reset at 01:25Z) / graphql 4880 → 4824\n\n**2 PRs merged (#1145 `232dc54`, #1147 `d6e4dc9`) + ffcadmin #881 (delivery 70, `3b4ba28`, LIVE and byte-identical) / 1 issue filed (#1146) / 1 ledger row (L219) / 0 gates approved — 71st hold on 703 / board audit rc=0 / 7 orphan branches, named, unchanged / no Clarke reply.**\n\n### Gates — 71st hold on 703, and it is a real gate\n\n`30800404614` (`Generate Sites List`, held since 2026-08-…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5235085316"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-10T04:05:55Z",
+      "body": "## Run 136 — START (2026-08-10, ~04:0xZ) · core 4989 / graphql 4889\n\nConductor run 136. Workspace bootstrapped, all five core clones fetched and on `origin/main`\n(hub at `d6e4dc9`). Tooling re-derived rather than trusted: `gh` 2.96.0 (clarkemoyer, keyring),\n`az` 2.81.0, `m365` 11.9.0, `gcloud` 552.0.0 — all present.\n\nCarried into this run from #719's run-135 END:\n\n1. **#1147 landed** — merged `2026-08-10T01:49:40Z` as `d6e4dc9`. Open thread 1 closes with no action.\n2. **#1146 is no longer unclai…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5235738928"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
