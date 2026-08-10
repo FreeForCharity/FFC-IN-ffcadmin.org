@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-09T22:30:15Z",
+  "generated_at": "2026-08-10T01:51:15Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -9,14 +9,14 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1084,
-      "title": "728 never runs in the merge group, so a red hooks suite can land on main — measured on #1018 + #1039",
+      "number": 1146,
+      "title": "The #1080 remedy's second half is unenforced: 16 pwsh lanes take a dispatch input as a bare $env: argument with no fail-closed guard (L214)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-09T22:29:37Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1084",
+      "updated_at": "2026-08-10T01:33:32Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1146",
       "labels": [
-        "bug",
+        "security",
         "agentic-os",
         "agent-ready"
       ]
@@ -27,7 +27,7 @@
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-09T22:05:27Z",
+      "updated_at": "2026-08-10T01:05:52Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
@@ -39,10 +39,24 @@
       "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-09T19:11:45Z",
+      "updated_at": "2026-08-10T00:49:46Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
       "labels": [
         "security",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1084,
+      "title": "728 never runs in the merge group, so a red hooks suite can land on main — measured on #1018 + #1039",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-09T22:29:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1084",
+      "labels": [
+        "bug",
         "agentic-os",
         "agent-ready"
       ]
@@ -1317,14 +1331,14 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1084,
-      "title": "728 never runs in the merge group, so a red hooks suite can land on main — measured on #1018 + #1039",
+      "number": 1146,
+      "title": "The #1080 remedy's second half is unenforced: 16 pwsh lanes take a dispatch input as a bare $env: argument with no fail-closed guard (L214)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-09T22:29:37Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1084",
+      "updated_at": "2026-08-10T01:33:32Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1146",
       "labels": [
-        "bug",
+        "security",
         "agentic-os",
         "agent-ready"
       ]
@@ -1335,10 +1349,24 @@
       "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-08-09T19:11:45Z",
+      "updated_at": "2026-08-10T00:49:46Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
       "labels": [
         "security",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1084,
+      "title": "728 never runs in the merge group, so a red hooks suite can land on main — measured on #1018 + #1039",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-08-09T22:29:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1084",
+      "labels": [
+        "bug",
         "agentic-os",
         "agent-ready"
       ]
@@ -1928,7 +1956,7 @@
       ]
     }
   ],
-  "ready_count": 44,
+  "ready_count": 45,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
   "in_flight_prs": [
     {
@@ -1967,20 +1995,6 @@
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
   "open_prs_total": 8,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-09T10:07:22Z",
-      "body": "## Run 130 — START (2026-08-09, ~10:0xZ) · core 4985 / graphql 4987\n\nRun number derived from the #719 tail (`--paginate`, streaming `--jq`): newest START is **run 129** at `2026-08-09T07:05:11Z`, so this is **130**. `state\\CONDUCTOR.md` agrees, which is corroboration and not the source.\n\n**Bootstrap.** All five core clones fetched. `FFC-Cloudflare-Automation` `main` = `8774a1a` (#1132), in sync. `FFC-IN-ffcadmin.org` was sitting on `data/agentic-os-status-run129`, whose remote is **gone** — retu…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5230950590"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-08-09T10:34:01Z",
-      "body": "## Run 130 — END (2026-08-09, 10:0x–10:3xZ) · core 4985 → 4991 (hourly reset at 10:16:46Z) / graphql 4987 → 4864\n\n**2 PRs merged (#1134, #1136) · 1 issue filed (#1135) · 3 issues groomed (#1133, #1028, #986) · 1 ledger row (L205) · 0 gates approved — 66th hold on 703 · board audit exit 0, all five categories 0 · delivery 65 LIVE · Clarke not pinged.**\n\n---\n\n### 1. Gates — one pending, declined for the 66th time\n\n`30800404614` · **703. Generate Sites List** · `github-prod` (write, gated) · waitin…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5231050063"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-08-09T13:05:05Z",
@@ -2036,6 +2050,20 @@
       "body": "## Run 134 — START (2026-08-09, ~22:0xZ) · core 4986 / graphql 4900\n\nBootstrap clean. All five core clones fetched and fast-forwarded to their origin default branch;\ntooling verified present (gh 2.96.0 authed `clarkemoyer`, az 2.81.0, m365 11.9.0, gcloud 552.0.0).\n\n| repo | head |\n| --- | --- |\n| FFC-Cloudflare-Automation | `2200cdb` |\n| FFC-IN-ffcadmin.org | `5a4f901` |\n| FFC-IN-freeforcharity.org | `88593b3` |\n| FFC-IN-FFC_Single_Page_Template | `edfd3ff` |\n| FFC-IN-Footer_Only_Template | `d16…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5234079411"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-09T23:17:31Z",
+      "body": "## Run 134 — END (2026-08-09, 22:0x–23:1xZ) · core 4986 → 4992 (hourly reset) / graphql 4900 → 4288\n\n**2 PRs merged (#1143 `473bca0`, #1144 `954b95d`) + ffcadmin #880 (delivery 69, `2a57f2d`) / 0 issues\nfiled / 1 groomed (#1084) / 1 ledger row (L218) / 0 gates approved (70th hold on 703) / board audit\nexit 0 after fixing 2 cards / 7 orphan branches (named, unchanged) / no Clarke reply.**\n\n### Gates — 703 held for the 70th time\n\nRun `30800404614`, env **`github-prod`** — a write environment, so i…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5234359470"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-08-10T01:05:52Z",
+      "body": "## Run 135 — START (2026-08-10, ~01:0xZ) · core 4985 / graphql 4880\n\n**Bootstrap clean.** All five core clones fetched and fast-forwarded to `main`; nothing broken, nothing recreated. Tooling verified present: `gh` 2.96.0 (authed `clarkemoyer`, scopes `admin:org, gist, project, repo, workflow, write:packages`), `az` 2.81.0, `m365` 11.9.0, `gcloud` 552.0.0, `git` 2.51.0. `jq` and `pwsh` remain absent on this host.\n\n| repo | HEAD |\n|---|---|\n| FFC-Cloudflare-Automation | `954b95d` |\n| FFC-IN-ffcad…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5234828906"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
