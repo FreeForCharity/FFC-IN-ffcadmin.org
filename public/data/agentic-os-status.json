@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10T22:10:57Z",
+  "generated_at": "2026-08-10T22:42:36Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -1958,20 +1958,6 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1163,
-      "title": "docs(ledger): L229 — a crashed harness and a clean run look identical to a failure-grep",
-      "state": "open",
-      "draft": false,
-      "assignee": null,
-      "updated_at": "2026-08-10T22:06:55Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1163",
-      "labels": [
-        "agentic-os"
-      ],
-      "linked_agentic_issues": []
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1039,
       "title": "test(hooks): per-rule polarity + source-derived block-site coverage (#1027)",
       "state": "open",
@@ -2004,7 +1990,7 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 9,
+  "open_prs_total": 8,
   "conductor_log": [
     {
       "author": "clarkemoyer",
