@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'June 20, 2026'
+const LAST_UPDATED = 'July 26, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
@@ -104,9 +104,20 @@ export default function PrivacyPolicy() {
                 <li>Referring website addresses</li>
                 <li>Date and time of visit</li>
               </ul>
+              <p className="mb-4">
+                Consent controls whether this information can be{' '}
+                <em>kept in an analytics cookie or tied to an identifier</em>, not whether the visit
+                is recorded at all. If you are in the EEA, the UK, or Switzerland, no analytics or
+                advertising cookie is written and no such identifier is read until you accept.
+                Elsewhere, analytics storage is on by default and the banner switches it off. Your
+                own consent choice is saved in your browser either way, once you make one — in local
+                storage, and mirrored to a cookie — because a preference we cannot remember is one
+                we cannot honour.
+              </p>
               <p>
-                This information is collected only if you have provided consent through our cookie
-                consent banner.
+                Either way, a visit you have not consented to is still recorded — cookielessly, with
+                no identifier that could connect it to your other visits. We would rather state that
+                than claim nothing is collected, which would not be true.
               </p>
             </section>
 
@@ -118,7 +129,9 @@ export default function PrivacyPolicy() {
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>Operate, maintain, and improve our website</li>
                 <li>Understand how visitors use our site</li>
-                <li>Analyze site traffic and user behavior (with consent)</li>
+                <li>
+                  Analyze site traffic and user behavior (where analytics storage is permitted)
+                </li>
                 <li>Respond to support requests and communications</li>
                 <li>Detect, prevent, and address technical issues</li>
                 <li>Comply with legal obligations</li>
@@ -142,7 +155,11 @@ export default function PrivacyPolicy() {
                 </li>
                 <li>
                   <strong>Analytics Cookies:</strong> Help us understand how visitors interact with
-                  our website (Google Analytics, Microsoft Clarity). Requires consent.
+                  our website (Google Analytics, Microsoft Clarity). Consent is required before
+                  these are set if you are in the EEA, the UK, or Switzerland; elsewhere analytics
+                  storage is on by default and the banner switches it off. Declining always stops
+                  Microsoft Clarity outright, and reduces Google Analytics to a cookieless record
+                  that cannot be linked to your other visits.
                 </li>
                 <li>
                   <strong>Marketing Cookies:</strong> Would be used to track visitors across
@@ -166,10 +183,22 @@ export default function PrivacyPolicy() {
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
-                  <strong>Google Analytics:</strong> Web analytics service (only with consent)
+                  <strong>Google Analytics:</strong> Web analytics service. Runs on every visit;
+                  consent controls whether it may use cookies and identifiers, not whether it runs.
+                  This site reports to the same Google Analytics property as our sister site{' '}
+                  <a
+                    href="https://www.freeforcharity.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    freeforcharity.org
+                  </a>
+                  , so a visit that spans both sites is recorded as one journey.
                 </li>
                 <li>
-                  <strong>Microsoft Clarity:</strong> User behavior analytics (only with consent)
+                  <strong>Microsoft Clarity:</strong> User behavior analytics (only with consent —
+                  it does not run at all unless you accept analytics)
                 </li>
               </ul>
               <p>

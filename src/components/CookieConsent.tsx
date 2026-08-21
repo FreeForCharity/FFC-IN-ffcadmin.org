@@ -198,11 +198,31 @@ export default function CookieConsent() {
       // `arguments` object, and Google's consent handling reads that shape. A literal
       // array is NOT equivalent, and the difference is silent — consent would appear
       // to be sent while the tags stayed denied.
+      //
+      // INVARIANT: every category the bootstrap can leave in a non-granted
+      // state must appear here. A category set by the default but never
+      // updated keeps that default forever, so the visitor's choice silently
+      // does not apply to it.
+      //
+      // personalization_storage was exactly that bug, introduced when the
+      // region-scoped bootstrap arrived. It is denied inside the EEA/UK/CH and
+      // granted everywhere else, so a non-EEA visitor who declined everything
+      // still carried personalization_storage: granted — an opt-out the tags
+      // never saw. It tracks `marketing`, matching the mapping in
+      // FFC-IN-freeforcharity.org's updateGoogleConsent().
+      //
+      // functionality_storage and security_storage are deliberately absent:
+      // the bootstrap grants both unconditionally in BOTH blocks, and this
+      // banner has no toggle for them (its categories are necessary /
+      // analytics / marketing), so there is no choice to propagate. Add such a
+      // toggle and it must be added here too — consent-mode.test.js enforces
+      // this invariant so the next omission fails instead of shipping.
       window.gtag?.('consent', 'update', {
         ad_storage: prefs.marketing ? 'granted' : 'denied',
         ad_user_data: prefs.marketing ? 'granted' : 'denied',
         ad_personalization: prefs.marketing ? 'granted' : 'denied',
         analytics_storage: prefs.analytics ? 'granted' : 'denied',
+        personalization_storage: prefs.marketing ? 'granted' : 'denied',
       })
 
       window.dataLayer.push({
