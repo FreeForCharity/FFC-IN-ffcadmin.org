@@ -7,6 +7,7 @@ import CookieConsent from '@/components/CookieConsent'
 import BackToTop from '@/components/BackToTop'
 import SisterSiteBanner from '@/components/SisterSiteBanner'
 import { assetPath } from '@/lib/assetPath'
+import { CONSENT_MODE_BOOTSTRAP } from '@/lib/consent-mode'
 
 const SITE_URL = 'https://ffcadmin.org'
 
@@ -75,27 +76,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           happened — the site behaved as though consent were granted while telling
           the visitor it was being asked for.
 
-          Denied-by-default is also what the banner's own copy promises. wait_for_update
-          gives the stored-preference restore a window to grant before tags evaluate,
-          so a returning visitor who already accepted is not measured as a new denial.
+          The state itself is REGION-SCOPED rather than denied worldwide, and the
+          bootstrap now lives in @/lib/consent-mode so it stays identical to
+          FFC-IN-freeforcharity.org. Both sites report to one GA4 property
+          (386764754) as of GTM-WMZH965Q version 4, and one property fed by two
+          different consent policies fragments the very cross-site journeys the
+          consolidation exists to measure. See that module for the full rationale,
+          including why Microsoft Clarity is gated container-side instead of here.
+
+          wait_for_update gives the stored-preference restore a window to grant
+          before tags evaluate, so a returning visitor who already accepted is not
+          measured as a new denial.
         */}
         <script
           id="consent-mode-default"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('consent', 'default', {
-                'ad_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
-                'analytics_storage': 'denied',
-                'functionality_storage': 'granted',
-                'security_storage': 'granted',
-                'wait_for_update': 500
-              });
-            `,
-          }}
+          dangerouslySetInnerHTML={{ __html: CONSENT_MODE_BOOTSTRAP }}
         />
         <Script
           id="google-tag-manager"

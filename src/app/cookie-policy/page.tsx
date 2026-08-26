@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'June 20, 2026'
+const LAST_UPDATED = 'July 26, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
@@ -70,13 +70,59 @@ export default function CookiePolicy() {
 
             <section id="section-2" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">2. How We Use Cookies</h2>
-              <p className="mb-4">When you visit our website, we use cookies to:</p>
+              <p className="mb-4">When you visit our website, cookies may be used to:</p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
-                <li>Remember your cookie consent preferences</li>
-                <li>Understand how you use our website (with your consent)</li>
-                <li>Analyze website traffic and user behavior (with your consent)</li>
-                <li>Improve our website and user experience</li>
+                <li>
+                  Remember your cookie consent preferences —{' '}
+                  <strong>from the moment you make a choice</strong>, so we do not have to ask again
+                  and can apply it on later visits
+                </li>
+                <li>
+                  Understand how you use our website —{' '}
+                  <strong>only where analytics storage is permitted</strong>
+                </li>
+                <li>
+                  Analyze website traffic and user behavior —{' '}
+                  <strong>only where analytics storage is permitted</strong>
+                </li>
+                <li>
+                  Improve our website and user experience, using whatever the items above collect
+                </li>
               </ul>
+              <p className="mb-4">
+                <strong>Where consent is required.</strong> If you are in the European Economic
+                Area, the United Kingdom, or Switzerland, analytics and advertising storage stay
+                switched off until you accept — no analytics or advertising cookie is written and no
+                such identifier is read before then. Everywhere else, analytics storage is enabled
+                by default when you arrive, and declining in the banner switches it off.
+              </p>
+              <p className="mb-4">
+                This does not mean your device is untouched. Once you make a choice, the necessary
+                items in section 3.1 below are saved in your browser regardless of what you chose —
+                your consent preference (kept in local storage and also mirrored to a{' '}
+                <code>cookie-consent</code> cookie) and, if you dismiss it, a note that you closed
+                the sister-site banner. A preference we cannot remember is one we cannot honour.
+                They carry no identifier and are never sent to an analytics provider.
+              </p>
+              <p className="mb-4">
+                Declining does not make you invisible to us, and we would rather say so plainly than
+                imply otherwise: Google Analytics still receives a record of the visit, without
+                cookies and without any identifier that could link it to your other visits. We learn
+                that a page was viewed; we do not learn that it was you.
+              </p>
+              <p className="mb-4">
+                We share a single analytics property with our sister site,{' '}
+                <a
+                  href="https://www.freeforcharity.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  freeforcharity.org
+                </a>
+                , so that moving between the two is understood as one visit rather than two
+                unrelated ones. Your consent choice is asked and honoured separately on each site.
+              </p>
             </section>
 
             <section id="section-3" className="scroll-mt-20">
@@ -108,9 +154,12 @@ export default function CookiePolicy() {
                       <tbody>
                         <tr className="border-b">
                           <td className="py-2 pr-4 font-mono">cookie-consent</td>
-                          <td className="py-2 pr-4">Cookie</td>
-                          <td className="py-2 pr-4">Stores your cookie preferences</td>
-                          <td className="py-2">12 months</td>
+                          <td className="py-2 pr-4">Local storage + cookie</td>
+                          <td className="py-2 pr-4">
+                            Stores your cookie preferences. Written to both; the local-storage copy
+                            is the one we read back on your next visit.
+                          </td>
+                          <td className="py-2">Local storage: until cleared. Cookie: 12 months.</td>
                         </tr>
                         <tr className="border-b">
                           <td className="py-2 pr-4 font-mono">
@@ -131,7 +180,7 @@ export default function CookiePolicy() {
 
                 <div className="border-l-4 border-green-600 pl-4">
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    3.2 Analytics Cookies (Requires Consent)
+                    3.2 Analytics Cookies (Consent Required in the EEA, UK &amp; Switzerland)
                   </h3>
                   <p className="mb-4">
                     These cookies help us understand how visitors interact with our website by
@@ -288,9 +337,11 @@ export default function CookiePolicy() {
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">4.3 Opt-Out Links</h3>
               <p className="mb-4">
-                Declining analytics in the consent banner already stops both Google Analytics and
-                Microsoft Clarity from loading. For Google Analytics, you can also opt out
-                browser-wide:
+                Declining analytics in the consent banner stops Microsoft Clarity entirely — no
+                session recording takes place. Google Analytics behaves differently and we want to
+                be exact about it: declining stops it using cookies or reading any identifier, but
+                it still receives an anonymous, cookieless record of the visit. For Google
+                Analytics, you can also opt out browser-wide:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
