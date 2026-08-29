@@ -1,5 +1,6 @@
-# pnpm settings (this repo is a single package, not a workspace — pnpm reads
-# its configuration from this file since v10).
+# pnpm settings. Since v10 this file is also pnpm's configuration home; this
+# repo defines no `packages` list, so it stays a single-package project (the
+# repo root is the workspace root and its only package).
 #
 # Supply-chain hardening (FFC fleet standard):
 # - minimumReleaseAge: refuse to resolve package versions published less than
