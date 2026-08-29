@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'June 20, 2026'
+const LAST_UPDATED = 'August 29, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
@@ -191,41 +191,98 @@ export default function PrivacyPolicy() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Your Privacy Rights</h2>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                7.1 GDPR Rights (EU Residents)
+                7.1 Your Rights in the European Union, United Kingdom, and EEA (GDPR)
               </h3>
               <p className="mb-4">
-                If you are in the European Union, you have the following rights:
+                If you visit from the European Union, the United Kingdom, or the wider European
+                Economic Area, the EU General Data Protection Regulation (GDPR) or the UK GDPR
+                applies to our handling of your personal data, and this section supplements the rest
+                of this policy.
+              </p>
+              <p className="mb-4">
+                <strong>Legal bases.</strong> We process personal data only on these bases:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
-                <li>Right to access your personal data</li>
-                <li>Right to rectification of inaccurate data</li>
-                <li>Right to erasure ("right to be forgotten")</li>
-                <li>Right to restrict processing</li>
-                <li>Right to data portability</li>
-                <li>Right to object to processing</li>
-                <li>Right to withdraw consent at any time</li>
+                <li>
+                  <strong>Consent</strong> — analytics and marketing cookies are off until you opt
+                  in through the cookie consent banner. You can withdraw consent at any time via the
+                  Cookie Preferences link in the footer; this site then removes the tracking cookies
+                  it set and stops loading those scripts from your next page view.
+                </li>
+                <li>
+                  <strong>Legitimate interests</strong> — operating, securing, and improving this
+                  website (for example, essential cookies and server logs), balanced against your
+                  rights.
+                </li>
+                <li>
+                  <strong>Legal obligation</strong> — where processing is required to comply with
+                  applicable law.
+                </li>
               </ul>
+              <p className="mb-4">
+                <strong>Your rights.</strong> You have the right to: access the personal data we
+                hold about you; have inaccurate data rectified; have your data erased; restrict or
+                object to processing; receive your data in a portable format; and withdraw any
+                consent you have given, at any time, without affecting the lawfulness of processing
+                before withdrawal.
+              </p>
+              <p className="mb-4">
+                <strong>Exercising your rights and complaints.</strong> Contact us at{' '}
+                <a
+                  href="mailto:privacy@freeforcharity.org"
+                  className="text-blue-600 hover:underline"
+                >
+                  privacy@freeforcharity.org
+                </a>{' '}
+                to exercise any of these rights; we will respond within the time limits the GDPR
+                sets. You also have the right to lodge a complaint with your national data
+                protection supervisory authority (in the UK, the Information Commissioner's Office).
+              </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                7.2 CCPA/CPRA Rights (California Residents)
+                7.2 Your California Privacy Rights (CCPA/CPRA)
               </h3>
               <p className="mb-4">
-                If you are a California resident, you have the following rights:
+                If you are a California resident, the California Consumer Privacy Act, as amended by
+                the California Privacy Rights Act (CCPA/CPRA), gives you specific rights, and this
+                section supplements the rest of this policy.
               </p>
-              <ul className="list-disc pl-6 mb-4 space-y-2">
-                <li>Right to know what personal information is collected</li>
-                <li>Right to know if personal information is sold or shared and to whom</li>
-                <li>Right to opt-out of the sale or sharing of personal information</li>
-                <li>Right to delete personal information</li>
-                <li>Right to correct inaccurate personal information</li>
-                <li>Right to limit use of sensitive personal information</li>
-                <li>Right to non-discrimination for exercising your rights</li>
-              </ul>
-
               <p className="mb-4">
-                <strong>Do Not Sell or Share My Personal Information:</strong> We do not sell
-                personal information. When you decline analytics and marketing cookies, we do not
-                share your information with third-party analytics or advertising services.
+                <strong>We do not sell or share your personal information.</strong> Free For Charity
+                does not sell personal information, and does not share it for cross-context
+                behavioral advertising, as those terms are defined by California law — and has not
+                done so in the preceding 12 months. We do not knowingly collect or sell the personal
+                information of anyone under 16. We do not collect sensitive personal information
+                beyond what is necessary to provide this website and our services, and we do not use
+                it to infer characteristics about you.
+              </p>
+              <p className="mb-4">
+                <strong>Your rights.</strong> You have the right to: know what personal information
+                we collect, use, and disclose, and to access it; delete personal information we
+                collected from you; correct inaccurate personal information; opt out of any sale or
+                sharing of personal information (not applicable, since we do neither); limit the use
+                of sensitive personal information; and not be discriminated against for exercising
+                any of these rights.
+              </p>
+              <p className="mb-4">
+                <strong>Opt-out preference signals (Global Privacy Control / Do Not Track).</strong>{' '}
+                Tracking on this site is opt-in for every visitor, everywhere: analytics and
+                marketing cookies stay off until you accept them, and declining or withdrawing
+                consent keeps you — or returns you — to that untracked state. Because we also do not
+                sell or share personal information, every visitor already receives at least the
+                protection a Global Privacy Control or Do Not Track signal would request.
+              </p>
+              <p className="mb-4">
+                <strong>Exercising your rights.</strong> Submit a request to{' '}
+                <a
+                  href="mailto:privacy@freeforcharity.org"
+                  className="text-blue-600 hover:underline"
+                >
+                  privacy@freeforcharity.org
+                </a>
+                . We will verify your request using information associated with your interactions
+                with us, and you may use an authorized agent to submit a request on your behalf. We
+                will respond within the timeframes California law requires.
               </p>
             </section>
 

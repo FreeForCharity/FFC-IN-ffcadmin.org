@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'June 20, 2026'
+const LAST_UPDATED = 'August 29, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
@@ -19,7 +19,7 @@ const TOC = [
   { n: 2, label: 'How We Use Cookies' },
   { n: 3, label: 'Types of Cookies We Use' },
   { n: 4, label: 'How to Manage Cookies' },
-  { n: 5, label: 'Do Not Track Signals' },
+  { n: 5, label: 'Do Not Track and Global Privacy Control' },
   { n: 6, label: 'Updates to This Cookie Policy' },
   { n: 7, label: 'Contact Us' },
   { n: 8, label: 'More Information' },
@@ -313,12 +313,16 @@ export default function CookiePolicy() {
             </section>
 
             <section id="section-5" className="scroll-mt-20">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Do Not Track Signals</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                5. Do Not Track and Global Privacy Control
+              </h2>
               <p>
-                Some browsers have a "Do Not Track" feature that lets you tell websites that you do
-                not want to have your online activities tracked. At this time, we do not respond to
-                browser "Do Not Track" signals. However, you can control cookies through our cookie
-                consent banner.
+                This site does not need to react to these browser signals to honor their intent:
+                analytics and marketing cookies are off for every visitor until you opt in through
+                the consent banner, and we do not sell or share personal information as defined by
+                the CCPA/CPRA. Declining consent — or withdrawing it later, which removes the
+                cookies those scripts set on this site and stops them loading from your next page
+                view — keeps you in the untracked state those signals ask for.
               </p>
             </section>
 
