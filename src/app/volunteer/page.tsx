@@ -38,7 +38,7 @@ const benefits = [
   {
     title: 'Free Certifications',
     description:
-      'FFC covers the cost of industry certifications like MS-900 (Microsoft 365 Fundamentals) and GitHub Foundations for active volunteers.',
+      'FFC covers the cost of industry certifications like AB-900 (Microsoft 365 Copilot and Agent Administration Fundamentals) and GitHub Foundations for active volunteers.',
     icon: (
       <path
         strokeLinecap="round"
@@ -361,7 +361,7 @@ export default function VolunteerPage() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  MS-900 and GitHub Foundations certifications
+                  AB-900 and GitHub Foundations certifications
                 </li>
               </ul>
               <Link

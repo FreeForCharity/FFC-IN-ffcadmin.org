@@ -231,7 +231,7 @@ describe('Contributor Ladder Page', () => {
       render(<ContributorLadderPage />)
 
       // Check for mentions of certifications
-      expect(screen.getAllByText(/MS-900/i).length).toBeGreaterThan(0)
+      expect(screen.getAllByText(/AB-900/i).length).toBeGreaterThan(0)
       expect(screen.getAllByText(/GitHub Foundations/i).length).toBeGreaterThan(0)
       expect(screen.getAllByText(/Canva Design School/i).length).toBeGreaterThan(0)
     })

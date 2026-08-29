@@ -104,7 +104,7 @@ describe('Route Generation Tests', () => {
       if (fs.existsSync(trainingPlanPath)) {
         const content = fs.readFileSync(trainingPlanPath, 'utf-8')
         expect(content).toContain('Operation Digital Sovereignty')
-        expect(content).toContain('MS-900')
+        expect(content).toContain('AB-900')
         expect(content).toContain('GitHub Foundations')
       }
     })

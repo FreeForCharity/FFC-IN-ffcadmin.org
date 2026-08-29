@@ -281,14 +281,14 @@ export const TRAINING_MODULES: TrainingModule[] = [
         ],
       },
       T3: {
-        objective: 'Administer Microsoft 365 end to end and hold the MS-900 certification.',
+        objective: 'Administer Microsoft 365 end to end and hold the AB-900 certification.',
         directives: [
           {
             id: 'm-email-t3-1',
-            text: 'Complete the Microsoft 365 Fundamentals (MS-900) learning path and exam.',
+            text: 'Complete the Microsoft 365 Copilot and Agent Administration Fundamentals (AB-900) study guide and exam.',
             link: {
-              url: 'https://learn.microsoft.com/en-us/training/courses/ms-900t01',
-              label: 'MS-900 Learning Path',
+              url: 'https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-900',
+              label: 'AB-900 Study Guide',
             },
           },
           {
@@ -809,11 +809,14 @@ export const LEARNING_PATHS: LearningPath[] = [
     title: 'Microsoft 365 Administrator',
     persona: 'You manage Microsoft 365, GitHub, and infrastructure for all FFC charities.',
     intro:
-      'The administrator path: full depth across every module, backed by the MS-900 and GitHub Foundations certifications. This is the complete "Operation Digital Sovereignty" program.',
+      'The administrator path: full depth across every module, backed by the AB-900 and GitHub Foundations certifications. This is the complete "Operation Digital Sovereignty" program.',
     icon: '🛡️',
     gradient: 'from-teal-500 to-emerald-600',
     href: '/training-plan',
-    certifications: ['MS-900 (Microsoft 365 Fundamentals)', 'GitHub Foundations'],
+    certifications: [
+      'AB-900 (Microsoft 365 Copilot and Agent Administration Fundamentals)',
+      'GitHub Foundations',
+    ],
     prerequisiteGuides: [
       'github-account',
       'multi-factor-authentication',

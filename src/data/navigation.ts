@@ -100,7 +100,7 @@ export const volunteerMenu: NavMenu = {
         {
           label: 'Microsoft 365 Administrator',
           href: '/training-plan',
-          description: 'Run M365 email, identity & security — MS-900 + GitHub Foundations.',
+          description: 'Run M365 email, identity & security — AB-900 + GitHub Foundations.',
         },
         {
           label: 'Google Workspace Administrator',
