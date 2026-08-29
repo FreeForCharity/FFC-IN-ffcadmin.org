@@ -59,7 +59,7 @@ Located in `public/.nojekyll`, this empty file is automatically copied to the `o
 Located at `.github/workflows/deploy.yml`, this workflow:
 
 - Triggers on push to `main` branch
-- Uses Node.js 20 LTS and pnpm 9.0.0
+- Uses Node.js 24 and pnpm 10.34.5
 - Builds the site with `pnpm run build`
 - Uses `actions/upload-pages-artifact@v3` to create the GitHub Pages artifact
   - **Note**: Version 3 is used (not v4) because v4 excludes dotfiles by default

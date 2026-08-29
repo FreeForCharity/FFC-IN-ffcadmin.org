@@ -37,14 +37,14 @@ This repository contains the **Free For Charity (FFC) Admin Portal**, a Next.js 
 ```bash
 # Required versions (specified in package.json)
 Node.js >= 20.0.0
-pnpm 9.0.0
+pnpm 10.34.5
 ```
 
 ### Quick Start
 
 ```bash
 # Install pnpm globally if needed
-npm install -g pnpm@9.0.0
+corepack enable   # pnpm version is pinned by the packageManager field (pnpm@10.34.5)
 
 # Install dependencies (always use frozen lockfile)
 pnpm install --frozen-lockfile
@@ -100,7 +100,7 @@ pnpm test              # 4. Test last
 - **UI Library:** React 18.3
 - **Styling:** Tailwind CSS 3.4
 - **Language:** TypeScript 5 (strict mode enabled)
-- **Package Manager:** pnpm 9.0.0
+- **Package Manager:** pnpm 10.34.5
 - **Testing:** Jest 30 + React Testing Library
 - **Linting:** ESLint (next/core-web-vitals) + Prettier
 - **Analytics:** Google Tag Manager (GTM-WMZH965Q) with Microsoft Clarity
