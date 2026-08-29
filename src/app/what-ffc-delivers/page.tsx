@@ -14,10 +14,18 @@ export const metadata: Metadata = {
   },
 }
 
-const included = [
+const included: {
+  title: string
+  body: string
+  link?: { href: string; label: string }
+}[] = [
   {
     title: 'A professional website',
     body: 'A fast, secure, accessible static site built from one of our two open-source templates — a complete single-page site, or the FFC footer added to your existing design — and hosted free. Built and validated first on its free GitHub Pages URL, with AI-assisted editing so you can keep it current yourself.',
+    link: {
+      href: '/guides/website-templates-and-footer-standard',
+      label: 'Learn about the templates and the footer standard',
+    },
   },
   {
     title: 'A domain',
@@ -69,7 +77,20 @@ export default function WhatFfcDeliversPage() {
             {included.map((i) => (
               <div key={i.title} className="border-l-4 border-teal-300 pl-4">
                 <h3 className="font-bold text-gray-900">{i.title}</h3>
-                <p className="text-sm text-gray-700">{i.body}</p>
+                <p className="text-sm text-gray-700">
+                  {i.body}
+                  {i.link && (
+                    <>
+                      {' '}
+                      <Link
+                        href={i.link.href}
+                        className="text-teal-700 underline hover:text-teal-900"
+                      >
+                        {i.link.label}
+                      </Link>
+                    </>
+                  )}
+                </p>
               </div>
             ))}
           </div>
