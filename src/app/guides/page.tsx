@@ -27,6 +27,22 @@ const guideDisplayProps: Record<
     icon: ReactNode
   }
 > = {
+  '/guides/website-templates-and-footer-standard': {
+    longDescription:
+      'The orientation guide: the one-question rule for choosing between the Single Page and Footer-Only templates, the shared feature set, the item-by-item rationale for every FFC footer element (Candid link, donate pathway, policies, consent, attribution), the Level 1 / Level 2 passing bar, and how the standard is generated from application data and machine-enforced.',
+    version: 'v1',
+    date: 'August 2026',
+    tags: ['Templates', 'Footer Standard', 'Compliance', 'Candid'],
+    gradient: 'from-sky-500 to-blue-600',
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+      />
+    ),
+  },
   '/guides/build-charity-site-from-template': {
     longDescription:
       'Stand up a new charity website from the FFC single-page template with your AI agent — create the repo, customize the content, run the checks, open a pull request, deploy, and hand it off to the site owner.',

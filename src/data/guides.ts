@@ -12,6 +12,13 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    title: 'Website Templates & the Footer Standard',
+    shortTitle: 'Templates & Footer Standard',
+    description:
+      'When to use the Single Page vs Footer-Only template, why every FFC footer item exists, and how the standard is generated and enforced.',
+    href: '/guides/website-templates-and-footer-standard',
+  },
+  {
     title: 'Build a Charity Site from the Template',
     shortTitle: 'Build from Template',
     description:
