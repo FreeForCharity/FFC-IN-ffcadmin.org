@@ -258,7 +258,7 @@ export default function DayInTheLifeGlobalAdmin() {
               There is also always something new to learn. Microsoft 365 releases new features
               monthly. GitHub Actions evolves rapidly. Cloudflare adds new security capabilities.
               Staying current is part of the role — and FFC supports it by covering the cost of
-              certification exams like MS-900 and GitHub Foundations.
+              certification exams like AB-900 and GitHub Foundations.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">The Tools of the Trade</h2>
@@ -297,7 +297,7 @@ export default function DayInTheLifeGlobalAdmin() {
                 Global Admin Training Plan
               </Link>{' '}
               is a self-paced curriculum that covers everything you need to know — from creating
-              your first DNS record to passing the MS-900 certification exam. It is structured as
+              your first DNS record to passing the AB-900 certification exam. It is structured as
               interactive checklists so you can track your progress as you go.
             </p>
             <p className="text-gray-700 leading-relaxed">

@@ -173,7 +173,7 @@ export default function ContributorLadder() {
       requirements: [
         'Successfully complete Unpaid Intern requirements',
         'Lead development of at least 2 major features or initiatives',
-        'Obtain relevant certification (MS-900, GitHub Foundations, or Canva Design School)',
+        'Obtain relevant certification (AB-900, GitHub Foundations, or Canva Design School)',
         'Demonstrate ability to work independently on complex projects',
         'Support onboarding and mentoring of new contributors',
       ],
@@ -522,7 +522,7 @@ export default function ContributorLadder() {
             >
               wordpress-volunteer-core-competencies
             </Link>{' '}
-            — seven core competencies (LastPass, AI assistants, MS-900, MS-700, OneDrive, Planner,
+            — seven core competencies (LastPass, AI assistants, AB-900, MS-700, OneDrive, Planner,
             M365 Apps) covering 33–46 hours of self-study. Use it as supplemental reading when
             moving through the modern contributor ladder.
           </p>

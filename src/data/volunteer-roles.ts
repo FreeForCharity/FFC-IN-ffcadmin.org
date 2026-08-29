@@ -53,14 +53,14 @@ export const VOLUNTEER_ROLES: VolunteerRole[] = [
     title: 'Microsoft 365 Administrator Volunteer',
     tagline: 'Run email, identity, and security for charities',
     intro:
-      'Administer Microsoft 365 for nonprofits — mailboxes, identity, MFA, and security baselines — and earn the MS-900 certification along the way. This is the infrastructure backbone every charity relies on.',
+      'Administer Microsoft 365 for nonprofits — mailboxes, identity, MFA, and security baselines — and earn the AB-900 certification along the way. This is the infrastructure backbone every charity relies on.',
     keywords:
-      'Microsoft 365 admin volunteer, MS-900 volunteer, nonprofit IT volunteer, Entra ID volunteer, email administration volunteer',
+      'Microsoft 365 admin volunteer, AB-900 volunteer, nonprofit IT volunteer, Entra ID volunteer, email administration volunteer',
     responsibilities: [
       'Provision mailboxes, licenses, and security policies',
       'Enforce MFA and Conditional Access',
       'Manage compliance and data retention',
-      'Earn MS-900 (FFC sponsors the exam)',
+      'Earn AB-900 (FFC sponsors the exam)',
     ],
     startHref: '/training-plan',
     pathId: 'global-admin',

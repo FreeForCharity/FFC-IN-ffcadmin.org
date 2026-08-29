@@ -114,7 +114,7 @@ export const RECOGNITION_TIERS: RecognitionTier[] = [
     ],
     criteria: [
       'A solid body of merged work in commit history',
-      'Relevant certification (MS-900, GitHub Foundations, Canva, GA4, or Workspace)',
+      'Relevant certification (AB-900, GitHub Foundations, Canva, GA4, or Workspace)',
       'Board/maintainer certification',
     ],
     ladderAlignment: 'Paid Intern',

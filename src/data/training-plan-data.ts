@@ -41,7 +41,7 @@ export const TRAINING_CURRICULUM: TrainingPhase[] = [
     title: 'Phase 1: Operation Certified Foundation (Microsoft 365)',
     mission: 'Establish the secure identity perimeter and governance structure.',
     endState:
-      'Candidate holds Global Administrator access to the live tenant and possesses the MS-900 Certification.',
+      'Candidate holds Global Administrator access to the live tenant and possesses the AB-900 Certification.',
     blocks: [
       {
         id: 'block-a',
@@ -84,7 +84,7 @@ export const TRAINING_CURRICULUM: TrainingPhase[] = [
       },
       {
         id: 'block-b',
-        title: 'Block B: The MS-900 Theoretical Gate (Simulation)',
+        title: 'Block B: The AB-900 Theoretical Gate (Simulation)',
         badge: 'B',
         description:
           'Simulated Combat Evaluation. The candidate must prove competence in a controlled environment before receiving command codes.',
@@ -92,15 +92,15 @@ export const TRAINING_CURRICULUM: TrainingPhase[] = [
         directives: [
           {
             id: 'p1-b-1',
-            text: 'Study: Microsoft 365 Fundamentals (MS-900) Learning Path',
+            text: 'Study: Microsoft 365 Copilot and Agent Administration Fundamentals (AB-900) Study Guide',
             link: {
-              url: 'https://learn.microsoft.com/en-us/training/courses/ms-900t01',
+              url: 'https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-900',
               label: 'Microsoft Learn',
             },
           },
           {
             id: 'p1-b-2',
-            text: 'Validation Event: Complete official MS-900 Practice Tests.',
+            text: 'Validation Event: Complete official AB-900 Practice Tests.',
           },
           {
             id: 'p1-b-3',
@@ -161,10 +161,11 @@ export const TRAINING_CURRICULUM: TrainingPhase[] = [
       },
     ],
     finalGate: {
-      title: 'Phase 1 Final Gate: MS-900 Certification',
-      mission: 'Pass the official Microsoft 365 Fundamentals (MS-900) Exam.',
+      title: 'Phase 1 Final Gate: AB-900 Certification',
+      mission:
+        'Pass the official Microsoft 365 Copilot and Agent Administration Fundamentals (AB-900) Exam.',
       link: {
-        url: 'https://learn.microsoft.com/en-us/credentials/certifications/exams/ms-900/',
+        url: 'https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-900',
         label: 'Exam Details',
       },
       support: 'Voucher provided by unit command.',

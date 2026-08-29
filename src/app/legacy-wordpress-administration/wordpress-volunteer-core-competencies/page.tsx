@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: `https://ffcadmin.org/legacy-wordpress-administration/${SLUG}/`,
   },
   keywords:
-    'FFC volunteer proving ground, core competencies, LastPass, AI assistants, MS-900, MS-700, OneDrive, Planner, Microsoft 365',
+    'FFC volunteer proving ground, core competencies, LastPass, AI assistants, AB-900, MS-700, OneDrive, Planner, Microsoft 365',
 }
 
 interface Module {
@@ -65,9 +65,9 @@ const modules: Module[] = [
       'Update: Claude and GPT-class models are now the FFC primary recommendation; Copilot / Gemini remain acceptable. Prompt-engineering principles unchanged.',
   },
   {
-    id: 'ms-900',
+    id: 'ab-900',
     index: 3,
-    name: 'MS-900 — Microsoft 365 Fundamentals',
+    name: 'AB-900 — Microsoft 365 Copilot and Agent Administration Fundamentals',
     duration: '12-16 hours',
     purpose: 'Foundational knowledge of M365 cloud services, apps, security, and compliance.',
     keyConcept:
@@ -76,11 +76,11 @@ const modules: Module[] = [
       'Explain the primary difference between Microsoft 365 and Office 365 (subscription bundle vs. productivity-app suite).',
     resources: [
       'Microsoft Learn self-paced course',
-      'Official MS-900 study guide',
+      'Official AB-900 study guide',
       'Optional: certification exam funding available case-by-case',
     ],
     modernNotes:
-      'Required for the Global Admin training plan. See /training-plan for the full progression beyond MS-900.',
+      'Required for the Global Admin training plan. See /training-plan for the full progression beyond AB-900.',
   },
   {
     id: 'ms-700',

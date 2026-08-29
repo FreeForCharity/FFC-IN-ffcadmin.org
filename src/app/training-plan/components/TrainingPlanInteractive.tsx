@@ -106,8 +106,8 @@ export function TrainingPlanInteractive({ prerequisites }: { prerequisites: Reac
               <li className="text-gray-700">
                 <strong className="text-blue-600">Phase 1 (The Administrative Beachhead):</strong>{' '}
                 Focuses on Microsoft 365 identity, security, and governance. Candidates must pass a
-                simulated validation (MS-900 practice) before being granted live "Global Admin" keys
-                to the charity tenant. The phase concludes with the actual MS-900 certification.
+                simulated validation (AB-900 practice) before being granted live "Global Admin" keys
+                to the charity tenant. The phase concludes with the actual AB-900 certification.
               </li>
               <li className="text-gray-700">
                 <strong className="text-blue-600">Phase 2 (The Code Supremacy Campaign):</strong>{' '}
@@ -120,7 +120,7 @@ export function TrainingPlanInteractive({ prerequisites }: { prerequisites: Reac
 
             <div className="bg-green-50 border-l-4 border-green-600 p-4 rounded">
               <p className="text-green-900">
-                <strong>Logistics Note:</strong> Test vouchers for both MS-900 and GitHub
+                <strong>Logistics Note:</strong> Test vouchers for both AB-900 and GitHub
                 Foundations are fully funded at nonprofit/student rates.
               </p>
             </div>
@@ -334,7 +334,7 @@ export function TrainingPlanInteractive({ prerequisites }: { prerequisites: Reac
               <tbody className="divide-y divide-gray-200 bg-white">
                 <tr>
                   <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-300">
-                    Microsoft 365 Fundamentals (MS-900)
+                    Microsoft 365 Copilot and Agent Administration Fundamentals (AB-900)
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-700 border-r border-gray-300">
                     $99.00

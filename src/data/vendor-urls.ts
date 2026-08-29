@@ -48,7 +48,7 @@ export const VENDOR_URLS = {
   microsoftLearnHome: {
     url: 'https://learn.microsoft.com/',
     lastVerified: '2026-05-24',
-    description: 'Microsoft Learn — MS-900 / MS-700 study material.',
+    description: 'Microsoft Learn — AB-900 / MS-700 study material.',
   },
   interserverSales: {
     url: 'mailto:sales@interserver.net',

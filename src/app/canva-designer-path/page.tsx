@@ -162,7 +162,7 @@ export default function CanvaDesignerPath() {
                       Canva Pro for Nonprofits + Canva for Work courses
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-700">
-                      MS-900 + GitHub Foundations certifications
+                      AB-900 + GitHub Foundations certifications
                     </td>
                   </tr>
                   <tr className="bg-gray-50">

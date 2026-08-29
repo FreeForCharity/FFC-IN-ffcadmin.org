@@ -5,7 +5,7 @@ import { TrainingPlanInteractive } from './components/TrainingPlanInteractive'
 export const metadata: Metadata = {
   title: 'Microsoft 365 Administrator Training Plan',
   description:
-    'Operation Digital Sovereignty — the full Microsoft 365 Administrator + GitHub Owner training plan, backed by MS-900 and GitHub Foundations.',
+    'Operation Digital Sovereignty — the full Microsoft 365 Administrator + GitHub Owner training plan, backed by AB-900 and GitHub Foundations.',
   alternates: { canonical: 'https://ffcadmin.org/training-plan/' },
 }
 

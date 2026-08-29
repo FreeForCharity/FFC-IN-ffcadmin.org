@@ -327,7 +327,7 @@ export const CE_BODIES: CeBody[] = [
     slug: 'microsoft',
     name: 'Microsoft',
     fullName: 'Microsoft Certifications',
-    certs: ['MS-900', 'AZ-900', 'and role-based certs'],
+    certs: ['AB-900', 'AZ-900', 'and role-based certs'],
     unit: 'n/a',
     unitPlural: 'n/a',
     cycleYears: 1,
