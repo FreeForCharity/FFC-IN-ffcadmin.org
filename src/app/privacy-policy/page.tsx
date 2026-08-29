@@ -206,8 +206,8 @@ export default function PrivacyPolicy() {
                 <li>
                   <strong>Consent</strong> — analytics and marketing cookies are off until you opt
                   in through the cookie consent banner. You can withdraw consent at any time via the
-                  Cookie Preferences link in the footer; this site then stops those scripts and
-                  removes the tracking cookies it set.
+                  Cookie Preferences link in the footer; this site then removes the tracking cookies
+                  it set and stops loading those scripts from your next page view.
                 </li>
                 <li>
                   <strong>Legitimate interests</strong> — operating, securing, and improving this
