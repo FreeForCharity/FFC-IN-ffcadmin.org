@@ -205,9 +205,9 @@ export default function PrivacyPolicy() {
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
                   <strong>Consent</strong> — analytics and marketing cookies are off until you opt
-                  in through the cookie consent banner. You can withdraw consent at any time via
-                  Cookie Preferences, and withdrawal deletes the associated tracking cookies from
-                  your browser.
+                  in through the cookie consent banner. You can withdraw consent at any time via the
+                  Cookie Preferences link in the footer; this site then stops those scripts and
+                  removes the tracking cookies it set.
                 </li>
                 <li>
                   <strong>Legitimate interests</strong> — operating, securing, and improving this
