@@ -20,7 +20,7 @@ Runs automated tests and build verification on all pull requests and pushes to m
 **Build, Test, and Verify Job:**
 
 1. Checks out the code
-2. Installs pnpm 9.0.0
+2. Installs pnpm (version from the packageManager field, currently 10.34.5)
 3. Sets up Node.js 20 (LTS) with pnpm cache enabled
 4. Installs dependencies with `pnpm install --frozen-lockfile`
 5. Checks code formatting with `pnpm run format:check` (Prettier validation)
@@ -106,7 +106,7 @@ This ensures code is never deployed without passing all quality and security che
 
 1. Checks out the code
 2. Sets up Node.js 20 (LTS)
-3. Installs pnpm 9.0.0
+3. Installs pnpm (version from the packageManager field, currently 10.34.5)
 4. Installs dependencies with `pnpm install --frozen-lockfile`
 5. Runs tests with `pnpm test` (validates build output and configuration)
 6. Builds the site with `pnpm run build` (creates `out/` directory)

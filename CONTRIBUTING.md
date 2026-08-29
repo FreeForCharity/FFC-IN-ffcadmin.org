@@ -21,7 +21,7 @@ git clone https://github.com/FreeForCharity/ffcadmin.org.git
 cd ffcadmin.org
 
 # 2. Install pnpm (if not already installed)
-npm install -g pnpm@9.0.0
+corepack enable   # pnpm version is pinned by the packageManager field (pnpm@10.34.5)
 
 # 3. Install dependencies
 pnpm install --frozen-lockfile
