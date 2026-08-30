@@ -189,8 +189,9 @@ export default function PrivacyPolicy() {
                 </li>
                 <li>
                   <strong>Microsoft Clarity:</strong> User behavior analytics, delivered through our
-                  Google Tag Manager container and governed by the analytics consent category.
-                  Declining or withdrawing analytics consent turns it off and deletes its cookies.
+                  Google Tag Manager container, which receives the analytics consent state you
+                  choose. Declining or withdrawing analytics consent deletes the cookies it set on
+                  this site.
                 </li>
               </ul>
               <p>
@@ -226,14 +227,14 @@ export default function PrivacyPolicy() {
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
                   <strong>Consent</strong> — when you visit from the EEA, the United Kingdom, or
-                  Switzerland, Google's tags set no cookies and read no identifiers until you opt in
-                  through the cookie consent banner; until then your visit is counted only in an
-                  aggregate, cookie-free way that cannot be tied back to you. You can withdraw
-                  consent at any time via the Manage Cookie Preferences link in the footer; this
-                  site then deletes the tracking cookies it set and Google's tags return to that
-                  cookie-free state. Session analytics (Microsoft Clarity) follows the same
-                  analytics consent choice through our Google Tag Manager container and its cookies
-                  are deleted on withdrawal.
+                  Switzerland, Google's tags set no cookies and read no cookie-based identifiers
+                  until you opt in through the cookie consent banner; until then your visit is
+                  counted only in an aggregate, cookie-free way that cannot be tied back to you. You
+                  can withdraw consent at any time via the Manage Cookie Preferences link in the
+                  footer; this site then deletes the tracking cookies it set and Google's tags
+                  return to that cookie-free state. Session analytics (Microsoft Clarity) is
+                  delivered through our Google Tag Manager container, which receives the same
+                  analytics consent choice, and its cookies are deleted on withdrawal.
                 </li>
                 <li>
                   <strong>Legitimate interests</strong> — operating, securing, and improving this

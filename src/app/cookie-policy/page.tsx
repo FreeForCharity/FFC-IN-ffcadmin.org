@@ -146,10 +146,10 @@ export default function CookiePolicy() {
                       We use Google Consent Mode. Which default applies is determined by Google from
                       your IP address at the time of your visit (IP geolocation is approximate). If
                       you are in the European Economic Area, the United Kingdom, or Switzerland, our
-                      analytics sets <strong>no cookies and collects no identifiers</strong> until
-                      you accept. It still counts your visit in an aggregate, cookie-free way so we
-                      know how many people used the site — that measurement cannot be tied back to
-                      you or to your next visit.
+                      analytics sets <strong>no cookies and no cookie-based identifiers</strong>{' '}
+                      until you accept. It still counts your visit in an aggregate, cookie-free way
+                      so we know how many people used the site — that measurement cannot be tied
+                      back to you or to your next visit.
                     </p>
                     <p className="text-sm text-gray-600 mb-2">
                       Everywhere else, including the United States, analytics cookies are set from
@@ -158,10 +158,12 @@ export default function CookiePolicy() {
                       when you do.
                     </p>
                     <p className="text-sm text-gray-600">
-                      Both Google Analytics and Microsoft Clarity are delivered through our Google
-                      Tag Manager container and follow your analytics choice: declining — or
-                      withdrawing later via the footer link — turns cookie-based analytics off and
-                      deletes the cookies these services set.
+                      Google Analytics loads via our Google Tag Manager container (and, where
+                      configured, a direct Google Analytics tag); Microsoft Clarity is delivered
+                      through the same container, which receives the analytics consent state you
+                      choose. Declining — or withdrawing later via the footer link — turns
+                      cookie-based Google measurement off and deletes the cookies these services set
+                      on this site.
                     </p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg mb-4">
@@ -316,8 +318,10 @@ export default function CookiePolicy() {
               <p className="mb-4">
                 Declining analytics in the consent banner — or withdrawing consent later via the
                 Manage Cookie Preferences link in the footer — deletes the analytics cookies this
-                site set, returns Google Analytics to aggregate, cookie-free measurement, and turns
-                off Microsoft Clarity. For Google Analytics, you can also opt out browser-wide:
+                site set (including Microsoft Clarity's) and returns Google Analytics to aggregate,
+                cookie-free measurement; Microsoft Clarity's tag is managed in our Google Tag
+                Manager container, which receives your declined consent state. For Google Analytics,
+                you can also opt out browser-wide:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
