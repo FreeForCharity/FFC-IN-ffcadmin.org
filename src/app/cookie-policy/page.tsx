@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'August 29, 2026'
+const LAST_UPDATED = 'August 30, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
@@ -73,8 +73,8 @@ export default function CookiePolicy() {
               <p className="mb-4">When you visit our website, we use cookies to:</p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>Remember your cookie consent preferences</li>
-                <li>Understand how you use our website (with your consent)</li>
-                <li>Analyze website traffic and user behavior (with your consent)</li>
+                <li>Understand how you use our website (subject to your cookie choices)</li>
+                <li>Analyze website traffic and user behavior (subject to your cookie choices)</li>
                 <li>Improve our website and user experience</li>
               </ul>
             </section>
@@ -131,13 +131,41 @@ export default function CookiePolicy() {
 
                 <div className="border-l-4 border-green-600 pl-4">
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    3.2 Analytics Cookies (Requires Consent)
+                    3.2 Analytics Cookies (Consent-Governed)
                   </h3>
                   <p className="mb-4">
                     These cookies help us understand how visitors interact with our website by
                     collecting and reporting information anonymously. We use this information to
                     improve our website and user experience.
                   </p>
+                  <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                    <p className="text-sm mb-2">
+                      <strong>When we ask permission first</strong>
+                    </p>
+                    <p className="text-sm text-gray-600 mb-2">
+                      We use Google Consent Mode. Which default applies is determined by Google from
+                      your IP address at the time of your visit (IP geolocation is approximate). If
+                      you are in the European Economic Area, the United Kingdom, or Switzerland, our
+                      analytics sets <strong>no cookies and no cookie-based identifiers</strong>{' '}
+                      until you accept. It still counts your visit in an aggregate, cookie-free way
+                      so we know how many people used the site — that measurement cannot be tied
+                      back to you or to your next visit.
+                    </p>
+                    <p className="text-sm text-gray-600 mb-2">
+                      Everywhere else, including the United States, analytics cookies are set from
+                      your first visit. You can turn them off at any time using the Manage Cookie
+                      Preferences link in our footer, and we will delete the cookies listed below
+                      when you do.
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Google Analytics loads via our Google Tag Manager container (and, where
+                      configured, a direct Google Analytics tag); Microsoft Clarity is delivered
+                      through the same container, which receives the analytics consent state you
+                      choose. Declining — or withdrawing later via the footer link — turns
+                      cookie-based Google measurement off and deletes the cookies these services set
+                      on this site.
+                    </p>
+                  </div>
                   <div className="bg-gray-50 p-4 rounded-lg mb-4">
                     <h4 className="font-semibold mb-2">Google Analytics</h4>
                     <p className="text-sm mb-2">
@@ -288,9 +316,12 @@ export default function CookiePolicy() {
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">4.3 Opt-Out Links</h3>
               <p className="mb-4">
-                Declining analytics in the consent banner already stops both Google Analytics and
-                Microsoft Clarity from loading. For Google Analytics, you can also opt out
-                browser-wide:
+                Declining analytics in the consent banner — or withdrawing consent later via the
+                Manage Cookie Preferences link in the footer — deletes the analytics cookies this
+                site set (including Microsoft Clarity's) and returns Google Analytics to aggregate,
+                cookie-free measurement; Microsoft Clarity's tag is managed in our Google Tag
+                Manager container, which receives your declined consent state. For Google Analytics,
+                you can also opt out browser-wide:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
@@ -317,12 +348,13 @@ export default function CookiePolicy() {
                 5. Do Not Track and Global Privacy Control
               </h2>
               <p>
-                This site does not need to react to these browser signals to honor their intent:
-                analytics and marketing cookies are off for every visitor until you opt in through
-                the consent banner, and we do not sell or share personal information as defined by
-                the CCPA/CPRA. Declining consent — or withdrawing it later, which removes the
-                cookies those scripts set on this site and stops them loading from your next page
-                view — keeps you in the untracked state those signals ask for.
+                We do not sell or share personal information as those terms are defined by the
+                CCPA/CPRA, so there is nothing for a Global Privacy Control or Do Not Track signal
+                to opt out of, and this site does not read those browser signals. Note that
+                analytics cookies are set automatically for visitors outside the European Economic
+                Area, the United Kingdom, and Switzerland (see Section 3.2); any visitor, anywhere,
+                can turn them off at any time via the Manage Cookie Preferences link in the footer,
+                and we delete the cookies when you do.
               </p>
             </section>
 

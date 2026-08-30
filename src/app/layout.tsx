@@ -61,12 +61,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         {/*
-          Consent Mode v2 defaults. This MUST render before the GTM snippet below,
-          and it is a plain inline <script> rather than next/script on purpose:
-          next/script "beforeInteractive" is still injected by the runtime, whereas
-          a raw inline tag is executed by the parser at exactly this position. GTM
-          reads the consent state present when it initialises, so "before" here is a
-          correctness requirement, not a preference.
+          Google Consent Mode v2 regional defaults. This MUST render before the GTM
+          snippet below, and it is a plain inline <script> rather than next/script
+          on purpose: next/script "beforeInteractive" is still injected by the
+          runtime, whereas a raw inline tag is executed by the parser at exactly
+          this position. GTM reads the consent state present when it initialises,
+          so "before" here is a correctness requirement, not a preference.
 
           Without this block GTM loaded with no consent state at all, which Google
           treats as unrestricted: every tag in the container fired on first paint,
@@ -75,9 +75,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           happened — the site behaved as though consent were granted while telling
           the visitor it was being asked for.
 
-          Denied-by-default is also what the banner's own copy promises. wait_for_update
-          gives the stored-preference restore a window to grant before tags evaluate,
-          so a returning visitor who already accepted is not measured as a new denial.
+          Two `consent default` calls, in Google's documented order: a region-scoped
+          DENIAL for the regions where Google's EU User Consent Policy requires
+          opt-in consent (the 27 EU member states, the non-EU EEA states IS/LI/NO,
+          the UK, and Switzerland), then an unscoped GRANT for everyone else.
+          Region-specific settings take precedence over the unscoped one, so
+          EEA/UK/CH visitors are denied-by-default — Google's tags load but send
+          only cookieless pings until the visitor accepts — while every other
+          visitor is granted-by-default and measured with cookies from the first
+          pageview. Google determines which default applies from the visitor's IP
+          address at the time of the visit.
+
+          wait_for_update appears on BOTH calls: it gives the stored-preference
+          restore a window to apply a returning visitor's choice before tags
+          evaluate, so a returning EEA visitor who already accepted is not
+          measured as a new denial — and, on the grant call, so a returning
+          visitor elsewhere who already DECLINED is not measured under the
+          granted default before their stored denial is restored.
+          url_passthrough keeps click ids flowing through navigation while cookies
+          are denied, and ads_data_redaction strips ad identifiers from tag
+          requests while ad_storage is denied — both are no-ops once consent is
+          granted, so they cost nothing outside the EEA.
         */}
         <script
           id="consent-mode-default"
@@ -91,9 +109,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'ad_personalization': 'denied',
                 'analytics_storage': 'denied',
                 'functionality_storage': 'granted',
+                'personalization_storage': 'denied',
+                'security_storage': 'granted',
+                'wait_for_update': 500,
+                'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH']
+              });
+              gtag('consent', 'default', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted',
+                'functionality_storage': 'granted',
+                'personalization_storage': 'granted',
                 'security_storage': 'granted',
                 'wait_for_update': 500
               });
+              gtag('set', 'url_passthrough', true);
+              gtag('set', 'ads_data_redaction', true);
             `,
           }}
         />
