@@ -1,54 +1,55 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useMemo, useSyncExternalStore } from 'react'
+import { createLocalStorageStore } from '@/lib/localStorageStore'
 
 const STORAGE_KEY = 'ffc_training_progress'
 
-export function useTrainingProgress(totalItems: number) {
-  // Use a Set for O(1) lookups
-  const [completedItems, setCompletedItems] = useState<Set<string>>(new Set())
-  const [isLoaded, setIsLoaded] = useState(false)
+const store = createLocalStorageStore(STORAGE_KEY)
 
-  // Load from localStorage on mount
-  useEffect(() => {
+const hydratedSnapshot = () => true
+const serverHydratedSnapshot = () => false
+
+function save(items: Set<string>) {
+  store.write(JSON.stringify(Array.from(items)))
+}
+
+export function useTrainingProgress(totalItems: number) {
+  // Raw string snapshot from localStorage; parsed below. Server/hydration
+  // renders see null, so the exported HTML and first client render agree.
+  const raw = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot)
+
+  // Use a Set for O(1) lookups
+  const completedItems = useMemo(() => {
+    if (!raw) return new Set<string>()
     try {
-      const stored = localStorage.getItem(STORAGE_KEY)
-      if (stored) {
-        setCompletedItems(new Set(JSON.parse(stored)))
-      }
+      const parsed: unknown = JSON.parse(raw)
+      return new Set<string>(
+        Array.isArray(parsed) ? parsed.filter((v) => typeof v === 'string') : []
+      )
     } catch (error) {
       console.error('Failed to load training progress:', error)
-    } finally {
-      setIsLoaded(true)
+      return new Set<string>()
     }
-  }, [])
+  }, [raw])
 
-  // Save to localStorage whenever state changes
-  useEffect(() => {
-    if (isLoaded) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(completedItems)))
-      } catch (error) {
-        console.error('Failed to save training progress:', error)
-      }
-    }
-  }, [completedItems, isLoaded])
+  // False during SSR/hydration, true once the client store is live — same
+  // contract the old isLoaded state provided, without a setState-in-effect.
+  const isLoaded = useSyncExternalStore(store.subscribe, hydratedSnapshot, serverHydratedSnapshot)
 
   const toggleItem = (id: string) => {
-    setCompletedItems((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) {
-        next.delete(id)
-      } else {
-        next.add(id)
-      }
-      return next
-    })
+    const next = new Set(completedItems)
+    if (next.has(id)) {
+      next.delete(id)
+    } else {
+      next.add(id)
+    }
+    save(next)
   }
 
   const resetProgress = () => {
     if (confirm('Are you sure you want to reset all progress?')) {
-      setCompletedItems(new Set())
+      save(new Set())
     }
   }
 

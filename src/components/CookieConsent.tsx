@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import { createLocalStorageStore } from '@/lib/localStorageStore'
 
 // Environment variables for tracking IDs (replace with actual values)
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
@@ -70,66 +71,266 @@ declare global {
   }
 }
 
-export default function CookieConsent() {
-  const [showBanner, setShowBanner] = useState(false)
-  const [showPreferences, setShowPreferences] = useState(false)
-  const [preferences, setPreferences] = useState<ConsentPreferences>({
-    necessary: true, // Always true, cannot be changed
-    analytics: false,
-    marketing: false,
+// Stored consent lives in localStorage under this key, exposed to React through
+// a useSyncExternalStore-backed store rather than a mount effect: the effect
+// pattern (read localStorage, then setState) trips react-hooks 7.1's
+// set-state-in-effect rule, and this store is the React-documented replacement.
+// The banner's visibility is DERIVED from the stored value instead of held in
+// state: no valid stored consent (after hydration) means the banner shows.
+const consentStore = createLocalStorageStore('cookie-consent')
+
+const hydratedSnapshot = () => true
+const serverHydratedSnapshot = () => false
+
+/** Parse and validate raw stored consent; null means "no usable choice stored". */
+function parseStoredConsent(raw: string | null): ConsentPreferences | null {
+  if (!raw) return null
+  try {
+    const parsed: unknown = JSON.parse(raw)
+    return isConsentPreferences(parsed) ? parsed : null
+  } catch {
+    return null
+  }
+}
+
+const DEFAULT_PREFERENCES: ConsentPreferences = {
+  necessary: true, // Always true, cannot be changed
+  analytics: false,
+  marketing: false,
+}
+
+// The consent side-effect helpers live at module scope: they mutate browser
+// globals (document.cookie, window.dataLayer), which the react-hooks 7.1
+// immutability rules reject inside a component body — correctly, since nothing
+// about them depends on render state. They receive preferences as arguments.
+
+const applyConsent = (prefs: ConsentPreferences, previousPrefs?: ConsentPreferences) => {
+  // Set a cookie to indicate consent status with Secure flag (only on HTTPS)
+  const cookieValue = JSON.stringify(prefs)
+  const secureFlag =
+    typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
+  document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax${secureFlag}`
+
+  // Check if consent was withdrawn and delete cookies if needed
+  if (previousPrefs) {
+    if (
+      (previousPrefs.analytics && !prefs.analytics) ||
+      (previousPrefs.marketing && !prefs.marketing)
+    ) {
+      deleteAnalyticsCookies()
+    }
+  }
+
+  // Push consent update to GTM dataLayer
+  if (typeof window !== 'undefined') {
+    window.dataLayer = window.dataLayer || []
+
+    // Consent Mode update. This is what actually releases the tags held by the
+    // denied-by-default state set in layout.tsx. The custom consent_update event
+    // below is kept because container-side triggers may already depend on it, but
+    // it is NOT a substitute: a custom event only does something if a tag in the
+    // container listens for it, whereas this is read by Google's tags directly.
+    // Relying on the custom event alone meant consent was enforced only as long as
+    // container config happened to agree with the banner — invisible from the repo,
+    // and silently lost on any container edit.
+    //
+    // Called through window.gtag rather than pushed as an array: gtag pushes the
+    // `arguments` object, and Google's consent handling reads that shape. A literal
+    // array is NOT equivalent, and the difference is silent — consent would appear
+    // to be sent while the tags stayed denied.
+    window.gtag?.('consent', 'update', {
+      ad_storage: prefs.marketing ? 'granted' : 'denied',
+      ad_user_data: prefs.marketing ? 'granted' : 'denied',
+      ad_personalization: prefs.marketing ? 'granted' : 'denied',
+      analytics_storage: prefs.analytics ? 'granted' : 'denied',
+    })
+
+    window.dataLayer.push({
+      event: 'consent_update',
+      analytics_consent: prefs.analytics ? 'granted' : 'denied',
+      marketing_consent: prefs.marketing ? 'granted' : 'denied',
+    })
+  }
+
+  // Load scripts based on consent independently
+  if (prefs.analytics) {
+    loadGoogleAnalytics()
+    // Microsoft Clarity is now managed via Google Tag Manager
+    // No direct Clarity initialization needed
+  }
+  // Marketing consent currently loads no third-party tags (Meta Pixel removed, #189).
+}
+
+const loadGoogleAnalytics = () => {
+  if (!isAnalyticsProvisioned(GA_MEASUREMENT_ID)) {
+    // Nothing to load. Deliberately silent in production rather than throwing:
+    // an unprovisioned site should degrade to no analytics, not to a broken page.
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(
+        `[CookieConsent] NEXT_PUBLIC_GA_MEASUREMENT_ID is missing or not a real measurement ID (got "${GA_MEASUREMENT_ID}"). Skipping Google Analytics.`
+      )
+    }
+    return
+  }
+
+  if (
+    typeof window !== 'undefined' &&
+    !document.querySelector('script[src*="googletagmanager.com/gtag"]')
+  ) {
+    const gaScript = document.createElement('script')
+    gaScript.async = true
+    gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
+    document.head.appendChild(gaScript)
+
+    const gaConfigScript = document.createElement('script')
+    const secureFlag =
+      typeof window !== 'undefined' && window.location.protocol === 'https:' ? ';Secure' : ''
+    gaConfigScript.textContent = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '${GA_MEASUREMENT_ID}', {
+        'anonymize_ip': true,
+        'cookie_flags': 'SameSite=Lax${secureFlag}'
+      });
+    `
+    document.head.appendChild(gaConfigScript)
+  }
+}
+
+const deleteAnalyticsCookies = () => {
+  // List of static cookie names to delete
+  const cookiesToDelete = ['_ga', '_gid', '_fbp', 'fr', '_clck', '_clsk']
+
+  // Delete static cookies
+  cookiesToDelete.forEach((name) => {
+    // Delete for current domain
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+    // Also try to delete with domain specification
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
   })
-  const [savedPreferencesBackup, setSavedPreferencesBackup] = useState(preferences)
+
+  // Dynamically delete all cookies matching _ga_* (e.g., _ga_G-XXXXXXXXXX)
+  if (typeof document !== 'undefined') {
+    document.cookie.split(';').forEach((cookie) => {
+      const cookieName = cookie.split('=')[0].trim()
+      if (cookieName.startsWith('_ga_')) {
+        // Delete for current domain
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+        // Also try to delete with domain specification
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
+      }
+    })
+  }
+}
+
+export default function CookieConsent() {
+  // Raw stored consent (string | null), live-updated on every write.
+  const rawConsent = useSyncExternalStore(
+    consentStore.subscribe,
+    consentStore.getSnapshot,
+    consentStore.getServerSnapshot
+  )
+  const storedPreferences = useMemo(() => parseStoredConsent(rawConsent), [rawConsent])
+
+  // False during SSR/hydration so the exported HTML (no banner) and the first
+  // client render agree; flips true immediately after.
+  const hydrated = useSyncExternalStore(
+    consentStore.subscribe,
+    hydratedSnapshot,
+    serverHydratedSnapshot
+  )
+
+  // True while the banner/preferences UI was reopened via
+  // window.openCookiePreferences despite a stored choice existing.
+  const [reopened, setReopened] = useState(false)
+  const [showPreferences, setShowPreferences] = useState(false)
+  // Working copy edited in the preferences modal; seeded from the stored
+  // choice each time the modal opens, so Cancel is simply "close and discard".
+  const [preferences, setPreferences] = useState<ConsentPreferences>(DEFAULT_PREFERENCES)
   const modalRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
+  // Guards the on-mount replay of stored consent from double-applying after a
+  // user action (handlers apply their own consent and set this).
+  const appliedRef = useRef(false)
 
-  // Helper to load preferences from localStorage and update state
-  const loadPreferencesFromLocalStorage = (showBannerIfMissing = true) => {
-    try {
-      const consent = localStorage.getItem('cookie-consent')
-      if (!consent) {
-        if (showBannerIfMissing) setShowBanner(true)
-        return
-      }
-      let savedPreferences: unknown
-      try {
-        savedPreferences = JSON.parse(consent)
-      } catch {
-        if (showBannerIfMissing) setShowBanner(true)
-        return
-      }
+  // The banner is DERIVED: no valid stored choice (or an explicit reopen).
+  const showBanner = hydrated && (storedPreferences === null || reopened)
 
-      // Validate the structure
-      if (isConsentPreferences(savedPreferences)) {
-        setPreferences(savedPreferences)
-        setSavedPreferencesBackup(savedPreferences)
-        applyConsent(savedPreferences)
-      } else {
-        // Invalid data, show banner again
-        if (showBannerIfMissing) setShowBanner(true)
-      }
-    } catch {
-      // If localStorage is unavailable or data is corrupted, show banner
-      if (showBannerIfMissing) setShowBanner(true)
+  const handleAcceptAll = () => {
+    const allAccepted = {
+      necessary: true,
+      analytics: true,
+      marketing: true,
     }
+    appliedRef.current = true
+    applyConsent(allAccepted, storedPreferences ?? undefined)
+    consentStore.write(JSON.stringify(allAccepted))
+    setReopened(false)
+    setShowPreferences(false)
+  }
+
+  const handleDeclineAll = () => {
+    const onlyNecessary = {
+      necessary: true,
+      analytics: false,
+      marketing: false,
+    }
+    appliedRef.current = true
+
+    // Delete third-party cookies when consent is withdrawn
+    deleteAnalyticsCookies()
+
+    applyConsent(onlyNecessary, storedPreferences ?? undefined)
+    consentStore.write(JSON.stringify(onlyNecessary))
+    setReopened(false)
+    setShowPreferences(false)
+  }
+
+  const handleSavePreferences = () => {
+    appliedRef.current = true
+    applyConsent(preferences, storedPreferences ?? undefined)
+    consentStore.write(JSON.stringify(preferences))
+    setReopened(false)
+    setShowPreferences(false)
+  }
+
+  const handleShowPreferences = () => {
+    // Seed the working copy from the stored choice (or the defaults).
+    setPreferences(storedPreferences ?? DEFAULT_PREFERENCES)
+    setShowPreferences(true)
+  }
+
+  const handleCancelPreferences = () => {
+    // The working copy is discarded; it is re-seeded next time the modal opens.
+    setShowPreferences(false)
+    setReopened(false)
   }
 
   useEffect(() => {
     // Expose method to window for reopening preferences from other components
     window.openCookiePreferences = () => {
-      setShowBanner(true)
+      setPreferences(parseStoredConsent(consentStore.getSnapshot()) ?? DEFAULT_PREFERENCES)
+      setReopened(true)
       setShowPreferences(true)
-      loadPreferencesFromLocalStorage(false)
     }
-
-    // Check if user has already made a choice with error handling
-    loadPreferencesFromLocalStorage(true)
 
     // Cleanup function to remove the window method
     return () => {
       delete window.openCookiePreferences
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Replay a previously stored choice into Consent Mode once per page load
+  // (the denied-by-default state from layout.tsx holds until this runs).
+  // Pure side effect — no setState — so the visitor's earlier consent reaches
+  // Google's tags without a render cascade.
+  useEffect(() => {
+    if (!appliedRef.current && storedPreferences) {
+      appliedRef.current = true
+      applyConsent(storedPreferences)
+    }
+  }, [storedPreferences])
 
   // Focus management for modal
   useEffect(() => {
@@ -161,193 +362,7 @@ export default function CookieConsent() {
         }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showPreferences])
-
-  const applyConsent = (prefs: ConsentPreferences, previousPrefs?: ConsentPreferences) => {
-    // Set a cookie to indicate consent status with Secure flag (only on HTTPS)
-    const cookieValue = JSON.stringify(prefs)
-    const secureFlag =
-      typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
-    document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax${secureFlag}`
-
-    // Check if consent was withdrawn and delete cookies if needed
-    if (previousPrefs) {
-      if (
-        (previousPrefs.analytics && !prefs.analytics) ||
-        (previousPrefs.marketing && !prefs.marketing)
-      ) {
-        deleteAnalyticsCookies()
-      }
-    }
-
-    // Push consent update to GTM dataLayer
-    if (typeof window !== 'undefined') {
-      window.dataLayer = window.dataLayer || []
-
-      // Consent Mode update. This is what actually releases the tags held by the
-      // denied-by-default state set in layout.tsx. The custom consent_update event
-      // below is kept because container-side triggers may already depend on it, but
-      // it is NOT a substitute: a custom event only does something if a tag in the
-      // container listens for it, whereas this is read by Google's tags directly.
-      // Relying on the custom event alone meant consent was enforced only as long as
-      // container config happened to agree with the banner — invisible from the repo,
-      // and silently lost on any container edit.
-      //
-      // Called through window.gtag rather than pushed as an array: gtag pushes the
-      // `arguments` object, and Google's consent handling reads that shape. A literal
-      // array is NOT equivalent, and the difference is silent — consent would appear
-      // to be sent while the tags stayed denied.
-      window.gtag?.('consent', 'update', {
-        ad_storage: prefs.marketing ? 'granted' : 'denied',
-        ad_user_data: prefs.marketing ? 'granted' : 'denied',
-        ad_personalization: prefs.marketing ? 'granted' : 'denied',
-        analytics_storage: prefs.analytics ? 'granted' : 'denied',
-      })
-
-      window.dataLayer.push({
-        event: 'consent_update',
-        analytics_consent: prefs.analytics ? 'granted' : 'denied',
-        marketing_consent: prefs.marketing ? 'granted' : 'denied',
-      })
-    }
-
-    // Load scripts based on consent independently
-    if (prefs.analytics) {
-      loadGoogleAnalytics()
-      // Microsoft Clarity is now managed via Google Tag Manager
-      // No direct Clarity initialization needed
-    }
-    // Marketing consent currently loads no third-party tags (Meta Pixel removed, #189).
-  }
-
-  const loadGoogleAnalytics = () => {
-    if (!isAnalyticsProvisioned(GA_MEASUREMENT_ID)) {
-      // Nothing to load. Deliberately silent in production rather than throwing:
-      // an unprovisioned site should degrade to no analytics, not to a broken page.
-      if (process.env.NODE_ENV !== 'production') {
-        console.warn(
-          `[CookieConsent] NEXT_PUBLIC_GA_MEASUREMENT_ID is missing or not a real measurement ID (got "${GA_MEASUREMENT_ID}"). Skipping Google Analytics.`
-        )
-      }
-      return
-    }
-
-    if (
-      typeof window !== 'undefined' &&
-      !document.querySelector('script[src*="googletagmanager.com/gtag"]')
-    ) {
-      const gaScript = document.createElement('script')
-      gaScript.async = true
-      gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
-      document.head.appendChild(gaScript)
-
-      const gaConfigScript = document.createElement('script')
-      const secureFlag =
-        typeof window !== 'undefined' && window.location.protocol === 'https:' ? ';Secure' : ''
-      gaConfigScript.textContent = `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '${GA_MEASUREMENT_ID}', {
-          'anonymize_ip': true,
-          'cookie_flags': 'SameSite=Lax${secureFlag}'
-        });
-      `
-      document.head.appendChild(gaConfigScript)
-    }
-  }
-
-  const deleteAnalyticsCookies = () => {
-    // List of static cookie names to delete
-    const cookiesToDelete = ['_ga', '_gid', '_fbp', 'fr', '_clck', '_clsk']
-
-    // Delete static cookies
-    cookiesToDelete.forEach((name) => {
-      // Delete for current domain
-      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-      // Also try to delete with domain specification
-      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
-    })
-
-    // Dynamically delete all cookies matching _ga_* (e.g., _ga_G-XXXXXXXXXX)
-    if (typeof document !== 'undefined') {
-      document.cookie.split(';').forEach((cookie) => {
-        const cookieName = cookie.split('=')[0].trim()
-        if (cookieName.startsWith('_ga_')) {
-          // Delete for current domain
-          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-          // Also try to delete with domain specification
-          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
-        }
-      })
-    }
-  }
-
-  const handleAcceptAll = () => {
-    const allAccepted = {
-      necessary: true,
-      analytics: true,
-      marketing: true,
-    }
-    setPreferences(allAccepted)
-    try {
-      localStorage.setItem('cookie-consent', JSON.stringify(allAccepted))
-    } catch (error) {
-      // If localStorage is unavailable, continue anyway
-      console.warn('Unable to save preferences to localStorage:', error)
-    }
-    applyConsent(allAccepted, savedPreferencesBackup)
-    setSavedPreferencesBackup(allAccepted)
-    setShowBanner(false)
-  }
-
-  const handleDeclineAll = () => {
-    const onlyNecessary = {
-      necessary: true,
-      analytics: false,
-      marketing: false,
-    }
-    setPreferences(onlyNecessary)
-    try {
-      localStorage.setItem('cookie-consent', JSON.stringify(onlyNecessary))
-    } catch (e) {
-      // If localStorage is unavailable, continue anyway
-      console.warn('Unable to save preferences to localStorage:', e)
-    }
-
-    // Delete third-party cookies when consent is withdrawn
-    deleteAnalyticsCookies()
-
-    applyConsent(onlyNecessary, savedPreferencesBackup)
-    setSavedPreferencesBackup(onlyNecessary)
-    setShowBanner(false)
-  }
-
-  const handleSavePreferences = () => {
-    try {
-      localStorage.setItem('cookie-consent', JSON.stringify(preferences))
-    } catch (e) {
-      // If localStorage is unavailable, continue anyway
-      console.warn('Unable to save preferences to localStorage:', e)
-    }
-    applyConsent(preferences, savedPreferencesBackup)
-    setSavedPreferencesBackup(preferences)
-    setShowBanner(false)
-    setShowPreferences(false)
-  }
-
-  const handleShowPreferences = () => {
-    // Backup current preferences in case user cancels
-    setSavedPreferencesBackup(preferences)
-    setShowPreferences(true)
-  }
-
-  const handleCancelPreferences = () => {
-    // Restore the backed-up preferences
-    setPreferences(savedPreferencesBackup)
-    setShowPreferences(false)
-  }
 
   if (!showBanner) {
     return null

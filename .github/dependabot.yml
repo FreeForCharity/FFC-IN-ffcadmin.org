@@ -8,24 +8,32 @@ updates:
       day: 'monday'
       time: '09:00'
       timezone: 'UTC'
+    # 7-day release cooldown, matching pnpm's minimumReleaseAge (10080 min)
+    # in pnpm-workspace.yaml. Without this, Dependabot proposes versions the
+    # resolver would refuse, and the two layers disagree about "latest".
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 5
     labels:
       - 'dependencies'
       - 'automated'
     ignore:
+      # eslint 10 is blocked upstream of this repo: eslint-plugin-react,
+      # eslint-plugin-import, and eslint-plugin-jsx-a11y (hard deps of
+      # eslint-config-next) all cap their peer at eslint ^9 and break at
+      # runtime on removed v10 APIs (context.getFilename,
+      # scopeManager.addGlobals — measured 2026-08-30). Re-test when
+      # eslint-config-next ships an eslint-10-compatible plugin stack.
       - dependency-name: 'eslint'
         update-types:
           - 'version-update:semver-major'
+      # typescript-eslint refuses TS 7 at runtime ('does not support TS
+      # 7.0'; declared range <6.1.0), so TS majors beyond 6.x cannot lint.
+      # 6.0.3 (the highest supported release) is landed; drop this ignore
+      # when typescript-eslint declares TS 7 support.
       - dependency-name: 'typescript'
         update-types:
           - 'version-update:semver-major'
-      # eslint-plugin-react-hooks >= 7.1 adds stricter rules (immutability,
-      # setState-in-effect, use-before-declare) that currently error in
-      # CookieConsent.tsx. Hold at 7.0.x until that refactor lands (see #389).
-      - dependency-name: 'eslint-plugin-react-hooks'
-        update-types:
-          - 'version-update:semver-major'
-          - 'version-update:semver-minor'
     groups:
       # Group development dependencies together (minor and patch updates)
       development-dependencies:
@@ -58,6 +66,10 @@ updates:
       day: 'monday'
       time: '09:00'
       timezone: 'UTC'
+    # Same 7-day cooldown for action pins — nothing else applies the safety
+    # window to Actions (pnpm's minimumReleaseAge only covers npm).
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 5
     labels:
       - 'dependencies'

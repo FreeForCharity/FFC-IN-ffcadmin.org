@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SEARCH_DOCS, searchDocs } from '@/data/search-index'
 
@@ -16,9 +16,14 @@ export default function SearchResults() {
   const [query, setQuery] = useState(initial)
 
   // A back/forward navigation changes ?q= without remounting — follow it.
-  useEffect(() => {
+  // This is React's documented "adjusting state when props change" pattern
+  // (setState during render, guarded by a previous-value comparison), which
+  // replaces the old sync-from-props effect that react-hooks 7.1 flags.
+  const [prevInitial, setPrevInitial] = useState(initial)
+  if (prevInitial !== initial) {
+    setPrevInitial(initial)
     setQuery(initial)
-  }, [initial])
+  }
 
   const results = useMemo(() => searchDocs(query, SEARCH_DOCS.length), [query])
 
