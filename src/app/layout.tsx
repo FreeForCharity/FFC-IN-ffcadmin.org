@@ -86,9 +86,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           pageview. Google determines which default applies from the visitor's IP
           address at the time of the visit.
 
-          wait_for_update gives the stored-preference restore a window to apply a
-          returning visitor's choice before tags evaluate, so a returning EEA
-          visitor who already accepted is not measured as a new denial.
+          wait_for_update appears on BOTH calls: it gives the stored-preference
+          restore a window to apply a returning visitor's choice before tags
+          evaluate, so a returning EEA visitor who already accepted is not
+          measured as a new denial — and, on the grant call, so a returning
+          visitor elsewhere who already DECLINED is not measured under the
+          granted default before their stored denial is restored.
           url_passthrough keeps click ids flowing through navigation while cookies
           are denied, and ads_data_redaction strips ad identifiers from tag
           requests while ad_storage is denied — both are no-ops once consent is
@@ -118,7 +121,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'analytics_storage': 'granted',
                 'functionality_storage': 'granted',
                 'personalization_storage': 'granted',
-                'security_storage': 'granted'
+                'security_storage': 'granted',
+                'wait_for_update': 500
               });
               gtag('set', 'url_passthrough', true);
               gtag('set', 'ads_data_redaction', true);

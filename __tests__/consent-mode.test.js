@@ -45,7 +45,13 @@ describe('Consent Mode v2 defaults', () => {
     const regionAt = defaultBlock.indexOf("'region'")
     expect(regionAt).toBeGreaterThan(-1)
 
-    for (const key of ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage']) {
+    for (const key of [
+      'ad_storage',
+      'ad_user_data',
+      'ad_personalization',
+      'analytics_storage',
+      'personalization_storage',
+    ]) {
       const deniedAt = defaultBlock.search(new RegExp(`'${key}':\\s*'denied'`))
       const grantedAt = defaultBlock.search(new RegExp(`'${key}':\\s*'granted'`))
       expect(deniedAt).toBeGreaterThan(-1)
@@ -56,6 +62,16 @@ describe('Consent Mode v2 defaults', () => {
       expect(deniedAt).toBeLessThan(regionAt)
       expect(regionAt).toBeLessThan(grantedAt)
     }
+  })
+
+  test('both default calls carry wait_for_update', () => {
+    // The denial call needs it so a returning EEA visitor's stored grant is
+    // applied before the first hit; the GRANT call needs it so a returning
+    // visitor elsewhere who DECLINED is not measured under the granted
+    // default before CookieConsent restores their stored denial.
+    const defaultBlock = layoutSrc.slice(0, layoutSrc.indexOf('googletagmanager.com/gtm.js'))
+    const waits = defaultBlock.match(/'wait_for_update':\s*500/g)
+    expect(waits).toHaveLength(2)
   })
 
   test('the denial region list is exactly the 32 EU User Consent Policy codes', () => {
