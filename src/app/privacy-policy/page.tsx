@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 // Update this date when the policy changes
-const LAST_UPDATED = 'August 29, 2026'
+const LAST_UPDATED = 'August 30, 2026'
 
 // Table of contents — keep in sync with the section ids below.
 const TOC = [
@@ -105,8 +105,16 @@ export default function PrivacyPolicy() {
                 <li>Date and time of visit</li>
               </ul>
               <p>
-                This information is collected only if you have provided consent through our cookie
-                consent banner.
+                How much of this is collected depends on where you are visiting from. In the
+                European Economic Area, the United Kingdom, and Switzerland, our analytics runs
+                cookie-free — counting visits only in aggregate — until you accept analytics cookies
+                through the consent banner. Everywhere else, analytics cookies are set from your
+                first pageview, and you can turn them off at any time via the Manage Cookie
+                Preferences link in the footer. See Section 7.1 and our{' '}
+                <Link href="/cookie-policy" className="text-blue-600 hover:underline">
+                  Cookie Policy
+                </Link>{' '}
+                for details.
               </p>
             </section>
 
@@ -118,7 +126,7 @@ export default function PrivacyPolicy() {
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>Operate, maintain, and improve our website</li>
                 <li>Understand how visitors use our site</li>
-                <li>Analyze site traffic and user behavior (with consent)</li>
+                <li>Analyze site traffic and user behavior (subject to your cookie choices)</li>
                 <li>Respond to support requests and communications</li>
                 <li>Detect, prevent, and address technical issues</li>
                 <li>Comply with legal obligations</li>
@@ -142,7 +150,8 @@ export default function PrivacyPolicy() {
                 </li>
                 <li>
                   <strong>Analytics Cookies:</strong> Help us understand how visitors interact with
-                  our website (Google Analytics, Microsoft Clarity). Requires consent.
+                  our website (Google Analytics, Microsoft Clarity). Whether these are set by
+                  default depends on your region — see below.
                 </li>
                 <li>
                   <strong>Marketing Cookies:</strong> Would be used to track visitors across
@@ -150,6 +159,15 @@ export default function PrivacyPolicy() {
                   would require consent.
                 </li>
               </ul>
+              <p className="mb-4">
+                We use Google Consent Mode. Whether the permissive or the opt-in default applies is
+                determined by Google from your IP address at the time of your visit (IP geolocation
+                is approximate). In the European Economic Area, the United Kingdom, and Switzerland,
+                analytics runs cookie-free until you accept. Everywhere else, including the United
+                States, analytics cookies are set from your first pageview — and you can turn them
+                off at any time via the Manage Cookie Preferences link in the footer, which also
+                deletes the cookies already set.
+              </p>
               <p>
                 For more detailed information about cookies, please see our{' '}
                 <Link href="/cookie-policy" className="text-blue-600 hover:underline">
@@ -166,10 +184,13 @@ export default function PrivacyPolicy() {
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
-                  <strong>Google Analytics:</strong> Web analytics service (only with consent)
+                  <strong>Google Analytics:</strong> Web analytics service. Cookie use is governed
+                  by your region and your consent choices (see Section 4 and our Cookie Policy).
                 </li>
                 <li>
-                  <strong>Microsoft Clarity:</strong> User behavior analytics (only with consent)
+                  <strong>Microsoft Clarity:</strong> User behavior analytics, delivered through our
+                  Google Tag Manager container and governed by the analytics consent category.
+                  Declining or withdrawing analytics consent turns it off and deletes its cookies.
                 </li>
               </ul>
               <p>
@@ -204,10 +225,15 @@ export default function PrivacyPolicy() {
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
-                  <strong>Consent</strong> — analytics and marketing cookies are off until you opt
-                  in through the cookie consent banner. You can withdraw consent at any time via the
-                  Cookie Preferences link in the footer; this site then removes the tracking cookies
-                  it set and stops loading those scripts from your next page view.
+                  <strong>Consent</strong> — when you visit from the EEA, the United Kingdom, or
+                  Switzerland, Google's tags set no cookies and read no identifiers until you opt in
+                  through the cookie consent banner; until then your visit is counted only in an
+                  aggregate, cookie-free way that cannot be tied back to you. You can withdraw
+                  consent at any time via the Manage Cookie Preferences link in the footer; this
+                  site then deletes the tracking cookies it set and Google's tags return to that
+                  cookie-free state. Session analytics (Microsoft Clarity) follows the same
+                  analytics consent choice through our Google Tag Manager container and its cookies
+                  are deleted on withdrawal.
                 </li>
                 <li>
                   <strong>Legitimate interests</strong> — operating, securing, and improving this
@@ -266,11 +292,13 @@ export default function PrivacyPolicy() {
               </p>
               <p className="mb-4">
                 <strong>Opt-out preference signals (Global Privacy Control / Do Not Track).</strong>{' '}
-                Tracking on this site is opt-in for every visitor, everywhere: analytics and
-                marketing cookies stay off until you accept them, and declining or withdrawing
-                consent keeps you — or returns you — to that untracked state. Because we also do not
-                sell or share personal information, every visitor already receives at least the
-                protection a Global Privacy Control or Do Not Track signal would request.
+                We do not sell or share personal information as those terms are defined by
+                California law, so there is nothing for a Global Privacy Control or Do Not Track
+                signal to opt out of under the CCPA/CPRA, and this site does not read those browser
+                signals. Analytics cookies are set automatically for visitors outside the EEA, the
+                United Kingdom, and Switzerland (see Section 4); any visitor, anywhere, can turn
+                them off at any time via the Manage Cookie Preferences link in the footer, and we
+                delete the analytics cookies when you do.
               </p>
               <p className="mb-4">
                 <strong>Exercising your rights.</strong> Submit a request to{' '}

@@ -34,14 +34,79 @@ describe('Consent Mode v2 defaults', () => {
     expect(consentAt).toBeLessThan(gtmAt)
   })
 
-  test('every tracking-storage category defaults to denied', () => {
-    // Split at the GTM snippet so a "granted" appearing later in the file cannot
+  test('regional defaults: a region-scoped denial precedes an unscoped grant', () => {
+    // Split at the GTM snippet so text appearing later in the file cannot
     // satisfy these assertions by accident.
     const defaultBlock = layoutSrc.slice(0, layoutSrc.indexOf('googletagmanager.com/gtm.js'))
 
+    // The DENIAL call carries the region list; the GRANT call is unscoped.
+    // Region-specific settings take precedence, so the order denial-then-grant
+    // gives EEA/UK/CH visitors denied-by-default and everyone else granted.
+    const regionAt = defaultBlock.indexOf("'region'")
+    expect(regionAt).toBeGreaterThan(-1)
+
     for (const key of ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage']) {
-      expect(defaultBlock).toMatch(new RegExp(`'${key}':\\s*'denied'`))
+      const deniedAt = defaultBlock.search(new RegExp(`'${key}':\\s*'denied'`))
+      const grantedAt = defaultBlock.search(new RegExp(`'${key}':\\s*'granted'`))
+      expect(deniedAt).toBeGreaterThan(-1)
+      expect(grantedAt).toBeGreaterThan(-1)
+      // Denial (region-scoped) first, grant (unscoped) second.
+      expect(deniedAt).toBeLessThan(grantedAt)
+      // The region list belongs to the denial call, not the grant call.
+      expect(deniedAt).toBeLessThan(regionAt)
+      expect(regionAt).toBeLessThan(grantedAt)
     }
+  })
+
+  test('the denial region list is exactly the 32 EU User Consent Policy codes', () => {
+    const defaultBlock = layoutSrc.slice(0, layoutSrc.indexOf('googletagmanager.com/gtm.js'))
+    const regionMatch = defaultBlock.match(/'region':\s*\[([^\]]+)\]/)
+    expect(regionMatch).not.toBeNull()
+
+    const codes = regionMatch[1].match(/[A-Z]{2}/g)
+    // 27 EU member states + IS/LI/NO (non-EU EEA) + GB + CH.
+    const expected = [
+      'AT',
+      'BE',
+      'BG',
+      'HR',
+      'CY',
+      'CZ',
+      'DK',
+      'EE',
+      'FI',
+      'FR',
+      'DE',
+      'GR',
+      'HU',
+      'IE',
+      'IT',
+      'LV',
+      'LT',
+      'LU',
+      'MT',
+      'NL',
+      'PL',
+      'PT',
+      'RO',
+      'SK',
+      'SI',
+      'ES',
+      'SE',
+      'IS',
+      'LI',
+      'NO',
+      'GB',
+      'CH',
+    ]
+    expect(codes).toHaveLength(32)
+    expect([...codes].sort()).toEqual([...expected].sort())
+  })
+
+  test('url_passthrough and ads_data_redaction are set before GTM loads', () => {
+    const defaultBlock = layoutSrc.slice(0, layoutSrc.indexOf('googletagmanager.com/gtm.js'))
+    expect(defaultBlock).toMatch(/gtag\('set',\s*'url_passthrough',\s*true\)/)
+    expect(defaultBlock).toMatch(/gtag\('set',\s*'ads_data_redaction',\s*true\)/)
   })
 
   test('the consent default is a raw inline script, not next/script', () => {
@@ -67,6 +132,15 @@ describe('CookieConsent grant path', () => {
   test('analytics_storage in the update tracks the analytics preference', () => {
     expect(consentSrc).toMatch(
       /analytics_storage:\s*prefs\.analytics\s*\?\s*'granted'\s*:\s*'denied'/
+    )
+  })
+
+  test('personalization_storage in the update tracks the marketing preference', () => {
+    // The regional default denies personalization_storage in the EEA/UK/CH, so
+    // the banner's update must be able to lift it — otherwise an EEA visitor
+    // who grants marketing would keep the denied default forever.
+    expect(consentSrc).toMatch(
+      /personalization_storage:\s*prefs\.marketing\s*\?\s*'granted'\s*:\s*'denied'/
     )
   })
 })
