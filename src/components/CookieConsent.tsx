@@ -185,8 +185,11 @@ export default function CookieConsent() {
     if (typeof window !== 'undefined') {
       window.dataLayer = window.dataLayer || []
 
-      // Consent Mode update. This is what actually releases the tags held by the
-      // denied-by-default state set in layout.tsx. The custom consent_update event
+      // Consent Mode update. For EEA/UK/CH visitors this is what lifts the
+      // region-scoped denied-by-default state set in layout.tsx; for everyone
+      // else the default is already granted, so this mostly matters when a
+      // visitor actively DECLINES — storage flips to denied and Google's tags
+      // fall back to cookieless pings. The custom consent_update event
       // below is kept because container-side triggers may already depend on it, but
       // it is NOT a substitute: a custom event only does something if a tag in the
       // container listens for it, whereas this is read by Google's tags directly.
@@ -202,6 +205,7 @@ export default function CookieConsent() {
         ad_storage: prefs.marketing ? 'granted' : 'denied',
         ad_user_data: prefs.marketing ? 'granted' : 'denied',
         ad_personalization: prefs.marketing ? 'granted' : 'denied',
+        personalization_storage: prefs.marketing ? 'granted' : 'denied',
         analytics_storage: prefs.analytics ? 'granted' : 'denied',
       })
 
