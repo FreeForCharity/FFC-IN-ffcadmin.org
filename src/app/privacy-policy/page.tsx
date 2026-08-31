@@ -165,10 +165,10 @@ export default function PrivacyPolicy() {
                 is approximate). In the European Economic Area, the United Kingdom, and Switzerland,
                 analytics runs cookie-free until you accept. (Switzerland is included because
                 Google&apos;s consent defaults cover it; Swiss visitors&apos; data is protected by
-                the Swiss FADP rather than the GDPR.) Everywhere else, including the United States,
-                analytics cookies are set from your first pageview — and you can turn them off at
-                any time via the Manage Cookie Preferences link in the footer, which also deletes
-                the cookies already set.
+                Switzerland&apos;s Federal Act on Data Protection (FADP) rather than the GDPR.)
+                Everywhere else, including the United States, analytics cookies are set from your
+                first pageview — and you can turn them off at any time via the Manage Cookie
+                Preferences link in the footer, which also deletes the cookies already set.
               </p>
               <p>
                 For more detailed information about cookies, please see our{' '}
