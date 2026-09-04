@@ -65,7 +65,10 @@ jobs:
         run: pnpm test:coverage
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        # pnpm exec, not npx: @playwright/test is a devDependency, so the
+        # binary must come from the lockfile rather than from whatever npx
+        # would resolve if the local install were ever missing.
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Run E2E tests
         run: pnpm run test:e2e
