@@ -75,27 +75,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           happened — the site behaved as though consent were granted while telling
           the visitor it was being asked for.
 
-          Two `consent default` calls, in Google's documented order: a region-scoped
-          DENIAL for the regions where Google's EU User Consent Policy requires
-          opt-in consent (the 27 EU member states, the non-EU EEA states IS/LI/NO,
-          the UK, and Switzerland), then an unscoped GRANT for everyone else.
-          Region-specific settings take precedence over the unscoped one, so
-          EEA/UK/CH visitors are denied-by-default — Google's tags load but send
-          only cookieless pings until the visitor accepts — while every other
-          visitor is granted-by-default and measured with cookies from the first
-          pageview. Google determines which default applies from the visitor's IP
-          address at the time of the visit.
+          ONE `consent default` call, unscoped: analytics and advertising storage
+          is DENIED for every visitor, worldwide, until they accept. Google's tags
+          still load and send cookieless pings in that state, so aggregate
+          measurement continues while nothing is stored on the device.
 
-          wait_for_update appears on BOTH calls: it gives the stored-preference
-          restore a window to apply a returning visitor's choice before tags
-          evaluate, so a returning EEA visitor who already accepted is not
-          measured as a new denial — and, on the grant call, so a returning
-          visitor elsewhere who already DECLINED is not measured under the
-          granted default before their stored denial is restored.
+          This used to emit TWO calls — a denial scoped to a 32-code `region`
+          array, then an unscoped GRANT for everyone else. Google's EU User
+          Consent Policy only *requires* opt-in for those regions, but applying
+          the weaker default everywhere else was a decision made on the charity's
+          behalf: most of its visitors would get less protection than its
+          European ones. Both the region array and the grant are gone, so there
+          is no country in which measurement begins before the visitor agrees,
+          and nothing depends on Google resolving a location from an IP address.
+
+          functionality_storage and security_storage stay GRANTED: neither
+          carries measurement, and a site that cannot remember a consent choice
+          cannot honour one. That is why this says "analytics and advertising
+          storage", not "storage".
+
+          wait_for_update gives the stored-preference restore a window to apply a
+          returning visitor's choice before tags evaluate. Its purpose inverted
+          with the default and still holds: it used to stop a returning DECLINER
+          being measured under the permissive default, and now stops a returning
+          GRANTER's opening hit going out cookieless.
           url_passthrough keeps click ids flowing through navigation while cookies
           are denied, and ads_data_redaction strips ad identifiers from tag
           requests while ad_storage is denied — both are no-ops once consent is
-          granted, so they cost nothing outside the EEA.
+          granted. Note what url_passthrough does and does not carry: a click id
+          ALREADY in the visitor's URL travels between pages of this site, which
+          is why the policy wording is "no identifiers from your device" rather
+          than the flatter, false "no identifiers".
         */}
         <script
           id="consent-mode-default"
@@ -110,17 +120,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'analytics_storage': 'denied',
                 'functionality_storage': 'granted',
                 'personalization_storage': 'denied',
-                'security_storage': 'granted',
-                'wait_for_update': 500,
-                'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH']
-              });
-              gtag('consent', 'default', {
-                'ad_storage': 'granted',
-                'ad_user_data': 'granted',
-                'ad_personalization': 'granted',
-                'analytics_storage': 'granted',
-                'functionality_storage': 'granted',
-                'personalization_storage': 'granted',
                 'security_storage': 'granted',
                 'wait_for_update': 500
               });

@@ -105,11 +105,11 @@ export default function PrivacyPolicy() {
                 <li>Date and time of visit</li>
               </ul>
               <p>
-                How much of this is collected depends on where you are visiting from. In the
-                European Economic Area, the United Kingdom, and Switzerland, our analytics runs
-                cookie-free — counting visits only in aggregate — until you accept analytics cookies
-                through the consent banner. Everywhere else, analytics cookies are set from your
-                first pageview, and you can turn them off at any time via the Manage Cookie
+                How much of this is collected does not depend on where you are visiting from: the
+                same rule applies to every visitor. Our analytics runs cookie-free — counting visits
+                only in aggregate — until you accept analytics cookies through the consent banner,
+                wherever in the world you are, and there is no country in which they are set before
+                you choose. You can turn them off again at any time via the Manage Cookie
                 Preferences link in the footer. See Section 7.1 and our{' '}
                 <Link href="/cookie-policy" className="text-blue-600 hover:underline">
                   Cookie Policy
@@ -160,15 +160,13 @@ export default function PrivacyPolicy() {
                 </li>
               </ul>
               <p className="mb-4">
-                We use Google Consent Mode. Whether the permissive or the opt-in default applies is
-                determined by Google from your IP address at the time of your visit (IP geolocation
-                is approximate). In the European Economic Area, the United Kingdom, and Switzerland,
-                analytics runs cookie-free until you accept. (Switzerland is included because
-                Google&apos;s consent defaults cover it; the data of visitors in Switzerland is
-                protected by Switzerland&apos;s Federal Act on Data Protection (FADP) rather than
-                the GDPR.) Everywhere else, including the United States, analytics cookies are set
-                from your first pageview — and you can turn them off at any time via the Manage
-                Cookie Preferences link in the footer, which also deletes the cookies already set.
+                We use Google Consent Mode with one opt-in default that applies everywhere, so
+                nothing depends on Google locating you: analytics runs cookie-free until you accept,
+                in every country. (Visitors in Switzerland are protected by Switzerland&apos;s
+                Federal Act on Data Protection (FADP) rather than the GDPR; the treatment described
+                here is the same either way.) You can turn analytics off again at any time via the
+                Manage Cookie Preferences link in the footer, which also deletes the cookies already
+                set.
               </p>
               <p>
                 For more detailed information about cookies, please see our{' '}
@@ -228,15 +226,15 @@ export default function PrivacyPolicy() {
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>
-                  <strong>Consent</strong> — when you visit from the EEA, the United Kingdom, or
-                  Switzerland, Google's tags set no cookies and read no cookie-based identifiers
-                  until you opt in through the cookie consent banner; until then your visit is
-                  counted only in an aggregate, cookie-free way that cannot be tied back to you. You
-                  can withdraw consent at any time via the Manage Cookie Preferences link in the
-                  footer; this site then deletes the tracking cookies it set and Google's tags
-                  return to that cookie-free state. Session analytics (Microsoft Clarity) is
-                  delivered through our Google Tag Manager container, which receives the same
-                  analytics consent choice, and its cookies are deleted on withdrawal.
+                  <strong>Consent</strong> — wherever in the world you visit from, Google's tags set
+                  no analytics or advertising cookies and read no identifiers from your device until
+                  you opt in through the cookie consent banner; until then your visit is counted
+                  only in an aggregate, cookie-free way that cannot be tied back to you. You can
+                  withdraw consent at any time via the Manage Cookie Preferences link in the footer;
+                  this site then deletes the tracking cookies it set and Google's tags return to
+                  that cookie-free state. Session analytics (Microsoft Clarity) is delivered through
+                  our Google Tag Manager container, which receives the same analytics consent
+                  choice, and its cookies are deleted on withdrawal.
                 </li>
                 <li>
                   <strong>Legitimate interests</strong> — operating, securing, and improving this
@@ -298,10 +296,11 @@ export default function PrivacyPolicy() {
                 We do not sell or share personal information as those terms are defined by
                 California law, so there is nothing for a Global Privacy Control or Do Not Track
                 signal to opt out of under the CCPA/CPRA, and this site does not read those browser
-                signals. Analytics cookies are set automatically for visitors outside the EEA, the
-                United Kingdom, and Switzerland (see Section 4); any visitor, anywhere, can turn
-                them off at any time via the Manage Cookie Preferences link in the footer, and we
-                delete the analytics cookies when you do.
+                signals. It matters less than it once did: no analytics cookie is set for any
+                visitor, anywhere, until you accept (see Section 4), so there is nothing for such a
+                signal to switch off before you have chosen. You can turn analytics off again at any
+                time via the Manage Cookie Preferences link in the footer, and we delete the
+                analytics cookies when you do.
               </p>
               <p className="mb-4">
                 <strong>Exercising your rights.</strong> Submit a request to{' '}

@@ -143,19 +143,21 @@ export default function CookiePolicy() {
                       <strong>When we ask permission first</strong>
                     </p>
                     <p className="text-sm text-gray-600 mb-2">
-                      We use Google Consent Mode. Which default applies is determined by Google from
-                      your IP address at the time of your visit (IP geolocation is approximate). If
-                      you are in the European Economic Area, the United Kingdom, or Switzerland, our
-                      analytics sets <strong>no cookies and no cookie-based identifiers</strong>{' '}
+                      We use Google Consent Mode, and the same rule applies to every visitor, so
+                      nothing depends on where you are. Wherever in the world you are, our analytics
+                      sets{' '}
+                      <strong>
+                        no analytics or advertising cookies and reads no identifiers from your
+                        device
+                      </strong>{' '}
                       until you accept. It still counts your visit in an aggregate, cookie-free way
                       so we know how many people used the site — that measurement cannot be tied
                       back to you or to your next visit.
                     </p>
                     <p className="text-sm text-gray-600 mb-2">
-                      Everywhere else, including the United States, analytics cookies are set from
-                      your first visit. You can turn them off at any time using the Manage Cookie
-                      Preferences link in our footer, and we will delete the cookies listed below
-                      when you do.
+                      There is no country in which analytics cookies are set before you choose. You
+                      can turn them off again at any time using the Manage Cookie Preferences link
+                      in our footer, and we will delete the cookies listed below when you do.
                     </p>
                     <p className="text-sm text-gray-600">
                       Google Analytics loads via our Google Tag Manager container (and, where
@@ -350,11 +352,11 @@ export default function CookiePolicy() {
               <p>
                 We do not sell or share personal information as those terms are defined by the
                 CCPA/CPRA, so there is nothing for a Global Privacy Control or Do Not Track signal
-                to opt out of, and this site does not read those browser signals. Note that
-                analytics cookies are set automatically for visitors outside the European Economic
-                Area, the United Kingdom, and Switzerland (see Section 3.2); any visitor, anywhere,
-                can turn them off at any time via the Manage Cookie Preferences link in the footer,
-                and we delete the cookies when you do.
+                to opt out of, and this site does not read those browser signals. It matters less
+                than it once did: no analytics cookie is set for any visitor, anywhere, until you
+                accept (see Section 3.2), so there is nothing for such a signal to switch off before
+                you have chosen. You can turn analytics off again at any time via the Manage Cookie
+                Preferences link in the footer, and we delete the cookies when you do.
               </p>
             </section>
 
