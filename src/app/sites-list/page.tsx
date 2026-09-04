@@ -72,8 +72,9 @@ export default function SitesListPage() {
             >
               Generate Sites List
             </a>{' '}
-            first — it builds this snapshot upstream, and it waits on a manual approval that a
-            scheduled run cannot give itself. The{' '}
+            first — it builds this snapshot upstream, and its runs wait on a manual{' '}
+            <code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs">github-prod</code>{' '}
+            approval that a scheduled run cannot give itself. Look for runs marked “Waiting”. The{' '}
             <a
               href="https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/actions/workflows/update-sites-data.yml"
               target="_blank"
