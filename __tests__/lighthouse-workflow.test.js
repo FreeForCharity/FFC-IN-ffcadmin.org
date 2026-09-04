@@ -127,8 +127,16 @@ describe('Lighthouse Workflow Tests', () => {
     })
 
     it('should not fetch Lighthouse CI outside the lockfile', () => {
+      // @lhci/cli is declared in package.json, so no workflow step has any
+      // reason to name the package: a step that does is fetching it. This
+      // catches every ad-hoc form, not just the npm ones — `pnpm add`,
+      // `pnpm add -g`, `pnpm dlx`, `npx` and `yarn add` all name it.
       for (const step of lighthouseJob.steps) {
-        expect(step.run || '').not.toMatch(/npm (install|i|add).*@lhci\/cli/)
+        expect(step.run || '').not.toContain('@lhci/cli')
+      }
+      // And the binary itself must not be invoked through a fetching runner.
+      for (const step of lighthouseJob.steps) {
+        expect(step.run || '').not.toMatch(/\b(npx|pnpm dlx|yarn dlx|bunx)\s+(--\S+\s+)*lhci\b/)
       }
     })
 
