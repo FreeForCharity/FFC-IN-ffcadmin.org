@@ -136,7 +136,7 @@ describe('Lighthouse Workflow Tests', () => {
       }
       // And the binary itself must not be invoked through a fetching runner.
       for (const step of lighthouseJob.steps) {
-        expect(step.run || '').not.toMatch(/\b(npx|pnpm dlx|yarn dlx|bunx)\s+(--\S+\s+)*lhci\b/)
+        expect(step.run || '').not.toMatch(/\b(npx|pnpm dlx|yarn dlx|bunx)\s+(-\S+\s+)*lhci\b/)
       }
     })
 
