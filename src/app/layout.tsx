@@ -75,10 +75,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           happened — the site behaved as though consent were granted while telling
           the visitor it was being asked for.
 
-          ONE `consent default` call, unscoped: analytics and advertising storage
-          is DENIED for every visitor, worldwide, until they accept. Google's tags
-          still load and send cookieless pings in that state, so aggregate
-          measurement continues while nothing is stored on the device.
+          ONE `consent default` call, unscoped: every storage type that carries
+          measurement or personalisation is DENIED for every visitor, worldwide,
+          until they accept — analytics_storage, ad_storage, ad_user_data,
+          ad_personalization and personalization_storage. Google's tags still
+          load and send cookieless pings in that state, so aggregate measurement
+          continues while nothing is stored on the device.
 
           This used to emit TWO calls — a denial scoped to a 32-code `region`
           array, then an unscoped GRANT for everyone else. Google's EU User
@@ -89,10 +91,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           is no country in which measurement begins before the visitor agrees,
           and nothing depends on Google resolving a location from an IP address.
 
-          functionality_storage and security_storage stay GRANTED: neither
-          carries measurement, and a site that cannot remember a consent choice
-          cannot honour one. That is why this says "analytics and advertising
-          storage", not "storage".
+          functionality_storage and security_storage are granted, and on this
+          site they stay granted: neither carries measurement, a site that
+          cannot remember a consent choice cannot honour one, and this banner
+          offers no functional toggle — its preferences are analytics and
+          marketing, and the consent update it sends touches neither of these
+          two signals. (The template fork DOES drive functionality_storage from
+          a functional toggle, so this sentence is a fact about this repo, not a
+          fact about the pattern — do not copy it across without re-reading the
+          update call.) That asymmetry is why the denial above is a list of the
+          five signals rather than the word "storage".
 
           wait_for_update gives the stored-preference restore a window to apply a
           returning visitor's choice before tags evaluate. Its purpose inverted
