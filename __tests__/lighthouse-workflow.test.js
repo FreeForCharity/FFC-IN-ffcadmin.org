@@ -107,12 +107,29 @@ describe('Lighthouse Workflow Tests', () => {
       expect(verifyStep.run).toContain('./out')
     })
 
-    it('should install Lighthouse CI', () => {
-      const installStep = lighthouseJob.steps.find(
-        (step) => step.name && step.name.includes('Install Lighthouse CI')
-      )
-      expect(installStep).toBeDefined()
-      expect(installStep.run).toContain('@lhci/cli')
+    // Lighthouse CI used to be fetched at run time with
+    // `npm install -g @lhci/cli`, which bypassed both the lockfile and the
+    // repo's 7-day release cooldown. It is now a pinned devDependency, so
+    // the assertions below check that stronger contract instead: the tool
+    // must be declared in package.json, resolved by `pnpm install`, and
+    // invoked through `pnpm exec` -- and no step may fetch it ad hoc.
+    it('should declare @lhci/cli as a devDependency rather than fetching it at run time', () => {
+      const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'))
+      expect(pkg.devDependencies).toHaveProperty('@lhci/cli')
+    })
+
+    it('should install dependencies before running Lighthouse', () => {
+      const stepRuns = lighthouseJob.steps.map((step) => step.run || '')
+      const installIndex = stepRuns.findIndex((run) => run.includes('pnpm install'))
+      const lhciIndex = stepRuns.findIndex((run) => run.includes('lhci autorun'))
+      expect(installIndex).toBeGreaterThanOrEqual(0)
+      expect(lhciIndex).toBeGreaterThan(installIndex)
+    })
+
+    it('should not fetch Lighthouse CI outside the lockfile', () => {
+      for (const step of lighthouseJob.steps) {
+        expect(step.run || '').not.toMatch(/npm (install|i|add).*@lhci\/cli/)
+      }
     })
 
     it('should run Lighthouse audit', () => {
@@ -120,7 +137,8 @@ describe('Lighthouse Workflow Tests', () => {
         (step) => step.name && step.name.includes('Run Lighthouse CI')
       )
       expect(runStep).toBeDefined()
-      expect(runStep.run).toContain('lhci autorun')
+      // pnpm exec, so the pinned devDependency is what runs.
+      expect(runStep.run).toContain('pnpm exec lhci autorun')
     })
 
     it('should upload Lighthouse results', () => {
