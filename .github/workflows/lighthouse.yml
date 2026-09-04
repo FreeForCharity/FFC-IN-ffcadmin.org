@@ -46,11 +46,8 @@ jobs:
           echo "Build output directory contents:"
           ls -la ./out
 
-      - name: Install Lighthouse CI
-        run: npm install -g @lhci/cli@0.13.x
-
       - name: Run Lighthouse CI
-        run: lhci autorun
+        run: pnpm exec lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
