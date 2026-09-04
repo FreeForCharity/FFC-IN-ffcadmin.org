@@ -52,10 +52,10 @@ export default function SitesListPage() {
             newest GitHub activity it recorded, so an old max date means the
             data stopped being regenerated.
 
-            Blame the GENERATOR, not the sync. The sync only copies whatever
-            upstream publishes, so it reports success every week even when the
-            file has not changed in months — pointing a volunteer at it sends
-            them to a green workflow and hides the real outage one repo over. */}
+            Point at the generator, not the sync. The sync only copies whatever
+            upstream publishes, so it succeeds whether or not the file changed —
+            a green sync run is not evidence of fresh data. Linking it here sends
+            a volunteer to a passing workflow and hides an upstream outage. */}
         {dataIsStale(sites) && (
           <div
             role="status"
