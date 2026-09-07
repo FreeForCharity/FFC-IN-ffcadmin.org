@@ -49,8 +49,15 @@ export default function SitesListPage() {
         <ViewNav current="/sites-list" />
 
         {/* Stale-data warning (#416): the snapshot can't be newer than the
-            newest GitHub activity it recorded, so an old max date means the
-            data stopped being regenerated.
+            newest GitHub activity it recorded, so an old max date bounds how
+            recently it was generated.
+
+            That bound is evidence, not proof, and the wording here should not
+            outrun it. dataGeneratedAt() reads the newest commit/PR timestamp
+            across the tracked repos, so a genuinely quiet fleet would read the
+            same way with generation perfectly healthy. Hence "may be stale" in
+            the banner, and hence "check the generator" rather than "the
+            generator failed" — the reading is a reason to go look, not a verdict.
 
             Point at the generator, not the sync. The sync only copies whatever
             upstream publishes, so it succeeds whether or not the file changed —
