@@ -49,8 +49,20 @@ export default function SitesListPage() {
         <ViewNav current="/sites-list" />
 
         {/* Stale-data warning (#416): the snapshot can't be newer than the
-            newest GitHub activity it recorded, so an old max date means the
-            weekly sync likely failed. */}
+            newest GitHub activity it recorded, so an old max date bounds how
+            recently it was generated.
+
+            That bound is evidence, not proof, and the wording here should not
+            outrun it. dataGeneratedAt() reads the newest commit/PR timestamp
+            across the tracked repos, so a genuinely quiet fleet would read the
+            same way with generation perfectly healthy. Hence "may be stale" in
+            the banner, and hence "check the generator" rather than "the
+            generator failed" — the reading is a reason to go look, not a verdict.
+
+            Point at the generator, not the sync. The sync only copies whatever
+            upstream publishes, so it succeeds whether or not the file changed —
+            a green sync run is not evidence of fresh data. Linking it here sends
+            a volunteer to a passing workflow and hides an upstream outage. */}
         {dataIsStale(sites) && (
           <div
             role="status"
@@ -58,7 +70,18 @@ export default function SitesListPage() {
           >
             <span aria-hidden="true">⚠️ </span>
             <strong>Site data may be stale.</strong> The newest activity in this snapshot is from{' '}
-            {dataGeneratedAt(sites)} ({relativeAge(dataGeneratedAt(sites))}). The weekly{' '}
+            {dataGeneratedAt(sites)} ({relativeAge(dataGeneratedAt(sites))}). Check{' '}
+            <a
+              href="https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/workflows/703-sites-list-generate.yml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-amber-700"
+            >
+              Generate Sites List
+            </a>{' '}
+            first — it builds this snapshot upstream, and its runs wait on a manual{' '}
+            <code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs">github-prod</code>{' '}
+            approval that a scheduled run cannot give itself. Look for runs marked "Waiting". The{' '}
             <a
               href="https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/actions/workflows/update-sites-data.yml"
               target="_blank"
@@ -67,7 +90,8 @@ export default function SitesListPage() {
             >
               Sync Sites List Data
             </a>{' '}
-            workflow may have failed.
+            workflow here only copies what upstream published, so it reports success even when there
+            is nothing new to copy.
           </div>
         )}
 
