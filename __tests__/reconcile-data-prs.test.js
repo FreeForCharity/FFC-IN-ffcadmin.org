@@ -101,6 +101,29 @@ describe('planFor', () => {
     expect(plan.behindBy).toBe(4)
   })
 
+  it('asks to clear a check stuck in action_required', () => {
+    // The live case: #1036 (data/roadmap) was current AND armed from creation,
+    // and still sat three days, because `CI - Build and Test` was authored by
+    // github-actions[bot] and landed in `action_required` — a required check
+    // that never reports, so auto-merge had nothing to fire on.
+    const plan = planFor(pr({ headRef: 'data/roadmap', unapprovedRuns: 1 }), { nowMs: NOW })
+    expect(plan.needsApproval).toBe(true)
+    expect(plan.needsUpdate).toBe(false)
+    expect(plan.needsAutoMerge).toBe(false)
+  })
+
+  it('does not ask to clear checks on a draft', () => {
+    const plan = planFor(pr({ draft: true, unapprovedRuns: 2 }), { nowMs: NOW })
+    expect(plan.needsApproval).toBe(false)
+  })
+
+  it('treats an absent unapprovedRuns as none, not as a reason to act', () => {
+    // Callers that predate this field must not start firing re-runs.
+    const plan = planFor(pr(), { nowMs: NOW })
+    expect(plan.unapprovedRuns).toBe(0)
+    expect(plan.needsApproval).toBe(false)
+  })
+
   it('arms auto-merge when the creating workflow never did', () => {
     // The live case: update-sites-data.yml has no auto-merge step at all, so
     // PR #732 sat open for three days at behind=28 and could not merge itself
@@ -356,18 +379,30 @@ describe('main() wiring (mocked API, no network)', () => {
     draft: false,
     auto_merge: { merge_method: 'merge' },
     created_at: hoursAgo(0.2),
-    head: { ref: 'data/ci-status' },
+    head: { ref: 'data/ci-status', sha: 'headsha1' },
     base: { ref: 'main' },
     ...over,
   })
 
   /** Routes the four calls the script makes, and records them in order. */
-  const fakeApi = ({ pulls, behind = {}, updateBranch = {}, graphqlError = null }) => {
+  const fakeApi = ({
+    pulls,
+    behind = {},
+    updateBranch = {},
+    graphqlError = null,
+    runs = [],
+    rerun = {},
+  }) => {
     const calls = []
     global.fetch = jest.fn(async (url, init = {}) => {
       const u = String(url).replace('https://api.github.com', '')
       calls.push(`${init.method || 'GET'} ${u}`)
       if (u.includes('/pulls?state=open')) return reply(200, pulls)
+      if (u.includes('/actions/runs?head_sha=')) return reply(200, { workflow_runs: runs })
+      if (/\/actions\/runs\/\d+\/rerun$/.test(u)) {
+        const status = rerun.status ?? 201
+        return reply(status, { message: rerun.message ?? 'queued' })
+      }
       if (u.includes('/compare/')) {
         const head = decodeURIComponent(u.split('...')[1])
         return reply(200, { behind_by: behind[head] ?? 0 })
@@ -409,6 +444,65 @@ describe('main() wiring (mocked API, no network)', () => {
     expect(calls).toContain('PUT /repos/FreeForCharity/FFC-IN-ffcadmin.org/pulls/739/update-branch')
     // Already armed by its creating workflow — do not touch auto-merge.
     expect(calls.some((c) => c.includes('/graphql'))).toBe(false)
+  })
+
+  it('re-runs a check stuck in action_required', async () => {
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 1036, head: { ref: 'data/roadmap', sha: 'sha1036' } })],
+      runs: [{ id: 991, conclusion: 'action_required' }],
+    })
+    await main()
+    expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/actions/runs/991/rerun')
+  })
+
+  it('leaves runs alone that are not waiting for approval', async () => {
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 1040 })],
+      runs: [
+        { id: 1, conclusion: 'success' },
+        { id: 2, conclusion: 'failure' },
+        { id: 3, conclusion: null },
+      ],
+    })
+    await main()
+    expect(calls.some((c) => c.includes('/rerun'))).toBe(false)
+  })
+
+  it('reports a refused re-run as blocked rather than swallowing it', async () => {
+    // Whether the ambient GITHUB_TOKEN may re-request a run is unproven. If it
+    // may not, that must surface as a finding — a silent pass here would be the
+    // exact failure mode this reconciler exists to remove.
+    fakeApi({
+      pulls: [apiPr({ number: 1036, created_at: new Date(Date.now() - 9 * HOUR).toISOString() })],
+      runs: [{ id: 991, conclusion: 'action_required' }],
+      rerun: { status: 403, message: 'Resource not accessible by integration' },
+    })
+    const log = jest.spyOn(console, 'log').mockImplementation(() => {})
+    await expect(main()).rejects.toThrow(/re-run refused/)
+    const summary = log.mock.calls.map((c) => c[0]).join('\n')
+    expect(summary).toMatch(/Resource not accessible by integration/)
+  })
+
+  it('does not spend the runs lookup on a draft', async () => {
+    const calls = fakeApi({ pulls: [apiPr({ number: 1041, draft: true })] })
+    await main()
+    expect(calls.some((c) => c.includes('/actions/runs?head_sha='))).toBe(false)
+  })
+
+  it('re-reads the runs after an update-branch, because that moved the head', async () => {
+    // Approving runs on a head that update-branch is about to replace spends the
+    // call on a dead commit and leaves the new head's runs unapproved.
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 1042, head: { ref: 'data/roadmap', sha: 'oldsha' } })],
+      behind: { 'data/roadmap': 3 },
+      runs: [{ id: 77, conclusion: 'action_required' }],
+    })
+    await main()
+    const runLookups = calls.filter((c) => c.includes('/actions/runs?head_sha='))
+    expect(runLookups.length).toBe(2)
+    expect(
+      calls.indexOf('PUT /repos/FreeForCharity/FFC-IN-ffcadmin.org/pulls/1042/update-branch')
+    ).toBeLessThan(calls.lastIndexOf(runLookups[runLookups.length - 1]))
   })
 
   it('arms auto-merge when the creating workflow never did', async () => {
@@ -477,6 +571,8 @@ describe('main() wiring (mocked API, no network)', () => {
         return reply(200, { behind_by: compares === 1 ? 3 : 0 })
       }
       if (u.endsWith('/update-branch')) return reply(422, { message: 'Unprocessable Entity' })
+      // No run is waiting for approval here; this test is about the compare.
+      if (u.includes('/actions/runs?head_sha=')) return reply(200, { workflow_runs: [] })
       throw new Error(`unexpected request: ${u}`)
     })
     await expect(main()).resolves.toBeUndefined()

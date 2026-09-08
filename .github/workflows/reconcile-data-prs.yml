@@ -52,6 +52,7 @@ jobs:
     permissions:
       contents: write # update-branch pushes a merge commit to the PR branch
       pull-requests: write # arm auto-merge
+      actions: write # re-run a check stuck in `action_required` (never approved)
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7

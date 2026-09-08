@@ -15,13 +15,30 @@
  * workflow is the wrong place to watch from. This is a periodic reconciler
  * instead. Per cycle, for each open PR on a `data/*` branch:
  *
- *   1. behind `main`      -> PUT /pulls/{n}/update-branch
- *   2. auto-merge not set -> enablePullRequestAutoMerge (GraphQL)
+ *   1. behind `main`       -> PUT /pulls/{n}/update-branch
+ *   2. auto-merge not set  -> enablePullRequestAutoMerge (GraphQL)
+ *   3. CI never ran        -> POST /actions/runs/{id}/rerun
  *
  * Step 2 is not redundant with the workflows: `update-sites-data.yml`,
  * `sync-applications.yml` and `whmcs-intake.yml` open data PRs and never arm
  * auto-merge at all, so those could not merge themselves even from behind=0.
  * Arming centrally also covers the next data workflow that forgets.
+ *
+ * Step 3 is the gap this reconciler had, and it is the one that hurt. These PRs
+ * are authored by `github-actions[bot]`, so `CI - Build and Test` lands in
+ * `action_required` and simply never runs: no failure, no timeout, a required
+ * check that is permanently absent. Auto-merge stays armed with nothing to fire
+ * on. Measured 2026-09-07: #1036 (`data/roadmap`) sat exactly that way for THREE
+ * DAYS, armed since creation, while this reconciler reported it accurately on
+ * every 30-minute sweep — `open 79h, now current and armed but not merged` — and
+ * nothing consumed the report. Clearing it by hand took one API call.
+ *
+ * A re-run request from an actor with write access clears `action_required` and
+ * the run proceeds (verified on #1036 and #1052 the same day: run_attempt 2 and
+ * 3, both green). Whether the ambient GITHUB_TOKEN carries that authority is NOT
+ * yet proven — the manual clearances were made as a user. So a refusal here is
+ * reported as `blocked`, never swallowed: the worst case is today's behaviour
+ * plus an explicit reason, which is strictly better than today's silence.
  *
  * Reporting: a PR that is still un-reconciled after STUCK_AFTER_HOURS fails
  * this run. That is deliberate — a red scheduled run is what the existing
@@ -57,17 +74,24 @@ export function isDataBranch(ref) {
 export function planFor(pr, { nowMs, stuckAfterMs = DEFAULT_STUCK_AFTER_MS } = {}) {
   const ageMs = Number.isFinite(pr.createdAtMs) ? nowMs - pr.createdAtMs : 0
   const behindBy = Number.isFinite(pr.behindBy) ? pr.behindBy : 0
+  const unapprovedRuns = Number.isFinite(pr.unapprovedRuns) ? pr.unapprovedRuns : 0
   const needsUpdate = !pr.draft && behindBy > 0
   const needsAutoMerge = !pr.draft && !pr.autoMergeEnabled
+  // A required check stuck in `action_required` never reports, so auto-merge has
+  // nothing to fire on however current and armed the PR is. Drafts are skipped
+  // for the same reason as everything else here: a human is holding it.
+  const needsApproval = !pr.draft && unapprovedRuns > 0
   return {
     number: pr.number,
     headRef: pr.headRef,
     draft: Boolean(pr.draft),
     behindBy,
     autoMergeEnabled: Boolean(pr.autoMergeEnabled),
+    unapprovedRuns,
     ageMs,
     needsUpdate,
     needsAutoMerge,
+    needsApproval,
     // Age only. Whether it is actually stuck is decided from the state AFTER
     // this cycle's remedies — judging it from the plan would flag a PR the
     // reconciler had just rescued.
@@ -102,9 +126,10 @@ export function decideRunOutcome(results, { dryRun = false } = {}) {
   for (const r of stuck) {
     const hours = Math.round(r.ageMs / 3600000)
     reasons.push(
-      r.behindBy > 0 || !r.autoMergeEnabled
+      r.behindBy > 0 || !r.autoMergeEnabled || r.unapprovedRuns > 0
         ? `#${r.number} (${r.headRef}): still un-reconciled after ${hours}h ` +
-            `(behind=${r.behindBy}, autoMerge=${r.autoMergeEnabled})`
+            `(behind=${r.behindBy}, autoMerge=${r.autoMergeEnabled}, ` +
+            `unapprovedRuns=${r.unapprovedRuns || 0})`
         : `#${r.number} (${r.headRef}): open ${hours}h, now current and armed but not merged — ` +
             `check the required checks and review gate on it`
     )
@@ -179,6 +204,30 @@ async function behindBy(pr) {
   return Number.isFinite(cmp.behind_by) ? cmp.behind_by : 0
 }
 
+/**
+ * Workflow runs on this head that are waiting for a maintainer to press
+ * "Approve and run workflows". GitHub models that as a COMPLETED run whose
+ * conclusion is `action_required` — not as a pending or queued one, which is
+ * why it never shows up as something in flight and never times out.
+ *
+ * One page: a PR head with more than 100 runs is not a case this reconciler is
+ * for, and the REST budget is shared org-wide (hub AGENTS.md).
+ */
+async function unapprovedRunsFor(headSha) {
+  const runs = await ghJson(
+    `/repos/${repo}/actions/runs?head_sha=${encodeURIComponent(headSha)}&per_page=100`
+  )
+  return (runs.workflow_runs || []).filter((r) => r.conclusion === 'action_required')
+}
+
+/** Re-requesting a run is what clears `action_required`; there is no "approve" verb for it. */
+async function rerunRun(runId) {
+  const { ok, status, body } = await gh(`/repos/${repo}/actions/runs/${runId}/rerun`, {
+    method: 'POST',
+  })
+  return { ok, status, message: body?.message || '' }
+}
+
 async function enableAutoMerge(nodeId) {
   const query =
     'mutation($id:ID!){enablePullRequestAutoMerge(input:{pullRequestId:$id,mergeMethod:MERGE})' +
@@ -226,8 +275,53 @@ export async function main() {
       continue
     }
 
-    const plan = planFor({ ...base, behindBy: await behindBy(pr) }, { nowMs, stuckAfterMs })
+    // Both lookups are spent only on non-drafts, and only once per PR per cycle.
+    const unapproved = await unapprovedRunsFor(pr.head.sha)
+    const plan = planFor(
+      { ...base, behindBy: await behindBy(pr), unapprovedRuns: unapproved.length },
+      { nowMs, stuckAfterMs }
+    )
     const result = { ...plan, actions: [], outcome: 'ok', reason: '', progressing: false }
+
+    // Before update-branch: an update pushes a new head, which abandons these
+    // runs and creates fresh ones. Clearing them first means the approval is
+    // spent on a head that is about to be replaced, so do the opposite --
+    // record the need, and act on it after any branch update below.
+    const clearApprovals = async () => {
+      if (!plan.needsApproval || result.outcome === 'blocked') return
+      if (dryRun) {
+        result.actions.push(`would re-run ${unapproved.length} unapproved check run(s)`)
+        return
+      }
+      // Re-read: an update-branch above moved the head, so the runs gathered
+      // for the old head are gone and the new head has its own.
+      const live = result.actions.some((a) => a === 'update-branch')
+        ? await unapprovedRunsFor(pr.head.sha).catch(() => null)
+        : unapproved
+      if (live === null) {
+        result.outcome = 'blocked'
+        result.reason = 'could not re-read workflow runs after update-branch'
+        return
+      }
+      if (!live.length) {
+        result.unapprovedRuns = 0
+        return
+      }
+      const failures = []
+      for (const run of live) {
+        const { ok, status, message } = await rerunRun(run.id)
+        if (!ok) failures.push(`${run.id}: ${status} ${message}`.trim())
+      }
+      if (failures.length) {
+        result.outcome = 'blocked'
+        // Named explicitly: if the ambient GITHUB_TOKEN cannot re-request a run,
+        // that is the finding, and it must not read as "nothing needed doing".
+        result.reason = `re-run refused (${failures.length}/${live.length}) — ${failures[0].slice(0, 100)}`
+      } else {
+        result.actions.push(`re-ran ${live.length} unapproved check run(s)`)
+        result.unapprovedRuns = 0
+      }
+    }
 
     if (plan.needsUpdate) {
       if (dryRun) {
@@ -263,6 +357,8 @@ export async function main() {
         }
       }
     }
+
+    await clearApprovals()
 
     if (plan.needsAutoMerge && result.outcome !== 'blocked') {
       if (dryRun) {
