@@ -290,9 +290,22 @@ export async function main() {
     // spent on a head that is about to be replaced, so do the opposite --
     // record the need, and act on it after any branch update below.
     const clearApprovals = async () => {
-      if (!plan.needsApproval || result.outcome === 'blocked') return
+      const headMoved = result.actions.some((a) => a === 'update-branch')
+      // Gate on the head having MOVED as well as on the pre-update plan. An
+      // update-branch replaces the head, and the new head can carry
+      // `action_required` runs even when the old one carried none — which is the
+      // common case, since the update pushes a fresh commit whose checks have to
+      // be approved all over again. Gating on `plan.needsApproval` alone skips
+      // the re-read in exactly that case and reports the PR reconciled while it
+      // is still stalled: the failure mode this whole remedy exists to remove.
+      // (Copilot, second review on #1054.)
+      if ((!plan.needsApproval && !headMoved) || result.outcome === 'blocked') return
       if (dryRun) {
-        result.actions.push(`would re-run ${unapproved.length} unapproved check run(s)`)
+        result.actions.push(
+          headMoved
+            ? 'would re-read workflow runs after update-branch and re-run any unapproved'
+            : `would re-run ${unapproved.length} unapproved workflow run(s)`
+        )
         return
       }
       // Re-read: an update-branch above moved the head, so the runs gathered
@@ -304,7 +317,7 @@ export async function main() {
       // current head first. (Caught in review on this PR: the first version used
       // `pr.head.sha`, and the test asserted only that two lookups happened, so
       // it passed while approving nothing.)
-      const live = result.actions.some((a) => a === 'update-branch')
+      const live = headMoved
         ? await ghJson(`/repos/${repo}/pulls/${pr.number}`)
             .then((fresh) => unapprovedRunsFor(fresh.head.sha))
             .catch(() => null)
@@ -329,7 +342,7 @@ export async function main() {
         // that is the finding, and it must not read as "nothing needed doing".
         result.reason = `re-run refused (${failures.length}/${live.length}) — ${failures[0].slice(0, 100)}`
       } else {
-        result.actions.push(`re-ran ${live.length} unapproved check run(s)`)
+        result.actions.push(`re-ran ${live.length} unapproved workflow run(s)`)
         result.unapprovedRuns = 0
       }
     }

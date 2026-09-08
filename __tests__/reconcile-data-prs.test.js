@@ -395,7 +395,8 @@ describe('main() wiring (mocked API, no network)', () => {
     ...over,
   })
 
-  /** Routes the four calls the script makes, and records them in order. */
+  /** Routes every call the script makes (PRs, compare, runs, rerun, update-branch,
+   *  GraphQL) and records them in order. */
   const fakeApi = ({
     pulls,
     behind = {},
@@ -530,6 +531,24 @@ describe('main() wiring (mocked API, no network)', () => {
     // And the re-run must be spent on a run belonging to that new head.
     expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/actions/runs/88/rerun')
     expect(calls.some((c) => c.includes('/actions/runs/77/rerun'))).toBe(false)
+  })
+
+  it('re-reads after update-branch even when the OLD head had nothing to approve', async () => {
+    // Copilot's second review: gating the re-read on the pre-update plan alone
+    // skips it whenever the old head was clean and the NEW head is not — which
+    // is the common case, since update-branch pushes a fresh commit whose checks
+    // need approving all over again. The PR would be reported reconciled while
+    // still stalled: exactly the failure this remedy exists to remove.
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 1043, head: { ref: 'data/roadmap', sha: 'oldsha' } })],
+      behind: { 'data/roadmap': 2 },
+      runsBySha: {
+        oldsha: [], // nothing waiting on the head we started from
+        newsha: [{ id: 99, conclusion: 'action_required' }], // but the new head stalls
+      },
+    })
+    await main()
+    expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/actions/runs/99/rerun')
   })
 
   it('arms auto-merge when the creating workflow never did', async () => {
