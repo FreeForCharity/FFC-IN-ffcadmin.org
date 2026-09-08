@@ -313,6 +313,17 @@ describe('reconcile-data-prs.yml workflow contract', () => {
     expect(on.schedule[0].cron).toBe('*/30 5-15 * * *')
   })
 
+  it('grants every permission its three remedies need', () => {
+    // Raised by Copilot on the PR that added the third remedy: `actions: write`
+    // is what lets the job POST /actions/runs/{id}/rerun. Without it the
+    // reconciler still reports the stall but can no longer clear it, and the
+    // regression would be a silent narrowing of what it can fix.
+    const perms = workflow.jobs.reconcile.permissions
+    expect(perms.contents).toBe('write') // update-branch
+    expect(perms['pull-requests']).toBe('write') // arm auto-merge
+    expect(perms.actions).toBe('write') // re-run an unapproved check
+  })
+
   it('covers the window the data workflows actually run in', () => {
     // Every data cron must fall inside the reconciler's hour range, or a
     // producer could open a PR the reconciler never looks at that day.
@@ -391,6 +402,8 @@ describe('main() wiring (mocked API, no network)', () => {
     updateBranch = {},
     graphqlError = null,
     runs = [],
+    runsBySha = {},
+    newHeadSha = 'newsha',
     rerun = {},
   }) => {
     const calls = []
@@ -398,7 +411,12 @@ describe('main() wiring (mocked API, no network)', () => {
       const u = String(url).replace('https://api.github.com', '')
       calls.push(`${init.method || 'GET'} ${u}`)
       if (u.includes('/pulls?state=open')) return reply(200, pulls)
-      if (u.includes('/actions/runs?head_sha=')) return reply(200, { workflow_runs: runs })
+      // Single-PR read: how the script learns the head sha AFTER update-branch.
+      if (/\/pulls\/\d+$/.test(u)) return reply(200, { head: { sha: newHeadSha } })
+      if (u.includes('/actions/runs?head_sha=')) {
+        const sha = decodeURIComponent(u.split('head_sha=')[1].split('&')[0])
+        return reply(200, { workflow_runs: runsBySha[sha] ?? runs })
+      }
       if (/\/actions\/runs\/\d+\/rerun$/.test(u)) {
         const status = rerun.status ?? 201
         return reply(status, { message: rerun.message ?? 'queued' })
@@ -495,14 +513,23 @@ describe('main() wiring (mocked API, no network)', () => {
     const calls = fakeApi({
       pulls: [apiPr({ number: 1042, head: { ref: 'data/roadmap', sha: 'oldsha' } })],
       behind: { 'data/roadmap': 3 },
-      runs: [{ id: 77, conclusion: 'action_required' }],
+      runsBySha: {
+        oldsha: [{ id: 77, conclusion: 'action_required' }],
+        newsha: [{ id: 88, conclusion: 'action_required' }],
+      },
     })
     await main()
     const runLookups = calls.filter((c) => c.includes('/actions/runs?head_sha='))
+    // Counting the lookups is NOT enough: the first version of this fix re-read
+    // with the stale `pr.head.sha` from the listing, so two lookups happened and
+    // both hit the dead head. Caught by Copilot in review. Assert the second one
+    // asks about the NEW head, which is the property that actually matters.
     expect(runLookups.length).toBe(2)
-    expect(
-      calls.indexOf('PUT /repos/FreeForCharity/FFC-IN-ffcadmin.org/pulls/1042/update-branch')
-    ).toBeLessThan(calls.lastIndexOf(runLookups[runLookups.length - 1]))
+    expect(runLookups[0]).toContain('head_sha=oldsha')
+    expect(runLookups[1]).toContain('head_sha=newsha')
+    // And the re-run must be spent on a run belonging to that new head.
+    expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/actions/runs/88/rerun')
+    expect(calls.some((c) => c.includes('/actions/runs/77/rerun'))).toBe(false)
   })
 
   it('arms auto-merge when the creating workflow never did', async () => {

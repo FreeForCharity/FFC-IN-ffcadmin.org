@@ -275,7 +275,9 @@ export async function main() {
       continue
     }
 
-    // Both lookups are spent only on non-drafts, and only once per PR per cycle.
+    // Both lookups are spent only on non-drafts. One each per cycle, plus a
+    // re-read of the runs (and one PR fetch) in the single case where an
+    // update-branch moved the head out from under the first one.
     const unapproved = await unapprovedRunsFor(pr.head.sha)
     const plan = planFor(
       { ...base, behindBy: await behindBy(pr), unapprovedRuns: unapproved.length },
@@ -295,8 +297,17 @@ export async function main() {
       }
       // Re-read: an update-branch above moved the head, so the runs gathered
       // for the old head are gone and the new head has its own.
+      //
+      // `pr.head.sha` is from the listing at the top of the cycle and is STALE
+      // here — re-reading with it just fetches the dead head's runs again, which
+      // is the very mistake this branch exists to avoid. Ask the PR for its
+      // current head first. (Caught in review on this PR: the first version used
+      // `pr.head.sha`, and the test asserted only that two lookups happened, so
+      // it passed while approving nothing.)
       const live = result.actions.some((a) => a === 'update-branch')
-        ? await unapprovedRunsFor(pr.head.sha).catch(() => null)
+        ? await ghJson(`/repos/${repo}/pulls/${pr.number}`)
+            .then((fresh) => unapprovedRunsFor(fresh.head.sha))
+            .catch(() => null)
         : unapproved
       if (live === null) {
         result.outcome = 'blocked'
