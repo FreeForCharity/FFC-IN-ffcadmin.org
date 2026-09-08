@@ -39,8 +39,23 @@ export interface RoadmapEntry {
   missionCategory: MissionCategory
   /** Zeffy product / service tier the charity is seeking (display string). */
   serviceTier: string
-  /** Null for live-portfolio entries whose full intake hasn't been scored yet. */
-  readinessScore: number | null
+  /**
+   * Dense rank over the readiness score — 1 is the highest-scoring entry, and
+   * equal scores share a rank. Null for live-portfolio entries whose full
+   * intake hasn't been scored yet.
+   *
+   * The numeric score itself is deliberately NOT published. The methodology
+   * page states "We show the tier badge publicly, but not the numeric score",
+   * and `public/data/roadmap.json` is served to anyone — it carried the raw
+   * value against named charities (including negative ones) for 120 entries
+   * before #1053. A rank is what the ordering below actually needs, and it
+   * discloses strictly less: the sequence a reader can already see on the page,
+   * without the value or the distance between entries.
+   *
+   * Dense (not ordinal) ranking is load-bearing: entries that tie on score must
+   * still tie here, or the tie-breakers after it stop being reachable.
+   */
+  readinessRank: number | null
   readinessTier: TierLabel | null
   submittedAt: string
   updatedAt: string
@@ -97,26 +112,32 @@ function newestUpdatedFirst(a: RoadmapEntry, b: RoadmapEntry): number {
 
 /**
  * §9 four-step sort for the "Needs a sponsoring admin" queue:
- *   1. mission bonus (essential first)  2. readiness score  3. +1 votes  4. oldest first
+ *   1. mission bonus (essential first)  2. readiness rank  3. +1 votes  4. oldest first
+ *
+ * Step 2 was the numeric score until #1053 took it out of the public payload.
+ * The rank it became is dense, so entries that tied on score still tie here and
+ * steps 3 and 4 stay reachable — an ordinal rank would silently swallow them.
  */
 export function sortNeedsAdmin(entries: RoadmapEntry[]): RoadmapEntry[] {
-  const score = (e: RoadmapEntry) => e.readinessScore ?? -Infinity
+  // Rank 1 is best, so this sorts ASCENDING where the score sorted descending.
+  // Unranked sorts last, as an unscored entry did with `?? -Infinity`.
+  const rank = (e: RoadmapEntry) => e.readinessRank ?? Infinity
   return [...entries].sort((a, b) => {
     const missionDelta = MISSION_POINTS[b.missionCategory] - MISSION_POINTS[a.missionCategory]
     if (missionDelta !== 0) return missionDelta
-    if (score(b) !== score(a)) return score(b) - score(a)
+    if (rank(a) !== rank(b)) return rank(a) - rank(b)
     if (b.plusOne !== a.plusOne) return b.plusOne - a.plusOne
     return olderFirst(a, b)
   })
 }
 
-/** Launched portfolio order: scored charities first (by score), then the rest by name. */
+/** Launched portfolio order: ranked charities first (best rank), then the rest by name. */
 function launchedOrder(a: RoadmapEntry, b: RoadmapEntry): number {
-  const sa = a.readinessScore
-  const sb = b.readinessScore
-  if (sa !== null && sb !== null && sa !== sb) return sb - sa
-  if (sa !== null && sb === null) return -1
-  if (sa === null && sb !== null) return 1
+  const ra = a.readinessRank
+  const rb = b.readinessRank
+  if (ra !== null && rb !== null && ra !== rb) return ra - rb
+  if (ra !== null && rb === null) return -1
+  if (ra === null && rb !== null) return 1
   return a.charityName.localeCompare(b.charityName)
 }
 

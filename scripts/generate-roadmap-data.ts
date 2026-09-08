@@ -23,6 +23,9 @@ import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import { parse as parseCsv } from 'csv-parse/sync'
 import { computeReadiness } from '../src/lib/readiness/scoring'
+// Shared, and unit-tested in __tests__/roadmap-readiness-rank.test.ts: this file is
+// an ESM tsx entrypoint that Jest cannot import (its own __dirname collides).
+import { withReadinessRank } from '../src/lib/readiness/rank'
 import { emptyIntake } from '../src/lib/readiness/defaults'
 import { parseIntakeIssue, parseIssueForm } from '../src/lib/readiness/parseIntake'
 import { parseValidationChecklist } from '../src/app/pipeline/pipelineData'
@@ -39,6 +42,12 @@ import type {
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const OUT = join(__dirname, '..', 'public', 'data', 'roadmap.json')
 const SITES_CSV = join(__dirname, '..', 'docs', 'sites_list.csv')
+
+/**
+ * An entry as built internally: still carrying the private numeric readiness
+ * score, which never reaches the published file.
+ */
+type ScoredEntry = Omit<RoadmapEntry, 'readinessRank'> & { readinessScore: number | null }
 
 const repo = process.env.GITHUB_REPOSITORY || 'FreeForCharity/FFC-IN-ffcadmin.org'
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
@@ -116,7 +125,7 @@ function statusFor(issue: GhIssue): RoadmapStatus {
   return 'intake'
 }
 
-function toEntry(issue: GhIssue): RoadmapEntry {
+function toEntry(issue: GhIssue): ScoredEntry {
   const parsed = parseIntakeIssue(issue.body ?? '')
   const readiness = computeReadiness(parsed.intake)
   const sponsor: RoadmapSponsor | null = issue.assignee
@@ -194,7 +203,7 @@ function isLivePortfolioSite(r: SiteRow): boolean {
 }
 
 /** FFC's own documented self-listing (program plan §16: ~Mature). */
-function ffcSelfEntry(): RoadmapEntry {
+function ffcSelfEntry(): ScoredEntry {
   const readiness = computeReadiness(
     emptyIntake({
       missionCategory: 'general',
@@ -261,7 +270,7 @@ function ffcSelfEntry(): RoadmapEntry {
  * gains a real score once its intake is completed. charityStage/missionCategory
  * are placeholders the card hides for unscored entries.
  */
-function buildPortfolio(): RoadmapEntry[] {
+function buildPortfolio(): ScoredEntry[] {
   let rows: SiteRow[] = []
   try {
     rows = parseCsv(readFileSync(SITES_CSV, 'utf8'), {
@@ -301,7 +310,7 @@ function buildPortfolio(): RoadmapEntry[] {
     }))
 }
 
-async function fetchIntakeEntries(): Promise<RoadmapEntry[]> {
+async function fetchIntakeEntries(): Promise<ScoredEntry[]> {
   if (!token) {
     console.warn('No GITHUB_TOKEN; building roadmap from the live portfolio only.')
     return []
@@ -333,7 +342,8 @@ async function main() {
   )
   const portfolio = buildPortfolio().filter((e) => !intakeDomains.has(e.charityName))
 
-  const entries = [ffcSelfEntry(), ...intake, ...portfolio]
+  // The numeric score stops here: everything downstream sees only the rank.
+  const entries = withReadinessRank([ffcSelfEntry(), ...intake, ...portfolio])
 
   // Only rewrite when the entries actually changed, so a volatile generatedAt
   // timestamp doesn't open a PR on every scheduled run (no-churn contract).

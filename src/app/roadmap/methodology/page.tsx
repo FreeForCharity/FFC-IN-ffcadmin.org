@@ -141,7 +141,8 @@ export default function MethodologyPage() {
           />
           <p className="mt-3 text-sm text-gray-500">
             Labels map from the numeric score (shown as the lower bound). Below 0 is “Just getting
-            started.” We show the tier badge publicly, but not the numeric score.
+            started.” We show the tier badge publicly, but not the numeric score — the published
+            data carries only the badge and a rank, which is what orders this page.
           </p>
         </section>
 
