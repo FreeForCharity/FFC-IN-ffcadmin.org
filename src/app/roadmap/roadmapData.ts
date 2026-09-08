@@ -112,7 +112,11 @@ function newestUpdatedFirst(a: RoadmapEntry, b: RoadmapEntry): number {
 
 /**
  * §9 four-step sort for the "Needs a sponsoring admin" queue:
- *   1. mission bonus (essential first)  2. readiness score  3. +1 votes  4. oldest first
+ *   1. mission bonus (essential first)  2. readiness rank  3. +1 votes  4. oldest first
+ *
+ * Step 2 was the numeric score until #1053 took it out of the public payload.
+ * The rank it became is dense, so entries that tied on score still tie here and
+ * steps 3 and 4 stay reachable — an ordinal rank would silently swallow them.
  */
 export function sortNeedsAdmin(entries: RoadmapEntry[]): RoadmapEntry[] {
   // Rank 1 is best, so this sorts ASCENDING where the score sorted descending.
