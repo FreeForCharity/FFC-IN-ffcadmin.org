@@ -101,6 +101,29 @@ describe('planFor', () => {
     expect(plan.behindBy).toBe(4)
   })
 
+  it('asks to clear a check stuck in action_required', () => {
+    // The live case: #1036 (data/roadmap) was current AND armed from creation,
+    // and still sat three days, because `CI - Build and Test` was authored by
+    // github-actions[bot] and landed in `action_required` — a required check
+    // that never reports, so auto-merge had nothing to fire on.
+    const plan = planFor(pr({ headRef: 'data/roadmap', unapprovedRuns: 1 }), { nowMs: NOW })
+    expect(plan.needsApproval).toBe(true)
+    expect(plan.needsUpdate).toBe(false)
+    expect(plan.needsAutoMerge).toBe(false)
+  })
+
+  it('does not ask to clear checks on a draft', () => {
+    const plan = planFor(pr({ draft: true, unapprovedRuns: 2 }), { nowMs: NOW })
+    expect(plan.needsApproval).toBe(false)
+  })
+
+  it('treats an absent unapprovedRuns as none, not as a reason to act', () => {
+    // Callers that predate this field must not start firing re-runs.
+    const plan = planFor(pr(), { nowMs: NOW })
+    expect(plan.unapprovedRuns).toBe(0)
+    expect(plan.needsApproval).toBe(false)
+  })
+
   it('arms auto-merge when the creating workflow never did', () => {
     // The live case: update-sites-data.yml has no auto-merge step at all, so
     // PR #732 sat open for three days at behind=28 and could not merge itself
@@ -290,6 +313,17 @@ describe('reconcile-data-prs.yml workflow contract', () => {
     expect(on.schedule[0].cron).toBe('*/30 5-15 * * *')
   })
 
+  it('grants every permission its three remedies need', () => {
+    // Raised by Copilot on the PR that added the third remedy: `actions: write`
+    // is what lets the job POST /actions/runs/{id}/rerun. Without it the
+    // reconciler still reports the stall but can no longer clear it, and the
+    // regression would be a silent narrowing of what it can fix.
+    const perms = workflow.jobs.reconcile.permissions
+    expect(perms.contents).toBe('write') // update-branch
+    expect(perms['pull-requests']).toBe('write') // arm auto-merge
+    expect(perms.actions).toBe('write') // re-run an unapproved check
+  })
+
   it('covers the window the data workflows actually run in', () => {
     // Every data cron must fall inside the reconciler's hour range, or a
     // producer could open a PR the reconciler never looks at that day.
@@ -356,18 +390,38 @@ describe('main() wiring (mocked API, no network)', () => {
     draft: false,
     auto_merge: { merge_method: 'merge' },
     created_at: hoursAgo(0.2),
-    head: { ref: 'data/ci-status' },
+    head: { ref: 'data/ci-status', sha: 'headsha1' },
     base: { ref: 'main' },
     ...over,
   })
 
-  /** Routes the four calls the script makes, and records them in order. */
-  const fakeApi = ({ pulls, behind = {}, updateBranch = {}, graphqlError = null }) => {
+  /** Routes every call the script makes (PRs, compare, runs, rerun, update-branch,
+   *  GraphQL) and records them in order. */
+  const fakeApi = ({
+    pulls,
+    behind = {},
+    updateBranch = {},
+    graphqlError = null,
+    runs = [],
+    runsBySha = {},
+    newHeadSha = 'newsha',
+    rerun = {},
+  }) => {
     const calls = []
     global.fetch = jest.fn(async (url, init = {}) => {
       const u = String(url).replace('https://api.github.com', '')
       calls.push(`${init.method || 'GET'} ${u}`)
       if (u.includes('/pulls?state=open')) return reply(200, pulls)
+      // Single-PR read: how the script learns the head sha AFTER update-branch.
+      if (/\/pulls\/\d+$/.test(u)) return reply(200, { head: { sha: newHeadSha } })
+      if (u.includes('/actions/runs?head_sha=')) {
+        const sha = decodeURIComponent(u.split('head_sha=')[1].split('&')[0])
+        return reply(200, { workflow_runs: runsBySha[sha] ?? runs })
+      }
+      if (/\/actions\/runs\/\d+\/rerun$/.test(u)) {
+        const status = rerun.status ?? 201
+        return reply(status, { message: rerun.message ?? 'queued' })
+      }
       if (u.includes('/compare/')) {
         const head = decodeURIComponent(u.split('...')[1])
         return reply(200, { behind_by: behind[head] ?? 0 })
@@ -409,6 +463,92 @@ describe('main() wiring (mocked API, no network)', () => {
     expect(calls).toContain('PUT /repos/FreeForCharity/FFC-IN-ffcadmin.org/pulls/739/update-branch')
     // Already armed by its creating workflow — do not touch auto-merge.
     expect(calls.some((c) => c.includes('/graphql'))).toBe(false)
+  })
+
+  it('re-runs a check stuck in action_required', async () => {
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 1036, head: { ref: 'data/roadmap', sha: 'sha1036' } })],
+      runs: [{ id: 991, conclusion: 'action_required' }],
+    })
+    await main()
+    expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/actions/runs/991/rerun')
+  })
+
+  it('leaves runs alone that are not waiting for approval', async () => {
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 1040 })],
+      runs: [
+        { id: 1, conclusion: 'success' },
+        { id: 2, conclusion: 'failure' },
+        { id: 3, conclusion: null },
+      ],
+    })
+    await main()
+    expect(calls.some((c) => c.includes('/rerun'))).toBe(false)
+  })
+
+  it('reports a refused re-run as blocked rather than swallowing it', async () => {
+    // Whether the ambient GITHUB_TOKEN may re-request a run is unproven. If it
+    // may not, that must surface as a finding — a silent pass here would be the
+    // exact failure mode this reconciler exists to remove.
+    fakeApi({
+      pulls: [apiPr({ number: 1036, created_at: new Date(Date.now() - 9 * HOUR).toISOString() })],
+      runs: [{ id: 991, conclusion: 'action_required' }],
+      rerun: { status: 403, message: 'Resource not accessible by integration' },
+    })
+    const log = jest.spyOn(console, 'log').mockImplementation(() => {})
+    await expect(main()).rejects.toThrow(/re-run refused/)
+    const summary = log.mock.calls.map((c) => c[0]).join('\n')
+    expect(summary).toMatch(/Resource not accessible by integration/)
+  })
+
+  it('does not spend the runs lookup on a draft', async () => {
+    const calls = fakeApi({ pulls: [apiPr({ number: 1041, draft: true })] })
+    await main()
+    expect(calls.some((c) => c.includes('/actions/runs?head_sha='))).toBe(false)
+  })
+
+  it('re-reads the runs after an update-branch, because that moved the head', async () => {
+    // Approving runs on a head that update-branch is about to replace spends the
+    // call on a dead commit and leaves the new head's runs unapproved.
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 1042, head: { ref: 'data/roadmap', sha: 'oldsha' } })],
+      behind: { 'data/roadmap': 3 },
+      runsBySha: {
+        oldsha: [{ id: 77, conclusion: 'action_required' }],
+        newsha: [{ id: 88, conclusion: 'action_required' }],
+      },
+    })
+    await main()
+    const runLookups = calls.filter((c) => c.includes('/actions/runs?head_sha='))
+    // Counting the lookups is NOT enough: the first version of this fix re-read
+    // with the stale `pr.head.sha` from the listing, so two lookups happened and
+    // both hit the dead head. Caught by Copilot in review. Assert the second one
+    // asks about the NEW head, which is the property that actually matters.
+    expect(runLookups.length).toBe(2)
+    expect(runLookups[0]).toContain('head_sha=oldsha')
+    expect(runLookups[1]).toContain('head_sha=newsha')
+    // And the re-run must be spent on a run belonging to that new head.
+    expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/actions/runs/88/rerun')
+    expect(calls.some((c) => c.includes('/actions/runs/77/rerun'))).toBe(false)
+  })
+
+  it('re-reads after update-branch even when the OLD head had nothing to approve', async () => {
+    // Copilot's second review: gating the re-read on the pre-update plan alone
+    // skips it whenever the old head was clean and the NEW head is not — which
+    // is the common case, since update-branch pushes a fresh commit whose checks
+    // need approving all over again. The PR would be reported reconciled while
+    // still stalled: exactly the failure this remedy exists to remove.
+    const calls = fakeApi({
+      pulls: [apiPr({ number: 1043, head: { ref: 'data/roadmap', sha: 'oldsha' } })],
+      behind: { 'data/roadmap': 2 },
+      runsBySha: {
+        oldsha: [], // nothing waiting on the head we started from
+        newsha: [{ id: 99, conclusion: 'action_required' }], // but the new head stalls
+      },
+    })
+    await main()
+    expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/actions/runs/99/rerun')
   })
 
   it('arms auto-merge when the creating workflow never did', async () => {
@@ -477,6 +617,8 @@ describe('main() wiring (mocked API, no network)', () => {
         return reply(200, { behind_by: compares === 1 ? 3 : 0 })
       }
       if (u.endsWith('/update-branch')) return reply(422, { message: 'Unprocessable Entity' })
+      // No run is waiting for approval here; this test is about the compare.
+      if (u.includes('/actions/runs?head_sha=')) return reply(200, { workflow_runs: [] })
       throw new Error(`unexpected request: ${u}`)
     })
     await expect(main()).resolves.toBeUndefined()
