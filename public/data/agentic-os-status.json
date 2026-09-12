@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T03:55:41Z",
+  "generated_at": "2026-09-12T05:38:26Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -9,12 +9,39 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1278,
-      "title": "Ledger ids are allocated from the tip, so any two concurrent agentic-os PRs race for the same one — and no per-PR check can see it",
+      "number": 1089,
+      "title": "Step 4's backlog band has been unmet for 10 consecutive runs and its only lever is disconnected: the queue is over-full with fresh work, not stale work",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-12T03:43:14Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1278",
+      "updated_at": "2026-09-12T05:36:45Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1089",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1174,
+      "title": "pwsh step-body tests run bodies as `pwsh -File`, omitting the runner's `exit $LASTEXITCODE` wrapper — so no module can pin a step exit code, and two already do",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-12T05:35:11Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1174",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "testing",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1068,
+      "title": "101 Domain Status reports nothing when there is something to report: a tolerated DKIM warning still fails the step, skipping summary and post_back",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-12T05:34:48Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1068",
       "labels": [
         "bug",
         "agentic-os",
@@ -27,7 +54,7 @@
       "title": "[⚠️ ASK: ENQUEUE #1223 → #1222 → #1224 (all green + already promoted, 4d) · #1224 needs a 3-step ledger fix, now verified end-to-end · FLEET DEADLOCKED — 3/3 PR slots full, every worker run forced to no-op · Conductor down ~22d] Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-12T03:28:46Z",
+      "updated_at": "2026-09-12T05:30:10Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
@@ -35,16 +62,41 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1269,
-      "title": "739's Conductor-silence alarm is delivered only to #719, which only the Conductor reads: 4 correct alarms, 30-day outage, 0 addressees",
+      "number": 1280,
+      "title": "guard_bash rule 8 reads a redirect target as an endpoint, and blocks its own test data",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-11T18:38:30Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1269",
+      "updated_at": "2026-09-12T04:40:52Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1280",
       "labels": [
+        "bug",
         "agentic-os",
-        "claimed",
-        "priority: high",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1119,
+      "title": "test(workflow-logic): 104 of 1170 tests fail on Windows while ubuntu-only CI stays green",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-12T04:19:30Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1119",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1278,
+      "title": "Ledger ids are allocated from the tip, so any two concurrent agentic-os PRs race for the same one — and no per-PR check can see it",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-12T04:15:54Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1278",
+      "labels": [
+        "bug",
+        "agentic-os",
         "agent-ready"
       ]
     },
@@ -270,21 +322,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1174,
-      "title": "pwsh step-body tests run bodies as `pwsh -File`, omitting the runner's `exit $LASTEXITCODE` wrapper — so no module can pin a step exit code, and two already do",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-29T18:32:06Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1174",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "testing",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1210,
       "title": "Testing: the #1080 frozen-count pin serialises the burn-down — two concurrent lanes cannot both land",
       "state": "open",
@@ -384,18 +421,6 @@
       "labels": [
         "agentic-os",
         "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1089,
-      "title": "Step 4's backlog band has been unmet for 10 consecutive runs and its only lever is disconnected: the queue is over-full with fresh work, not stale work",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-11T22:23:17Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1089",
-      "labels": [
-        "agentic-os"
       ]
     },
     {
@@ -666,18 +691,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1119,
-      "title": "test(workflow-logic): 104 of 1170 tests fail on Windows while ubuntu-only CI stays green",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-08T11:30:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1119",
-      "labels": [
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1040,
       "title": "Hook rule coverage is blind to the warn() channel: #1018's two rules land green with zero cases",
       "state": "open",
@@ -927,20 +940,6 @@
       "assignee": null,
       "updated_at": "2026-08-05T04:19:21Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1026",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1068,
-      "title": "101 Domain Status reports nothing when there is something to report: a tolerated DKIM warning still fails the step, skipping summary and post_back",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-04T22:15:59Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1068",
       "labels": [
         "bug",
         "agentic-os",
@@ -1548,11 +1547,54 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1174,
+      "title": "pwsh step-body tests run bodies as `pwsh -File`, omitting the runner's `exit $LASTEXITCODE` wrapper — so no module can pin a step exit code, and two already do",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-12T05:35:11Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1174",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "testing",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1068,
+      "title": "101 Domain Status reports nothing when there is something to report: a tolerated DKIM warning still fails the step, skipping summary and post_back",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-12T05:34:48Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1068",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1280,
+      "title": "guard_bash rule 8 reads a redirect target as an endpoint, and blocks its own test data",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-12T04:40:52Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1280",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1278,
       "title": "Ledger ids are allocated from the tip, so any two concurrent agentic-os PRs race for the same one — and no per-PR check can see it",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-12T03:43:14Z",
+      "updated_at": "2026-09-12T04:15:54Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1278",
       "labels": [
         "bug",
@@ -1629,21 +1671,6 @@
       "labels": [
         "security",
         "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1174,
-      "title": "pwsh step-body tests run bodies as `pwsh -File`, omitting the runner's `exit $LASTEXITCODE` wrapper — so no module can pin a step exit code, and two already do",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-29T18:32:06Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1174",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "testing",
         "agent-ready"
       ]
     },
@@ -2093,20 +2120,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1068,
-      "title": "101 Domain Status reports nothing when there is something to report: a tolerated DKIM warning still fails the step, skipping summary and post_back",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-04T22:15:59Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1068",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1067,
       "title": "737 claim-sync reads only the PR body, so a Refs in the title claims nothing — #823 sat pickable while #825 implemented it",
       "state": "open",
@@ -2299,49 +2312,12 @@
       ]
     }
   ],
-  "ready_count": 54,
+  "ready_count": 55,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
-  "in_flight_prs": [
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1275,
-      "title": "feat(739): deliver the Conductor-silence alarm to a person, not to #719",
-      "state": "open",
-      "draft": true,
-      "assignee": null,
-      "updated_at": "2026-09-12T03:52:40Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1275",
-      "labels": [
-        "bug",
-        "agentic-os"
-      ],
-      "linked_agentic_issues": [
-        719,
-        1200,
-        1261,
-        1080,
-        980,
-        1269
-      ]
-    }
-  ],
+  "in_flight_prs": [],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Referenced-issue labels are what decide it — nothing labels the pull requests themselves. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 4,
+  "open_prs_total": 3,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-11T11:40:28Z",
-      "body": "## Run 153 — gate decisions (step 2)\n\nFour runs were sitting at `waiting`. Two auto-approved, two are Clarke's.\n\n### ✅ Auto-approved — both `safetyLevel: Reads`\n\n| run | workflow | env | waiting since |\n| --- | --- | --- | --- |\n| [34591786863](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/34591786863) | `101. Domain - Status` — **neurospike.org** | `m365-prod` | 09-11 10:58Z |\n| [33883279941](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/338…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5633882359"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-11T12:10:23Z",
-      "body": "## Run 153 — END (2026-09-11, 11:33–12:2xZ) · core 5000 → 5000 (hourly reset landed mid-run, ~12:0xZ) / graphql 5000\n\n**The fleet is un-deadlocked. Open `agentic-os` PRs: 3 → 0. Org-wide, the only one left open is this run's own lessons PR.**\n\n| | |\n| --- | --- |\n| PRs merged | **3** — #1265, #1266, #1267 (11:50:14 / 11:50:31 / 11:51:38Z), `main` `90cce87` → `3f16e9d` |\n| PRs opened | 2 — [ffcadmin #1074](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/1074) (feed delivery 87, **merge…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5634239638"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-09-11T12:31:48Z",
@@ -2397,6 +2373,20 @@
       "body": "## Conductor run 155 — START (2026-09-12 ~03:3xZ)\n\n**The local clock is 11h22m stale and I nearly timestamped this run as run 154's same-day\nfollow-on.** `date -u` returned `2026-09-11T16:05:16Z` at bootstrap; GitHub's own `Date` response\nheader says `Sat, 12 Sep 2026 03:27:48 GMT`, and three PRs (#1274 15:25Z, #1275 18:37Z, #1277\n21:36Z) plus nine `Failure alert sweep` runs are stamped *after* my \"now\". The session-reminder\nagrees with the stale clock (`Today's date is 2026-09-11`), so two sour…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5643157111"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-12T05:25:09Z",
+      "body": "## Conductor run 155 — END (2026-09-12, 03:3x–05:2xZ)\n\n**5 PRs merged** (hub [#1274](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1274) 03:43:09Z, [#1277](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1277) 03:48:26Z, [#1275](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1275) 04:32:13Z, [#1279](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1279) 05:20:33Z; ffcadmin [#1076](https://github.com/FreeForCharity/FFC-IN-ffcad…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5643746819"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-12T05:30:10Z",
+      "body": "## Conductor run 156 — START (2026-09-12 ~05:3xZ)\n\nRate at open: **core 5000/5000, graphql 5000/5000**. Bootstrap: 5/5 core clones on `main`, clean (the `U+F022 U+F022` litter of #1023 is still the only untracked file in the hub — day N of that).\n\n**`check-conductor-clock.py` ran at bootstrap per run 155's thread 2 and AGENTS.md: `CLOCK: ok`**, host `2026-09-12T05:29:25Z` vs authoritative `2026-09-12T05:29:25Z`. Run 155's 11h22m skew was NTP-corrected and has not recurred.\n\n**The hooks ARE wired…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5643792596"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
