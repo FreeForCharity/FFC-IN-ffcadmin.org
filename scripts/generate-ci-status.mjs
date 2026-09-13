@@ -2,8 +2,10 @@
 /**
  * Generate public/data/ci-status.json (#337).
  *
- * Fetches the latest GitHub Actions run on `main` for each tracked workflow and
- * writes a small committed JSON file the static /testing dashboard reads.
+ * Fetches the latest COMPLETED GitHub Actions run on `main` for each tracked
+ * workflow and writes a small committed JSON file the static /testing dashboard
+ * reads. Completed only: update-ci-status.yml skips the refresh triggered by its
+ * own data commit, so an in-progress snapshot would never be replaced.
  *
  * Auth: the workflow's built-in GITHUB_TOKEN (no extra secret). Runs in CI; if
  * the token or network is unavailable it leaves the existing file untouched and
@@ -43,7 +45,9 @@ async function main() {
   const workflows = []
   for (const name of TRACKED) {
     try {
-      const data = await ghJson(`/repos/${repo}/actions/runs?branch=main&per_page=20`)
+      const data = await ghJson(
+        `/repos/${repo}/actions/runs?branch=main&status=completed&per_page=50`
+      )
       const run = (data.workflow_runs || []).find((r) => r.name === name)
       if (run) {
         workflows.push({

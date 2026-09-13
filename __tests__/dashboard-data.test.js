@@ -99,6 +99,20 @@ describe('Pipeline wiring', () => {
     )
   })
 
+  it('ci-status generator publishes only completed runs', () => {
+    // update-ci-status.yml skips the workflow_run fired by its own data commit, so
+    // a snapshot taken mid-run would read `in_progress` until the next schedule.
+    const gen = fs.readFileSync(
+      path.join(process.cwd(), 'scripts', 'generate-ci-status.mjs'),
+      'utf8'
+    )
+    const calls = gen.match(/\/actions\/runs\?[^`'"]*/g) || []
+    expect(calls.length).toBeGreaterThan(0)
+    for (const call of calls) {
+      expect(call).toContain('status=completed')
+    }
+  })
+
   it('scheduled workflows reference the generators', () => {
     const ci = fs.readFileSync(
       path.join(process.cwd(), '.github', 'workflows', 'update-ci-status.yml'),
