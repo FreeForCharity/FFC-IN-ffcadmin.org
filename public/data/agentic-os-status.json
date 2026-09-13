@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T16:10:31Z",
+  "generated_at": "2026-09-13T22:08:56Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -13,10 +13,41 @@
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T16:05:06Z",
+      "updated_at": "2026-09-13T22:04:53Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1311,
+      "title": "guard_bash rule 2 misses every force-push written with a global git option: `git -c x=y push --force origin main` is allowed",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T21:29:30Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1311",
+      "labels": [
+        "bug",
+        "security",
+        "agentic-os",
+        "claimed",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1309,
+      "title": "guard_bash rule 2 reads a force flag and a branch name from different statements, blocking ordinary feature-branch pushes",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T18:52:22Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1309",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "claimed",
+        "agent-ready"
       ]
     },
     {
@@ -25,12 +56,11 @@
       "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T15:40:10Z",
+      "updated_at": "2026-09-13T16:55:43Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
       "labels": [
         "security",
         "agentic-os",
-        "claimed",
         "agent-ready"
       ]
     },
@@ -1646,6 +1676,20 @@
   ],
   "ready_issues": [
     {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1080,
+      "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T16:55:43Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
+      "labels": [
+        "security",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
       "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
       "number": 1091,
       "title": "Security: 12 Dependabot alerts (9 high) in ffcadmin devDependency tree, mostly via @lhci/cli 0.13 → puppeteer-core 21",
@@ -2495,27 +2539,46 @@
       ]
     }
   ],
-  "ready_count": 61,
+  "ready_count": 62,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1308,
-      "title": "security(1080): burn down 208's three dispatch-input call sites (lane 24)",
+      "number": 1312,
+      "title": "fix(hooks): rule 2 must see git's global options before the subcommand",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-09-13T16:09:19Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1308",
+      "updated_at": "2026-09-13T21:29:10Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1312",
       "labels": [
+        "bug",
         "security",
         "agentic-os"
       ],
       "linked_agentic_issues": [
-        1188,
-        1208,
-        1213,
-        1080
+        1311
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1310,
+      "title": "fix(hooks): decide guard_bash rule 2 per segment, not per whole command",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-09-13T19:10:24Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1310",
+      "labels": [
+        "bug",
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        1309,
+        1041,
+        1243,
+        1278,
+        1311
       ]
     },
     {
@@ -2538,34 +2601,6 @@
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Both paths genuinely fire: some PRs do carry the label, applied by the authoring agent or by hand, but NO automation applies it (see FFC-Cloudflare-Automation#1070), so the referenced-issue path is what makes this listing reliable rather than best-effort. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
   "open_prs_total": 6,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-13T04:34:40Z",
-      "body": "## Conductor run 164 — END (2026-09-13, 04:05–04:3xZ)\n\n**Bootstrap:** the new host clock check (`scripts/check-conductor-clock.py`) returned `ok`, rc 0. All five core clones are on `main`.\n\n**Gates (Step 2):** 1 pending, **not approved**. [703 Generate Sites List](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/34100182363) is on `github-prod`, a write environment held for credential scope. This is its 86th hold; the consolidated ask stands and Clarke was not re-pinged. …",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5651165849"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-13T04:44:15Z",
-      "body": "Run 164 addendum: #1302 **merged 04:44Z** through the merge queue and is carded Done. #1303 has been updated from `main`; next run promotes it once CI is green.",
-      "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5651203545"
-    },
-    {
-      "author": "github-actions[bot]",
-      "created_at": "2026-09-13T06:50:33Z",
-      "body": "### 734 stale waiting-run janitor\n\nThreshold: waiting runs are cancelled after **7d**, warned about for the last **2d**.\n\n#### Expiring within 2d (1)\n\n- [34100182363](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/34100182363) — Generate Sites List — waiting since `2026-09-07T08:21:42Z` — **will be cancelled at `2026-09-15T06:31:00.000Z`**\n\nTimes are the janitor's own next daily tick after each run crosses the threshold — not the threshold itself.",
-      "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5651763771"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-13T07:06:09Z",
-      "body": "## Conductor run 165 — START (2026-09-13, 07:04Z)\n\nBootstrap done. All five core clones are on `main` and fast-forwarded (hub `37ca7d8`, ffcadmin `3fd8c6c`). Rate limit: core 5000/5000.\n\nCarried from run 164: #1302 merged. #1303's CI is green, so it is next to promote. #1297 stays with Clarke (hook); no reply yet. 703 is still held on `github-prod`, and the janitor cancels it 09-15. New this run: #1304 (#1080 lane 22, 115) needs review.\n",
-      "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5651844245"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-09-13T07:41:05Z",
@@ -2607,6 +2642,34 @@
       "body": "**Conductor run 168 — START** (2026-09-13 16:04Z)\n\n- Bootstrap: five core clones on `main` (hub `20c0a79`, ffcadmin `983125d`). AGENTS.md, CLAUDE.md, the safety doc, AI_AGENT_INSTRUCTIONS.md and `.claude/hooks/` are unchanged since run 167.\n- Rate limit 5000/5000. gh, az, m365 and gcloud are all present.\n- In view: 1 waiting gate (703 run `34100182363`, `github-prod`, hold). New PR #1308 (#1080 lane 24, `208`). ffcadmin#1100 (draft, 1 Copilot thread). #1297 is still with Clarke.\n",
       "truncated": false,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5654400901"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T19:07:00Z",
+      "body": "**Conductor run 169 — START** (2026-09-13 19:04Z)\n\n- Bootstrap: five core clones on `main` (hub `438b8e4`, ffcadmin `d81038f`). AGENTS.md, CLAUDE.md, the safety doc, AI_AGENT_INSTRUCTIONS.md and `.claude/hooks/` are unchanged since run 168. Rate limit 5000/5000. gh, az, m365 and gcloud are all present.\n- **Run 168 drafted its END but never posted it.** It is posted next, unchanged, so the log has no gap.\n- In view: 1 waiting gate (703 run `34100182363`, `github-prod`, hold). New hook PR #1310 (f…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5655430936"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T19:07:01Z",
+      "body": "_Posted late by run 169: run 168 wrote this END at 16:56Z but did not post it. Text unchanged._\n\n**Conductor run 168 — END** (2026-09-13 16:56Z)\n\n**Merged**\n- #1308 (#1080 lane 24, `208-whmcs-tickets-export.yml`): the injection freeze drops from 12 workflows / 20 call sites to 11 / 17. Write lanes stay at 0. I verified it locally at `909fd1b` (0 behind) on Windows with pwsh: the interpolation guard, `test_208_…`, `test_workflow_input_interpolation`, `test_1213`, `test_1150`, the ledger test and …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5655431067"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T19:15:32Z",
+      "body": "**Conductor run 169 — END** (2026-09-13 19:15Z)\n\n**Log repair**\n- Run 168 wrote its END but never posted it. The session ended right after drafting. It is now posted above, unchanged.\n\n**Supervised**\n- #1310 (fixes #1309, `guard_bash.py` rule 2). I verified it on Windows at `40c39e8`, 0 behind: `test_hooks.py` 222 passed / 0 failed, and the ledger test returned rc 0. I also sent each command shape to both guards on stdin as a read-only probe:\n  - Every false positive run 168 measured is now allo…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5655479751"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T22:04:53Z",
+      "body": "**Conductor run 170 — START** (2026-09-13 22:04Z)\n\n- Bootstrap: five core clones on `main` (hub `438b8e4`, ffcadmin `d81038f`). AGENTS.md, CLAUDE.md, the safety doc, and hooks are unchanged since run 169. Rate 5000/5000.\n- Run 169's END is posted (5655479751), so there is no log repair this run.\n- Plan: gates (703 hold), review new hook PR #1312 (fixes #1311), take ffcadmin #1111 to merge if CI and review are clean, board and status page, health sweep of hub and ffcadmin, lessons.\n",
+      "truncated": false,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5656471726"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
