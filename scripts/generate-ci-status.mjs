@@ -17,7 +17,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const OUT = join(__dirname, '..', 'public', 'data', 'ci-status.json')
 
 // Workflows surfaced on the dashboard, by their `name:` in the workflow file.
-const TRACKED = ['Build, Test, and Verify']
+const TRACKED = ['CI - Build and Test']
 
 const repo = process.env.GITHUB_REPOSITORY || 'FreeForCharity/FFC-IN-ffcadmin.org'
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
