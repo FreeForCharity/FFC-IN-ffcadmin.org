@@ -65,4 +65,14 @@ describe('Workflow name references', () => {
     const doc = workflows.find((w) => w.file === 'update-ci-status.yml').doc
     expect(doc.on.workflow_run.branches).toEqual(['main'])
   })
+
+  it('update-ci-status.yml does not re-trigger on its own data refresh', () => {
+    // A merged data PR pushes to main and CI runs again. Without a guard that
+    // run opens the next data PR, every ~4 minutes, forever.
+    const doc = workflows.find((w) => w.file === 'update-ci-status.yml').doc
+    const step = doc.jobs['update-ci-status'].steps.find((s) => s.id === 'create-pr')
+    const guard = doc.jobs['update-ci-status'].if || ''
+    expect(guard).toContain('github.event.workflow_run.head_commit.message')
+    expect(guard).toContain(`'${step.with['commit-message']}'`)
+  })
 })

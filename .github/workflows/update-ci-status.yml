@@ -15,6 +15,12 @@ permissions:
 
 jobs:
   update-ci-status:
+    # Skip CI runs whose head commit is this workflow's own data refresh. The
+    # merged data PR pushes to main, CI runs, and without this guard that run
+    # opens the next data PR: a loop that never converges.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      !startsWith(github.event.workflow_run.head_commit.message, 'feat(data): refresh CI status dashboard data')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
