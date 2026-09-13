@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T07:10:28Z",
+  "generated_at": "2026-09-13T10:09:42Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -9,13 +9,70 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1306,
+      "title": "Lane wiring tests assert `$env:X` appears anywhere in the body, which the default-fill guard satisfies — 10 modules pass a workflow that ignores its input at the call site (L294)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T10:09:29Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1306",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "testing",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 719,
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T07:06:09Z",
+      "updated_at": "2026-09-13T10:05:27Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1080,
+      "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T10:04:38Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
+      "labels": [
+        "security",
+        "agentic-os",
+        "claimed",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 877,
+      "title": "Key Vault credential health: dead, expiring, or unverifiable credentials",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T10:00:12Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/877",
+      "labels": [
+        "security",
+        "agentic-os",
+        "priority: high"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 921,
+      "title": "🚨 Scheduled workflow failing: 502. Google - Analytics Report (GA4 -> JSON) [GOOGLE]",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T07:43:06Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/921",
+      "labels": [
+        "bug",
         "agentic-os"
       ]
     },
@@ -30,21 +87,6 @@
       "labels": [
         "bug",
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1080,
-      "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-13T06:45:39Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
-      "labels": [
-        "security",
-        "agentic-os",
-        "claimed",
-        "agent-ready"
       ]
     },
     {
@@ -193,33 +235,6 @@
       "labels": [
         "agentic-os",
         "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 877,
-      "title": "Key Vault credential health: dead, expiring, or unverifiable credentials",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-12T09:28:37Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/877",
-      "labels": [
-        "security",
-        "agentic-os",
-        "priority: high"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 921,
-      "title": "🚨 Scheduled workflow failing: 502. Google - Analytics Report (GA4 -> JSON) [GOOGLE]",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-12T07:42:51Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/921",
-      "labels": [
-        "bug",
-        "agentic-os"
       ]
     },
     {
@@ -1646,6 +1661,21 @@
   ],
   "ready_issues": [
     {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1306,
+      "title": "Lane wiring tests assert `$env:X` appears anywhere in the body, which the default-fill guard satisfies — 10 modules pass a workflow that ignores its input at the call site (L294)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T10:09:29Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1306",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "testing",
+        "agent-ready"
+      ]
+    },
+    {
       "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
       "number": 1091,
       "title": "Security: 12 Dependabot alerts (9 high) in ffcadmin devDependency tree, mostly via @lhci/cli 0.13 → puppeteer-core 21",
@@ -2495,32 +2525,18 @@
       ]
     }
   ],
-  "ready_count": 61,
+  "ready_count": 62,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1303,
-      "title": "docs(claude): MSYS_NO_PATHCONV=1 also disables /c/ path conversion, so pair it with C:/ paths",
-      "state": "open",
-      "draft": true,
-      "assignee": null,
-      "updated_at": "2026-09-13T07:10:13Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1303",
-      "labels": [],
-      "linked_agentic_issues": [
-        1027
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1304,
-      "title": "fix(115): move all three free-text dispatch inputs into step-level env: (#1080 lane 22)",
+      "number": 1305,
+      "title": "fix(218): move all three free-text dispatch inputs into step-level env: (#1080 lane 23)",
       "state": "open",
       "draft": false,
       "assignee": null,
-      "updated_at": "2026-09-13T07:07:48Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1304",
+      "updated_at": "2026-09-13T10:09:39Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1305",
       "labels": [
         "security",
         "agentic-os"
@@ -2528,6 +2544,7 @@
       "linked_agentic_issues": [
         1080,
         1188,
+        1208,
         1182
       ]
     },
@@ -2549,22 +2566,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Both paths genuinely fire: some PRs do carry the label, applied by the authoring agent or by hand, but NO automation applies it (see FFC-Cloudflare-Automation#1070), so the referenced-issue path is what makes this listing reliable rather than best-effort. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 6,
+  "open_prs_total": 5,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-12T22:05:15Z",
-      "body": "## Run 162 — START\n\n**2026-09-12T22:04Z** · Conductor (local, privileged)\n\n**Bootstrap (step 0) — clean.**\n\n| Check | Result |\n| --- | --- |\n| `check-conductor-clock.py` | `CLOCK: ok` — host `22:04:56Z`, authoritative `22:04:57Z` |\n| `verify-conductor-hooks.py --workspace <session root>` | `HOOKS: wired` |\n| Core clones | 5/5 fetched, fast-forwarded to `main` |\n| CLIs | gh 2.96.0 (clarkemoyer), az 2.81.0 |\n| Rate | core 5000/5000 · graphql 5000/5000 |\n\nClone heads: hub `51eccc0` · ffcadmin `a592…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5648994000"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-12T22:25:16Z",
-      "body": "## Conductor run 162 — END (2026-09-12, 22:04–22:2xZ)\n\n**#1298 reviewed, live-verified, fixed, promoted → merge queue (position 1, QUEUED 22:24:51Z)** · **delivery 94 merged** ([ffcadmin #1088](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/1088)) · **#1295 templates verified by audit** · **1 ledger draft** ([#1299](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1299)) · **0 issues filed** · **0 gates approved** · **board: 4 → Done, 3 carded**.\n\n---\n\n### #1298: the …",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5649091885"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-09-13T01:05:36Z",
@@ -2620,6 +2623,20 @@
       "body": "## Conductor run 165 — START (2026-09-13, 07:04Z)\n\nBootstrap done. All five core clones are on `main` and fast-forwarded (hub `37ca7d8`, ffcadmin `3fd8c6c`). Rate limit: core 5000/5000.\n\nCarried from run 164: #1302 merged. #1303's CI is green, so it is next to promote. #1297 stays with Clarke (hook); no reply yet. 703 is still held on `github-prod`, and the janitor cancels it 09-15. New this run: #1304 (#1080 lane 22, 115) needs review.\n",
       "truncated": false,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5651844245"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T07:41:05Z",
+      "body": "## Conductor run 165 — END (2026-09-13, 07:04–07:41Z)\n\n**Supervise**\n- #1304 (#1080 lane 22, `115-domain-transfer-preflight.yml`): verified in a worktree at `483c768`. Interpolation guard rc 0 (freeze 14/26 → 13/23, still 0 on a write environment). `test_115_transfer_preflight_wiring.py` 17/0 with pwsh live, `test_workflow_input_interpolation.py` 21/0, `test_lessons_ledger.py` 48/0. Review posted, promoted, **merged 07:21:13Z** through the merge queue.\n- #1303 (CLAUDE.md `MSYS_NO_PATHCONV` note)…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5652009469"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T10:05:27Z",
+      "body": "## Conductor run 166 — START (2026-09-13, 10:04Z)\n\n**Bootstrap**: `check-conductor-clock.py` rc 0. All five core clones fast-forwarded to `main` (hub `8da2930`, ffcadmin `873dbf9`). gh authenticated as clarkemoyer, Azure CLI signed in. Rate limit 5000/5000. AGENTS.md, CLAUDE.md, and the safety doc are unchanged since run 165 except #1303 (CLAUDE.md `MSYS_NO_PATHCONV` note), which I re-read.\n\n**Carried from run 165, confirmed**\n- #1303 **merged** as `8da2930` (07:37:56Z).\n- ffcadmin#1094 (deliver…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5652607694"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
