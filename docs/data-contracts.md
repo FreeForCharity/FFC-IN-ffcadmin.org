@@ -56,7 +56,7 @@ GitHub REST API using the workflow's built-in `GITHUB_TOKEN` (no extra secret).
   "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
   "workflows": [
     {
-      "name": "Build, Test, and Verify",
+      "name": "CI - Build and Test",
       "status": "completed", // queued | in_progress | completed
       "conclusion": "success", // success | failure | cancelled | null
       "headBranch": "main",
