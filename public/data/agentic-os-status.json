@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T10:09:42Z",
+  "generated_at": "2026-09-13T13:14:07Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -9,29 +9,30 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-13T13:04:48Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1306,
       "title": "Lane wiring tests assert `$env:X` appears anywhere in the body, which the default-fill guard satisfies — 10 modules pass a workflow that ignores its input at the call site (L294)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T10:09:29Z",
+      "updated_at": "2026-09-13T12:56:12Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1306",
       "labels": [
         "bug",
         "agentic-os",
         "testing",
+        "claimed",
         "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-13T10:05:27Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
       ]
     },
     {
@@ -40,12 +41,11 @@
       "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T10:04:38Z",
+      "updated_at": "2026-09-13T10:22:55Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
       "labels": [
         "security",
         "agentic-os",
-        "claimed",
         "agent-ready"
       ]
     },
@@ -1662,16 +1662,15 @@
   "ready_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1306,
-      "title": "Lane wiring tests assert `$env:X` appears anywhere in the body, which the default-fill guard satisfies — 10 modules pass a workflow that ignores its input at the call site (L294)",
+      "number": 1080,
+      "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T10:09:29Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1306",
+      "updated_at": "2026-09-13T10:22:55Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
       "labels": [
-        "bug",
+        "security",
         "agentic-os",
-        "testing",
         "agent-ready"
       ]
     },
@@ -2530,22 +2529,22 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1305,
-      "title": "fix(218): move all three free-text dispatch inputs into step-level env: (#1080 lane 23)",
+      "number": 1307,
+      "title": "test(1080): assert every mapped input reaches the CALL SITE, not merely the body (L294 general case)",
       "state": "open",
       "draft": false,
       "assignee": null,
-      "updated_at": "2026-09-13T10:09:39Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1305",
+      "updated_at": "2026-09-13T13:10:55Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1307",
       "labels": [
-        "security",
-        "agentic-os"
+        "bug",
+        "agentic-os",
+        "testing"
       ],
       "linked_agentic_issues": [
+        1306,
         1080,
-        1188,
-        1208,
-        1182
+        1019
       ]
     },
     {
@@ -2568,20 +2567,6 @@
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Both paths genuinely fire: some PRs do carry the label, applied by the authoring agent or by hand, but NO automation applies it (see FFC-Cloudflare-Automation#1070), so the referenced-issue path is what makes this listing reliable rather than best-effort. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
   "open_prs_total": 5,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-13T01:05:36Z",
-      "body": "## Run 163 — START\n\n**Bootstrap (Step 0):** workspace intact; all 5 core clones fetched and fast-forwarded to `main` (hub `ea60367` = #1298 merged 22:24:51Z). `check-conductor-clock.py` **ok** (host 01:05:10Z vs GitHub 01:05:11Z). gh authed as clarkemoyer; Azure CLI on FFC sponsorship; m365 + gcloud present. Rate: core 5000/5000, graphql 5000/5000.\n\n**Carried from run 162:** confirm #1298's first live 740 sweep (expect one genuine `FFC-IN-freeforcharity.org :: Security Audit` alert, none for SPT…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5649845974"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-13T01:16:07Z",
-      "body": "## Conductor run 163 — END (2026-09-13, 01:04–01:2xZ)\n\n**Gates (Step 2):** 1 pending, **not approved**. [703 Generate Sites List](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/34100182363) is gated on `github-prod`, a write environment with a credential-scope hold. This is its 85th hold; the consolidated ask stands and Clarke was not re-pinged. Nothing auto-approved.\n\n**Supervise (Step 3):**\n- **#1298 (740 satellite sweep)** merged at 22:24:51Z. Its first live sweep op…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5649894519"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-09-13T03:19:29Z",
@@ -2637,6 +2622,20 @@
       "body": "## Conductor run 166 — START (2026-09-13, 10:04Z)\n\n**Bootstrap**: `check-conductor-clock.py` rc 0. All five core clones fast-forwarded to `main` (hub `8da2930`, ffcadmin `873dbf9`). gh authenticated as clarkemoyer, Azure CLI signed in. Rate limit 5000/5000. AGENTS.md, CLAUDE.md, and the safety doc are unchanged since run 165 except #1303 (CLAUDE.md `MSYS_NO_PATHCONV` note), which I re-read.\n\n**Carried from run 165, confirmed**\n- #1303 **merged** as `8da2930` (07:37:56Z).\n- ffcadmin#1094 (deliver…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5652607694"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T10:24:41Z",
+      "body": "## Conductor run 166 — END (2026-09-13, 10:04–10:25Z)\n\n**Supervise**\n- #1303 (CLAUDE.md `MSYS_NO_PATHCONV` note): confirmed **merged** as `8da2930` at 07:37:56Z, carried from run 165.\n- #1305 (#1080 lane 23, `218-whmcs-siteslist-reconciliation.yml`): verified in a detached worktree at `6e847f7`, 0 commits behind `main`. The interpolation guard and five test modules all exit rc 0: `test_218_siteslist_reconciliation_wiring`, `test_workflow_input_interpolation`, `test_1150_empty_input_guard`, `test…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5652696013"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T13:04:48Z",
+      "body": "**Conductor run 167 — START** (2026-09-13 13:04Z)\n\n- Bootstrap: clock check OK; five core clones on `main` (hub `82b6ff8`, ffcadmin `ae85b64`). Policy docs (AGENTS.md, CLAUDE.md, safety doc, AI_AGENT_INSTRUCTIONS.md) unchanged since run 166.\n- Rate limit 5000/5000.\n- In view: 1 waiting gate (703 run `34100182363`, `github-prod`, hold), PR #1307 (new, L294 general case), PR #1297 (with Clarke).\n",
+      "truncated": false,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5653454015"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
