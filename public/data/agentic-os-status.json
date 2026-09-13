@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T01:13:00Z",
+  "generated_at": "2026-09-13T04:09:15Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -13,7 +13,7 @@
       "title": "[⚠️ ASK: ENQUEUE #1223 → #1222 → #1224 (all green + already promoted, 4d) · #1224 needs a 3-step ledger fix, now verified end-to-end · FLEET DEADLOCKED — 3/3 PR slots full, every worker run forced to no-op · Conductor down ~22d] Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T01:05:36Z",
+      "updated_at": "2026-09-13T04:05:24Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
@@ -2485,12 +2485,28 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1297,
+      "title": "fix(hooks): stop guard_bash rule 8 reading a redirect target as a leading-slash endpoint",
+      "state": "open",
+      "draft": true,
+      "assignee": null,
+      "updated_at": "2026-09-13T04:09:07Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1297",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        1027
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1302,
       "title": "docs(claude): parallel Bash calls share one cwd; use absolute paths when batching",
       "state": "open",
       "draft": true,
       "assignee": null,
-      "updated_at": "2026-09-13T01:12:00Z",
+      "updated_at": "2026-09-13T04:06:40Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1302",
       "labels": [
         "agentic-os"
@@ -2502,9 +2518,9 @@
       "number": 1301,
       "title": "fix(213): move all nine free-text dispatch inputs into step-level env: (#1080 lane 21)",
       "state": "open",
-      "draft": true,
+      "draft": false,
       "assignee": null,
-      "updated_at": "2026-09-13T01:10:51Z",
+      "updated_at": "2026-09-13T04:06:37Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1301",
       "labels": [
         "security",
@@ -2516,64 +2532,11 @@
         1188,
         1182
       ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1299,
-      "title": "docs(ledger): L287, L288, L289 from the #1295 fleet remediation (run 162)",
-      "state": "open",
-      "draft": false,
-      "assignee": null,
-      "updated_at": "2026-09-13T01:09:54Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1299",
-      "labels": [
-        "agentic-os"
-      ],
-      "linked_agentic_issues": [
-        1295
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1297,
-      "title": "fix(hooks): stop guard_bash rule 8 reading a redirect target as a leading-slash endpoint",
-      "state": "open",
-      "draft": true,
-      "assignee": null,
-      "updated_at": "2026-09-12T19:26:44Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1297",
-      "labels": [
-        "agentic-os"
-      ],
-      "linked_agentic_issues": [
-        1027
-      ]
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Both paths genuinely fire: some PRs do carry the label, applied by the authoring agent or by hand, but NO automation applies it (see FFC-Cloudflare-Automation#1070), so the referenced-issue path is what makes this listing reliable rather than best-effort. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 7,
+  "open_prs_total": 6,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-12T15:18:04Z",
-      "body": "## Cloud worker — landing pass (no new work)\n\n3 open `agentic-os` PRs at run start (#1288, #1291, #1294), so step 1 applies: land, don't start.\n\n**Bootstrap.** `verify-conductor-hooks.py` bare → `HOOKS: UNVERIFIED`, correctly refusing to certify an inferred root and naming `/home/user` as the likely real one — the five-repo worker case L261 describes. Rendered the template into it and re-verified → `HOOKS: wired`. The remedy works, unchanged, third session running.\n\n**PR state, measured rather t…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5646770003"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-12T16:07:05Z",
-      "body": "## Run 160 — START\n\n**2026-09-12T16:06Z** · Conductor (local, privileged)\n\n**Bootstrap (step 0) — clean.**\n\n| Check | Result |\n| --- | --- |\n| `check-conductor-clock.py` | `CLOCK: ok` — host `16:06:36Z`, authoritative `16:06:36Z` |\n| `verify-conductor-hooks.py --workspace <session root>` | `HOOKS: wired` (bare run returned `UNVERIFIED` as designed — #1237) |\n| Core clones | 5/5 fetched, on `main`, clean |\n| CLIs | gh 2.96.0 (clarkemoyer), az 2.81.0, m365 11.9.0, gcloud 552.0.0 |\n\nClone heads: hu…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5647043887"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-12T17:01:21Z",
-      "body": "## Conductor run 160 — END (2026-09-12, 16:06–17:0xZ) · core 5000/5000 · graphql 5000/5000\n\n**3 merged** (hub [#1288](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1288),\n[#1291](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1291); ffcadmin\n[#1085](https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/pull/1085) = **status delivery 92**) ·\n**1 queued, auto-merge armed** (#1294) · **2 filed** (#1295, #1296 — both `security` +\n`priority: high` + `agent-ready`)…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5647359305"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-09-12T17:10:06Z",
@@ -2622,6 +2585,27 @@
       "body": "## Run 163 — START\n\n**Bootstrap (Step 0):** workspace intact; all 5 core clones fetched and fast-forwarded to `main` (hub `ea60367` = #1298 merged 22:24:51Z). `check-conductor-clock.py` **ok** (host 01:05:10Z vs GitHub 01:05:11Z). gh authed as clarkemoyer; Azure CLI on FFC sponsorship; m365 + gcloud present. Rate: core 5000/5000, graphql 5000/5000.\n\n**Carried from run 162:** confirm #1298's first live 740 sweep (expect one genuine `FFC-IN-freeforcharity.org :: Security Audit` alert, none for SPT…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5649845974"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T01:16:07Z",
+      "body": "## Conductor run 163 — END (2026-09-13, 01:04–01:2xZ)\n\n**Gates (Step 2):** 1 pending, **not approved**. [703 Generate Sites List](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/34100182363) is gated on `github-prod`, a write environment with a credential-scope hold. This is its 85th hold; the consolidated ask stands and Clarke was not re-pinged. Nothing auto-approved.\n\n**Supervise (Step 3):**\n- **#1298 (740 satellite sweep)** merged at 22:24:51Z. Its first live sweep op…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5649894519"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T03:19:29Z",
+      "body": "## Cloud worker run — 2026-09-13 (sandboxed, five-repo session)\n\n**Bootstrap.** `verify-conductor-hooks.py` bare → `HOOKS: UNVERIFIED` (inferred workspace, which ships the hooks under test — #1237 working as designed). Re-run with the stated root: `--workspace /home/user` → `NOT WIRED`, no `.claude` above the clones. Rendered the template, re-verified `wired`. Confirmed live minutes later: a `… | tail; echo \"RC=$?\"` I typed was refused by `PreToolUse:Bash` naming L50. So L261's \"a worker can wir…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5650684704"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T04:05:23Z",
+      "body": "## Conductor run 164 — START (2026-09-13, 04:05Z)\n\nBootstrap done. All five core clones are on `main` and fast-forwarded (hub `40ae7e7`, ffcadmin `372e5ac`). Rate limit: core 5000/5000, graphql 5000/5000.\n\nCarried from run 163: #1299 and ffcadmin#1089 both merged. #1301 and #1302 are next in line. #1297 stays with Clarke (hook). 703 is still held on `github-prod`.",
+      "truncated": false,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5651048299"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
