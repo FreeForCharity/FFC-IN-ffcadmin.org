@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T08:06:49.506Z",
+  "generatedAt": "2026-09-13T08:06:03.473Z",
   "source": "github:FreeForCharity/FFC-IN-ffcadmin.org+sites_list",
   "entries": [
     {
@@ -18,6 +18,26 @@
       "plusOne": 0,
       "issueUrl": "https://github.com/FreeForCharity",
       "liveUrl": "https://freeforcharity.org"
+    },
+    {
+      "issueNumber": 1083,
+      "charityName": "NeuroSpike",
+      "missionExcerpt": "We present a unifying hypothesis for the biology of aging while simultaneously posing a structural meta-question regarding modern bioscience research. We propose Age-Related Fast-…",
+      "status": "needs-admin",
+      "charityStage": "501c3",
+      "missionCategory": "general",
+      "serviceTier": "Tier 1 — Application",
+      "readinessRank": 3,
+      "readinessTier": "Just getting started",
+      "submittedAt": "2026-09-12T08:15:31Z",
+      "updatedAt": "2026-09-12T08:15:31Z",
+      "sponsor": null,
+      "plusOne": 0,
+      "issueUrl": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/1083",
+      "validationTicked": 0,
+      "validationTotal": 8,
+      "candidUrl": "https://app.candid.org/profile/16713649/neurospike/?pkId=aac3d22d-2724-430b-a79d-2669ed4b2718&isActive=true",
+      "ein": "42-2753465"
     },
     {
       "issueNumber": 1029,
