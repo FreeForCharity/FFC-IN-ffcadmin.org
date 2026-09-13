@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T13:14:07Z",
+  "generated_at": "2026-09-13T16:10:31Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -13,26 +13,10 @@
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T13:04:48Z",
+      "updated_at": "2026-09-13T16:05:06Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1306,
-      "title": "Lane wiring tests assert `$env:X` appears anywhere in the body, which the default-fill guard satisfies — 10 modules pass a workflow that ignores its input at the call site (L294)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-13T12:56:12Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1306",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "testing",
-        "claimed",
-        "agent-ready"
       ]
     },
     {
@@ -41,11 +25,12 @@
       "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-13T10:22:55Z",
+      "updated_at": "2026-09-13T15:40:10Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
       "labels": [
         "security",
         "agentic-os",
+        "claimed",
         "agent-ready"
       ]
     },
@@ -1661,20 +1646,6 @@
   ],
   "ready_issues": [
     {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1080,
-      "title": "Security: freeze and guard free-text dispatch inputs interpolated into run: bodies (34 workflows, 20 gated on write)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-13T10:22:55Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1080",
-      "labels": [
-        "security",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
       "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
       "number": 1091,
       "title": "Security: 12 Dependabot alerts (9 high) in ffcadmin devDependency tree, mostly via @lhci/cli 0.13 → puppeteer-core 21",
@@ -2524,27 +2495,27 @@
       ]
     }
   ],
-  "ready_count": 62,
+  "ready_count": 61,
   "ready_rule": "Open issues labeled 'agent-ready' and NOT 'claimed': unblocked, one-PR-scoped and carrying acceptance criteria — the queue a sandboxed agent can pick from now. An 'agent-ready' issue with an open PR against it carries 'claimed' (applied by workflow 737) and is excluded here until that PR closes; ready_count counts exactly the rows in ready_issues. A strict subset of backlog_issues, which stays the full 'agentic-os' topic set (epics, machine-managed rolling issues, human-blocked items and durable findings all remain counted there).",
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1307,
-      "title": "test(1080): assert every mapped input reaches the CALL SITE, not merely the body (L294 general case)",
+      "number": 1308,
+      "title": "security(1080): burn down 208's three dispatch-input call sites (lane 24)",
       "state": "open",
-      "draft": false,
+      "draft": true,
       "assignee": null,
-      "updated_at": "2026-09-13T13:10:55Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1307",
+      "updated_at": "2026-09-13T16:09:19Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1308",
       "labels": [
-        "bug",
-        "agentic-os",
-        "testing"
+        "security",
+        "agentic-os"
       ],
       "linked_agentic_issues": [
-        1306,
-        1080,
-        1019
+        1188,
+        1208,
+        1213,
+        1080
       ]
     },
     {
@@ -2565,22 +2536,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Both paths genuinely fire: some PRs do carry the label, applied by the authoring agent or by hand, but NO automation applies it (see FFC-Cloudflare-Automation#1070), so the referenced-issue path is what makes this listing reliable rather than best-effort. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 5,
+  "open_prs_total": 6,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-13T03:19:29Z",
-      "body": "## Cloud worker run — 2026-09-13 (sandboxed, five-repo session)\n\n**Bootstrap.** `verify-conductor-hooks.py` bare → `HOOKS: UNVERIFIED` (inferred workspace, which ships the hooks under test — #1237 working as designed). Re-run with the stated root: `--workspace /home/user` → `NOT WIRED`, no `.claude` above the clones. Rendered the template, re-verified `wired`. Confirmed live minutes later: a `… | tail; echo \"RC=$?\"` I typed was refused by `PreToolUse:Bash` naming L50. So L261's \"a worker can wir…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5650684704"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-13T04:05:23Z",
-      "body": "## Conductor run 164 — START (2026-09-13, 04:05Z)\n\nBootstrap done. All five core clones are on `main` and fast-forwarded (hub `40ae7e7`, ffcadmin `372e5ac`). Rate limit: core 5000/5000, graphql 5000/5000.\n\nCarried from run 163: #1299 and ffcadmin#1089 both merged. #1301 and #1302 are next in line. #1297 stays with Clarke (hook). 703 is still held on `github-prod`.",
-      "truncated": false,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5651048299"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-09-13T04:34:40Z",
@@ -2636,6 +2593,20 @@
       "body": "**Conductor run 167 — START** (2026-09-13 13:04Z)\n\n- Bootstrap: clock check OK; five core clones on `main` (hub `82b6ff8`, ffcadmin `ae85b64`). Policy docs (AGENTS.md, CLAUDE.md, safety doc, AI_AGENT_INSTRUCTIONS.md) unchanged since run 166.\n- Rate limit 5000/5000.\n- In view: 1 waiting gate (703 run `34100182363`, `github-prod`, hold), PR #1307 (new, L294 general case), PR #1297 (with Clarke).\n",
       "truncated": false,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5653454015"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T13:26:19Z",
+      "body": "**Conductor run 167 — END** (2026-09-13 13:28Z)\n\n**Merged**\n- #1307: the #1080 lane tests now check that each mapped input reaches the call site. This closes the general case of L294 and adds L296. Before promoting it I checked it out at `77ab008` (0 behind `main`) and ran the 13 touched test modules and the interpolation guard, all rc 0. I also ran one mutation of my own: swapping `-SinceDays $env:IN_SINCE_DAYS` for a literal turned the new test red and named the variable. It entered the queue …",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5653561295"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-13T16:05:06Z",
+      "body": "**Conductor run 168 — START** (2026-09-13 16:04Z)\n\n- Bootstrap: five core clones on `main` (hub `20c0a79`, ffcadmin `983125d`). AGENTS.md, CLAUDE.md, the safety doc, AI_AGENT_INSTRUCTIONS.md and `.claude/hooks/` are unchanged since run 167.\n- Rate limit 5000/5000. gh, az, m365 and gcloud are all present.\n- In view: 1 waiting gate (703 run `34100182363`, `github-prod`, hold). New PR #1308 (#1080 lane 24, `208`). ffcadmin#1100 (draft, 1 Copilot thread). #1297 is still with Clarke.\n",
+      "truncated": false,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5654400901"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
