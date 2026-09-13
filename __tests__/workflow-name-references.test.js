@@ -58,4 +58,11 @@ describe('Workflow name references', () => {
     expect(tracked.length).toBeGreaterThan(0)
     expect(tracked.filter((name) => !declaredNames.has(name))).toEqual([])
   })
+
+  it('update-ci-status.yml reacts only to CI runs on main', () => {
+    // CI also runs on pull_request, so an unfiltered workflow_run fires a data
+    // refresh for every PR build.
+    const doc = workflows.find((w) => w.file === 'update-ci-status.yml').doc
+    expect(doc.on.workflow_run.branches).toEqual(['main'])
+  })
 })

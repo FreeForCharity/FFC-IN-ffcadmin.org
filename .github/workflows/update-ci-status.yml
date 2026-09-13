@@ -7,6 +7,7 @@ on:
   workflow_run:
     workflows: ['CI - Build and Test']
     types: [completed]
+    branches: [main]
 
 permissions:
   contents: write
