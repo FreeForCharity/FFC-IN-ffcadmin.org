@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-09-07T07:16:02.314Z",
+  "generatedAt": "2026-09-14T07:17:34.759Z",
   "seed": false,
   "source": "RDAP",
   "summary": {
-    "total": 193,
+    "total": 201,
     "expired": 0,
     "expiring30": 0,
     "expiring60": 0,
     "expiring90": 0,
     "ok": 0,
-    "unknown": 193
+    "unknown": 201
   },
   "domains": [
     {
@@ -35,6 +35,13 @@
     },
     {
       "domain": "acharyaapp.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "allphonespro.com",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
@@ -98,6 +105,13 @@
     },
     {
       "domain": "aprilunlimited.com",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "armstrongacesbaseball.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
@@ -504,6 +518,13 @@
     },
     {
       "domain": "foxtrotenterprises.com",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "freedomrisingusa.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
@@ -951,6 +972,20 @@
       "bucket": "unknown"
     },
     {
+      "domain": "pay-grade.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "paylevel.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
       "domain": "pfplus.org",
       "expiresAt": null,
       "daysRemaining": null,
@@ -987,6 +1022,13 @@
     },
     {
       "domain": "redlionchimneysweep.com",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "rentels.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
@@ -1315,7 +1357,21 @@
       "bucket": "unknown"
     },
     {
+      "domain": "viewpointministriesinternational.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
       "domain": "viewpointnorth.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "vpmin.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
