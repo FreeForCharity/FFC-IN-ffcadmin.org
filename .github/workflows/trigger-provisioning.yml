@@ -105,13 +105,17 @@ jobs:
           DOMAIN=$(section "Desired domain name" | tr -d '[:space:]')
           CHARITY_NAME=$(section "Charity name")
           MISSION=$(section "Brief mission")
+          # -f (raw string) for every text value: -F reads a value starting with
+          # "@" as a local file path and coerces number-like text, and the title
+          # and form fields are applicant-typed. Only the issue number, which
+          # comes from the event and is meant to be numeric, stays -F.
           gh api "repos/${TARGET_REPO}/dispatches" \
             -f "event_type=${EVENT_TYPE}" \
             -F "client_payload[ffcadmin_issue]=${ISSUE}" \
-            -F "client_payload[charity_title]=${TITLE}" \
-            -F "client_payload[issue_url]=${ISSUE_URL}" \
-            -F "client_payload[sponsor]=${ASSIGNEE}" \
-            -F "client_payload[domain]=${DOMAIN}" \
+            -f "client_payload[charity_title]=${TITLE}" \
+            -f "client_payload[issue_url]=${ISSUE_URL}" \
+            -f "client_payload[sponsor]=${ASSIGNEE}" \
+            -f "client_payload[domain]=${DOMAIN}" \
             -f "client_payload[charity_name]=${CHARITY_NAME}" \
             -f "client_payload[mission]=${MISSION}"
           gh issue comment "$ISSUE" --repo "$REPO" --body \
