@@ -85,25 +85,40 @@ jobs:
           REPO: ${{ github.repository }}
           BODY: ${{ github.event.issue.body }}
         run: |
-          set -uo pipefail
-          # Extract the optional "Desired domain name" the applicant supplied, so
-          # the Cloudflare provision workflow can read client_payload.domain.
-          # Issue-form bodies are "### Label\n\nvalue" blocks; an awk state
-          # machine starts capturing AFTER the heading and stops at the next one,
-          # printing the first non-empty value line.
-          DOMAIN=$(printf '%s\n' "$BODY" | awk '
-            /^### Desired domain name[[:space:]]*$/ { capture = 1; next }
-            /^### / { capture = 0 }
-            capture && NF { print; exit }
-          ' | tr -d '[:space:]')
-          # Drop the "_No response_" placeholder GitHub inserts for blank fields.
-          if printf '%s' "$DOMAIN" | grep -qiE '^_no.?response_$'; then DOMAIN=""; fi
+          # -e: a failed dispatch must fail the step, not fall through to the
+          # success comment below.
+          set -euo pipefail
+          # Issue-form bodies are "### Label\n\nvalue" blocks. section() prints
+          # every non-empty line under one heading, joined by spaces, and stops
+          # at the next heading. GitHub's exact "_No response_" placeholder for a
+          # blank field comes back empty; a typed "No response" is kept.
+          section() {
+            printf '%s\n' "$BODY" | awk -v h="### $1" '
+              { line = $0; sub(/\r$/, "", line); sub(/[[:space:]]+$/, "", line) }
+              line == h { capture = 1; next }
+              line ~ /^### / { capture = 0 }
+              capture && line != "" { out = out (out == "" ? "" : " ") line }
+              END { print out }
+            ' | sed -E 's/^[[:space:]]+//; s/^_No response_$//'
+          }
+          # The Cloudflare provision workflow reads client_payload.domain, and
+          # charity_name / mission for the site footer (one-sentence mission
+          # under the charity name on every page).
+          DOMAIN=$(section "Desired domain name" | tr -d '[:space:]')
+          CHARITY_NAME=$(section "Charity name")
+          MISSION=$(section "Brief mission")
+          # -f (raw string) for every text value: -F reads a value starting with
+          # "@" as a local file path and coerces number-like text, and the title
+          # and form fields are applicant-typed. Only the issue number, which
+          # comes from the event and is meant to be numeric, stays -F.
           gh api "repos/${TARGET_REPO}/dispatches" \
             -f "event_type=${EVENT_TYPE}" \
             -F "client_payload[ffcadmin_issue]=${ISSUE}" \
-            -F "client_payload[charity_title]=${TITLE}" \
-            -F "client_payload[issue_url]=${ISSUE_URL}" \
-            -F "client_payload[sponsor]=${ASSIGNEE}" \
-            -F "client_payload[domain]=${DOMAIN}"
+            -f "client_payload[charity_title]=${TITLE}" \
+            -f "client_payload[issue_url]=${ISSUE_URL}" \
+            -f "client_payload[sponsor]=${ASSIGNEE}" \
+            -f "client_payload[domain]=${DOMAIN}" \
+            -f "client_payload[charity_name]=${CHARITY_NAME}" \
+            -f "client_payload[mission]=${MISSION}"
           gh issue comment "$ISSUE" --repo "$REPO" --body \
             "✅ Verified assignment confirmed. Provisioning has been triggered in \`${TARGET_REPO}\`. This issue will update as the site is provisioned."

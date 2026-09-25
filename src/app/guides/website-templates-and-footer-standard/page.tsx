@@ -33,8 +33,12 @@ const footerItems: FooterItem[] = [
     why: 'Grant makers and serious donors verify a charity on Candid before funding it, so the footer puts a working profile link and the EIN one click away on every page — a verifiable 501(c)(3) claim, and a ready-to-cite link for the charity’s own grant applications. Level 2 only: it renders exclusively once the charity actually holds IRS recognition and a public profile (see section 4).',
   },
   {
-    name: 'Donate quick link',
-    why: 'Every page ends with a giving pathway. Sites from the Single Page template ship a Zeffy donation form (zero-fee processing); post-deploy smoke monitoring treats lost donation capability as a failure class, not a cosmetic defect.',
+    name: 'Charity name + one-sentence mission',
+    why: 'The top of the footer states who the charity is and what it does, so even a footer-only site carries its mission on every page. Provisioning fills it from the website request; a charity that gave none gets a plain sentence naming it, never FFC’s own mission.',
+  },
+  {
+    name: 'Donate and Volunteer quick links',
+    why: 'Every page ends with a giving pathway and a way to help. Each is a single link, not a page section: the charity’s donation or volunteer page when it has one (siteConfig.donationUrl / volunteerUrl), otherwise an email to the charity’s contact address. Sites from the Single Page template additionally ship a Zeffy donation form (zero-fee processing); post-deploy smoke monitoring treats lost donation capability as a failure class, not a cosmetic defect.',
   },
   {
     name: 'Two donation policies',
@@ -184,9 +188,12 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
             </li>
           </ul>
           <p className="text-gray-700 text-sm">
-            When in doubt, choose the Single Page template — it is the fastest path to a validated
-            site. Both paths converge on the same gate: the site validated live on its free GitHub
-            Pages address, which unlocks the free .org domain, which unlocks email.
+            Automated provisioning (workflow 701) starts every new charity repo from the Footer-Only
+            template, so each site has the footer standard — mission line, Donate and Volunteer
+            links, policy pages — from its first deploy. Choose the Single Page template when a
+            volunteer is building a complete single-page site. Both paths converge on the same gate:
+            the site validated live on its free GitHub Pages address, which unlocks the free .org
+            domain, which unlocks email.
           </p>
         </section>
 
