@@ -85,11 +85,13 @@ jobs:
           REPO: ${{ github.repository }}
           BODY: ${{ github.event.issue.body }}
         run: |
-          set -uo pipefail
+          # -e: a failed dispatch must fail the step, not fall through to the
+          # success comment below.
+          set -euo pipefail
           # Issue-form bodies are "### Label\n\nvalue" blocks. section() prints
           # every non-empty line under one heading, joined by spaces, and stops
-          # at the next heading; GitHub's "_No response_" placeholder for a
-          # blank field comes back empty.
+          # at the next heading. GitHub's exact "_No response_" placeholder for a
+          # blank field comes back empty; a typed "No response" is kept.
           section() {
             printf '%s\n' "$BODY" | awk -v h="### $1" '
               { line = $0; sub(/\r$/, "", line); sub(/[[:space:]]+$/, "", line) }
@@ -97,7 +99,7 @@ jobs:
               line ~ /^### / { capture = 0 }
               capture && line != "" { out = out (out == "" ? "" : " ") line }
               END { print out }
-            ' | sed -E 's/^[[:space:]]+//; s/^_?[Nn]o.?[Rr]esponse_?$//'
+            ' | sed -E 's/^[[:space:]]+//; s/^_No response_$//'
           }
           # The Cloudflare provision workflow reads client_payload.domain, and
           # charity_name / mission for the site footer (one-sentence mission
