@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-25T07:29:48.444Z",
+  "generatedAt": "2026-09-26T07:24:26.157Z",
   "org": "FreeForCharity",
-  "campaignCount": 21,
+  "campaignCount": 22,
   "summary": {
     "ffc-owned": 1,
-    "charity-specific": 20,
+    "charity-specific": 21,
     "unknown": 0
   },
   "campaigns": [
@@ -19,7 +19,7 @@
         "pagbooster.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/1bbf7eac-7a56-419e-8aab-7d39111709a7",
@@ -32,7 +32,20 @@
         "pagbooster.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
+    },
+    {
+      "url": "https://zeffy.com/donation-form/48e1112a-8e9f-4c73-8b19-0caa89669ff5",
+      "kind": "donation-form",
+      "surfaces": [
+        "link"
+      ],
+      "class": "charity-specific",
+      "sites": [
+        "FFC-EX-newheightseducation.org"
+      ],
+      "firstSeen": "2026-09-26T07:24:26.157Z",
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/8e423183-d093-41c4-91a0-947ff24c3bee",
@@ -45,7 +58,7 @@
         "hclwellness.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/aariasblueelephant",
@@ -58,7 +71,7 @@
         "aariasblueelephant.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/backpacks-new-gymnasts",
@@ -71,7 +84,7 @@
         "pagbooster.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/cancer-took-a-lot-lets-help-survivors-reclaim-their-skin-and-their-confidence",
@@ -84,7 +97,7 @@
         "restoredradiancefoundation.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/compassionate-care-for-community-cats",
@@ -97,7 +110,7 @@
         "catnipandcattitude.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/donate-for-our-ministry",
@@ -110,7 +123,7 @@
         "thewayofyeshuaministries.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/donate-to-change-lives-10174",
@@ -123,7 +136,7 @@
         "clarasbridge.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/donate-to-the-crooked-house",
@@ -136,7 +149,7 @@
         "thecrookedhouse.net"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/free-for-charity-endowment-fund",
@@ -162,7 +175,7 @@
         "technologymonastery.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/fundraising-opt-out",
@@ -175,7 +188,7 @@
         "pagbooster.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/general-american-legion-post-245-fund",
@@ -188,7 +201,7 @@
         "nittanypost245.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/project-rebirth-uniting-communities-to-eradicate-homelessness",
@@ -201,7 +214,7 @@
         "rebirthsdc.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/state-college-independence-day-parade",
@@ -214,7 +227,7 @@
         "freedomrisingusa.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/donation-form/support-this-ministry-3",
@@ -227,7 +240,7 @@
         "bearupinternationalministries.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/ticketing/fly-away-meet-registration",
@@ -240,7 +253,7 @@
         "pagbooster.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/ticketing/pag-parents-inc-usag-team-memberships-2025-annual",
@@ -253,7 +266,7 @@
         "pagbooster.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/ticketing/reeeal-good-bbq",
@@ -266,7 +279,7 @@
         "nittanypost245.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/ticketing/region-7-competition-fees",
@@ -279,7 +292,7 @@
         "pagbooster.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     },
     {
       "url": "https://zeffy.com/ticketing/wise-crackers-comedy-charity-night",
@@ -292,7 +305,7 @@
         "pagbooster.org"
       ],
       "firstSeen": "2026-07-21T06:26:15.625Z",
-      "lastSeen": "2026-09-25T07:29:48.444Z"
+      "lastSeen": "2026-09-26T07:24:26.157Z"
     }
   ],
   "sites": {
@@ -312,6 +325,7 @@
       "https://zeffy.com/donation-form/free-for-charity-endowment-fund"
     ],
     "FFC-EX-newheightseducation.org": [
+      "https://zeffy.com/donation-form/48e1112a-8e9f-4c73-8b19-0caa89669ff5",
       "https://zeffy.com/donation-form/free-for-charity-endowment-fund"
     ],
     "FFC-EX-sporting2Impact.org": [
