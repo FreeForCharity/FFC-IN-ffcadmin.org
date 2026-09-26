@@ -30,11 +30,11 @@ interface FooterItem {
 const footerItems: FooterItem[] = [
   {
     name: 'Candid (GuideStar) seal, profile link, and EIN',
-    why: 'Grant makers and serious donors verify a charity on Candid before funding it, so the footer puts a working profile link and the EIN one click away on every page — a verifiable 501(c)(3) claim, and a ready-to-cite link for the charity’s own grant applications. Level 2 only: it renders exclusively once the charity actually holds IRS recognition and a public profile (see section 4).',
+    why: 'Grant makers and serious donors verify a charity on Candid before funding it, so the footer puts a working profile link and the EIN one click away on every page — a verifiable 501(c)(3) claim, and a ready-to-cite link for the charity’s own grant applications. On the Single Page template it is Level 2 only, rendering once the charity actually holds IRS recognition and a public profile (see section 4); the Footer-Only template always renders it, and provisioning points it at the charity’s own Candid profile (derived from the EIN when no profile link was given).',
   },
   {
     name: 'Charity name + one-sentence mission',
-    why: 'The top of the footer states who the charity is and what it does, so even a footer-only site carries its mission on every page. Provisioning fills it from the website request; a charity that gave none gets a plain sentence naming it, never FFC’s own mission.',
+    why: 'The top of the footer states who the charity is and what it does, so even a footer-only site carries its mission on every page. Provisioning fills it from the website request when that request carries the full footer details (contact email, phone, EIN, address, leadership and social links), together with the rest of the charity’s identity; a charity that gave no mission then gets a plain sentence naming it. A request without those details (for example an admin-minimal provision) leaves the template’s placeholder identity in place until a volunteer rebrands the site.',
   },
   {
     name: 'Donate and Volunteer quick links',
@@ -190,10 +190,12 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
           <p className="text-gray-700 text-sm">
             Automated provisioning (workflow 701) starts every new charity repo from the Footer-Only
             template, so each site has the footer standard — mission line, Donate and Volunteer
-            links, policy pages — from its first deploy. Choose the Single Page template when a
-            volunteer is building a complete single-page site. Both paths converge on the same gate:
-            the site validated live on its free GitHub Pages address, which unlocks the free .org
-            domain, which unlocks email.
+            links, policy pages — from its first deploy. The charity&apos;s own details are filled
+            in automatically only when the website request carries the full footer details;
+            otherwise the site shows the template&apos;s placeholders until it is rebranded. Choose
+            the Single Page template when a volunteer is building a complete single-page site. Both
+            paths converge on the same gate: the site validated live on its free GitHub Pages
+            address, which unlocks the free .org domain, which unlocks email.
           </p>
         </section>
 
