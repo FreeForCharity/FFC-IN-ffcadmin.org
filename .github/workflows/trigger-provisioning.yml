@@ -89,17 +89,26 @@ jobs:
           # success comment below.
           set -euo pipefail
           # Issue-form bodies are "### Label\n\nvalue" blocks. section() prints
-          # every non-empty line under one heading, joined by spaces, and stops
-          # at the next heading. GitHub's exact "_No response_" placeholder for a
-          # blank field comes back empty; a typed "No response" is kept.
+          # every non-empty line under the FIRST heading with this label, joined
+          # by spaces, and stops at the next heading. Only the first occurrence
+          # counts, so a "### <label>" line typed inside a textarea yields one
+          # clean value rather than two fields glued together. (It can shadow a
+          # later field of the same label; the applicant controls both fields
+          # and a sponsor verifies every intake before this runs.) GitHub's
+          # exact "_No response_" placeholder is dropped line by line, so it
+          # cannot survive by being joined onto other text; a typed
+          # "No response" is kept.
           section() {
             printf '%s\n' "$BODY" | awk -v h="### $1" '
               { line = $0; sub(/\r$/, "", line); sub(/[[:space:]]+$/, "", line) }
-              line == h { capture = 1; next }
-              line ~ /^### / { capture = 0 }
-              capture && line != "" { out = out (out == "" ? "" : " ") line }
+              line == h && !seen { seen = 1; capture = 1; next }
+              line ~ /^### / { capture = 0; next }
+              capture {
+                sub(/^[[:space:]]+/, "", line)
+                if (line != "" && line != "_No response_") out = out (out == "" ? "" : " ") line
+              }
               END { print out }
-            ' | sed -E 's/^[[:space:]]+//; s/^_No response_$//'
+            '
           }
           # The Cloudflare provision workflow reads client_payload.domain, and
           # charity_name / mission for the site footer (one-sentence mission
