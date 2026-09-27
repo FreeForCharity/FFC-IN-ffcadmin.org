@@ -232,8 +232,9 @@ Syncs the Sites List into this repo from the canonical, machine-generated copy.
 3. If both files match what is already committed, exits cleanly without
    touching anything — in particular it does **not** rotate
    `docs/sites_list.prev.csv`, which would erase the page's changed-row markers.
-4. Otherwise copies the outgoing `docs/sites_list.csv` to
-   `docs/sites_list.prev.csv` and writes the new files.
+4. Otherwise writes the new files. Only when the **CSV** changed does it first
+   copy the outgoing `docs/sites_list.csv` to `docs/sites_list.prev.csv` — a
+   JSON-only update keeps the existing diff.
 5. Opens a pull request with the synced data.
 
 ### Output:

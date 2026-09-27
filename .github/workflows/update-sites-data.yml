@@ -50,8 +50,10 @@ jobs:
             exit 0
           fi
           # Keep the outgoing snapshot so the Sites List can highlight rows
-          # that changed between refreshes (#425).
-          if [ -f docs/sites_list.csv ]; then
+          # that changed between refreshes (#425). The diff is computed from
+          # the CSV alone, so rotate only when the CSV itself changed: a
+          # JSON-only update must not erase the markers either.
+          if [ -f docs/sites_list.csv ] && ! cmp -s "$tmp/sites_list.csv" docs/sites_list.csv; then
             cp docs/sites_list.csv docs/sites_list.prev.csv
           fi
           mv "$tmp/sites_list.csv" docs/sites_list.csv
