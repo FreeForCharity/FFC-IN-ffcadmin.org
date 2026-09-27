@@ -2312,6 +2312,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
     intro: [
       'Goodstack (formerly **Percent**) is the **other major nonprofit-status validator** alongside TechSoup. It checks your organization’s legal and charitable status, and partner vendors trust that check to grant you nonprofit access.',
       'It’s the validator FFC recommends behind **Canva** and **Google for Nonprofits** — and many others, including Asana, Atlassian, Eventbrite, monday.com, OpenAI (ChatGPT), and Zoom.',
+      '**Google for Nonprofits relies on Goodstack as its validator** — Google does not check your nonprofit status itself. That makes Goodstack a standard FFC prerequisite, alongside **Candid** and **TechSoup**: register once, up front, and every Goodstack partner (Google Workspace, the $10,000/month Ad Grant, Canva Pro) goes quickly.',
     ],
     principle: {
       title: 'A second validator for a different set of vendors',
@@ -2321,7 +2322,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Start verification with Goodstack',
         body: [
-          'When you apply to a partner program — e.g. **Canva for Nonprofits** or **Google for Nonprofits** — you’ll be routed to **Goodstack** to verify. You can also begin directly at **goodstack.io**.',
+          'FFC recommends registering **directly at goodstack.io** as soon as you have IRS recognition, rather than waiting to be routed there. Partner programs — e.g. **Google for Nonprofits** or **Canva for Nonprofits** — send you to **Goodstack** to verify anyway, and an organization that is already verified moves straight through.',
           'You sign in as a real person representing the charity, the same person-not-entity pattern as everywhere else.',
         ],
       },
@@ -2352,7 +2353,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
       },
       {
         q: 'Do I have to go to Goodstack first?',
-        a: 'Usually you don’t — when you apply to a partner like Canva or Google for Nonprofits, they route you into Goodstack’s verification automatically. You can also start directly at goodstack.io.',
+        a: 'You don’t have to — partners like Google for Nonprofits and Canva route you into Goodstack’s verification automatically — but FFC recommends it. Registering at goodstack.io up front, like Candid and TechSoup, means your charity is already verified when Google checks, instead of stalling the Google for Nonprofits application while Goodstack reviews your documents.',
       },
       {
         q: 'Why is there no personal version of this guide?',
