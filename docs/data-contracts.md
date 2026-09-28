@@ -129,7 +129,10 @@ doesn't (no empty columns):
 | `Lighthouse`      | 0–100        | Badge (green ≥ 90, amber ≥ 50, red below)         |
 
 **Refresh diff:** `update-sites-data.yml` copies the outgoing snapshot to
-`docs/sites_list.prev.csv` before overwriting. At build time the page compares
+`docs/sites_list.prev.csv` before overwriting — only when the upstream CSV
+actually changed, so an unchanged (or JSON-only) week leaves the previous diff
+in place. At
+build time the page compares
 Health/Status/Tier/Server per domain and marks changed rows with a Δ badge.
 When no `.prev.csv` exists yet, diffing silently does nothing.
 
