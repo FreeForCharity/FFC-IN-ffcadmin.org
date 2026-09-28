@@ -226,7 +226,7 @@ export default function MovsmPage() {
             >
               Idealist
             </a>{' '}
-            (which VolunteerMatch merged into in 2025).
+            (now home to VolunteerMatch, which merged with Idealist in 2025).
           </p>
         </section>
 

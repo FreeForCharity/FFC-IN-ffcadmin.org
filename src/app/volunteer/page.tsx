@@ -619,8 +619,8 @@ export default function VolunteerPage() {
                   >
                     Idealist
                   </a>{' '}
-                  (which VolunteerMatch merged into in 2025) — nonprofit volunteer and role
-                  listings.
+                  (now home to VolunteerMatch, which merged with Idealist in 2025) — nonprofit
+                  volunteer and role listings.
                 </span>
               </li>
             </ul>
