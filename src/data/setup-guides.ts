@@ -1420,20 +1420,20 @@ export const SETUP_GUIDES: SetupGuide[] = [
   {
     slug: 'volunteermatch',
     counterpart: 'volunteermatch-organization',
-    title: 'Set up VolunteerMatch (find volunteers & causes)',
-    shortTitle: 'VolunteerMatch',
+    title: 'VolunteerMatch is now Idealist (find volunteers & causes)',
+    shortTitle: 'VolunteerMatch → Idealist',
     category: 'Social Presence',
     icon: '🤝',
     gradient: 'from-teal-500 to-cyan-700',
     description:
-      'Create a personal VolunteerMatch account to see how volunteers discover causes. Your organization’s listings come later — the same learn-it-as-a-volunteer-first pattern as Idealist and Taproot.',
+      'VolunteerMatch merged into Idealist in 2025, so its volunteer network now lives on idealist.org. Your personal account is an Idealist account — follow the Idealist guide.',
     keywords:
-      'VolunteerMatch account, find volunteers nonprofit, volunteer recruitment, volunteer opportunities, Free For Charity VolunteerMatch',
+      'VolunteerMatch Idealist merger, VolunteerMatch account, find volunteers nonprofit, volunteer opportunities, Free For Charity VolunteerMatch',
     audience: 'Charity applicants and founders',
     estMinutes: 10,
     intro: [
-      'VolunteerMatch is one of the largest volunteer-recruitment platforms — where people looking to help find organizations that need them.',
-      'Like Idealist and Taproot, you experience it from the **volunteer’s side first**: seeing how causes are presented teaches you what your charity’s own listings will need to attract help later.',
+      'VolunteerMatch was one of the largest volunteer-recruitment platforms. It **merged into Idealist** (announced January 2025; one platform since September 2025), so volunteer opportunities from both now live on **idealist.org**, and **volunteermatch.org** forwards there.',
+      'There is no separate VolunteerMatch account to create any more. Set up your personal account on Idealist instead — the Idealist guide walks through it — and experience it from the **volunteer’s side first**, as before.',
     ],
     principle: {
       title: 'Learn it as a volunteer before you recruit as an organization',
@@ -1441,9 +1441,9 @@ export const SETUP_GUIDES: SetupGuide[] = [
     },
     steps: [
       {
-        title: 'Create your account',
+        title: 'Create your account on Idealist',
         body: [
-          'Go to **volunteermatch.org** and sign up with your real name and email (the one tied to your phone, same as everywhere else).',
+          'Go to **idealist.org** and sign up with your real name and email (the one tied to your phone, same as everywhere else). If you had a VolunteerMatch login used since 2022, it was carried over to Idealist — sign in there with the same email.',
         ],
       },
       {
@@ -1461,8 +1461,8 @@ export const SETUP_GUIDES: SetupGuide[] = [
     ],
     faqs: [
       {
-        q: 'How is VolunteerMatch different from Idealist and Taproot?',
-        a: 'They overlap but serve different slices: VolunteerMatch is the biggest general volunteer-matching marketplace, Idealist adds nonprofit jobs and internships, and Taproot focuses on skills-based pro-bono projects. FFC has you try all three so you know which channel fits a given need.',
+        q: 'Is VolunteerMatch still separate from Idealist?',
+        a: 'No. VolunteerMatch and Idealist merged in 2025 and became one platform on idealist.org, which now covers general volunteering plus nonprofit jobs and internships. Taproot is still separate and focuses on skills-based pro-bono projects — FFC has you try both so you know which channel fits a given need.',
       },
       {
         q: 'Will I post my charity’s openings here now?',
@@ -2693,19 +2693,19 @@ export const SETUP_GUIDES: SetupGuide[] = [
     slug: 'volunteermatch-organization',
     track: 'organizational',
     counterpart: 'volunteermatch',
-    title: 'Recruit on VolunteerMatch as your charity',
-    shortTitle: 'VolunteerMatch (org)',
+    title: 'Recruit on Idealist (formerly VolunteerMatch) as your charity',
+    shortTitle: 'VolunteerMatch → Idealist (org)',
     category: 'Social Presence',
     icon: '🤝',
     gradient: 'from-teal-700 to-cyan-800',
     description:
-      'Register the charity on VolunteerMatch and post volunteer opportunities that actually attract help — using what you learned from the volunteer’s side in the personal guide.',
+      'VolunteerMatch merged into Idealist in 2025. Register the charity on Idealist and post volunteer opportunities that actually attract help — using what you learned from the volunteer’s side in the personal guide.',
     keywords:
       'VolunteerMatch nonprofit registration, post volunteer opportunities, recruit volunteers charity, volunteer listing, Free For Charity VolunteerMatch org',
     audience: 'Charity owners and whoever coordinates volunteers',
     estMinutes: 20,
     intro: [
-      'Once the charity is running, VolunteerMatch is where you **recruit**: you register the organization, then post opportunities that show up for the millions of people searching by cause and location.',
+      'Once the charity is running, you **recruit** where VolunteerMatch’s audience now lives: **Idealist**, which absorbed VolunteerMatch in 2025. You register the organization, then post opportunities that show up for people searching by cause and location.',
       'Everything you noticed as a volunteer in the personal guide — clear scope, real impact, honest time commitment — is what your own listings now need.',
     ],
     principle: {
@@ -2716,7 +2716,7 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Register the organization',
         body: [
-          'On **volunteermatch.org**, add your organization: legal name, **EIN**, mission, location, and cause areas. VolunteerMatch checks nonprofit status for full features.',
+          'On **idealist.org**, add your organization: legal name, **EIN**, mission, location, and cause areas (the Idealist organization guide covers it step by step). If the charity already had a VolunteerMatch profile, it was moved to Idealist — find it under your name, then **Manage**.',
           'Use a charity role email for the org profile, and administer it signed in as yourself — the same person-runs-the-page pattern as LinkedIn and Facebook.',
         ],
       },
@@ -2738,11 +2738,11 @@ export const SETUP_GUIDES: SetupGuide[] = [
     faqs: [
       {
         q: 'Does it cost anything to post opportunities?',
-        a: 'Basic organization registration and volunteer listings are free for nonprofits; VolunteerMatch sells optional upgrades, which most small charities don’t need to start.',
+        a: 'Volunteer listings on Idealist are free for nonprofits. Idealist sells optional extras — promoted listings, job postings, and an annual membership — which most small charities don’t need to start.',
       },
       {
-        q: 'Should we also post on Idealist?',
-        a: 'Yes, when you’re ready — VolunteerMatch has the largest general volunteer audience, Idealist adds nonprofit jobs and internships, and Taproot covers skills-based pro-bono projects. Post where the audience matches the need.',
+        q: 'Do we need to post on both VolunteerMatch and Idealist?',
+        a: 'No — since the 2025 merger they are one platform, so one Idealist listing reaches both audiences. Taproot is still separate and covers skills-based pro-bono projects. Post where the audience matches the need.',
       },
     ],
     related: ['volunteermatch', 'idealist-organization', 'taproot-organization'],
