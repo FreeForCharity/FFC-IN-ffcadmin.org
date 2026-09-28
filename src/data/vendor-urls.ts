@@ -38,7 +38,8 @@ export const VENDOR_URLS = {
   volunteermatch: {
     url: 'https://www.volunteermatch.org/',
     lastVerified: '2026-05-24',
-    description: 'VolunteerMatch — volunteer-recruitment platform.',
+    description:
+      'VolunteerMatch — merged into Idealist in 2025; per Idealist, volunteermatch.org now forwards to idealist.org.',
   },
   cloudflareSignup: {
     url: 'https://dash.cloudflare.com/sign-up',

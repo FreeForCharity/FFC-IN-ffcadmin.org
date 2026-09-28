@@ -612,23 +612,15 @@ export default function VolunteerPage() {
                 <span className="text-teal-600 mr-2 mt-0.5">&bull;</span>
                 <span>
                   <a
-                    href="https://www.volunteermatch.org/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 underline hover:text-blue-800"
-                  >
-                    VolunteerMatch
-                  </a>{' '}
-                  (and{' '}
-                  <a
                     href="https://www.idealist.org/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 underline hover:text-blue-800"
                   >
                     Idealist
-                  </a>
-                  ) — nonprofit volunteer and role listings.
+                  </a>{' '}
+                  (now home to VolunteerMatch, which merged with Idealist in 2025) — nonprofit
+                  volunteer and role listings.
                 </span>
               </li>
             </ul>

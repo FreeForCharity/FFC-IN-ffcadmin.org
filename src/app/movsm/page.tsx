@@ -216,17 +216,8 @@ export default function MovsmPage() {
               className="text-blue-600 underline hover:text-blue-800"
             >
               Taproot
-            </a>
-            ,{' '}
-            <a
-              href="https://www.volunteermatch.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              VolunteerMatch
-            </a>
-            , and{' '}
+            </a>{' '}
+            and{' '}
             <a
               href="https://www.idealist.org/"
               target="_blank"
@@ -234,8 +225,8 @@ export default function MovsmPage() {
               className="text-blue-600 underline hover:text-blue-800"
             >
               Idealist
-            </a>
-            .
+            </a>{' '}
+            (now home to VolunteerMatch, which merged with Idealist in 2025).
           </p>
         </section>
 
