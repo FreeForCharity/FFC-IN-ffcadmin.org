@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-09-28T19:39:47Z",
+  "updatedAt": "2026-09-28T22:18:23Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,22 +10,22 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2086",
-    "newUsers": "2048",
-    "sessions": "2438",
-    "screenPageViews": "2775",
-    "engagementRate": "0.39089417555373257",
-    "eventCount": "9252",
-    "keyEvents": "422"
+    "activeUsers": "2096",
+    "newUsers": "2058",
+    "sessions": "2452",
+    "screenPageViews": "2789",
+    "engagementRate": "0.39029363784665577",
+    "eventCount": "9297",
+    "keyEvents": "423"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "832"
+      "views": "835"
     },
     {
       "path": "/",
-      "views": "697"
+      "views": "702"
     },
     {
       "path": "/free-charity-web-hosting/",
@@ -36,12 +36,12 @@
       "views": "132"
     },
     {
-      "path": "/help-for-charities/",
+      "path": "/charity-prerequisites/",
       "views": "45"
     },
     {
-      "path": "/charity-prerequisites/",
-      "views": "44"
+      "path": "/help-for-charities/",
+      "views": "45"
     },
     {
       "path": "/volunteer/",
@@ -63,11 +63,11 @@
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1293"
+      "sessions": "1301"
     },
     {
       "channel": "Direct",
-      "sessions": "923"
+      "sessions": "929"
     },
     {
       "channel": "AI Assistant",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1777",
-    "newUsers": "1739",
-    "sessions": "2094",
-    "screenPageViews": "2362",
-    "engagementRate": "0.438872970391595",
-    "eventCount": "8084",
-    "keyEvents": "422"
+    "activeUsers": "1784",
+    "newUsers": "1746",
+    "sessions": "2104",
+    "screenPageViews": "2371",
+    "engagementRate": "0.438212927756654",
+    "eventCount": "8117",
+    "keyEvents": "423"
   }
 }
