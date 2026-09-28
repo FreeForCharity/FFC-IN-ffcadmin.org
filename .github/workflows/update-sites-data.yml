@@ -58,6 +58,9 @@ jobs:
           fi
           mv "$tmp/sites_list.csv" docs/sites_list.csv
           mv "$tmp/sites_list.json" docs/sites_list.json
+          # The page's "Site data refreshed …" line reads this. Written only on
+          # this changed-data path, so it records when new data actually landed.
+          printf '{ "syncedAt": "%s" }\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > docs/sites_list.meta.json
           echo "fetched=true" >> "$GITHUB_OUTPUT"
           echo "Fetched $(wc -l < docs/sites_list.csv) lines of CSV."
 
