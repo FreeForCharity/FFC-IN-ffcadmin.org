@@ -38,13 +38,29 @@ jobs:
             echo "fetched=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          # Upstream unchanged: stop here, before the snapshot rotation below.
+          # Rotating anyway overwrote sites_list.prev.csv with the current CSV,
+          # so prev == current and every "changed" marker on the page vanished
+          # -- and the rotation alone still opened a one-file PR each week.
+          if [ -f docs/sites_list.csv ] && [ -f docs/sites_list.json ] \
+            && cmp -s "$tmp/sites_list.csv" docs/sites_list.csv \
+            && cmp -s "$tmp/sites_list.json" docs/sites_list.json; then
+            echo "Upstream sites list unchanged; nothing to sync."
+            echo "fetched=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           # Keep the outgoing snapshot so the Sites List can highlight rows
-          # that changed between refreshes (#425).
-          if [ -f docs/sites_list.csv ]; then
+          # that changed between refreshes (#425). The diff is computed from
+          # the CSV alone, so rotate only when the CSV itself changed: a
+          # JSON-only update must not erase the markers either.
+          if [ -f docs/sites_list.csv ] && ! cmp -s "$tmp/sites_list.csv" docs/sites_list.csv; then
             cp docs/sites_list.csv docs/sites_list.prev.csv
           fi
           mv "$tmp/sites_list.csv" docs/sites_list.csv
           mv "$tmp/sites_list.json" docs/sites_list.json
+          # The page's "Site data refreshed …" line reads this. Written only on
+          # this changed-data path, so it records when new data actually landed.
+          printf '{ "syncedAt": "%s" }\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > docs/sites_list.meta.json
           echo "fetched=true" >> "$GITHUB_OUTPUT"
           echo "Fetched $(wc -l < docs/sites_list.csv) lines of CSV."
 

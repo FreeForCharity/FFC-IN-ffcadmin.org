@@ -129,9 +129,18 @@ doesn't (no empty columns):
 | `Lighthouse`      | 0–100        | Badge (green ≥ 90, amber ≥ 50, red below)         |
 
 **Refresh diff:** `update-sites-data.yml` copies the outgoing snapshot to
-`docs/sites_list.prev.csv` before overwriting. At build time the page compares
+`docs/sites_list.prev.csv` before overwriting — only when the upstream CSV
+actually changed, so an unchanged (or JSON-only) week leaves the previous diff
+in place. At
+build time the page compares
 Health/Status/Tier/Server per domain and marks changed rows with a Δ badge.
 When no `.prev.csv` exists yet, diffing silently does nothing.
+
+**Refresh time:** on the same changed-data path the workflow writes
+`docs/sites_list.meta.json` (`{ "syncedAt": "<ISO-8601 UTC>" }`), which backs the
+"Site data refreshed …" line on every Sites List view. If the file is missing or
+unparsable the line is hidden — never derived from file mtimes, which on CI are
+the checkout time.
 
 **Owners:** `src/data/site-owners.ts` (this repo) maps lowercase domain →
 GitHub handle or display name; an Owner column appears in any tier table where

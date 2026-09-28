@@ -208,7 +208,8 @@ export default function CharityPrerequisitesPage() {
           <p className="text-gray-600 text-sm mb-6 max-w-3xl">
             After 501(c)(3) recognition, get your charity validated so donated software unlocks —{' '}
             <strong>TechSoup</strong> (QuickBooks, Microsoft, Adobe) and <strong>Goodstack</strong>{' '}
-            (Canva, Google) — and stand up the organization-level accounts.
+            (Google for Nonprofits, Canva, and more — Google now relies on Goodstack as its
+            nonprofit validator) — and stand up the organization-level accounts.
           </p>
           <GuideChips slugs={ORG_PREREQS} />
         </section>
