@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-09-28T22:18:23Z",
+  "updatedAt": "2026-09-29T01:17:59Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2096",
-    "newUsers": "2058",
-    "sessions": "2452",
-    "screenPageViews": "2789",
-    "engagementRate": "0.39029363784665577",
-    "eventCount": "9297",
-    "keyEvents": "423"
+    "activeUsers": "2111",
+    "newUsers": "2073",
+    "sessions": "2472",
+    "screenPageViews": "2819",
+    "engagementRate": "0.39158576051779936",
+    "eventCount": "9399",
+    "keyEvents": "427"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "835"
+      "views": "840"
     },
     {
       "path": "/",
-      "views": "702"
+      "views": "709"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "448"
+      "views": "451"
     },
     {
       "path": "/501c3/",
-      "views": "132"
+      "views": "134"
     },
     {
       "path": "/charity-prerequisites/",
-      "views": "45"
+      "views": "48"
     },
     {
       "path": "/help-for-charities/",
@@ -53,7 +53,7 @@
     },
     {
       "path": "/free-training-programs/",
-      "views": "18"
+      "views": "19"
     },
     {
       "path": "/ffc-volunteer-proving-ground-core-competencies/",
@@ -63,11 +63,11 @@
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1301"
+      "sessions": "1314"
     },
     {
       "channel": "Direct",
-      "sessions": "929"
+      "sessions": "938"
     },
     {
       "channel": "AI Assistant",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1784",
-    "newUsers": "1746",
-    "sessions": "2104",
-    "screenPageViews": "2371",
-    "engagementRate": "0.438212927756654",
-    "eventCount": "8117",
-    "keyEvents": "423"
+    "activeUsers": "1795",
+    "newUsers": "1757",
+    "sessions": "2119",
+    "screenPageViews": "2389",
+    "engagementRate": "0.438886267107126",
+    "eventCount": "8187",
+    "keyEvents": "427"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T22:19:04Z",
+  "generated_at": "2026-09-29T01:18:36Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -13,10 +13,53 @@
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-28T22:12:01Z",
+      "updated_at": "2026-09-29T01:16:19Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1433,
+      "title": "Conductor liveness: the supervising routine may have stopped",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-29T01:07:28Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1433",
+      "labels": [
+        "bug",
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1422,
+      "title": "213 and 218 are scored burned-down while their artifact-path consumer is unguarded: 0 of 6 and 1 of 6 path guards",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-29T00:53:32Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1422",
+      "labels": [
+        "bug",
+        "security",
+        "agentic-os",
+        "claimed",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1380,
+      "title": "The #1080 output_file guards rest on @actions/glob's nobrace/noext, which nothing in the tree asserts",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-28T22:30:52Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1380",
+      "labels": [
+        "security",
+        "agentic-os",
+        "agent-ready"
       ]
     },
     {
@@ -25,11 +68,39 @@
       "title": "Conductor liveness: the supervising routine may have stopped",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-09-28T20:29:31Z",
+      "updated_at": "2026-09-28T22:27:37Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1416",
       "labels": [
         "bug",
         "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1413,
+      "title": "guard_bash: the graphql --paginate rule judges the whole command, so a word in another statement (or a heredoc body) blocks a correct call",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-28T22:25:58Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1413",
+      "labels": [
+        "bug",
+        "security",
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1152,
+      "title": "740 records only the run conclusion, so a failure that changes cause reads as the same outage continuing — 735 moved to the credential step and both rolling issues hid it",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-28T22:20:06Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1152",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
       ]
     },
     {
@@ -45,20 +116,6 @@
         "infra",
         "agentic-os",
         "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1413,
-      "title": "guard_bash: the graphql --paginate rule judges the whole command, so a word in another statement (or a heredoc body) blocks a correct call",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-28T16:39:28Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1413",
-      "labels": [
-        "bug",
-        "security",
-        "agentic-os"
       ]
     },
     {
@@ -114,36 +171,6 @@
       "labels": [
         "bug",
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1380,
-      "title": "The #1080 output_file guards rest on @actions/glob's nobrace/noext, which nothing in the tree asserts",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-28T15:36:34Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1380",
-      "labels": [
-        "security",
-        "agentic-os",
-        "claimed",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1422,
-      "title": "213 and 218 are scored burned-down while their artifact-path consumer is unguarded: 0 of 6 and 1 of 6 path guards",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-28T15:29:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1422",
-      "labels": [
-        "bug",
-        "security",
-        "agentic-os",
-        "agent-ready"
       ]
     },
     {
@@ -256,20 +283,6 @@
       "labels": [
         "documentation",
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1016,
-      "title": "sites-list ordering: group stable GitHub Pages sites on top, in the generator (recovered from #425 before its branch is deleted)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-28T10:35:13Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1016",
-      "labels": [
-        "enhancement",
-        "agentic-os",
-        "claimed"
       ]
     },
     {
@@ -1017,20 +1030,6 @@
       "labels": [
         "security",
         "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1152,
-      "title": "740 records only the run conclusion, so a failure that changes cause reads as the same outage continuing — 735 moved to the credential step and both rolling issues hid it",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-10T13:22:43Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1152",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
       ]
     },
     {
@@ -1965,6 +1964,34 @@
   ],
   "ready_issues": [
     {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1380,
+      "title": "The #1080 output_file guards rest on @actions/glob's nobrace/noext, which nothing in the tree asserts",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-28T22:30:52Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1380",
+      "labels": [
+        "security",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1152,
+      "title": "740 records only the run conclusion, so a failure that changes cause reads as the same outage continuing — 735 moved to the credential step and both rolling issues hid it",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-09-28T22:20:06Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1152",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
       "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
       "number": 1281,
       "title": "Pages deploy aborts silently when the gate's list query misses a required CI run (9 of 26 deploys today; public feed ~1h stale)",
@@ -1975,21 +2002,6 @@
       "labels": [
         "bug",
         "infra",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1422,
-      "title": "213 and 218 are scored burned-down while their artifact-path consumer is unguarded: 0 of 6 and 1 of 6 path guards",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-09-28T15:29:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1422",
-      "labels": [
-        "bug",
-        "security",
         "agentic-os",
         "agent-ready"
       ]
@@ -2368,20 +2380,6 @@
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/724",
       "labels": [
         "documentation",
-        "agentic-os",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1152,
-      "title": "740 records only the run conclusion, so a failure that changes cause reads as the same outage continuing — 735 moved to the credential step and both rolling issues hid it",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-08-10T13:22:43Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1152",
-      "labels": [
-        "bug",
         "agentic-os",
         "agent-ready"
       ]
@@ -2850,67 +2848,25 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1410,
-      "title": "feat(sites-list): group live GitHub Pages sites first; fix renumbered workflow names in sites-list docs",
+      "number": 1432,
+      "title": "fix(1422): guard the artifact-selector consumer on four lanes scored burned down",
       "state": "open",
       "draft": false,
       "assignee": null,
-      "updated_at": "2026-09-28T22:17:19Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1410",
-      "labels": [],
-      "linked_agentic_issues": [
-        1016
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1423,
-      "title": "docs(1380): record the dependency fact the glob guard rests on, and assert it in all four lanes",
-      "state": "open",
-      "draft": false,
-      "assignee": null,
-      "updated_at": "2026-09-28T22:15:17Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1423",
+      "updated_at": "2026-09-29T01:12:54Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1432",
       "labels": [
+        "bug",
         "security",
         "agentic-os"
       ],
       "linked_agentic_issues": [
-        1380,
         1422,
         1080,
-        1278
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1429,
-      "title": "docs(agents): read emitted annotations, not the log's copy of the script",
-      "state": "open",
-      "draft": false,
-      "assignee": null,
-      "updated_at": "2026-09-28T22:14:22Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1429",
-      "labels": [
-        "documentation",
-        "agentic-os"
-      ],
-      "linked_agentic_issues": []
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1427,
-      "title": "fix(run-name): render inputs on triggers that carry none, and guard it",
-      "state": "open",
-      "draft": false,
-      "assignee": null,
-      "updated_at": "2026-09-28T22:14:21Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1427",
-      "labels": [
-        "agentic-os"
-      ],
-      "linked_agentic_issues": [
-        1107
+        1380,
+        1188,
+        1208,
+        1213
       ]
     },
     {
@@ -2973,29 +2929,8 @@
     }
   ],
   "in_flight_prs_rule": "Open pull requests that are agent work on this backlog, across every repository listed in `repos` — the same org-wide scope as the backlog above, and as the pickup query in AGENTS.md. A PR is listed when it carries the agentic-os label, or when its body references an agentic-os issue in its OWN repository (e.g. 'Closes #123' / 'Refs #123'); a bare #123 is repo-local, so the same number in two repos is two different issues. Both paths genuinely fire: some PRs do carry the label, applied by the authoring agent or by hand, but NO automation applies it (see FFC-Cloudflare-Automation#1070), so the referenced-issue path is what makes this listing reliable rather than best-effort. `open_prs_total` is the unfiltered open-PR count over exactly these same repositories.",
-  "open_prs_total": 15,
+  "open_prs_total": 12,
   "conductor_log": [
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-28T19:10:08Z",
-      "body": "## Conductor run 178 — START (2026-09-28 ~19:10Z)\n\n**Preflight**\n- `HOOKS: wired` — `verify-conductor-hooks.py --workspace C:/ClaudeCodeDesktop/Claude_AI_OS_Routine` exit 0; the guard blocks the L50 shape and allows `git status --porcelain`. Proven live independently: my first Bash call this run was **refused** by `guard_bash.py` for exactly the L50 shape (`... | tail` then `echo $?`).\n- `CLOCK: ok` — host `19:09:26Z` vs `api.github.com` `19:09:27Z`.\n- Five clones on `main`, all `--porcelain --u…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5876690929"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-28T19:12:55Z",
-      "body": "## Run 178 — Step 2 GATES\n\n### Run 177's two iwilf.org gates are CLOSED — Clarke approved both, and both succeeded\n\nChecked **by id**, not from a `run list` (run 177's own closing error was reading absence off a truncated list):\n\n| Run | WF | Dispatch | Outcome |\n| --- | --- | --- | --- |\n| `36447197526` | **113** Registrar (check): iwilf.org | `mode=check` | `completed / success` — `resolve` ✅, `run` ✅, `post_back` skipped |\n| `36447256435` | **701** Website provision: iwilf.org | `dry_run=true…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5876732292"
-    },
-    {
-      "author": "clarkemoyer",
-      "created_at": "2026-09-28T19:43:25Z",
-      "body": "## Conductor run 178 — END (2026-09-28, 19:10–19:4xZ)\n\n**3 PRs merged / 2 draft PRs opened (one of them a replacement for my own mistake) / 1 gate held with a recommendation / 1 outside-contributor PR resolved / 1 issue labelled + confirmed / 0 issues filed / board rc 0 → rc 0 / public status feed refreshed automatically.**\n\nFourth run today (175 11:29Z, 176 13:10Z, 177 16:10Z, 178 now).\n\n### Gates — 1 held, and run 177's two are closed\n\nClarke approved both iwilf.org gates between runs; `364471…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5877189480"
-    },
     {
       "author": "clarkemoyer",
       "created_at": "2026-09-28T19:46:00Z",
@@ -3044,6 +2979,27 @@
       "body": "## Run 179 — Step 2 GATES: 3 pending, **2 of them new since run 178**, all HELD\n\n@clarkemoyer — two gates you dispatched ~21:12–21:14Z are waiting, plus the 706 one from 15:17Z.\n**None auto-approved**: all three are `Writes (gated)` in `docs/workflow-safety-and-approvals.md`,\nand per #1425 that beats my scheduled-task \"auto-approve dry_run=true\" rule. Recommendations below,\n**in the order I'd approve them**.\n\n| # | Run | Workflow | Inputs | Safety | Waiting since | My call |\n|---|-----|---------…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5879683332"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-28T22:27:06Z",
+      "body": "## Run 179 — END (2026-09-28, 22:09–22:4xZ). Fifth run of the day.\n\n**4 PRs promoted and enqueued / 3 issues given evidence / 0 issues filed / 0 gates approved (3 held,\n2 of them new) / board audit rc 0 first pass / third consecutive automated status delivery.**\n\n### The headline: Clarke's run-174 self-enqueue question is **answered**\n\n#1427, #1429, #1423 and #1410 — all Conductor-authored — went out of draft and into the merge queue\nwith **no refusal**. All four read `isInMergeQueue: true`, and…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5879869377"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-29T01:09:45Z",
+      "body": "## Conductor run 180 — START (2026-09-29 01:0xZ)\n\nSixth run inside the 2026-09-28 window (175–179 preceded it; 179 ended ~22:4xZ).\n\n**Step 0 bootstrap: clean.**\n- Five core clones fetched and fast-forwarded to `origin/main`: hub `11eb7fd`→`3d0d68f`, ffcadmin `b9d8e8e`→`ab54ad9`, freeforcharity `4a04e09` (no change), SPT `5b9a485`, Footer_Only `9fba5df`. All `git status --porcelain --untracked-files=no` **clean** (the zero-byte `U+F022 U+F022` artifact of #1023 is present and untracked-only, as e…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5881702341"
+    },
+    {
+      "author": "clarkemoyer",
+      "created_at": "2026-09-29T01:16:19Z",
+      "body": "## Run 180 — Steps 2 & 3: 3 gates HELD (no change), 4 queued PRs all LANDED, 1 new PR reviewed and enqueued\n\n### Step 2 — GATES: the same three, still held, no new ones\n\nResolved **by id**, per run 177's rule. No Clarke response on this thread since run 179's 22:12Z summary, so all three stay pending. **No response is never approval.**\n\n| run | workflow | dispatched | held for | why held |\n| --- | --- | --- | --- | --- |\n| `36484488051` | 701 website provision — makeacalendarinvite.org (`dry_run…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-5881768511"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
