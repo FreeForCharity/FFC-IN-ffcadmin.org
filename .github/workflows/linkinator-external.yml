@@ -8,6 +8,14 @@ name: Weekly Linkinator — External Links (site-wide)
 # entire site and surfaces 4xx/5xx as a workflow failure for a human to
 # triage. Known bot-blocking/rate-limited hosts are skipped in the config.
 #
+# A status code is not the whole story. A vendor that retires a page but
+# keeps serving HTTP 200 (a "soft 404") passes linkinator forever — the
+# Google Analytics certification link did exactly that until 2026-10-03.
+# So after linkinator, scripts/check-soft-404.mjs re-reads every external
+# URL it marked OK and fails the run on retirement / not-found wording or
+# on a missing phrase from .link-expectations.json. Pages it cannot judge
+# (client-rendered shells, cross-host redirects) are listed as warnings.
+#
 # Tracking issues: #251, #391.
 
 on:
@@ -73,16 +81,40 @@ jobs:
           fi
           exit 0
 
-      - name: Upload link report
+      - name: Re-read OK external URLs for retired content (soft 404s)
+        id: soft404
+        run: |
+          set +e
+          node scripts/check-soft-404.mjs link-report.json --out soft-404-report.json
+          status=$?
+          set -e
+          if [ "$status" -eq 1 ]; then
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          elif [ "$status" -eq 0 ]; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            # A crash is not a clean bill of health; surface it as a failure.
+            echo "::error::soft-404 check crashed (exit $status)"
+            exit "$status"
+          fi
+
+      - name: Upload link reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: linkinator-external-report
-          path: link-report.json
+          path: |
+            link-report.json
+            soft-404-report.json
           retention-days: 30
 
-      - name: Fail the workflow if broken links were found
-        if: steps.linkinator.outputs.broken == 'true'
+      - name: Fail the workflow if broken or stale links were found
+        if: steps.linkinator.outputs.broken == 'true' || steps.soft404.outputs.stale == 'true'
         run: |
-          echo "::error::Broken external URLs detected. See workflow logs + uploaded artifact."
+          if [ "${{ steps.linkinator.outputs.broken }}" = "true" ]; then
+            echo "::error::Broken external URLs detected (4xx/5xx). See workflow logs + uploaded artifact."
+          fi
+          if [ "${{ steps.soft404.outputs.stale }}" = "true" ]; then
+            echo "::error::Stale external URLs detected: served HTTP 200 but the content is retired or missing. See the soft-404 section of the logs + soft-404-report.json."
+          fi
           exit 1

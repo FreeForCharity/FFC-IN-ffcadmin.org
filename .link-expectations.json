@@ -1,0 +1,4 @@
+{
+  "_comment": "URL -> phrase the live page must still contain. Read by scripts/check-soft-404.mjs in the weekly external link scan. Add an entry when a page's CONTENT matters (a course index must still list the course), not merely its existence.",
+  "https://support.google.com/analytics/answer/15068052": "Google Analytics Certification"
+}

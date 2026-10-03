@@ -471,6 +471,14 @@ export const TRAINING_MODULES: TrainingModule[] = [
             id: 'm-analytics-t1-2',
             text: 'Basic SEO (page titles and descriptions) is handled for you — ask your assistant to review it when you add pages.',
           },
+          {
+            id: 'm-analytics-t1-3',
+            text: 'Optional: take Google’s free Analytics Academy starter courses — 101 Get started using Google Analytics, then 102 Manage GA data and learn to read reports. Google lists every current course on one page.',
+            link: {
+              url: 'https://support.google.com/analytics/answer/15068052',
+              label: 'Analytics Academy courses',
+            },
+          },
         ],
       },
       T2: {
@@ -478,7 +486,11 @@ export const TRAINING_MODULES: TrainingModule[] = [
         directives: [
           {
             id: 'm-analytics-t2-1',
-            text: 'Set up Google Tag Manager / analytics and verify events fire with consent.',
+            text: 'Set up Google Tag Manager / analytics and verify events fire with consent. Analytics Academy 201 covers the explorations and custom reports you will use to check your work.',
+            link: {
+              url: 'https://skillshop.docebosaas.com/learn/courses/18104/dive-deeper-into-ga4-data-and-reports',
+              label: 'Analytics Academy 201: Dive deeper into GA data and reports',
+            },
           },
           {
             id: 'm-analytics-t2-2',
@@ -491,10 +503,10 @@ export const TRAINING_MODULES: TrainingModule[] = [
         directives: [
           {
             id: 'm-analytics-t3-1',
-            text: 'Stand up GA4 and Google Tag Manager properly: property/stream setup, consent-mode wiring, and event/conversion definitions that respect the cookie banner.',
+            text: 'Stand up GA4 and Google Tag Manager properly: property/stream setup, consent-mode wiring, and event/conversion definitions that respect the cookie banner. Analytics Academy 301 covers linking GA to Google Ads, BigQuery and other data sources.',
             link: {
-              url: 'https://skillshop.exceedlms.com/student/path/508845',
-              label: 'Google Analytics certification',
+              url: 'https://skillshop.docebosaas.com/learn/courses/18105/go-further-with-advanced-features-in-google-analytics',
+              label: 'Analytics Academy 301: Use GA with other tools and data sources',
             },
           },
           {
@@ -507,6 +519,14 @@ export const TRAINING_MODULES: TrainingModule[] = [
             link: {
               url: 'https://search.google.com/search-console/about',
               label: 'Google Search Console',
+            },
+          },
+          {
+            id: 'm-analytics-t3-4',
+            text: 'Earn the Google Analytics Certification — Google’s free, exam-backed credential for the GA4 setup, reporting and analysis skills above. It replaced the retired Skillshop certification learning path.',
+            link: {
+              url: 'https://skillshop.docebosaas.com/learn/courses/14810/google-analytics-certification',
+              label: 'Google Analytics Certification',
             },
           },
         ],
@@ -574,10 +594,10 @@ export const TRAINING_MODULES: TrainingModule[] = [
           },
           {
             id: 'm-gws-t3-3',
-            text: 'Work toward the Google Workspace Administrator certification.',
+            text: 'Work toward the Associate Google Workspace Administrator certification (Google’s current name for the Workspace admin credential).',
             link: {
-              url: 'https://cloud.google.com/learn/certification/workspace-administrator',
-              label: 'Workspace Administrator cert',
+              url: 'https://cloud.google.com/learn/certification/associate-google-workspace-administrator',
+              label: 'Associate Google Workspace Administrator cert',
             },
           },
         ],
