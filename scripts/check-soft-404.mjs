@@ -78,20 +78,38 @@ const SHELL_TITLE_PATTERNS = [/^\s*$/, /^\s*loading(?:\.{3}|…)?\s*$/i]
 /** Below this many characters of visible text, a page cannot be judged. */
 export const MIN_READABLE_CHARS = 200
 
+/**
+ * The few entities retirement banners and course titles actually use. Decoded
+ * in ONE pass so `&amp;quot;` yields `&quot;`, never `"` (CodeQL: double
+ * unescaping). Anything else is left as written.
+ */
+const ENTITY_MAP = {
+  nbsp: ' ',
+  '#160': ' ',
+  amp: '&',
+  quot: '"',
+  '#39': "'",
+  apos: "'",
+  rsquo: "'",
+  lt: '<',
+  gt: '>',
+}
+const ENTITY_RE = /&(nbsp|#160|amp|quot|#39|apos|rsquo|lt|gt);/gi
+
 /** Strip markup to visible text. Pure. */
 export function extractText(html) {
-  return String(html ?? '')
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi, ' ')
-    .replace(/<!--[\s\S]*?-->/g, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;|&#160;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;|&apos;|&rsquo;/gi, "'")
-    .replace(/\s+/g, ' ')
-    .trim()
+  return (
+    String(html ?? '')
+      // `\s*` before `>` so `</script >` is matched too (CodeQL: bad HTML filtering regexp).
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, ' ')
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, ' ')
+      .replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript\s*>/gi, ' ')
+      .replace(/<!--[\s\S]*?-->/g, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(ENTITY_RE, (_, name) => ENTITY_MAP[name.toLowerCase()] ?? _)
+      .replace(/\s+/g, ' ')
+      .trim()
+  )
 }
 
 export function extractTitle(html) {

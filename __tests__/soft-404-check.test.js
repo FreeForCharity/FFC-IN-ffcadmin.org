@@ -57,6 +57,19 @@ describe('extractText / extractTitle', () => {
     expect(text).not.toContain('<li>')
     expect(extractText(SKILLSHOP_RETIRED)).not.toContain('IntellumDataLayer')
   })
+
+  it('strips a script whose closing tag carries whitespace (CodeQL: bad HTML filtering regexp)', () => {
+    const html = '<p>keep</p><script>var secret = "no longer available"</script ><p>also keep</p>'
+    const text = extractText(html)
+    expect(text).toBe('keep also keep')
+    expect(text).not.toContain('no longer available')
+  })
+
+  it('decodes entities in a single pass, so an escaped entity is not double-unescaped', () => {
+    // CodeQL: double unescaping. `&amp;quot;` is the literal text `&quot;`, not a quote.
+    expect(extractText('a &amp;quot;b&amp;quot; c')).toBe('a &quot;b&quot; c')
+    expect(extractText('x &amp; y &quot;z&quot; &#39;w&#39; &lt;b&gt;')).toBe('x & y "z" \'w\' <b>')
+  })
 })
 
 describe('classifyPage', () => {
