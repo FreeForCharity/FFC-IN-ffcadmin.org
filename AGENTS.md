@@ -172,6 +172,8 @@ GitHub Actions enforces the following on every PR:
 
 PRs cannot merge until all checks pass.
 
+**External links are checked weekly, not per PR.** PR CI skips every external URL (flaky). `linkinator-external.yml` scans the built site on Mondays for 4xx/5xx, then `scripts/check-soft-404.mjs` re-reads every URL that answered 200 and fails on "not found" / "retired" wording or on a missing phrase from `.link-expectations.json` — a vendor that moves content often keeps serving 200 on the old URL. Add an expectation when a page's content matters, not just its existence.
+
 ---
 
 ## Section-Specific Guides

@@ -6,9 +6,10 @@
  * that referenced them.
  *
  * Each entry carries a `lastVerified` date. The weekly linkinator
- * workflow (.github/workflows/linkinator-legacy-wp-admin.yml) scans
- * the rendered site for 4xx/5xx and flags stale URLs; this `lastVerified`
- * field is the human-tracked counterpart.
+ * workflow (.github/workflows/linkinator-external.yml) scans the
+ * rendered site for 4xx/5xx and, via scripts/check-soft-404.mjs, for
+ * pages that answer 200 but say the content is retired; this
+ * `lastVerified` field is the human-tracked counterpart.
  *
  * Adding a vendor: append an entry. Bumping a verification date: edit
  * just the `lastVerified` value when a URL has been re-confirmed.

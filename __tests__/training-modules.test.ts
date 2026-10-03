@@ -26,6 +26,38 @@ describe('Training modules data model', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 
+  it('no directive links to the retired Skillshop LMS host (soft-404 since 2026-10)', () => {
+    // skillshop.exceedlms.com still answers HTTP 200 with "This content is no
+    // longer available", so a status-code link check cannot catch it. Google
+    // now lists Analytics Academy courses at support.google.com/analytics/answer/15068052
+    // and hosts them on skillshop.docebosaas.com.
+    const urls = TRAINING_MODULES.flatMap((m) =>
+      Object.values(m.tiers).flatMap((t) => t?.directives.map((d) => d.link?.url ?? '') ?? [])
+    )
+    for (const url of urls) {
+      expect(url).not.toMatch(/skillshop\.exceedlms\.com/)
+    }
+  })
+
+  it('the Analytics & SEO module links every tier to a current Analytics Academy course or the course index', () => {
+    const mod = getModule('analytics-seo')
+    expect(mod).toBeDefined()
+    const indexUrl = 'https://support.google.com/analytics/answer/15068052'
+    const linksByTier = Object.fromEntries(
+      Object.entries(mod!.tiers).map(([tier, t]) => [
+        tier,
+        t!.directives.map((d) => d.link?.url ?? ''),
+      ])
+    )
+    expect(linksByTier.T1).toContain(indexUrl)
+    expect(
+      linksByTier.T2.some((u) => u.startsWith('https://skillshop.docebosaas.com/learn/courses/'))
+    ).toBe(true)
+    expect(linksByTier.T3).toContain(
+      'https://skillshop.docebosaas.com/learn/courses/14810/google-analytics-certification'
+    )
+  })
+
   it('every learning-path entry references a module that defines that tier', () => {
     for (const path of LEARNING_PATHS) {
       for (const entry of path.entries) {
