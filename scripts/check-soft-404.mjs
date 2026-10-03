@@ -51,27 +51,45 @@ export const CONCURRENCY = 6
 const USER_AGENT =
   'Mozilla/5.0 (compatible; ffcadmin-soft-404-check/1.0; +https://github.com/FreeForCharity/FFC-IN-ffcadmin.org)'
 
-/** Title text that means "this is an error page", whatever the status code. */
+/**
+ * Title SEGMENTS that mean "this is an error page", whatever the status code.
+ * A title is split on its separators (`|`, `-`, `:`, `·`) and each segment is
+ * tested at its START, so `Not Found : Google` and `404. Page Not Found` match
+ * while an issue title that merely contains the word 404 mid-sentence does not.
+ * (The first full-site pass flagged two GitHub issues that way.)
+ */
 export const STALE_TITLE_PATTERNS = [
-  /\bnot found\b/i,
-  /\b404\b/,
-  /no longer available/i,
-  /page (?:does not|doesn't|cannot be|can't be) (?:exist|found)/i,
+  /^(?:\d{3}\W*)?(?:page |content )?not found\b/i,
+  /^(?:error\W*)?\d{3}\W*(?:page |content )?not found\b/i,
+  /^(?:page|content) (?:is )?no longer available/i,
+  /^(?:this )?page (?:does not|doesn't|cannot be|can't be) (?:exist|found)/i,
 ]
+const TITLE_SEPARATOR = /\s*(?:\||–|—|-|:|·|»)\s*/
 
 /**
  * Body phrases vendors use when a page is retired but still served with 200.
- * The first entry is the exact Skillshop wording that motivated this check.
+ * Every pattern names its SUBJECT (this page / this content / the page you
+ * requested) — a bare "has been removed" or "no longer available" matches
+ * ordinary prose: the first full-site pass flagged a charity's "The Paypal
+ * button has been removed", GitHub Pages docs explaining what unpublishing
+ * does, and a README noting GPG signing "has been removed". The first entry is
+ * the exact Skillshop wording that motivated this check.
  */
 export const STALE_BODY_PATTERNS = [
-  /no longer available/i,
-  /(?:has been|was|may have been) (?:retired|discontinued|removed)/i,
-  /retired or replaced/i,
-  /page (?:you(?:'re| are) looking for|you requested) (?:does not|doesn't|cannot be|can't be|could not be|couldn't be|is no longer|no longer) (?:exist|found|available|exists)/i,
-  /(?:this )?(?:page|content) has (?:been )?moved/i,
-  /\bpage not found\b/i,
-  /sorry,? we (?:couldn't|could not|can't) find/i,
+  /this (?:page|content|course|item|resource|article|document|learning path) (?:is|has been|was|may have been) (?:no longer available|retired|removed|discontinued|deleted|moved|archived)/i,
+  /(?:the )?(?:page|content) (?:you(?:'re| are) looking for|you requested|you(?:'re| are) trying to reach) (?:does not|doesn't|cannot be|can't be|could not be|couldn't be|is no longer|no longer|is not|isn't) (?:exist|found|available|exists|here)/i,
+  /\b\d{3}\W{0,3}page not found\b/i,
+  /sorry,? we (?:couldn't|could not|can't|cannot) find (?:that|the|this) page/i,
+  /(?:this )?(?:page|content) has (?:been )?(?:permanently )?moved/i,
 ]
+
+/**
+ * Only the LEADING visible text is searched for body phrases. An error page
+ * announces itself up front (the Skillshop and Google Cloud 404 banners both
+ * sit inside the first few hundred characters after the nav), whereas a real
+ * article that happens to discuss retired content does so deep in its body.
+ */
+export const BODY_WINDOW_CHARS = 2000
 
 /** Titles a client-rendered shell shows before its JS runs. */
 const SHELL_TITLE_PATTERNS = [/^\s*$/, /^\s*loading(?:\.{3}|…)?\s*$/i]
@@ -100,10 +118,11 @@ const ENTITY_RE = /&(nbsp|#160|amp|quot|#39|apos|rsquo|lt|gt);/gi
 export function extractText(html) {
   return (
     String(html ?? '')
-      // `\s*` before `>` so `</script >` is matched too (CodeQL: bad HTML filtering regexp).
-      .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, ' ')
-      .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, ' ')
-      .replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript\s*>/gi, ' ')
+      // `[^>]*` before `>` so `</script >` and `</script\t\n bar>` are matched too
+      // (CodeQL: bad HTML filtering regexp — browsers accept junk after the tag name).
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script\b[^>]*>/gi, ' ')
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style\b[^>]*>/gi, ' ')
+      .replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript\b[^>]*>/gi, ' ')
       .replace(/<!--[\s\S]*?-->/g, ' ')
       .replace(/<[^>]+>/g, ' ')
       .replace(ENTITY_RE, (_, name) => ENTITY_MAP[name.toLowerCase()] ?? _)
@@ -169,16 +188,15 @@ export function classifyPage({ requestedUrl, finalUrl, status, contentType, html
   const title = extractTitle(html)
   const text = extractText(html)
 
-  for (const re of STALE_TITLE_PATTERNS) {
-    if (re.test(title)) {
-      reasons.push(`title reads "${title}"`)
-      break
-    }
+  const segments = title.split(TITLE_SEPARATOR).filter(Boolean)
+  if (segments.some((seg) => STALE_TITLE_PATTERNS.some((re) => re.test(seg)))) {
+    reasons.push(`title reads "${title}"`)
   }
+  const lead = text.slice(0, BODY_WINDOW_CHARS)
   for (const re of STALE_BODY_PATTERNS) {
-    const m = re.exec(text)
+    const m = re.exec(lead)
     if (m) {
-      reasons.push(`body says "…${snippetAround(text, m[0])}…"`)
+      reasons.push(`body says "…${snippetAround(lead, m[0])}…"`)
       break
     }
   }

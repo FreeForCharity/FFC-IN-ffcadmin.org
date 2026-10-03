@@ -36,7 +36,14 @@ describe('Training modules data model', () => {
     )
     for (const url of urls) {
       expect(url).not.toMatch(/skillshop\.exceedlms\.com/)
+      // Same shape, found by the first full-site soft-404 pass: Google Cloud serves a
+      // "404. Page Not Found" page with HTTP 200 at the old certification slug; the
+      // credential is now "Associate Google Workspace Administrator".
+      expect(url).not.toBe('https://cloud.google.com/learn/certification/workspace-administrator')
     }
+    expect(urls).toContain(
+      'https://cloud.google.com/learn/certification/associate-google-workspace-administrator'
+    )
   })
 
   it('the Analytics & SEO module links every tier to a current Analytics Academy course or the course index', () => {

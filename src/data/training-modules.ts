@@ -594,10 +594,10 @@ export const TRAINING_MODULES: TrainingModule[] = [
           },
           {
             id: 'm-gws-t3-3',
-            text: 'Work toward the Google Workspace Administrator certification.',
+            text: 'Work toward the Associate Google Workspace Administrator certification (Google’s current name for the Workspace admin credential).',
             link: {
-              url: 'https://cloud.google.com/learn/certification/workspace-administrator',
-              label: 'Workspace Administrator cert',
+              url: 'https://cloud.google.com/learn/certification/associate-google-workspace-administrator',
+              label: 'Associate Google Workspace Administrator cert',
             },
           },
         ],

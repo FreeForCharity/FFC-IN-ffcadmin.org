@@ -58,11 +58,15 @@ describe('extractText / extractTitle', () => {
     expect(extractText(SKILLSHOP_RETIRED)).not.toContain('IntellumDataLayer')
   })
 
-  it('strips a script whose closing tag carries whitespace (CodeQL: bad HTML filtering regexp)', () => {
-    const html = '<p>keep</p><script>var secret = "no longer available"</script ><p>also keep</p>'
-    const text = extractText(html)
-    expect(text).toBe('keep also keep')
-    expect(text).not.toContain('no longer available')
+  it('strips a script whose closing tag carries whitespace or junk (CodeQL: bad HTML filtering regexp)', () => {
+    for (const close of ['</script>', '</script >', '</script\t\n bar>', '</SCRIPT foo="1">']) {
+      const html = `<p>keep</p><script>var secret = "no longer available"${close}<p>also keep</p>`
+      const text = extractText(html)
+      expect(text).toBe('keep also keep')
+      expect(text).not.toContain('no longer available')
+    }
+    const style = '<p>a</p><style\n>.x{content:"page not found"}</style\t\n x><p>b</p>'
+    expect(extractText(style)).toBe('a b')
   })
 
   it('decodes entities in a single pass, so an escaped entity is not double-unescaped', () => {
@@ -98,6 +102,59 @@ describe('classifyPage', () => {
     expect(v.state).toBe('stale')
     expect(v.reasons).toHaveLength(1)
     expect(v.reasons[0]).toMatch(/^body says/)
+  })
+
+  it('calls the Google Cloud certification soft 404 stale (second case found by the full-site pass)', () => {
+    const html = `<html><head><title></title></head><body><nav>Google Cloud Overview Solutions Products Pricing Resources</nav>
+      <h1>404. Page Not Found</h1><p>Sorry, we can't find that page</p>
+      <p>404 error. The requested URL /learn/certification/workspace-administrator was not found on this server.</p>
+      <a href="/">Back to home</a>${filler()}</body></html>`
+    const v = classifyPage({
+      requestedUrl: 'https://cloud.google.com/learn/certification/workspace-administrator',
+      status: 200,
+      contentType: 'text/html',
+      html,
+    })
+    expect(v.state).toBe('stale')
+    expect(v.reasons[0]).toMatch(/404. Page Not Found/)
+  })
+
+  it('does not flag ordinary prose that mentions removal, 404s or retirement (false positives from the first full-site pass)', () => {
+    const prose = [
+      // charity site: a button, not the page, was removed
+      'The run is so close to finished, please just donate directly to MS. The Paypal button has been removed.',
+      // GitHub Pages docs explaining unpublishing
+      'Unpublish your GitHub Pages site so that your current deployment is removed and the site is no longer available. Creating a custom 404 page for your site.',
+      // a README
+      'Note: GPG commit signing was previously required but has been removed. See FAILED_FEATURES.md for details.',
+      // our own tools page
+      'This guide lists which tools FFC requires, which it recommends, and which have been retired or replaced since the original guide was published.',
+    ]
+    for (const p of prose) {
+      const html = `<html><head><title>Guide</title></head><body><p>${p}</p>${filler()}</body></html>`
+      expect(
+        classifyPage({ requestedUrl: INDEX_URL, status: 200, contentType: 'text/html', html }).state
+      ).toBe('ok')
+    }
+    // issue titles that merely contain "404"
+    for (const t of [
+      'Nothing validates that a sites-list Repo URL resolves: a 404 sat in the public dataset · Issue #1044 · GitHub',
+      'Conditional basePath missing: default-Pages-URL sites serve pages with 404 assets · Issue #748 · GitHub',
+    ]) {
+      const html = `<html><head><title>${t}</title></head><body>${filler()}</body></html>`
+      expect(
+        classifyPage({ requestedUrl: INDEX_URL, status: 200, contentType: 'text/html', html }).state
+      ).toBe('ok')
+    }
+  })
+
+  it('only searches the leading text for retirement phrases', () => {
+    const deep = `<html><head><title>Long article</title></head><body>${filler(2500)}
+      <p>This content is no longer available.</p></body></html>`
+    expect(
+      classifyPage({ requestedUrl: INDEX_URL, status: 200, contentType: 'text/html', html: deep })
+        .state
+    ).toBe('ok')
   })
 
   it('passes a healthy, readable page', () => {
