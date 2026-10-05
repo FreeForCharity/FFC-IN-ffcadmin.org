@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-10-04T09:28:43Z",
+  "updatedAt": "2026-10-05T07:53:38Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,26 +10,26 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2007",
-    "newUsers": "1970",
-    "sessions": "2365",
-    "screenPageViews": "2728",
-    "engagementRate": "0.3885835095137421",
-    "eventCount": "9008",
-    "keyEvents": "398"
+    "activeUsers": "2009",
+    "newUsers": "1976",
+    "sessions": "2372",
+    "screenPageViews": "2729",
+    "engagementRate": "0.38870151770657674",
+    "eventCount": "9018",
+    "keyEvents": "397"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "786"
+      "views": "778"
     },
     {
       "path": "/",
-      "views": "679"
+      "views": "673"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "445"
+      "views": "458"
     },
     {
       "path": "/501c3/",
@@ -40,11 +40,11 @@
       "views": "50"
     },
     {
-      "path": "/volunteer/",
-      "views": "41"
+      "path": "/help-for-charities/",
+      "views": "40"
     },
     {
-      "path": "/help-for-charities/",
+      "path": "/volunteer/",
       "views": "40"
     },
     {
@@ -57,21 +57,21 @@
     },
     {
       "path": "/free-training-programs/",
-      "views": "18"
+      "views": "21"
     }
   ],
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1263"
+      "sessions": "1262"
     },
     {
       "channel": "Direct",
-      "sessions": "888"
+      "sessions": "895"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "166"
+      "sessions": "169"
     },
     {
       "channel": "Referral",
@@ -83,17 +83,17 @@
     },
     {
       "channel": "Unassigned",
-      "sessions": "5"
+      "sessions": "3"
     }
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1689",
-    "newUsers": "1650",
-    "sessions": "2010",
-    "screenPageViews": "2290",
-    "engagementRate": "0.43482587064676614",
-    "eventCount": "7767",
-    "keyEvents": "398"
+    "activeUsers": "1687",
+    "newUsers": "1652",
+    "sessions": "2011",
+    "screenPageViews": "2291",
+    "engagementRate": "0.43460964694181997",
+    "eventCount": "7773",
+    "keyEvents": "397"
   }
 }
