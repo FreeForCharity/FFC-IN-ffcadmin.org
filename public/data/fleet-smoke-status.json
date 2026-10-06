@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-05T07:19:34.209Z",
+  "generatedAt": "2026-10-06T07:04:45.571Z",
   "org": "FreeForCharity",
   "repoCount": 117,
   "summary": {
-    "passing": 14,
-    "failing": 23,
+    "passing": 15,
+    "failing": 22,
     "running": 0,
     "stale-monitor": 0,
     "not-cutover": 80,
@@ -22,8 +22,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-3dmc2.org/actions/runs/37268690228",
-        "updatedAt": "2026-10-05T05:39:36Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-3dmc2.org/actions/runs/37418771556",
+        "updatedAt": "2026-10-06T05:30:12Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -38,8 +38,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-aariasblueelephant.org/actions/runs/37268782623",
-        "updatedAt": "2026-10-05T05:40:45Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-aariasblueelephant.org/actions/runs/37418837712",
+        "updatedAt": "2026-10-06T05:31:18Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -57,8 +57,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-acharyaapp.org/actions/runs/37268606808",
-        "updatedAt": "2026-10-05T05:38:52Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-acharyaapp.org/actions/runs/37418716879",
+        "updatedAt": "2026-10-06T05:29:29Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -73,8 +73,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-AllTypeTowing.com/actions/runs/37269007845",
-        "updatedAt": "2026-10-05T05:43:45Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-AllTypeTowing.com/actions/runs/37419012040",
+        "updatedAt": "2026-10-06T05:32:55Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -92,8 +92,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-amargraves.org/actions/runs/37268757766",
-        "updatedAt": "2026-10-05T05:40:29Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-amargraves.org/actions/runs/37418818660",
+        "updatedAt": "2026-10-06T05:30:42Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -108,8 +108,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ambofoundation.org/actions/runs/37268597400",
-        "updatedAt": "2026-10-05T05:38:09Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ambofoundation.org/actions/runs/37418706996",
+        "updatedAt": "2026-10-06T05:29:32Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -124,8 +124,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-americanlegionpost64.org/actions/runs/37268683758",
-        "updatedAt": "2026-10-05T05:39:21Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-americanlegionpost64.org/actions/runs/37418760262",
+        "updatedAt": "2026-10-06T05:30:14Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -143,8 +143,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-apollonianfp.org/actions/runs/37268712720",
-        "updatedAt": "2026-10-05T05:39:40Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-apollonianfp.org/actions/runs/37418784901",
+        "updatedAt": "2026-10-06T05:31:08Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -159,8 +159,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-aprilhansen.com/actions/runs/37268634568",
-        "updatedAt": "2026-10-05T05:38:44Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-aprilhansen.com/actions/runs/37418732250",
+        "updatedAt": "2026-10-06T05:29:36Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -178,8 +178,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-armstrongacesbaseball.org/actions/runs/37268692020",
-        "updatedAt": "2026-10-05T05:39:32Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-armstrongacesbaseball.org/actions/runs/37418772496",
+        "updatedAt": "2026-10-06T05:30:13Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -197,8 +197,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-bearupinternationalministries.org/actions/runs/37268903532",
-        "updatedAt": "2026-10-05T05:42:43Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-bearupinternationalministries.org/actions/runs/37418922132",
+        "updatedAt": "2026-10-06T05:32:08Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -213,8 +213,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-bintobetter.org/actions/runs/37268742013",
-        "updatedAt": "2026-10-05T05:40:09Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-bintobetter.org/actions/runs/37418808790",
+        "updatedAt": "2026-10-06T05:30:30Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -229,8 +229,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-brianmustofoundation.org/actions/runs/37269015346",
-        "updatedAt": "2026-10-05T05:43:52Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-brianmustofoundation.org/actions/runs/37419015156",
+        "updatedAt": "2026-10-06T05:32:55Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -261,8 +261,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-browncanyonranch.org/actions/runs/37268813666",
-        "updatedAt": "2026-10-05T05:41:14Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-browncanyonranch.org/actions/runs/37418852543",
+        "updatedAt": "2026-10-06T05:31:07Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -280,8 +280,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-bucktownbullsbaseball.org/actions/runs/37268769040",
-        "updatedAt": "2026-10-05T05:40:31Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-bucktownbullsbaseball.org/actions/runs/37418822380",
+        "updatedAt": "2026-10-06T05:30:54Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -299,8 +299,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-bulldogztowing.com/actions/runs/37268590663",
-        "updatedAt": "2026-10-05T05:38:09Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-bulldogztowing.com/actions/runs/37418706790",
+        "updatedAt": "2026-10-06T05:29:33Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -315,8 +315,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-busineighbor.org/actions/runs/37268843695",
-        "updatedAt": "2026-10-05T05:41:35Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-busineighbor.org/actions/runs/37418888169",
+        "updatedAt": "2026-10-06T05:31:32Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -331,8 +331,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-cactuswrenpreschool.com/actions/runs/37268706325",
-        "updatedAt": "2026-10-05T05:39:48Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-cactuswrenpreschool.com/actions/runs/37418788979",
+        "updatedAt": "2026-10-06T05:30:19Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -350,8 +350,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-canadatokeywestcoastalrun.org/actions/runs/37268999858",
-        "updatedAt": "2026-10-05T05:43:48Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-canadatokeywestcoastalrun.org/actions/runs/37419008383",
+        "updatedAt": "2026-10-06T05:32:51Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -369,8 +369,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-canary/actions/runs/37268836362",
-        "updatedAt": "2026-10-05T05:41:41Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-canary/actions/runs/37418883105",
+        "updatedAt": "2026-10-06T05:31:54Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -385,8 +385,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-catnipandcattitude.org/actions/runs/37268760933",
-        "updatedAt": "2026-10-05T05:40:30Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-catnipandcattitude.org/actions/runs/37418824342",
+        "updatedAt": "2026-10-06T05:30:55Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -404,8 +404,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-clarasbridge.org/actions/runs/37268900787",
-        "updatedAt": "2026-10-05T05:42:29Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-clarasbridge.org/actions/runs/37418925006",
+        "updatedAt": "2026-10-06T05:32:03Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -420,8 +420,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-cochiserobotics.org/actions/runs/37268621082",
-        "updatedAt": "2026-10-05T05:38:32Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-cochiserobotics.org/actions/runs/37418730469",
+        "updatedAt": "2026-10-06T05:29:37Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -436,8 +436,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-compassionstl.org/actions/runs/37268922051",
-        "updatedAt": "2026-10-05T05:42:43Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-compassionstl.org/actions/runs/37418945691",
+        "updatedAt": "2026-10-06T05:32:18Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -455,8 +455,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-coronadonationalforestheritagesociety.org/actions/runs/37268670019",
-        "updatedAt": "2026-10-05T05:39:04Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-coronadonationalforestheritagesociety.org/actions/runs/37418746907",
+        "updatedAt": "2026-10-06T05:29:59Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -474,8 +474,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ctvip.org/actions/runs/37268759698",
-        "updatedAt": "2026-10-05T05:40:19Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ctvip.org/actions/runs/37418822621",
+        "updatedAt": "2026-10-06T05:31:13Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -522,8 +522,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-e2inc.org/actions/runs/37268949131",
-        "updatedAt": "2026-10-05T05:43:18Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-e2inc.org/actions/runs/37418985252",
+        "updatedAt": "2026-10-06T05:32:38Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -602,8 +602,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-falloutshelterecovillage.org/actions/runs/37268570733",
-        "updatedAt": "2026-10-05T05:37:54Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-falloutshelterecovillage.org/actions/runs/37418687094",
+        "updatedAt": "2026-10-06T05:29:15Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -621,8 +621,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-foxtrotenterprises.com/actions/runs/37268582062",
-        "updatedAt": "2026-10-05T05:38:04Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-foxtrotenterprises.com/actions/runs/37418698063",
+        "updatedAt": "2026-10-06T05:29:26Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -637,8 +637,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-freedomrisingusa.org/actions/runs/37268968660",
-        "updatedAt": "2026-10-05T05:43:36Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-freedomrisingusa.org/actions/runs/37418994342",
+        "updatedAt": "2026-10-06T05:33:14Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -653,8 +653,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-friendsof362.org/actions/runs/37268939993",
-        "updatedAt": "2026-10-05T05:42:56Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-friendsof362.org/actions/runs/37418976108",
+        "updatedAt": "2026-10-06T05:32:26Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -669,8 +669,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ftnfcog.org/actions/runs/37268911908",
-        "updatedAt": "2026-10-05T05:42:32Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ftnfcog.org/actions/runs/37418936452",
+        "updatedAt": "2026-10-06T05:31:57Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -685,8 +685,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-garrisonareacaregivers.org/actions/runs/37268731041",
-        "updatedAt": "2026-10-05T05:39:59Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-garrisonareacaregivers.org/actions/runs/37418802308",
+        "updatedAt": "2026-10-06T05:30:29Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -736,8 +736,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-hasbeensandgonnabees.org/actions/runs/37268624682",
-        "updatedAt": "2026-10-05T05:38:27Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-hasbeensandgonnabees.org/actions/runs/37418736043",
+        "updatedAt": "2026-10-06T05:29:48Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -752,8 +752,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-hclwellness.org/actions/runs/37268662892",
-        "updatedAt": "2026-10-05T05:39:12Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-hclwellness.org/actions/runs/37418744989",
+        "updatedAt": "2026-10-06T05:29:51Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -768,8 +768,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-homesforchange.org/actions/runs/37268913235",
-        "updatedAt": "2026-10-05T05:42:36Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-homesforchange.org/actions/runs/37418941990",
+        "updatedAt": "2026-10-06T05:32:18Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -800,8 +800,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ieeeforthuachuca.org/actions/runs/37268853251",
-        "updatedAt": "2026-10-05T05:41:43Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ieeeforthuachuca.org/actions/runs/37418896072",
+        "updatedAt": "2026-10-06T05:31:38Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -816,8 +816,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ihadrousa.org/actions/runs/37268778419",
-        "updatedAt": "2026-10-05T05:40:37Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ihadrousa.org/actions/runs/37418829488",
+        "updatedAt": "2026-10-06T05:30:44Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -832,8 +832,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-instituteofforgiveness.org/actions/runs/37268651342",
-        "updatedAt": "2026-10-05T05:38:50Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-instituteofforgiveness.org/actions/runs/37418733921",
+        "updatedAt": "2026-10-06T05:29:52Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -851,8 +851,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-iwilf.org/actions/runs/37268685010",
-        "updatedAt": "2026-10-05T05:39:12Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-iwilf.org/actions/runs/37418757934",
+        "updatedAt": "2026-10-06T05:29:59Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -867,8 +867,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-jeansnsneaks.org/actions/runs/37268717528",
-        "updatedAt": "2026-10-05T05:39:53Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-jeansnsneaks.org/actions/runs/37418792362",
+        "updatedAt": "2026-10-06T05:30:19Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -883,8 +883,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-jwvpost619.org/actions/runs/37268671956",
-        "updatedAt": "2026-10-05T05:38:34Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-jwvpost619.org/actions/runs/37418754612",
+        "updatedAt": "2026-10-06T05:29:15Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -902,8 +902,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-kainkaryasri.org/actions/runs/37268874220",
-        "updatedAt": "2026-10-05T05:42:08Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-kainkaryasri.org/actions/runs/37418926831",
+        "updatedAt": "2026-10-06T05:32:01Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -918,8 +918,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ksgf.org/actions/runs/37269017894",
-        "updatedAt": "2026-10-05T05:43:56Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ksgf.org/actions/runs/37419015482",
+        "updatedAt": "2026-10-06T05:32:59Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -934,8 +934,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-legioninthewoods.org/actions/runs/37268944383",
-        "updatedAt": "2026-10-05T05:42:57Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-legioninthewoods.org/actions/runs/37418971260",
+        "updatedAt": "2026-10-06T05:32:31Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1001,8 +1001,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-makeacalendarinvite.org/actions/runs/37268717894",
-        "updatedAt": "2026-10-05T05:39:49Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-makeacalendarinvite.org/actions/runs/37418797658",
+        "updatedAt": "2026-10-06T05:30:33Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1017,8 +1017,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-mindfulmovesproject.org/actions/runs/37268579360",
-        "updatedAt": "2026-10-05T05:38:00Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-mindfulmovesproject.org/actions/runs/37418695873",
+        "updatedAt": "2026-10-06T05:29:10Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1033,8 +1033,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-minoritywealthgap.org/actions/runs/37268898763",
-        "updatedAt": "2026-10-05T05:42:48Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-minoritywealthgap.org/actions/runs/37418923712",
+        "updatedAt": "2026-10-06T05:32:08Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1049,8 +1049,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-mitchellnchistory.org/actions/runs/37268879120",
-        "updatedAt": "2026-10-05T05:42:23Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-mitchellnchistory.org/actions/runs/37418918110",
+        "updatedAt": "2026-10-06T05:32:28Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1065,8 +1065,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-movewithcompassion.org/actions/runs/37268906258",
-        "updatedAt": "2026-10-05T05:42:41Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-movewithcompassion.org/actions/runs/37418933023",
+        "updatedAt": "2026-10-06T05:32:02Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1097,8 +1097,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-myservicehours.org/actions/runs/37269019987",
-        "updatedAt": "2026-10-05T05:44:17Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-myservicehours.org/actions/runs/37419022634",
+        "updatedAt": "2026-10-06T05:33:02Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1113,8 +1113,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-naturaldividends.org/actions/runs/37268850542",
-        "updatedAt": "2026-10-05T05:41:35Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-naturaldividends.org/actions/runs/37418904502",
+        "updatedAt": "2026-10-06T05:31:36Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1129,8 +1129,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nestiva.org/actions/runs/37268753991",
-        "updatedAt": "2026-10-05T05:40:21Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nestiva.org/actions/runs/37418822014",
+        "updatedAt": "2026-10-06T05:30:55Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1145,8 +1145,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-neurospike.org/actions/runs/37268607956",
-        "updatedAt": "2026-10-05T05:38:24Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-neurospike.org/actions/runs/37418730434",
+        "updatedAt": "2026-10-06T05:29:49Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1161,8 +1161,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-newheightseducation.org/actions/runs/37268871150",
-        "updatedAt": "2026-10-05T05:43:05Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-newheightseducation.org/actions/runs/37418924585",
+        "updatedAt": "2026-10-06T05:32:50Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1177,8 +1177,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nittanypost245.org/actions/runs/37268651774",
-        "updatedAt": "2026-10-05T05:38:58Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nittanypost245.org/actions/runs/37418734462",
+        "updatedAt": "2026-10-06T05:29:58Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1193,8 +1193,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nj4israel.org/actions/runs/37269003648",
-        "updatedAt": "2026-10-05T05:43:47Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nj4israel.org/actions/runs/37419013746",
+        "updatedAt": "2026-10-06T05:32:54Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1225,8 +1225,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nolefturns.org/actions/runs/37268877011",
-        "updatedAt": "2026-10-05T05:41:54Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nolefturns.org/actions/runs/37418921740",
+        "updatedAt": "2026-10-06T05:31:58Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1241,8 +1241,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-npbandparents.org/actions/runs/37268711563",
-        "updatedAt": "2026-10-05T05:39:34Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-npbandparents.org/actions/runs/37418789385",
+        "updatedAt": "2026-10-06T05:30:19Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1257,8 +1257,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nu4children.org/actions/runs/37268917902",
-        "updatedAt": "2026-10-05T05:42:31Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-nu4children.org/actions/runs/37418941425",
+        "updatedAt": "2026-10-06T05:32:02Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1289,8 +1289,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ohiomtawest.org/actions/runs/37268707951",
-        "updatedAt": "2026-10-05T05:40:13Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ohiomtawest.org/actions/runs/37418777753",
+        "updatedAt": "2026-10-06T05:30:49Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1305,8 +1305,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-onlineimpacts.org/actions/runs/37268587774",
-        "updatedAt": "2026-10-05T05:38:00Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-onlineimpacts.org/actions/runs/37418690842",
+        "updatedAt": "2026-10-06T05:29:26Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1321,8 +1321,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-paaboosterclub.org/actions/runs/37268757707",
-        "updatedAt": "2026-10-05T05:40:27Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-paaboosterclub.org/actions/runs/37418820614",
+        "updatedAt": "2026-10-06T05:30:37Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1337,8 +1337,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-PAGboosters.org/actions/runs/37268950844",
-        "updatedAt": "2026-10-05T05:44:09Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-PAGboosters.org/actions/runs/37418982613",
+        "updatedAt": "2026-10-06T05:33:31Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1356,8 +1356,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-pantryforadaircounty.org/actions/runs/37268863365",
-        "updatedAt": "2026-10-05T05:41:51Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-pantryforadaircounty.org/actions/runs/37418915003",
+        "updatedAt": "2026-10-06T05:31:42Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1372,8 +1372,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ptuganda.org/actions/runs/37268923216",
-        "updatedAt": "2026-10-05T05:42:44Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-ptuganda.org/actions/runs/37418947594",
+        "updatedAt": "2026-10-06T05:32:09Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1388,8 +1388,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-rebirthsdc.org/actions/runs/37268909653",
-        "updatedAt": "2026-10-05T05:42:41Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-rebirthsdc.org/actions/runs/37418935825",
+        "updatedAt": "2026-10-06T05:32:06Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1407,8 +1407,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-restoredradiancefoundation.org/actions/runs/37268842235",
-        "updatedAt": "2026-10-05T05:41:40Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-restoredradiancefoundation.org/actions/runs/37418904318",
+        "updatedAt": "2026-10-06T05:31:40Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1423,8 +1423,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-roottostem.org/actions/runs/37268748260",
-        "updatedAt": "2026-10-05T05:40:22Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-roottostem.org/actions/runs/37418814961",
+        "updatedAt": "2026-10-06T05:30:43Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1439,8 +1439,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-savewatersaveplanet.org/actions/runs/37268571171",
-        "updatedAt": "2026-10-05T05:37:44Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-savewatersaveplanet.org/actions/runs/37418682180",
+        "updatedAt": "2026-10-06T05:29:06Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1458,8 +1458,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-scwcinc.org/actions/runs/37268835755",
-        "updatedAt": "2026-10-05T05:41:21Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-scwcinc.org/actions/runs/37418874353",
+        "updatedAt": "2026-10-06T05:31:13Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1474,8 +1474,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-slopestohope.org/actions/runs/37268981603",
-        "updatedAt": "2026-10-05T05:43:32Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-slopestohope.org/actions/runs/37418993391",
+        "updatedAt": "2026-10-06T05:32:50Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1490,8 +1490,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-soulcap.org/actions/runs/37268620082",
-        "updatedAt": "2026-10-05T05:38:28Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-soulcap.org/actions/runs/37418729677",
+        "updatedAt": "2026-10-06T05:29:40Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1506,8 +1506,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-soulfoodwhangarei.org/actions/runs/37268863874",
-        "updatedAt": "2026-10-05T05:41:49Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-soulfoodwhangarei.org/actions/runs/37418919284",
+        "updatedAt": "2026-10-06T05:31:52Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1522,8 +1522,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-southamptonfriends.org/actions/runs/37268838578",
-        "updatedAt": "2026-10-05T05:41:34Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-southamptonfriends.org/actions/runs/37418901952",
+        "updatedAt": "2026-10-06T05:31:36Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1541,8 +1541,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-sporting2Impact.org/actions/runs/37268827091",
-        "updatedAt": "2026-10-05T05:41:28Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-sporting2Impact.org/actions/runs/37418859232",
+        "updatedAt": "2026-10-06T05:31:50Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1557,8 +1557,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-SRRN.net/actions/runs/37268909375",
-        "updatedAt": "2026-10-05T05:42:28Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-SRRN.net/actions/runs/37418935143",
+        "updatedAt": "2026-10-06T05:32:06Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1573,8 +1573,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-stylesbysheba.com/actions/runs/37268684646",
-        "updatedAt": "2026-10-05T05:39:22Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-stylesbysheba.com/actions/runs/37418762215",
+        "updatedAt": "2026-10-06T05:29:59Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1589,8 +1589,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-tamkeensports.org/actions/runs/37268768471",
-        "updatedAt": "2026-10-05T05:40:36Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-tamkeensports.org/actions/runs/37418829346",
+        "updatedAt": "2026-10-06T05:31:04Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1605,8 +1605,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-teamwrangler.org/actions/runs/37268927137",
-        "updatedAt": "2026-10-05T05:42:48Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-teamwrangler.org/actions/runs/37418956088",
+        "updatedAt": "2026-10-06T05:32:18Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1621,8 +1621,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-technologymonastery.org/actions/runs/37268698826",
-        "updatedAt": "2026-10-05T05:39:42Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-technologymonastery.org/actions/runs/37418778949",
+        "updatedAt": "2026-10-06T05:30:17Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1637,8 +1637,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-technomonasteries.org/actions/runs/37268606868",
-        "updatedAt": "2026-10-05T05:38:22Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-technomonasteries.org/actions/runs/37418730142",
+        "updatedAt": "2026-10-06T05:29:36Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1653,8 +1653,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-theafghanistanaffairs.org/actions/runs/37268981735",
-        "updatedAt": "2026-10-05T05:43:36Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-theafghanistanaffairs.org/actions/runs/37418993002",
+        "updatedAt": "2026-10-06T05:32:48Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1669,8 +1669,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thebirf.org/actions/runs/37268882582",
-        "updatedAt": "2026-10-05T05:42:20Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thebirf.org/actions/runs/37418927777",
+        "updatedAt": "2026-10-06T05:32:00Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1685,8 +1685,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thecoreyvmoorejrinitiative.org/actions/runs/37268980452",
-        "updatedAt": "2026-10-05T05:43:29Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thecoreyvmoorejrinitiative.org/actions/runs/37419004329",
+        "updatedAt": "2026-10-06T05:32:53Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1701,8 +1701,8 @@
         "status": "completed",
         "conclusion": "failure",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thecrookedhouse.net/actions/runs/37268979925",
-        "updatedAt": "2026-10-05T05:43:35Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thecrookedhouse.net/actions/runs/37418992280",
+        "updatedAt": "2026-10-06T05:32:45Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1720,8 +1720,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thedeviators.org/actions/runs/37268843449",
-        "updatedAt": "2026-10-05T05:41:32Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thedeviators.org/actions/runs/37418886630",
+        "updatedAt": "2026-10-06T05:31:39Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1736,8 +1736,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-theeverythingproject.org/actions/runs/37268670887",
-        "updatedAt": "2026-10-05T05:39:22Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-theeverythingproject.org/actions/runs/37418747807",
+        "updatedAt": "2026-10-06T05:29:42Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1763,20 +1763,17 @@
       "repo": "FFC-EX-thewayofyeshuaministries.org",
       "domain": "thewayofyeshuaministries.org",
       "cnameFile": "thewayofyeshuaministries.org",
-      "state": "failing",
+      "state": "passing",
       "smoke": {
         "status": "completed",
-        "conclusion": "failure",
+        "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thewayofyeshuaministries.org/actions/runs/37268920634",
-        "updatedAt": "2026-10-05T05:42:51Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-thewayofyeshuaministries.org/actions/runs/37418949558",
+        "updatedAt": "2026-10-06T05:32:36Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
-      "failureIssue": {
-        "number": 157,
-        "url": "https://github.com/FreeForCharity/FFC-EX-thewayofyeshuaministries.org/issues/157"
-      }
+      "failureIssue": null
     },
     {
       "repo": "FFC-EX-transferca.org",
@@ -1787,8 +1784,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-transferca.org/actions/runs/37268775615",
-        "updatedAt": "2026-10-05T05:40:42Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-transferca.org/actions/runs/37418840014",
+        "updatedAt": "2026-10-06T05:30:51Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1803,8 +1800,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-tribute-aviation.org/actions/runs/37268983878",
-        "updatedAt": "2026-10-05T05:43:29Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-tribute-aviation.org/actions/runs/37419004870",
+        "updatedAt": "2026-10-06T05:32:54Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1819,8 +1816,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-turksotx.org/actions/runs/37268623372",
-        "updatedAt": "2026-10-05T05:38:24Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-turksotx.org/actions/runs/37418738905",
+        "updatedAt": "2026-10-06T05:30:18Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1835,8 +1832,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-vcof.org/actions/runs/37268680513",
-        "updatedAt": "2026-10-05T05:39:16Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-vcof.org/actions/runs/37418759333",
+        "updatedAt": "2026-10-06T05:30:16Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1851,8 +1848,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-viewpointnorth.org/actions/runs/37268766137",
-        "updatedAt": "2026-10-05T05:40:30Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-viewpointnorth.org/actions/runs/37418823217",
+        "updatedAt": "2026-10-06T05:30:49Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1867,8 +1864,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-vpmin.org/actions/runs/37268829856",
-        "updatedAt": "2026-10-05T05:41:52Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-vpmin.org/actions/runs/37418862215",
+        "updatedAt": "2026-10-06T05:31:36Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1883,8 +1880,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-vtyouthchat.org/actions/runs/37268847408",
-        "updatedAt": "2026-10-05T05:41:36Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-vtyouthchat.org/actions/runs/37418891467",
+        "updatedAt": "2026-10-06T05:31:35Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1899,8 +1896,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-wamhelp.org/actions/runs/37268800676",
-        "updatedAt": "2026-10-05T05:41:00Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-wamhelp.org/actions/runs/37418851602",
+        "updatedAt": "2026-10-06T05:31:06Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1915,8 +1912,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-EX-youngfatherscare.org/actions/runs/37268645723",
-        "updatedAt": "2026-10-05T05:38:53Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-EX-youngfatherscare.org/actions/runs/37418753704",
+        "updatedAt": "2026-10-06T05:29:55Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1931,8 +1928,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/actions/runs/37268827663",
-        "updatedAt": "2026-10-05T05:41:32Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-IN-FFC_Single_Page_Template/actions/runs/37418873888",
+        "updatedAt": "2026-10-06T05:31:33Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
@@ -1947,8 +1944,8 @@
         "status": "completed",
         "conclusion": "success",
         "event": "schedule",
-        "runUrl": "https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template/actions/runs/37268818997",
-        "updatedAt": "2026-10-05T05:41:12Z"
+        "runUrl": "https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template/actions/runs/37418858990",
+        "updatedAt": "2026-10-06T05:31:05Z"
       },
       "smokeWorkflowState": "active",
       "staleReason": null,
