@@ -81,9 +81,10 @@ standard in one PR.
   ([`.github/workflows/gate3-validate.yml`](../.github/workflows/gate3-validate.yml)) in this repo
   with the site's work-order issue number (or run `scripts/gate3-validate.mjs` directly against the
   live URL for sites that predate work orders). It live-verifies the footer markers — brand text,
-  freeforcharity.org link, EIN — plus HTTP 200 and basePath sanity.
-- **Manual spot-checks** the tool does not cover: browser console clean on every page, the 375 px
-  mobile pass, and the charity-facing policy-page content.
+  freeforcharity.org link, EIN — plus HTTP 200, basePath sanity, the seven policy pages, the
+  375 px mobile pass, browser console errors, and axe accessibility.
+- **Manual spot-checks** the tool does not cover: the charity-facing policy-page content and the
+  footer's policy/social link targets.
 - **Fleet audit re-run** — after each batch of retrofits, re-run the fleet audit so the fleet-wide
   report reflects the new state and the remaining-sites list shrinks accordingly.
 
