@@ -622,7 +622,9 @@ export function mdCell(text, max = 160) {
     .replace(/\s+/g, ' ')
     .trim()
   const cut = flat.length > max ? `${flat.slice(0, max - 1)}…` : flat
-  return cut.replace(/\|/g, '\\|').replace(/`/g, "'")
+  // Backslashes first: a trailing `\` would otherwise turn the `\|` added next
+  // back into a literal pipe and split the table cell (CodeQL incomplete-sanitization).
+  return cut.replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/`/g, "'")
 }
 
 /** Short page label for details: path relative to the site root. */

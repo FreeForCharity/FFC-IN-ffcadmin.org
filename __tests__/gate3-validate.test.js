@@ -648,6 +648,9 @@ describe('browser-check helpers', () => {
 
   it('mdCell flattens whitespace, escapes pipes/backticks and truncates', () => {
     expect(mdCell('a | b\n`c`')).toBe("a \\| b 'c'")
+    // a backslash before a pipe must not re-open the pipe
+    expect(mdCell('x\\|y')).toBe('x\\\\\\|y')
+    expect(mdCell('end\\')).toBe('end\\\\')
     expect(mdCell('x'.repeat(300), 10)).toHaveLength(10)
   })
 
