@@ -950,11 +950,11 @@ These need confirmation from Clarke. Each has a proposed default that will be ap
 
 ### 15.7 Lists
 
-| #   | Question                                                                                                      | Default                                                                                                                                                                                              |
-| --- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 37  | Policy pages list (5 confirmed): Donation, Privacy, Terms, Vulnerability Disclosure, Security Acknowledgement | **Confirmed** — drop Code of Conduct and Conflict of Interest from scoring                                                                                                                           |
-| 38  | External integrations list                                                                                    | **Zeffy, Idealist, Taproot, VolunteerMatch, Charity Navigator, Benevity, Network for Good** (7 platforms × +3 = max +21) — drop AmazonSmile and GiveWell                                             |
-| 39  | Mission tiers (self-attested, 3 only)                                                                         | **Basic needs (food, water, shelter) +50; Veterans / military +30; all other missions 0** — self-attested via the WHMCS onboarding org-type dropdown, with keyword auto-classification as a fallback |
+| #   | Question                                                                                                                            | Default                                                                                                                                                                                              |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 37  | Policy pages list (5 confirmed, amended to 6): Donation, Privacy, Cookie, Terms, Vulnerability Disclosure, Security Acknowledgement | **Confirmed** — drop Code of Conduct and Conflict of Interest from scoring. **Amended Oct 2026:** Cookie Policy added, matching the six-page, one-donation-policy footer standard                    |
+| 38  | External integrations list                                                                                                          | **Zeffy, Idealist, Taproot, VolunteerMatch, Charity Navigator, Benevity, Network for Good** (7 platforms × +3 = max +21) — drop AmazonSmile and GiveWell                                             |
+| 39  | Mission tiers (self-attested, 3 only)                                                                                               | **Basic needs (food, water, shelter) +50; Veterans / military +30; all other missions 0** — self-attested via the WHMCS onboarding org-type dropdown, with keyword auto-classification as a fallback |
 
 ### 15.8 Operational
 
@@ -1194,9 +1194,9 @@ For non-pursuing: small subset (Idealist, Taproot in some cases) (max +6).
 
 ### Policy pages (additive at +3 each)
 
-The 5 FFC-recognized policies: **Donation Policy, Privacy Policy, Terms of Service, Vulnerability Disclosure Policy, Security Acknowledgement**.
+The 6 FFC-recognized policies — the six policy pages of the FFC footer standard: **Donation Policy, Privacy Policy, Cookie Policy, Terms of Service, Vulnerability Disclosure Policy, Security Acknowledgement**. The Donation Policy is the charity's own; a charity site carries one donation policy, not a separate Free For Charity one.
 
-**Maximum**: 15 points.
+**Maximum**: 18 points.
 
 ### Existing website (single, applied)
 
@@ -1239,7 +1239,7 @@ Approximately **+280** based on FFC's actual current state:
 - Board (5 roles with LinkedIn): +25
 - Candid Platinum: +45
 - External integrations (likely 5-6): +15-18
-- Policy pages (all 5): +15
+- Policy pages (all 6): +18
 - Existing website: +8
 - Documents: +14
 

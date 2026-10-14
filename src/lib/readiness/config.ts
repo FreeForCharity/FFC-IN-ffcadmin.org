@@ -263,10 +263,15 @@ export const INTEGRATIONS_BY_STAGE: Record<CharityStage, readonly string[]> = {
   'non-pursuing': ['Idealist', 'Taproot'],
 }
 
-/** §15 #37 — recognized policy pages (+3 each). */
+/**
+ * §15 #37 — recognized policy pages (+3 each). The six pages of the FFC footer
+ * standard: one donation policy (the charity's own), plus privacy, cookie,
+ * terms, vulnerability disclosure and security acknowledgement.
+ */
 export const POLICY_PAGES = [
   'Donation Policy',
   'Privacy Policy',
+  'Cookie Policy',
   'Terms of Service',
   'Vulnerability Disclosure Policy',
   'Security Acknowledgement',

@@ -38,11 +38,15 @@ following, populated from the charity's approved application data:
 - **Hub login link** — the FFC hub at <https://freeforcharity.org/hub> (WHMCS, the system of
   record).
 - **Candid / GuideStar link** — the charity's public Candid profile.
-- **Policy pages, minimum set** — the legal/policy pages of
-  [FFC-IN-Footer_Only_Template](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template)
-  (privacy policy, cookie policy, terms of service, donation policies, vulnerability disclosure,
-  security acknowledgements), each resolving and containing the charity's information rather than
-  placeholder text.
+- **Policy pages, the six-page set** — the legal/policy pages of
+  [FFC-IN-Footer_Only_Template](https://github.com/FreeForCharity/FFC-IN-Footer_Only_Template):
+  privacy policy, cookie policy, terms of service, the charity's donation policy, vulnerability
+  disclosure policy, and security acknowledgements. Each resolves and carries the charity's name,
+  public contact email, and city/state from the application rather than placeholder text. There is
+  **one** donation policy, the charity's own (tax deductibility, receipts, refunds); a charity site
+  no longer carries a separate "Free For Charity Donation Policy" page or footer link. Sites built
+  before this change still carry both; they keep passing during the fleet rollout and drop the FFC
+  page when their footer is updated.
 - **Current-year copyright line** — computed at build time, never a hard-coded year.
 
 The footer data must be **generated, not hand-typed**: run
@@ -65,8 +69,9 @@ standard in one PR.
    the site's typography, palette, and layout so the footer reads as part of the site rather than a
    bolt-on. PR #29 above shows the pattern: standard links and EIN block restyled in the charity's
    own brand colors.
-4. **Add the missing policy pages** from the Footer_Only_Template set, filled with the charity's
-   details.
+4. **Add the missing policy pages** from the Footer_Only_Template's six-page set, filled with the
+   charity's details. If the site still has a `free-for-charity-donation-policy` page, remove it
+   and its footer link; the charity's own donation policy replaces it.
 5. **Run the repo's full CI locally** (format, lint, build, tests) **including the Lighthouse
    accessibility check** — the Gate-3 bar is a score of **≥ 90** (Section 4b). _Lesson from the
    Catnip retrofit:_ restyling footer links in the charity's brand colors can silently break WCAG

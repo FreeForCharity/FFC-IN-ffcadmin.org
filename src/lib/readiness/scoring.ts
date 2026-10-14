@@ -414,7 +414,7 @@ function buildSuggestions(intake: IntakeData, categories: ScoreCategory[]): stri
   if (policyGap > 0) {
     candidates.push({
       upside: 3 * policyGap,
-      message: `Publish your remaining policy pages (${policyGap} to go) — donation, privacy, terms, vulnerability disclosure, and security acknowledgement.`,
+      message: `Publish your remaining policy pages (${policyGap} to go) — donation, privacy, cookie, terms, vulnerability disclosure, and security acknowledgement.`,
     })
   }
 

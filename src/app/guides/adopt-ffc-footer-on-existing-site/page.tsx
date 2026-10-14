@@ -138,8 +138,11 @@ export default function AdoptFfcFooterGuide() {
               badge, and branding.
             </li>
             <li>
-              <strong>7 legal/policy pages</strong> — privacy policy, cookie policy, terms of
-              service, donation policies, vulnerability disclosure, and security acknowledgements.
+              <strong>6 legal/policy pages</strong> — privacy policy, cookie policy, terms of
+              service, the charity&apos;s donation policy, vulnerability disclosure policy, and
+              security acknowledgements. There is one donation policy, branded with the
+              charity&apos;s name and covering tax deductibility, receipts, and refunds; no separate
+              Free For Charity Donation Policy page or footer link.
             </li>
             <li>
               <strong>GDPR cookie consent</strong> — banner with granular opt-in/opt-out controls.
@@ -170,10 +173,10 @@ export default function AdoptFfcFooterGuide() {
           <PromptBox accent="emerald" label="Paste this into your AI agent">
             &ldquo;Read <strong>FreeForCharity/FFC-IN-Footer_Only_Template</strong> and its README.
             Then, on a new branch in <strong>&lt;charity-repo&gt;</strong>, adopt the FFC footer,
-            the 7 policy pages, the cookie consent banner, the GTM integration, and the team section
+            the 6 policy pages, the cookie consent banner, the GTM integration, and the team section
             — without changing the site&apos;s existing design or content. Fill in{' '}
-            <strong>&lt;Charity Name&gt;</strong>&apos;s contact details and team data, and show me
-            what changed before opening anything.&rdquo;
+            <strong>&lt;Charity Name&gt;</strong>&apos;s contact details (public email and
+            city/state) and team data, and show me what changed before opening anything.&rdquo;
           </PromptBox>
           <p className="text-gray-700 mt-4 text-sm">
             Run the repo&apos;s formatting, lint, build, and test checks as documented in its own
@@ -202,8 +205,8 @@ export default function AdoptFfcFooterGuide() {
               contact info, and branding.
             </li>
             <li>
-              All <strong>7 policy pages resolve</strong> and contain the charity&apos;s information
-              rather than placeholder text.
+              All <strong>6 policy pages resolve</strong> and contain the charity&apos;s information
+              (name, public email, city/state) rather than placeholder text.
             </li>
             <li>
               The <strong>cookie consent banner</strong> appears and gates analytics until consent
