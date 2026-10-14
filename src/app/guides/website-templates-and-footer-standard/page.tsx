@@ -41,8 +41,8 @@ const footerItems: FooterItem[] = [
     why: 'Every page ends with a giving pathway and a way to help. Each is a single link, not a page section: the charity’s donation or volunteer page when it has one (siteConfig.donationUrl / volunteerUrl), otherwise an email to the charity’s contact address. Sites from the Single Page template additionally ship a Zeffy donation form (zero-fee processing); post-deploy smoke monitoring treats lost donation capability as a failure class, not a cosmetic defect.',
   },
   {
-    name: 'Two donation policies',
-    why: 'The charity’s own Donation Policy (deductibility, receipts, refunds) plus the Free For Charity Donation Policy. The FFC entry keeps FFC’s name after any rebrand — deliberately, because that page documents FFC’s own gift-acceptance policy — and the drift checker exempts exactly that label.',
+    name: 'One donation policy — the charity’s own',
+    why: 'A single Donation Policy, branded with the charity’s name from site.config and showing its public email and city/state: tax deductibility (stated only when the charity holds 501(c)(3) recognition), receipts, refunds, which gifts it accepts and how donor information is kept private. There is no separate Free For Charity Donation Policy page or footer link on a charity site — donors give to the charity, so the charity’s policy is the only one that governs their gift.',
   },
   {
     name: 'Privacy policy, cookie policy, and the consent banner',
@@ -165,7 +165,7 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
               >
                 FFC-IN-Footer_Only_Template
               </a>
-              . The charity keeps its design and adopts the compliance layer — footer, seven policy
+              . The charity keeps its design and adopts the compliance layer — footer, six policy
               pages, consent, analytics, team section, SEO — on top of it. How-to:{' '}
               <Link
                 href="/guides/adopt-ffc-footer-on-existing-site"
@@ -212,9 +212,10 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
               <strong>The FFC footer</strong> on every page — the full anatomy in section 3.
             </li>
             <li>
-              <strong>Seven legal/policy pages</strong> — privacy policy, cookie policy, terms of
-              service, the charity&apos;s donation policy, the FFC donation policy, vulnerability
-              disclosure, and security acknowledgements.
+              <strong>Six legal/policy pages</strong> — privacy policy, cookie policy, terms of
+              service, the charity&apos;s donation policy, vulnerability disclosure policy, and
+              security acknowledgements — each branded with the charity&apos;s name and published
+              with its public contact email and city/state from the application.
             </li>
             <li>
               <strong>Consent banner</strong> — Accept All / Decline All / Customize, four cookie
@@ -331,7 +332,8 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
               <strong>In the templates</strong> — unit tests pin the footer&apos;s required content,
               and <code>check:drift</code> / <code>check:rebrand</code> stop a customized fork from
               shipping FFC&apos;s identity while explicitly protecting the permanent{' '}
-              <code>supportedBy</code> attribution and the FFC donation-policy label.
+              <code>supportedBy</code> attribution. The donation policy carries the charity&apos;s
+              name like every other policy page, so it gets no exemption.
             </li>
             <li>
               <strong>At Gate 3</strong> — auto-validation live-verifies the footer markers (brand
