@@ -103,7 +103,8 @@ export const INTAKE_HELP_PAGES: IntakeHelpPage[] = [
     slug: 'policy-pages',
     title: 'Policy pages',
     shortLabel: 'Policy pages',
-    summary: 'Donation, privacy, terms, vulnerability disclosure, and security acknowledgement.',
+    summary:
+      'The six FFC policy pages: donation, privacy, cookie, terms, vulnerability disclosure, and security acknowledgement.',
     category: 'compliance',
     full: false,
   },

@@ -61,7 +61,7 @@ const guideDisplayProps: Record<
   },
   '/guides/adopt-ffc-footer-on-existing-site': {
     longDescription:
-      'For charities that already have a designed website: adopt the FFC footer, 7 policy pages, GDPR cookie consent, GTM analytics, and team section from the Footer-Only Template so the site passes FFC validation on its GitHub Pages address — the gate that unlocks the free .org domain purchase.',
+      'For charities that already have a designed website: adopt the FFC footer, 6 policy pages, GDPR cookie consent, GTM analytics, and team section from the Footer-Only Template so the site passes FFC validation on its GitHub Pages address — the gate that unlocks the free .org domain purchase.',
     version: 'v1',
     date: 'July 2026',
     tags: ['Footer-Only Template', 'Compliance', 'Validation', 'GitHub Pages'],

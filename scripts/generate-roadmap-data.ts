@@ -238,6 +238,7 @@ function ffcSelfEntry(): ScoredEntry {
       policyPages: [
         'Donation Policy',
         'Privacy Policy',
+        'Cookie Policy',
         'Terms of Service',
         'Vulnerability Disclosure Policy',
         'Security Acknowledgement',

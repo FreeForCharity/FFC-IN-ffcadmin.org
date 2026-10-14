@@ -7,20 +7,30 @@ const page = getIntakeHelpPage('policy-pages')!
 export const metadata: Metadata = {
   title: `${page.title} — Intake Help`,
   description:
-    'The five policy pages FFC recognizes — donation, privacy, terms, vulnerability disclosure, and security acknowledgement — and why each one matters. A starter guide for FFC intake.',
+    'The six policy pages every FFC charity site publishes — donation, privacy, cookie, terms, vulnerability disclosure, and security acknowledgement — and why each one matters. A starter guide for FFC intake.',
   alternates: { canonical: 'https://ffcadmin.org/intake-help/policy-pages/' },
 }
 
 export default function PolicyPagesPage() {
   return (
     <IntakeHelpShell page={page}>
-      <p>FFC recognizes five public policy pages, each worth readiness points:</p>
+      <p>
+        Every FFC charity site publishes six policy pages, linked from its footer. Each is worth
+        readiness points:
+      </p>
       <ul>
         <li>
-          <strong>Donation Policy</strong> — how donations are used, acknowledged, and refunded.
+          <strong>Donation Policy</strong> — your charity&apos;s own policy: whether gifts are tax
+          deductible, the receipts donors get, and when a donation can be refunded. There is one
+          donation policy, in your charity&apos;s name; there is no separate Free For Charity
+          donation policy on your site.
         </li>
         <li>
           <strong>Privacy Policy</strong> — what data you collect and how you protect it.
+        </li>
+        <li>
+          <strong>Cookie Policy</strong> — which cookies the site sets and how visitors consent to
+          them.
         </li>
         <li>
           <strong>Terms of Service</strong> — the terms for using your site.
@@ -34,9 +44,10 @@ export default function PolicyPagesPage() {
         </li>
       </ul>
       <p>
-        These reassure donors and partners that you operate responsibly. FFC’s site template
-        includes starting points for each; publish them and list them in your intake. Template
-        language is forthcoming.
+        These reassure donors and partners that you operate responsibly. FFC’s site templates ship
+        all six, branded with your charity&apos;s name and published with the public contact email
+        and city/state from your application, so donors know who to reach. List the ones you have
+        published in your intake.
       </p>
     </IntakeHelpShell>
   )
