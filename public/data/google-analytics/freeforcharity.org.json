@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-10-15T07:35:40Z",
+  "updatedAt": "2026-10-16T07:32:50Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,46 +10,46 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2009",
-    "newUsers": "1987",
-    "sessions": "2378",
-    "screenPageViews": "2702",
-    "engagementRate": "0.3881412952060555",
-    "eventCount": "8943",
-    "keyEvents": "390"
+    "activeUsers": "2001",
+    "newUsers": "1980",
+    "sessions": "2386",
+    "screenPageViews": "2707",
+    "engagementRate": "0.384325230511316",
+    "eventCount": "8940",
+    "keyEvents": "380"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "745"
+      "views": "746"
     },
     {
       "path": "/",
-      "views": "703"
+      "views": "699"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "482"
+      "views": "476"
     },
     {
       "path": "/501c3/",
-      "views": "127"
-    },
-    {
-      "path": "/charity-prerequisites/",
-      "views": "42"
+      "views": "123"
     },
     {
       "path": "/volunteer/",
-      "views": "40"
+      "views": "46"
+    },
+    {
+      "path": "/charity-prerequisites/",
+      "views": "45"
+    },
+    {
+      "path": "/ffc-volunteer-proving-ground-core-competencies/",
+      "views": "30"
     },
     {
       "path": "/guidestar-guide/",
       "views": "29"
-    },
-    {
-      "path": "/ffc-volunteer-proving-ground-core-competencies/",
-      "views": "25"
     },
     {
       "path": "/free-training-programs/",
@@ -63,11 +63,11 @@
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1266"
+      "sessions": "1273"
     },
     {
       "channel": "Direct",
-      "sessions": "938"
+      "sessions": "931"
     },
     {
       "channel": "AI Assistant",
@@ -75,7 +75,7 @@
     },
     {
       "channel": "Referral",
-      "sessions": "34"
+      "sessions": "39"
     },
     {
       "channel": "Organic Social",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1658",
-    "newUsers": "1630",
-    "sessions": "1994",
-    "screenPageViews": "2237",
-    "engagementRate": "0.43831494483450351",
-    "eventCount": "7604",
-    "keyEvents": "390"
+    "activeUsers": "1655",
+    "newUsers": "1627",
+    "sessions": "2002",
+    "screenPageViews": "2240",
+    "engagementRate": "0.43356643356643354",
+    "eventCount": "7600",
+    "keyEvents": "380"
   }
 }
