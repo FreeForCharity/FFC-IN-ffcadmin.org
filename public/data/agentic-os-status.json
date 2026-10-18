@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T07:29:08Z",
+  "generated_at": "2026-10-18T07:29:35Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -16,7 +16,7 @@
       "title": "🚨 Scheduled workflow failing: FreeForCharity/FFC-IN-ffcadmin.org — Security Audit",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-10-17T07:22:20Z",
+      "updated_at": "2026-10-18T07:22:47Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1458",
       "labels": [
         "bug",
@@ -29,7 +29,7 @@
       "title": "🚨 Scheduled workflow failing: FreeForCharity/FFC-IN-freeforcharity.org — Security Audit",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-10-17T06:54:38Z",
+      "updated_at": "2026-10-18T06:54:44Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1300",
       "labels": [
         "bug",
@@ -42,10 +42,49 @@
       "title": "Conductor liveness: the supervising routine may have stopped",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-10-17T06:40:05Z",
+      "updated_at": "2026-10-18T06:40:22Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1658",
       "labels": [
         "bug",
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1603,
+      "title": "Key Vault credential health: dead, expiring, or unverifiable credentials",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-10-17T09:30:41Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1603",
+      "labels": [
+        "security",
+        "agentic-os",
+        "priority: high"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1659,
+      "title": "🚨 Scheduled workflow failing: 745. Repo - Agentic OS Board Audit [GH]",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-10-17T08:26:05Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1659",
+      "labels": [
+        "bug",
+        "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 719,
+      "title": "Agentic OS Conductor Log",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-10-17T07:49:26Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
+      "labels": [
         "agentic-os"
       ]
     },
@@ -60,45 +99,6 @@
       "labels": [
         "agentic-os",
         "whmcs"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1603,
-      "title": "Key Vault credential health: dead, expiring, or unverifiable credentials",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-10-16T09:34:01Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1603",
-      "labels": [
-        "security",
-        "agentic-os",
-        "priority: high"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1659,
-      "title": "🚨 Scheduled workflow failing: 745. Repo - Agentic OS Board Audit [GH]",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-10-16T08:30:09Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1659",
-      "labels": [
-        "bug",
-        "agentic-os"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 719,
-      "title": "Agentic OS Conductor Log",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-10-16T07:52:48Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
-      "labels": [
-        "agentic-os"
       ]
     },
     {
@@ -4454,13 +4454,6 @@
   "conductor_log": [
     {
       "author": "clarkemoyer",
-      "created_at": "2026-10-12T11:06:03Z",
-      "body": "### Run 258 — addendum: #1647 is out of draft, and two step-6 items the END comment did not carry\n\nThree corrections/additions to the END comment above. None changes a verdict; the first changes a\nfact it states.\n\n**1. #1647 is no longer a draft.** The END comment closed with \"1 draft PR opened\", which was true\nwhen written — `Validate Repository` was still running, and `AGENTS.md` says opening as a draft\nwhile CI runs is fine. It completed **SUCCESS at 11:04:58Z**, so the whole rollup is green:…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-6123016217"
-    },
-    {
-      "author": "clarkemoyer",
       "created_at": "2026-10-12T13:10:24Z",
       "body": "### Run 259 - START\n\n2026-10-12 ~13:1xZ. Run number from this issue (258 END 10:53:10Z, addendum 11:06:03Z).\n\n**Step 0 clean.** `verify-conductor-clones.py` rc=0 (all 5 core clones on `main`, level with origin,\nno uncommitted paths); `verify-conductor-hooks.py` rc=0 (wired, blocks the L50 shape). Hub `main`\n`4b9a2632` -- unchanged since run 258 opened, so nothing landed in the ~2h gap. AGENTS.md \"Who\nmerges\" merge condition and the safety doc re-read from the clone, not memory. Tooling verified:…",
       "truncated": true,
@@ -4521,6 +4514,13 @@
       "body": "### 745 Agentic OS board audit — 4 finding(s)\n\nBoard: FreeForCharity project #9 (Agentic OS) · `expected=224` `board=715` · repos swept: 132\n\nBoth denominators are printed deliberately: run 62 reported \"0 missing\" off an expected set that was one item short, and a short denominator was the only thing a reader could have found suspicious (#966).\n\n#### Missing from the board: 2\n\n_open `agentic-os` items with no card — add them to org project #9_\n\n- [FreeForCharity/FFC-Cloudflare-Automation#1658](h…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-6210783889"
+    },
+    {
+      "author": "github-actions[bot]",
+      "created_at": "2026-10-17T07:49:26Z",
+      "body": "### 745 Agentic OS board audit — 4 finding(s)\n\nBoard: FreeForCharity project #9 (Agentic OS) · `expected=224` `board=715` · repos swept: 132\n\nBoth denominators are printed deliberately: run 62 reported \"0 missing\" off an expected set that was one item short, and a short denominator was the only thing a reader could have found suspicious (#966).\n\n#### Missing from the board: 2\n\n_open `agentic-os` items with no card — add them to org project #9_\n\n- [FreeForCharity/FFC-Cloudflare-Automation#1658](h…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-6231388982"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
