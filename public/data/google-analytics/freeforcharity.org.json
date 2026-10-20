@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-10-19T07:46:06Z",
+  "updatedAt": "2026-10-20T07:36:18Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "1963",
-    "newUsers": "1946",
-    "sessions": "2377",
-    "screenPageViews": "2704",
-    "engagementRate": "0.38325620530079935",
-    "eventCount": "8888",
-    "keyEvents": "360"
+    "activeUsers": "1971",
+    "newUsers": "1955",
+    "sessions": "2392",
+    "screenPageViews": "2723",
+    "engagementRate": "0.38043478260869568",
+    "eventCount": "8917",
+    "keyEvents": "357"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "759"
+      "views": "749"
     },
     {
       "path": "/",
-      "views": "680"
+      "views": "676"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "464"
+      "views": "470"
     },
     {
       "path": "/501c3/",
-      "views": "118"
+      "views": "120"
     },
     {
       "path": "/volunteer/",
-      "views": "48"
+      "views": "50"
     },
     {
       "path": "/charity-prerequisites/",
@@ -53,7 +53,7 @@
     },
     {
       "path": "/help-for-charities/",
-      "views": "25"
+      "views": "24"
     },
     {
       "path": "/free-training-programs/",
@@ -63,23 +63,23 @@
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1274"
+      "sessions": "1276"
     },
     {
       "channel": "Direct",
-      "sessions": "909"
+      "sessions": "917"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "127"
+      "sessions": "131"
     },
     {
       "channel": "Referral",
-      "sessions": "50"
+      "sessions": "53"
     },
     {
       "channel": "Organic Social",
-      "sessions": "11"
+      "sessions": "10"
     },
     {
       "channel": "Unassigned",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1623",
-    "newUsers": "1601",
-    "sessions": "2000",
-    "screenPageViews": "2248",
-    "engagementRate": "0.431",
-    "eventCount": "7572",
-    "keyEvents": "360"
+    "activeUsers": "1613",
+    "newUsers": "1592",
+    "sessions": "1994",
+    "screenPageViews": "2242",
+    "engagementRate": "0.43129388164493482",
+    "eventCount": "7536",
+    "keyEvents": "357"
   }
 }
