@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-10-20T07:36:18Z",
+  "updatedAt": "2026-10-21T07:37:26Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,38 +10,38 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "1971",
-    "newUsers": "1955",
-    "sessions": "2392",
-    "screenPageViews": "2723",
-    "engagementRate": "0.38043478260869568",
-    "eventCount": "8917",
-    "keyEvents": "357"
+    "activeUsers": "2001",
+    "newUsers": "1985",
+    "sessions": "2441",
+    "screenPageViews": "2781",
+    "engagementRate": "0.38140106513723881",
+    "eventCount": "9088",
+    "keyEvents": "360"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "749"
+      "views": "774"
     },
     {
       "path": "/",
-      "views": "676"
+      "views": "669"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "470"
+      "views": "478"
     },
     {
       "path": "/501c3/",
-      "views": "120"
+      "views": "129"
     },
     {
       "path": "/volunteer/",
-      "views": "50"
+      "views": "51"
     },
     {
       "path": "/charity-prerequisites/",
-      "views": "42"
+      "views": "43"
     },
     {
       "path": "/ffc-volunteer-proving-ground-core-competencies/",
@@ -49,11 +49,11 @@
     },
     {
       "path": "/guidestar-guide/",
-      "views": "28"
+      "views": "30"
     },
     {
       "path": "/help-for-charities/",
-      "views": "24"
+      "views": "26"
     },
     {
       "path": "/free-training-programs/",
@@ -63,37 +63,37 @@
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1276"
+      "sessions": "1293"
     },
     {
       "channel": "Direct",
-      "sessions": "917"
+      "sessions": "943"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "131"
+      "sessions": "139"
     },
     {
       "channel": "Referral",
-      "sessions": "53"
+      "sessions": "55"
     },
     {
       "channel": "Organic Social",
-      "sessions": "10"
+      "sessions": "6"
     },
     {
       "channel": "Unassigned",
-      "sessions": "2"
+      "sessions": "3"
     }
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1613",
-    "newUsers": "1592",
-    "sessions": "1994",
-    "screenPageViews": "2242",
-    "engagementRate": "0.43129388164493482",
-    "eventCount": "7536",
-    "keyEvents": "357"
+    "activeUsers": "1635",
+    "newUsers": "1614",
+    "sessions": "2034",
+    "screenPageViews": "2284",
+    "engagementRate": "0.43215339233038347",
+    "eventCount": "7665",
+    "keyEvents": "360"
   }
 }
