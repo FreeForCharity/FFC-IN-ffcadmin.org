@@ -1,0 +1,77 @@
+{
+  "$comment": [
+    "Gate-3 auto-validation requirements, read by scripts/gate3-validate.mjs.",
+    "templates: the sections/pages every FFC-EX site built from each FFC template must ship.",
+    "  homeSectionIds are element ids rendered unconditionally on the template's home page",
+    "  (sections that self-hide per site config - programs, endowment, FAQ, team, events,",
+    "  results, testimonials - are deliberately NOT required). pages are the footer policy",
+    "  routes both templates ship (footer 'Policy links' nav); each must answer HTTP 200.",
+    "  repo/repoAliases match the FFC-EX repo's GitHub template_repository; detectSectionIds",
+    "  is the fallback heuristic when the repo was not generated from a template.",
+    "  headerNavRequired: the 375px check demands a usable header menu (the footer-only",
+    "  layout ships no header, so its footer links are the navigation).",
+    "consoleAllowlist: the ONLY way to ignore a browser console error. Each entry needs a",
+    "  reason and at least one of message (regex on the console text) or source (regex on",
+    "  the script/resource URL that logged it); every given regex must match. Keep it to",
+    "  third-party noise the charity cannot fix - never the site's own code.",
+    "ci.ignoreWorkflowPaths: workflow paths (regex) excluded from the CI-green row, each with",
+    "  a reason. Every other active workflow's latest default-branch run must be green.",
+    "axe: WCAG tags scanned and the impact levels that FAIL the accessibility row."
+  ],
+  "defaultTemplate": "footer-only",
+  "templates": {
+    "single-page": {
+      "repo": "FreeForCharity/FFC-IN-FFC_Single_Page_Template",
+      "repoAliases": ["FreeForCharity/FFC_Single_Page_Template"],
+      "detectSectionIds": ["hero", "mission"],
+      "headerNavRequired": true,
+      "homeSectionIds": ["main-content", "hero", "mission", "volunteer", "donate"],
+      "pages": [
+        "/privacy-policy/",
+        "/cookie-policy/",
+        "/terms-of-service/",
+        "/donation-policy/",
+        "/free-for-charity-donation-policy/",
+        "/vulnerability-disclosure-policy/",
+        "/security-acknowledgements/"
+      ]
+    },
+    "footer-only": {
+      "repo": "FreeForCharity/FFC-IN-Footer_Only_Template",
+      "repoAliases": ["FreeForCharity/FFC-IN-Footer-Only-Template"],
+      "detectSectionIds": [],
+      "headerNavRequired": false,
+      "homeSectionIds": ["main-content"],
+      "pages": [
+        "/privacy-policy/",
+        "/cookie-policy/",
+        "/terms-of-service/",
+        "/donation-policy/",
+        "/free-for-charity-donation-policy/",
+        "/vulnerability-disclosure-policy/",
+        "/security-acknowledgements/"
+      ]
+    }
+  },
+  "ci": {
+    "ignoreWorkflowPaths": [
+      {
+        "path": "^dynamic/dependabot/",
+        "reason": "Dependabot version-update jobs: a failed dependency bump is a bot task, not the site build."
+      },
+      {
+        "path": "^dynamic/agents/",
+        "reason": "Copilot code-review agent sessions, not the repo pipeline."
+      },
+      {
+        "path": "^dynamic/copilot-swe-agent/",
+        "reason": "Copilot cloud-agent sessions, not the repo pipeline."
+      }
+    ]
+  },
+  "consoleAllowlist": [],
+  "axe": {
+    "tags": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
+    "failImpacts": ["serious", "critical"]
+  }
+}

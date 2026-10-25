@@ -1,14 +1,19 @@
 name: Gate 3 Auto-Validation
 
-# Semi-automates the Gate-3 "website validated" checklist
+# Automates the Gate-3 "website validated" checklist
 # (docs/application-prerequisites-inventory.md §4b): dispatch with a
-# website-provisioning work-order issue number and the workflow runs the
-# machine-checkable items against the issue's "Live site:" URL, then posts a
-# PASS/FAIL/MANUAL verdict table as an issue comment. It never ticks boxes —
-# the sponsoring admin still ticks each checklist box on the work order.
+# website-provisioning work-order issue number and the workflow checks every
+# machine-checkable item against the issue's "Live site:" URL — CI green on the
+# charity's FFC-EX repo, HTTP 200 on the staging host, FFC footer markers,
+# required template sections/pages, 375px responsive, browser console errors
+# and axe-core accessibility (the last three in headless Chromium) — then posts
+# a PASS/FAIL/WARN/MANUAL verdict table as an issue comment. Only the charity's
+# content approval stays MANUAL. It never ticks boxes — the sponsoring admin
+# still ticks each checklist box on the work order.
 #
-# Uses the plain GITHUB_TOKEN (issues: write) — no environment gate needed
-# since it only reads public pages and comments on issues in this repo.
+# Uses the plain GITHUB_TOKEN (issues: write) — no environment gate and no
+# secrets: it only reads public pages and the charity repo's public Actions
+# runs, and comments on issues in this repo.
 
 on:
   workflow_dispatch:
@@ -21,6 +26,19 @@ on:
         description: 'Optional explicit URL (overrides the issue body URL)'
         required: false
         type: string
+      repo:
+        description: 'Optional charity repo owner/name for the CI check (default: derived from the github.io URL)'
+        required: false
+        type: string
+      template:
+        description: 'Template whose required sections/pages apply (auto = from the repo template origin)'
+        required: false
+        type: choice
+        default: auto
+        options:
+          - auto
+          - single-page
+          - footer-only
 
 permissions:
   contents: read
@@ -29,28 +47,43 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+
+      # Playwright (@playwright/test) and @axe-core/playwright come from the
+      # lockfile — the same pinned versions CI uses, nothing resolved ad hoc.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
           node-version: '24'
+          cache: 'pnpm'
 
-      # The script is dependency-free (plain node fetch), so no pnpm install.
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        # pnpm exec, not npx: the browser build must match the lockfile's
+        # @playwright/test version (same step as ci.yml).
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Run Gate-3 checks
         env:
           GITHUB_TOKEN: ${{ github.token }}
           ISSUE: ${{ inputs.issue_number }}
           URL: ${{ inputs.url }}
+          SITE_REPO: ${{ inputs.repo }}
+          TEMPLATE: ${{ inputs.template || 'auto' }}
         run: |
           set -o pipefail
-          if [ -n "$URL" ]; then
-            node scripts/gate3-validate.mjs --issue "$ISSUE" --url "$URL" | tee verdict.md
-          else
-            node scripts/gate3-validate.mjs --issue "$ISSUE" | tee verdict.md
-          fi
+          args=(--issue "$ISSUE" --template "$TEMPLATE")
+          if [ -n "$URL" ]; then args+=(--url "$URL"); fi
+          if [ -n "$SITE_REPO" ]; then args+=(--site-repo "$SITE_REPO"); fi
+          node scripts/gate3-validate.mjs "${args[@]}" | tee verdict.md
 
       # Marker-based upsert: re-runs UPDATE the existing verdict comment
       # instead of stacking a new comment per dispatch (comment spam). The
