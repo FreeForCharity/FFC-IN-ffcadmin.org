@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-10-25T07:30:56Z",
+  "updatedAt": "2026-10-26T07:47:00Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,30 +10,30 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2002",
-    "newUsers": "1983",
-    "sessions": "2446",
-    "screenPageViews": "2786",
-    "engagementRate": "0.374897792313982",
-    "eventCount": "9089",
-    "keyEvents": "336"
+    "activeUsers": "1974",
+    "newUsers": "1952",
+    "sessions": "2416",
+    "screenPageViews": "2749",
+    "engagementRate": "0.37831125827814571",
+    "eventCount": "8990",
+    "keyEvents": "335"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "791"
+      "views": "794"
     },
     {
       "path": "/",
-      "views": "653"
+      "views": "638"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "485"
+      "views": "473"
     },
     {
       "path": "/501c3/",
-      "views": "135"
+      "views": "134"
     },
     {
       "path": "/volunteer/",
@@ -41,11 +41,11 @@
     },
     {
       "path": "/ffc-volunteer-proving-ground-core-competencies/",
-      "views": "34"
+      "views": "31"
     },
     {
       "path": "/charity-prerequisites/",
-      "views": "31"
+      "views": "28"
     },
     {
       "path": "/help-for-charities/",
@@ -63,19 +63,19 @@
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1315"
+      "sessions": "1310"
     },
     {
       "channel": "Direct",
-      "sessions": "922"
+      "sessions": "905"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "147"
+      "sessions": "140"
     },
     {
       "channel": "Referral",
-      "sessions": "54"
+      "sessions": "55"
     },
     {
       "channel": "Organic Social",
@@ -83,17 +83,17 @@
     },
     {
       "channel": "Unassigned",
-      "sessions": "3"
+      "sessions": "2"
     }
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1630",
-    "newUsers": "1607",
-    "sessions": "2037",
-    "screenPageViews": "2295",
-    "engagementRate": "0.42758959253804613",
-    "eventCount": "7674",
-    "keyEvents": "336"
+    "activeUsers": "1613",
+    "newUsers": "1585",
+    "sessions": "2022",
+    "screenPageViews": "2274",
+    "engagementRate": "0.42977250247279919",
+    "eventCount": "7617",
+    "keyEvents": "335"
   }
 }
