@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-10-27T07:39:14Z",
+  "updatedAt": "2026-10-28T07:25:12Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,45 +10,45 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "1969",
-    "newUsers": "1945",
-    "sessions": "2401",
-    "screenPageViews": "2728",
-    "engagementRate": "0.37526030820491463",
-    "eventCount": "8918",
-    "keyEvents": "329"
+    "activeUsers": "1981",
+    "newUsers": "1955",
+    "sessions": "2423",
+    "screenPageViews": "2756",
+    "engagementRate": "0.37598018984729675",
+    "eventCount": "8987",
+    "keyEvents": "323"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "798"
+      "views": "812"
     },
     {
       "path": "/",
-      "views": "625"
+      "views": "632"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "471"
+      "views": "475"
     },
     {
       "path": "/501c3/",
-      "views": "132"
+      "views": "128"
     },
     {
       "path": "/volunteer/",
-      "views": "54"
+      "views": "55"
     },
     {
       "path": "/ffc-volunteer-proving-ground-core-competencies/",
       "views": "31"
     },
     {
-      "path": "/guidestar-guide/",
-      "views": "25"
+      "path": "/help-for-charities/",
+      "views": "26"
     },
     {
-      "path": "/help-for-charities/",
+      "path": "/guidestar-guide/",
       "views": "25"
     },
     {
@@ -63,15 +63,15 @@
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1306"
+      "sessions": "1317"
     },
     {
       "channel": "Direct",
-      "sessions": "886"
+      "sessions": "896"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "146"
+      "sessions": "149"
     },
     {
       "channel": "Referral",
@@ -83,17 +83,17 @@
     },
     {
       "channel": "Unassigned",
-      "sessions": "3"
+      "sessions": "2"
     }
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1614",
-    "newUsers": "1584",
-    "sessions": "2012",
-    "screenPageViews": "2266",
-    "engagementRate": "0.42594433399602388",
-    "eventCount": "7575",
-    "keyEvents": "329"
+    "activeUsers": "1616",
+    "newUsers": "1585",
+    "sessions": "2022",
+    "screenPageViews": "2279",
+    "engagementRate": "0.42779426310583579",
+    "eventCount": "7604",
+    "keyEvents": "323"
   }
 }
