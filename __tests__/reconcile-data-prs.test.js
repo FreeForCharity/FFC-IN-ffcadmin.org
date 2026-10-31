@@ -596,6 +596,7 @@ describe('main() wiring (mocked API, no network)', () => {
     threadsError = null,
     issueComments = [],
     postComment = {},
+    commentsGet = {},
   }) => {
     const calls = []
     global.fetch = jest.fn(async (url, init = {}) => {
@@ -623,6 +624,7 @@ describe('main() wiring (mocked API, no network)', () => {
           const status = postComment.status ?? 201
           return reply(status, { message: postComment.message ?? 'created' })
         }
+        if (commentsGet.status) return reply(commentsGet.status, { message: commentsGet.message })
         return reply(200, issueComments)
       }
       if (u.includes('/pulls?state=open')) return reply(200, pulls)
@@ -890,6 +892,23 @@ describe('main() wiring (mocked API, no network)', () => {
         postComment: { status: 403, message: 'Resource not accessible by integration' },
       })
       await expect(main()).rejects.toThrow(/escalation comment 403/)
+    })
+
+    it('blocks when it cannot read whether it already escalated', async () => {
+      // Copilot's second review on this PR: this was the one escalation outcome
+      // with no test. It is the branch that decides between "say it again" and
+      // "stay quiet", so an unreadable answer must not be read as either —
+      // posting again would restart the 30-minute loop, and staying quiet would
+      // drop the escalation entirely. Neither is safe, so it blocks.
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      const calls = fakeApi({
+        pulls: [live1379()],
+        threads: blockedThreads,
+        commentsGet: { status: 502, message: 'Bad gateway' },
+      })
+      await expect(main()).rejects.toThrow(/could not read PR comments/)
+      // And it must not have guessed by posting anyway.
+      expect(calls.some((c) => c.startsWith('POST') && c.includes('/comments'))).toBe(false)
     })
 
     it('refuses to report a thread count it could not read', async () => {
