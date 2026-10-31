@@ -424,12 +424,49 @@ describe('buildThreadBlockComment', () => {
   })
 
   it('discloses the two things the reconciler deliberately will not do', () => {
-    const out = buildThreadBlockComment({ headSha: 'abcdef1234', hours: 630, threads })
+    const out = buildThreadBlockComment({
+      headSha: 'abcdef1234',
+      hours: 630,
+      threads,
+      autoMergeEnabled: true,
+    })
     // A reader has to know that resolving the last thread merges the PR, and
     // that no push is coming to unstick it.
     expect(out).toMatch(/will not update-branch/)
     expect(out).toMatch(/resolving the last thread merges this PR/)
     expect(out).toContain(`#${THREAD_BLOCK_ISSUE}`)
+  })
+
+  it('states the REAL behind count, never a hard-coded one', () => {
+    // Copilot on this PR: the trigger is `unresolvedThreads > 0` alone, so
+    // nothing here may assert the PR is current. A thread-blocked PR that is 12
+    // behind would otherwise be told it was 0 behind, in the one artefact whose
+    // whole job is to be trusted.
+    const out = buildThreadBlockComment({ headSha: 'a1', hours: 9, threads, behindBy: 12 })
+    expect(out).toContain('12 behind `main`')
+    expect(out).not.toContain('0 behind')
+    // And the suppressed-push bullet has to admit it is leaving the PR behind.
+    expect(out).toMatch(/will not update-branch this PR\*\*, though it is 12 behind/)
+  })
+
+  it('does not claim an instant merge when auto-merge is not armed', () => {
+    // Wrong in the other direction, and worse: it would deter a human from
+    // resolving the threads over a merge that cannot happen.
+    const out = buildThreadBlockComment({ headSha: 'a1', hours: 9, threads })
+    expect(out).toContain('auto-merge **not** armed')
+    expect(out).not.toMatch(/merges this PR immediately/)
+    expect(out).toMatch(/will not merge it on its own/)
+  })
+
+  it('asserts nothing about check conclusions, which it never reads', () => {
+    const armed = buildThreadBlockComment({
+      headSha: 'a1',
+      hours: 9,
+      threads,
+      autoMergeEnabled: true,
+    })
+    expect(armed).not.toMatch(/check(s)? green/)
+    expect(armed).toContain('whatever the checks say')
   })
 
   it('agrees with itself on the count', () => {
@@ -812,6 +849,12 @@ describe('main() wiring (mocked API, no network)', () => {
       await main()
       expect(calls.some((c) => c.includes('/update-branch'))).toBe(false)
       expect(calls).not.toContain('POST /graphql') // and no auto-merge mutation
+      // The escalation must carry the REAL behind count through from the plan,
+      // not the hard-coded "0 behind" the first draft shipped.
+      const post = global.fetch.mock.calls.find(
+        (c) => c[1]?.method === 'POST' && String(c[0]).includes('/issues/1379/comments')
+      )
+      expect(JSON.parse(post[1].body).body).toContain('12 behind `main`')
     })
 
     it('escalates once per head: an unchanged second sweep posts nothing', async () => {

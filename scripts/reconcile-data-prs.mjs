@@ -114,16 +114,36 @@ export function threadBlockMarker(headSha) {
   return `<!-- reconcile-data-prs:thread-block:${headSha} -->`
 }
 
-/** The escalation comment. Pure, so its wording is testable. */
-export function buildThreadBlockComment({ headSha, hours, threads }) {
+/**
+ * The escalation comment. Pure, so its wording is testable.
+ *
+ * Every claim in here is threaded from the caller's measurement rather than
+ * written as prose. The first draft hard-coded "0 behind `main`, auto-merge
+ * armed, every check green" — true of #1379 and of nothing else, since the
+ * trigger is `unresolvedThreads > 0` alone. Copilot caught it on this PR:
+ * a thread-blocked PR that is 12 behind would have been told it was current, in
+ * the one artefact whose whole job is to be the thing a human trusts. An
+ * escalation that misstates the state is worse than the silence it replaces.
+ *
+ * `every check green` is gone rather than parameterised: this script never reads
+ * check conclusions, so it has no business asserting them either way.
+ */
+export function buildThreadBlockComment({
+  headSha,
+  hours,
+  threads,
+  behindBy = 0,
+  autoMergeEnabled = false,
+}) {
   const lines = [
     threadBlockMarker(headSha),
     '## This data PR is blocked on review threads, not on anything this reconciler can fix',
     '',
-    `Open ${hours}h, 0 behind \`main\`, auto-merge armed, every check green — and not mergeable, ` +
-      'because the org ruleset `FFC Branch Protection - Default Branch` sets ' +
+    `Open ${hours}h, ${behindBy} behind \`main\`, auto-merge ` +
+      `${autoMergeEnabled ? 'armed' : '**not** armed'} — and not mergeable whatever the checks ` +
+      'say, because the org ruleset `FFC Branch Protection - Default Branch` sets ' +
       '`required_review_thread_resolution: true`. That gate reports nowhere in the checks list, ' +
-      'which is why this looks healthy.',
+      'which is why this can look healthy.',
     '',
     `**${threads.length} unresolved review thread${threads.length === 1 ? '' : 's'}:**`,
     '',
@@ -138,10 +158,14 @@ export function buildThreadBlockComment({ headSha, hours, threads }) {
     '',
     'A human has to answer each one. Two things this reconciler deliberately does **not** do:',
     '',
-    '- **It will not update-branch this PR.** The same ruleset sets `review_on_push: true`, so a ' +
-      'push re-triggers the reviewer and can file fresh threads — the remedy would extend the block.',
-    '- **It will not resolve a thread or disarm auto-merge.** Auto-merge is armed, so resolving the ' +
-      'last thread merges this PR immediately. That sequencing is a human decision.',
+    `- **It will not update-branch this PR**${behindBy > 0 ? `, though it is ${behindBy} behind` : ''}. ` +
+      'The same ruleset sets `review_on_push: true`, so a push re-triggers the reviewer and can ' +
+      'file fresh threads — the remedy would extend the block.',
+    autoMergeEnabled
+      ? '- **It will not resolve a thread or disarm auto-merge.** Auto-merge **is** armed, so ' +
+          'resolving the last thread merges this PR immediately. That sequencing is a human decision.'
+      : '- **It will not resolve a thread.** Auto-merge is not armed on this PR, so clearing the ' +
+          'threads will not merge it on its own — it still needs a merge after that.',
     '',
     `This comment is posted once per head (\`${headSha.slice(0, 8)}\`). Later sweeps will pass ` +
       'green rather than re-reporting, so a recurring red no longer stands in for this message. ' +
@@ -498,6 +522,10 @@ export async function main() {
         headSha: pr.head.sha,
         hours: Math.round(plan.ageMs / 3600000),
         threads,
+        // From the plan, never assumed: the trigger is `unresolvedThreads > 0`,
+        // which says nothing about either of these.
+        behindBy: plan.behindBy,
+        autoMergeEnabled: plan.autoMergeEnabled,
       })
       if (dryRun) {
         result.outcome = 'escalated'
