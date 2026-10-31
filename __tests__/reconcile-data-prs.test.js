@@ -24,8 +24,11 @@ let isDataBranch,
   decideRunOutcome,
   buildSummary,
   main,
+  threadBlockMarker,
+  buildThreadBlockComment,
   DATA_BRANCH_PREFIX,
-  DEFAULT_STUCK_AFTER_MS
+  DEFAULT_STUCK_AFTER_MS,
+  THREAD_BLOCK_ISSUE
 
 beforeAll(async () => {
   // Read at module scope by the script, so they must be set before the import.
@@ -38,8 +41,11 @@ beforeAll(async () => {
   decideRunOutcome = mod.decideRunOutcome
   buildSummary = mod.buildSummary
   main = mod.main
+  threadBlockMarker = mod.threadBlockMarker
+  buildThreadBlockComment = mod.buildThreadBlockComment
   DATA_BRANCH_PREFIX = mod.DATA_BRANCH_PREFIX
   DEFAULT_STUCK_AFTER_MS = mod.DEFAULT_STUCK_AFTER_MS
+  THREAD_BLOCK_ISSUE = mod.THREAD_BLOCK_ISSUE
 })
 
 /** The long-lived data branches named in the issue's acceptance criteria. */
@@ -122,6 +128,45 @@ describe('planFor', () => {
     const plan = planFor(pr(), { nowMs: NOW })
     expect(plan.unapprovedRuns).toBe(0)
     expect(plan.needsApproval).toBe(false)
+  })
+
+  it('carries the unresolved-thread count and flags the block (#1388)', () => {
+    const plan = planFor(pr({ unresolvedThreads: 2 }), { nowMs: NOW })
+    expect(plan.unresolvedThreads).toBe(2)
+    expect(plan.threadBlocked).toBe(true)
+  })
+
+  it('does NOT update-branch a thread-blocked PR, however far behind it is', () => {
+    // The org ruleset sets `review_on_push: true`, so the push that fixes cause 1
+    // re-triggers the reviewer and can file fresh threads. The cause-1 remedy
+    // extends the block rather than clearing it.
+    const plan = planFor(pr({ behindBy: 9, unresolvedThreads: 1 }), { nowMs: NOW })
+    expect(plan.behindBy).toBe(9)
+    expect(plan.needsUpdate).toBe(false)
+  })
+
+  it('invents no remedy for a thread — it is a diagnosis, not an action', () => {
+    // Resolving a thread is human judgement, and on an armed PR resolving the
+    // last one merges it. Nothing here may grow a `needs*` flag for that.
+    const plan = planFor(pr({ unresolvedThreads: 4 }), { nowMs: NOW })
+    expect(plan.needsAutoMerge).toBe(false)
+    expect(plan.needsApproval).toBe(false)
+    expect(
+      Object.keys(plan)
+        .filter((k) => /^needs/.test(k))
+        .sort()
+    ).toEqual(['needsApproval', 'needsAutoMerge', 'needsUpdate'])
+  })
+
+  it('treats an absent unresolvedThreads as none, not as a block', () => {
+    const plan = planFor(pr(), { nowMs: NOW })
+    expect(plan.unresolvedThreads).toBe(0)
+    expect(plan.threadBlocked).toBe(false)
+  })
+
+  it('does not call a draft thread-blocked — a human is already holding it', () => {
+    const plan = planFor(pr({ draft: true, unresolvedThreads: 3 }), { nowMs: NOW })
+    expect(plan.threadBlocked).toBe(false)
   })
 
   it('arms auto-merge when the creating workflow never did', () => {
@@ -254,6 +299,46 @@ describe('decideRunOutcome', () => {
     ])
     expect(verdict.failed).toBe(false)
   })
+
+  it('passes once a thread-blocked PR has been escalated, however old (#1388)', () => {
+    // 26 days of red that meant "working as intended" is what made the one line
+    // it printed unreadable. The escalation on the PR is the delivery now.
+    const verdict = decideRunOutcome([
+      result({
+        outcome: 'escalated',
+        old: true,
+        ageMs: 630 * HOUR,
+        unresolvedThreads: 6,
+        reason: 'escalation comment posted',
+      }),
+    ])
+    expect(verdict.failed).toBe(false)
+    // But it must not go quiet either: the condition is still reported.
+    expect(verdict.escalations).toHaveLength(1)
+    expect(verdict.escalations[0]).toMatch(/6 unresolved review thread/)
+  })
+
+  it('still fails when the escalation itself could not be delivered', () => {
+    // The one state an operator reading this job can act on. A green run with no
+    // comment posted would be the silence this script exists to remove.
+    const verdict = decideRunOutcome([
+      result({ outcome: 'blocked', reason: 'escalation comment 403: Resource not accessible' }),
+    ])
+    expect(verdict.failed).toBe(true)
+    expect(verdict.reasons.join(' ')).toContain('escalation comment 403')
+  })
+
+  it('names unresolvedThreads instead of the catch-all when a stuck PR has them', () => {
+    // The 26-day regression pin. `check the required checks and review gate on
+    // it` was accurate and actionless: every check WAS green, and the gate it
+    // means reports nowhere a reader looks.
+    const verdict = decideRunOutcome([
+      result({ outcome: 'reconciled', old: true, ageMs: 630 * HOUR, unresolvedThreads: 6 }),
+    ])
+    expect(verdict.failed).toBe(true)
+    expect(verdict.reasons[0]).toContain('unresolvedThreads=6')
+    expect(verdict.reasons[0]).not.toContain('check the required checks and review gate')
+  })
 })
 
 describe('buildSummary', () => {
@@ -292,6 +377,65 @@ describe('buildSummary', () => {
   it('marks a dry-run as unenforced so a green run is not misread', () => {
     const verdict = { failed: false, reasons: ['#732: would update'] }
     expect(buildSummary([rec], { dryRun: true, verdict })).toContain('not enforced')
+  })
+
+  it('shows the unresolved-thread count per row, where a reader looks first', () => {
+    // The gate lives in `/rulesets/<id>` and reports nowhere in the checks list,
+    // so the count has to be in the table or it is invisible again (#1388).
+    const out = buildSummary([{ ...rec, unresolvedThreads: 6 }])
+    expect(out).toContain('Threads')
+    expect(out).toMatch(/\| 6 \|/)
+  })
+
+  it('renders an escalation even though the run passes', () => {
+    const verdict = { failed: false, reasons: [], escalations: ['#1379 (data/x): 6 unresolved'] }
+    const out = buildSummary([rec], { verdict })
+    expect(out).toContain('Escalated to a human')
+    expect(out).toContain('#1379 (data/x): 6 unresolved')
+  })
+})
+
+describe('buildThreadBlockComment', () => {
+  const threads = [
+    {
+      path: 'docs/sites_list.csv',
+      line: 3,
+      author: 'copilot-pull-request-reviewer',
+      body: '`0000-00-00` is not a valid ISO-8601 date\nand will break downstream parsing.',
+      url: 'https://github.com/o/r/pull/1379#discussion_r1',
+    },
+    { path: 'docs/sites_list.json', line: null, author: '', body: '', url: '' },
+  ]
+
+  it('carries the once-per-head marker', () => {
+    const out = buildThreadBlockComment({ headSha: 'abcdef1234', hours: 630, threads })
+    expect(out).toContain(threadBlockMarker('abcdef1234'))
+  })
+
+  it('names every unresolved thread and what it asks for', () => {
+    const out = buildThreadBlockComment({ headSha: 'abcdef1234', hours: 630, threads })
+    expect(out).toContain('docs/sites_list.csv:3')
+    expect(out).toContain('@copilot-pull-request-reviewer')
+    expect(out).toContain('not a valid ISO-8601 date')
+    // Newlines flattened, or the bullet list breaks apart mid-quote.
+    expect(out).not.toMatch(/date\nand will break/)
+    // A thread with no line still has to be locatable.
+    expect(out).toContain('docs/sites_list.json')
+  })
+
+  it('discloses the two things the reconciler deliberately will not do', () => {
+    const out = buildThreadBlockComment({ headSha: 'abcdef1234', hours: 630, threads })
+    // A reader has to know that resolving the last thread merges the PR, and
+    // that no push is coming to unstick it.
+    expect(out).toMatch(/will not update-branch/)
+    expect(out).toMatch(/resolving the last thread merges this PR/)
+    expect(out).toContain(`#${THREAD_BLOCK_ISSUE}`)
+  })
+
+  it('agrees with itself on the count', () => {
+    const one = buildThreadBlockComment({ headSha: 'a1', hours: 1, threads: [threads[0]] })
+    expect(one).toContain('1 unresolved review thread:')
+    expect(one).not.toContain('threads:')
   })
 })
 
@@ -406,11 +550,44 @@ describe('main() wiring (mocked API, no network)', () => {
     runsBySha = {},
     newHeadSha = 'newsha',
     rerun = {},
+    // #1388: review threads are GraphQL-only, so the fake has to tell the
+    // reviewThreads QUERY from the enableAutoMerge MUTATION. The query is
+    // recorded with a suffix so the existing `toContain('POST /graphql')`
+    // assertions keep meaning "the auto-merge mutation fired" and nothing else.
+    threads = [],
+    threadsHasNextPage = false,
+    threadsError = null,
+    issueComments = [],
+    postComment = {},
   }) => {
     const calls = []
     global.fetch = jest.fn(async (url, init = {}) => {
       const u = String(url).replace('https://api.github.com', '')
-      calls.push(`${init.method || 'GET'} ${u}`)
+      const isThreadQuery = u === '/graphql' && String(init.body || '').includes('reviewThreads')
+      calls.push(`${init.method || 'GET'} ${u}${isThreadQuery ? ' (reviewThreads)' : ''}`)
+      if (isThreadQuery) {
+        if (threadsError) return reply(200, { errors: [{ message: threadsError }] })
+        return reply(200, {
+          data: {
+            repository: {
+              pullRequest: {
+                reviewThreads: {
+                  totalCount: threads.length,
+                  pageInfo: { hasNextPage: threadsHasNextPage },
+                  nodes: threads,
+                },
+              },
+            },
+          },
+        })
+      }
+      if (/\/issues\/\d+\/comments(\?|$)/.test(u)) {
+        if (init.method === 'POST') {
+          const status = postComment.status ?? 201
+          return reply(status, { message: postComment.message ?? 'created' })
+        }
+        return reply(200, issueComments)
+      }
       if (u.includes('/pulls?state=open')) return reply(200, pulls)
       // Single-PR read: how the script learns the head sha AFTER update-branch.
       if (/\/pulls\/\d+$/.test(u)) return reply(200, { head: { sha: newHeadSha } })
@@ -461,8 +638,11 @@ describe('main() wiring (mocked API, no network)', () => {
     })
     await main()
     expect(calls).toContain('PUT /repos/FreeForCharity/FFC-IN-ffcadmin.org/pulls/739/update-branch')
-    // Already armed by its creating workflow — do not touch auto-merge.
-    expect(calls.some((c) => c.includes('/graphql'))).toBe(false)
+    // Already armed by its creating workflow — do not touch auto-merge. Asserted
+    // on the MUTATION specifically: since #1388 every non-draft PR also costs a
+    // `reviewThreads` query, so "no /graphql call at all" is no longer the
+    // property this test is about.
+    expect(calls).not.toContain('POST /graphql')
   })
 
   it('re-runs a check stuck in action_required', async () => {
@@ -580,6 +760,119 @@ describe('main() wiring (mocked API, no network)', () => {
     expect(calls).toContain('POST /graphql')
   })
 
+  describe('thread-blocked data PR (#1388)', () => {
+    const blockedThreads = [
+      {
+        isResolved: false,
+        path: 'docs/sites_list.csv',
+        line: 3,
+        comments: {
+          nodes: [
+            {
+              author: { login: 'copilot-pull-request-reviewer' },
+              body: '`0000-00-00` is not a valid ISO-8601 date.',
+              url: 'https://github.com/o/r/pull/1379#discussion_r1',
+            },
+          ],
+        },
+      },
+      { isResolved: true, path: 'docs/sites_list.csv', line: 9, comments: { nodes: [] } },
+    ]
+    const live1379 = () =>
+      apiPr({
+        number: 1379,
+        created_at: hoursAgo(630),
+        head: { ref: 'data/sites-list-sync', sha: 'headsha1379' },
+      })
+
+    it('escalates on the PR and passes, instead of going red every sweep', async () => {
+      const log = jest.spyOn(console, 'log').mockImplementation(() => {})
+      const calls = fakeApi({ pulls: [live1379()], threads: blockedThreads })
+      // 630h open and NOT red: the escalation is the delivery now.
+      await main()
+      expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/issues/1379/comments')
+      // Match on the comments URL, not on `method === 'POST'`: the reviewThreads
+      // GraphQL query is also a POST and comes first, so the loose predicate
+      // reads the query body and asserts nothing about the escalation.
+      const post = global.fetch.mock.calls.find(
+        (c) => c[1]?.method === 'POST' && String(c[0]).includes('/issues/1379/comments')
+      )
+      expect(JSON.parse(post[1].body).body).toContain('docs/sites_list.csv:3')
+      expect(log.mock.calls.map((c) => c[0]).join('\n')).toContain('Escalated to a human')
+    })
+
+    it('does NOT update-branch it, even 12 behind — a push re-triggers the reviewer', async () => {
+      // AC1. `review_on_push: true` means the cause-1 remedy files fresh threads.
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      const calls = fakeApi({
+        pulls: [live1379()],
+        behind: { 'data/sites-list-sync': 12 },
+        threads: blockedThreads,
+      })
+      await main()
+      expect(calls.some((c) => c.includes('/update-branch'))).toBe(false)
+      expect(calls).not.toContain('POST /graphql') // and no auto-merge mutation
+    })
+
+    it('escalates once per head: an unchanged second sweep posts nothing', async () => {
+      // AC2. Without the marker this comments every 30 minutes, which is the
+      // loop in a louder costume.
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      const calls = fakeApi({
+        pulls: [live1379()],
+        threads: blockedThreads,
+        issueComments: [{ body: `${threadBlockMarker('headsha1379')}\nalready said` }],
+      })
+      await main()
+      expect(calls.some((c) => c.startsWith('POST') && c.includes('/comments'))).toBe(false)
+    })
+
+    it('re-escalates on a NEW head, whose thread set a human has not seen', async () => {
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      const calls = fakeApi({
+        pulls: [live1379()],
+        threads: blockedThreads,
+        issueComments: [{ body: `${threadBlockMarker('an-older-head')}\nsaid about the old head` }],
+      })
+      await main()
+      expect(calls).toContain('POST /repos/FreeForCharity/FFC-IN-ffcadmin.org/issues/1379/comments')
+    })
+
+    it('goes red when the escalation comment is refused', async () => {
+      // AC4's other half: "I escalated" and "I failed" must not look the same.
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      fakeApi({
+        pulls: [live1379()],
+        threads: blockedThreads,
+        postComment: { status: 403, message: 'Resource not accessible by integration' },
+      })
+      await expect(main()).rejects.toThrow(/escalation comment 403/)
+    })
+
+    it('refuses to report a thread count it could not read', async () => {
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      fakeApi({ pulls: [live1379()], threadsError: 'Bad credentials' })
+      await expect(main()).rejects.toThrow(/could not read review threads on #1379/)
+    })
+
+    it('refuses a truncated thread page, which can only under-report', async () => {
+      // An under-count reads as "not thread-blocked" and routes the PR straight
+      // back into the catch-all this check replaces.
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      fakeApi({ pulls: [live1379()], threads: blockedThreads, threadsHasNextPage: true })
+      await expect(main()).rejects.toThrow(/more than 100 review threads/)
+    })
+
+    it('posts nothing in dry-run but still reports the block', async () => {
+      process.env.DRY_RUN = 'true'
+      const log = jest.spyOn(console, 'log').mockImplementation(() => {})
+      const calls = fakeApi({ pulls: [live1379()], threads: blockedThreads })
+      await main()
+      expect(calls.some((c) => c.startsWith('POST') && c.includes('/comments'))).toBe(false)
+      expect(log.mock.calls.map((c) => c[0]).join('\n')).toMatch(/would escalate 1 unresolved/)
+    })
+  })
+
   it('mutates nothing in dry-run', async () => {
     process.env.DRY_RUN = 'true'
     const calls = fakeApi({
@@ -619,6 +912,18 @@ describe('main() wiring (mocked API, no network)', () => {
       if (u.endsWith('/update-branch')) return reply(422, { message: 'Unprocessable Entity' })
       // No run is waiting for approval here; this test is about the compare.
       if (u.includes('/actions/runs?head_sha=')) return reply(200, { workflow_runs: [] })
+      // No unresolved review threads either (#1388), for the same reason.
+      if (u === '/graphql') {
+        return reply(200, {
+          data: {
+            repository: {
+              pullRequest: {
+                reviewThreads: { totalCount: 0, pageInfo: { hasNextPage: false }, nodes: [] },
+              },
+            },
+          },
+        })
+      }
       throw new Error(`unexpected request: ${u}`)
     })
     await expect(main()).resolves.toBeUndefined()

@@ -45,6 +45,45 @@
  * failure-alert layer (FFC-Cloudflare-Automation#843 / #832) already watches,
  * so this builds no second alerting path.
  *
+ *   4. unresolved review threads -> ESCALATE ONCE, then stop re-reporting (#1388)
+ *
+ * The fourth cause is the one the three remedies above cannot touch, and it is
+ * why this script needed changing rather than extending. The org-level ruleset
+ * `FFC Branch Protection - Default Branch` sets
+ * `required_review_thread_resolution: true` alongside `copilot_code_review`
+ * with `review_on_push: true`. So a data PR that does not merge within the few
+ * seconds before Copilot's first comment lands acquires an unresolved thread,
+ * and `mergeStateStatus` goes BLOCKED with every check green — a state visible
+ * only in `/rulesets/<id>`, never in the checks list a reader looks at first.
+ *
+ * Measured on #1379: open since 2026-10-05, 0 behind, auto-merge armed, 4/4
+ * checks green, 6 unresolved Copilot threads, and `Reconcile Data PRs` red on
+ * every ~30-minute sweep for 26 days — the last success was 2026-10-05T12:16Z.
+ * Each sweep printed one accurate line, `open 630h, now current and armed but
+ * not merged — check the required checks and review gate on it`, which names
+ * neither the cause nor an action, and which no human was subscribed to: the
+ * alert layer this script defers to above (740) watches four satellite
+ * workflows, all of them `Security Audit`, and not this one.
+ *
+ * Two consequences, and they are the whole of this change:
+ *
+ *  - **A push cannot clear a thread, and it re-arms the reviewer.** With
+ *    `review_on_push: true`, update-branching a thread-blocked PR produces a
+ *    fresh review, which can file fresh threads. So the remedy for cause 1 is
+ *    actively counter-productive here and is suppressed.
+ *  - **A red that means "working as intended" is not a signal.** The escalation
+ *    is delivered where a human reads it — a comment on the PR naming each
+ *    unresolved thread and what it asks for — exactly once per (PR, head), and
+ *    the run is then green. It goes red only if the escalation itself fails,
+ *    which is the one state the operator can act on by reading this job.
+ *
+ * Deliberately NOT done: resolving a thread, and disarming auto-merge. #1379's
+ * threads are substantive (a missing `domain-expiry.json` entry; a Tier 6
+ * reclassification that `scripts/generate-sites-alerts.mjs:35` drops from health
+ * alerts, tracked in #1460), and resolving the last thread on an armed PR merges
+ * it instantly. Both are human judgement; this script only makes the condition
+ * legible.
+ *
  * Auth: the workflow's built-in GITHUB_TOKEN (contents: write, pull-requests:
  * write). Unlike the data generators, this script does NOT degrade to exit 0 on
  * an API failure — silence is the failure mode it exists to remove.
@@ -59,6 +98,57 @@ export const DATA_BRANCH_PREFIX = 'data/'
 
 /** A PR un-reconciled for longer than this is reported rather than left silent. */
 export const DEFAULT_STUCK_AFTER_MS = 3 * 60 * 60 * 1000
+
+/** Where the thread-block mechanism itself is tracked, for the escalation body. */
+export const THREAD_BLOCK_ISSUE = 1388
+
+/**
+ * Makes the thread-block escalation once-per-(PR, head).
+ *
+ * Keyed on the head SHA rather than the PR: a new head is a new state a human
+ * has not been told about, and its thread set can differ. Keyed on the PR alone,
+ * a push that added a thread would never be escalated; keyed on nothing, this
+ * would comment every 30 minutes, which is the loop in a louder costume.
+ */
+export function threadBlockMarker(headSha) {
+  return `<!-- reconcile-data-prs:thread-block:${headSha} -->`
+}
+
+/** The escalation comment. Pure, so its wording is testable. */
+export function buildThreadBlockComment({ headSha, hours, threads }) {
+  const lines = [
+    threadBlockMarker(headSha),
+    '## This data PR is blocked on review threads, not on anything this reconciler can fix',
+    '',
+    `Open ${hours}h, 0 behind \`main\`, auto-merge armed, every check green — and not mergeable, ` +
+      'because the org ruleset `FFC Branch Protection - Default Branch` sets ' +
+      '`required_review_thread_resolution: true`. That gate reports nowhere in the checks list, ' +
+      'which is why this looks healthy.',
+    '',
+    `**${threads.length} unresolved review thread${threads.length === 1 ? '' : 's'}:**`,
+    '',
+  ]
+  for (const t of threads) {
+    const where = t.line ? `${t.path}:${t.line}` : t.path
+    const who = t.author ? `@${t.author}` : 'reviewer'
+    const asks = (t.body || '').replace(/\s+/g, ' ').trim().slice(0, 220)
+    lines.push(`- \`${where}\` — ${who}: ${asks}${t.url ? ` ([thread](${t.url}))` : ''}`)
+  }
+  lines.push(
+    '',
+    'A human has to answer each one. Two things this reconciler deliberately does **not** do:',
+    '',
+    '- **It will not update-branch this PR.** The same ruleset sets `review_on_push: true`, so a ' +
+      'push re-triggers the reviewer and can file fresh threads — the remedy would extend the block.',
+    '- **It will not resolve a thread or disarm auto-merge.** Auto-merge is armed, so resolving the ' +
+      'last thread merges this PR immediately. That sequencing is a human decision.',
+    '',
+    `This comment is posted once per head (\`${headSha.slice(0, 8)}\`). Later sweeps will pass ` +
+      'green rather than re-reporting, so a recurring red no longer stands in for this message. ' +
+      `Mechanism: #${THREAD_BLOCK_ISSUE}.`
+  )
+  return lines.join('\n')
+}
 
 /** True for the long-lived data-refresh branches this reconciler owns. */
 export function isDataBranch(ref) {
@@ -75,7 +165,20 @@ export function planFor(pr, { nowMs, stuckAfterMs = DEFAULT_STUCK_AFTER_MS } = {
   const ageMs = Number.isFinite(pr.createdAtMs) ? nowMs - pr.createdAtMs : 0
   const behindBy = Number.isFinite(pr.behindBy) ? pr.behindBy : 0
   const unapprovedRuns = Number.isFinite(pr.unapprovedRuns) ? pr.unapprovedRuns : 0
-  const needsUpdate = !pr.draft && behindBy > 0
+  const unresolvedThreads = Number.isFinite(pr.unresolvedThreads) ? pr.unresolvedThreads : 0
+  // No remedy, by design (#1388): resolving a thread is human judgement, and on
+  // an armed PR resolving the last one merges it. So this is a DIAGNOSIS, not a
+  // `needs*` action -- its only effect on the plan is to suppress the push below.
+  const threadBlocked = !pr.draft && unresolvedThreads > 0
+  // `review_on_push: true` means an update-branch re-triggers the reviewer, so
+  // the cause-1 remedy extends the block instead of clearing it.
+  //
+  // `main()` also short-circuits a thread-blocked PR before reaching the remedy,
+  // so today this clause changes no behaviour and is pinned only by a unit test.
+  // It is here because this function's contract is to say what a PR needs on its
+  // own terms: a later refactor that drops the short-circuit must not silently
+  // get the push back.
+  const needsUpdate = !pr.draft && behindBy > 0 && !threadBlocked
   const needsAutoMerge = !pr.draft && !pr.autoMergeEnabled
   // A required check stuck in `action_required` never reports, so auto-merge has
   // nothing to fire on however current and armed the PR is. Drafts are skipped
@@ -88,6 +191,8 @@ export function planFor(pr, { nowMs, stuckAfterMs = DEFAULT_STUCK_AFTER_MS } = {
     behindBy,
     autoMergeEnabled: Boolean(pr.autoMergeEnabled),
     unapprovedRuns,
+    unresolvedThreads,
+    threadBlocked,
     ageMs,
     needsUpdate,
     needsAutoMerge,
@@ -118,23 +223,39 @@ export function planFor(pr, { nowMs, stuckAfterMs = DEFAULT_STUCK_AFTER_MS } = {
  */
 export function decideRunOutcome(results, { dryRun = false } = {}) {
   const blocked = results.filter((r) => r.outcome === 'blocked')
+  // `escalated` is a THIRD state beside reconciled and stuck: a human has been
+  // told, in a place they read, exactly once for this head. Re-reporting it each
+  // sweep is the defect (#1388) -- 26 days of red that meant "working as
+  // intended" is what made the one line it printed unreadable.
+  const escalated = results.filter((r) => r.outcome === 'escalated')
   const stuck = results.filter(
-    (r) => !blocked.includes(r) && r.old && !r.progressing && r.outcome !== 'skipped'
+    (r) =>
+      !blocked.includes(r) &&
+      !escalated.includes(r) &&
+      r.old &&
+      !r.progressing &&
+      r.outcome !== 'skipped'
   )
   const reasons = []
   for (const r of blocked) reasons.push(`#${r.number} (${r.headRef}): ${r.reason}`)
   for (const r of stuck) {
     const hours = Math.round(r.ageMs / 3600000)
     reasons.push(
-      r.behindBy > 0 || !r.autoMergeEnabled || r.unapprovedRuns > 0
+      r.behindBy > 0 || !r.autoMergeEnabled || r.unapprovedRuns > 0 || r.unresolvedThreads > 0
         ? `#${r.number} (${r.headRef}): still un-reconciled after ${hours}h ` +
             `(behind=${r.behindBy}, autoMerge=${r.autoMergeEnabled}, ` +
-            `unapprovedRuns=${r.unapprovedRuns || 0})`
+            `unapprovedRuns=${r.unapprovedRuns || 0}, ` +
+            `unresolvedThreads=${r.unresolvedThreads || 0})`
         : `#${r.number} (${r.headRef}): open ${hours}h, now current and armed but not merged — ` +
             `check the required checks and review gate on it`
     )
   }
-  return { failed: !dryRun && reasons.length > 0, reasons }
+  const escalations = escalated.map(
+    (r) =>
+      `#${r.number} (${r.headRef}): ${r.unresolvedThreads} unresolved review thread(s) — ` +
+      `${r.reason || 'escalated on the PR'}`
+  )
+  return { failed: !dryRun && reasons.length > 0, reasons, escalations }
 }
 
 /** Job-summary markdown. Pure. */
@@ -144,11 +265,12 @@ export function buildSummary(results, { dryRun = false, verdict } = {}) {
     lines.push('No open `data/*` PRs. Nothing to reconcile.')
     return lines.join('\n')
   }
-  lines.push('| PR | Branch | Behind | Auto-merge | Action | Outcome |')
-  lines.push('| --- | --- | --- | --- | --- | --- |')
+  lines.push('| PR | Branch | Behind | Auto-merge | Threads | Action | Outcome |')
+  lines.push('| --- | --- | --- | --- | --- | --- | --- |')
   for (const r of results) {
     lines.push(
       `| #${r.number} | \`${r.headRef}\` | ${r.behindBy} | ${r.autoMergeEnabled ? 'yes' : 'no'} | ` +
+        `${r.unresolvedThreads || 0} | ` +
         `${r.actions.length ? r.actions.join(', ') : '—'} | ${r.outcome}${r.reason ? ` (${r.reason})` : ''} |`
     )
   }
@@ -156,6 +278,12 @@ export function buildSummary(results, { dryRun = false, verdict } = {}) {
     lines.push('', '### Needs attention', '')
     for (const reason of verdict.reasons) lines.push(`- ${reason}`)
     if (dryRun) lines.push('', '_Dry-run: verdict reported, not enforced._')
+  }
+  // Rendered even though the run passes: a green run that says nothing is how a
+  // thread-blocked PR would go quiet in the other direction (#1388).
+  if (verdict?.escalations?.length) {
+    lines.push('', '### Escalated to a human (run passes)', '')
+    for (const line of verdict.escalations) lines.push(`- ${line}`)
   }
   return lines.join('\n')
 }
@@ -172,7 +300,10 @@ function headers() {
 }
 
 async function gh(path, init = {}) {
-  const res = await fetch(`${API}${path}`, { ...init, headers: headers() })
+  const res = await fetch(`${API}${path}`, {
+    ...init,
+    headers: { ...headers(), ...(init.headers || {}) },
+  })
   const text = await res.text()
   let body = null
   if (text) {
@@ -218,6 +349,71 @@ async function unapprovedRunsFor(headSha) {
     `/repos/${repo}/actions/runs?head_sha=${encodeURIComponent(headSha)}&per_page=100`
   )
   return (runs.workflow_runs || []).filter((r) => r.conclusion === 'action_required')
+}
+
+/**
+ * Unresolved review threads on a PR, with enough of each to name what it asks.
+ *
+ * GraphQL-only: REST exposes review *comments* but not thread resolution, which
+ * is the field the ruleset gates on (hub CLAUDE.md, "Review threads are
+ * GraphQL-only").
+ *
+ * Fails closed on a second page rather than paginating. An unresolved count
+ * taken from one page can only ever come out LOW, and a low count reads as
+ * "not thread-blocked" -- which routes the PR straight back into the catch-all
+ * this check exists to replace. A data PR with >100 threads is not a case this
+ * reconciler is for.
+ */
+async function unresolvedThreadsFor(number) {
+  const [owner, name] = repo.split('/')
+  const query =
+    'query($owner:String!,$name:String!,$number:Int!){repository(owner:$owner,name:$name)' +
+    '{pullRequest(number:$number){reviewThreads(first:100){totalCount pageInfo{hasNextPage}' +
+    'nodes{isResolved path line comments(first:1){nodes{author{login} body url}}}}}}}'
+  const res = await fetch(`${API}/graphql`, {
+    method: 'POST',
+    headers: { ...headers(), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, variables: { owner, name, number } }),
+  })
+  const body = await res.json().catch(() => null)
+  const threads = body?.data?.repository?.pullRequest?.reviewThreads
+  if (!res.ok || body?.errors || !threads) {
+    const message = body?.errors?.map((e) => e.message).join('; ') || `HTTP ${res.status}`
+    throw new Error(`could not read review threads on #${number}: ${message}`)
+  }
+  if (threads.pageInfo?.hasNextPage) {
+    throw new Error(
+      `#${number} has more than 100 review threads (totalCount=${threads.totalCount}); ` +
+        'a count from one page can only under-report, and under-reporting hides the block'
+    )
+  }
+  return threads.nodes
+    .filter((t) => !t.isResolved)
+    .map((t) => {
+      const first = t.comments?.nodes?.[0] || {}
+      return {
+        path: t.path,
+        line: t.line,
+        author: first.author?.login || '',
+        body: first.body || '',
+        url: first.url || '',
+      }
+    })
+}
+
+/** Whether this exact head has already been escalated. One page: see above. */
+async function alreadyEscalated(number, marker) {
+  const comments = await ghJson(`/repos/${repo}/issues/${number}/comments?per_page=100`)
+  return (comments || []).some((c) => typeof c.body === 'string' && c.body.includes(marker))
+}
+
+async function postComment(number, text) {
+  const { ok, status, body } = await gh(`/repos/${repo}/issues/${number}/comments`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ body: text }),
+  })
+  return { ok, status, message: body?.message || '' }
 }
 
 /** Re-requesting a run is what clears `action_required`; there is no "approve" verb for it. */
@@ -279,11 +475,59 @@ export async function main() {
     // re-read of the runs (and one PR fetch) in the single case where an
     // update-branch moved the head out from under the first one.
     const unapproved = await unapprovedRunsFor(pr.head.sha)
+    const threads = await unresolvedThreadsFor(pr.number)
     const plan = planFor(
-      { ...base, behindBy: await behindBy(pr), unapprovedRuns: unapproved.length },
+      {
+        ...base,
+        behindBy: await behindBy(pr),
+        unapprovedRuns: unapproved.length,
+        unresolvedThreads: threads.length,
+      },
       { nowMs, stuckAfterMs }
     )
     const result = { ...plan, actions: [], outcome: 'ok', reason: '', progressing: false }
+
+    // Cause 4 (#1388). Handled before every remedy, because the cause-1 remedy
+    // makes this worse: `review_on_push: true` turns an update-branch into a
+    // fresh review. Escalate once per head and let the run pass; go red only if
+    // the escalation itself could not be delivered, which is the one state an
+    // operator reading this job can act on.
+    if (plan.threadBlocked) {
+      const marker = threadBlockMarker(pr.head.sha)
+      const comment = buildThreadBlockComment({
+        headSha: pr.head.sha,
+        hours: Math.round(plan.ageMs / 3600000),
+        threads,
+      })
+      if (dryRun) {
+        result.outcome = 'escalated'
+        result.actions.push(`would escalate ${threads.length} unresolved thread(s) on the PR`)
+        result.reason = 'dry-run: not posted'
+      } else {
+        const posted = await alreadyEscalated(pr.number, marker).catch(() => null)
+        if (posted === null) {
+          result.outcome = 'blocked'
+          result.reason = 'could not read PR comments to check for an existing escalation'
+        } else if (posted) {
+          result.outcome = 'escalated'
+          result.reason = 'already escalated on this head'
+        } else {
+          const { ok, status, message } = await postComment(pr.number, comment)
+          if (ok) {
+            result.outcome = 'escalated'
+            result.actions.push(`escalated ${threads.length} unresolved thread(s) on the PR`)
+            result.reason = 'escalation comment posted'
+          } else {
+            // Named, never swallowed: with no comment delivered, a green run
+            // would be the silence this whole script exists to remove.
+            result.outcome = 'blocked'
+            result.reason = `escalation comment ${status}: ${message.slice(0, 120)}`
+          }
+        }
+      }
+      results.push(result)
+      continue
+    }
 
     // Before update-branch: an update pushes a new head, which abandons these
     // runs and creates fresh ones. Clearing them first means the approval is
