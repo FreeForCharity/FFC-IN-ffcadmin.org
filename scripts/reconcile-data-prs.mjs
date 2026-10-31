@@ -425,10 +425,37 @@ async function unresolvedThreadsFor(number) {
     })
 }
 
-/** Whether this exact head has already been escalated. One page: see above. */
+/**
+ * Whether this exact head has already been escalated.
+ *
+ * Paginated, and the reason is not thoroughness. This endpoint serves comments
+ * **oldest first**, and the marker is on the newest one, so page 1 is the wrong
+ * page the moment a PR has more than 100 comments — and a missed marker reads as
+ * "not yet escalated", which re-escalates on every sweep. That is the 30-minute
+ * loop this whole change exists to remove, reintroduced by the check meant to
+ * prevent it. (Copilot, third review on #1659.)
+ *
+ * `sort`/`direction` are not supported here and are dropped in silence, so
+ * reading the newest page directly is not an option; walking them is.
+ *
+ * At the cap it throws rather than returning `false`: `main()` turns that into
+ * `blocked`, so an unreadable answer stops the run instead of guessing the
+ * answer that re-escalates.
+ */
+const MAX_COMMENT_PAGES = 20
+
 async function alreadyEscalated(number, marker) {
-  const comments = await ghJson(`/repos/${repo}/issues/${number}/comments?per_page=100`)
-  return (comments || []).some((c) => typeof c.body === 'string' && c.body.includes(marker))
+  for (let page = 1; page <= MAX_COMMENT_PAGES; page += 1) {
+    const batch =
+      (await ghJson(`/repos/${repo}/issues/${number}/comments?per_page=100&page=${page}`)) || []
+    if (batch.some((c) => typeof c.body === 'string' && c.body.includes(marker))) return true
+    // A short page is the last page, so this is a complete read, not a guess.
+    if (batch.length < 100) return false
+  }
+  throw new Error(
+    `#${number} has more than ${MAX_COMMENT_PAGES * 100} comments; refusing to report ` +
+      '"not yet escalated" from a partial read, which would re-escalate every sweep'
+  )
 }
 
 async function postComment(number, text) {

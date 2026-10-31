@@ -576,6 +576,9 @@ describe('main() wiring (mocked API, no network)', () => {
     ...over,
   })
 
+  /** Which `page=` values the comments endpoint was asked for, in order. */
+  const commentPagesRequested = []
+
   /** Routes every call the script makes (PRs, compare, runs, rerun, update-branch,
    *  GraphQL) and records them in order. */
   const fakeApi = ({
@@ -597,8 +600,10 @@ describe('main() wiring (mocked API, no network)', () => {
     issueComments = [],
     postComment = {},
     commentsGet = {},
+    issueCommentPages = null,
   }) => {
     const calls = []
+    commentPagesRequested.length = 0
     global.fetch = jest.fn(async (url, init = {}) => {
       const u = String(url).replace('https://api.github.com', '')
       const isThreadQuery = u === '/graphql' && String(init.body || '').includes('reviewThreads')
@@ -625,7 +630,12 @@ describe('main() wiring (mocked API, no network)', () => {
           return reply(status, { message: postComment.message ?? 'created' })
         }
         if (commentsGet.status) return reply(commentsGet.status, { message: commentsGet.message })
-        return reply(200, issueComments)
+        // Page-aware: the endpoint serves OLDEST first, so a marker on a later
+        // page is the case that matters (#1659, third review).
+        const page = Number((u.match(/[?&]page=(\d+)/) || [])[1] || 1)
+        commentPagesRequested.push(page)
+        if (issueCommentPages) return reply(200, issueCommentPages[page - 1] ?? [])
+        return reply(200, page === 1 ? issueComments : [])
       }
       if (u.includes('/pulls?state=open')) return reply(200, pulls)
       // Single-PR read: how the script learns the head sha AFTER update-branch.
@@ -908,6 +918,51 @@ describe('main() wiring (mocked API, no network)', () => {
       })
       await expect(main()).rejects.toThrow(/could not read PR comments/)
       // And it must not have guessed by posting anyway.
+      expect(calls.some((c) => c.startsWith('POST') && c.includes('/comments'))).toBe(false)
+    })
+
+    it('finds a marker on a LATER page — this endpoint serves oldest first', async () => {
+      // Copilot's third review on this PR. The marker is on the newest comment
+      // and page 1 holds the OLDEST, so reading one page re-escalates on every
+      // sweep once a PR passes 100 comments — the 30-minute loop this change
+      // removes, reintroduced by the check meant to prevent it.
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      const filler = Array.from({ length: 100 }, (_, i) => ({ body: `noise ${i}` }))
+      const calls = fakeApi({
+        pulls: [live1379()],
+        threads: blockedThreads,
+        issueCommentPages: [filler, [{ body: `${threadBlockMarker('headsha1379')}\nsaid it` }]],
+      })
+      await main()
+      expect(commentPagesRequested).toEqual([1, 2])
+      expect(calls.some((c) => c.startsWith('POST') && c.includes('/comments'))).toBe(false)
+    })
+
+    it('stops at the first short page instead of walking to the cap', async () => {
+      // A short page IS the last page, so one request is a complete read. Walking
+      // further would spend the shared REST budget on nothing.
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      fakeApi({
+        pulls: [live1379()],
+        threads: blockedThreads,
+        issueCommentPages: [[{ body: 'unrelated' }]],
+      })
+      await main()
+      expect(commentPagesRequested).toEqual([1])
+    })
+
+    it('blocks rather than re-escalating when the comments exceed the page cap', async () => {
+      // The honest failure: "not yet escalated" from a partial read is the answer
+      // that restarts the loop, so a read it cannot complete must stop the run.
+      jest.spyOn(console, 'log').mockImplementation(() => {})
+      const filler = Array.from({ length: 100 }, (_, i) => ({ body: `noise ${i}` }))
+      const calls = fakeApi({
+        pulls: [live1379()],
+        threads: blockedThreads,
+        issueCommentPages: Array.from({ length: 25 }, () => filler),
+      })
+      await expect(main()).rejects.toThrow(/could not read PR comments/)
+      expect(commentPagesRequested).toHaveLength(20)
       expect(calls.some((c) => c.startsWith('POST') && c.includes('/comments'))).toBe(false)
     })
 
