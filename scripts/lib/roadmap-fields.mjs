@@ -6,8 +6,8 @@
  * `scripts/gate3-validate.mjs` — previously two hand-mirrored copies) plus the
  * candid-URL / EIN cleaners the roadmap generator publishes to
  * `public/data/roadmap.json`. Pure (no fs / network), dependency-free plain
- * ESM so the Gate-3 workflow can run it with bare `node` (no install) and unit
- * tests can import it directly.
+ * ESM so any script can import it with bare `node` and unit tests can import
+ * it directly.
  */
 
 /**

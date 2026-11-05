@@ -928,25 +928,56 @@ A charity's website is **validated** on its GitHub Pages default URL when
 Section 4a). Partial completion is not validated: the domain order form's
 attestation that "the website is validated" refers to this checklist.
 
-### Auto-validation (semi-automated)
+### Auto-validation
 
-The machine-checkable subset of this checklist can be run automatically:
-dispatch the **Gate 3 Auto-Validation** workflow
-(`.github/workflows/gate3-validate.yml`, Actions tab → "Run workflow") with
-the work-order issue number. It reads the issue's `Live site:` URL, runs
-`scripts/gate3-validate.mjs` against the live page, and posts a
-PASS/FAIL/MANUAL verdict table as a comment on the work order.
+Every machine-checkable item of this checklist runs automatically: dispatch
+the **Gate 3 Auto-Validation** workflow (`.github/workflows/gate3-validate.yml`,
+Actions tab → "Run workflow") with the work-order issue number (optional
+inputs: `url` to override the issue's URL, `repo` to name the charity's
+FFC-EX repo explicitly, `template` to force `single-page` / `footer-only`). It
+reads the issue's `Live site:` URL, runs `scripts/gate3-validate.mjs` against
+the live site, and posts a PASS/FAIL/WARN/MANUAL verdict table as a comment on
+the work order (re-runs update the same comment).
 
-**What it covers:** HTTP 200 (redirect loops = FAIL), github.io staging-host
-sanity (custom domains are noted), the FFC footer markers (brand text,
-freeforcharity.org link, EIN), a viewport meta tag (mobile baseline only), and
-a broken-basePath scan (up to 10 root-relative asset refs checked for 404s).
+**What it covers (one row per checklist item):**
 
-**What it does not cover:** CI status, required template sections, the full
-375px responsive spot-check, console errors, accessibility, and charity
-content approval — those rows are reported as MANUAL. The tool never ticks
-checklist boxes: the sponsoring admin (and, for content review, the charity)
-still ticks each box on the work order after verifying it.
+- **CI green** — the charity repo is derived from the GitHub Pages URL
+  (`freeforcharity.github.io/FFC-EX-<x>/` → `FreeForCharity/FFC-EX-<x>`, or
+  the `repo` input). PASS only when the latest completed default-branch run of
+  every active workflow concluded success (neutral/skipped allowed). Dependabot
+  and Copilot agent jobs are excluded — see `ci.ignoreWorkflowPaths` in
+  `scripts/lib/gate3-requirements.json`.
+- **Site loads** — HTTP 200 on the `*.github.io` staging host (redirect loops
+  and custom domains FAIL).
+- **FFC footer** — brand text, freeforcharity.org link, and EIN (policy/social
+  link content still gets a human look).
+- **Required sections/pages** — per template, from
+  `scripts/lib/gate3-requirements.json`: the Single Page template's home page
+  must render `#main-content`, `#hero`, `#mission`, `#volunteer` and `#donate`
+  (sections that self-hide per site config are not required); the Footer Only
+  template's must render `#main-content`; both must serve the seven footer
+  policy pages (HTTP 200). The template comes from the FFC-EX repo's GitHub
+  template origin, else a `#hero` + `#mission` heuristic.
+- **375px responsive** — headless Chromium at 375×812: a viewport meta tag, no
+  horizontal scroll (`scrollWidth ≤ innerWidth + 1`), and usable navigation (a
+  visible menu toggle that reveals links, or visible header links; the
+  footer-only layout ships no header menu, so its footer links count).
+- **No console errors** — console `error` messages and uncaught page errors on
+  the home page, each same-site page linked from the header nav, and the
+  template's required pages (at most 10 pages). Third-party noise is ignored
+  only via the documented `consoleAllowlist` in
+  `scripts/lib/gate3-requirements.json` (each entry carries a reason).
+- **Accessibility** — axe-core (`@axe-core/playwright`, WCAG 2.1 A/AA tags) on
+  the same pages, third-party iframes excluded. PASS means no **serious** or
+  **critical** violations: this is how the tool reads "axe clean" (moderate
+  and minor findings are reported by axe but not gated). Lighthouse ≥ 90 stays
+  an equivalent manual route if axe flags something a reviewer disputes.
+
+A check that could not run (GitHub API outage, browser launch failure, an
+asset unreachable mid-check) reports **WARN**, not FAIL — re-run to confirm.
+Only **content reviewed and approved by the charity** stays MANUAL. The tool
+never ticks checklist boxes: the sponsoring admin (and, for content review,
+the charity) still ticks each box on the work order after reading the verdict.
 
 ---
 
