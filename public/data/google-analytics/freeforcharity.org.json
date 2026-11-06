@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-05T07:22:54Z",
+  "updatedAt": "2026-11-06T07:22:41Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "1995",
-    "newUsers": "1970",
-    "sessions": "2390",
-    "screenPageViews": "2696",
-    "engagementRate": "0.35481171548117157",
-    "eventCount": "8755",
-    "keyEvents": "245"
+    "activeUsers": "2050",
+    "newUsers": "2029",
+    "sessions": "2444",
+    "screenPageViews": "2737",
+    "engagementRate": "0.34574468085106386",
+    "eventCount": "8895",
+    "keyEvents": "238"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "747"
+      "views": "745"
     },
     {
       "path": "/",
-      "views": "601"
+      "views": "599"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "447"
+      "views": "446"
     },
     {
       "path": "/501c3/",
-      "views": "121"
+      "views": "118"
     },
     {
       "path": "/volunteer/",
-      "views": "69"
+      "views": "70"
     },
     {
       "path": "/pre501c3/",
@@ -52,30 +52,30 @@
       "views": "24"
     },
     {
-      "path": "/en-US/embed/donation-form/free-for-charity-endowment-fund",
+      "path": "/help-for-charities/",
       "views": "22"
     },
     {
-      "path": "/help-for-charities/",
-      "views": "20"
+      "path": "/en-US/embed/donation-form/free-for-charity-endowment-fund",
+      "views": "19"
     }
   ],
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1201"
+      "sessions": "1195"
     },
     {
       "channel": "Direct",
-      "sessions": "945"
-    },
-    {
-      "channel": "AI Assistant",
-      "sessions": "134"
+      "sessions": "940"
     },
     {
       "channel": "Referral",
-      "sessions": "97"
+      "sessions": "152"
+    },
+    {
+      "channel": "AI Assistant",
+      "sessions": "140"
     },
     {
       "channel": "Organic Social",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1547",
-    "newUsers": "1518",
-    "sessions": "1899",
-    "screenPageViews": "2124",
-    "engagementRate": "0.41811479726171669",
-    "eventCount": "7079",
-    "keyEvents": "245"
+    "activeUsers": "1561",
+    "newUsers": "1536",
+    "sessions": "1908",
+    "screenPageViews": "2127",
+    "engagementRate": "0.41404612159329141",
+    "eventCount": "7096",
+    "keyEvents": "238"
   }
 }
