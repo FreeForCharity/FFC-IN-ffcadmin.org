@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-06T07:22:41Z",
+  "updatedAt": "2026-11-07T07:22:05Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,72 +10,72 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2050",
-    "newUsers": "2029",
-    "sessions": "2444",
-    "screenPageViews": "2737",
-    "engagementRate": "0.34574468085106386",
-    "eventCount": "8895",
-    "keyEvents": "238"
+    "activeUsers": "2095",
+    "newUsers": "2075",
+    "sessions": "2480",
+    "screenPageViews": "2789",
+    "engagementRate": "0.33870967741935482",
+    "eventCount": "9043",
+    "keyEvents": "229"
   },
   "topPages": [
     {
       "path": "/domains/",
-      "views": "745"
+      "views": "746"
     },
     {
       "path": "/",
-      "views": "599"
+      "views": "603"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "446"
+      "views": "452"
     },
     {
       "path": "/501c3/",
-      "views": "118"
+      "views": "119"
     },
     {
       "path": "/volunteer/",
-      "views": "70"
+      "views": "71"
     },
     {
       "path": "/pre501c3/",
-      "views": "25"
-    },
-    {
-      "path": "/ffc-volunteer-proving-ground-core-competencies/",
-      "views": "24"
+      "views": "28"
     },
     {
       "path": "/site-owner/accept-invitation/",
       "views": "24"
     },
     {
+      "path": "/ffc-volunteer-proving-ground-core-competencies/",
+      "views": "22"
+    },
+    {
       "path": "/help-for-charities/",
       "views": "22"
     },
     {
-      "path": "/en-US/embed/donation-form/free-for-charity-endowment-fund",
+      "path": "/what-ffc-delivers/",
       "views": "19"
     }
   ],
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1195"
+      "sessions": "1196"
     },
     {
       "channel": "Direct",
-      "sessions": "940"
+      "sessions": "930"
     },
     {
       "channel": "Referral",
-      "sessions": "152"
+      "sessions": "201"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "140"
+      "sessions": "143"
     },
     {
       "channel": "Organic Social",
@@ -83,17 +83,17 @@
     },
     {
       "channel": "Unassigned",
-      "sessions": "3"
+      "sessions": "9"
     }
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1561",
-    "newUsers": "1536",
-    "sessions": "1908",
-    "screenPageViews": "2127",
-    "engagementRate": "0.41404612159329141",
-    "eventCount": "7096",
-    "keyEvents": "238"
+    "activeUsers": "1573",
+    "newUsers": "1550",
+    "sessions": "1912",
+    "screenPageViews": "2145",
+    "engagementRate": "0.41108786610878661",
+    "eventCount": "7142",
+    "keyEvents": "229"
   }
 }
