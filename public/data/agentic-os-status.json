@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T07:23:04Z",
+  "generated_at": "2026-11-11T07:23:57Z",
   "org": "FreeForCharity",
   "repo": "FreeForCharity/FFC-Cloudflare-Automation",
   "repos": [
@@ -13,25 +13,11 @@
   "backlog_issues": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1721,
-      "title": "Merge condition 2's \"body must open with <!-- ccr-overview-v2 -->\" reports 2 of 12 real Copilot reviews as refusals: a tier NOTE banner now prefixes the marker",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-11-10T06:52:49Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1721",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "claimed"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1704,
       "title": "🚨 Scheduled workflow failing: FreeForCharity/FFC-IN-freeforcharity.org — Security Audit",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-11-10T06:43:30Z",
+      "updated_at": "2026-11-11T06:44:12Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1704",
       "labels": [
         "bug",
@@ -44,7 +30,7 @@
       "title": "Agentic OS Conductor Log",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-11-10T06:39:32Z",
+      "updated_at": "2026-11-11T06:40:15Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719",
       "labels": [
         "agentic-os"
@@ -55,12 +41,82 @@
       "number": 1722,
       "title": "Conductor liveness: the supervising routine may have stopped",
       "state": "open",
-      "assignee": null,
-      "updated_at": "2026-11-10T06:29:34Z",
+      "assignee": "clarkemoyer",
+      "updated_at": "2026-11-11T06:30:44Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1722",
       "labels": [
         "bug",
         "agentic-os"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1445,
+      "title": "WHMCS orders held in Fraud status (FraudLabs Pro review)",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-11-10T13:32:00Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1445",
+      "labels": [
+        "agentic-os",
+        "whmcs"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1603,
+      "title": "Key Vault credential health: dead, expiring, or unverifiable credentials",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-11-10T09:26:40Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1603",
+      "labels": [
+        "security",
+        "agentic-os",
+        "priority: high"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1696,
+      "title": "AGENTS.md at 102 KB has crossed Copilot’s instruction budget: the largest PRs can no longer be reviewed, so they can never meet merge condition 2",
+      "state": "open",
+      "assignee": "clarkemoyer",
+      "updated_at": "2026-11-10T09:22:08Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1696",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "claimed",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1714,
+      "title": "740 cannot see a duplicate of its own rolling alert: #1659 and #1700 share one marker for 745, and `open.find` orphans one of them permanently",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-11-10T08:20:23Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1714",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "agent-ready"
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1721,
+      "title": "Merge condition 2's \"body must open with <!-- ccr-overview-v2 -->\" reports 2 of 12 real Copilot reviews as refusals: a tier NOTE banner now prefixes the marker",
+      "state": "open",
+      "assignee": null,
+      "updated_at": "2026-11-10T06:52:49Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1721",
+      "labels": [
+        "bug",
+        "agentic-os",
+        "claimed"
       ]
     },
     {
@@ -104,34 +160,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1696,
-      "title": "AGENTS.md at 102 KB has crossed Copilot’s instruction budget: the largest PRs can no longer be reviewed, so they can never meet merge condition 2",
-      "state": "open",
-      "assignee": "clarkemoyer",
-      "updated_at": "2026-11-09T15:31:31Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1696",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "claimed",
-        "agent-ready"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1445,
-      "title": "WHMCS orders held in Fraud status (FraudLabs Pro review)",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-11-09T13:32:21Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1445",
-      "labels": [
-        "agentic-os",
-        "whmcs"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1724,
       "title": "705: hostname validation is line-based, so a multiline domain input passes it and reaches $GITHUB_OUTPUT",
       "state": "open",
@@ -158,20 +186,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1603,
-      "title": "Key Vault credential health: dead, expiring, or unverifiable credentials",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-11-09T09:30:08Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1603",
-      "labels": [
-        "security",
-        "agentic-os",
-        "priority: high"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 894,
       "title": "Fleet security headers: which FFC sites actually serve them",
       "state": "open",
@@ -182,20 +196,6 @@
         "security",
         "agentic-os",
         "priority: high"
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1714,
-      "title": "740 cannot see a duplicate of its own rolling alert: #1659 and #1700 share one marker for 745, and `open.find` orphans one of them permanently",
-      "state": "open",
-      "assignee": null,
-      "updated_at": "2026-11-09T08:22:57Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1714",
-      "labels": [
-        "bug",
-        "agentic-os",
-        "agent-ready"
       ]
     },
     {
@@ -3042,13 +3042,13 @@
   ],
   "ready_issues": [
     {
-      "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
-      "number": 1652,
-      "title": "The domain-expiry feed has resolved 0 of 201 domains since it was introduced, and six green weekly runs left no evidence why",
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1714,
+      "title": "740 cannot see a duplicate of its own rolling alert: #1659 and #1700 share one marker for 745, and `open.find` orphans one of them permanently",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-11-09T18:12:51Z",
-      "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/1652",
+      "updated_at": "2026-11-10T08:20:23Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1714",
       "labels": [
         "bug",
         "agentic-os",
@@ -3056,13 +3056,13 @@
       ]
     },
     {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1714,
-      "title": "740 cannot see a duplicate of its own rolling alert: #1659 and #1700 share one marker for 745, and `open.find` orphans one of them permanently",
+      "repo": "FreeForCharity/FFC-IN-ffcadmin.org",
+      "number": 1652,
+      "title": "The domain-expiry feed has resolved 0 of 201 domains since it was introduced, and six green weekly runs left no evidence why",
       "state": "open",
       "assignee": null,
-      "updated_at": "2026-11-09T08:22:57Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1714",
+      "updated_at": "2026-11-09T18:12:51Z",
+      "url": "https://github.com/FreeForCharity/FFC-IN-ffcadmin.org/issues/1652",
       "labels": [
         "bug",
         "agentic-os",
@@ -4521,12 +4521,48 @@
   "in_flight_prs": [
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1647,
+      "title": "fix(hooks): refuse `gh api -f` with no `-X`, which silently POSTs a read",
+      "state": "open",
+      "draft": false,
+      "assignee": null,
+      "updated_at": "2026-11-11T06:46:37Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1647",
+      "labels": [
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        1591,
+        971,
+        1027
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
+      "number": 1725,
+      "title": "fix(agents): merge condition 2 tests the marker's presence, not its position",
+      "state": "open",
+      "draft": false,
+      "assignee": null,
+      "updated_at": "2026-11-11T00:22:04Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1725",
+      "labels": [
+        "bug",
+        "agentic-os"
+      ],
+      "linked_agentic_issues": [
+        1721,
+        1648
+      ]
+    },
+    {
+      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1727,
       "title": "feat(scripts): read merge condition 3 over REST, and refuse a payload whose resolution state was not read",
       "state": "open",
       "draft": false,
       "assignee": null,
-      "updated_at": "2026-11-10T06:46:05Z",
+      "updated_at": "2026-11-10T21:18:42Z",
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1727",
       "labels": [
         "agentic-os",
@@ -4539,20 +4575,22 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1725,
-      "title": "fix(agents): merge condition 2 tests the marker's presence, not its position",
+      "number": 1596,
+      "title": "test(1552): measure whether the open-PR SET can land, not each PR against main",
       "state": "open",
       "draft": false,
       "assignee": null,
-      "updated_at": "2026-11-10T06:43:56Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1725",
+      "updated_at": "2026-11-10T09:22:17Z",
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1596",
       "labels": [
-        "bug",
-        "agentic-os"
+        "agentic-os",
+        "blocked"
       ],
       "linked_agentic_issues": [
-        1721,
-        1648
+        1696,
+        1701,
+        1552,
+        1119
       ]
     },
     {
@@ -4629,26 +4667,6 @@
     },
     {
       "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1596,
-      "title": "test(1552): measure whether the open-PR SET can land, not each PR against main",
-      "state": "open",
-      "draft": false,
-      "assignee": null,
-      "updated_at": "2026-11-09T15:30:04Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1596",
-      "labels": [
-        "agentic-os",
-        "blocked"
-      ],
-      "linked_agentic_issues": [
-        1696,
-        1701,
-        1552,
-        1119
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
       "number": 1611,
       "title": "fix(740): a failing job needs its duration, not just its conclusion",
       "state": "open",
@@ -4664,24 +4682,6 @@
         1404,
         1593,
         719
-      ]
-    },
-    {
-      "repo": "FreeForCharity/FFC-Cloudflare-Automation",
-      "number": 1647,
-      "title": "fix(hooks): refuse `gh api -f` with no `-X`, which silently POSTs a read",
-      "state": "open",
-      "draft": false,
-      "assignee": null,
-      "updated_at": "2026-11-09T13:05:51Z",
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/pull/1647",
-      "labels": [
-        "agentic-os"
-      ],
-      "linked_agentic_issues": [
-        1591,
-        971,
-        1027
       ]
     },
     {
@@ -4899,20 +4899,6 @@
   "conductor_log": [
     {
       "author": "clarkemoyer",
-      "created_at": "2026-11-07T21:23:43Z",
-      "body": "## Landing sweep, 2026-11-07 — 11 open `agentic-os` PRs, **0 enqueueable**, and the window is one commit wide\n\nScheduled cloud worker. Read-only on every PR: nothing pushed, promoted, enqueued, merged, re-requested, relabelled or commented on any PR. Posted here rather than on the PRs, per #1718 AC2.\n\n### Cohort\n\nAll 11 are `draft=false`, `mergeable=true` (two reads, per the lazy-computation rule), **Validate Repository** + **Phantom Revert Guard** green on head.\n\n| PR | lane | Copilot on head |…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-6713197183"
-    },
-    {
-      "author": "github-actions[bot]",
-      "created_at": "2026-11-08T07:49:14Z",
-      "body": "### 745 Agentic OS board audit — 49 finding(s)\n\nBoard: FreeForCharity project #9 (Agentic OS) · `expected=241` `board=717` · repos swept: 133\n\nBoth denominators are printed deliberately: run 62 reported \"0 missing\" off an expected set that was one item short, and a short denominator was the only thing a reader could have found suspicious (#966).\n\n#### Missing from the board: 33\n\n_open `agentic-os` items with no card — add them to org project #9_\n\n- [FreeForCharity/FFC-Cloudflare-Automation#1682]…",
-      "truncated": true,
-      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-6718923609"
-    },
-    {
-      "author": "clarkemoyer",
       "created_at": "2026-11-08T09:24:01Z",
       "body": "## Cloud worker run — 2026-11-08T09:2x–09:4xZ — landing sweep, 0 enqueueable, 2 findings published\n\n**Mode:** landing run. 11 open `agentic-os` PRs (≥3), so no new work was started. Nothing pushed,\npromoted, enqueued, relabelled or merged. No PR opened. Two issue comments, both on existing issues.\n\n### Sweep result\n\nAll 11 PRs: **required checks green on the current head, conflict-free.** Threads resolved on 10 of\n11 (#1634 has 1 unresolved of 3, which is why it alone reads `mergeable_state: blo…",
       "truncated": true,
@@ -4966,6 +4952,20 @@
       "body": "### 734 stale waiting-run janitor\n\nThreshold: waiting runs are cancelled after **7d**, warned about for the last **2d**.\n\n#### Expiring within 2d (1)\n\n- [41961928626](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/41961928626) — 601. WPMUDEV - Export Sites/Domains (Read-only) [WPMUDEV] — waiting since `2026-11-05T03:29:37Z` — **will be cancelled at `2026-11-12T06:31:00.000Z`**\n\nTimes are the janitor's own next daily tick after each run crosses the threshold — not the th…",
       "truncated": true,
       "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-6760881981"
+    },
+    {
+      "author": "github-actions[bot]",
+      "created_at": "2026-11-10T07:49:04Z",
+      "body": "### 745 Agentic OS board audit — 54 finding(s)\n\nBoard: FreeForCharity project #9 (Agentic OS) · `expected=246` `board=717` · repos swept: 133\n\nBoth denominators are printed deliberately: run 62 reported \"0 missing\" off an expected set that was one item short, and a short denominator was the only thing a reader could have found suspicious (#966).\n\n#### Missing from the board: 38\n\n_open `agentic-os` items with no card — add them to org project #9_\n\n- [FreeForCharity/FFC-Cloudflare-Automation#1682]…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-6761980569"
+    },
+    {
+      "author": "github-actions[bot]",
+      "created_at": "2026-11-11T06:40:15Z",
+      "body": "### 734 stale waiting-run janitor\n\nThreshold: waiting runs are cancelled after **7d**, warned about for the last **2d**.\n\n#### Expiring within 2d (1)\n\n- [41961928626](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/actions/runs/41961928626) — 601. WPMUDEV - Export Sites/Domains (Read-only) [WPMUDEV] — waiting since `2026-11-05T03:29:37Z` — **will be cancelled at `2026-11-12T06:31:00.000Z`**\n\nTimes are the janitor's own next daily tick after each run crosses the threshold — not the th…",
+      "truncated": true,
+      "url": "https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/719#issuecomment-6789002042"
     }
   ],
   "conductor_log_rule": "The last 10 comments on the Conductor log issue #719, ordered OLDEST FIRST — element 0 is the oldest of the 10, and the LAST element is the most recent. Each body is redacted and truncated to 500 characters. Hub-only: there is one log. This is a tail, not the whole thread, so an entry's absence means it fell off the end of the window, not that it was never written; and the newest entry here is at most as recent as `generated_at`, never fresher.",
