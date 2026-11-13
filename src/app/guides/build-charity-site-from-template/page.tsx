@@ -194,7 +194,8 @@ export default function BuildFromTemplateGuide() {
             <Link href="/site-owner" className="text-blue-700 underline hover:text-blue-900">
               Edit Your Charity&apos;s Website
             </Link>{' '}
-            and add them as a writer on the repository so they can make everyday changes with AI.
+            and add them as a maintainer on the repository so they can make everyday changes with
+            AI.
           </p>
         </section>
 

@@ -88,7 +88,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
           },
           {
             id: 'm-accounts-t1-2',
-            text: 'Request access to your charity’s repository and accept the invitation (you’re added as a writer).',
+            text: 'Request access to your charity’s repository and accept the invitation (you’re added as a maintainer).',
             link: { url: '/site-owner', label: 'Before you start' },
           },
           {

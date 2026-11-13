@@ -2,6 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import PromptBox from '@/components/PromptBox'
+import {
+  APPLICANT_INVITE_SKIP,
+  GITHUB_INVITE_GUIDANCE,
+  GITHUB_USERNAME_GUIDANCE,
+} from '@/data/charity-messaging'
 
 export const metadata: Metadata = {
   title: 'Edit My Charity Website',
@@ -35,7 +40,7 @@ const tldr = [
   {
     step: '1',
     title: 'Get access',
-    body: 'Text FFC to be added to your repo as a writer, then accept the GitHub invite.',
+    body: 'Text FFC to be added to your repo as a maintainer, then accept the GitHub invite. Gave your GitHub username on the application? Just accept the invite.',
   },
   {
     step: '2',
@@ -170,7 +175,7 @@ export default function SiteOwnerPage() {
               {
                 n: '3',
                 title: 'Send FFC your GitHub username',
-                body: 'Text Clarke your username + charity name so we can invite you. (Copy-paste message in step 2 below.)',
+                body: `Text Clarke your username + charity name so we can invite you. (Copy-paste message in step 2 below.) ${APPLICANT_INVITE_SKIP}`,
                 href: '#before-you-start',
                 cta: 'See the message to send',
               },
@@ -251,7 +256,9 @@ export default function SiteOwnerPage() {
               <span className="text-teal-600 mr-2 mt-0.5">&#10003;</span>
               <span>
                 <strong>After you request access</strong> (you&apos;ll text FFC in step&nbsp;2
-                below), expect your repository invitation within a day or so.
+                below), expect your repository invitation within a day or so. Gave your GitHub
+                username on the application? Your invitation arrives after we approve your
+                application.
               </span>
             </li>
             <li className="flex items-start">
@@ -434,6 +441,9 @@ export default function SiteOwnerPage() {
                   . Use an email you check — your repository invitation comes here. Make a note of
                   your <strong>GitHub username</strong>; you&apos;ll share it in the next step.
                 </p>
+                <p className="mt-2 text-sm text-gray-700">
+                  When you give us your username: {GITHUB_USERNAME_GUIDANCE}
+                </p>
               </div>
             </li>
             <li className="flex items-start">
@@ -442,6 +452,9 @@ export default function SiteOwnerPage() {
               </span>
               <div>
                 <h3 className="font-bold text-gray-900">Request access to your repository</h3>
+                <p className="mb-2 rounded bg-emerald-50 p-3 text-sm text-emerald-900">
+                  {APPLICANT_INVITE_SKIP}
+                </p>
                 <p className="text-sm text-gray-700">
                   FFC has to grant you access before you can edit anything. Text{' '}
                   <strong>Clarke Moyer at (520)&nbsp;222-8104</strong> (or message{' '}
@@ -454,14 +467,14 @@ export default function SiteOwnerPage() {
                     github.com/clarkemoyer
                   </a>
                   ) and ask to be added to your charity&apos;s repository as a{' '}
-                  <strong>writer</strong> (write access). Include your charity&apos;s name, your{' '}
-                  <strong>GitHub username</strong> from step&nbsp;1, and that you&apos;re the site
-                  owner who&apos;ll be editing the site.
+                  <strong>maintainer</strong> (maintain access). Include your charity&apos;s name,
+                  your <strong>GitHub username</strong> from step&nbsp;1, and that you&apos;re the
+                  site owner who&apos;ll be editing the site.
                 </p>
                 <div className="mt-2 bg-teal-50 border-l-4 border-teal-400 p-3 rounded text-xs text-teal-900">
                   <strong>Copy &amp; send:</strong> “Hi Clarke — this is &lt;your name&gt; from
-                  &lt;charity name&gt;. Please add my GitHub username &lt;username&gt; as a writer
-                  on our website repository so I can edit our site. Thank you!”
+                  &lt;charity name&gt;. Please add my GitHub username &lt;username&gt; as a
+                  maintainer on our website repository so I can edit our site. Thank you!”
                 </div>
               </div>
             </li>
@@ -479,7 +492,7 @@ export default function SiteOwnerPage() {
                   arrives as an email from GitHub <em>and</em> in your GitHub notifications. This is
                   the step people get stuck on, so we wrote a separate, every-click walkthrough —
                   what the email looks like, who it&apos;s from, where to find it if it&apos;s not
-                  in your inbox, and the direct link to accept.
+                  in your inbox, and the direct link to accept. {GITHUB_INVITE_GUIDANCE}
                 </p>
                 <Link
                   href="/site-owner/accept-invitation"
@@ -492,7 +505,7 @@ export default function SiteOwnerPage() {
                 </Link>
                 <div className="mt-3 bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-xs text-amber-900">
                   Didn&apos;t get an invite within a day, or the link expired? Text Clarke again at
-                  (520)&nbsp;222-8104 and ask to re-send the writer invitation to your GitHub
+                  (520)&nbsp;222-8104 and ask to re-send the maintainer invitation to your GitHub
                   username.
                 </div>
               </div>

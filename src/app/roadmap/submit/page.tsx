@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import { SUPPORT_LINE } from '@/data/charity-messaging'
 
 export const metadata: Metadata = {
   title: 'Submit a Request',
   description:
-    'Apply for Free For Charity service, request an additional service for your existing FFC charity, or raise a question or escalation. FFC triages new requests within 5 business days.',
+    'Apply for Free For Charity service, request an additional service for your existing FFC charity, or raise a question or escalation. FFC reviews new requests, usually within a few days.',
   keywords:
     'apply Free For Charity, charity application, FFC intake, request nonprofit website, charity escalation',
   alternates: { canonical: 'https://ffcadmin.org/roadmap/submit/' },
@@ -94,7 +95,7 @@ export default function SubmitPage() {
           <h2 className="text-xl font-bold text-gray-900">What happens next</h2>
           <ul className="mt-3 space-y-2 text-gray-700">
             <li>
-              <strong>Triage within 5 business days.</strong> FFC reviews mission fit and
+              <strong>Reviewed usually within a few days.</strong> FFC reviews mission fit and
               prioritization-policy alignment, then sets your status on the public roadmap.
             </li>
             <li>
@@ -114,6 +115,7 @@ export default function SubmitPage() {
             Hitting a technical snag submitting? Text <strong>520-222-8104</strong> and an FFC admin
             will help you get unstuck so you can finish the submission yourself.
           </p>
+          <p className="mt-3 text-sm text-gray-700">{SUPPORT_LINE}</p>
         </div>
       </main>
     </div>
