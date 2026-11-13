@@ -31,7 +31,7 @@ export const FOCUS_STATEMENT_SHORT =
 export const FOCUS_EMPHASIS = 'food, water or shelter'
 
 export const VETERANS_WELCOME =
-  'Veterans organizations and every other kind of charity are welcome.'
+  'Veterans organizations are our next priority after food, water and shelter, and every other kind of charity is welcome.'
 
 export const FOOTER_ADDRESS_GUIDANCE =
   'Your footer always shows your city and state. If you give a public street address on the application, we add it too. Use an office, commercial mailbox or registered-agent address, never a volunteer’s home.'
@@ -51,7 +51,7 @@ export const REVIEW_TIME = 'usually within a few days'
 
 /** Full support line. */
 export const SUPPORT_LINE =
-  'Already applied? Open a ticket in your client area at freeforcharity.org/hub. A volunteer replies by email, usually within 2 business days. Tickets are not watched around the clock, so if your site is down or something is urgent, text or call Clarke Moyer at 520-222-8104.'
+  'Already applied? Open a ticket in your client area at freeforcharity.org/hub. A volunteer replies by email, usually within 3 days. Tickets are not watched around the clock, so if your site is down or something is urgent, text or call Clarke Moyer at 520-222-8104.'
 
 /** Short escalation form — replaces every older "48 hours" promise. */
 export const SUPPORT_ESCALATION =
