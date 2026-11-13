@@ -1,127 +1,99 @@
 /**
- * Registry for the /intake-help section — single source of truth for the
- * sidebar, the hub landing grid, and cross-links. Each leaf page renders its
- * own body inside <IntakeHelpShell page={page}>.
+ * The /intake-help/ section is retired. Its help topics now live on
+ * freeforcharity.org at /<track>/help/<slug>/ (tracks: 501c3, pre501c3), next
+ * to the WHMCS application they explain. Each old ffcadmin.org URL renders a
+ * small noindex redirect page (see IntakeHelpRedirect) pointing at the nearest
+ * freeforcharity.org equivalent, so bookmarks and old links keep working.
  *
- * `full: true` pages carry substantive first-pass content; the rest are short
- * stubs the intake form links to (no 404s) and fill in over time.
+ * Mapping mirrors FFC-IN-freeforcharity.org src/data/application-help.ts
+ * (HELP_TOPICS and FOLDED_HELP_TOPICS). Topics offered on both tracks point
+ * at the 501(c)(3) track; the help pages there link across to pre-501(c)(3).
  */
 
-export interface IntakeHelpPage {
-  slug: string
-  title: string
-  shortLabel: string
-  summary: string
-  category: IntakeHelpCategoryId
-  full: boolean
-}
-
-export type IntakeHelpCategoryId = 'get-started' | 'governance-contact' | 'compliance'
+import { FFC_HELP_FOR_CHARITIES_URL } from './charity-messaging'
 
 export const INTAKE_HELP_BASE = '/intake-help'
 
-export const INTAKE_HELP_CATEGORIES: { id: IntakeHelpCategoryId; label: string }[] = [
-  { id: 'get-started', label: 'Get started' },
-  { id: 'governance-contact', label: 'Governance & contact' },
-  { id: 'compliance', label: 'Compliance & transparency' },
-]
+const FFC_ORG = 'https://freeforcharity.org'
 
-export const INTAKE_HELP_PAGES: IntakeHelpPage[] = [
+export interface IntakeHelpRedirect {
+  slug: string
+  title: string
+  /** Absolute freeforcharity.org URL that replaces this page. */
+  target: string
+}
+
+/** Where the retired /intake-help/ hub now lives. */
+export const INTAKE_HELP_HUB_TARGET = FFC_HELP_FOR_CHARITIES_URL
+
+export const INTAKE_HELP_REDIRECTS: IntakeHelpRedirect[] = [
   {
     slug: 'mission-statement',
     title: 'Writing a strong mission statement',
-    shortLabel: 'Mission statement',
-    summary: 'What makes a mission statement clear, credible, and fundable.',
-    category: 'get-started',
-    full: false,
+    target: `${FFC_ORG}/501c3/help/mission-statement/`,
   },
   {
     slug: 'getting-501c3',
     title: 'Getting to 501(c)(3)',
-    shortLabel: 'Getting to 501(c)(3)',
-    summary: 'For charities not yet incorporated or not yet tax-exempt.',
-    category: 'get-started',
-    full: false,
+    target: `${FFC_ORG}/pre501c3/help/getting-501c3/`,
   },
   {
     slug: 'board-requirements',
     title: 'Board requirements',
-    shortLabel: 'Board requirements',
-    summary: 'Why FFC asks for three named officers with LinkedIn URLs — and how to get there.',
-    category: 'governance-contact',
-    full: true,
+    target: `${FFC_ORG}/501c3/help/board-requirements/`,
   },
   {
     slug: 'public-contact-info',
     title: 'Public contact information',
-    shortLabel: 'Public contact info',
-    summary: 'Email and phone options ranked, with step-by-step setup for org-owned numbers.',
-    category: 'governance-contact',
-    full: true,
+    target: `${FFC_ORG}/501c3/help/public-contact-info/`,
   },
   {
     slug: 'mailing-address',
     title: 'Choosing a mailing address',
-    shortLabel: 'Mailing address',
-    summary: 'PO box vs. commercial mailbox vs. registered agent, and why FFC uses Northwest.',
-    category: 'governance-contact',
-    full: true,
+    target: `${FFC_ORG}/501c3/help/mailing-address/`,
   },
   {
     slug: 'social-media',
     title: 'Setting up social media',
-    shortLabel: 'Social media',
-    summary: 'Which platforms matter and how to set up org-owned accounts.',
-    category: 'governance-contact',
-    full: false,
+    target: `${FFC_ORG}/501c3/help/social-media/`,
   },
   {
     slug: 'guidestar-candid',
     title: 'Candid / GuideStar transparency',
-    shortLabel: 'Candid / GuideStar',
-    summary: 'Reaching the Gold Seal of Transparency — FFC’s minimum for 501(c)(3) charities.',
-    category: 'compliance',
-    full: false,
+    target: `${FFC_ORG}/501c3/help/guidestar-candid/`,
   },
+  // Folded topics: no page of their own on freeforcharity.org.
   {
     slug: '501c3-application',
     title: 'Form 1023 vs. 1023-EZ',
-    shortLabel: '501(c)(3) application',
-    summary: 'Which form, what timelines, and what FFC offers while you wait.',
-    category: 'compliance',
-    full: false,
+    target: `${FFC_ORG}/pre501c3/help/getting-501c3/#form-1023`,
   },
   {
     slug: 'fiscal-sponsorship',
     title: 'Fiscal sponsorship policy',
-    shortLabel: 'Fiscal sponsorship',
-    summary: 'FFC’s policy on fiscal sponsors and franchise/affiliate charities.',
-    category: 'compliance',
-    full: false,
+    target: `${FFC_ORG}/pre501c3/help/getting-501c3/#fiscal-sponsorship`,
+  },
+  {
+    // The "never send" list (bank details, passwords, donor/beneficiary data,
+    // security problems) lives in this section on freeforcharity.org.
+    slug: 'supporting-documents',
+    title: 'What’s public and what stays private',
+    target: `${FFC_ORG}/501c3/help/public-contact-info/#public-and-private`,
   },
   {
     slug: 'policy-pages',
     title: 'Policy pages',
-    shortLabel: 'Policy pages',
-    summary:
-      'The six FFC policy pages: donation, privacy, cookie, terms, vulnerability disclosure, and security acknowledgement.',
-    category: 'compliance',
-    full: false,
-  },
-  {
-    slug: 'supporting-documents',
-    title: 'Sharing supporting documents',
-    shortLabel: 'Supporting documents',
-    summary: 'What to share where — public issues vs. private channels.',
-    category: 'compliance',
-    full: false,
+    target: `${FFC_ORG}/501c3/#template`,
   },
 ]
 
-export function getIntakeHelpPage(slug: string): IntakeHelpPage | undefined {
-  return INTAKE_HELP_PAGES.find((p) => p.slug === slug)
+export function getIntakeHelpRedirect(slug: string): IntakeHelpRedirect {
+  const r = INTAKE_HELP_REDIRECTS.find((p) => p.slug === slug)
+  if (!r) throw new Error(`Unknown intake-help slug: ${slug}`)
+  return r
 }
 
-export function intakeHelpPagesByCategory(category: IntakeHelpCategoryId): IntakeHelpPage[] {
-  return INTAKE_HELP_PAGES.filter((p) => p.category === category)
+/** Replacement URL for an intake-help slug, for in-repo links. */
+export function intakeHelpTarget(slug: string): string {
+  return getIntakeHelpRedirect(slug).target
 }

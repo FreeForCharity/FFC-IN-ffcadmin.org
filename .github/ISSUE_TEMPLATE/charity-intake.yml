@@ -14,8 +14,9 @@ body:
 
         Fill in what you can — a half-complete form still scores, and your score rises as you add
         more. Not comfortable with GitHub? Text **520-222-8104** and an FFC admin will complete it
-        for you. See the [intake-help guides](https://ffcadmin.org/intake-help) for any field you're
-        unsure about. **Never paste bank details, donor data, or anything sensitive in this public
+        for you. See [help for charities](https://freeforcharity.org/help-for-charities/) for any field you're
+        unsure about. Already applied and need help? Open a ticket in your client area at
+        [freeforcharity.org/hub](https://freeforcharity.org/hub/), not in a GitHub issue. **Never paste bank details, donor data, or anything sensitive in this public
         issue.**
 
   # ---- Basics --------------------------------------------------------------
@@ -77,7 +78,7 @@ body:
     id: mission-category
     attributes:
       label: Mission category
-      description: 'FFC favors basic-needs causes (food, water, shelter) first, then veterans/military, then all other missions. See https://ffcadmin.org/intake-help/mission-statement.'
+      description: 'Every kind of charity is welcome; our priority is organizations that provide food, water or shelter. This never affects eligibility. See https://freeforcharity.org/501c3/help/mission-statement/.'
       options:
         - Basic needs (food, water, shelter)
         - Veterans / military
@@ -88,7 +89,7 @@ body:
     id: affiliation
     attributes:
       label: Affiliation
-      description: See https://ffcadmin.org/intake-help/fiscal-sponsorship for what each option means.
+      description: See https://freeforcharity.org/pre501c3/help/getting-501c3/#fiscal-sponsorship for what each option means.
       options:
         - Independent
         - Sponsored by an FFC charity recipient
@@ -143,9 +144,11 @@ body:
     attributes:
       value: |
         ### Contacts & board
-        Provide your org main contact and your three required officers (President, Secretary,
-        Treasurer); Vice President and Member at Large are optional. Phone/email types are scored —
-        see https://ffcadmin.org/intake-help/public-contact-info and https://ffcadmin.org/intake-help/board-requirements.
+        Provide your org main contact and your three required officers (Chair or President,
+        Secretary, Treasurer); Vice President and Member at Large are optional. Phone/email types are
+        scored — see https://freeforcharity.org/501c3/help/public-contact-info/ and https://freeforcharity.org/501c3/help/board-requirements/.
+        For LinkedIn and Candid links: give the public link anyone can open, not an admin, editor
+        or dashboard link. Test it in a private (incognito) window.
   - type: input
     id: org-main-name
     attributes:
@@ -326,7 +329,7 @@ body:
     id: address-type
     attributes:
       label: Mailing address type
-      description: See https://ffcadmin.org/intake-help/mailing-address.
+      description: See https://freeforcharity.org/501c3/help/mailing-address/.
       options:
         - No address
         - Personal residence
@@ -357,7 +360,7 @@ body:
     id: candid-profile
     attributes:
       label: Candid / GuideStar profile URL
-      description: "For 501(c)(3) charities. Gold Seal is FFC's minimum — see https://ffcadmin.org/intake-help/guidestar-candid."
+      description: "For 501(c)(3) charities. Gold Seal is FFC's minimum — see https://freeforcharity.org/501c3/help/guidestar-candid/."
     validations:
       required: false
   - type: input
@@ -395,7 +398,7 @@ body:
     id: policy-pages
     attributes:
       label: Policy pages published
-      description: See https://ffcadmin.org/intake-help/policy-pages.
+      description: See https://freeforcharity.org/501c3/#template.
       options:
         - label: Donation Policy
         - label: Privacy Policy
@@ -419,7 +422,7 @@ body:
     id: documents
     attributes:
       label: Documents on file
-      description: Attach or link these in a comment. See https://ffcadmin.org/intake-help/supporting-documents.
+      description: Attach or link these in a comment. Never post bank details, passwords, or donor or beneficiary information; see https://freeforcharity.org/501c3/help/public-contact-info/#public-and-private.
       options:
         - label: Articles of incorporation
         - label: Bylaws
@@ -438,7 +441,7 @@ body:
     id: application-progress
     attributes:
       label: Application progress (pre-501(c)(3))
-      description: Only for charities still pursuing 501(c)(3). See https://ffcadmin.org/intake-help/getting-501c3.
+      description: Only for charities still pursuing 501(c)(3). See https://freeforcharity.org/pre501c3/help/getting-501c3/.
       options:
         - label: State incorporation filed
         - label: State incorporation approved
@@ -449,7 +452,7 @@ body:
     id: form-1023-status
     attributes:
       label: Form 1023 status
-      description: See https://ffcadmin.org/intake-help/501c3-application.
+      description: See https://freeforcharity.org/pre501c3/help/getting-501c3/#form-1023.
       options:
         - Not started
         - Form 1023-EZ drafted

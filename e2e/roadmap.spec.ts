@@ -44,7 +44,8 @@ test.describe('Public Roadmap', () => {
   test('submit page shows the three request paths and the fallback number', async ({ page }) => {
     await page.goto('/roadmap/submit/')
     await expect(page.getByRole('heading', { name: 'Apply for FFC service' })).toBeVisible()
-    await expect(page.getByText('520-222-8104')).toBeVisible()
+    await expect(page.getByText('520-222-8104', { exact: true })).toBeVisible()
+    await expect(page.getByText(/Open a ticket in your client area/)).toBeVisible()
   })
 
   test('sponsor page shows the commitment section', async ({ page }) => {
@@ -61,21 +62,14 @@ test.describe('Public Roadmap', () => {
   })
 })
 
-test.describe('Intake Help', () => {
-  test('hub lists topics and links to a full guide', async ({ page }) => {
-    await page.goto('/intake-help/')
-    await expect(page).toHaveTitle(/Intake Help/)
-    await page
-      .getByRole('link', { name: /Board requirements/ })
-      .first()
-      .click()
-    await expect(page).toHaveURL(/\/intake-help\/board-requirements\/?$/)
-    await expect(page.getByRole('heading', { name: 'Board requirements', level: 1 })).toBeVisible()
-  })
-
-  test('leaf page shows the sidebar and back-to-intake link', async ({ page }) => {
-    await page.goto('/intake-help/public-contact-info/')
-    await expect(page.getByRole('navigation', { name: 'Intake help navigation' })).toBeVisible()
-    await expect(page.getByRole('link', { name: /Back to intake/ })).toBeVisible()
+test.describe('Intake Help (retired)', () => {
+  test('old intake-help URLs redirect to freeforcharity.org help', async ({ page }) => {
+    const target = 'https://freeforcharity.org/501c3/help/board-requirements/'
+    // Never leave the test server: answer the external target locally.
+    await page.route('https://freeforcharity.org/**', (route) =>
+      route.fulfill({ status: 200, contentType: 'text/html', body: '<h1>moved ok</h1>' })
+    )
+    await page.goto('/intake-help/board-requirements/')
+    await expect(page).toHaveURL(target)
   })
 })

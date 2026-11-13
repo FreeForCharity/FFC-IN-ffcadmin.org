@@ -17,6 +17,12 @@
  * person — @ClarkeMoyer, not @FreeForCharity.
  */
 
+import {
+  APPLICANT_INVITE_SKIP,
+  GITHUB_INVITE_GUIDANCE,
+  GITHUB_USERNAME_GUIDANCE,
+} from './charity-messaging'
+
 export interface SetupStep {
   title: string
   /** Each string is its own paragraph or bullet line. */
@@ -142,7 +148,10 @@ export const SETUP_GUIDES: SetupGuide[] = [
       {
         title: 'Tell FFC your username',
         body: [
-          'Send your **GitHub username** to FFC (text Clarke Moyer at (520) 222-8104) so you can be added to your charity’s repository as a writer. You’ll then get an invitation to accept.',
+          'Send your **GitHub username** to FFC (text Clarke Moyer at (520) 222-8104) so you can be added to your charity’s repository as a maintainer. You’ll then get an invitation to accept.',
+          `Wherever we ask for it, including on the application: ${GITHUB_USERNAME_GUIDANCE}`,
+          APPLICANT_INVITE_SKIP,
+          GITHUB_INVITE_GUIDANCE,
           'Accepting that invitation is the step most people get stuck on, so we wrote an every-click walkthrough: **https://ffcadmin.org/site-owner/accept-invitation** — what the email looks like, who it’s from, and three ways to accept it.',
         ],
         tip: 'You can accept from the email, from your GitHub notifications (https://github.com/notifications), or from the direct repository invitations link — whichever you find first. The walkthrough shows all three.',

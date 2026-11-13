@@ -2,7 +2,14 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import ExpectationsCallout from '@/components/ExpectationsCallout'
+import FocusStatement from '@/components/FocusStatement'
 import { getSetupGuide } from '@/data/setup-guides'
+import {
+  ACCEPT_INVITATION_PATH,
+  GITHUB_INVITE_GUIDANCE,
+  REVIEW_TIME,
+  SUPPORT_LINE,
+} from '@/data/charity-messaging'
 
 export const metadata: Metadata = {
   title: 'Charity Prerequisites — Start Here',
@@ -23,7 +30,7 @@ const VALUE = [
   {
     icon: '✉️',
     title: 'Professional email',
-    body: 'Microsoft 365 or Google Workspace mailboxes on your domain.',
+    body: 'Microsoft 365 or Google Workspace mailboxes on your domain, for 501(c)(3) charities. Pre-501(c)(3) groups get email once the IRS approves their 501(c)(3).',
   },
   {
     icon: '💻',
@@ -62,8 +69,8 @@ const ELIGIBILITY = [
     body: 'Priority goes to organizations that are not already federally funded.',
   },
   {
-    title: 'At least two accountable people',
-    body: 'A US mailing address, a public phone number, and two people who own the accounts and decisions.',
+    title: 'Three named officers',
+    body: 'A Chair or President, a Secretary and a Treasurer who own the accounts and decisions, plus a US mailing address and a public phone number.',
   },
 ]
 
@@ -170,6 +177,10 @@ export default function CharityPrerequisitesPage() {
           <p className="text-gray-600 text-sm mb-6 max-w-3xl">
             FFC focuses on smaller US charities. The core gates:
           </p>
+          <div className="bg-emerald-50 rounded-xl border border-emerald-200 border-l-4 border-l-emerald-500 p-5 mb-4">
+            <h3 className="text-base font-bold text-gray-900">Every kind of charity is welcome</h3>
+            <FocusStatement className="text-sm text-gray-700 mt-1" />
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {ELIGIBILITY.map((e) => (
               <div
@@ -243,7 +254,19 @@ export default function CharityPrerequisitesPage() {
               <ol className="list-decimal list-inside space-y-1 text-sm text-gray-700">
                 <li>
                   <strong>Your application is fully approved</strong> — with complete, validated
-                  data (including your organization&apos;s Facebook and LinkedIn Pages).
+                  data (including your organization&apos;s Facebook and LinkedIn Pages). Review
+                  happens {REVIEW_TIME}.
+                </li>
+                <li>
+                  <strong>You accept a GitHub invitation</strong> to your website&apos;s repository.{' '}
+                  {GITHUB_INVITE_GUIDANCE}{' '}
+                  <Link
+                    href={ACCEPT_INVITATION_PATH}
+                    className="text-blue-700 underline hover:text-blue-900"
+                  >
+                    How to accept it
+                  </Link>
+                  .
                 </li>
                 <li>
                   <strong>Your website application is approved</strong> — a separate step that
@@ -254,6 +277,10 @@ export default function CharityPrerequisitesPage() {
                   — no custom domain yet.
                 </li>
                 <li>
+                  <strong>We email you a preview link</strong> — review your site and send any
+                  changes through a ticket in your client area.
+                </li>
+                <li>
                   <strong>Only then is your domain registered</strong> (or transferred) and pointed
                   at the validated site — followed by professional email.
                 </li>
@@ -262,6 +289,7 @@ export default function CharityPrerequisitesPage() {
                 Each gate builds on the last — proving the site works before any money is spent on a
                 domain protects both your time and FFC&apos;s donor funds.
               </p>
+              <p className="text-sm text-gray-700 mt-3">{SUPPORT_LINE}</p>
             </div>
             <div className="flex flex-wrap gap-3">
               <a

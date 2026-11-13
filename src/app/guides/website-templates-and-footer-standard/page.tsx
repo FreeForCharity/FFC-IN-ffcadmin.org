@@ -57,8 +57,8 @@ const footerItems: FooterItem[] = [
     why: 'Coordinated disclosure with safe-harbor language, wired into RFC 9116 security.txt so researchers’ tools find it. Charities hold donor data; this is how a finder reports a problem safely.',
   },
   {
-    name: 'Contact block: email, phone, physical addresses',
-    why: 'The legitimacy signals grant applications, nonprofit tech programs, and payment processors check — and a human-reachable path for donors, journalists, and partners. Address links open in Google Maps with the visible text kept in the accessible name (WCAG 2.5.3).',
+    name: 'Contact block: email, phone and location',
+    why: 'The legitimacy signals grant applications, nonprofit tech programs, and payment processors check — and a human-reachable path for donors, journalists, and partners. City and State always appear. A street address appears only when the charity entered one in the application’s “Public street address for your website footer (optional)” field; applications from before that field existed show city and state only. Never take the footer address from IRS or EIN records. Address links open in Google Maps with the visible text kept in the accessible name (WCAG 2.5.3).',
   },
   {
     name: '“Supported by Free For Charity” + Supported Charity Login',
@@ -311,6 +311,13 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
             application goes back for completion in WHMCS rather than anyone guessing values. This
             is what makes the footer trustworthy: every EIN, address, and profile link on a
             supported site traces to reviewed application data.
+          </p>
+          <p className="text-gray-700 mb-4">
+            The footer location follows the same rule. City and State always appear. A street
+            address appears only when the charity entered one in the application&apos;s
+            &ldquo;Public street address for your website footer (optional)&rdquo; field; older
+            applications without that field get city and state only.{' '}
+            <strong>Never take the footer address from IRS or EIN records.</strong>
           </p>
           <div className="bg-sky-50 border-l-4 border-sky-600 p-4 rounded text-sm text-sky-900">
             Never hand-type an EIN, legal name, or Candid URL into a footer. Generate it, and if the

@@ -57,7 +57,7 @@ const OPTIONAL_CONTACT_ROLES = ['vicePresident', 'memberAtLarge'] as const
 
 const ROLE_LABELS: Record<string, string> = {
   orgMain: 'Org main contact',
-  president: 'President',
+  president: 'Chair or President',
   secretary: 'Secretary',
   treasurer: 'Treasurer',
   vicePresident: 'Vice President',
@@ -118,7 +118,7 @@ function scoreBoardSeat(seat: BoardSeat, required: boolean): number {
 
 function scoreBoard(intake: IntakeData): ScoreCategory {
   const lines: ScoreLine[] = [
-    { label: 'President', points: scoreBoardSeat(intake.board.president, true) },
+    { label: 'Chair or President', points: scoreBoardSeat(intake.board.president, true) },
     { label: 'Secretary', points: scoreBoardSeat(intake.board.secretary, true) },
     { label: 'Treasurer', points: scoreBoardSeat(intake.board.treasurer, true) },
     { label: 'Vice President', points: scoreBoardSeat(intake.board.vicePresident, false) },
@@ -406,7 +406,7 @@ function buildSuggestions(intake: IntakeData, categories: ScoreCategory[]): stri
     candidates.push({
       upside: 32,
       message:
-        'Add a public mailing address — a registered-agent service (any provider) scores highest; see /intake-help/mailing-address.',
+        'Add a public mailing address — a registered-agent service (any provider) scores highest; see https://freeforcharity.org/501c3/help/mailing-address/.',
     })
   }
 

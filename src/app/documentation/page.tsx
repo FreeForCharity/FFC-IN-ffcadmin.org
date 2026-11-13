@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import NonprofitCallout from '@/components/NonprofitCallout'
 import DocSearch from './DocSearch'
+import { SUPPORT_ESCALATION, SUPPORT_LINE } from '@/data/charity-messaging'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://ffcadmin.org/documentation/' },
@@ -74,7 +75,7 @@ export default function Documentation() {
               <h3 className="font-semibold text-gray-900 mb-2">General Support</h3>
               <p className="text-gray-600 text-sm">
                 Open a support ticket with Free For Charity for general questions, feature requests,
-                or non-urgent issues.
+                or non-urgent issues. {SUPPORT_LINE}
               </p>
             </div>
 
@@ -89,7 +90,7 @@ export default function Documentation() {
                   (520) 222-8104
                 </a>
               </p>
-              <p className="text-gray-500 text-xs mt-1">(if not answered within 48 hours)</p>
+              <p className="text-gray-500 text-xs mt-1">{SUPPORT_ESCALATION}</p>
             </div>
           </div>
 

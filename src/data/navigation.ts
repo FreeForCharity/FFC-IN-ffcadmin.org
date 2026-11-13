@@ -202,10 +202,10 @@ export const operateMenu: NavMenu = {
             'Start here if you run a charity: eligibility, accounts to set up, how to apply.',
         },
         {
-          label: 'Intake Help',
-          href: '/intake-help',
+          label: 'Help for Charities',
+          href: 'https://freeforcharity.org/help-for-charities/',
           description:
-            'Help for charities completing intake: board, contact info, mailing address, and more.',
+            'Application help on freeforcharity.org: board, contact info, mailing address, and more.',
         },
       ],
     },

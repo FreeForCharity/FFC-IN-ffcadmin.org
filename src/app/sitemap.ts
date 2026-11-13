@@ -5,7 +5,6 @@ import { LEGACY_WP_ADMIN_BASE, LEGACY_WP_ADMIN_PAGES } from '@/data/legacy-wordp
 import { VOLUNTEER_ROLES } from '@/data/volunteer-roles'
 import { CE_LANDING_BODIES } from '@/data/ce-bodies'
 import { SETUP_GUIDES } from '@/data/setup-guides'
-import { INTAKE_HELP_BASE, INTAKE_HELP_PAGES } from '@/data/intake-help'
 
 export const dynamic = 'force-static'
 
@@ -234,12 +233,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${SITE_URL}${INTAKE_HELP_BASE}/`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
       url: `${SITE_URL}${LEGACY_WP_ADMIN_BASE}/`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -324,14 +317,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  // Intake-help leaf pages (charity intake guidance)
-  const intakeHelpPages: MetadataRoute.Sitemap = INTAKE_HELP_PAGES.map((p) => ({
-    url: `${SITE_URL}${INTAKE_HELP_BASE}/${p.slug}/`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }))
-
   // Continuing-education per-body landing pages (#363)
   const ceLandingPages: MetadataRoute.Sitemap = CE_LANDING_BODIES.map((b) => ({
     url: `${SITE_URL}/continuing-education/${b.landing!.slug}/`,
@@ -347,7 +332,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogPages,
     ...legacyWpAdminPages,
     ...volunteerRolePages,
-    ...intakeHelpPages,
     ...ceLandingPages,
   ]
 }

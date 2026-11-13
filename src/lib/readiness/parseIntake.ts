@@ -8,6 +8,11 @@
  * Best-effort: any field that is absent or "_No response_" falls back to the
  * `emptyIntake()` baseline, so a half-completed issue still scores without
  * throwing.
+ *
+ * Source scope: this reads the GitHub `charity-intake.yml` issue form only. It
+ * does not read WHMCS applications (freeforcharity.org/hub), which is where
+ * charities actually apply; WHMCS-sourced roadmap stubs carry no form fields
+ * and score from the baseline plus their mission text.
  */
 import { emptyIntake } from './defaults'
 import type {
@@ -167,11 +172,51 @@ function contact(map: Map<string, string>, role: string, defaultPresent: boolean
   }
 }
 
+/**
+ * A profile URL only counts when it is the public link anyone can open. Admin,
+ * editor, manage and dashboard links (e.g. a Candid or LinkedIn admin view)
+ * are rejected: they do not work for visitors and expose an account surface.
+ */
+const NON_PUBLIC_URL_PATH = /\/(admin|edit|manage|dashboard)(?=[/?#]|$)/i
+
+export function isPublicProfileUrl(value: string | undefined): boolean {
+  const v = (value ?? '').trim()
+  if (v.length === 0) return false
+  let path = v
+  try {
+    path = new URL(/^[a-z][a-z0-9+.-]*:\/\//i.test(v) ? v : `https://${v}`).pathname
+  } catch {
+    // Not parseable as a URL: fall back to checking the raw text.
+  }
+  return !NON_PUBLIC_URL_PATH.test(path)
+}
+
+/**
+ * The top officer may be titled Chair or President (freeforcharity.org and the
+ * WHMCS application say "Chair"; the GitHub form says "President"). Return the
+ * first label variant the issue actually uses, defaulting to "President".
+ */
+const TOP_OFFICER_LABELS = ['Chair or President', 'President', 'Chair'] as const
+
+function topOfficerLabel(map: Map<string, string>): string {
+  for (const label of TOP_OFFICER_LABELS) {
+    const prefix = `${label.toLowerCase()} — `
+    for (const key of map.keys()) {
+      if (key.startsWith(prefix) && (map.get(key) ?? '').length > 0) return label
+    }
+  }
+  return 'President'
+}
+
 function seat(map: Map<string, string>, role: string) {
   const key = role.toLowerCase()
   const name = (map.get(`${key} — name`) ?? '').trim()
-  const linkedin = (map.get(`${key} — linkedin url`) ?? '').trim()
-  return { present: name.length > 0, named: name.length > 0, linkedin: linkedin.length > 0 }
+  const linkedin = map.get(`${key} — linkedin url`)
+  return {
+    present: name.length > 0,
+    named: name.length > 0,
+    linkedin: isPublicProfileUrl(linkedin),
+  }
 }
 
 export interface ParsedIntake {
@@ -195,6 +240,8 @@ export function parseIntakeIssue(body: string): ParsedIntake {
   const appProgress = checked(map.get('application progress (pre-501(c)(3))') ?? '')
   const ops = checked(map.get('operations evidence (not pursuing 501(c)(3))') ?? '')
 
+  const topOfficer = topOfficerLabel(map)
+
   const intake = emptyIntake({
     // Prefer the explicit dropdown; otherwise infer the tier from the free-text
     // mission so WHMCS-sourced stubs (which carry no category field) still favor
@@ -211,14 +258,14 @@ export function parseIntakeIssue(body: string): ParsedIntake {
     fundingModel: mapEnum(map.get('primary funding model') ?? '', FUNDING, 'donations-only'),
     contacts: {
       orgMain: contact(map, 'Org main contact', true),
-      president: contact(map, 'President', false),
+      president: contact(map, topOfficer, false),
       secretary: contact(map, 'Secretary', false),
       treasurer: contact(map, 'Treasurer', false),
       vicePresident: contact(map, 'Vice President', false),
       memberAtLarge: contact(map, 'Member at Large', false),
     },
     board: {
-      president: seat(map, 'President'),
+      president: seat(map, topOfficer),
       secretary: seat(map, 'Secretary'),
       treasurer: seat(map, 'Treasurer'),
       vicePresident: seat(map, 'Vice President'),
@@ -233,8 +280,8 @@ export function parseIntakeIssue(body: string): ParsedIntake {
       hasOfficeAndRa: /^\s*-\s*\[x\]/im.test(map.get('office plus registered agent') ?? ''),
     },
     candid: {
-      profileUrl: (map.get('candid / guidestar profile url') ?? '').length > 0,
-      directLink: (map.get('candid direct profile link') ?? '').length > 0,
+      profileUrl: isPublicProfileUrl(map.get('candid / guidestar profile url')),
+      directLink: isPublicProfileUrl(map.get('candid direct profile link')),
       seal: mapEnum(map.get('candid seal') ?? '', SEAL, 'none'),
     },
     documents: {
