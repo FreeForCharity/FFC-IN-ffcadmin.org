@@ -700,6 +700,57 @@ module.exports = withBundleAnalyzer(nextConfig)
 
 ---
 
+### A Remediator That Cannot Address Its Blocking Condition Loops Forever, and Its Failure Becomes Background Noise (Issue #1388)
+
+**The Problem:** `scripts/reconcile-data-prs.mjs` unsticks the long-lived `data/*` PRs, and it has
+remedies for three causes: a branch behind `main`, auto-merge never armed, and a check stuck in
+`action_required`. A fourth cause has no remedy it can apply. The org-level ruleset _FFC Branch
+Protection - Default Branch_ sets `required_review_thread_resolution: true` beside
+`copilot_code_review` with `review_on_push: true`, so a data PR that does not merge within the few
+seconds before Copilot's first comment lands acquires an unresolved thread and goes `BLOCKED` — with
+every check green, because that gate reports nowhere in the checks list.
+
+**Measured on #1379:** open since 2026-10-05, 0 behind, auto-merge armed, 4/4 checks green, 6
+unresolved threads. `Reconcile Data PRs` went red on every ~30-minute sweep for **26 days** — last
+success 2026-10-05T12:16Z, roughly 48 failed runs a day — each printing one accurate, actionless
+line: `open 630h, now current and armed but not merged — check the required checks and review gate
+on it`.
+
+**Three things made it invisible rather than loud:**
+
+1. **The message named no cause.** "Check the required checks" is misleading when every check is
+   green, so a reader who follows it finds nothing and stops.
+2. **The red meant "working as intended."** A scheduled job that is red in its healthy steady state
+   carries no information, and a recurring red is indistinguishable from the noise of a recurring
+   red.
+3. **Nothing was subscribed to it.** The script declined to build its own alerting because a red
+   scheduled run "is what the existing failure-alert layer already watches" — and that layer (hub
+   workflow 740) watches four satellite workflows, all of them `Security Audit`, not this one. The
+   stated reason for having no alert path was false.
+
+**What We Changed:**
+
+- Model the fourth cause explicitly (`unresolvedThreads`, `threadBlocked`) so the report names it.
+- **Suppress the cause-1 remedy for it.** With `review_on_push: true`, update-branching a
+  thread-blocked PR re-triggers the reviewer and can file fresh threads, so the remedy extends the
+  block.
+- **Escalate once per (PR, head)** — a comment on the PR naming each unresolved thread and what it
+  asks for — then let the run pass. The escalation is the delivery; the red is not.
+- Go red only when the escalation itself fails, which is the one state an operator reading the job
+  can act on.
+
+**Key Insight:** When a monitor's alarm state is also its normal state, the alarm is not a signal.
+Either the monitor can fix what it detects, or it has to deliver the finding somewhere a human reads
+and then go quiet — and "somewhere a human reads" has to be verified, not assumed from another
+layer's existence.
+
+**Not done deliberately:** resolving a thread, and disarming auto-merge. #1379's threads are
+substantive (a missing `domain-expiry.json` entry; a Tier 6 reclassification that
+`scripts/generate-sites-alerts.mjs:35` drops from health alerts, tracked in #1460), and resolving the
+last thread on an armed PR merges it instantly. Both are human judgement.
+
+---
+
 ## What Worked Well
 
 ### 1. **Incremental Implementation**
