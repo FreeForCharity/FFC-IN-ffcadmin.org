@@ -7,13 +7,12 @@
  * module. Consumed by the header `GlobalSearch` component.
  *
  * Adding a page: if it belongs to one of the aggregated data modules (blog,
- * guides, intake-help, volunteer roles, legacy WP admin, CE bodies) it appears
+ * guides, volunteer roles, legacy WP admin, CE bodies) it appears
  * here automatically. Otherwise add it to `STANDALONE_PAGES` below.
  */
 import { blogPosts } from './blog'
 import { guides } from './guides'
 import { SETUP_GUIDES } from './setup-guides'
-import { INTAKE_HELP_PAGES, INTAKE_HELP_BASE } from './intake-help'
 import { VOLUNTEER_ROLES } from './volunteer-roles'
 import { LEGACY_WP_ADMIN_PAGES, LEGACY_WP_ADMIN_BASE } from './legacy-wordpress-administration'
 import { CE_BODIES } from './ce-bodies'
@@ -76,13 +75,6 @@ const STANDALONE_PAGES: SearchDoc[] = [
     href: '/roadmap/methodology',
     category: 'Roadmap',
     keywords: 'readiness scoring methodology tiers sort',
-  },
-  {
-    title: 'Intake Help',
-    description: 'Guides for charities completing FFC intake — board, contact info, and more.',
-    href: '/intake-help',
-    category: 'For charities',
-    keywords: 'intake help charity onboarding requirements',
   },
   {
     title: 'Manage my charity site',
@@ -223,14 +215,17 @@ const STANDALONE_PAGES: SearchDoc[] = [
 ]
 
 // Hub/section pages driven by the nav mega-menus (single source of truth).
+// Off-site nav links (e.g. freeforcharity.org help) are not indexed here.
 const NAV_PAGES: SearchDoc[] = NAV_MENUS.flatMap((menu) =>
   menu.sections.flatMap((section) =>
-    section.items.map((item) => ({
-      title: item.label,
-      description: item.description,
-      href: item.href,
-      category: NAV_SECTION_CATEGORY[section.heading] ?? menu.label,
-    }))
+    section.items
+      .filter((item) => item.href.startsWith('/'))
+      .map((item) => ({
+        title: item.label,
+        description: item.description,
+        href: item.href,
+        category: NAV_SECTION_CATEGORY[section.heading] ?? menu.label,
+      }))
   )
 )
 
@@ -254,13 +249,6 @@ const SETUP_GUIDE_PAGES: SearchDoc[] = SETUP_GUIDES.map((g) => ({
   href: `/guides/${g.slug}`,
   category: 'Account setup',
   keywords: `${g.category} ${g.audience}`,
-}))
-
-const INTAKE_HELP_SEARCH_PAGES: SearchDoc[] = INTAKE_HELP_PAGES.map((p) => ({
-  title: p.title,
-  description: p.summary,
-  href: `${INTAKE_HELP_BASE}/${p.slug}`,
-  category: 'For charities',
 }))
 
 const VOLUNTEER_ROLE_PAGES: SearchDoc[] = VOLUNTEER_ROLES.map((role) => ({
@@ -303,7 +291,6 @@ export const SEARCH_DOCS: SearchDoc[] = (() => {
     ...BLOG_PAGES,
     ...GUIDE_PAGES,
     ...SETUP_GUIDE_PAGES,
-    ...INTAKE_HELP_SEARCH_PAGES,
     ...VOLUNTEER_ROLE_PAGES,
     ...LEGACY_WP_PAGES,
     ...CE_PAGES,

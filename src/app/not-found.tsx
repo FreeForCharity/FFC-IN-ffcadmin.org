@@ -30,11 +30,6 @@ const POPULAR_DESTINATIONS = [
     description: 'Step-by-step how-tos and account setup walkthroughs.',
   },
   {
-    label: 'Intake Help',
-    href: '/intake-help',
-    description: 'Help for charities completing FFC intake.',
-  },
-  {
     label: 'Documentation',
     href: '/documentation',
     description: 'Browse all project documentation and references.',
