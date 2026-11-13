@@ -55,7 +55,7 @@ export const SUPPORT_LINE =
 
 /** Short escalation form — replaces every older "48 hours" promise. */
 export const SUPPORT_ESCALATION =
-  'No reply after 2 business days, or something urgent? Text or call Clarke Moyer at 520-222-8104.'
+  'No reply after 3 days, or something urgent? Text or call Clarke Moyer at 520-222-8104.'
 
 /** For site owners who gave their GitHub username on the WHMCS application. */
 export const APPLICANT_INVITE_SKIP =
