@@ -23,6 +23,11 @@ export interface VendorUrl {
   lastVerified: string
   /** What this URL is, in case the slug becomes unclear. */
   description: string
+  /**
+   * Set when the vendor is no longer active. The entry is kept so historical
+   * pages still resolve, but nothing should route a charity to it.
+   */
+  historical?: string
 }
 
 export const VENDOR_URLS = {
@@ -61,6 +66,8 @@ export const VENDOR_URLS = {
     url: 'https://onlineimpacts.org/',
     lastVerified: '2026-05-24',
     description: 'Online Impacts — charity-services partner that pre-dated FFC.',
+    historical:
+      'Online Impacts has closed. Kept for historical reference only; contact Clarke Moyer at 520-222-8104.',
   },
   freeforcharity501c3: {
     url: 'https://freeforcharity.org/501c3/',
