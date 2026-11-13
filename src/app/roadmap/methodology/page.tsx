@@ -29,6 +29,12 @@ import {
   POLICY_POINTS_EACH,
   TIER_BOUNDARIES,
 } from '@/lib/readiness/config'
+import {
+  FFC_CLIENT_AREA_LABEL,
+  FFC_CLIENT_AREA_URL,
+  FOCUS_STATEMENT_SHORT,
+  PUBLIC_LINK_GUIDANCE,
+} from '@/data/charity-messaging'
 
 export const metadata: Metadata = {
   title: 'Readiness Scoring Methodology',
@@ -107,6 +113,21 @@ export default function MethodologyPage() {
       </div>
 
       <main className="mx-auto max-w-4xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
+        <section className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+          <h2 className="text-xl font-bold text-gray-900">What this score reads</h2>
+          <p className="mt-2 text-sm text-gray-700">
+            Scoring reads the GitHub charity-intake form only, not the WHMCS application charities
+            submit at{' '}
+            <a href={FFC_CLIENT_AREA_URL} className="text-blue-600 hover:underline">
+              {FFC_CLIENT_AREA_LABEL}
+            </a>
+            . A charity that applied only through WHMCS is scored from its mission text and the
+            baseline. Profile links count only when they are public: admin, editor, manage and
+            dashboard links (for example a Candid or LinkedIn admin view) score as missing.{' '}
+            {PUBLIC_LINK_GUIDANCE}
+          </p>
+        </section>
+
         <section className="rounded-xl border border-gray-200 bg-white p-5">
           <h2 className="text-xl font-bold text-gray-900">How the queue is sorted</h2>
           <ol className="mt-2 list-decimal space-y-1 pl-5 text-gray-700">
@@ -125,6 +146,7 @@ export default function MethodologyPage() {
               <strong>Submission date</strong> — oldest waiting first, all else equal.
             </li>
           </ol>
+          <p className="mt-3 text-sm text-gray-700">{FOCUS_STATEMENT_SHORT}</p>
           <p className="mt-3 text-sm text-gray-500">
             The score affects sort order and the tier badge — never eligibility. A charity that is
             “Just getting started” is welcome; it is simply lower in the queue.
@@ -169,7 +191,7 @@ export default function MethodologyPage() {
           />
           <Category
             title="Affiliation"
-            improve="Independent charities and FFC-recipient–sponsored charities score best; corporate fiscal sponsorship is penalized. See /intake-help/fiscal-sponsorship."
+            improve="Independent charities and FFC-recipient–sponsored charities score best; corporate fiscal sponsorship is penalized. See https://freeforcharity.org/pre501c3/help/getting-501c3/#fiscal-sponsorship."
             rows={[
               { label: 'Independent', points: AFFILIATION_POINTS.independent },
               { label: 'FFC-recipient sponsored', points: AFFILIATION_POINTS['ffc-sponsored'] },
@@ -232,7 +254,7 @@ export default function MethodologyPage() {
           />
           <Category
             title="Phone (per required contact)"
-            improve="An org-specific number (Google Voice, Teams, T-Mobile DIGITS, PBX) scores best. See /intake-help/public-contact-info."
+            improve="An org-specific number (Google Voice, Teams, T-Mobile DIGITS, PBX) scores best. See https://freeforcharity.org/501c3/help/public-contact-info/."
             rows={[
               { label: 'No phone', points: PHONE_POINTS.none },
               { label: 'Landline', points: PHONE_POINTS.landline },
@@ -252,7 +274,7 @@ export default function MethodologyPage() {
           />
           <Category
             title="Mailing address (primary)"
-            improve="A registered-agent service (any provider) scores highest; add more states for up to +15. See /intake-help/mailing-address."
+            improve="A registered-agent service (any provider) scores highest; add more states for up to +15. See https://freeforcharity.org/501c3/help/mailing-address/."
             rows={[
               { label: 'No address', points: ADDRESS_POINTS.none },
               { label: 'Personal residence', points: ADDRESS_POINTS.personal },
@@ -264,7 +286,7 @@ export default function MethodologyPage() {
           />
           <Category
             title="Board seats"
-            improve="Name the three required officers (President, Secretary, Treasurer) with LinkedIn URLs. See /intake-help/board-requirements."
+            improve="Name the three required officers (Chair or President, Secretary, Treasurer) with public LinkedIn profile URLs. See https://freeforcharity.org/501c3/help/board-requirements/."
             rows={[
               { label: 'Required seat — missing', points: BOARD_REQUIRED.missing },
               { label: 'Required seat — named', points: BOARD_REQUIRED.named },
@@ -275,7 +297,7 @@ export default function MethodologyPage() {
           />
           <Category
             title="Candid / GuideStar (501(c)(3))"
-            improve="Gold is FFC’s minimum; reach Platinum for the most points. See /intake-help/guidestar-candid."
+            improve="Gold is FFC’s minimum; reach Platinum for the most points. See https://freeforcharity.org/501c3/help/guidestar-candid/."
             rows={[
               { label: 'Profile URL', points: CANDID_PROFILE_URL },
               { label: 'Direct profile link', points: CANDID_DIRECT_LINK },
@@ -293,7 +315,7 @@ export default function MethodologyPage() {
           />
           <Category
             title="Application progress (pre-501(c)(3))"
-            improve="Each milestone you complete adds points; submitting Form 1023 (long form) earns the most. See /intake-help/501c3-application."
+            improve="Each milestone you complete adds points; submitting Form 1023 (long form) earns the most. See https://freeforcharity.org/pre501c3/help/getting-501c3/#form-1023."
             rows={[
               { label: 'State incorporation filed', points: APPLICATION_POINTS.incorporationFiled },
               {
@@ -343,7 +365,7 @@ export default function MethodologyPage() {
           />
           <Category
             title="Documents"
-            improve="Attach or link your founding documents. See /intake-help/supporting-documents."
+            improve="Attach or link your founding documents. Never post bank details, passwords, or donor or beneficiary information."
             rows={[
               {
                 label: 'Articles of incorporation',
@@ -368,7 +390,10 @@ export default function MethodologyPage() {
           <p className="mt-2 text-sm text-gray-700">
             <strong>Policy pages</strong> ({fmt(POLICY_POINTS_EACH)} each):{' '}
             {POLICY_PAGES.join(', ')}. See{' '}
-            <Link href="/intake-help/policy-pages" className="text-blue-600 hover:underline">
+            <Link
+              href="https://freeforcharity.org/501c3/#template"
+              className="text-blue-600 hover:underline"
+            >
               policy pages
             </Link>
             .
@@ -395,8 +420,11 @@ export default function MethodologyPage() {
             Negative scores aren’t judgments — they reflect where FFC’s free volunteer capacity
             creates the most marginal value (small, non-grant-funded, US-based charities). Anything
             scored down is explained here, and most can be improved with the{' '}
-            <Link href="/intake-help/board-requirements" className="text-blue-600 hover:underline">
-              intake-help guides
+            <Link
+              href="https://freeforcharity.org/help-for-charities/"
+              className="text-blue-600 hover:underline"
+            >
+              help for charities on freeforcharity.org
             </Link>
             .
           </p>
