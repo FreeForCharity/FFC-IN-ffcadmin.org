@@ -42,7 +42,25 @@ describe('GlobalSearch', () => {
     expect(dialog).toBeInTheDocument()
 
     await act(async () => {
-      fireEvent.keyDown(dialog, { key: 'Escape' })
+      fireEvent.keyDown(screen.getByRole('searchbox'), { key: 'Escape' })
+    })
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('renders as a native modal <dialog> without hand-rolled ARIA', async () => {
+    render(<GlobalSearch />)
+    await act(async () => {
+      fireEvent.keyDown(document, { key: 'k', ctrlKey: true })
+    })
+    const dialog = screen.getByRole('dialog', { name: 'Search the site' })
+    expect(dialog.tagName).toBe('DIALOG')
+    expect(dialog).toHaveAttribute('open')
+    expect(dialog).not.toHaveAttribute('aria-modal')
+    expect(document.body.style.overflow).toBe('')
+
+    // Ctrl+K again closes it.
+    await act(async () => {
+      fireEvent.keyDown(document, { key: 'k', ctrlKey: true })
     })
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })

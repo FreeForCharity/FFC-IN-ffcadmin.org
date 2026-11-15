@@ -25,6 +25,30 @@ test.describe('Global site search', () => {
     await expect(dialog).not.toBeVisible()
   })
 
+  test('opens as a native modal dialog and returns focus on close', async ({ page }) => {
+    await page.goto('/')
+    const trigger = page.getByRole('button', { name: 'Search the site' }).first()
+    await trigger.click()
+
+    const dialog = page.locator('dialog:modal')
+    await expect(dialog).toBeVisible()
+    await expect(dialog.getByRole('searchbox')).toBeFocused()
+
+    // Escape closes it even with text typed in the search box.
+    await dialog.getByRole('searchbox').fill('guide')
+    await page.keyboard.press('Escape')
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+    await expect(trigger).toBeFocused()
+  })
+
+  test('a click on the backdrop closes the modal', async ({ page }) => {
+    await page.goto('/')
+    await page.keyboard.press('Control+k')
+    await expect(page.locator('dialog:modal')).toBeVisible()
+    await page.mouse.click(5, 5)
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+  })
+
   test('shows a no-match state for gibberish', async ({ page }) => {
     await page.goto('/')
     await page.keyboard.press('Control+k')
