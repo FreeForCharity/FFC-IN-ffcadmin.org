@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { searchDocs } from '@/data/search-index'
+import { useDialogLightDismiss } from '@/lib/useDialogLightDismiss'
 
 /**
  * Global site search — a ⌘K / Ctrl-K command-palette modal that searches every
@@ -74,18 +75,8 @@ export default function GlobalSearch() {
     inputRef.current?.focus()
   }, [open])
 
-  // Fallback for browsers without closedby="any": close on a backdrop click.
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-    const dialog = dialogRef.current
-    if (!dialog || e.target !== dialog) return
-    const rect = dialog.getBoundingClientRect()
-    const inside =
-      e.clientX >= rect.left &&
-      e.clientX <= rect.right &&
-      e.clientY >= rect.top &&
-      e.clientY <= rect.bottom
-    if (!inside) close()
-  }
+  // Backdrop-click fallback for browsers without closedby="any".
+  const lightDismiss = useDialogLightDismiss(dialogRef)
 
   if (!open) return null
 
@@ -112,7 +103,7 @@ export default function GlobalSearch() {
       aria-label="Search the site"
       {...{ closedby: 'any' }}
       onClose={handleClose}
-      onClick={handleBackdropClick}
+      {...lightDismiss}
       className="mx-auto mt-[12vh] mb-auto w-[calc(100%-2rem)] max-w-xl overflow-hidden rounded-xl bg-white p-0 shadow-2xl"
     >
       <div onKeyDown={onKeyDown}>

@@ -49,6 +49,35 @@ test.describe('Global site search', () => {
     await expect(page.locator('dialog[open]')).toHaveCount(0)
   })
 
+  test('dragging a text selection out onto the backdrop keeps it open', async ({ page }) => {
+    await page.goto('/')
+    await page.keyboard.press('Control+k')
+    const input = page.locator('dialog:modal').getByRole('searchbox')
+    await input.fill('guide')
+    const box = await input.boundingBox()
+    if (!box) throw new Error('search input has no box')
+    await page.mouse.move(box.x + box.width - 20, box.y + box.height / 2)
+    await page.mouse.down()
+    await page.mouse.move(5, 5, { steps: 5 })
+    await page.mouse.up()
+    await expect(page.locator('dialog:modal')).toBeVisible()
+    await expect(input).toHaveValue('guide')
+  })
+
+  test('without native closedby, the script fallback closes it on a backdrop click', async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      delete (HTMLDialogElement.prototype as unknown as Record<string, unknown>).closedBy
+    })
+    await page.goto('/')
+    expect(await page.evaluate(() => 'closedBy' in HTMLDialogElement.prototype)).toBe(false)
+    await page.keyboard.press('Control+k')
+    await expect(page.locator('dialog:modal')).toBeVisible()
+    await page.mouse.click(5, 5)
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+  })
+
   test('shows a no-match state for gibberish', async ({ page }) => {
     await page.goto('/')
     await page.keyboard.press('Control+k')

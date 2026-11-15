@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
+import { useDialogLightDismiss } from '@/lib/useDialogLightDismiss'
 
 // Environment variables for tracking IDs (replace with actual values)
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
@@ -334,25 +335,15 @@ export default function CookieConsent() {
 
   // Runs whenever the dialog closes: Escape, a backdrop click, Cancel or Save.
   // Anything other than Save is treated as Cancel.
-  const handleDialogClose = () => {
-    const dialog = dialogRef.current
-    const saved = dialog?.returnValue === 'save'
-    if (dialog) dialog.returnValue = ''
+  const handleDialogClose = (event: React.SyntheticEvent<HTMLDialogElement>) => {
+    const dialog = event.currentTarget
+    const saved = dialog.returnValue === 'save'
+    dialog.returnValue = ''
     if (!saved) handleCancelPreferences()
   }
 
-  // Fallback for browsers without closedby="any": close on a backdrop click.
-  const handleDialogClick = (event: React.MouseEvent<HTMLDialogElement>) => {
-    const dialog = dialogRef.current
-    if (!dialog || event.target !== dialog) return
-    const rect = dialog.getBoundingClientRect()
-    const inside =
-      event.clientX >= rect.left &&
-      event.clientX <= rect.right &&
-      event.clientY >= rect.top &&
-      event.clientY <= rect.bottom
-    if (!inside) dialog.close()
-  }
+  // Backdrop-click fallback for browsers without closedby="any".
+  const lightDismiss = useDialogLightDismiss(dialogRef)
 
   if (!showBanner) {
     return null
@@ -365,7 +356,7 @@ export default function CookieConsent() {
         aria-labelledby="cookie-preferences-title"
         {...{ closedby: 'any' }}
         onClose={handleDialogClose}
-        onClick={handleDialogClick}
+        {...lightDismiss}
         className="m-auto p-0 bg-white rounded-lg shadow-2xl max-w-2xl w-[calc(100%-2rem)] max-h-[90vh] overflow-y-auto"
       >
         <div>

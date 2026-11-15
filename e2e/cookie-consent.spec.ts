@@ -32,11 +32,40 @@ test.describe('Cookie preferences dialog', () => {
     await expect(page.getByRole('region', { name: 'Cookie consent notice' })).toBeVisible()
   })
 
-  test('Save stores the choice and closes everything', async ({ page }) => {
+  test('Save keeps the toggles the visitor changed', async ({ page }) => {
+    // The toggle input is visually hidden; its styled label is what people click.
+    await page.getByLabel('Enable analytics cookies').check({ force: true })
     await page.getByRole('button', { name: 'Save Preferences' }).click()
     await expect(page.locator('dialog[open]')).toHaveCount(0)
     await expect(page.getByRole('region', { name: 'Cookie consent notice' })).toHaveCount(0)
-    const stored = await page.evaluate(() => localStorage.getItem('cookie-consent'))
-    expect(stored).not.toBeNull()
+    const stored = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem('cookie-consent') ?? '{}')
+    )
+    expect(stored.analytics).toBe(true)
+  })
+
+  test('Escape discards toggles the visitor changed', async ({ page }) => {
+    await page.getByLabel('Enable analytics cookies').check({ force: true })
+    await page.keyboard.press('Escape')
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+    expect(await page.evaluate(() => localStorage.getItem('cookie-consent'))).toBeNull()
+    await page.getByRole('button', { name: 'Customize' }).click()
+    await expect(page.getByLabel('Enable analytics cookies')).not.toBeChecked()
+  })
+})
+
+test.describe('Cookie preferences dialog without native closedby', () => {
+  test('the script fallback closes it on a backdrop click', async ({ page }) => {
+    await page.addInitScript(() => {
+      delete (HTMLDialogElement.prototype as unknown as Record<string, unknown>).closedBy
+    })
+    await page.goto('/')
+    await page.evaluate(() => localStorage.removeItem('cookie-consent'))
+    await page.reload()
+    expect(await page.evaluate(() => 'closedBy' in HTMLDialogElement.prototype)).toBe(false)
+    await page.getByRole('button', { name: 'Customize' }).click()
+    await expect(page.locator('dialog:modal')).toBeVisible()
+    await page.mouse.click(5, 5)
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
   })
 })
