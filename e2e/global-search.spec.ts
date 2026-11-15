@@ -1,4 +1,18 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
+
+/** Turn off native closedby so the script backdrop-click fallback runs. */
+async function useScriptFallback(page: Page) {
+  await page.addInitScript(() => {
+    delete (HTMLDialogElement.prototype as unknown as Record<string, unknown>).closedBy
+    // Deleting the property is not enough: Chromium still honours the closedby
+    // attribute, so strip it before the dialog opens.
+    const showModal = HTMLDialogElement.prototype.showModal
+    HTMLDialogElement.prototype.showModal = function (this: HTMLDialogElement) {
+      this.removeAttribute('closedby')
+      return showModal.call(this)
+    }
+  })
+}
 
 test.describe('Global site search', () => {
   test('opens with Ctrl+K, finds a page, and navigates to it', async ({ page }) => {
@@ -49,7 +63,10 @@ test.describe('Global site search', () => {
     await expect(page.locator('dialog[open]')).toHaveCount(0)
   })
 
-  test('dragging a text selection out onto the backdrop keeps it open', async ({ page }) => {
+  test('without native closedby, dragging a selection onto the backdrop keeps it open', async ({
+    page,
+  }) => {
+    await useScriptFallback(page)
     await page.goto('/')
     await page.keyboard.press('Control+k')
     const input = page.locator('dialog:modal').getByRole('searchbox')
@@ -67,9 +84,7 @@ test.describe('Global site search', () => {
   test('without native closedby, the script fallback closes it on a backdrop click', async ({
     page,
   }) => {
-    await page.addInitScript(() => {
-      delete (HTMLDialogElement.prototype as unknown as Record<string, unknown>).closedBy
-    })
+    await useScriptFallback(page)
     await page.goto('/')
     expect(await page.evaluate(() => 'closedBy' in HTMLDialogElement.prototype)).toBe(false)
     await page.keyboard.press('Control+k')
