@@ -62,10 +62,15 @@ export default function Navigation() {
     }
   }, [])
 
-  // Close dropdowns on Escape key
+  // Close dropdowns on Escape key. If focus was inside the open dropdown,
+  // put it back on that dropdown's button so keyboard users are not lost.
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && openDropdown) setOpenDropdown(null)
+      if (e.key !== 'Escape' || !openDropdown) return
+      const wrapper = document.getElementById(`${openDropdown}-dropdown-button`)?.parentElement
+      const focusWasInside = wrapper?.contains(document.activeElement) ?? false
+      setOpenDropdown(null)
+      if (focusWasInside) document.getElementById(`${openDropdown}-dropdown-button`)?.focus()
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
@@ -115,25 +120,34 @@ export default function Navigation() {
       className="relative"
       onMouseEnter={() => handleDropdownMouseEnter(menu.id)}
       onMouseLeave={handleDropdownMouseLeave}
+      onBlur={(e) => {
+        // Tabbing past the last link (or anywhere outside) closes this dropdown.
+        if (e.currentTarget.contains(e.relatedTarget as Node | null)) return
+        setOpenDropdown((open) => (open === menu.id ? null : open))
+      }}
     >
       <button
         type="button"
         id={`${menu.id}-dropdown-button`}
         className={`${isDropdownActive(menu) ? 'text-blue-600 font-bold' : 'font-medium'} hover:text-blue-600 transition-colors inline-flex items-center whitespace-nowrap`}
         aria-expanded={openDropdown === menu.id}
-        aria-haspopup="true"
         aria-controls={`${menu.id}-dropdown-menu`}
         onClick={() => setOpenDropdown(openDropdown === menu.id ? null : menu.id)}
       >
         {menu.label}
         {chevronSvg(openDropdown === menu.id)}
       </button>
+      {/* A disclosure of plain links, not an ARIA menu: role="menu" promises
+          arrow-key navigation and tells screen readers this is an app menu
+          (Modern Web Guidance: ui-components/navbar). */}
       {openDropdown === menu.id && (
         <div
           id={`${menu.id}-dropdown-menu`}
-          role="menu"
-          aria-labelledby={`${menu.id}-dropdown-button`}
-          className="absolute left-1/2 -translate-x-1/2 mt-2 w-[40rem] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 grid grid-cols-2 gap-x-6 gap-y-1"
+          // tabIndex -1 makes a click on the panel's background or headings
+          // move focus to the panel itself, so the focus-out check above
+          // sees focus staying inside and keeps the dropdown open.
+          tabIndex={-1}
+          className="outline-none absolute left-1/2 -translate-x-1/2 mt-2 w-[40rem] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 grid grid-cols-2 gap-x-6 gap-y-1"
         >
           {menu.sections.map((section) => (
             <div key={section.heading} role="group" aria-label={section.heading}>
@@ -147,7 +161,6 @@ export default function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  role="menuitem"
                   aria-current={isActive(item.href) ? 'page' : undefined}
                   className={`block rounded-md px-3 py-2 transition-colors hover:bg-blue-50 ${
                     isActive(item.href) ? 'bg-blue-50' : ''
