@@ -34,6 +34,26 @@ describe('sortSites', () => {
     expect(domains(sortSites(sites, { column: 'LH', direction: 'ascending' }))).toEqual(['a', 'b'])
   })
 
+  it('sorts SSL expiry by date, whatever format the badge accepts', () => {
+    const sites = [
+      site('later', { sslExpiry: 'Feb 1 12:00:00 2027 GMT' }),
+      site('sooner', { sslExpiry: 'Mar 1 12:00:00 2026 GMT' }),
+    ]
+    // As text, "Feb 2027" would sort before "Mar 2026".
+    expect(domains(sortSites(sites, { column: 'SSL', direction: 'ascending' }))).toEqual([
+      'sooner',
+      'later',
+    ])
+  })
+
+  it('sorts zero open PRs with the empty cells, as the table shows a dash for both', () => {
+    const sites = [site('zero', { openPrs: '0' }), site('one', { openPrs: '1' })]
+    expect(domains(sortSites(sites, { column: 'Open PRs', direction: 'descending' }))).toEqual([
+      'one',
+      'zero',
+    ])
+  })
+
   it('keeps empty cells last in both directions', () => {
     const sites = [site('empty'), site('two', { openPrs: '2' }), site('one', { openPrs: '1' })]
     expect(domains(sortSites(sites, { column: 'Open PRs', direction: 'ascending' }))).toEqual([
@@ -49,10 +69,14 @@ describe('sortSites', () => {
   })
 
   it('orders health from live to unknown', () => {
-    const sites = [site('down', { siteHealth: 'Unreachable' }), site('up', { siteHealth: 'Live' })]
+    // Alphabetically Error comes before Redirect; by health it is after.
+    const sites = [
+      site('error', { siteHealth: 'Error' }),
+      site('redirect', { siteHealth: 'Redirect' }),
+    ]
     expect(domains(sortSites(sites, { column: 'Health', direction: 'ascending' }))).toEqual([
-      'up',
-      'down',
+      'redirect',
+      'error',
     ])
   })
 

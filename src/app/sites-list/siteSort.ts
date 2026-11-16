@@ -36,11 +36,16 @@ function cellValue(s: SiteData, column: SortColumn): string | number | null {
     case 'Last PR':
       return text(s.lastPrClosed)
     case 'Open PRs':
-      return num(s.openPrs)
+      // The table shows 0 open PRs as a dash, so it sorts with the empty cells.
+      return num(s.openPrs) || null
     case 'Health':
       return HEALTH_ORDER[healthCategory(s.siteHealth)]
-    case 'SSL':
-      return text(s.sslExpiry)
+    case 'SSL': {
+      // Read the date the way the SSL badge does, so any format it accepts
+      // sorts by date rather than as text.
+      const time = s.sslExpiry ? Date.parse(s.sslExpiry) : NaN
+      return Number.isNaN(time) ? null : time
+    }
     case 'LH':
       return num(s.lighthouse)
     case 'Owner':

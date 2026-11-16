@@ -22,7 +22,11 @@ test.describe('sites list tables', () => {
       await expect(header).toHaveAttribute('aria-sort', 'ascending', { timeout: 1000 })
     }).toPass({ timeout: 15_000 })
     const ascending = await domainColumn(table)
-    expect(ascending).toEqual([...before].sort((a, b) => a.localeCompare(b)))
+    expect(ascending).toEqual(
+      [...before].sort((a, b) =>
+        a.toLowerCase().localeCompare(b.toLowerCase(), undefined, { numeric: true })
+      )
+    )
 
     await button.click()
     await expect(header).toHaveAttribute('aria-sort', 'descending')
