@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { isGithubHandle } from '@/data/site-owners'
 import CopyRowButton from './CopyRowButton'
+import ScrollableTable from '@/components/ScrollableTable'
+import { SortState, isSortable, nextSort, sortSites } from './siteSort'
 import {
   SiteData,
   healthBadge,
@@ -178,7 +180,10 @@ function MigrationProgress({ s }: { s: SiteData }) {
   )
 }
 
-function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
+function TierTable({ sites, num, label }: { sites: SiteData[]; num: string; label: string }) {
+  // Column sort chosen by the visitor; null keeps the tier's own order.
+  const [sort, setSort] = useState<SortState | null>(null)
+  const rows = sort ? sortSites(sites, sort) : sites
   // Dev tiers (1, 2) lead with repo activity; other tiers hide those columns.
   const showRepoCols = num === '1' || num === '2'
   // Optional data-signal columns render only when the snapshot carries data.
@@ -200,27 +205,53 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
   ]
   const dash = <span className="text-gray-300">—</span>
   return (
-    <div className="overflow-x-auto">
+    <ScrollableTable label={label}>
       <table className="min-w-full divide-y divide-gray-200 text-sm">
         <thead className="bg-gray-50">
           <tr>
-            {headers.map((h) => (
-              <th
-                key={h}
-                scope="col"
-                title={COLUMN_SOURCE[h] ? `Source: ${COLUMN_SOURCE[h]}` : undefined}
-                className="px-4 py-2 text-left text-xs font-bold uppercase tracking-wider text-gray-500"
-              >
-                {h}
-                {COLUMN_SOURCE[h] && (
-                  <span className="sr-only">{` (source: ${COLUMN_SOURCE[h]})`}</span>
-                )}
-              </th>
-            ))}
+            {headers.map((h) => {
+              const sorted = sort?.column === h ? sort.direction : undefined
+              const source = COLUMN_SOURCE[h] && (
+                <span className="sr-only">{` (source: ${COLUMN_SOURCE[h]})`}</span>
+              )
+              return (
+                <th
+                  key={h}
+                  scope="col"
+                  aria-sort={sorted}
+                  title={COLUMN_SOURCE[h] ? `Source: ${COLUMN_SOURCE[h]}` : undefined}
+                  className="px-4 py-2 text-left text-xs font-bold uppercase tracking-wider text-gray-500"
+                >
+                  {isSortable(h) ? (
+                    // The header stays the column's name; the button inside
+                    // sorts, and aria-sort on the header reports the order.
+                    <button
+                      type="button"
+                      onClick={() => setSort((current) => nextSort(current, h))}
+                      className="inline-flex cursor-pointer items-center gap-1 uppercase tracking-wider hover:text-gray-800 focus-visible:outline-2 focus-visible:outline-blue-600"
+                    >
+                      {h}
+                      {source}
+                      <span
+                        aria-hidden="true"
+                        className={sorted ? 'text-gray-800' : 'text-gray-300'}
+                      >
+                        {sorted === 'ascending' ? '▲' : sorted === 'descending' ? '▼' : '↕'}
+                      </span>
+                    </button>
+                  ) : (
+                    <>
+                      {h}
+                      {source}
+                    </>
+                  )}
+                </th>
+              )
+            })}
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-100">
-          {sites.map((s) => {
+          {rows.map((s) => {
             return (
               <tr key={`${num}-${s.domain}`} className="hover:bg-gray-50">
                 <td className="px-4 py-2 whitespace-nowrap font-medium">
@@ -358,7 +389,7 @@ function TierTable({ sites, num }: { sites: SiteData[]; num: string }) {
           })}
         </tbody>
       </table>
-    </div>
+    </ScrollableTable>
   )
 }
 
@@ -583,7 +614,7 @@ export default function SitesExplorer({ sites }: { sites: SiteData[] }) {
               <p className="text-sm mt-1 opacity-80 font-normal">{t.blurb}</p>
             </summary>
             {tierSites.length > 0 ? (
-              <TierTable sites={tierSites} num={t.num} />
+              <TierTable sites={tierSites} num={t.num} label={`Tier ${t.num}: ${t.title}`} />
             ) : (
               <p className="px-6 py-4 text-sm text-gray-400 italic">
                 {active ? 'No domains match the current filters.' : 'No domains in this tier.'}
@@ -606,7 +637,7 @@ export default function SitesExplorer({ sites }: { sites: SiteData[] }) {
               for reference; no action needed.
             </span>
           </summary>
-          <TierTable sites={leftFfcSites} num="6" />
+          <TierTable sites={leftFfcSites} num="6" label="Left FFC" />
         </details>
       )}
     </>
