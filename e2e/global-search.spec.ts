@@ -14,10 +14,25 @@ async function useScriptFallback(page: Page) {
   })
 }
 
+/**
+ * Open search with Ctrl+K. The shortcut listener is attached when the page
+ * hydrates, so a press straight after page.goto can land too early and do
+ * nothing; retry until the dialog is open.
+ */
+async function openWithShortcut(page: Page) {
+  await expect(async () => {
+    // Ctrl+K toggles, so only press while the dialog is still closed.
+    if ((await page.locator('dialog[open]').count()) === 0) {
+      await page.keyboard.press('Control+k')
+    }
+    await expect(page.locator('dialog:modal')).toBeVisible({ timeout: 1000 })
+  }).toPass({ timeout: 15_000 })
+}
+
 test.describe('Global site search', () => {
   test('opens with Ctrl+K, finds a page, and navigates to it', async ({ page }) => {
     await page.goto('/')
-    await page.keyboard.press('Control+k')
+    await openWithShortcut(page)
 
     const dialog = page.getByRole('dialog', { name: 'Search the site' })
     await expect(dialog).toBeVisible()
@@ -57,7 +72,7 @@ test.describe('Global site search', () => {
 
   test('a click on the backdrop closes the modal', async ({ page }) => {
     await page.goto('/')
-    await page.keyboard.press('Control+k')
+    await openWithShortcut(page)
     await expect(page.locator('dialog:modal')).toBeVisible()
     await page.mouse.click(5, 5)
     await expect(page.locator('dialog[open]')).toHaveCount(0)
@@ -68,7 +83,7 @@ test.describe('Global site search', () => {
   }) => {
     await useScriptFallback(page)
     await page.goto('/')
-    await page.keyboard.press('Control+k')
+    await openWithShortcut(page)
     const input = page.locator('dialog:modal').getByRole('searchbox')
     await input.fill('guide')
     const box = await input.boundingBox()
@@ -87,7 +102,7 @@ test.describe('Global site search', () => {
     await useScriptFallback(page)
     await page.goto('/')
     expect(await page.evaluate(() => 'closedBy' in HTMLDialogElement.prototype)).toBe(false)
-    await page.keyboard.press('Control+k')
+    await openWithShortcut(page)
     await expect(page.locator('dialog:modal')).toBeVisible()
     await page.mouse.click(5, 5)
     await expect(page.locator('dialog[open]')).toHaveCount(0)
@@ -95,7 +110,7 @@ test.describe('Global site search', () => {
 
   test('shows a no-match state for gibberish', async ({ page }) => {
     await page.goto('/')
-    await page.keyboard.press('Control+k')
+    await openWithShortcut(page)
     const dialog = page.getByRole('dialog', { name: 'Search the site' })
     await dialog.getByRole('searchbox').fill('zzzznotapage')
     await expect(dialog.getByText(/No pages match/)).toBeVisible()
@@ -103,7 +118,7 @@ test.describe('Global site search', () => {
 
   test('modal links through to the full /search results page', async ({ page }) => {
     await page.goto('/')
-    await page.keyboard.press('Control+k')
+    await openWithShortcut(page)
     const dialog = page.getByRole('dialog', { name: 'Search the site' })
     await dialog.getByRole('searchbox').fill('guide')
     await dialog.getByRole('button', { name: /See all results/ }).click()
