@@ -143,7 +143,11 @@ export default function Navigation() {
       {openDropdown === menu.id && (
         <div
           id={`${menu.id}-dropdown-menu`}
-          className="absolute left-1/2 -translate-x-1/2 mt-2 w-[40rem] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 grid grid-cols-2 gap-x-6 gap-y-1"
+          // tabIndex -1 makes a click on the panel's background or headings
+          // move focus to the panel itself, so the focus-out check above
+          // sees focus staying inside and keeps the dropdown open.
+          tabIndex={-1}
+          className="outline-none absolute left-1/2 -translate-x-1/2 mt-2 w-[40rem] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 grid grid-cols-2 gap-x-6 gap-y-1"
         >
           {menu.sections.map((section) => (
             <div key={section.heading} role="group" aria-label={section.heading}>
