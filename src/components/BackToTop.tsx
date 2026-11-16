@@ -12,12 +12,15 @@ export default function BackToTop() {
 
   const scrollToTop = () => {
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'instant' : 'smooth' })
   }
 
   return (
     <>
-      {/* Sits at the top of the page and leaves the viewport after SHOW_AFTER px. */}
+      {/* Sits at the top of the page and leaves the viewport after SHOW_AFTER px.
+          It is absolutely positioned against the document, so keep this
+          component outside any positioned wrapper (and <body> unpositioned),
+          or the threshold moves with that wrapper. */}
       <div
         ref={sentinelRef}
         aria-hidden="true"

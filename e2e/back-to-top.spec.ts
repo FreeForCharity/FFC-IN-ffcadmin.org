@@ -26,16 +26,33 @@ test('Back to top appears after scrolling and returns to the top', async ({ page
   }).toPass({ timeout: 15_000 })
 
   await button.click()
-  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+  // With reduced motion the jump is instant: read the position once, with no
+  // waiting, so a smooth scroll would fail here.
+  expect(await page.evaluate(() => window.scrollY)).toBe(0)
   await expect(button).toHaveCount(0)
 })
 
-test('Back to top stays hidden until the page has scrolled 400px', async ({ page }) => {
+test('Back to top shows only past 400px', async ({ page }) => {
   const button = page.getByRole('button', { name: 'Back to top' })
+  // Wait until the observer is running: the button must appear first, so a
+  // later absence is about the threshold and not about hydration.
   await expect(async () => {
-    await page.evaluate(() => window.scrollTo(0, 300))
-    expect(await page.evaluate(() => window.scrollY)).toBe(300)
+    await page.evaluate(() => window.scrollTo(0, 1200))
+    await expect(button).toBeVisible({ timeout: 1000 })
   }).toPass({ timeout: 15_000 })
-  await page.waitForTimeout(300)
+
+  await page.evaluate(() => window.scrollTo(0, 300))
   await expect(button).toHaveCount(0)
+  await page.evaluate(() => window.scrollTo(0, 450))
+  await expect(button).toBeVisible()
+})
+
+test('reduced motion turns off smooth scrolling for in-page links', async ({ page }) => {
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe(
+    'auto'
+  )
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe(
+    'smooth'
+  )
 })
