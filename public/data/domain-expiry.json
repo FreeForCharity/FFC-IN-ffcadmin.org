@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-11-09T07:05:56.206Z",
+  "generatedAt": "2026-11-16T07:11:27.038Z",
   "seed": false,
   "source": "RDAP",
   "summary": {
-    "total": 201,
+    "total": 204,
     "expired": 0,
     "expiring30": 0,
     "expiring60": 0,
     "expiring90": 0,
     "ok": 0,
-    "unknown": 201
+    "unknown": 204
   },
   "domains": [
     {
@@ -342,6 +342,13 @@
       "bucket": "unknown"
     },
     {
+      "domain": "dav-nova.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
       "domain": "dropletsoflove.org",
       "expiresAt": null,
       "daysRemaining": null,
@@ -518,13 +525,6 @@
     },
     {
       "domain": "foxtrotenterprises.com",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
-      "domain": "freedomrisingusa.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
@@ -720,13 +720,6 @@
       "bucket": "unknown"
     },
     {
-      "domain": "legioninthewoods.org",
-      "expiresAt": null,
-      "daysRemaining": null,
-      "registrar": "",
-      "bucket": "unknown"
-    },
-    {
       "domain": "letsdanceactivities.com",
       "expiresAt": null,
       "daysRemaining": null,
@@ -853,7 +846,21 @@
       "bucket": "unknown"
     },
     {
+      "domain": "neurospike.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
       "domain": "newenglandbattalion.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "newheightseducation.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
@@ -1071,6 +1078,13 @@
     },
     {
       "domain": "sfcityarts.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "shawspousesclub.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
@@ -1344,6 +1358,13 @@
     },
     {
       "domain": "turksotx.org",
+      "expiresAt": null,
+      "daysRemaining": null,
+      "registrar": "",
+      "bucket": "unknown"
+    },
+    {
+      "domain": "upliftwithlove.org",
       "expiresAt": null,
       "daysRemaining": null,
       "registrar": "",
