@@ -63,19 +63,40 @@ jobs:
                 throw new Error(`Workflow '${workflowName}' not found`)
               }
               
-              // Get latest run for this workflow on this commit
+              // Ask the API for THIS commit's runs instead of scanning a
+              // branch-filtered page for it. The previous form passed
+              // `branch: 'main'` with no `head_sha` and no `per_page`, so it
+              // searched page 1 (30 runs) of every `main` run and `.find()`-ed
+              // the sha inside it. On a busy repo the run falls off that page
+              // within minutes of being created, and the miss was then raised
+              // as "has no run for commit", i.e. absence asserted from a
+              // filtered slice. Measured on 2026-10-06: deploy runs
+              // 37417963204, 37422738391 and 37427854010 all aborted that way,
+              // and all three commits had a *successful* `CI - Build and Test`
+              // run that a `head_sha` query returns as `total_count: 1`.
               const runs = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
                 workflow_id: workflow.id,
-                branch: 'main'
+                head_sha: sha,
+                per_page: 100
               })
-              const run = runs.data.workflow_runs.find(r => r.head_sha === sha)
-              
+              // Newest first, and a re-run keeps the sha, so take the latest.
+              const run = runs.data.workflow_runs[0]
+
               if (!run) {
-                throw new Error(`❌ Required workflow '${workflowName}' has no run for commit ${sha}. This may indicate a misconfiguration or a CI failure. Deployment aborted.`)
+                // A run we cannot see is not a run we know failed. Treat it as
+                // "not finished yet" so this event skips the deploy and the
+                // next push re-evaluates, rather than hard-failing the gate --
+                // which also skipped `notify-failure` and made the abort silent.
+                core.warning(
+                  `Required workflow '${workflowName}' has no run for commit ${sha}. ` +
+                  `Not deploying this event; a later push or a manual dispatch will re-check.`
+                )
+                allCompleted = false
+                continue
               }
-              
+
               console.log(`Workflow '${workflowName}': status=${run.status}, conclusion=${run.conclusion}`)
               
               // Check if workflow has completed
@@ -239,8 +260,13 @@ jobs:
 
   notify-failure:
     name: Notify on production deploy failure
-    needs: [deploy]
-    if: ${{ always() && needs.deploy.result == 'failure' && (github.event_name != 'workflow_run' || github.event.workflow_run.head_branch == 'main') && (github.event_name == 'workflow_run' || github.ref == 'refs/heads/main') }}
+    # `needs: [deploy]` alone made this alarm unreachable for the most common
+    # production failure: when `check-workflows` or `build` fails, `deploy` is
+    # skipped, and `needs.deploy.result` is then 'skipped', never 'failure'.
+    # Three real aborts on 2026-10-06 raised nothing for that reason. Watch the
+    # whole chain so any failing stage reports.
+    needs: [check-workflows, build, deploy]
+    if: ${{ always() && (needs.check-workflows.result == 'failure' || needs.build.result == 'failure' || needs.deploy.result == 'failure') && (github.event_name != 'workflow_run' || github.event.workflow_run.head_branch == 'main') && (github.event_name == 'workflow_run' || github.ref == 'refs/heads/main') }}
     runs-on: ubuntu-latest
     permissions:
       issues: write
