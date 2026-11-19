@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-18T07:23:54Z",
+  "updatedAt": "2026-11-19T07:24:07Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,54 +10,54 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2256",
+    "activeUsers": "2254",
     "newUsers": "2362",
-    "sessions": "2616",
-    "screenPageViews": "3200",
-    "engagementRate": "0.3577981651376147",
-    "eventCount": "9987",
-    "keyEvents": "189"
+    "sessions": "2609",
+    "screenPageViews": "3182",
+    "engagementRate": "0.35607512456880031",
+    "eventCount": "9931",
+    "keyEvents": "181"
   },
   "topPages": [
     {
       "path": "/",
-      "views": "994"
+      "views": "997"
     },
     {
       "path": "/domains/",
-      "views": "689"
+      "views": "686"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "413"
+      "views": "404"
     },
     {
       "path": "/501c3/",
-      "views": "126"
+      "views": "123"
     },
     {
       "path": "/volunteer/",
-      "views": "56"
+      "views": "55"
     },
     {
       "path": "/pre501c3/",
-      "views": "46"
+      "views": "44"
     },
     {
       "path": "/help-for-charities/",
       "views": "39"
     },
     {
-      "path": "/charity-prerequisites/",
-      "views": "24"
+      "path": "/site-owner/accept-invitation/",
+      "views": "25"
     },
     {
-      "path": "/site-owner/accept-invitation/",
-      "views": "24"
+      "path": "/charity-prerequisites/",
+      "views": "23"
     },
     {
       "path": "/free-training-programs/",
-      "views": "19"
+      "views": "20"
     }
   ],
   "channels": [
@@ -67,15 +67,15 @@
     },
     {
       "channel": "Direct",
-      "sessions": "1091"
+      "sessions": "1086"
     },
     {
       "channel": "Referral",
-      "sessions": "205"
+      "sessions": "207"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "155"
+      "sessions": "150"
     },
     {
       "channel": "Organic Social",
@@ -83,17 +83,17 @@
     },
     {
       "channel": "Unassigned",
-      "sessions": "5"
+      "sessions": "3"
     }
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1570",
+    "activeUsers": "1568",
     "newUsers": "1549",
-    "sessions": "1872",
-    "screenPageViews": "2121",
-    "engagementRate": "0.39209401709401709",
-    "eventCount": "7058",
-    "keyEvents": "189"
+    "sessions": "1866",
+    "screenPageViews": "2102",
+    "engagementRate": "0.38906752411575563",
+    "eventCount": "6996",
+    "keyEvents": "181"
   }
 }
