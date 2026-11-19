@@ -24,6 +24,14 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) format: `<type>
 
 ## Naming Conventions
 
+- **GitHub repositories**: every new repo in the FreeForCharity org takes a prefix:
+  - `FFC-EX-<domain>` — one repo per **external charity's** website (e.g. `FFC-EX-iwilf.org`). Nothing else uses `-EX-`.
+  - `FFC-IN-<Name>` — anything **FFC owns**: its own sites, templates, tooling, and docs
+    (e.g. `FFC-IN-ffcadmin.org`, `FFC-IN-Footer_Only_Template`, `FFC-IN-Claude-Plugins`).
+  - Who owns the repo decides the prefix, not who uses it. A template or plugin built for charities is still `FFC-IN-`.
+  - Unprefixed repos (`FFC-Cloudflare-Automation`, `FFC-Static-Site-Capture-Tools`, …) are legacy names, not precedent.
+  - **Before proposing a new repo name**, check it against this rule and the org's existing repos
+    (`gh repo list FreeForCharity`). Repo map: `FFC-Cloudflare-Automation/docs/ffc-repo-map.md`.
 - **Web folders**: Always use kebab-case (`privacy-policy/`, not `PrivacyPolicy/`)
 - **Reason**: SEO best practice per Google Search Central. Screen readers handle hyphens better.
 
