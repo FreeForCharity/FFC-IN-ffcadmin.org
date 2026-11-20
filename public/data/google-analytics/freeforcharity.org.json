@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-19T07:24:07Z",
+  "updatedAt": "2026-11-20T07:23:59Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2254",
-    "newUsers": "2362",
-    "sessions": "2609",
-    "screenPageViews": "3182",
-    "engagementRate": "0.35607512456880031",
-    "eventCount": "9931",
-    "keyEvents": "181"
+    "activeUsers": "2258",
+    "newUsers": "2366",
+    "sessions": "2611",
+    "screenPageViews": "3179",
+    "engagementRate": "0.35733435465338953",
+    "eventCount": "9958",
+    "keyEvents": "182"
   },
   "topPages": [
     {
       "path": "/",
-      "views": "997"
+      "views": "1012"
     },
     {
       "path": "/domains/",
-      "views": "686"
+      "views": "677"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "404"
+      "views": "409"
     },
     {
       "path": "/501c3/",
-      "views": "123"
+      "views": "126"
     },
     {
       "path": "/volunteer/",
-      "views": "55"
+      "views": "54"
     },
     {
       "path": "/pre501c3/",
@@ -45,7 +45,7 @@
     },
     {
       "path": "/help-for-charities/",
-      "views": "39"
+      "views": "38"
     },
     {
       "path": "/site-owner/accept-invitation/",
@@ -63,11 +63,11 @@
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1149"
+      "sessions": "1146"
     },
     {
       "channel": "Direct",
-      "sessions": "1086"
+      "sessions": "1090"
     },
     {
       "channel": "Referral",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1568",
-    "newUsers": "1549",
-    "sessions": "1866",
-    "screenPageViews": "2102",
-    "engagementRate": "0.38906752411575563",
-    "eventCount": "6996",
-    "keyEvents": "181"
+    "activeUsers": "1574",
+    "newUsers": "1554",
+    "sessions": "1871",
+    "screenPageViews": "2101",
+    "engagementRate": "0.38963121325494388",
+    "eventCount": "7021",
+    "keyEvents": "182"
   }
 }
