@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Sponsoring admins are verified FFC volunteers who steward a charity site through build and ongoing maintenance. Learn the prerequisites, the commitment, capacity guidance, and how FFC assigns you a site.',
   keywords:
-    'FFC sponsoring admin, volunteer verification, charity site sponsorship, sponsoring-admins team, FFC volunteer commitment',
+    'FFC sponsoring admin, volunteer verification, charity site sponsorship, Next Gen Website Team, FFC volunteer commitment',
   alternates: { canonical: 'https://ffcadmin.org/roadmap/sponsor/' },
 }
 
@@ -61,8 +61,8 @@ export default function SponsorPage() {
           <ol className="mt-2 list-decimal space-y-2 pl-5 text-gray-700">
             <li>Have a verification conversation with FFC (text 520-222-8104).</li>
             <li>
-              Be added to the <code>sponsoring-admins</code> GitHub team. Membership means FFC has
-              verified you.
+              Be added to the <code>next-gen-website-team</code> GitHub team. Membership means FFC
+              has verified you.
             </li>
             <li>
               Microsoft 365 Global Admin training (see the{' '}

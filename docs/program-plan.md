@@ -132,7 +132,7 @@ Phase 1A adds:
 
 Coordination space for verified admins. Created as part of Phase 1A prerequisites. Functions:
 
-- Access gate: membership in the `sponsoring-admins` GitHub team grants access; team membership IS the verification artifact
+- Access gate: membership in the `next-gen-website-team` GitHub team grants access; team membership IS the verification artifact
 - Sensitive-content channel: security incidents, charity disputes, sensitive escalations, follow-up on intake items requiring private discussion
 - Volunteer tracking data (Phase 2 deepens this; Phase 1A creates only the empty structure)
 - Discussion space for admin coordination
@@ -208,7 +208,7 @@ Most of what we've discussed across this planning conversation is FFC policy and
 - Automated readiness scoring system
 - Pre-stub workflow that creates GitHub issues from new Zeffy contacts via API polling
 - Updated Zeffy confirmation email with clear next-step instructions
-- Verification workflow that gates issue assignment on `sponsoring-admins` team membership
+- Verification workflow that gates issue assignment on `next-gen-website-team` team membership
 - Cross-repo automation trigger from FFCadmin to Cloudflare after verified assignment
 - Public escalation template separated from intake
 - Private coordination repo (`FFC-IN-ffcadmin-private`)
@@ -282,7 +282,7 @@ The data pipeline computes the readiness score automatically based on the issue 
 
 ### Step 6: FFC assigns a sponsoring admin
 
-FFC assigns a verified volunteer one charity at a time from the build queue (volunteers do not pick from the roadmap themselves). The verification workflow checks `sponsoring-admins` team membership and either confirms the assignment (applying `verified-assignment` label) or removes it with explanation.
+FFC assigns a verified volunteer one charity at a time from the build queue (volunteers do not pick from the roadmap themselves). The verification workflow checks `next-gen-website-team` team membership and either confirms the assignment (applying `verified-assignment` label) or removes it with explanation.
 
 ### Step 7: Provisioning automation
 
@@ -363,7 +363,7 @@ Different tiers benefit from different volunteer skills:
 - Tier 7 (ops/analytics): operations consultant
 - Tier 8 (alumni consulting): senior advisor
 
-Phase 1A creates a single `sponsoring-admins` team. Phase 2+ may sub-divide this into specialty teams as tier coverage expands.
+Phase 1A uses the existing `next-gen-website-team` team (Clarke, 2026-11-21). Phase 2+ may sub-divide this into specialty teams as tier coverage expands.
 
 ---
 
@@ -460,7 +460,7 @@ Long form is a more rigorous foundation than the streamlined EZ form. Small bonu
 A sponsoring admin is a verified volunteer who has:
 
 1. Had a verification conversation with Clarke (currently text-based at 520-222-8104)
-2. Been added to the `sponsoring-admins` GitHub team in the FreeForCharity org. Membership means FFC has verified them.
+2. Been added to the `next-gen-website-team` GitHub team in the FreeForCharity org. Membership means FFC has verified them.
 3. Accepted public responsibility for stewarding a specific charity site through its build and ongoing maintenance
 
 Microsoft 365 Global Admin training (`/training-plan`) is required only for a volunteer who will administer a charity's Microsoft 365. Site builders do not need it (Clarke, 2026-11-21).
@@ -473,7 +473,7 @@ Sponsorship is gating, not a multiplier. A site moves from `status:needs-admin` 
 
 GitHub team membership is the verification artifact. The workflow `verify-assignment.yml` triggers on `issues.assigned` and:
 
-1. Checks if the assignee is a member of the `sponsoring-admins` team via the GitHub API
+1. Checks if the assignee is a member of the `next-gen-website-team` team via the GitHub API
 2. If yes: applies `verified-assignment` label; the next workflow proceeds to provisioning trigger
 3. If no: removes the assignment, posts a comment explaining the requirement and linking to `/roadmap/sponsor`, applies `verified-admin-action-needed` label
 
@@ -506,7 +506,7 @@ The `/roadmap/sponsor` page includes commitment language admins agree to publicl
 
 The public roadmap shows each sponsored card with the sponsoring admin's GitHub avatar, handle, and link to their profile. This is real public attribution — verified admins are publicly on the hook for the work, which both creates accountability and provides recognition for the volunteers.
 
-A future Phase 2 deliverable: a public admin directory at `/volunteers` showing all `sponsoring-admins` team members with their current and completed sponsorships.
+A future Phase 2 deliverable: a public admin directory at `/volunteers` showing all `next-gen-website-team` team members with their current and completed sponsorships.
 
 ---
 
@@ -588,7 +588,7 @@ Sets expectations: FFC triages within 5 business days. Mentions the manual fallb
 
 - What sponsorship is (commitment, not a casual claim)
 - Prerequisites: training + verification conversation
-- The artifact: sponsoring-admins team membership + access to coordination repo
+- The artifact: next-gen-website-team team membership + access to coordination repo
 - How to claim a site
 - What's expected ongoing (the commitment language above)
 - Capacity guidance
@@ -715,7 +715,7 @@ Content covers:
 
 ### The coordination repo's escalation templates
 
-In `FFC-IN-ffcadmin-private`, more detailed escalation templates exist for genuinely sensitive content. Only verified admins (sponsoring-admins team members) can see or submit these. They follow the same severity/type structure but allow inclusion of details the public escalations cannot accept.
+In `FFC-IN-ffcadmin-private`, more detailed escalation templates exist for genuinely sensitive content. Only verified admins (next-gen-website-team team members) can see or submit these. They follow the same severity/type structure but allow inclusion of details the public escalations cannot accept.
 
 When a public escalation is filed and turns out to require sensitive context, an admin creates a corresponding private issue in the coordination repo and links the two with a comment on the public one ("Continued in private channel; will update this issue with non-sensitive resolution status").
 
@@ -808,7 +808,7 @@ The benefit of this transition is that FFC owns the domain registrations directl
 **Prerequisite work (Clarke, before Claude Code starts):**
 
 - Create `FFC-IN-ffcadmin-private` private repo
-- Create `sponsoring-admins` GitHub team in the FreeForCharity org
+- Add verified volunteers to the existing `next-gen-website-team` GitHub team in the FreeForCharity org
 - Grant the team access to the private repo
 - Add Clarke and current verified admins to the team
 - Create or update `FreeForCharity/.github` with org-level `SECURITY.md`
@@ -860,7 +860,7 @@ The benefit of this transition is that FFC owns the domain registrations directl
 
 - Each new Zeffy product gets its own intake template, scoring criteria, and roadmap section
 - Multi-tier roadmap view with tier filtering
-- Per-tier specialty admin teams (`sponsoring-admins-tier-2`, etc.)
+- Per-tier specialty admin teams (`next-gen-website-team-tier-2`, etc.)
 - Tier-specific educational content
 - Tier graduation tracking
 
@@ -960,13 +960,13 @@ These need confirmation from Clarke. Each has a proposed default that will be ap
 
 ### 15.8 Operational
 
-| #   | Question                                                    | Default                                                                    |
-| --- | ----------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 40  | Triage SLA                                                  | **5 business days**                                                        |
-| 41  | Manual fallback phone number                                | **520-222-8104** (Clarke's existing number)                                |
-| 42  | First-pass triage owner                                     | **Clarke** until volunteer admins gain triage permissions                  |
-| 43  | Whether triaging admins need `sponsoring-admins` membership | **No** — separate permission; triage role is FFC central staff             |
-| 44  | Pre-stub workflow polling frequency                         | **Every 4-6 hours** — balances responsiveness with API rate limit headroom |
+| #   | Question                                                        | Default                                                                    |
+| --- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 40  | Triage SLA                                                      | **5 business days**                                                        |
+| 41  | Manual fallback phone number                                    | **520-222-8104** (Clarke's existing number)                                |
+| 42  | First-pass triage owner                                         | **Clarke** until volunteer admins gain triage permissions                  |
+| 43  | Whether triaging admins need `next-gen-website-team` membership | **No** — separate permission; triage role is FFC central staff             |
+| 44  | Pre-stub workflow polling frequency                             | **Every 4-6 hours** — balances responsiveness with API rate limit headroom |
 
 ---
 
