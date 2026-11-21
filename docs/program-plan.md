@@ -280,7 +280,7 @@ FFC staff reviews new intake within 5 business days:
 
 The data pipeline computes the readiness score automatically based on the issue body fields. A score breakdown comment is posted to the issue (warm framing, top improvement suggestions, link to methodology page).
 
-### Step 6: Sponsoring admin claims the issue
+### Step 6: FFC assigns a sponsoring admin
 
 FFC assigns a verified volunteer one charity at a time from the build queue (volunteers do not pick from the roadmap themselves). The verification workflow checks `sponsoring-admins` team membership and either confirms the assignment (applying `verified-assignment` label) or removes it with explanation.
 

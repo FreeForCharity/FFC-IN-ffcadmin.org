@@ -5,7 +5,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 export const metadata: Metadata = {
   title: 'Become a Sponsoring Admin',
   description:
-    'Sponsoring admins are verified FFC volunteers who steward a charity site through build and ongoing maintenance. Learn the prerequisites, the commitment, capacity guidance, and how to claim a site.',
+    'Sponsoring admins are verified FFC volunteers who steward a charity site through build and ongoing maintenance. Learn the prerequisites, the commitment, capacity guidance, and how FFC assigns you a site.',
   keywords:
     'FFC sponsoring admin, volunteer verification, charity site sponsorship, sponsoring-admins team, FFC volunteer commitment',
   alternates: { canonical: 'https://ffcadmin.org/roadmap/sponsor/' },
@@ -50,8 +50,9 @@ export default function SponsorPage() {
           <p className="mt-2 text-gray-700">
             A sponsoring admin accepts public responsibility for stewarding one FFC charity site
             through its build and ongoing maintenance. Sponsorship is the gating mechanism for
-            provisioning: a site cannot move from <em>needs a sponsoring admin</em> to{' '}
-            <em>active build</em> without an assigned, verified sponsor.
+            provisioning: a site moves from <em>needs a sponsoring admin</em> to{' '}
+            <em>active build</em> only when FFC assigns a verified volunteer or FFC&apos;s automated
+            site builder takes it.
           </p>
         </section>
 
