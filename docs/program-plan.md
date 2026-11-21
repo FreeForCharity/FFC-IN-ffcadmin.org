@@ -506,7 +506,7 @@ The `/roadmap/sponsor` page includes commitment language admins agree to publicl
 
 The public roadmap shows each sponsored card with the sponsoring admin's GitHub avatar, handle, and link to their profile. This is real public attribution — verified admins are publicly on the hook for the work, which both creates accountability and provides recognition for the volunteers.
 
-A future Phase 2 deliverable: a public admin directory at `/volunteers` showing all `next-gen-website-team` team members with their current and completed sponsorships.
+A future Phase 2 deliverable: a public admin directory at `/volunteers` showing every verified volunteer who holds or has held a sponsorship, with their current and completed sponsorships (not every `next-gen-website-team` member, since that team predates this program).
 
 ---
 
@@ -588,7 +588,7 @@ Sets expectations: FFC triages within 5 business days. Mentions the manual fallb
 
 - What sponsorship is (commitment, not a casual claim)
 - Prerequisites: training + verification conversation
-- The artifact: next-gen-website-team team membership + access to coordination repo
+- The artifact: `next-gen-website-team` membership + access to coordination repo
 - How to claim a site
 - What's expected ongoing (the commitment language above)
 - Capacity guidance
@@ -715,7 +715,7 @@ Content covers:
 
 ### The coordination repo's escalation templates
 
-In `FFC-IN-ffcadmin-private`, more detailed escalation templates exist for genuinely sensitive content. Only verified admins (next-gen-website-team team members) can see or submit these. They follow the same severity/type structure but allow inclusion of details the public escalations cannot accept.
+In `FFC-IN-ffcadmin-private`, more detailed escalation templates exist for genuinely sensitive content. Only verified admins (`next-gen-website-team` members) can see or submit these. They follow the same severity/type structure but allow inclusion of details the public escalations cannot accept.
 
 When a public escalation is filed and turns out to require sensitive context, an admin creates a corresponding private issue in the coordination repo and links the two with a comment on the public one ("Continued in private channel; will update this issue with non-sensitive resolution status").
 
@@ -860,7 +860,7 @@ The benefit of this transition is that FFC owns the domain registrations directl
 
 - Each new Zeffy product gets its own intake template, scoring criteria, and roadmap section
 - Multi-tier roadmap view with tier filtering
-- Per-tier specialty admin teams (`next-gen-website-team-tier-2`, etc.)
+- Per-tier specialty admin teams (per-tier child teams under `next-gen-website-team`)
 - Tier-specific educational content
 - Tier graduation tracking
 

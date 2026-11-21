@@ -49,7 +49,7 @@ The optional `sync-applications.yml` fallback reads a Cloudflare-published
 > **Security:** never paste a real token into a file, commit, or comment. Add
 > tokens only through GitHub's secrets UI. See `.claude/rules/01-security.md`.
 
-## The `next-gen-website-team` team is the verification artifact
+## `next-gen-website-team` membership is the verification artifact
 
 Membership in `next-gen-website-team` _is_ verification (program plan §8). The
 `verify-assignment.yml` workflow checks
