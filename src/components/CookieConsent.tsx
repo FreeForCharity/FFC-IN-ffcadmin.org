@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
-import { createLocalStorageStore } from '@/lib/localStorageStore'
+import { useState, useEffect, useRef } from 'react'
+import { useDialogLightDismiss } from '@/lib/useDialogLightDismiss'
 
 // Environment variables for tracking IDs (replace with actual values)
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
@@ -71,191 +71,200 @@ declare global {
   }
 }
 
-// Stored consent lives in localStorage under this key, exposed to React through
-// a useSyncExternalStore-backed store rather than a mount effect: the effect
-// pattern (read localStorage, then setState) trips react-hooks 7.1's
-// set-state-in-effect rule, and this store is the React-documented replacement.
-// The banner's visibility is DERIVED from the stored value instead of held in
-// state: no valid stored consent (after hydration) means the banner shows.
-const consentStore = createLocalStorageStore('cookie-consent')
-
-const hydratedSnapshot = () => true
-const serverHydratedSnapshot = () => false
-
-/** Parse and validate raw stored consent; null means "no usable choice stored". */
-function parseStoredConsent(raw: string | null): ConsentPreferences | null {
-  if (!raw) return null
-  try {
-    const parsed: unknown = JSON.parse(raw)
-    return isConsentPreferences(parsed) ? parsed : null
-  } catch {
-    return null
-  }
-}
-
-const DEFAULT_PREFERENCES: ConsentPreferences = {
-  necessary: true, // Always true, cannot be changed
-  analytics: false,
-  marketing: false,
-}
-
-// The consent side-effect helpers live at module scope: they mutate browser
-// globals (document.cookie, window.dataLayer), which the react-hooks 7.1
-// immutability rules reject inside a component body — correctly, since nothing
-// about them depends on render state. They receive preferences as arguments.
-
-const applyConsent = (prefs: ConsentPreferences, previousPrefs?: ConsentPreferences) => {
-  // Set a cookie to indicate consent status with Secure flag (only on HTTPS)
-  const cookieValue = JSON.stringify(prefs)
-  const secureFlag =
-    typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
-  document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax${secureFlag}`
-
-  // Check if consent was withdrawn and delete cookies if needed
-  if (previousPrefs) {
-    if (
-      (previousPrefs.analytics && !prefs.analytics) ||
-      (previousPrefs.marketing && !prefs.marketing)
-    ) {
-      deleteAnalyticsCookies()
-    }
-  }
-
-  // Push consent update to GTM dataLayer
-  if (typeof window !== 'undefined') {
-    window.dataLayer = window.dataLayer || []
-
-    // Consent Mode update. This is what actually releases the tags held by the
-    // denied-by-default state set in layout.tsx. The custom consent_update event
-    // below is kept because container-side triggers may already depend on it, but
-    // it is NOT a substitute: a custom event only does something if a tag in the
-    // container listens for it, whereas this is read by Google's tags directly.
-    // Relying on the custom event alone meant consent was enforced only as long as
-    // container config happened to agree with the banner — invisible from the repo,
-    // and silently lost on any container edit.
-    //
-    // Called through window.gtag rather than pushed as an array: gtag pushes the
-    // `arguments` object, and Google's consent handling reads that shape. A literal
-    // array is NOT equivalent, and the difference is silent — consent would appear
-    // to be sent while the tags stayed denied.
-    window.gtag?.('consent', 'update', {
-      ad_storage: prefs.marketing ? 'granted' : 'denied',
-      ad_user_data: prefs.marketing ? 'granted' : 'denied',
-      ad_personalization: prefs.marketing ? 'granted' : 'denied',
-      analytics_storage: prefs.analytics ? 'granted' : 'denied',
-    })
-
-    window.dataLayer.push({
-      event: 'consent_update',
-      analytics_consent: prefs.analytics ? 'granted' : 'denied',
-      marketing_consent: prefs.marketing ? 'granted' : 'denied',
-    })
-  }
-
-  // Load scripts based on consent independently
-  if (prefs.analytics) {
-    loadGoogleAnalytics()
-    // Microsoft Clarity is now managed via Google Tag Manager
-    // No direct Clarity initialization needed
-  }
-  // Marketing consent currently loads no third-party tags (Meta Pixel removed, #189).
-}
-
-const loadGoogleAnalytics = () => {
-  if (!isAnalyticsProvisioned(GA_MEASUREMENT_ID)) {
-    // Nothing to load. Deliberately silent in production rather than throwing:
-    // an unprovisioned site should degrade to no analytics, not to a broken page.
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        `[CookieConsent] NEXT_PUBLIC_GA_MEASUREMENT_ID is missing or not a real measurement ID (got "${GA_MEASUREMENT_ID}"). Skipping Google Analytics.`
-      )
-    }
-    return
-  }
-
-  if (
-    typeof window !== 'undefined' &&
-    !document.querySelector('script[src*="googletagmanager.com/gtag"]')
-  ) {
-    const gaScript = document.createElement('script')
-    gaScript.async = true
-    gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
-    document.head.appendChild(gaScript)
-
-    const gaConfigScript = document.createElement('script')
-    const secureFlag =
-      typeof window !== 'undefined' && window.location.protocol === 'https:' ? ';Secure' : ''
-    gaConfigScript.textContent = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${GA_MEASUREMENT_ID}', {
-        'anonymize_ip': true,
-        'cookie_flags': 'SameSite=Lax${secureFlag}'
-      });
-    `
-    document.head.appendChild(gaConfigScript)
-  }
-}
-
-const deleteAnalyticsCookies = () => {
-  // List of static cookie names to delete
-  const cookiesToDelete = ['_ga', '_gid', '_fbp', 'fr', '_clck', '_clsk']
-
-  // Delete static cookies
-  cookiesToDelete.forEach((name) => {
-    // Delete for current domain
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-    // Also try to delete with domain specification
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
-  })
-
-  // Dynamically delete all cookies matching _ga_* (e.g., _ga_G-XXXXXXXXXX)
-  if (typeof document !== 'undefined') {
-    document.cookie.split(';').forEach((cookie) => {
-      const cookieName = cookie.split('=')[0].trim()
-      if (cookieName.startsWith('_ga_')) {
-        // Delete for current domain
-        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-        // Also try to delete with domain specification
-        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
-      }
-    })
-  }
-}
-
 export default function CookieConsent() {
-  // Raw stored consent (string | null), live-updated on every write.
-  const rawConsent = useSyncExternalStore(
-    consentStore.subscribe,
-    consentStore.getSnapshot,
-    consentStore.getServerSnapshot
-  )
-  const storedPreferences = useMemo(() => parseStoredConsent(rawConsent), [rawConsent])
-
-  // False during SSR/hydration so the exported HTML (no banner) and the first
-  // client render agree; flips true immediately after.
-  const hydrated = useSyncExternalStore(
-    consentStore.subscribe,
-    hydratedSnapshot,
-    serverHydratedSnapshot
-  )
-
-  // True while the banner/preferences UI was reopened via
-  // window.openCookiePreferences despite a stored choice existing.
-  const [reopened, setReopened] = useState(false)
+  const [showBanner, setShowBanner] = useState(false)
   const [showPreferences, setShowPreferences] = useState(false)
-  // Working copy edited in the preferences modal; seeded from the stored
-  // choice each time the modal opens, so Cancel is simply "close and discard".
-  const [preferences, setPreferences] = useState<ConsentPreferences>(DEFAULT_PREFERENCES)
-  const modalRef = useRef<HTMLDivElement>(null)
-  const previousFocusRef = useRef<HTMLElement | null>(null)
-  // Guards the on-mount replay of stored consent from double-applying after a
-  // user action (handlers apply their own consent and set this).
-  const appliedRef = useRef(false)
+  const [preferences, setPreferences] = useState<ConsentPreferences>({
+    necessary: true, // Always true, cannot be changed
+    analytics: false,
+    marketing: false,
+  })
+  const [savedPreferencesBackup, setSavedPreferencesBackup] = useState(preferences)
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
-  // The banner is DERIVED: no valid stored choice (or an explicit reopen).
-  const showBanner = hydrated && (storedPreferences === null || reopened)
+  // Helper to load preferences from localStorage and update state
+  const loadPreferencesFromLocalStorage = (showBannerIfMissing = true) => {
+    try {
+      const consent = localStorage.getItem('cookie-consent')
+      if (!consent) {
+        if (showBannerIfMissing) setShowBanner(true)
+        return
+      }
+      let savedPreferences: unknown
+      try {
+        savedPreferences = JSON.parse(consent)
+      } catch {
+        if (showBannerIfMissing) setShowBanner(true)
+        return
+      }
+
+      // Validate the structure
+      if (isConsentPreferences(savedPreferences)) {
+        setPreferences(savedPreferences)
+        setSavedPreferencesBackup(savedPreferences)
+        applyConsent(savedPreferences)
+      } else {
+        // Invalid data, show banner again
+        if (showBannerIfMissing) setShowBanner(true)
+      }
+    } catch {
+      // If localStorage is unavailable or data is corrupted, show banner
+      if (showBannerIfMissing) setShowBanner(true)
+    }
+  }
+
+  useEffect(() => {
+    // Expose method to window for reopening preferences from other components
+    window.openCookiePreferences = () => {
+      setShowBanner(true)
+      setShowPreferences(true)
+      loadPreferencesFromLocalStorage(false)
+    }
+
+    // Check if user has already made a choice with error handling
+    loadPreferencesFromLocalStorage(true)
+
+    // Cleanup function to remove the window method
+    return () => {
+      delete window.openCookiePreferences
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Open the preferences as a native modal dialog (Modern Web Guidance:
+  // ui-components/dialog). showModal() makes the page behind inert, moves
+  // focus into the dialog, handles Escape and returns focus on close, so no
+  // hand-written focus trap or Escape listener is needed.
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (showPreferences && dialog && !dialog.open) {
+      dialog.showModal()
+    }
+  }, [showPreferences])
+
+  const applyConsent = (prefs: ConsentPreferences, previousPrefs?: ConsentPreferences) => {
+    // Set a cookie to indicate consent status with Secure flag (only on HTTPS)
+    const cookieValue = JSON.stringify(prefs)
+    const secureFlag =
+      typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
+    document.cookie = `cookie-consent=${encodeURIComponent(cookieValue)}; path=/; max-age=31536000; SameSite=Lax${secureFlag}`
+
+    // Check if consent was withdrawn and delete cookies if needed
+    if (previousPrefs) {
+      if (
+        (previousPrefs.analytics && !prefs.analytics) ||
+        (previousPrefs.marketing && !prefs.marketing)
+      ) {
+        deleteAnalyticsCookies()
+      }
+    }
+
+    // Push consent update to GTM dataLayer
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || []
+
+      // Consent Mode update. For EEA/UK/CH visitors this is what lifts the
+      // region-scoped denied-by-default state set in layout.tsx; for everyone
+      // else the default is already granted, so this mostly matters when a
+      // visitor actively DECLINES — storage flips to denied and Google's tags
+      // fall back to cookieless pings. The custom consent_update event
+      // below is kept because container-side triggers may already depend on it, but
+      // it is NOT a substitute: a custom event only does something if a tag in the
+      // container listens for it, whereas this is read by Google's tags directly.
+      // Relying on the custom event alone meant consent was enforced only as long as
+      // container config happened to agree with the banner — invisible from the repo,
+      // and silently lost on any container edit.
+      //
+      // Called through window.gtag rather than pushed as an array: gtag pushes the
+      // `arguments` object, and Google's consent handling reads that shape. A literal
+      // array is NOT equivalent, and the difference is silent — consent would appear
+      // to be sent while the tags stayed denied.
+      window.gtag?.('consent', 'update', {
+        ad_storage: prefs.marketing ? 'granted' : 'denied',
+        ad_user_data: prefs.marketing ? 'granted' : 'denied',
+        ad_personalization: prefs.marketing ? 'granted' : 'denied',
+        personalization_storage: prefs.marketing ? 'granted' : 'denied',
+        analytics_storage: prefs.analytics ? 'granted' : 'denied',
+      })
+
+      window.dataLayer.push({
+        event: 'consent_update',
+        analytics_consent: prefs.analytics ? 'granted' : 'denied',
+        marketing_consent: prefs.marketing ? 'granted' : 'denied',
+      })
+    }
+
+    // Load scripts based on consent independently
+    if (prefs.analytics) {
+      loadGoogleAnalytics()
+      // Microsoft Clarity is now managed via Google Tag Manager
+      // No direct Clarity initialization needed
+    }
+    // Marketing consent currently loads no third-party tags (Meta Pixel removed, #189).
+  }
+
+  const loadGoogleAnalytics = () => {
+    if (!isAnalyticsProvisioned(GA_MEASUREMENT_ID)) {
+      // Nothing to load. Deliberately silent in production rather than throwing:
+      // an unprovisioned site should degrade to no analytics, not to a broken page.
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn(
+          `[CookieConsent] NEXT_PUBLIC_GA_MEASUREMENT_ID is missing or not a real measurement ID (got "${GA_MEASUREMENT_ID}"). Skipping Google Analytics.`
+        )
+      }
+      return
+    }
+
+    if (
+      typeof window !== 'undefined' &&
+      !document.querySelector('script[src*="googletagmanager.com/gtag"]')
+    ) {
+      const gaScript = document.createElement('script')
+      gaScript.async = true
+      gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
+      document.head.appendChild(gaScript)
+
+      const gaConfigScript = document.createElement('script')
+      const secureFlag =
+        typeof window !== 'undefined' && window.location.protocol === 'https:' ? ';Secure' : ''
+      gaConfigScript.textContent = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${GA_MEASUREMENT_ID}', {
+          'anonymize_ip': true,
+          'cookie_flags': 'SameSite=Lax${secureFlag}'
+        });
+      `
+      document.head.appendChild(gaConfigScript)
+    }
+  }
+
+  const deleteAnalyticsCookies = () => {
+    // List of static cookie names to delete
+    const cookiesToDelete = ['_ga', '_gid', '_fbp', 'fr', '_clck', '_clsk']
+
+    // Delete static cookies
+    cookiesToDelete.forEach((name) => {
+      // Delete for current domain
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+      // Also try to delete with domain specification
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
+    })
+
+    // Dynamically delete all cookies matching _ga_* (e.g., _ga_G-XXXXXXXXXX)
+    if (typeof document !== 'undefined') {
+      document.cookie.split(';').forEach((cookie) => {
+        const cookieName = cookie.split('=')[0].trim()
+        if (cookieName.startsWith('_ga_')) {
+          // Delete for current domain
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+          // Also try to delete with domain specification
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`
+        }
+      })
+    }
+  }
 
   const handleAcceptAll = () => {
     const allAccepted = {
@@ -263,11 +272,16 @@ export default function CookieConsent() {
       analytics: true,
       marketing: true,
     }
-    appliedRef.current = true
-    applyConsent(allAccepted, storedPreferences ?? undefined)
-    consentStore.write(JSON.stringify(allAccepted))
-    setReopened(false)
-    setShowPreferences(false)
+    setPreferences(allAccepted)
+    try {
+      localStorage.setItem('cookie-consent', JSON.stringify(allAccepted))
+    } catch (error) {
+      // If localStorage is unavailable, continue anyway
+      console.warn('Unable to save preferences to localStorage:', error)
+    }
+    applyConsent(allAccepted, savedPreferencesBackup)
+    setSavedPreferencesBackup(allAccepted)
+    setShowBanner(false)
   }
 
   const handleDeclineAll = () => {
@@ -276,93 +290,60 @@ export default function CookieConsent() {
       analytics: false,
       marketing: false,
     }
-    appliedRef.current = true
+    setPreferences(onlyNecessary)
+    try {
+      localStorage.setItem('cookie-consent', JSON.stringify(onlyNecessary))
+    } catch (e) {
+      // If localStorage is unavailable, continue anyway
+      console.warn('Unable to save preferences to localStorage:', e)
+    }
 
     // Delete third-party cookies when consent is withdrawn
     deleteAnalyticsCookies()
 
-    applyConsent(onlyNecessary, storedPreferences ?? undefined)
-    consentStore.write(JSON.stringify(onlyNecessary))
-    setReopened(false)
-    setShowPreferences(false)
+    applyConsent(onlyNecessary, savedPreferencesBackup)
+    setSavedPreferencesBackup(onlyNecessary)
+    setShowBanner(false)
   }
 
   const handleSavePreferences = () => {
-    appliedRef.current = true
-    applyConsent(preferences, storedPreferences ?? undefined)
-    consentStore.write(JSON.stringify(preferences))
-    setReopened(false)
+    try {
+      localStorage.setItem('cookie-consent', JSON.stringify(preferences))
+    } catch (e) {
+      // If localStorage is unavailable, continue anyway
+      console.warn('Unable to save preferences to localStorage:', e)
+    }
+    applyConsent(preferences, savedPreferencesBackup)
+    setSavedPreferencesBackup(preferences)
+    // Close with a return value so the close handler knows this was a save.
+    dialogRef.current?.close('save')
+    setShowBanner(false)
     setShowPreferences(false)
   }
 
   const handleShowPreferences = () => {
-    // Seed the working copy from the stored choice (or the defaults).
-    setPreferences(storedPreferences ?? DEFAULT_PREFERENCES)
+    // Backup current preferences in case user cancels
+    setSavedPreferencesBackup(preferences)
     setShowPreferences(true)
   }
 
   const handleCancelPreferences = () => {
-    // The working copy is discarded; it is re-seeded next time the modal opens.
+    // Restore the backed-up preferences
+    setPreferences(savedPreferencesBackup)
     setShowPreferences(false)
-    setReopened(false)
   }
 
-  useEffect(() => {
-    // Expose method to window for reopening preferences from other components
-    window.openCookiePreferences = () => {
-      setPreferences(parseStoredConsent(consentStore.getSnapshot()) ?? DEFAULT_PREFERENCES)
-      setReopened(true)
-      setShowPreferences(true)
-    }
+  // Runs whenever the dialog closes: Escape, a backdrop click, Cancel or Save.
+  // Anything other than Save is treated as Cancel.
+  const handleDialogClose = (event: React.SyntheticEvent<HTMLDialogElement>) => {
+    const dialog = event.currentTarget
+    const saved = dialog.returnValue === 'save'
+    dialog.returnValue = ''
+    if (!saved) handleCancelPreferences()
+  }
 
-    // Cleanup function to remove the window method
-    return () => {
-      delete window.openCookiePreferences
-    }
-  }, [])
-
-  // Replay a previously stored choice into Consent Mode once per page load
-  // (the denied-by-default state from layout.tsx holds until this runs).
-  // Pure side effect — no setState — so the visitor's earlier consent reaches
-  // Google's tags without a render cascade.
-  useEffect(() => {
-    if (!appliedRef.current && storedPreferences) {
-      appliedRef.current = true
-      applyConsent(storedPreferences)
-    }
-  }, [storedPreferences])
-
-  // Focus management for modal
-  useEffect(() => {
-    if (showPreferences && modalRef.current) {
-      // Store the previously focused element
-      previousFocusRef.current = document.activeElement as HTMLElement
-
-      // Focus the first focusable element in the modal
-      const focusableElements = modalRef.current.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      )
-      if (focusableElements.length > 0) {
-        ;(focusableElements[0] as HTMLElement).focus()
-      }
-
-      // Handle Escape key
-      const handleEscape = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          handleCancelPreferences()
-        }
-      }
-      document.addEventListener('keydown', handleEscape)
-
-      return () => {
-        document.removeEventListener('keydown', handleEscape)
-        // Restore focus when modal closes
-        if (previousFocusRef.current) {
-          previousFocusRef.current.focus()
-        }
-      }
-    }
-  }, [showPreferences])
+  // Backdrop-click fallback for browsers without closedby="any".
+  const lightDismiss = useDialogLightDismiss(dialogRef)
 
   if (!showBanner) {
     return null
@@ -370,22 +351,15 @@ export default function CookieConsent() {
 
   if (showPreferences) {
     return (
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
-        role="dialog"
-        aria-modal="true"
+      <dialog
+        ref={dialogRef}
         aria-labelledby="cookie-preferences-title"
-        onClick={(e) => {
-          // Only close if clicking the overlay itself, not the modal content
-          if (e.target === e.currentTarget) {
-            handleCancelPreferences()
-          }
-        }}
+        {...{ closedby: 'any' }}
+        onClose={handleDialogClose}
+        {...lightDismiss}
+        className="m-auto p-0 bg-white rounded-lg shadow-2xl max-w-2xl w-[calc(100%-2rem)] max-h-[90vh] overflow-y-auto"
       >
-        <div
-          ref={modalRef}
-          className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
-        >
+        <div>
           <div className="p-6">
             <h2 id="cookie-preferences-title" className="text-2xl font-bold text-gray-900 mb-4">
               Cookie Preferences
@@ -474,7 +448,7 @@ export default function CookieConsent() {
                 Save Preferences
               </button>
               <button
-                onClick={handleCancelPreferences}
+                onClick={() => dialogRef.current?.close()}
                 className="flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
               >
                 Cancel
@@ -482,7 +456,7 @@ export default function CookieConsent() {
             </div>
           </div>
         </div>
-      </div>
+      </dialog>
     )
   }
 

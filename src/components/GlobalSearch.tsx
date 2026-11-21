@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { searchDocs } from '@/data/search-index'
+import { useDialogLightDismiss } from '@/lib/useDialogLightDismiss'
 
 /**
  * Global site search — a ⌘K / Ctrl-K command-palette modal that searches every
@@ -24,13 +25,19 @@ export default function GlobalSearch() {
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
   const results = useMemo(() => searchDocs(query), [query])
 
-  const close = useCallback(() => {
+  // Runs after the native <dialog> closes (Esc, backdrop click, or close()).
+  const handleClose = useCallback(() => {
     setOpen(false)
     setQuery('')
     setActive(0)
+  }, [])
+
+  const close = useCallback(() => {
+    dialogRef.current?.close()
   }, [])
 
   const go = useCallback(
@@ -47,7 +54,8 @@ export default function GlobalSearch() {
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault()
-        setOpen((v) => !v)
+        if (dialogRef.current?.open) dialogRef.current.close()
+        else setOpen(true)
       }
     }
     window.addEventListener(OPEN_EVENT, onOpen)
@@ -58,16 +66,17 @@ export default function GlobalSearch() {
     }
   }, [])
 
-  // Focus the input and lock body scroll while open.
+  // Open as a native modal dialog: the browser makes the page inert, traps
+  // focus and restores it on close. Focus goes to the search input.
   useEffect(() => {
-    if (!open) return
+    const dialog = dialogRef.current
+    if (!open || !dialog || dialog.open) return
+    dialog.showModal()
     inputRef.current?.focus()
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
   }, [open])
+
+  // Backdrop-click fallback for browsers without closedby="any".
+  const lightDismiss = useDialogLightDismiss(dialogRef)
 
   if (!open) return null
 
@@ -89,18 +98,15 @@ export default function GlobalSearch() {
   }
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-start justify-center bg-black/40 px-4 pt-[12vh]"
-      onMouseDown={close}
+    <dialog
+      ref={dialogRef}
+      aria-label="Search the site"
+      {...{ closedby: 'any' }}
+      onClose={handleClose}
+      {...lightDismiss}
+      className="mx-auto mt-[12vh] mb-auto w-[calc(100%-2rem)] max-w-xl overflow-hidden rounded-xl bg-white p-0 shadow-2xl"
     >
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Search the site"
-        className="w-full max-w-xl overflow-hidden rounded-xl bg-white shadow-2xl"
-        onMouseDown={(e) => e.stopPropagation()}
-        onKeyDown={onKeyDown}
-      >
+      <div onKeyDown={onKeyDown}>
         <div className="flex items-center gap-3 border-b border-gray-200 px-4">
           <svg
             className="h-5 w-5 flex-shrink-0 text-gray-400"
@@ -187,6 +193,6 @@ export default function GlobalSearch() {
           </p>
         )}
       </div>
-    </div>
+    </dialog>
   )
 }

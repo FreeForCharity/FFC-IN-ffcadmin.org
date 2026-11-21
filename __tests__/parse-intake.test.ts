@@ -2,7 +2,7 @@
  * Intake issue-form parser tests. The option strings asserted here are the
  * contract the charity-intake.yml dropdowns must match.
  */
-import { parseIssueForm, parseIntakeIssue } from '@/lib/readiness/parseIntake'
+import { parseIssueForm, parseIntakeIssue, isPublicProfileUrl } from '@/lib/readiness/parseIntake'
 import { computeReadiness } from '@/lib/readiness/scoring'
 
 const SAMPLE = `### Charity name
@@ -167,5 +167,65 @@ Documented outreach to 3+ with reasons partnership was not viable
     expect(intake.partnershipDueDiligence).toBe('outreach-3plus')
     expect(intake.operationsEvidence.recurringActivities).toBe(true)
     expect(intake.operationsEvidence.activeCommunity).toBe(false)
+  })
+})
+
+describe('top officer title', () => {
+  it('accepts "Chair" as the top officer in place of "President"', () => {
+    const { intake } = parseIntakeIssue(
+      '### Chair — name\n\nJane Doe\n\n### Chair — LinkedIn URL\n\nhttps://www.linkedin.com/in/janedoe\n'
+    )
+    expect(intake.board.president).toEqual({ present: true, named: true, linkedin: true })
+  })
+
+  it('accepts "Chair or President" as the top officer label', () => {
+    const { intake } = parseIntakeIssue('### Chair or President — name\n\nJane Doe\n')
+    expect(intake.board.president.named).toBe(true)
+  })
+})
+
+describe('public profile links', () => {
+  it.each([
+    'https://www.guidestar.org/profile/12-3456789',
+    'https://www.linkedin.com/in/janedoe',
+    'linkedin.com/company/helping-hands',
+    'https://www.linkedin.com/in/editor-jane', // "edit" only as part of a word
+  ])('accepts the public link %s', (url) => {
+    expect(isPublicProfileUrl(url)).toBe(true)
+  })
+
+  it.each([
+    'https://app.candid.org/profile/12345/edit',
+    'https://www.guidestar.org/profile/manage/12345',
+    'https://candid.org/dashboard',
+    'https://www.linkedin.com/company/12345/admin/',
+    'https://www.linkedin.com/company/12345/admin/dashboard/',
+    'linkedin.com/in/janedoe/edit/intro/',
+    'https://www.guidestar.org/Admin?id=1',
+    '',
+  ])('rejects the non-public link %s', (url) => {
+    expect(isPublicProfileUrl(url)).toBe(false)
+  })
+
+  it('does not score an admin/editor link as a Candid profile or LinkedIn URL', () => {
+    const { intake } = parseIntakeIssue(`### Candid / GuideStar profile URL
+
+https://app.candid.org/profile/12345/edit
+
+### Candid direct profile link
+
+https://candid.org/dashboard
+
+### President — name
+
+Jane Doe
+
+### President — linkedin url
+
+https://www.linkedin.com/in/janedoe/edit/intro/
+`)
+    expect(intake.candid.profileUrl).toBe(false)
+    expect(intake.candid.directLink).toBe(false)
+    expect(intake.board.president).toEqual({ present: true, named: true, linkedin: false })
   })
 })

@@ -37,6 +37,25 @@ const BANNED: { pattern: RegExp; reason: string }[] = [
     pattern: /once your domain (name )?is set up/i,
     reason: 'Old order — the domain is set up last, after website validation.',
   },
+  // Support routing aligned with WHMCS (2026-11-13): help goes through a
+  // client-area ticket, urgent through a text or call to Clarke.
+  {
+    pattern: /support@freeforcharity\.org/i,
+    reason:
+      'The support@ mailbox is not connected to WHMCS tickets; route to a client-area ticket.',
+  },
+  {
+    pattern: /private coordination channel/i,
+    reason: 'Undefined channel — use a client-area ticket, or text/call Clarke when urgent.',
+  },
+  {
+    pattern: /answered within 48 hours/i,
+    reason: 'Old escalation window — use SUPPORT_ESCALATION from src/data/charity-messaging.ts.',
+  },
+  {
+    pattern: /triage within 5 business days/i,
+    reason: 'Old review promise — review happens "usually within a few days".',
+  },
 ]
 
 /** Collapse JSX {' '} joiners and all whitespace runs so phrases can't hide. */

@@ -179,6 +179,17 @@ export default function Page() {
           text: `${s.description} Admin action: ${s.adminAction}`,
         }))}
       />
+      <div
+        role="note"
+        className="not-prose mb-6 rounded-lg border-l-4 border-red-600 bg-red-50 p-4 text-red-900"
+      >
+        <strong>Online Impacts has closed.</strong> This page is kept for historical reference only.
+        For anything about a former Online Impacts charity, contact Clarke Moyer at{' '}
+        <a href="tel:520-222-8104" className="font-semibold underline">
+          520-222-8104
+        </a>
+        .
+      </div>
       <p>
         Online Impacts charities transitioning into the FFC support footprint follow a structured
         onboarding sequence. The flow exists because Online Impacts and FFC have slightly different

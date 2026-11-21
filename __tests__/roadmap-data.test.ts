@@ -18,7 +18,7 @@ function entry(overrides: Partial<RoadmapEntry>): RoadmapEntry {
     charityStage: '501c3',
     missionCategory: 'general',
     serviceTier: 'Tier 2',
-    readinessScore: 100,
+    readinessRank: 1,
     readinessTier: 'Developing',
     submittedAt: '2026-01-01T00:00:00.000Z',
     updatedAt: '2026-01-01T00:00:00.000Z',
@@ -30,16 +30,16 @@ function entry(overrides: Partial<RoadmapEntry>): RoadmapEntry {
 }
 
 describe('sortNeedsAdmin (§9)', () => {
-  it('ranks basic-needs ahead of a higher-scoring general charity', () => {
+  it('ranks basic-needs ahead of a better-ranked general charity', () => {
     const basicNeeds = entry({
       charityName: 'BasicNeeds',
       missionCategory: 'basic-needs',
-      readinessScore: 50,
+      readinessRank: 2,
     })
     const general = entry({
       charityName: 'General',
       missionCategory: 'general',
-      readinessScore: 250,
+      readinessRank: 1,
     })
     const sorted = sortNeedsAdmin([general, basicNeeds])
     expect(sorted[0].charityName).toBe('BasicNeeds')
@@ -47,29 +47,31 @@ describe('sortNeedsAdmin (§9)', () => {
 
   it('ranks basic-needs ahead of veterans ahead of general', () => {
     const sorted = sortNeedsAdmin([
-      entry({ charityName: 'Gen', missionCategory: 'general', readinessScore: 300 }),
-      entry({ charityName: 'Vet', missionCategory: 'veterans', readinessScore: 10 }),
-      entry({ charityName: 'Basic', missionCategory: 'basic-needs', readinessScore: 0 }),
+      entry({ charityName: 'Gen', missionCategory: 'general', readinessRank: 1 }),
+      entry({ charityName: 'Vet', missionCategory: 'veterans', readinessRank: 2 }),
+      entry({ charityName: 'Basic', missionCategory: 'basic-needs', readinessRank: 3 }),
     ])
     expect(sorted.map((e) => e.charityName)).toEqual(['Basic', 'Vet', 'Gen'])
   })
 
-  it('breaks mission ties by readiness score, then +1 votes, then oldest first', () => {
+  it('breaks mission ties by readiness rank, then +1 votes, then oldest first', () => {
+    // A and C tie on rank (they tied on score) — the DENSE ranking is what keeps
+    // the +1 tie-breaker reachable at all.
     const a = entry({
       charityName: 'A',
-      readinessScore: 100,
+      readinessRank: 2,
       plusOne: 1,
       submittedAt: '2026-03-01',
     })
     const b = entry({
       charityName: 'B',
-      readinessScore: 120,
+      readinessRank: 1,
       plusOne: 0,
       submittedAt: '2026-02-01',
     })
     const c = entry({
       charityName: 'C',
-      readinessScore: 100,
+      readinessRank: 2,
       plusOne: 5,
       submittedAt: '2026-01-01',
     })
@@ -105,7 +107,7 @@ describe('sectionEntries', () => {
     expect(graduatedCount(data)).toBe(1)
   })
 
-  it('shows the full live portfolio regardless of date, scored entries first then by name', () => {
+  it('shows the full live portfolio regardless of date, ranked entries first then by name', () => {
     const portfolio: RoadmapData = {
       generatedAt: '',
       source: 'test',
@@ -113,32 +115,32 @@ describe('sectionEntries', () => {
         entry({
           charityName: 'zebra.org',
           status: 'live',
-          readinessScore: null,
+          readinessRank: null,
           readinessTier: null,
         }),
         entry({
           charityName: 'alpha.org',
           status: 'live',
-          readinessScore: null,
+          readinessRank: null,
           readinessTier: null,
         }),
         entry({
           charityName: 'Scored Charity',
           status: 'live',
-          readinessScore: 200,
+          readinessRank: 1,
           readinessTier: 'Established',
         }),
         entry({
           charityName: 'Old launch',
           status: 'live',
           updatedAt: '2020-01-01T00:00:00.000Z',
-          readinessScore: 50,
+          readinessRank: 2,
           readinessTier: 'Foundational',
         }),
       ],
     }
     const launched = sectionEntries(portfolio, 'launched')
-    // Scored entries first (by score desc), then unscored alphabetically.
+    // Ranked entries first (best rank first), then unranked alphabetically.
     expect(launched.map((e) => e.charityName)).toEqual([
       'Scored Charity',
       'Old launch',

@@ -1043,6 +1043,11 @@ flow), on both tracks. These (plus the personal LinkedIn profiles) are also
   applicant already holds a **personal** Candid account from Phase 0; this is the
   **organization** profile and seal)
 - **TechSoup** validated account — _validation check 2_ (501(c)(3)-emphasized)
+- **Goodstack** (formerly Percent) verification — _recommended prerequisite, not a
+  numbered validation check_ (501(c)(3)-emphasized). Google for Nonprofits relies
+  on Goodstack as its nonprofit validator (as do Canva and many SaaS vendors), so
+  FFC recommends registering up front alongside Candid and TechSoup
+  (guide: <https://ffcadmin.org/guides/goodstack/>)
 - **VolunteerMatch** profile, even if dormant — _validation check 3_
   (501(c)(3)-emphasized)
 - **PayPal Nonprofits** account — _validation check 6_ (501(c)(3)-emphasized; the
@@ -1121,6 +1126,8 @@ non-technical).
   (The legacy WordPress-era product **checkout** intake was retired; the current
   application products replaced it.)
 - **TechSoup** — nonprofit tech-discount and validation service.
+- **Goodstack** (formerly Percent) — nonprofit-status validator used by Google for
+  Nonprofits, Canva, and many SaaS vendors.
 - **VolunteerMatch / Idealist / Taproot** — platforms for finding volunteers and
   (Taproot) skills-based/pro-bono help.
 

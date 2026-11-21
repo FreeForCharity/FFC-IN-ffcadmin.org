@@ -30,15 +30,19 @@ interface FooterItem {
 const footerItems: FooterItem[] = [
   {
     name: 'Candid (GuideStar) seal, profile link, and EIN',
-    why: 'Grant makers and serious donors verify a charity on Candid before funding it, so the footer puts a working profile link and the EIN one click away on every page — a verifiable 501(c)(3) claim, and a ready-to-cite link for the charity’s own grant applications. Level 2 only: it renders exclusively once the charity actually holds IRS recognition and a public profile (see section 4).',
+    why: 'Grant makers and serious donors verify a charity on Candid before funding it, so the footer puts a working profile link and the EIN one click away on every page — a verifiable 501(c)(3) claim, and a ready-to-cite link for the charity’s own grant applications. On the Single Page template it is Level 2 only, rendering once the charity actually holds IRS recognition and a public profile (see section 4); the Footer-Only template always renders it, and provisioning points it at the charity’s own Candid profile (derived from the EIN when no profile link was given).',
   },
   {
-    name: 'Donate quick link',
-    why: 'Every page ends with a giving pathway. Sites from the Single Page template ship a Zeffy donation form (zero-fee processing); post-deploy smoke monitoring treats lost donation capability as a failure class, not a cosmetic defect.',
+    name: 'Charity name + one-sentence mission',
+    why: 'The top of the footer states who the charity is and what it does, so even a footer-only site carries its mission on every page. Provisioning fills it from the website request when that request carries the full footer details (contact email, phone, EIN, address, leadership and social links), together with the rest of the charity’s identity; a charity that gave no mission then gets a plain sentence naming it. A request without those details (for example an admin-minimal provision) leaves the template’s placeholder identity in place until a volunteer rebrands the site.',
   },
   {
-    name: 'Two donation policies',
-    why: 'The charity’s own Donation Policy (deductibility, receipts, refunds) plus the Free For Charity Donation Policy. The FFC entry keeps FFC’s name after any rebrand — deliberately, because that page documents FFC’s own gift-acceptance policy — and the drift checker exempts exactly that label.',
+    name: 'Donate and Volunteer quick links',
+    why: 'Every page ends with a giving pathway and a way to help. Each is a single link, not a page section: the charity’s donation or volunteer page when it has one (siteConfig.donationUrl / volunteerUrl), otherwise an email to the charity’s contact address. Sites from the Single Page template additionally ship a Zeffy donation form (zero-fee processing); post-deploy smoke monitoring treats lost donation capability as a failure class, not a cosmetic defect.',
+  },
+  {
+    name: 'One donation policy — the charity’s own',
+    why: 'A single Donation Policy, branded with the charity’s name from site.config and showing its public email and city/state: tax deductibility (stated only when the charity holds 501(c)(3) recognition), receipts, refunds, which gifts it accepts and how donor information is kept private. There is no separate Free For Charity Donation Policy page or footer link on a charity site — donors give to the charity, so the charity’s policy is the only one that governs their gift.',
   },
   {
     name: 'Privacy policy, cookie policy, and the consent banner',
@@ -53,8 +57,8 @@ const footerItems: FooterItem[] = [
     why: 'Coordinated disclosure with safe-harbor language, wired into RFC 9116 security.txt so researchers’ tools find it. Charities hold donor data; this is how a finder reports a problem safely.',
   },
   {
-    name: 'Contact block: email, phone, physical addresses',
-    why: 'The legitimacy signals grant applications, nonprofit tech programs, and payment processors check — and a human-reachable path for donors, journalists, and partners. Address links open in Google Maps with the visible text kept in the accessible name (WCAG 2.5.3).',
+    name: 'Contact block: email, phone and location',
+    why: 'The legitimacy signals grant applications, nonprofit tech programs, and payment processors check — and a human-reachable path for donors, journalists, and partners. City and State always appear. A street address appears only when the charity entered one in the application’s “Public street address for your website footer (optional)” field; applications from before that field existed show city and state only. Never take the footer address from IRS or EIN records. Address links open in Google Maps with the visible text kept in the accessible name (WCAG 2.5.3).',
   },
   {
     name: '“Supported by Free For Charity” + Supported Charity Login',
@@ -161,7 +165,7 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
               >
                 FFC-IN-Footer_Only_Template
               </a>
-              . The charity keeps its design and adopts the compliance layer — footer, seven policy
+              . The charity keeps its design and adopts the compliance layer — footer, six policy
               pages, consent, analytics, team section, SEO — on top of it. How-to:{' '}
               <Link
                 href="/guides/adopt-ffc-footer-on-existing-site"
@@ -184,9 +188,14 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
             </li>
           </ul>
           <p className="text-gray-700 text-sm">
-            When in doubt, choose the Single Page template — it is the fastest path to a validated
-            site. Both paths converge on the same gate: the site validated live on its free GitHub
-            Pages address, which unlocks the free .org domain, which unlocks email.
+            Automated provisioning (workflow 701) starts every new charity repo from the Footer-Only
+            template, so each site has the footer standard — mission line, Donate and Volunteer
+            links, policy pages — from its first deploy. The charity&apos;s own details are filled
+            in automatically only when the website request carries the full footer details;
+            otherwise the site shows the template&apos;s placeholders until it is rebranded. Choose
+            the Single Page template when a volunteer is building a complete single-page site. Both
+            paths converge on the same gate: the site validated live on its free GitHub Pages
+            address, which unlocks the free .org domain, which unlocks email.
           </p>
         </section>
 
@@ -203,9 +212,10 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
               <strong>The FFC footer</strong> on every page — the full anatomy in section 3.
             </li>
             <li>
-              <strong>Seven legal/policy pages</strong> — privacy policy, cookie policy, terms of
-              service, the charity&apos;s donation policy, the FFC donation policy, vulnerability
-              disclosure, and security acknowledgements.
+              <strong>Six legal/policy pages</strong> — privacy policy, cookie policy, terms of
+              service, the charity&apos;s donation policy, vulnerability disclosure policy, and
+              security acknowledgements — each branded with the charity&apos;s name and published
+              with its public contact email and city/state from the application.
             </li>
             <li>
               <strong>Consent banner</strong> — Accept All / Decline All / Customize, four cookie
@@ -302,6 +312,13 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
             is what makes the footer trustworthy: every EIN, address, and profile link on a
             supported site traces to reviewed application data.
           </p>
+          <p className="text-gray-700 mb-4">
+            The footer location follows the same rule. City and State always appear. A street
+            address appears only when the charity entered one in the application&apos;s
+            &ldquo;Public street address for your website footer (optional)&rdquo; field; older
+            applications without that field get city and state only.{' '}
+            <strong>Never take the footer address from IRS or EIN records.</strong>
+          </p>
           <div className="bg-sky-50 border-l-4 border-sky-600 p-4 rounded text-sm text-sky-900">
             Never hand-type an EIN, legal name, or Candid URL into a footer. Generate it, and if the
             data is missing, fix the application — not the footer.
@@ -322,7 +339,8 @@ export default function WebsiteTemplatesAndFooterStandardGuide() {
               <strong>In the templates</strong> — unit tests pin the footer&apos;s required content,
               and <code>check:drift</code> / <code>check:rebrand</code> stop a customized fork from
               shipping FFC&apos;s identity while explicitly protecting the permanent{' '}
-              <code>supportedBy</code> attribution and the FFC donation-policy label.
+              <code>supportedBy</code> attribution. The donation policy carries the charity&apos;s
+              name like every other policy page, so it gets no exemption.
             </li>
             <li>
               <strong>At Gate 3</strong> — auto-validation live-verifies the footer markers (brand

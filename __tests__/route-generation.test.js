@@ -351,19 +351,24 @@ describe('Route Generation Tests', () => {
 
   describe('Roadmap & Intake-Help Route Generation', () => {
     const roadmapRoutes = ['roadmap', 'roadmap/submit', 'roadmap/sponsor', 'roadmap/methodology']
-    const intakeHelpSlugs = [
-      'mission-statement',
-      'getting-501c3',
-      'board-requirements',
-      'public-contact-info',
-      'mailing-address',
-      'social-media',
-      'guidestar-candid',
-      '501c3-application',
-      'fiscal-sponsorship',
-      'policy-pages',
-      'supporting-documents',
-    ]
+    // /intake-help/ is retired: each URL is a noindex redirect page to the
+    // matching help topic on freeforcharity.org (see src/data/intake-help.ts).
+    const intakeHelpTargets = {
+      '': 'https://freeforcharity.org/help-for-charities/',
+      'mission-statement': 'https://freeforcharity.org/501c3/help/mission-statement/',
+      'getting-501c3': 'https://freeforcharity.org/pre501c3/help/getting-501c3/',
+      'board-requirements': 'https://freeforcharity.org/501c3/help/board-requirements/',
+      'public-contact-info': 'https://freeforcharity.org/501c3/help/public-contact-info/',
+      'mailing-address': 'https://freeforcharity.org/501c3/help/mailing-address/',
+      'social-media': 'https://freeforcharity.org/501c3/help/social-media/',
+      'guidestar-candid': 'https://freeforcharity.org/501c3/help/guidestar-candid/',
+      '501c3-application': 'https://freeforcharity.org/pre501c3/help/getting-501c3/#form-1023',
+      'fiscal-sponsorship':
+        'https://freeforcharity.org/pre501c3/help/getting-501c3/#fiscal-sponsorship',
+      'policy-pages': 'https://freeforcharity.org/501c3/#template',
+      'supporting-documents':
+        'https://freeforcharity.org/501c3/help/public-contact-info/#public-and-private',
+    }
 
     it('generates index.html for the roadmap pages with self-canonicals', () => {
       for (const route of roadmapRoutes) {
@@ -376,17 +381,16 @@ describe('Route Generation Tests', () => {
       }
     })
 
-    it('generates the intake-help hub and every leaf with self-canonicals', () => {
-      const hub = path.join(outDir, 'intake-help', 'index.html')
-      expect(fs.existsSync(hub)).toBe(true)
-      for (const slug of intakeHelpSlugs) {
+    it('generates a noindex redirect page for the intake-help hub and every leaf', () => {
+      for (const [slug, target] of Object.entries(intakeHelpTargets)) {
         const p = path.join(outDir, 'intake-help', slug, 'index.html')
         expect(fs.existsSync(p)).toBe(true)
         if (fs.existsSync(p)) {
           const content = fs.readFileSync(p, 'utf-8')
-          expect(content).toContain(
-            `<link rel="canonical" href="https://ffcadmin.org/intake-help/${slug}/"/>`
-          )
+          expect(content).toContain(`<link rel="canonical" href="${target}"/>`)
+          expect(content).toMatch(/<meta name="robots" content="noindex, ?follow"\/>/)
+          expect(content).toContain(`<meta http-equiv="refresh" content="0; url=${target}"/>`)
+          expect(content).toContain(`href="${target}"`)
         }
       }
     })

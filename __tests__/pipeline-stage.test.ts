@@ -16,7 +16,7 @@ function entry(overrides: Partial<RoadmapEntry>): RoadmapEntry {
     charityStage: 'pre-501c3',
     missionCategory: 'general',
     serviceTier: 'Tier 1',
-    readinessScore: 0,
+    readinessRank: 1,
     readinessTier: 'Foundational',
     submittedAt: '',
     updatedAt: '',

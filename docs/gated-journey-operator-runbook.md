@@ -16,6 +16,15 @@ Systems split (keep this straight at every gate):
 - **FFC-Cloudflare-Automation** hosts the operational workflows (WHMCS reads/writes, DNS, cutover).
   Workflow numbers below are the `NN.` display-name prefixes in its Actions UI.
 
+> **Unattended version (testing period).** FFC-Cloudflare-Automation's
+> [charity-lane pipeline](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/blob/main/docs/charity-lane-pipeline.md)
+> runs this journey without a human, up to the charity's own review of its preview on the GitHub
+> Pages default URL. Gate 4 (the domain order, FFC's first spend) and any live-site cutover stay
+> with a human. Its status per step is tracked on
+> [epic #1618](https://github.com/FreeForCharity/FFC-Cloudflare-Automation/issues/1618). This
+> runbook stays authoritative for the gates themselves; the pipeline only automates the operator's
+> actions.
+
 ---
 
 ## 1. The four gates at a glance

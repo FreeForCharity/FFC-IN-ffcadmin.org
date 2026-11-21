@@ -6,9 +6,10 @@
  * that referenced them.
  *
  * Each entry carries a `lastVerified` date. The weekly linkinator
- * workflow (.github/workflows/linkinator-legacy-wp-admin.yml) scans
- * the rendered site for 4xx/5xx and flags stale URLs; this `lastVerified`
- * field is the human-tracked counterpart.
+ * workflow (.github/workflows/linkinator-external.yml) scans the
+ * rendered site for 4xx/5xx and, via scripts/check-soft-404.mjs, for
+ * pages that answer 200 but say the content is retired; this
+ * `lastVerified` field is the human-tracked counterpart.
  *
  * Adding a vendor: append an entry. Bumping a verification date: edit
  * just the `lastVerified` value when a URL has been re-confirmed.
@@ -22,6 +23,11 @@ export interface VendorUrl {
   lastVerified: string
   /** What this URL is, in case the slug becomes unclear. */
   description: string
+  /**
+   * Set when the vendor is no longer active. The entry is kept so historical
+   * pages still resolve, but nothing should route a charity to it.
+   */
+  historical?: string
 }
 
 export const VENDOR_URLS = {
@@ -38,7 +44,8 @@ export const VENDOR_URLS = {
   volunteermatch: {
     url: 'https://www.volunteermatch.org/',
     lastVerified: '2026-05-24',
-    description: 'VolunteerMatch — volunteer-recruitment platform.',
+    description:
+      'VolunteerMatch — merged into Idealist in 2025; per Idealist, volunteermatch.org now forwards to idealist.org.',
   },
   cloudflareSignup: {
     url: 'https://dash.cloudflare.com/sign-up',
@@ -59,6 +66,8 @@ export const VENDOR_URLS = {
     url: 'https://onlineimpacts.org/',
     lastVerified: '2026-05-24',
     description: 'Online Impacts — charity-services partner that pre-dated FFC.',
+    historical:
+      'Online Impacts has closed. Kept for historical reference only; contact Clarke Moyer at 520-222-8104.',
   },
   freeforcharity501c3: {
     url: 'https://freeforcharity.org/501c3/',

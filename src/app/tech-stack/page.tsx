@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import CollapsibleSection from '@/components/CollapsibleSection'
 import NonprofitCallout from '@/components/NonprofitCallout'
+import { SUPPORT_ESCALATION, SUPPORT_LINE } from '@/data/charity-messaging'
 
 export const metadata: Metadata = {
   title: 'Technology Stack',
@@ -638,11 +639,10 @@ export default function TechStack() {
               </p>
               <ul className="list-disc list-inside space-y-2 text-gray-700">
                 <li>
-                  <strong>First stop:</strong> Open a support ticket with Free For Charity
+                  <strong>First stop:</strong> {SUPPORT_LINE}
                 </li>
                 <li>
-                  <strong>Escalation:</strong> If your ticket is not answered within 48 hours, text
-                  Founder, Clarke Moyer at 520‑222‑8104
+                  <strong>Escalation:</strong> {SUPPORT_ESCALATION}
                 </li>
               </ul>
             </CollapsibleSection>

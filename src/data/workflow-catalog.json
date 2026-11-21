@@ -76,10 +76,10 @@
         "cloudflare-prod-write",
         "m365-prod"
       ],
-      "description": "HYBRID - Cloudflare DNS + FFC-tenant M365. The cloudflare_enforce job writes tenant-agnostic DNS (apex/www, MX/SPF/DMARC) and is safe for any domain. The exo_check/exo_enable jobs act on the FFC Microsoft tenant's Exchange Online (DKIM create/enable) - for a charity running their OWN Microsoft tenant, dispatch with skip_m365=true so only DNS is touched. See docs/m365-domain-and-dkim.md (internal vs external).",
+      "description": "HYBRID - Cloudflare DNS + optional FFC-tenant M365. The cloudflare_enforce job writes tenant-agnostic DNS (apex/www, MX/SPF/DMARC) and is safe for any domain. The exo_check/exo_enable jobs act on the FFC Microsoft tenant's Exchange Online (DKIM create/enable), so they are OFF by default and run only for an internal FFC-tenant domain dispatched with manage_m365=true (never together with github_pages_only=true). An external/charity domain needs no flag and never waits on the m365-prod gate. See docs/m365-domain-and-dkim.md (internal vs external).",
       "safetyLevel": "Writes (dry-run default)",
       "approvalEnv": "\u2705 cloudflare-prod-write / \u2705 m365-prod",
-      "guard": "`dry_run` (default true); exo jobs act on FFC tenant \u2014 `skip_m365=true` for external-tenant charities",
+      "guard": "`dry_run` (default true); exo jobs act on FFC tenant \u2014 opt-in via `manage_m365=true`, internal domains only",
       "category": "Cloudflare / DNS / Domain",
       "categoryCode": "CF"
     },
@@ -147,7 +147,7 @@
       "description": "Serialize runs: a second dispatch queues behind the first instead of racing it.",
       "safetyLevel": "Writes (dry-run default)",
       "approvalEnv": "\u2705 cloudflare-prod-write",
-      "guard": "`dry_run` (default true)",
+      "guard": "`dry_run` (default true); `mail_provider` default `from-registry`; UNLISTED domains have mail untouched; a listed domain is on EXACTLY ONE provider (enforcing REMOVES the other's MX/CNAME/SRV); MOVING providers needs `confirm_mail_change` = the domain name; `ai_crawlers` default `allow` (Block AI Bots + AI Labyrinth OFF after the audit, under `dry_run` only previewed); `block` opts a charity out, `skip` leaves it untouched",
       "category": "Cloudflare / DNS / Domain",
       "categoryCode": "CF"
     },
@@ -227,7 +227,7 @@
       "description": "Serialize runs: a second dispatch queues behind the first instead of racing it.",
       "safetyLevel": "Writes (gated)",
       "approvalEnv": "\u2705 cloudflare-prod-write",
-      "guard": "\u2014",
+      "guard": "`custom_nameservers` default `enable` (the zone is delegated to the account pair ns1/ns2.freeforcharity.org that 102 and the docs hand out; `skip` leaves Cloudflare's assigned pair; FFC-account zones only, a CM zone keeps its assigned pair); `ai_crawlers` default `allow`: right after the create, the new zone's Block AI Bots + AI Labyrinth are turned OFF (Cloudflare's own default blocks them); `block` keeps Cloudflare's default, `skip` leaves it untouched",
       "category": "Cloudflare / DNS / Domain",
       "categoryCode": "CF"
     },
@@ -268,7 +268,7 @@
       "description": "Serialize: this rewrites A records across many zones; parallel dispatches must not race.",
       "safetyLevel": "Writes (gated)",
       "approvalEnv": "\u2705 cloudflare-prod-write",
-      "guard": "high blast radius; serialized",
+      "guard": "high blast radius; serialized; **ungated `preflight` prints the IP pair + whole-estate zone scope into the run summary before the gate (#1509)**",
       "category": "Cloudflare / DNS / Domain",
       "categoryCode": "CF"
     },
@@ -409,7 +409,7 @@
       "description": "Serialize: this writes CNAMEs across many FFC-EX zones; parallel dispatches must not race.",
       "safetyLevel": "Writes (dry-run default)",
       "approvalEnv": "\u2705 cloudflare-prod-write",
-      "guard": "`dry_run` (default true); serialized",
+      "guard": "`dry_run` (default true); serialized; **ungated `preflight` names every `staging.<domain>` zone and the delete-then-create edge in the run summary before the gate (#1509)**",
       "category": "Cloudflare / DNS / Domain",
       "categoryCode": "CF"
     },
@@ -485,6 +485,67 @@
       "safetyLevel": "Reads",
       "approvalEnv": "none (no credentials)",
       "guard": "read-only RDAP + offline analysis; classifies foreign-registrar domains for the eNom/WHMCS inbound path",
+      "category": "Cloudflare / DNS / Domain",
+      "categoryCode": "CF"
+    },
+    {
+      "number": 124,
+      "title": "Cloudflare - Cache Purge (Admin)",
+      "apis": [
+        "CF"
+      ],
+      "file": "124-cloudflare-cache-purge.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "cloudflare-prod-read",
+        "cloudflare-prod-write"
+      ],
+      "description": "Purges Cloudflare's edge cache for a zone, by URL or wholesale. Wraps scripts/cloudflare-cache-purge.ps1.  Exists because of the 2026-08-07 freeforcharity.org incident: a transient LiteSpeed 429 at the cPanel origin arrived carrying the origin's one-year static-asset Cache-Control, Cloudflare cached the error, and four homepage SVGs plus a Next.js JS chunk served as empty 429s from the edge for ~16 hours while the origin was healthy. Purging was the only remedy and had no automation and no audit trail. See docs/cloudflare-cache.md.",
+      "safetyLevel": "Writes (dry-run default)",
+      "approvalEnv": "cloudflare-prod-read / \u2705 cloudflare-prod-write",
+      "guard": "`dry_run` (default true); preview job always runs read-only; serialized per zone; `purge_everything` refetches the whole zone from origin \u2014 prefer explicit `urls`",
+      "category": "Cloudflare / DNS / Domain",
+      "categoryCode": "CF"
+    },
+    {
+      "number": 125,
+      "title": "Cloudflare - Cache Rules Audit (Read-only)",
+      "apis": [
+        "CF"
+      ],
+      "file": "125-cloudflare-cache-rules-audit.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "cloudflare-prod-read"
+      ],
+      "description": "READ-ONLY: reads a zone's Cache Rules (the http_request_cache_settings phase entrypoint) plus the zone-level cache settings, and reports whether error responses can be edge-cached. Changes nothing. Wraps scripts/cloudflare-cache-rules-get.ps1.  The finding it exists to surface: with no status-code TTL cap, an origin that sends Cache-Control on a 4xx/5xx has that error cached at the edge for the full max-age \u2014 which is how a transient 429 became a 16-hour outage on freeforcharity.org on 2026-08-07. See docs/cloudflare-cache.md.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "cloudflare-prod-read",
+      "guard": "read-only; reports whether 4xx/5xx can be edge-cached; `fail_on_finding` (default false) turns warn-level findings into a non-zero exit",
+      "category": "Cloudflare / DNS / Domain",
+      "categoryCode": "CF"
+    },
+    {
+      "number": 126,
+      "title": "Domain - Redirect Forensics (Read-only)",
+      "apis": [
+        "CF"
+      ],
+      "file": "126-domain-redirect-forensics.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "cloudflare-prod-read"
+      ],
+      "description": "READ-ONLY: answers \"why is this domain redirecting, and who configured it?\" It walks every HTTP hop manually (never `-L`), then reads the zone's DNS records, dynamic-redirect rulesets and legacy Page Rules from Cloudflare. Wraps scripts/domain-redirect-forensics.mjs. Changes nothing.  WHY IT EXISTS. On 2026-09-04 a live charity site was found forwarding to a replacement domain that did not serve a site yet, and neither existing tool could locate the redirect:  - 121 follows redirects and reports only the FINAL status, so `301 -> elsewhere -> 200` reads as a healthy `200`. It reported HTTP 200 for a domain that was not serving its own content. - 101 writes its Cloudflare audit to an ARTIFACT, and an agent session restricted to api.github.com cannot download one (artifact blob storage is a different host). The only report naming the zone's rules was unreadable by the party trying to read it.  So this workflow prints EVERYTHING to the job log and uploads no artifact. That is the point, not an oversight: a job log is readable through the REST API without general network egress. Do not \"improve\" this by moving the output into an artifact or a step summary only.  SAFETY. Every call is a GET \u2014 against the live domain and the Cloudflare API. It runs on the ungated `cloudflare-prod-read` lane, so diagnosing an outage never waits on a deployment approval. The Cloudflare half self-skips with a printed notice when no token is present, so the HTTP half still runs.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "cloudflare-prod-read",
+      "guard": "read-only; walks every HTTP hop manually (never follows redirects) and reads DNS, dynamic-redirect rulesets and legacy Page Rules; prints to the job log, never an artifact, so an egress-restricted caller can read it",
       "category": "Cloudflare / DNS / Domain",
       "categoryCode": "CF"
     },
@@ -581,10 +642,10 @@
       "environments": [
         "whmcs-prod"
       ],
-      "description": "Manually open a WHMCS support ticket (new request or break/fix logging). Defaults to dry-run (no ticket created).",
+      "description": "Manually open a WHMCS support ticket (new request or break/fix logging). Defaults to dry-run (no ticket created).  Optional `template` (charity-lane #1618, G3.5): open a client ticket whose subject and body come from config/whmcs-ticket-templates.json instead of the `subject` / `message` inputs, which must then be left blank. Only a client-visible template that carries a `subject` can open a ticket (today: `preview_ready`); `extra_message` is appended to the body (the preview URL). With `template` blank the `Resolve ticket template` step is skipped and the `Open ticket` step receives the dispatched subject and message exactly as before.",
       "safetyLevel": "Writes (gated)",
       "approvalEnv": "\u2705 whmcs-prod",
-      "guard": "one-way GitHub\u2192WHMCS",
+      "guard": "one-way GitHub\u2192WHMCS; optional `template` opens a client ticket from a client-visible template that carries a `subject` in config/whmcs-ticket-templates.json (e.g. `preview_ready`), resolved before the credential is minted; `subject`/`message` must be blank with a template",
       "category": "WHMCS",
       "categoryCode": "WHMCS"
     },
@@ -1059,6 +1120,26 @@
       "categoryCode": "WHMCS"
     },
     {
+      "number": 229,
+      "title": "WHMCS - Populate Client Fields from Product Answers",
+      "apis": [
+        "WHMCS"
+      ],
+      "file": "229-whmcs-client-field-populate.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "whmcs-prod"
+      ],
+      "description": "Copies a client's product custom-field answers (mission, brand color, socials, site content, ...) into their Custom Client Fields, so the data shows on the admin client profile. Read-only preview by default; a live UpdateClient write gates on whmcs-prod. Idempotent + non-destructive (existing client values are preserved unless overwrite=true). WHMCS API routes through the APIM gateway.",
+      "safetyLevel": "Writes (dry-run default)",
+      "approvalEnv": "\u2705 whmcs-prod",
+      "guard": "`dry_run` (default true); copies one client's product custom-field answers into their Custom Client Fields via UpdateClient; idempotent + non-destructive (existing values preserved unless `overwrite=true`); name map in `config/whmcs-client-field-populate-map.json` \u2014 verify the unmapped list on dry-run before live",
+      "category": "WHMCS",
+      "categoryCode": "WHMCS"
+    },
+    {
       "number": 230,
       "title": "WHMCS - Record Field Set (client/contact/service/domain)",
       "apis": [
@@ -1095,6 +1176,108 @@
       "safetyLevel": "Writes (dry-run default)",
       "approvalEnv": "\u2705 whmcs-prod",
       "guard": "`mode` (default `dry-run`) previews AddOrder and writes nothing; `execute` places a real order; pid fixed by `order_type` (41 transfer / 39 register); underlying script skips when the client already has a non-terminated service for the product unless `allow_duplicate`; `no_email` defaults true so a first live run cannot surprise a charity; price forced to 0",
+      "category": "WHMCS",
+      "categoryCode": "WHMCS"
+    },
+    {
+      "number": 232,
+      "title": "WHMCS - Charity-Lane Verdicts (Gate 1/2, read-only)",
+      "apis": [
+        "FRAUDLABS",
+        "WHMCS"
+      ],
+      "file": "232-whmcs-charity-lane-verdicts.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "fraudlabspro-prod-read",
+        "whmcs-prod-read"
+      ],
+      "description": "Read-only. Step G1.3 of the charity-lane pipeline (docs/charity-lane-pipeline.md, epic #1618). Lists every Pending onboarding (pid 16 pre-501(c)(3), pid 33 501(c)(3)) and website (pid 40) order and gives each a verdict, ACCEPT / NEED_INFO / ESCALATE, with machine-readable reason codes, from the machine-checkable subset of the ffcadmin inventory section 5 checks: org Facebook + LinkedIn Page URLs present and answering HTTP 2xx/3xx, ToS + US attestations ticked, track vs legal status, EIN present (pid 33: a 501(c)(3) on ProPublica, as 226 checks it), no duplicate client / org / domain, and for pid 40 an Active Gate 1 service. Anything it cannot classify is ESCALATE. Every order is then screened with FraudLabs Pro exactly as 228 does it (G1.3b), on 228's own fraudlabspro-prod-read environment and key, deciding on the FraudLabs status alone: only an APPROVE can leave an ACCEPT standing; REJECT -> ESCALATE FRAUD_FLAGGED, REVIEW -> ESCALATE FRAUD_REVIEW, a failed, missing or skipped lookup -> ESCALATE FRAUD_CHECK_FAILED (fail closed). The score is reported, never decisive (a high score on a $0 onboarding order is the known false positive, #813). It accepts nothing and writes nothing to WHMCS.  Three jobs, because no one environment holds both credentials: charity_lane_verdicts (whmcs-prod-read) - the checks; every row leaves it UNSCREENED (FRAUD_CHECK_NOT_RUN, ESCALATE). Also writes the FraudLabs lookup keys (order id -> the order field 228 sends; no applicant data), kept 1 day. fraud_screen (fraudlabspro-prod-read) - one stored-verdict lookup per order; no WHMCS credential; writes only order id, status, score, error code. finalize (no environment, no credential) - applies the results; runs even when fraud_screen failed, and then marks every row FRAUD_CHECK_FAILED.  Output is PII-free (this repo is public): order id, client id, pid, gate, org name, desired domain, verdict, reason codes, readiness score, fraud check + score. The finalize job summary table + the charity-lane-verdicts.json artifact; optionally the same table as a comment on `issue_number` (the 219 pattern).  Both reads use the READ-scoped credential: `scope: read` on the READ_ALL_FFC_AZURE_* (ffc-admin-kv-reader) identity, exactly as 219/221 (WHMCS) and 228 (FraudLabs).",
+      "safetyLevel": "Reads",
+      "approvalEnv": "whmcs-prod-read + fraudlabspro-prod-read",
+      "guard": "read-only verdicts (`ACCEPT` / `NEED_INFO` / `ESCALATE` + reason codes) for Pending pid 16/33/40 orders; accepts nothing; every order screened with FraudLabs Pro exactly as 228 (its environment, key action and lookup), fail closed: only a FraudLabs `APPROVE` status leaves an `ACCEPT` standing (score never decisive), and a failed, missing or skipped lookup is `ESCALATE` `FRAUD_CHECK_FAILED`; no job holds both credentials and the merge/post job holds none; PII-free output (ids, org name, desired domain, verdict, codes, readiness, fraud check + score); public GETs to ProPublica and the org Facebook/LinkedIn pages; optional issue comment (issues:write, ambient token, `finalize` job only); `scope: read` on the `READ_ALL_FFC_AZURE_*` identity for both reads",
+      "category": "WHMCS",
+      "categoryCode": "WHMCS"
+    },
+    {
+      "number": 233,
+      "title": "WHMCS - Charity-Lane Ticket Reply (classify, read-only)",
+      "apis": [
+        "WHMCS"
+      ],
+      "file": "233-whmcs-charity-lane-ticket-reply.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "whmcs-prod-read"
+      ],
+      "description": "Read-only. Step G3.6 of the charity-lane pipeline (docs/charity-lane-pipeline.md, epic #1618). After 205 sends a charity the `preview_ready` ticket (\"[Website Preview] Your new website is ready to review\"), this finds that client's most recent ticket with the chosen subject prefix (GetTickets by clientid, then GetTicket), takes the client's latest reply after FFC's opening message (client vs admin by the API's `admin` field), and classifies it: APPROVED / CHANGES / UNCLEAR / NO_REPLY / TICKET_NOT_FOUND. It fails closed: anything unsure is UNCLEAR.  This repo is PUBLIC. The reply text is never written anywhere: the job summary and the optional issue comment (marker `<!-- charity-lane:ticket-reply -->`) carry only client id, ticket id, ticket status, reply date (UTC), classification and the matched signal LABELS from fixed word lists. No artifact is uploaded.  Ungated `whmcs-prod-read` lane with the READ-scoped credential, exactly as 219/221/232: `scope: read` on the READ_ALL_FFC_AZURE_* (ffc-admin-kv-reader) identity. Every input reaches the script through env:, never the script text.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "whmcs-prod-read",
+      "guard": "read-only classification of a charity's latest reply on its most recent `[Website Preview]` / `[Application]` ticket (GetTickets by clientid + GetTicket): `APPROVED` / `CHANGES` / `UNCLEAR` / `NO_REPLY` / `TICKET_NOT_FOUND`, fail-closed toward `UNCLEAR`; the reply text is never written (output is client id, ticket id, status, reply date, classification and fixed-list signal labels only); no artifact; optional issue comment (issues:write, ambient token); `scope: read` on the `READ_ALL_FFC_AZURE_*` identity",
+      "category": "WHMCS",
+      "categoryCode": "WHMCS"
+    },
+    {
+      "number": 234,
+      "title": "WHMCS - Charity-Lane Site Content Fields (public, read-only)",
+      "apis": [
+        "WHMCS"
+      ],
+      "file": "234-whmcs-charity-lane-site-fields.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "whmcs-prod-read"
+      ],
+      "description": "Read-only. Step G3.3c of the charity-lane pipeline (docs/charity-lane-pipeline.md, epic #1618). Emits ONE charity's public website fields for the Cloud Worker that builds its site (.claude/routines/site-builder.md): the footer email / phone / city & state, mission, tagline, descriptions, programs, brand color, logo, social, donation and volunteer URLs, founding year, alternate names, EIN, Candid URL and template choice. The applicant gave these FOR PUBLICATION on the website, so they are printed in full; 219 masks contact data and is the wrong source for them.  The allowlist is config/charity-lane-site-fields.json: only its fields can appear, each cleaned (HTML, control characters) and validated by type. Never emitted: the mailing address, the client record's own name / email / phone, board / officer / team / contact fields, or anything else not listed. A value that fails validation is reported by reason code only, never printed. Source per field: the Custom Client Field, then the matching product answer on the client's pid 16/33/40 services.  Output: charity-lane-site-fields.json artifact, the same JSON in the job log and job summary, and the list of missing fields (the worker marks them `pending`); optionally a comment on `issue_number` carrying `<!-- charity-lane:site-fields -->`.  Ungated `whmcs-prod-read` lane with the READ-scoped credential, exactly as 219/232: `scope: read` on the READ_ALL_FFC_AZURE_* (ffc-admin-kv-reader) identity. WHMCS actions: GetClientsDetails and GetClientsProducts only.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "whmcs-prod-read",
+      "guard": "one client's PUBLIC website fields for the site builder (G3.3c); prints values in full by design, but only the allowlist in `config/charity-lane-site-fields.json` (footer email/phone/city & state, mission, tagline, descriptions, programs, brand color, logo/social/donation/volunteer URLs, founding year, alternate names, EIN, Candid URL, template choice), each HTML/control-stripped, length-capped and type-validated; the loader refuses any address/contact/board/team field; never the mailing address or the client record's own name/email/phone; a rejected value is reported by reason code only; WHMCS actions GetClientsDetails + GetClientsProducts only; `client_id` / `issue_number` digits-only, validated before the credential step; optional issue comment (issues:write, ambient token); `scope: read` on the `READ_ALL_FFC_AZURE_*` identity",
+      "category": "WHMCS",
+      "categoryCode": "WHMCS"
+    },
+    {
+      "number": 235,
+      "title": "WHMCS - Ticket Thread Read (full text, encrypted)",
+      "apis": [
+        "WHMCS"
+      ],
+      "file": "235-whmcs-ticket-thread-read.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "whmcs-prod"
+      ],
+      "description": "Read-only. Reads the FULL thread of one or more WHMCS tickets -- every message (GetTicket) plus FFC's internal notes (GetTicketNotes) -- so a reply can be written from the actual conversation. 208 exports subjects only and 233 never emits thread text, because this repo is PUBLIC.  So the threads leave this job only as ciphertext: AES-256-GCM, with the content key wrapped (RSA-OAEP-SHA256) to `recipient_public_key`, a key whose private half only the requester holds. Make one with python3 scripts/whmcs-ticket-thread-decrypt.py keygen --out <private.pem> and decrypt the artifact with the same script's `decrypt`. The log and job summary carry ticket/message COUNTS and the key fingerprint only.  GATED `whmcs-prod` lane with the READ-scoped credential. Full ticket TEXT is a different category from the subjects/counts the ungated reads emit, so this one waits for a human approval (Clarke, 2026-11-12). It keeps `scope: read` on the READ_ALL_FFC_AZURE_* (ffc-admin-kv-reader) identity, as 219/221/232/233 do. NO other workflow pairs `whmcs-prod` with the reader: every other whmcs-prod job logs in as the writer. So this needs a federated credential `repo:FreeForCharity/FFC-Cloudflare-Automation:environment:whmcs-prod` on ffc-admin-kv-reader -- an Azure AD change, see docs/azure-oidc-federated-credentials.md. Until it exists, azure/login fails AADSTS700213 AFTER the gate is approved. Every input reaches the script through env:, never the script text.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "whmcs-prod",
+      "guard": "read-only full thread of chosen tickets (GetTicket + GetTicketNotes, by ticket id and/or every ticket of a client id); the threads leave the job ONLY as an AES-256-GCM envelope whose key is RSA-OAEP-wrapped to the dispatcher's `recipient_public_key` (private keys refused, unechoed); log/summary carry counts + key fingerprint only; 1-day encrypted artifact; decrypt with `scripts/whmcs-ticket-thread-decrypt.py`; `scope: read` on the `READ_ALL_FFC_AZURE_*` identity",
+      "category": "WHMCS",
+      "categoryCode": "WHMCS"
+    },
+    {
+      "number": 236,
+      "title": "WHMCS - Open Charity Tickets (batch, one approval)",
+      "apis": [
+        "WHMCS"
+      ],
+      "file": "236-whmcs-ticket-batch.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "whmcs-prod"
+      ],
+      "description": "Opens one templated WHMCS ticket per listed order, in ONE run behind ONE whmcs-prod approval (Clarke, 2026-11-15: \"approve multiple tickets in one time versus chaining them one after another\").  Why not many 205 runs: 205 serializes on one concurrency group, so each run reaches the gate only after the previous one finishes (one approval each), and GitHub cancels every pending run in a group but the newest, so a burst of 205 dispatches silently loses tickets.  `plan` (no environment, no WHMCS credential) renders every ticket from the fraud-screened `charity-lane-verdicts` artifact of 232 run `verdicts_run`, with scripts/charity_lane_ticket_batch.py (the same wording and gap rules as the 205 batch sender), and writes all of them to the run summary, so the approver reads the exact text before approving. `send` (whmcs-prod) opens them one by one from that plan and records each ticket number. One failure does not stop the rest; the job fails if any ticket failed. Defaults to dry run.",
+      "safetyLevel": "Writes (gated)",
+      "approvalEnv": "\u2705 whmcs-prod",
+      "guard": "`dry_run` (default true); one run opens one allowlisted-template ticket per listed order (at most 50), rendered from a fraud-screened 232 `charity-lane-verdicts` artifact by `scripts/charity_lane_ticket_batch.py`; the ungated `plan` job writes every ticket to the run summary before the single approval, `send` opens them and records each ticket number",
       "category": "WHMCS",
       "categoryCode": "WHMCS"
     },
@@ -1259,10 +1442,10 @@
       "environments": [
         "google-prod-read"
       ],
-      "description": "Daily health check of the credentials in kv-ffc-admin-prod-cbm that back the automation lanes, on two independent signals:  1. EXPIRY/ENABLED for every secret, read from `az keyvault secret list`, which returns attributes WITHOUT values. So write-scope credentials are monitored without this workflow ever reading their material. 2. LIVENESS for the credentials that can verify themselves read-only \u2014 the two GitHub PATs (GET /user) and the two Cloudflare tokens (GET /zones). Probes cover `read-all-*` secrets ONLY; the library refuses a `wr-all-*` target before anything is read.  The Cloudflare probe deliberately does NOT use /user/tokens/verify: that endpoint does not apply to account-scoped tokens and rejects a working one, which made 321's first run (#877) report both live Cloudflare tokens as dead. Probe the call the lane actually makes.  Why (#848): both `read-all-*` GitHub PATs in the vault were dead with 401 Bad credentials, for an unknown period, and nothing noticed because nothing consumed them yet. Expiry alone would not have caught it \u2014 a REVOKED token still carries a future expiry date \u2014 which is why liveness is a separate signal here and why a probe that cannot be evaluated is reported as unverifiable rather than passing (the #726/#855 lesson: never render an unreadable response as a green check).  Secret values are never printed, never written to the artifact, and never sent anywhere except the probe host, which is re-validated against an allowlist in this file immediately before the request. Findings are upserted into one rolling issue that auto-closes when the vault is clean.  Runs on google-prod-read because it federates the ffc-admin-kv-reader identity and has no approval gate (a monitor must not wait on a human, and a dedicated azure-prod-read environment would need a new federated credential). Under the per-secret RBAC migration (#848 part A) that identity needs `getSecret` on the four probed `read-all-*` secrets, plus list on the vault; without those grants the run reports UNVERIFIABLE, not green.  Classification + report logic lives in scripts/kv-credential-liveness-lib.js (unit-tested under tests/workflow-logic/).",
+      "description": "Daily health check of the credentials in kv-ffc-admin-prod-cbm that back the automation lanes, on two independent signals:  1. EXPIRY/ENABLED for every secret, read from `az keyvault secret list`, which returns attributes WITHOUT values. So write-scope credentials are monitored without this workflow ever reading their material. 2. LIVENESS for the credentials that can verify themselves read-only \u2014 the GitHub PAT (GET /user), the two Cloudflare tokens (GET /zones), the Zeffy key (GET /api/v1/campaigns) and the WPMUDEV key (GET /hub/v1/sites). Probes cover `read-all-*` secrets ONLY; the library refuses a `wr-all-*` target before anything is read.  The Cloudflare probe deliberately does NOT use /user/tokens/verify: that endpoint does not apply to account-scoped tokens and rejects a working one, which made 321's first run (#877) report both live Cloudflare tokens as dead. Probe the call the lane actually makes.  Why (#848): both `read-all-*` GitHub PATs in the vault were dead with 401 Bad credentials, for an unknown period, and nothing noticed because nothing consumed them yet. Expiry alone would not have caught it \u2014 a REVOKED token still carries a future expiry date \u2014 which is why liveness is a separate signal here and why a probe that cannot be evaluated is reported as unverifiable rather than passing (the #726/#855 lesson: never render an unreadable response as a green check).  Secret values are never printed, never written to the artifact, and never sent anywhere except the probe host, which is re-validated against an allowlist in this file immediately before the request. Findings are upserted into one rolling issue that auto-closes when the vault is clean.  Runs on google-prod-read because it federates the ffc-admin-kv-reader identity and has no approval gate (a monitor must not wait on a human, and a dedicated azure-prod-read environment would need a new federated credential). Under the per-secret RBAC migration (#848 part A) that identity needs `getSecret` on each probed `read-all-*` secret, plus list on the vault; without those grants the run reports UNVERIFIABLE, not green.  Classification + report logic lives in scripts/kv-credential-liveness-lib.js (unit-tested under tests/workflow-logic/).",
       "safetyLevel": "Reads",
       "approvalEnv": "google-prod-read (reader identity)",
-      "guard": "daily two-signal credential health check: expiry/enabled for every vault secret from the attribute listing (values never read), plus a read-only liveness probe (`GET /user`, Cloudflare `GET /zones`) for the four `read-all-*` credentials that can verify themselves \u2014 the library refuses a `wr-all-*` probe target before anything is read, so write-scope material is expiry-monitored without ever being fetched; a probe that cannot be evaluated is reported as unverifiable, never as passing; values never printed or persisted; rolling issue upsert/close; ungated by design (a credential monitor must not wait on a human)",
+      "guard": "daily two-signal credential health check: expiry/enabled for every vault secret from the attribute listing (values never read), plus a read-only liveness probe (`GET /user`, Cloudflare `GET /zones`, Zeffy `GET /api/v1/campaigns`, WPMUDEV `GET /hub/v1/sites`) for the five `read-all-*` credentials that can verify themselves \u2014 the library refuses a `wr-all-*` probe target before anything is read, so write-scope material is expiry-monitored without ever being fetched; a probe that cannot be evaluated is reported as unverifiable, never as passing; values never printed or persisted; rolling issue upsert/close; ungated by design (a credential monitor must not wait on a human)",
       "category": "Microsoft (M365 / Azure / Graph)",
       "categoryCode": "MS"
     },
@@ -1363,10 +1546,10 @@
         "github-prod-read",
         "google-prod-read"
       ],
-      "description": "Read-only GA4 reporting for the FFC primary sites. Generates aggregate JSON per site and delivers it to FreeForCharity/FFC-IN-ffcadmin.org as a reviewable PR (never a direct push). PII-safe: aggregate metrics only. Requires the google-prod-read environment (report) and the ungated github-prod-read environment (delivery, #834) + the Wave 0 foundation. Opening the PR is reporting plumbing, not a Write \u2014 the data this workflow consumes is a Read. The delivery PAT comes from Key Vault (`read-all-cbm-github-pat`) over OIDC on the READER identity, never a GitHub secret \u2014 #844.",
+      "description": "Read-only GA4 reporting for the FFC primary sites. Generates aggregate JSON per site and delivers it to FreeForCharity/FFC-IN-ffcadmin.org as a reviewable PR (never a direct push). PII-safe: aggregate metrics only. Requires the google-prod-read environment (report) and the ungated github-prod-read environment (delivery, #834) + the Wave 0 foundation. Opening the PR is reporting plumbing, not a Write \u2014 the data this workflow consumes is a Read. Two PATs come from Key Vault over OIDC on the READER identity, never GitHub secrets (#844), split by what they do (#848): - `read-all-cbm-ffc-copilot-mcp-github-pat` \u2014 org-wide READS (the status-feed generator). - `wr-all-cbm-datasync-github-pat` \u2014 the WRITE: push + PR into FFC-IN-ffcadmin.org. Fine-grained, scoped to FFC-IN-ffcadmin.org + FFC-Cloudflare-Automation only (Contents + Pull requests RW). A writer PAT on the ungated lane is a Clarke ruling (2026-09-28, #848): the token cannot reach main (merge-queue rulesets) and can only open PRs in those two repos, which still pass CI.",
       "safetyLevel": "Reads",
       "approvalEnv": "google-prod-read / github-prod-read",
-      "guard": "delivers JSON to ffcadmin via PR (`read-all-cbm-github-pat` from KV, ungated lane #834); PII-safe aggregates. Same PR also syncs the workflow catalog and the Agentic OS status feed (`agentic-os-status.json`, generated by `scripts/generate-agentic-os-status.py`, REST-only)",
+      "guard": "delivers JSON to ffcadmin via PR (reads on `read-all-cbm-ffc-copilot-mcp-github-pat`, push + PR on the 2-repo `wr-all-cbm-datasync-github-pat`, both from KV; ungated lane #834, writer ruling #848); PII-safe aggregates. Same PR also syncs the workflow catalog and the Agentic OS status feed (`agentic-os-status.json`, generated by `scripts/generate-agentic-os-status.py`, REST-only)",
       "category": "Google",
       "categoryCode": "GOOGLE"
     },
@@ -1481,17 +1664,19 @@
       ],
       "file": "701-website-provision.yml",
       "triggers": [
-        "issues"
+        "issues",
+        "repository_dispatch",
+        "workflow_dispatch"
       ],
       "environments": [
         "cloudflare-prod-read",
         "cloudflare-prod-write",
         "github-prod"
       ],
-      "description": "Serialize runs: a second dispatch queues behind the first instead of racing it.",
+      "description": "Serialize runs PER DOMAIN: a second dispatch for the same domain queues behind the first instead of racing it. The group used to be global, so one charity's run waiting hours at a gate held every other charity, and GitHub keeps only one pending run per group, so a third dispatch cancelled the queued second. Issue-triggered runs key on the issue number (the domain is parsed later).",
       "safetyLevel": "Writes (gated)",
       "approvalEnv": "\u2705 cloudflare-prod-write / \u2705 github-prod",
-      "guard": "`repo` chained behind `dns` approval",
+      "guard": "`repo` chained behind `dns` approval; dispatch input `skip_dns` (default false) reports the zone as not controlled for the run, so `dns`/`dns_preview`/`verify` skip and the repo is built on the default Pages URL with no CNAME (for a domain already serving a live site)",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1506,10 +1691,10 @@
       "environments": [
         "github-prod"
       ],
-      "description": "Regenerates an FFC-EX site as a faithful static clone of the live WordPress site and opens a PR on the target FFC-EX repo. Pipeline (all proven locally): clone-site-static.mjs (httrack) -> integrate-clone-into-nextjs.mjs -> next build (output: 'export') so the Next.js app serves the exact clone. See docs/ffc-ex-static-clone-runbook.md.  Auth: uses CBM_TOKEN (cross-repo PAT, same secret create-repo.yml uses) to check out the FFC-EX repo and push a branch + open a PR there. Non-destructive: it never pushes to the FFC-EX default branch, only opens a PR for review.",
+      "description": "Regenerates an FFC-EX site as a faithful static clone of the live WordPress site and opens a PR on the target FFC-EX repo. Pipeline (all proven locally): clone-site-static.mjs (httrack) -> integrate-clone-into-nextjs.mjs -> next build (output: 'export') so the Next.js app serves the exact clone. See docs/ffc-ex-static-clone-runbook.md.  Auth: uses CBM_TOKEN (cross-repo PAT, same secret create-repo.yml uses) to check out the FFC-EX repo and push a branch + open a PR there. Non-destructive: it never pushes to the FFC-EX default branch, only opens a PR for review.  The github-prod approval is the only human stop, and the approver sees nothing but the run name and the run summary before clicking \"Approve\". So the ungated preflight writes the whole plan into that summary once every check has passed: the resolved target repo, the credential the gate releases, every input, the steps in order, and -- in one unmissable line -- whether this run writes (dry_run=false: push a NEW branch + open a DRAFT PR) or writes nothing.",
       "safetyLevel": "Writes (gated)",
       "approvalEnv": "\u2705 github-prod",
-      "guard": "ungated preflight (repo must exist; refuses live sites and sibling-domain repos unless `force=true`); opens a draft PR (never pushes); serialized",
+      "guard": "ungated preflight (repo must exist; refuses live sites and sibling-domain repos unless `force=true`) that prints the approver's plan into the run summary (target repo, branch, draft PR, credential, every input, and whether the run writes); opens a draft PR (never pushes to `main`); serialized",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1521,7 +1706,6 @@
       ],
       "file": "703-sites-list-generate.yml",
       "triggers": [
-        "schedule",
         "workflow_dispatch"
       ],
       "environments": [
@@ -1530,7 +1714,7 @@
       "description": "Generates the merged FFC sites list from the WHMCS / Cloudflare / WPMUDEV exports plus the curated base list, runs per-domain health checks, and commits both sites-list/sites_list.csv and sites-list/sites_list.json.  This repo owns the export environments (whmcs-prod, cloudflare-prod-read, wpmudev-prod) and the GitHub PAT (CBM_TOKEN in github-prod) needed to dispatch the sibling export workflows, so generation lives here. Downstream consumers (e.g. ffcadmin.org) pull the published files from this repo.",
       "safetyLevel": "Writes (data PR only)",
       "approvalEnv": "\u2705 github-prod",
-      "guard": "dispatches read-only exports 201/108/601 (601 waits on its own wpmudev-prod gate); regenerates `sites-list/` CSV+JSON; opens a data PR (never pushes to `main`); weekly Mon 08:00Z + dispatch; serialized concurrency group; loads `wr-all-cbm-ffc-copilot-mcp-github-pat` \u2192 **held on credential scope**, not on a taxonomy gap (#915)",
+      "guard": "dispatches read-only exports 201/108/601 (601 waits on its own wpmudev-prod gate); regenerates `sites-list/` CSV+JSON; opens a data PR (never pushes to `main`); weekly Mon via 753 (`weekly-sites-list`: 601 first, then 703 with `prime_wpmudev=false`) + dispatch; serialized concurrency group; loads `wr-all-cbm-ffc-copilot-mcp-github-pat` \u2192 **held on credential scope**, not on a taxonomy gap (#915)",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1551,6 +1735,64 @@
       "safetyLevel": "Writes (dry-run default)",
       "approvalEnv": "\u2705 github-prod",
       "guard": "opens a draft PR (never pushes); `dry_run` (default true); idempotent",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 705,
+      "title": "Website - Capture WordPress Site (REST API + Scrape)",
+      "apis": [
+        "WP"
+      ],
+      "file": "705-website-wordpress-capture.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [],
+      "description": "Captures a live WordPress site from its own REST API plus a rendered-HTML scrape, and uploads the result as an artifact for the FFC-EX migration PR.  Why this sits beside 702 rather than replacing it: 702 mirrors with httrack, which discovers pages by following links, so its page count is a property of the theme's navigation. 705 takes the inventory from /wp-json/wp/v2/pages \u2014 the CMS's own list, with an X-WP-Total to check it against \u2014 and then fetches the rendered markup for each of those URLs. That makes \"did we get the whole site?\" a question the run can answer and fail on, instead of one nobody can ask. See the header of scripts/capture-wordpress-api.mjs.  A cPanel/FTP backup is deliberately not an input. It yields PHP, a database dump and a plugin tree \u2014 the inputs to a renderer that will not exist after the migration \u2014 rather than the rendered artifact being migrated.  Read-only and ungated: it loads no credentials and writes nothing outside the run's own artifact. `mode=inspect` (the default) additionally makes no request beyond a handful of probes, so it is the safe first dispatch for any domain.  Two jobs, for one reason: the concurrency group that protects a small charity origin from two simultaneous crawls has to key on the NORMALISED domain, and a workflow-level `concurrency:` can only see the raw dispatch input. Keying on `inputs.domain` would let `VPMin.org` and `vpmin.org` \u2014 or `www.` and the apex \u2014 run at the same time against the same server, which is precisely what the group exists to prevent. `resolve` normalises and makes no network request; `capture` does every live request and carries the group.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "none (no credentials)",
+      "guard": "read-only capture of a public site; `mode=inspect` default (probe only), `capture` writes only the run artifact; politeness delay default 250ms; serialized per domain; offline `--self-test` gates the logic before any live request",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 706,
+      "title": "Website - WordPress to Pages Conversion (end to end)",
+      "apis": [
+        "WP"
+      ],
+      "file": "706-website-wordpress-to-pages.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "github-prod"
+      ],
+      "description": "The `deliver` job waits at a reviewer gate, and a waiting job has produced no logs \u2014 that is what a gate is. The REST run object exposes no dispatch inputs either, so without this the approver cannot tell WHICH site is being written WHERE. Same reasoning as the dry_run convention (#1107), applied to the inputs that decide this workflow's blast radius.",
+      "safetyLevel": "Writes (gated)",
+      "approvalEnv": "\u2705 github-prod on the `deliver` job ONLY",
+      "guard": "`resolve` and `convert` are ungated and read-only; `mode=convert` default performs the whole conversion \u2014 capture, integrate, Next.js build, self-containment gate \u2014 and writes nothing, so it needs no approval; only `deliver` is gated and only `deliver` writes. `target_repo` is a required, separately-validated bare repo name (never derived from `domain`), so a capture of one site cannot be delivered to a repo nobody named. Forms are replaced with a `mailto:` block before the artifact is made, and `deliver` re-checks for a surviving `<form>` before committing \u2014 a static export has no form backend, so a surviving form would accept a visitor's message and drop it. `deliver` consumes the artifact the gate passed rather than re-capturing, so the charity's server is read once. Offline `--self-test` of every script the workflow runs gates every live request.",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 707,
+      "title": "Website - Content Apply (FFC-EX PR)",
+      "apis": [
+        "GH"
+      ],
+      "file": "707-website-content-apply.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "github-prod"
+      ],
+      "description": "Delivers a charity's site content, written by a cloud worker agent, into its FFC-EX-<domain> repo as a pull request (charity-lane epic #1618, step G3.3).  WHY A HUB WORKFLOW. A cloud session can only reach the repos attached when it started, and a charity's FFC-EX repo is usually created (by 701) after the worker's session began. So the worker cannot push there; it hands the content to this workflow as data, and the hub is the only writer.  WHAT BOUNDS THE WRITE. scripts/website-content-apply-guard.ps1 with the path allowlist in config/website-content-apply-paths.json: lowercase FFC-EX-* repos only, site.config.ts and the templates' src/data/ files only, never .github/, workflows, CNAME, package manifests, lockfiles, binaries, `..` or absolute paths, and at most 60 KB. Both jobs run the same validation function, so the files `apply` writes are the files `validate` printed.  SAFETY. `validate` holds no credential and no environment: it parses and checks everything, then rehearses the write against an anonymous clone of the (public) target and prints the plan. `apply` is the only job that writes, the only one behind the github-prod gate, and it is skipped on a dry run. It opens a PR and never pushes the default branch. Auto-merge is enabled only when the target repo allows it AND its default branch requires a status check, because on a branch with no required check auto-merge means \"merge now\", before the site's CI has reported (Get-ContentApplyAutoMergePlan).",
+      "safetyLevel": "Writes (dry-run default)",
+      "approvalEnv": "\u2705 github-prod on the `apply` job ONLY",
+      "guard": "`dry_run` (default true); `validate` is ungated and credential-free: it runs scripts/website-content-apply-guard.ps1 (lowercase `FFC-EX-*` repo that exists and is not archived; only paths on the allowlist in config/website-content-apply-paths.json, i.e. `src/lib/site.config.ts` and the templates' `src/data/` files; never `.github/`, workflows, CNAME, package manifests, lockfiles, binaries, dotfiles, `..` or absolute paths; 60 KB payload cap; duplicate keys, invalid JSON and code-execution constructs in `.ts` refused) and rehearses the write against an anonymous sparse clone, printing the plan; `apply` re-runs the same validation, opens a PR from `content/<run_id>` (never pushes the default branch) and enables auto-merge only when the repo allows it AND the default branch requires a status check; otherwise (`land_when_green`, default true) it waits up to `land_wait_minutes` for the site CI on the exact pushed commit and merges via REST pinned to that sha only if at least one check ran and every check passed, else leaves the PR open with the reason (never `--admin`, never retried another way, rulesets honored); skipped when nothing would change; serialized per target repo",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1723,11 +1965,12 @@
       ],
       "file": "728-ai-agent-hooks-validate.yml",
       "triggers": [
+        "merge_group",
         "pull_request",
         "push"
       ],
       "environments": [],
-      "description": "",
+      "description": "Runs the AI-agent hook self-tests (.claude/hooks/test_hooks.py) and the staged-secret pre-commit scanner. Unfiltered and merge-queue evaluated, so the suite is checked against the MERGED result rather than after the fact.",
       "safetyLevel": "",
       "approvalEnv": "",
       "guard": "",
@@ -1742,6 +1985,7 @@
       ],
       "file": "729-repo-add-collaborator.yml",
       "triggers": [
+        "workflow_call",
         "workflow_dispatch"
       ],
       "environments": [
@@ -1789,6 +2033,26 @@
       "safetyLevel": "Reads",
       "approvalEnv": "\u2014",
       "guard": "GITHUB_TOKEN read-only; JSON artifact",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 732,
+      "title": "Repo - Bulk Create GitHub Repos",
+      "apis": [
+        "Repo"
+      ],
+      "file": "732-bulk-create-repos.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "github-prod"
+      ],
+      "description": "One gated run creates FFC-EX-<domain> for every domain in a list, instead of one github-prod approval per domain (720 stays the single-repo path). Built for the \"ensure every charity .org domain has a repo at minimum\" pass: default template is the lightweight FFC-IN-Footer_Only_Template, and EnablePages \u2014 when turned on \u2014 is hardcoded to the github-default URL. This workflow never sets a CNAME and never touches DNS; a live custom domain is a separate, later, per-repo decision.  Mirrors 720's preflight (same collision + sibling-domain scan, same reasoning) and reuses scripts/Create-GitHubRepo.ps1 unchanged, just called once per clean domain instead of once per dispatch.",
+      "safetyLevel": "Writes (gated)",
+      "approvalEnv": "\u2705 github-prod",
+      "guard": "dispatch-only; creates FFC-EX-\\<domain\\> for every domain in a list under ONE approval instead of one-per-domain (720 stays the single-repo path); ungated preflight refuses per-domain on name collision or sibling-domain match before the gate is spent; no CNAME input and never touches DNS; `dry_run` default true",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1844,10 +2108,10 @@
       "environments": [
         "github-prod-read"
       ],
-      "description": "Regenerates data/dependabot-affected-repos.json (the org repo inventory that feeds the smoke-protected Dependabot waves) and delivers it as an auto-merging PR. Migrated from FFC-IN-ClarkeMoyerAdmin. Runs on the UNGATED github-prod-read lane (#834): the org inventory it consumes is a Read, and a weekly gated run fires at 06:15 UTC with nobody watching. It still needs a real PAT \u2014 a PR opened by GITHUB_TOKEN does not trigger the pull_request checks / Copilot review this repo requires, so it would never satisfy branch protection. The PAT comes from Key Vault (`read-all-cbm-github-pat`) over OIDC on the READER identity, never a GitHub secret \u2014 see #844. Read-only against the org; PR-only.",
+      "description": "Regenerates data/dependabot-affected-repos.json (the org repo inventory that feeds the smoke-protected Dependabot waves) and delivers it as an auto-merging PR. Migrated from FFC-IN-ClarkeMoyerAdmin. Runs on the UNGATED github-prod-read lane (#834): the org inventory it consumes is a Read, and a weekly gated run fires at 06:15 UTC with nobody watching. It still needs a real PAT \u2014 a PR opened by GITHUB_TOKEN does not trigger the pull_request checks / Copilot review this repo requires, so it would never satisfy branch protection. Two PATs come from Key Vault over OIDC on the READER identity, never GitHub secrets (#844), split by what they do (#848): `read-all-cbm-ffc-copilot-mcp-github-pat` for the org inventory READ, and `wr-all-cbm-datasync-github-pat` (fine-grained, this repo + FFC-IN-ffcadmin.org only, Contents + Pull requests RW) for the PR. A writer PAT on the ungated lane is a Clarke ruling (2026-09-28, #848): it cannot reach main (merge queue) and can only open PRs that still pass CI. Read-only against the org.",
       "safetyLevel": "Reads",
       "approvalEnv": "github-prod-read",
-      "guard": "weekly org inventory (feeds smoke-protected waves); PR-only + auto-merge; `read-all-cbm-github-pat` from KV over OIDC on the ungated lane (#834)",
+      "guard": "weekly org inventory (feeds smoke-protected waves); PR-only + auto-merge; reads on `read-all-cbm-ffc-copilot-mcp-github-pat`, PR on the 2-repo `wr-all-cbm-datasync-github-pat`, both from KV over OIDC on the ungated lane (#834, writer ruling #848)",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1922,10 +2186,10 @@
         "workflow_dispatch"
       ],
       "environments": [],
-      "description": "Weekly, read-only \"monitor the monitors\" report for the Agentic OS (process-assurance epic #752, issue #756). A REST sweep of THIS repo turns the backlog + data-pipeline signals into a metrics object and posts it as a new comment on the Conductor log (#719) \u2014 the comment thread is the visible trend history. Each comment embeds its metrics in a hidden data block; the next run reads the most recent block to render week-over-week deltas (\"trends over absolute numbers\"). The same JSON is uploaded as an artifact for later ffcadmin rendering (#723).  Read-only: the ambient GITHUB_TOKEN reads issues + Actions runs and writes ONE comment on #719 in this repo. No external API, no environment gate, no push to `main`. Aggregation/trend/render logic lives in scripts/process-health-metrics-lib.js (unit-tested under tests/workflow-logic/).",
+      "description": "Weekly, read-only \"monitor the monitors\" report for the Agentic OS (process-assurance epic #752, issue #756). A REST sweep of THIS repo turns the backlog + data-pipeline signals into a metrics object and posts it as a new comment on the Conductor log (#719) \u2014 the comment thread is the visible trend history. Each comment embeds its metrics in a hidden data block; the next run reads the most recent block to render week-over-week deltas (\"trends over absolute numbers\"). The same JSON is uploaded as an artifact for later ffcadmin rendering (#723).  ONE finding does not go to #719: the Conductor-silence verdict (#1215) drives a rolling issue instead, assigned and labelled, the way 744 handles a stale public feed. #719 is the Conductor log, so delivering \"the Conductor has stopped\" there addresses it to the component that is down \u2014 four correct alarms reached nobody across a 30-day outage (#1269). A run that could not assess liveness leaves any open alarm open and raises none: an unreadable log cannot prove a recovery.  Read-only otherwise: the ambient GITHUB_TOKEN reads issues + Actions runs and writes one comment on #719 plus that one rolling issue, both in this repo. No external API, no environment gate, no Key Vault credential, no push to `main`. Aggregation/trend/render/delivery logic lives in scripts/process-health-metrics-lib.js (unit-tested under tests/workflow-logic/).",
       "safetyLevel": "Reads",
       "approvalEnv": "\u2014",
-      "guard": "weekly \"monitor the monitors\" REST sweep (backlog + data-pipeline signals) posted as a new comment on #719 with week-over-week trends (baseline read from the prior comment's hidden data block); JSON artifact; GITHUB_TOKEN (own-repo issue/Actions reads + one comment), no external API, ungated",
+      "guard": "weekly \"monitor the monitors\" REST sweep (backlog + data-pipeline signals) posted as a new comment on #719 with week-over-week trends (baseline read from the prior comment's hidden data block); the Conductor-silence verdict (#1215) additionally drives an assigned rolling issue, because #719 is read by the component the alarm is about (#1269); JSON artifact; GITHUB_TOKEN (own-repo issue/Actions reads + one comment + one rolling issue), no external API, ungated",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -1941,10 +2205,10 @@
         "workflow_dispatch"
       ],
       "environments": [],
-      "description": "Watches every scheduled hub workflow (726 drift audit, 734 janitor, 738 smoke drift, Google 502 analytics + 504 GTM backups, and the other cron-driven monitors \u2014 the authoritative list is WATCHED_WORKFLOWS below). For each one it upserts ONE rolling alert issue PER WATCHED WORKFLOW, and closes that issue on the next success of that same workflow. The marker is keyed by workflow name precisely so a green run of one watched workflow can never close another's alert \u2014 with a dozen workflows watched, a shared marker would let a weekly job's success silently clear a daily job's outage.  COVERAGE IS NOW EVERY SCHEDULED WORKFLOW BUT THIS ONE (#932). The watch list originally stopped at \"hub plumbing\" because that was #832's scope; the WHMCS lane (209/210/225/228) and the Azure inventory (320) were excluded for being out of that ticket's scope, not for being unwatchable. The evidence went the other way: 228 failed all four of its scheduled runs, 07-27 through 07-30, and no mechanism said a word \u2014 it surfaced only because a conductor audited `main`'s failure list by hand (#912). The lanes carrying live credentials and a payment/fraud pipeline were the ones with no alerting. Nothing about a WHMCS or Azure cron makes the poll unsound, so the only remaining exclusion is this workflow itself, which cannot watch itself without looping (#752).  POLL, NOT `workflow_run` (#843). This workflow used to trigger on the `workflow_run` completed event. That event has NEVER fired in this repository \u2014 `?event=workflow_run` returns 0 runs all time, while sibling repos show hundreds \u2014 so both this alerter and the Google one (732, now retired into this file) were `active` and had produced exactly zero runs. The alerting layer was dead for six days and nothing could tell us, because a `workflow_run` watcher cannot be tested on demand. The poll can: `workflow_dispatch` below is REQUIRED, not a convenience \u2014 it is what makes this alerter provable.  BEHAVIOUR CHANGE, deliberate: the event saw *every* run; the poll sees only the LATEST completed default-branch run per workflow, so a failure that self-heals between polls is missed. That is an acceptable \u2014 arguably better \u2014 fit, because the rolling issue answers \"is this workflow currently broken?\", which is exactly what latest-run state models. Do not add cursor/state tracking to chase the transient case; it would trade away the simplicity that makes this verifiable.  Consequence worth knowing: the poll model only makes sense for SCHEDULED workflows. For a dispatch-only workflow the \"latest run\" is whatever a human last ran by hand \u2014 a stale red would alert forever and a stale green would mean nothing. `test_watched_workflows_are_actually_scheduled` enforces that, and it is why 501 (workflow_dispatch/workflow_call only) is excluded even though retired 732 watched it.  Ambient GITHUB_TOKEN only, no environment: \u2014 the alerter must never be blocked by the very gate it is watching. Reports `cancelled` as well as `failure`: a run cancelled before it reaches a runner (the 2026-07-24 726 incident) executes zero steps and is exactly the kind of silent breakage this workflow exists to surface.  It does NOT alert on a declined or expired approval gate. Those also surface as run-level `failure`, so the run conclusion alone cannot tell \"the job broke\" from \"a human said no\"; the job list can, and `actions: read` already allows reading it. See the discriminator in the step below.",
+      "description": "Watches every scheduled hub workflow (726 drift audit, 734 janitor, 738 smoke drift, Google 502 analytics + 504 GTM backups, and the other cron-driven monitors \u2014 the authoritative list is WATCHED_WORKFLOWS below). For each one it upserts ONE rolling alert issue PER WATCHED WORKFLOW, and closes that issue on the next success of that same workflow. The marker is keyed by workflow name precisely so a green run of one watched workflow can never close another's alert \u2014 with a dozen workflows watched, a shared marker would let a weekly job's success silently clear a daily job's outage.  IT IS NO LONGER HUB-ONLY (#1296). Until 2026-09-12 the target was `context.repo`, so every scheduled workflow in every satellite repo failed silently forever. The cost was measured: `FFC-IN-FFC_Single_Page_Template`'s Security Audit \u2014 the canonical template the 78-repo FFC-EX fleet derives from \u2014 was red every day from 2026-09-02 to 2026-09-12 reporting two critical Next.js unauthenticated-RCE advisories, and eleven days of a daily signal produced no notification of any kind (#1295). Nothing was broken; nothing was watching. The satellite list is WATCHED_SATELLITE_WORKFLOWS below, and every alert it raises is opened HERE, in the hub: one place to read, and satellite repos keep clean issue lists.  COVERAGE IS NOW EVERY SCHEDULED WORKFLOW BUT THIS ONE (#932). The watch list originally stopped at \"hub plumbing\" because that was #832's scope; the WHMCS lane (209/210/225/228) and the Azure inventory (320) were excluded for being out of that ticket's scope, not for being unwatchable. The evidence went the other way: 228 failed all four of its scheduled runs, 07-27 through 07-30, and no mechanism said a word \u2014 it surfaced only because a conductor audited `main`'s failure list by hand (#912). The lanes carrying live credentials and a payment/fraud pipeline were the ones with no alerting. Nothing about a WHMCS or Azure cron makes the poll unsound, so the only remaining exclusion is this workflow itself, which cannot watch itself without looping (#752).  POLL, NOT `workflow_run` (#843). This workflow used to trigger on the `workflow_run` completed event. That event has NEVER fired in this repository \u2014 `?event=workflow_run` returns 0 runs all time, while sibling repos show hundreds \u2014 so both this alerter and the Google one (732, now retired into this file) were `active` and had produced exactly zero runs. The alerting layer was dead for six days and nothing could tell us, because a `workflow_run` watcher cannot be tested on demand. The poll can: `workflow_dispatch` below is REQUIRED, not a convenience \u2014 it is what makes this alerter provable. That argument is what the `dry_run` input extends across repositories: the multi-repo sweep can now be rehearsed against live data without writing a single issue.  BEHAVIOUR CHANGE, deliberate: the event saw *every* run; the poll sees only the LATEST completed default-branch run per workflow, so a failure that self-heals between polls is missed. That is an acceptable \u2014 arguably better \u2014 fit, because the rolling issue answers \"is this workflow currently broken?\", which is exactly what latest-run state models. Do not add cursor/state tracking to chase the transient case; it would trade away the simplicity that makes this verifiable.  Consequence worth knowing: the poll model only makes sense for SCHEDULED workflows. For a dispatch-only workflow the \"latest run\" is whatever a human last ran by hand \u2014 a stale red would alert forever and a stale green would mean nothing. `test_watched_workflows_are_actually_scheduled` enforces that, and it is why 501 (workflow_dispatch/workflow_call only) is excluded even though retired 732 watched it.  Ambient GITHUB_TOKEN only, no environment: \u2014 the alerter must never be blocked by the very gate it is watching. That constraint survives the multi-repo change: the satellite repos are public, so their Actions history is readable without widening any credential. If a satellite read ever starts failing, this workflow says so loudly and goes red rather than reporting a clean sweep \u2014 see the unreadable-repo reporting at the end of the script. Reports `cancelled` as well as `failure`: a run cancelled before it reaches a runner (the 2026-07-24 726 incident) executes zero steps and is exactly the kind of silent breakage this workflow exists to surface.  It does NOT alert on a declined or expired approval gate. Those also surface as run-level `failure`, so the run conclusion alone cannot tell \"the job broke\" from \"a human said no\"; the job list can, and `actions: read` already allows reading it. See the discriminator in the step below.",
       "safetyLevel": "Writes (issues only)",
       "approvalEnv": "\u2014",
-      "guard": "**polls** every scheduled hub workflow twice hourly (`schedule` + `workflow_dispatch`; the `workflow_run` event has never fired in this repo \u2014 #843) and upserts one rolling issue per watched workflow (marker keyed by workflow name, so only that workflow's own green run closes it); absorbs the retired 732 Google lane (502/504); reports `cancelled`/`timed_out` as well as `failure`, latest completed default-branch run only; does **not** alert on a declined/expired approval gate (no job `failure` + \u22651 job `cancelled` \u21d2 logged via `core.notice`, not an alert) \u2014 an unreadable job list still alerts, and a watched name matching no workflow fails the run loudly; ambient GITHUB_TOKEN, no external API, ungated by design (must not be blocked by the gate it watches)",
+      "guard": "**polls** every scheduled hub workflow \u2014 and, since #1296, `Security Audit` in satellite repos (the four core `FFC-IN-*` repos, plus `FFC-EX-canary` since #1533), whose scheduled workflows had no alerting at all \u2014 twice hourly (`schedule` + `workflow_dispatch`; the `workflow_run` event has never fired in this repo \u2014 #843) and upserts one rolling issue per watched workflow (marker keyed by workflow name, so only that workflow's own green run closes it); absorbs the retired 732 Google lane (502/504); reports `cancelled`/`timed_out` as well as `failure`, latest completed default-branch run only; does **not** alert on a declined/expired approval gate (no job `failure` + \u22651 job `cancelled` \u21d2 logged via `core.notice`, not an alert) \u2014 an unreadable job list still alerts, and a watched name matching no workflow fails the run loudly, as does a repo whose workflow list cannot be read (a sweep that has gone blind is never reported as a clean one); the run summary prints `repos/watched/checked/failing/...` so an empty result is distinguishable from a sweep that read nothing, `MAX_NEW_ALERTS_PER_RUN` bounds a first sweep, and a `dry_run` dispatch input rehearses the sweep without writing an issue; ambient GITHUB_TOKEN, no external API, ungated by design (must not be blocked by the gate it watches)",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },
@@ -2016,7 +2280,7 @@
         "workflow_dispatch"
       ],
       "environments": [],
-      "description": "Daily outcome check on the PUBLISHED Agentic OS status feed in FFC-IN-ffcadmin.org \u2014 the data behind https://ffcadmin.org/agentic-os/.  Why (#977): three separate mechanisms are supposed to keep that page current, and none of them checks whether its data is fresh. #921 (via 740) watches whether 502 succeeds, not whether its PR merged. #908 watches data-refresh PRs hanging behind main, not the publisher never opening one. #771 watches drift between the two copies, not both being equally stale. All three are PROCESS checks, and every one of them was green while the public feed sat three days old \u2014 502's deliver job had been failing since 2026-07-29 on a dead PAT (#848), and nobody connected the two.  This workflow asserts the outcome instead: how old is the timestamp the public page is actually serving. That catches all three causes above plus the next unknown one, and it is cheap.  Both published copies are checked and reported by path, because they are written separately and can disagree (#771).  A path that is missing, unreadable, or carries an absent, empty, non-ISO or future `generated_at` is reported as a FINDING, never as fresh. \"Could not check\" and \"checked, fine\" are different answers, and collapsing them is the exact fail-open this workflow exists to close (ledger L02).  Credentials: NONE beyond the ambient GITHUB_TOKEN. The two files are public and the only write is one issue in this repository. Using `read-all-cbm-github-pat` here would be circular: a freshness monitor that depends on the credential whose death it exists to reveal goes dark at precisely the moment it is needed. No Key Vault access, no environment, no approval gate.  Classification + report logic lives in scripts/public-feed-freshness-lib.js (unit-tested under tests/workflow-logic/).",
+      "description": "Daily outcome check on the PUBLISHED Agentic OS status feed in FFC-IN-ffcadmin.org \u2014 the data behind https://ffcadmin.org/agentic-os/.  Why (#977): three separate mechanisms are supposed to keep that page current, and none of them checks whether its data is fresh. #921 (via 740) watches whether 502 succeeds, not whether its PR merged. #908 watches data-refresh PRs hanging behind main, not the publisher never opening one. #771 watches drift between the two copies, not both being equally stale. All three are PROCESS checks, and every one of them was green while the public feed sat three days old \u2014 502's deliver job had been failing since 2026-07-29 on a dead PAT (#848), and nobody connected the two.  This workflow asserts the outcome instead: how old is the timestamp the public page is actually serving. That catches all three causes above plus the next unknown one, and it is cheap.  Every published copy is checked and reported BY PATH rather than averaged, because copies are written separately and can disagree (#771). There is one copy as of 2026-08-11: FFC-IN-ffcadmin.org#904 deleted the dead `src/` render and #1180 deregistered it here. The by-path reporting stays regardless of the count \u2014 it is what makes a single unobserved path a finding instead of a smaller average.  A path that is missing, unreadable, or carries an absent, empty, non-ISO or future `generated_at` is reported as a FINDING, never as fresh. \"Could not check\" and \"checked, fine\" are different answers, and collapsing them is the exact fail-open this workflow exists to close (ledger L02).  Credentials: NONE beyond the ambient GITHUB_TOKEN. The two files are public and the only write is one issue in this repository. Using `read-all-cbm-github-pat` here would be circular: a freshness monitor that depends on the credential whose death it exists to reveal goes dark at precisely the moment it is needed. No Key Vault access, no environment, no approval gate.  Classification + report logic lives in scripts/public-feed-freshness-lib.js (unit-tested under tests/workflow-logic/).",
       "safetyLevel": "Reads",
       "approvalEnv": "\u2014",
       "guard": "daily OUTCOME check on the published Agentic OS status feed in `FFC-IN-ffcadmin.org` (`agentic-os-status.json`, both the `public/data/` and `src/data/` copies), asserting how old the timestamp the public page actually serves is \u2014 the three existing mechanisms are all PROCESS checks (#921 watches whether 502 succeeds, #908 watches PRs stuck behind `main`, #771 watches drift between the two copies) and every one of them was green while the page sat three days stale (#977); stale after 36h, so one missed daily tick does not report; a path that is missing, unreadable, or carries an absent/empty/non-ISO/future `generated_at` is a finding and never a pass, and a registered path the run produced no observation for is reported rather than skipped; rolling issue upsert/close; **deliberately holds no Key Vault credential** \u2014 ambient GITHUB_TOKEN only, since a monitor depending on the credential whose death it reveals goes dark when it is needed; ungated",
@@ -2041,6 +2305,166 @@
       "safetyLevel": "Reads",
       "approvalEnv": "github-prod-read",
       "guard": "daily audit of the public Agentic OS board (org project #9) against the real backlog, running `scripts/audit-agentic-os-board.py` \u2014 which #968 shipped and nothing invoked, making it assurance only when a human remembered (#969); the board has NO auto-add so every card and Status is placed by hand and the audit is the compensating control, which on a manual process has to be automatic or it inherits the same failure mode; reports the three sets (missing from board / no Status / closed-or-merged but not `Done`) to the Conductor Log and is SILENT when clean, following 734; a run that could not read one of its two sides is reported as INCOMPLETE and never as clean, since the script exits 1 for both findings and enumeration failure and the exit code alone cannot tell them apart; read-only against GitHub (adds no card, sets no Status, closes nothing), Key Vault PAT on the reader identity for the org-level ProjectsV2 read the ambient token cannot do, ambient GITHUB_TOKEN for the issue comment, ungated",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 746,
+      "title": "Repo - Bulk Enable GitHub Pages",
+      "apis": [
+        "Repo"
+      ],
+      "file": "746-bulk-enable-pages.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "github-prod"
+      ],
+      "description": "732 can create a stub FFC-EX-<domain> repo without GitHub Pages turned on (EnablePages defaults false there, and re-dispatching 732 for an EXISTING repo just gets skipped by its own preflight \u2014 it has no \"fix up an existing repo\" path). This workflow is that follow-up: for each domain, enable Pages on the GitHub-default URL (build_type=workflow, no CNAME, never touches DNS) and dispatch the repo's own deploy.yml so the site actually builds and serves 200. A manual dispatch of deploy.yml is required at all because a repo created via `gh repo create --template` does not fire a push event, so deploy.yml's `workflow_run` trigger (which waits on CI - Build and Test) never fires on its own \u2014 its `workflow_dispatch` trigger is the only way in until a real commit lands.",
+      "safetyLevel": "Writes (gated)",
+      "approvalEnv": "\u2705 github-prod",
+      "guard": "dispatch-only follow-up to 732: enables Pages (build_type=workflow, GitHub-default URL only, no CNAME/DNS) and dispatches deploy.yml on EXISTING FFC-EX-\\<domain\\> repos under ONE approval; 732 can only set Pages at creation time and its own preflight skips a domain whose repo already exists, so this is the only automated path to turn Pages on afterward; ungated preflight skips a domain with no matching repo or no deploy.yml on the default branch, without failing the rest of the batch; idempotent Pages-enable (GET before POST, never touches an already-configured \u2014 possibly custom-domain \u2014 repo); `dry_run` default true",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 747,
+      "title": "Repo - Conductor Liveness",
+      "apis": [
+        "GH"
+      ],
+      "file": "747-conductor-liveness.yml",
+      "triggers": [
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "environments": [],
+      "description": "Two-hourly OUTCOME check on whether the Conductor \u2014 the locally-run routine that is the only actor with promotion and merge authority \u2014 is still working.  RETIRED 2026-10-19: the local Conductor was retired and supervision moved to the FFC Cloudflare Automation Claude project, which posts no heartbeat to the log (#719). `conductor-silence` is now reported as context (INFO) and never as a finding; `merge-silence` and `pr-growth` keep their verdicts, because whether work is landing is still the outcome this workflow exists to assert.  Why (#1339): the Conductor posted its run 174 END to the Conductor Log (#719) at 2026-09-14T10:20Z and then went quiet for about five days. Nothing noticed. This repo has 17 monitoring workflows (730-746) and every one of them watches something that happens INSIDE GitHub Actions \u2014 waiting runs (734), scheduled-workflow failures (740), board drift (745), feed freshness (744) \u2014 so a routine whose only GitHub footprint is a comment on an issue is invisible to the entire fleet by construction. All 17 were green while 0 agentic-os PRs merged, the open pile grew from 4 to 13, and about 39 consecutive cloud-worker runs each correctly computed \"0 worker-actionable PRs\" and filed it as a normal terminal state. A terminal state reached 39 times in a row is not a terminal state, it is an outage.  744's header already makes this argument one level down: #921 watches whether 502 succeeds, not whether its PR merged; #908 watches PRs hanging behind main, not the publisher never opening one. Same shape, one level up. This workflow asserts the outcome instead \u2014 are the Conductor's comments still arriving, and is work still landing.  Four signals, each reported BY NAME with its measured value and never averaged into a single verdict:  conductor-silence  age of the newest `Run N \u2014 START / END` comment on #719 merge-silence      age of the newest merged agentic-os PR (independent) open-pr-cap        open agentic-os PR count vs the worker cap of 3, CONTEXT pr-growth          monotonic growth in that count across consecutive runs  open-pr-cap is deliberately never a finding on its own. The pile stood at 4 \u2014 above the cap \u2014 throughout the healthy window before the outage, so a level-triggered rule reports every ordinary day and teaches its reader to ignore it. Sustained growth is the shape a stalled supervisor makes, and pr-growth is what reports it.  An unreadable log, an empty comment page, a pattern that no longer matches the log's format (ledger L215), or a timestamp that is absent, empty, non-ISO or in the future is a FINDING, never \"alive\". \"Could not check\" and \"checked, fine\" are different answers and collapsing them is the exact fail-open this workflow exists to close (ledger L02).  Credentials: NONE beyond the ambient GITHUB_TOKEN. The log is a public issue in this repository and so are the PRs. Using a Key Vault PAT here would be circular in 744's sense, carried up a level: a liveness check must not depend on a credential whose death it might need to report, and it must not sit behind an environment gate that only the absent supervisor can approve. No Key Vault access, no environment, no approval gate.  Classification + report logic lives in scripts/conductor-liveness-lib.js (unit-tested under tests/workflow-logic/).",
+      "safetyLevel": "Reads",
+      "approvalEnv": "\u2014",
+      "guard": "two-hourly OUTCOME check on whether the Conductor \u2014 the locally-run routine that is the only actor with promotion and merge authority \u2014 is still working; it went quiet mid-run on 2026-09-14 for ~5 days and nothing noticed, because all 17 monitoring workflows (730-746) watch things that happen INSIDE Actions and the Conductor's only GitHub footprint is its comments on the Conductor Log (#719), so its absence is invisible to the fleet by construction (#1339); four signals reported BY NAME with measured values and never averaged \u2014 `conductor-silence` (age of the newest `Run N \u2014 START / END` comment, warn 6h / alert 12h against an observed ~3h cadence), `merge-silence` (age of the newest merged `agentic-os` PR, the independent second signal, warn 24h / alert 48h), `open-pr-cap` (count vs the worker cap of 3, CONTEXT ONLY \u2014 the pile stood at 4 all through the healthy window, so a level-triggered rule reports every ordinary day) and `pr-growth` (strict monotonic growth across 3 consecutive runs, which is the shape a stalled supervisor actually makes); an unreadable log, an empty comment page, a START/END pattern that matches nothing (ledger L215) or an absent/empty/non-ISO/future timestamp is a finding and never \"alive\"; history carried forward in the rolling issue body; rolling issue upsert/close; **deliberately holds no Key Vault credential and no environment** \u2014 ambient GITHUB_TOKEN only, since a liveness check must not be blocked by a gate only the absent supervisor can approve, nor die with a PAT it might need to report; ungated",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 748,
+      "title": "Repo - Template Provisioning Matrix",
+      "apis": [
+        "Repo"
+      ],
+      "file": "748-template-provisioning-matrix.yml",
+      "triggers": [
+        "pull_request",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "environments": [],
+      "description": "Proves that website provisioning (701) produces a site that passes its OWN CI on either template. For every template x sample charity pair it clones the template's default branch, applies the charity from tests/fixtures/sample-charities.json exactly as 701's content job does (701's real parse script, then scripts/Apply-WebsiteReactTemplate.ps1), and runs the checks that template's own CI runs, then reads the built pages for the charity's own donate/volunteer links (tests/workflow-logic/check_provisioned_build.py).  A red cell means a charity provisioned onto that template would ship a site whose CI fails (and so never deploys), would ship Free For Charity's identity under the charity's name (the templates' drift checks catch that), or would send the charity's donors or volunteers to FFC's own pages (the built-page check catches that).  Read-only: public template clones and a local build, no credentials, no environment gate, no writes anywhere. It runs on PRs that change the provisioning path, weekly (the templates change independently of this repo), and on demand. The fast offline half of the same test runs on every PR as tests/workflow-logic/test_sample_charities.py.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "\u2014",
+      "guard": "proves 701's provisioning yields a site that passes its OWN CI on either template: for every template (Footer-Only, Single Page) x sample charity (`tests/fixtures/sample-charities.json`, all fictional) it clones the template's default branch, applies the charity through 701's real parse script and `scripts/Apply-WebsiteReactTemplate.ps1`, then runs that template's format/lint/unit/site-config/drift/build checks; the drift check is what catches Free For Charity's identity left under a charity's name; runs on PRs touching the provisioning path, weekly, and on demand; public template clones and a local build only, no credentials, no writes, ungated",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 749,
+      "title": "Org - Invite Member",
+      "apis": [
+        "Org"
+      ],
+      "file": "749-org-invite-member.yml",
+      "triggers": [
+        "workflow_call",
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "github-prod",
+        "github-prod-read"
+      ],
+      "description": "Invites one or more GitHub users to the FreeForCharity organization as a member (or admin), or updates the role of an existing member.  Why this exists next to 729 (Repo - Add Collaborator): an org MEMBER gets the org's base permission (Read) on every repo and can be added to teams, whereas an outside collaborator sees only the repos they were explicitly added to. The intended model is \"member for read-everything, 729 for write-where-named\". Nothing here touches repository permissions \u2014 pair it with 729 for the write grant.  Two jobs, one script (`scripts/org-invite-member.sh`): preflight  ungated, github-prod-read, READ PAT. Always runs. Validates the org/users/role and prints the plan (who would be invited, who is already a member, whose invitation is already pending). invite     github-prod (approval gate), WRITE PAT. Skipped entirely on a dry run, so a dry dispatch never parks on the gate or mints a writer credential (#983, test_dry_run_skips_write_gates.py). Runs the identical file with IN_DRY=false.  `dry_run` defaults to TRUE (unlike 729). Dispatch once to read the plan, then again with dry_run=false and approve the gate.",
+      "safetyLevel": "Writes (dry-run default)",
+      "approvalEnv": "\u2705 github-prod (invite job only)",
+      "guard": "dry_run default true; ungated `preflight` on `github-prod-read` plans first (user exists, current membership, invitation already pending); the gated `invite` job is skipped at job level on a dry run (#983 shape); `PUT /orgs/{org}/memberships/{user}` is idempotent (re-run safe, never re-sends a pending invite); org membership only \u2014 pair with 729 for a repo write grant",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 750,
+      "title": "Repo - Charity-Lane Duplicate Lookup (read-only)",
+      "apis": [
+        "GH"
+      ],
+      "file": "750-charity-lane-lookup.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [],
+      "description": "Where does this charity already exist? Run by the Onboarding Conductor before it queues a [CHARITY-LANE] item or provisions a repo (epic #1618), so the pipeline never builds a second site for a charity already in flight or live. A cloud session cannot search the whole org (its GitHub proxy serves only attached repos), so the search runs here.  SAFETY. No environment and no credential beyond the job token: it reads public data only (FreeForCharity repo names, org-wide issue/PR search, ffcadmin's docs/sites_list.csv, ProPublica for an EIN). The only write is the optional comment on a hub issue. Free-text inputs reach the script through env, never through ${{ }} in a run body.",
+      "safetyLevel": "Reads",
+      "approvalEnv": "\u2014",
+      "guard": "no environment, no credential beyond the job token; public data only (FreeForCharity repo names, org-wide issue/PR search with a whole-phrase filter, ffcadmin `docs/sites_list.csv`, ProPublica by EIN); the only write is the optional result comment on a hub issue; free-text inputs reach scripts/charity_lane_lookup.py through env",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 751,
+      "title": "Website - Security Overrides Sync (FFC-EX)",
+      "apis": [
+        "GH"
+      ],
+      "file": "751-website-security-overrides-sync.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "github-prod"
+      ],
+      "description": "Brings named FFC-EX sites up to the dependency security floor of the template each one was made from, as one pull request per repo. Never merges.  Why this exists (#1640, epic #1618): the charity lane's Gate 3 CI row counts the site's Security Audit, and on most FFC-EX repos that audit is red in a way Dependabot cannot fix. The open advisory is transitive (`source-map-js` via `postcss`), and Dependabot bumps direct dependencies only. The templates fix it with a `pnpm.overrides` block that older sites lack. Measured 2026-10-12: about 90 open Dependabot PRs, nearly all still failing `pnpm audit (production)`; the same change made by hand turned five in-flight sites green.  What it changes, per repo, and nothing else: - `package.json`: the template's `pnpm.overrides` (template value wins on a shared key, repo-only keys kept, scoped keys a bare pin makes dead dropped), and `next` / `postcss` raised to the template's floor (scripts/fleet-overrides-sync.js); - `pnpm-lock.yaml`, regenerated with the repo's own pinned pnpm; - `types/*.d.ts` copied from the template, only when the build fails without them (Next 16.3 type-checks the test files; the template's matcher types are what fixed that there); - in `package.json`, the template's `@jest/globals` devDependency, only when the build fails on TS2307 for it (allowlisted, scripts/fleet-overrides-sync.js add-dev); - an allowlisted test file (`TEMPLATE_TEST_FILES`) the site already has, replaced with the template's version, only when the build log names it.  Two jobs, the 742 shape: - plan  \u2014 ungated, job token, read-only. Clones each repo anonymously, makes the change, installs, audits and builds. A repo is READY only when its high-level audit passes and it builds. dry_run=true (the default) stops here; the patches are uploaded as an artifact. - apply \u2014 dry_run=false only, gated `github-prod`. Applies exactly the patches the plan produced (the gate approver reviews that plan), pushes one branch per repo and opens a PR. It never merges, never approves and never enables auto-merge: landing is the target repo's merge condition.",
+      "safetyLevel": "Writes (dry-run default)",
+      "approvalEnv": "\u2705 github-prod (apply job only)",
+      "guard": "dry_run default true; at most 10 named `FFC-EX-*` repos per run; ungated `plan` job (job token, read-only, no environment) clones each repo anonymously, detects its template from the drift-guard banner (refuses a repo matching neither), merges that template's `pnpm.overrides` and the `next`/`postcss` floor (scripts/fleet-overrides-sync.js), regenerates `pnpm-lock.yaml`, and marks a repo ready only when `pnpm audit --prod --audit-level high` and the build pass; the charity's own build runs with no token in its environment; the gated `apply` job applies exactly the planned patches, refuses any path outside `package.json`, `pnpm-lock.yaml` and `types/*.d.ts`, and opens one PR per repo; never merges, approves or enables auto-merge (#1640)",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 752,
+      "title": "Repo - Merge Queue Backfill (FFC-EX)",
+      "apis": [
+        "GH"
+      ],
+      "file": "752-repo-merge-queue-backfill.yml",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "github-prod"
+      ],
+      "description": "Adds the repo-level \"Merge Queue + Branch Up-to-Date\" ruleset to named FFC-EX repos whose default branch has no merge queue. Never changes a repo that already has one, and never touches any other ruleset or setting.  Why this exists (epic #1618, 2026-10-12): GitHub cannot put a merge queue in an organization ruleset, so the queue exists per repo. 44 of 116 FFC-EX repos carried it and 72 did not: 701 never created it, and nothing backfilled it. With a queue on every site, `gh pr merge --auto` always means \"enqueue\", and 707 lands content PRs through the queue (#1654, #1655).  The ruleset body is config/merge-queue-ruleset.json, copied field for field from the one the 44 repos carry (merge method MERGE, ALLGREEN, 5-minute wait, repository-admin bypass).  Two jobs, the 742/751 shape: - plan  - ungated, job token, read-only. Per repo: public, not archived, merge commits not disabled (merge_method MERGE needs them; the job token usually cannot see the setting, so apply re-checks it), and no merge_queue rule on the default branch yet. Prints one `752-plan: <repo> <status> - <reason>` line each to the log. - apply - only when dry_run=false, on `github-prod` (Clarke approves the plan). Creates the ruleset on each ready repo, then re-reads the branch rules to confirm the queue is in force. Prints one `752-apply: <repo> <result>` line each. A 403 here means the PAT lacks Administration write on the repo; it is reported per repo.",
+      "safetyLevel": "Writes (dry-run default)",
+      "approvalEnv": "\u2705 github-prod (apply job only)",
+      "guard": "dry_run default true; at most 10 named `FFC-EX-*` repos per run; ungated `plan` job (job token, read-only: public, not archived, merge commits allowed, no `merge_queue` rule yet); `apply` creates only the `config/merge-queue-ruleset.json` ruleset (the one 44 FFC-EX repos already carry), never edits or deletes another ruleset or setting, and re-reads the branch rules to confirm",
+      "category": "GitHub (Website + Repo)",
+      "categoryCode": "GH"
+    },
+    {
+      "number": 753,
+      "title": "Repo - Charity-Lane Gate Broker (policy-bound approvals)",
+      "apis": [
+        "GH"
+      ],
+      "file": "753-charity-lane-gate-broker.yml",
+      "triggers": [
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "environments": [
+        "charity-lane-broker"
+      ],
+      "description": "Runs scripts/charity_lane_gate.py inside GitHub Actions, so the charity-lane pipeline and the weekly sites list no longer need an operator's PC or an agent session that can call `pending_deployments` (cloud sessions get 403). Approved by Clarke 2026-11-12 (\"yes do all of this\", project thread \"Make charity intake run autonomously\"). Design and threat model: docs/charity-intake-autonomy.md.  What it may do is exactly config/charity-lane-gate-policy.json on `main`: * dispatch one rule's workflow with inputs validated against that rule, identify the single run it created, and approve only the environments the rule lists (live-site check first for Cloudflare writes); * never approve a run it did not dispatch; * post every approval and refusal to the ledger issue.  Three entry points: * workflow_dispatch mode=run      one rule, inputs as a JSON object; * schedule / mode=advance         Gate 1/2: run 232 verdicts, accept each fraud-screened ACCEPT (max 3 per run); * schedule / mode=sequence        the weekly sites list: 601 then 703.  The credential is a fine-grained PAT held in Key Vault, scoped to this repo (Actions RW, Deployments RW, Issues RW, Contents R). The environment `charity-lane-broker` has NO reviewer and a deployment branch policy of `main` only, so the only code that can hold the PAT is reviewed code on main. test_only_753_uses_the_broker_environment (CI) fails any other workflow that names that environment.",
+      "safetyLevel": "Writes (policy approvals)",
+      "approvalEnv": "charity-lane-broker (no reviewer, `main` only)",
+      "guard": "approves environment gates only for runs it dispatched itself, only for the environments one rule in `config/charity-lane-gate-policy.json` lists, after validating every input against that rule (closed set, enum/pattern/maxlen); Cloudflare writes need the live-site check; never 113, 120 with DNS, 211 cancel/fraud, 226 reconcile or multi-order, a paid domain order, or any m365-prod write; daily `advance` accepts at most `advance.max_accepts` (3) fraud-screened ACCEPT orders; weekly `sequence weekly-sites-list` runs 601 then 703; refuses any ref but `main`; inputs reach the script via env; every approval and refusal is posted to #1608; loads `wr-all-ffc-charity-lane-broker-github-pat` (fine-grained, this repo only); only 753 may name the environment (test_charity_lane_gate.py); approved by Clarke 2026-11-12",
       "category": "GitHub (Website + Repo)",
       "categoryCode": "GH"
     },

@@ -34,8 +34,8 @@ describe('SearchResults', () => {
 
   it('refines results as the visitor types', () => {
     render(<SearchResults />)
-    fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'intake help' } })
-    expect(screen.getByRole('link', { name: /Intake Help/ })).toBeInTheDocument()
+    fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'charity prerequisites' } })
+    expect(screen.getByRole('link', { name: /Charity Prerequisites/ })).toBeInTheDocument()
   })
 
   it('shows the no-match state for gibberish', () => {

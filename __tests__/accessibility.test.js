@@ -20,8 +20,6 @@ import Roadmap from '@/app/roadmap/page'
 import RoadmapSubmit from '@/app/roadmap/submit/page'
 import RoadmapSponsor from '@/app/roadmap/sponsor/page'
 import RoadmapMethodology from '@/app/roadmap/methodology/page'
-import IntakeHelpHub from '@/app/intake-help/page'
-import BoardRequirements from '@/app/intake-help/board-requirements/page'
 import AgenticOs from '@/app/agentic-os/page'
 import SessionInventory from '@/app/agentic-os/session-inventory/page'
 import AgenticOsArchitecture from '@/app/agentic-os/architecture/page'
@@ -136,14 +134,6 @@ describe('Accessibility Tests', () => {
     })
     it('roadmap methodology page has no violations', async () => {
       const { container } = render(<RoadmapMethodology />)
-      expect(await axe(container)).toHaveNoViolations()
-    })
-    it('intake-help hub has no violations', async () => {
-      const { container } = render(<IntakeHelpHub />)
-      expect(await axe(container)).toHaveNoViolations()
-    })
-    it('intake-help board-requirements has no violations', async () => {
-      const { container } = render(<BoardRequirements />)
       expect(await axe(container)).toHaveNoViolations()
     })
   })

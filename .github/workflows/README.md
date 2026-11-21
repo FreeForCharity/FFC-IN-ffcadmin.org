@@ -229,8 +229,13 @@ Syncs the Sites List into this repo from the canonical, machine-generated copy.
 1. Fetches the published `sites_list.csv` and `sites_list.json` from the
    `FFC-Cloudflare-Automation` `main` branch via public raw URL.
 2. If a file is unavailable, warns and exits cleanly (no empty/failed runs).
-3. Writes them to `docs/sites_list.csv` and `docs/sites_list.json`.
-4. Opens a pull request with the synced data (no PR if nothing changed).
+3. If both files match what is already committed, exits cleanly without
+   touching anything — in particular it does **not** rotate
+   `docs/sites_list.prev.csv`, which would erase the page's changed-row markers.
+4. Otherwise writes the new files. Only when the **CSV** changed does it first
+   copy the outgoing `docs/sites_list.csv` to `docs/sites_list.prev.csv` — a
+   JSON-only update keeps the existing diff.
+5. Opens a pull request with the synced data.
 
 ### Output:
 

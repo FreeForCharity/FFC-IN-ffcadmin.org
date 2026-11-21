@@ -68,10 +68,17 @@ export function loadSites(): SiteData[] {
   }))
 }
 
+// When update-sites-data.yml last landed new data, from the `syncedAt` it
+// writes to docs/sites_list.meta.json. Not the CSV's file mtime: on CI that is
+// the checkout time, so every build read "refreshed today" however old the
+// data was. Returns '' (callers hide the line) when the time is unknown.
 export function dataRefreshedAge(): string {
   try {
-    const stat = fs.statSync(path.join(process.cwd(), 'docs', 'sites_list.csv'))
-    return relativeAge(stat.mtime.toISOString())
+    const meta = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), 'docs', 'sites_list.meta.json'), 'utf8')
+    )
+    const syncedAt = typeof meta?.syncedAt === 'string' ? meta.syncedAt : ''
+    return syncedAt && !Number.isNaN(Date.parse(syncedAt)) ? relativeAge(syncedAt) : ''
   } catch {
     return ''
   }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-07-29T08:10:09Z",
+  "updatedAt": "2026-11-20T07:23:59Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,72 +10,72 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2048",
-    "newUsers": "2052",
-    "sessions": "2200",
-    "screenPageViews": "2744",
-    "engagementRate": "0.14272727272727273",
-    "eventCount": "7730",
-    "keyEvents": "40"
+    "activeUsers": "2258",
+    "newUsers": "2366",
+    "sessions": "2611",
+    "screenPageViews": "3179",
+    "engagementRate": "0.35733435465338953",
+    "eventCount": "9958",
+    "keyEvents": "182"
   },
   "topPages": [
     {
       "path": "/",
-      "views": "786"
+      "views": "1012"
     },
     {
       "path": "/domains/",
-      "views": "299"
+      "views": "677"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "105"
+      "views": "409"
     },
     {
       "path": "/501c3/",
-      "views": "90"
+      "views": "126"
     },
     {
-      "path": "/help-for-charities/",
+      "path": "/volunteer/",
+      "views": "54"
+    },
+    {
+      "path": "/pre501c3/",
       "views": "44"
     },
     {
-      "path": "/about-us/",
-      "views": "35"
+      "path": "/help-for-charities/",
+      "views": "38"
     },
     {
-      "path": "/free-for-charity-endowment-fund",
-      "views": "33"
+      "path": "/site-owner/accept-invitation/",
+      "views": "25"
     },
     {
-      "path": "/about-us",
-      "views": "29"
+      "path": "/charity-prerequisites/",
+      "views": "23"
     },
     {
-      "path": "/guidestar-guide/",
-      "views": "28"
-    },
-    {
-      "path": "/security-acknowledgements/",
-      "views": "27"
+      "path": "/free-training-programs/",
+      "views": "20"
     }
   ],
   "channels": [
     {
-      "channel": "Direct",
-      "sessions": "1783"
-    },
-    {
       "channel": "Organic Search",
-      "sessions": "368"
+      "sessions": "1146"
     },
     {
-      "channel": "AI Assistant",
-      "sessions": "25"
+      "channel": "Direct",
+      "sessions": "1090"
     },
     {
       "channel": "Referral",
-      "sessions": "13"
+      "sessions": "207"
+    },
+    {
+      "channel": "AI Assistant",
+      "sessions": "150"
     },
     {
       "channel": "Organic Social",
@@ -83,17 +83,17 @@
     },
     {
       "channel": "Unassigned",
-      "sessions": "2"
+      "sessions": "3"
     }
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "420",
-    "newUsers": "413",
-    "sessions": "567",
-    "screenPageViews": "698",
-    "engagementRate": "0.50088183421516752",
-    "eventCount": "2164",
-    "keyEvents": "38"
+    "activeUsers": "1574",
+    "newUsers": "1554",
+    "sessions": "1871",
+    "screenPageViews": "2101",
+    "engagementRate": "0.38963121325494388",
+    "eventCount": "7021",
+    "keyEvents": "182"
   }
 }
