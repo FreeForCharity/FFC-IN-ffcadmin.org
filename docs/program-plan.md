@@ -280,9 +280,9 @@ FFC staff reviews new intake within 5 business days:
 
 The data pipeline computes the readiness score automatically based on the issue body fields. A score breakdown comment is posted to the issue (warm framing, top improvement suggestions, link to methodology page).
 
-### Step 6: Sponsoring admin claims the issue
+### Step 6: FFC assigns a sponsoring admin
 
-A trained admin browses the public roadmap, identifies a site they want to sponsor, comments on the issue indicating interest, and FFC assigns them. The verification workflow checks `sponsoring-admins` team membership and either confirms the assignment (applying `verified-assignment` label) or removes it with explanation.
+FFC assigns a verified volunteer one charity at a time from the build queue (volunteers do not pick from the roadmap themselves). The verification workflow checks `sponsoring-admins` team membership and either confirms the assignment (applying `verified-assignment` label) or removes it with explanation.
 
 ### Step 7: Provisioning automation
 
@@ -459,13 +459,15 @@ Long form is a more rigorous foundation than the streamlined EZ form. Small bonu
 
 A sponsoring admin is a verified volunteer who has:
 
-1. Completed the FFC Microsoft 365 Global Admin training (existing `/training-plan` at ffcadmin.org)
-2. Had a verification conversation with Clarke (currently text-based at 520-222-8104)
-3. Been added to the `sponsoring-admins` GitHub team in the FreeForCharity org
-4. Been granted access to the `FFC-IN-ffcadmin-private` coordination repo
-5. Accepted public responsibility for stewarding a specific charity site through its build and ongoing maintenance
+1. Had a verification conversation with Clarke (currently text-based at 520-222-8104)
+2. Been added to the `sponsoring-admins` GitHub team in the FreeForCharity org. Membership means FFC has verified them.
+3. Accepted public responsibility for stewarding a specific charity site through its build and ongoing maintenance
 
-Sponsorship is gating, not a multiplier. A site cannot move from `status:needs-admin` to `status:active-build` without an assigned sponsor.
+Microsoft 365 Global Admin training (`/training-plan`) is required only for a volunteer who will administer a charity's Microsoft 365. Site builders do not need it (Clarke, 2026-11-21).
+
+FFC assigns each volunteer one charity at a time from the build queue; volunteers do not claim one from the roadmap themselves. The record of who builds a charity is its `[CHARITY-LANE]` issue in FFC-Cloudflare-Automation (`docs/volunteer-site-builders.md` there); the work order's assignee and `status:*` label display it.
+
+Sponsorship is gating, not a multiplier. A site moves from `status:needs-admin` to `status:active-build` only when FFC assigns a volunteer or the automated Site Builder takes it.
 
 ### How verification works
 
