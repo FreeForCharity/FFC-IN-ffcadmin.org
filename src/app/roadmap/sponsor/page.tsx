@@ -58,32 +58,27 @@ export default function SponsorPage() {
         <section>
           <h2 className="text-2xl font-bold text-gray-900">Prerequisites</h2>
           <ol className="mt-2 list-decimal space-y-2 pl-5 text-gray-700">
+            <li>Have a verification conversation with FFC (text 520-222-8104).</li>
             <li>
-              Complete the FFC Microsoft 365 Global Admin training (see the{' '}
+              Be added to the <code>sponsoring-admins</code> GitHub team. Membership means FFC has
+              verified you.
+            </li>
+            <li>
+              Microsoft 365 Global Admin training (see the{' '}
               <Link href="/training-plan" className="text-blue-600 hover:underline">
                 training plan
               </Link>
-              ).
+              ) is required only if you will administer a charity&apos;s Microsoft 365. Site
+              builders do not need it.
             </li>
-            <li>Have a verification conversation with FFC (text 520-222-8104).</li>
-            <li>
-              Be added to the <code>sponsoring-admins</code> GitHub team in the FreeForCharity org —
-              team membership is the verification artifact.
-            </li>
-            <li>Be granted access to the private coordination repo for admin coordination.</li>
           </ol>
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-gray-900">How to claim a site</h2>
+          <h2 className="text-2xl font-bold text-gray-900">How you get a site</h2>
           <p className="mt-2 text-gray-700">
-            Browse the{' '}
-            <Link href="/roadmap#needs-admin" className="text-blue-600 hover:underline">
-              “Needs a sponsoring admin”
-            </Link>{' '}
-            queue, comment on the issue for the charity you want to sponsor, and FFC assigns you. An
-            automated check confirms your <code>sponsoring-admins</code> membership before any
-            provisioning is triggered — accidental assignments are reverted automatically.
+            FFC assigns you one charity at a time from the build queue. You don&apos;t claim one
+            from the roadmap yourself.
           </p>
         </section>
 
