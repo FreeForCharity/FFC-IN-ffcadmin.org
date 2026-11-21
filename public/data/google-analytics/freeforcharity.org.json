@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-20T07:23:59Z",
+  "updatedAt": "2026-11-21T07:22:34Z",
   "site": "freeforcharity.org",
   "propertyId": "386764754",
   "dryRun": false,
@@ -10,34 +10,34 @@
     "endDate": "today"
   },
   "metrics": {
-    "activeUsers": "2258",
-    "newUsers": "2366",
-    "sessions": "2611",
-    "screenPageViews": "3179",
-    "engagementRate": "0.35733435465338953",
-    "eventCount": "9958",
-    "keyEvents": "182"
+    "activeUsers": "2242",
+    "newUsers": "2350",
+    "sessions": "2591",
+    "screenPageViews": "3148",
+    "engagementRate": "0.35893477421844849",
+    "eventCount": "9872",
+    "keyEvents": "187"
   },
   "topPages": [
     {
       "path": "/",
-      "views": "1012"
+      "views": "999"
     },
     {
       "path": "/domains/",
-      "views": "677"
+      "views": "680"
     },
     {
       "path": "/free-charity-web-hosting/",
-      "views": "409"
+      "views": "403"
     },
     {
       "path": "/501c3/",
-      "views": "126"
+      "views": "133"
     },
     {
       "path": "/volunteer/",
-      "views": "54"
+      "views": "53"
     },
     {
       "path": "/pre501c3/",
@@ -45,11 +45,11 @@
     },
     {
       "path": "/help-for-charities/",
-      "views": "38"
+      "views": "36"
     },
     {
       "path": "/site-owner/accept-invitation/",
-      "views": "25"
+      "views": "27"
     },
     {
       "path": "/charity-prerequisites/",
@@ -57,25 +57,25 @@
     },
     {
       "path": "/free-training-programs/",
-      "views": "20"
+      "views": "18"
     }
   ],
   "channels": [
     {
       "channel": "Organic Search",
-      "sessions": "1146"
+      "sessions": "1137"
     },
     {
       "channel": "Direct",
-      "sessions": "1090"
+      "sessions": "1082"
     },
     {
       "channel": "Referral",
-      "sessions": "207"
+      "sessions": "211"
     },
     {
       "channel": "AI Assistant",
-      "sessions": "150"
+      "sessions": "144"
     },
     {
       "channel": "Organic Social",
@@ -88,12 +88,12 @@
   ],
   "productionHostname": "freeforcharity.org",
   "metricsProduction": {
-    "activeUsers": "1574",
-    "newUsers": "1554",
-    "sessions": "1871",
-    "screenPageViews": "2101",
-    "engagementRate": "0.38963121325494388",
-    "eventCount": "7021",
-    "keyEvents": "182"
+    "activeUsers": "1561",
+    "newUsers": "1541",
+    "sessions": "1855",
+    "screenPageViews": "2072",
+    "engagementRate": "0.38975741239892181",
+    "eventCount": "6937",
+    "keyEvents": "187"
   }
 }
