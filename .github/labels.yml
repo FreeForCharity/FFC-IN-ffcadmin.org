@@ -60,10 +60,10 @@
 # Verification
 - name: 'verified-assignment'
   color: '0e8a16'
-  description: Assignee confirmed as a sponsoring-admins team member
+  description: Assignee confirmed as a next-gen-website-team member
 - name: 'verified-admin-action-needed'
   color: 'd93f0b'
-  description: Assignment requires sponsoring-admins verification
+  description: Assignment requires next-gen-website-team verification
 - name: 'needs-info'
   color: 'fbca04'
   description: More information needed from the charity

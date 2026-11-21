@@ -11,7 +11,7 @@ See `docs/program-plan.md` for the full program context.
 ## Prerequisite checklist (owner: Clarke)
 
 - [ ] **Create the private coordination repo** `FreeForCharity/FFC-IN-ffcadmin-private`.
-- [ ] **Create the `sponsoring-admins` GitHub team** in the `FreeForCharity` org.
+- [x] **Volunteer team:** use the existing `next-gen-website-team` in the `FreeForCharity` org (Clarke chose it 2026-11-21; add people with hub workflow 754).
 - [ ] **Grant the team access** to the private repo (write).
 - [ ] **Add Clarke + current verified admins** to the team.
 - [ ] **Create/append `FreeForCharity/.github/SECURITY.md`** (org-level fallback).
@@ -49,11 +49,11 @@ The optional `sync-applications.yml` fallback reads a Cloudflare-published
 > **Security:** never paste a real token into a file, commit, or comment. Add
 > tokens only through GitHub's secrets UI. See `.claude/rules/01-security.md`.
 
-## The `sponsoring-admins` team is the verification artifact
+## `next-gen-website-team` membership is the verification artifact
 
-Membership in `sponsoring-admins` _is_ verification (program plan §8). The
+Membership in `next-gen-website-team` _is_ verification (program plan §8). The
 `verify-assignment.yml` workflow checks
-`GET /orgs/FreeForCharity/teams/sponsoring-admins/memberships/{login}` with the
+`GET /orgs/FreeForCharity/teams/next-gen-website-team/memberships/{login}` with the
 PAT. Members get the `verified-assignment` label; non-members have the
 assignment reverted with a pointer to `/roadmap/sponsor`.
 

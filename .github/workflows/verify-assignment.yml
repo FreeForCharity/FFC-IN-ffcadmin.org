@@ -1,7 +1,7 @@
 name: Verify Assignment
 
 # When an intake issue is assigned, confirm the assignee is a member of the
-# `sponsoring-admins` GitHub team (the verification artifact, program plan §8).
+# `next-gen-website-team` GitHub team (the verification artifact, program plan §8).
 # Verified -> applies `verified-assignment`. Unverified -> removes the
 # assignment and explains how to become a sponsoring admin.
 #
@@ -20,7 +20,7 @@ permissions:
 
 env:
   ORG: FreeForCharity
-  TEAM: sponsoring-admins
+  TEAM: next-gen-website-team
 
 jobs:
   verify:
