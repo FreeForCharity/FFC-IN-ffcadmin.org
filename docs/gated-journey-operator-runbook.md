@@ -165,9 +165,16 @@ checkbox, a filled `Live site:` URL, or any structural edit marks the issue as h
 (`hasHumanEdits()`), and from then on only humans change it. All 8 boxes ticked = **validated** →
 the charity may order its domain (Gate 4). Partial completion is not validated.
 
-**Auto-validation workflow:** an automated Gate-3 checker
-(`.github/workflows/gate3-validate.yml`) is **in progress** — it is not on `main` yet. Until it
-lands, the checklist is verified by hand exactly as in the pilot (Section 7).
+**Auto-validation workflow:** once the `Live site:` URL is on the work order, dispatch **Gate 3
+Auto-Validation** (`.github/workflows/gate3-validate.yml`, Actions tab → "Run workflow") with the
+issue number. It posts (and on re-runs updates) one verdict comment with a PASS/FAIL row for every
+machine-checkable item — CI green on the FFC-EX repo, HTTP 200, footer markers, required template
+sections/pages, 375px responsive, console errors, and axe accessibility (no serious/critical
+violations). Tick a box only after its row PASSes; fix and re-run on FAIL; re-run on WARN (the
+check itself could not run). Use the optional `repo` input when the URL is not the
+`freeforcharity.github.io/FFC-EX-<x>/` form, and `template` to override template detection. The
+charity's content-review box is the one item it always leaves MANUAL. Details:
+[Section 4b → Auto-validation](./application-prerequisites-inventory.md#auto-validation).
 
 ### Footer-config bridge (the checklist's footer item)
 

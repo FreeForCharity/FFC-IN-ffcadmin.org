@@ -210,8 +210,9 @@ this file is inside the guard's scan roots; see the test files for the exact pat
 
 ## 4. Future work (not yet wired)
 
-- **Gate-3 auto-validation workflow** (`gate3-validate.yml`) — automated checking of the work-order
-  checklist; in progress, not on `main`.
+- **Gate-3 auto-validation → checklist ticks** — `gate3-validate.yml` already checks every
+  machine-checkable Section-4b item and comments a verdict; ticking the work-order boxes from it
+  stays a human step.
 - **Direct template consumption** of the footer-bridge JSON (removes the transcription step); plus
   auto-PRing the generated values into the charity repo.
 - **Email-stage signal** — extend the sync to surface an email-product-Active flag so /pipeline can
