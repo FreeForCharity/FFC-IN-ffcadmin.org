@@ -12,3 +12,11 @@
 #   pnpm 10+. If a dependency legitimately needs its build script, allowlist
 #   it explicitly under onlyBuiltDependencies rather than re-enabling all.
 minimumReleaseAge: 10080
+# The @next/swc-* platform binaries are exact-version-locked to the `next`
+# release that pulls them in — they are the same artifact set, published
+# together. `next` itself stays fully cooldown-gated, so excluding the
+# binaries adds no exposure; without this, any repo whose lockfile carries
+# a next release younger than 7 days cannot run ANY pnpm add/update
+# (ERR_PNPM_NO_MATURE_MATCHING_VERSION on the binary, seen 2026-08-30).
+minimumReleaseAgeExclude:
+  - '@next/swc-*'
